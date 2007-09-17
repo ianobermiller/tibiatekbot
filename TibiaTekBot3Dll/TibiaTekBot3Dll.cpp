@@ -358,6 +358,9 @@ LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam)
 		}
 	case WM_CHAR:
 		{
+			if(bTextMenu && (wParam >= '0' && wParam <= '9')){
+				return 0;
+			}
 			if(bWASD && !bSayMode && InGame() && *WASDPOPUP != 11 && !bTextMenu)
 			{
 				switch(wParam)
@@ -400,7 +403,7 @@ LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			if (bTextMenu && (wParam >= '0' && wParam <= '9')){
 				PostMessage(*TTBWindowHandle, WM_TEXTMENU, 1, wParam);
-				return 1;
+				return 0;
 			} else if(wParam == VK_PRIOR) {
 				bTextMenu = !bTextMenu;
 				PostMessage(*TTBWindowHandle, WM_TEXTMENU, bTextMenu, 0);

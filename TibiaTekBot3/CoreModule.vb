@@ -1082,9 +1082,6 @@ Public Module CoreModule
         Public Function InGame() As Boolean
             Static Dim InGame_ As Integer = 0
             Core.Tibia.Memory.Read(Consts.ptrInGame, InGame_, 1)
-            If Not (InGame_ = 8) AndAlso State <> BotState.Stopped Then
-                [Stop]()
-            End If
             If MapReaderTimerObj.State = ThreadTimerState.Stopped Then MapReaderTimerObj.StartTimer()
             Return InGame_ = 8
         End Function
