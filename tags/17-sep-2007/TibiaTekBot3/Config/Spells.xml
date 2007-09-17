@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<Spells>
+    <Conjures>
+        <Conjure Name="Poison Field"        Words="adevo grav pox"      Mana="200"  Soul="1"/>
+        <Conjure Name="Antidote"            Words="adana pox"           Mana="200"  Soul="1"/>
+        <Conjure Name="Intense Healing"     Words="adura gran"          Mana="240"  Soul="2"/>
+        <Conjure Name="Fire Field"          Words="adevo grav flam"     Mana="240"  Soul="1"/>
+        <Conjure Name="Light Magic Missile" Words="adori"               Mana="120"  Soul="1"/>
+        <Conjure Name="Convince Creature"   Words="adeta sio"           Mana="200"  Soul="3"/>
+        <Conjure Name="Fireball"            Words="adori flam"          Mana="160"  Soul="2"/>
+        <Conjure Name="Destroy Field"       Words="adito grav"          Mana="120"  Soul="2"/>
+        <Conjure Name="Energy Field"        Words="adevo grav vis"      Mana="320"  Soul="2"/>
+        <Conjure Name="Envenom"             Words="adevo res pox"       Mana="400"  Soul="2"/>
+        <Conjure Name="Desintegrate"        Words="adito tera"          Mana="200"  Soul="3"/>
+        <Conjure Name="Great Fireball"      Words="adori gran flam"     Mana="480"  Soul="3"/>
+        <Conjure Name="Ultimate Healing"    Words="adura vita"          Mana="400"  Soul="3"/>
+        <Conjure Name="Poison Bomb"         Words="adevo mas pox"       Mana="520"  Soul="2"/>
+        <Conjure Name="Heavy Magic Missile" Words="adori gran"          Mana="280"  Soul="2"/>
+        <Conjure Name="Soul Fire"           Words="adevo res flam"      Mana="600"  Soul="3"/>
+        <Conjure Name="Chameleon"           Words="adevo ina"           Mana="600"  Soul="2"/>
+        <Conjure Name="Fire Bomb"           Words="adevo mas flam"      Mana="600"  Soul="4"/>
+        <Conjure Name="Poison Wall"         Words="adevo mas grav pox"  Mana="640"  Soul="3"/>
+        <Conjure Name="Explosion"           Words="adevo mas hur"       Mana="720"  Soul="4"/>
+        <Conjure Name="Magic Wall"          Words="adevo grav tera"     Mana="750"  Soul="5"/>
+        <Conjure Name="Fire Wall"           Words="adevo mas grav flam" Mana="780"  Soul="4"/>
+        <Conjure Name="Energy Bomb"         Words="adevo mas vis"       Mana="880"  Soul="5"/>
+        <Conjure Name="Energy Wall"         Words="adevo mas grav vis"  Mana="1000" Soul="5"/>
+        <Conjure Name="Sudden Death"        Words="adori vita vis"      Mana="880"  Soul="5"/>
+        <Conjure Name="Paralyze"            Words="adana ani"           Mana="1400" Soul="3"/>
+        <Conjure Name="Create Food"         Words="exevo pan"           Mana="120"  Soul="1"/>
+        <Conjure Name="Conjure Arrow"       Words="exevo con"           Mana="100"  Soul="1"/>
+        <Conjure Name="Poisoned Arrow"      Words="exevo con pox"       Mana="130"  Soul="2"/>
+        <Conjure Name="Conjure Bolt"        Words="exevo con mort"      Mana="140"  Soul="2"/>
+        <Conjure Name="Explosive Arrow"     Words="exevo con flam"      Mana="290"  Soul="3"/>
+        <Conjure Name="Power Bolt"          Words="exevo con vis"       Mana="800"  Soul="3"/>
+    </Conjures>
+    <Supportives>
+        <Spell Name="Light Healing"         Words="exura"               Mana="25"/>
+        <Spell Name="Intense Healing"       Words="exura gran"          Mana="40"/>
+        <Spell Name="Heal Friend"           Words="exura sio"           Mana="70"/>
+        <Spell Name="Ultimate Healing"      Words="exura vita"          Mana="160"/>
+        <Spell Name="Mass Healing"          Words="exura gran mas res"  Mana="150"/>
+        <Spell Name="Antidote"              Words="exana pox"           Mana="30"/>
+    </Supportives>
+</Spells>
