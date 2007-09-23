@@ -78,6 +78,10 @@ Public Module Constants
         Public ptrWindowBegin As Integer = 0
         Public ptrLevelPercent As Integer = 0
         Public ptrMagicLevelPercent As Integer = 0
+        Public ptrScreenTextStart As Integer = 0
+        Public ptrScreenTextShow As Integer = 0
+        Public ptrScreenTextTimer As Integer = 0
+        Public ptrScreenTextColor As Integer = 0
 
         Public CharacterListDist As Integer = 0
         Public CharacterListWorldOffset As Integer = 0
@@ -524,6 +528,14 @@ Public Module Constants
                                                     WaypointMaxDistance = CInt(Value)
                                                 Case "CavebotAttackerRadius"
                                                     CavebotAttackerRadius = System.Double.Parse(Value, NumberStyles.Number, CI)
+                                                Case "ptrScreenTextStart"
+                                                    ptrScreenTextStart = CInt(Value)
+                                                Case "ptrScreenTextShow"
+                                                    ptrScreenTextShow = CInt(Value)
+                                                Case "ptrScreenTextTimer"
+                                                    ptrScreenTextTimer = CInt(Value)
+                                                Case "ptrScreenTextColor"
+                                                    ptrScreenTextColor = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
@@ -777,5 +789,15 @@ Public Module Constants
         DistanceFighting
         Shielding
         Fishing
+    End Enum
+
+    Public Enum ShowTextColors
+        Yellow = 1
+        LightBlue = 4
+        White = 6
+        Red = 9
+        Orange = 12
+        Green = 22
+        DarkBlue = 24
     End Enum
 End Module
