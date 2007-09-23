@@ -1196,11 +1196,23 @@ Public Module CoreModule
                                         Case 0 'main menu
                                             Select Case Input
                                                 Case 1
-                                                    TextMenuIndex = 1
+                                                    TextMenuIndex = 1 'General Tools
                                                 Case 2
-                                                    TextMenuIndex = 2
+                                                    TextMenuIndex = 2 'AFK Tools
                                                 Case 3
-                                                    TextMenuIndex = 3
+                                                    TextMenuIndex = 4 'Healing Tools
+                                                Case 4
+                                                    TextMenuIndex = 5 'Info Tools
+                                                Case 5
+                                                    TextMenuIndex = 7 'Training Tools
+                                                Case 6
+                                                    TextMenuIndex = 8 'Fun Tools
+                                                Case 7
+                                                    TextMenuIndex = 9 'Misc
+                                                Case 8
+                                                    TextMenuIndex = 10 'Hide
+                                                Case 9
+                                                    TextMenuIndex = 47 ' Bot state
                                                 Case 0
                                                     Tibia.SendMessage(WM.TextMenu, 0, 0)
                                             End Select
@@ -1208,17 +1220,545 @@ Public Module CoreModule
                                             Select Case Input
                                                 Case 0
                                                     TextMenuIndex = 0
+                                                Case 1
+                                                    TextMenuIndex = 11 'Config Manager
+                                                Case 2
+                                                    TextMenuIndex = 12 ' Looger
+                                                Case 3
+                                                    TextMenuIndex = 13 ' Stacker
+                                                Case 4
+                                                    TextMenuIndex = 14 ' Light
+                                                Case 5
+                                                    TextMenuIndex = 15 ' Ammo Restacker
+                                                Case 6
+                                                    MsgBox("Commands List")
                                                 Case Else
                                             End Select
-                                        Case 2 'afk tools
+                                        Case 2 'afk tools 1
                                             Select Case Input
                                                 Case 0
                                                     TextMenuIndex = 0
+                                                Case 1
+                                                    MsgBox("Alarms")
+                                                Case 2
+                                                    TextMenuIndex = 16 ' Spell caster
+                                                Case 3
+                                                    TextMenuIndex = 17 ' Auto Eater
+                                                Case 4
+                                                    TextMenuIndex = 18 ' Runemaker
+                                                Case 5
+                                                    TextMenuIndex = 19 ' Auto Fisher
+                                                Case 6
+                                                    TextMenuIndex = 20 ' Trade Advertiser
+                                                Case 7
+                                                    TextMenuIndex = 21 ' Trade Watcher
+                                                Case 8
+                                                    TextMenuIndex = 22 ' Cavebot
+                                                Case 9
+                                                    TextMenuIndex = 3 ' AFK Tools 2
                                             End Select
-                                        Case 3 'healing tools
+                                        Case 3 ' Afk tools 2
                                             Select Case Input
                                                 Case 0
-                                                    TextMenuIndex = 0
+                                                    TextMenuIndex = 2 'Afk Tools 1
+                                                Case 1
+                                                    TextMenuIndex = 23 ' Stats uploader
+                                                Case 2
+                                                    TextMenuIndex = 24 ' FPS Changer
+                                                Case 3
+                                                    TextMenuIndex = 25 ' Auto Log
+                                                Case 4
+                                                    TextMenuIndex = 26 ' Auto Connect
+                                                Case 5
+                                                    MsgBox("Auto Backpack Opener")
+                                            End Select
+                                        Case 4 'Healing Tools
+                                            Select Case Input
+                                                Case 0
+                                                    TextMenuIndex = 0 'Main menu
+                                                Case 1
+                                                    TextMenuIndex = 27 ' Auto healer
+                                                Case 2
+                                                    TextMenuIndex = 28 ' Auto UHer
+                                                Case 3
+                                                    TextMenuIndex = 29 ' Auto heal friend
+                                                Case 4
+                                                    TextMenuIndex = 30 ' Auto heal party
+                                                Case 5
+                                                    TextMenuIndex = 31 ' Manafluid drinker
+                                            End Select
+                                        Case 5 'Info Tools 1
+                                            Select Case Input
+                                                Case 0
+                                                    TextMenuIndex = 0 'Main menu
+                                                Case 1
+                                                    TextMenuIndex = 32 'Exp check
+                                                Case 2
+                                                    MsgBox("Character Info")
+                                                Case 3
+                                                    MsgBox("Guild Members Info")
+                                                Case 4
+                                                    TextMenuIndex = 34 ' Floor explorer
+                                                Case 5
+                                                    TextMenuIndex = 35 ' Namespy
+                                                Case 6
+                                                    TextMenuIndex = 36 'Open file/website
+                                                Case 7
+                                                    MsgBox("Send Location")
+                                                Case 8
+                                                    MsgBox("Get item ids")
+                                                Case 9
+                                                    TextMenuIndex = 6 ' Info Tools 2
+                                            End Select
+                                        Case 6 'Info tools 2
+                                            Select Case Input
+                                                Case 0
+                                                    TextMenuIndex = 5 'Info tools 1
+                                                Case 1
+                                                    MsgBox("Training Information")
+                                                Case 2
+                                                    MsgBox("Floorspy")
+                                            End Select
+                                        Case 7 'Training Tools
+                                            Select Case Input
+                                                Case 0
+                                                    TextMenuIndex = 0 ' Main menu
+                                                Case 1
+                                                    TextMenuIndex = 37 ' Auto Attacker
+                                                Case 2
+                                                    TextMenuIndex = 40 ' Auto Trainer
+                                                Case 3
+                                                    TextMenuIndex = 41 ' Auto pickup
+                                            End Select
+                                        Case 8 ' fun tools
+                                            Select Case Input
+                                                Case 0
+                                                    TextMenuIndex = 0 'Main menu
+                                                Case 1
+                                                    TextMenuIndex = 42 ' Fake Title
+                                                Case 2
+                                                    TextMenuIndex = 43 ' Chameleon
+                                                Case 3
+                                                    TextMenuIndex = 44 ' Rainbow outfit
+                                            End Select
+                                        Case 9 ' Misc Tools
+                                            Select Case Input
+                                                Case 0
+                                                    TextMenuIndex = 0 ' Main menu
+                                                Case 1
+                                                    TextMenuIndex = 45 ' WASD
+                                                Case 2
+                                                    MsgBox("Mage bomb/combo")
+                                                Case 3
+                                                    MsgBox("Screenshooter")
+                                                Case 4
+                                                    MsgBox("Const Editor")
+                                                Case 5
+                                                    MsgBox("Feedback")
+                                                Case 6
+                                                    TextMenuIndex = 46 ' Reload Config files
+                                            End Select
+                                        Case 10 'Hide
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("Tibia Client")
+                                                Case 2
+                                                    MsgBox("TTB Window")
+                                                Case 0
+                                                    TextMenuIndex = 0 'Main menu
+                                            End Select
+                                        Case 11 'Config Manager
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("Load")
+                                                Case 2
+                                                    MsgBox("Edit")
+                                                Case 3
+                                                    MsgBox("Clear")
+                                                Case 0
+                                                    TextMenuIndex = 1 ' General Menu
+                                            End Select
+                                        Case 12 'Auto Looter
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Edit")
+                                                Case 3
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 1 ' General Menu
+                                            End Select
+                                        Case 13 'Auto Stacker
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 1 'General Menu
+                                            End Select
+                                        Case 14 'Light Effects
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Torch")
+                                                Case 3
+                                                    MsgBox("Great Torch")
+                                                Case 4
+                                                    MsgBox("Ultimate Torch")
+                                                Case 5
+                                                    MsgBox("Utevo Lux")
+                                                Case 6
+                                                    MsgBox("Utevo Gran Lux")
+                                                Case 7
+                                                    MsgBox("Utevo Vis Lux")
+                                                Case 8
+                                                    MsgBox("Light Wand")
+                                                Case 9
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 1 ' General Menu
+                                            End Select
+                                        Case 15 'Ammunition Restacker
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 1 ' General Menu
+                                            End Select
+                                        Case 16 'Spell Caster
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 2 'Afk Tools 1
+                                            End Select
+                                        Case 17 'Auto Eater
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 2 'Afk Tools 1
+                                            End Select
+                                        Case 18 'Runemaker
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 2 'Afk Tools 1
+                                            End Select
+                                        Case 19 'Runemaker
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Turbo")
+                                                Case 3
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 2 'Afk Tools 1
+                                            End Select
+                                        Case 20 'Trade Channel Advertiser
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 2 'Afk Tools 1
+                                            End Select
+                                        Case 21 'Trade Channel Watcher
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 2 'Afk Tools 1
+                                            End Select
+                                        Case 22 'Cavebot
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 2 'Afk Tools 1
+                                            End Select
+                                        Case 23 'Stats uploader
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 3 'Afk Tools 2
+                                            End Select
+                                        Case 24 'Fps Changer
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 3 'Afk Tools 2
+                                            End Select
+                                        Case 25 'Auto Log
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 3 'Afk Tools 2
+                                            End Select
+                                        Case 26 'Auto Connect
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 3 'Afk Tools 2
+                                            End Select
+                                        Case 27 'Auto Healer
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 4 'Healing Tools
+                                            End Select
+                                        Case 28 'Auto UHer
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 4 'Healing Tools
+                                            End Select
+                                        Case 29 'Auto heal friend
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 4 'Healing tools                                                    
+                                            End Select
+                                        Case 30 'Auto heal party
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 4 'Healing tools
+                                            End Select
+                                        Case 31 'Mana fluid drinker
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 4 'Healing Tools
+                                            End Select
+                                        Case 32 'Exp Checker
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    TextMenuIndex = 33 'Creatures
+                                                Case 3
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 5 'Info tools 1
+                                            End Select
+                                        Case 33 'Creatures
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 32 'Exp Checker
+                                            End Select
+                                        Case 34 'Floor Explorer
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("Above")
+                                                Case 2
+                                                    MsgBox("Around")
+                                                Case 3
+                                                    MsgBox("Below")
+                                                Case 0
+                                                    TextMenuIndex = 5 ' Info tools 1
+                                            End Select
+                                        Case 35 'Name spy
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 5 'Info Tools 1
+                                            End Select
+                                        Case 36 'Open File/websites
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("File")
+                                                Case 2
+                                                    MsgBox("Tibia wiki")
+                                                Case 3
+                                                    MsgBox("Tibia.com Char Page")
+                                                Case 4
+                                                    MsgBox("Tibia.com Guild Page")
+                                                Case 5
+                                                    MsgBox("Erig.net Highscore page")
+                                                Case 6
+                                                    MsgBox("Google")
+                                                Case 7
+                                                    MsgBox("My Tibia")
+                                                Case 0
+                                                    TextMenuIndex = 5 'Info Tools 1
+                                            End Select
+                                        Case 37 'Auto Attacker
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Automatic")
+                                                Case 3
+                                                    TextMenuIndex = 38 'Stance
+                                                Case 4
+                                                    TextMenuIndex = 39 'Fighting
+                                                Case 5
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 7 'Trainer tools
+                                            End Select
+                                        Case 38 'Stance
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("Stand")
+                                                Case 2
+                                                    MsgBox("Follow")
+                                                Case 0
+                                                    TextMenuIndex = 37 'Auto Attacker
+                                            End Select
+                                        Case 39 'Fightning
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("Offensive")
+                                                Case 2
+                                                    MsgBox("Balanced")
+                                                Case 3
+                                                    MsgBox("Defensive")
+                                                Case 0
+                                                    TextMenuIndex = 37 'Auto Attacker
+                                            End Select
+                                        Case 40 'Auto Trainer
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Add")
+                                                Case 3
+                                                    MsgBox("Remove")
+                                                Case 4
+                                                    MsgBox("Clear")
+                                                Case 5
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 7 'Training tools
+                                            End Select
+                                        Case 41 'Auto Pickup
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 7 'Training tools
+                                            End Select
+                                        Case 42 'Fake Titlte
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 8 'Fun Tools
+                                            End Select
+                                        Case 43 'Chameleon
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("Change Outfit")
+                                                Case 2
+                                                    MsgBox("Copy Outfit")
+                                                Case 0
+                                                    TextMenuIndex = 8 'Fun Tools
+                                            End Select
+                                        Case 44 'Rainbow Outfit
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Fast")
+                                                Case 3
+                                                    MsgBox("Slow")
+                                                Case 4
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 8 'Fun Tools
+                                            End Select
+                                        Case 45 'WASD
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("On")
+                                                Case 2
+                                                    MsgBox("Off")
+                                                Case 0
+                                                    TextMenuIndex = 9 'Misc Tools
+                                            End Select
+                                        Case 46 'Reload Config Files
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("Spells")
+                                                Case 2
+                                                    MsgBox("Outfits")
+                                                Case 3
+                                                    MsgBox("Items")
+                                                Case 4
+                                                    MsgBox("Constants")
+                                                Case 5
+                                                    MsgBox("Tibia.dat")
+                                                Case 0
+                                                    TextMenuIndex = 9 'Misc Files
+                                            End Select
+                                        Case 47 'Bot State
+                                            Select Case Input
+                                                Case 1
+                                                    MsgBox("Start")
+                                                Case 2
+                                                    MsgBox("Pause")
+                                                Case 3
+                                                    MsgBox("Stop")
+                                                Case 0
+                                                    TextMenuIndex = 0 'Main Menu
                                             End Select
                                         Case Else
                                             MsgBox("Not done")
@@ -1370,7 +1910,7 @@ Public Module CoreModule
 
 #End Region
 
-#Region " Console "
+#Region " Console/Screen "
         Public Sub ConsoleRead(ByVal strString As String)
             'No need yet
         End Sub
@@ -1395,6 +1935,18 @@ Public Module CoreModule
 
         Public Sub ConsoleClear()
             frmMain.ConsoleWindow.Clear()
+        End Sub
+
+        Public Sub ScreenWrite(ByVal strString As String, ByVal Color As ShowTextColors)
+            Dim Number As Integer
+            'Tibia.Memory.Read(&H768664, Number, 2)
+            'Tibia.Memory.Write(Consts.ptrScreenTextStart, strString & Chr(0))
+            'Tibia.Memory.Write(Consts.ptrScreenTextColor, Color)
+            'Tibia.Memory.Write(&H768664, Number + 1)
+            Tibia.Memory.Write(Consts.ptrScreenTextTimer, 4000)
+            'Tibia.Memory.Write(&H76866B, 0)
+            'Tibia.Memory.Write(&H76866A, 0)
+            'Tibia.Memory.Write(Consts.ptrScreenTextShow, 1)
         End Sub
 #End Region
 

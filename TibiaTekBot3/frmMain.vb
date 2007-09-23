@@ -273,4 +273,7 @@ Public Class frmMain
     End Sub
 
 
+    Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
+        Core.ScreenWrite("Eka Testi", ShowTextColors.Yellow)
+    End Sub
 End Class

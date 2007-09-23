@@ -206,6 +206,7 @@ Partial Class frmMain
         Me.CommandLinetxt = New System.Windows.Forms.TextBox
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.CMMenu.SuspendLayout()
         Me.CMAbout.SuspendLayout()
@@ -215,7 +216,7 @@ Partial Class frmMain
         '
         'MenuStrip
         '
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.OptionsToolStripMenuItem, Me.ToolStripMenuItem2, Me.TestToolStripMenuItem})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.OptionsToolStripMenuItem, Me.ToolStripMenuItem2, Me.TestToolStripMenuItem, Me.TestToolStripMenuItem1})
         Me.MenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
@@ -1367,7 +1368,7 @@ Partial Class frmMain
         Me.CMMenuMode.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FloatingWindowToolStripMenuItem, Me.InsideTibiaToolStripMenuItem, Me.InsideTibiaWindowToolStripMenuItem})
         Me.CMMenuMode.Name = "CMMenuMode"
         Me.CMMenuMode.OwnerItem = Me.TestToolStripMenuItem
-        Me.CMMenuMode.Size = New System.Drawing.Size(181, 92)
+        Me.CMMenuMode.Size = New System.Drawing.Size(181, 70)
         '
         'FloatingWindowToolStripMenuItem
         '
@@ -1437,6 +1438,12 @@ Partial Class frmMain
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
+        '
+        'TestToolStripMenuItem1
+        '
+        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
+        Me.TestToolStripMenuItem1.Size = New System.Drawing.Size(38, 20)
+        Me.TestToolStripMenuItem1.Text = "test"
         '
         'frmMain
         '
@@ -1651,5 +1658,6 @@ Partial Class frmMain
     Friend WithEvents FloatingWindowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InsideTibiaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InsideTibiaWindowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TestToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 
 End Class
