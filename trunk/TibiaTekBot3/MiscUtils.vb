@@ -63,4 +63,23 @@ Public Module MiscUtils
         Return Result
     End Function
 
+    Public Sub AddFeature(ByVal Feature As Object)
+        If Not frmMain.FtsOnBox.Items.Contains(Feature) Then
+            frmMain.FtsOnBox.Items.Add(Feature)
+            frmMain.FtsOnBox.SelectedItem = Feature
+        End If
+    End Sub
+
+    Public Sub RemoveFeature(ByVal Feature As Object)
+        If frmMain.FtsOnBox.Items.Contains(Feature) Then
+            frmMain.FtsOnBox.Items.Remove(Feature)
+        End If
+    End Sub
+
+    Public Sub ShowFeature(ByVal FeatureControlPanel As Control)
+        frmMain.FeaturePanel.Controls.Clear()
+        FeatureControlPanel.Location = New Point(12, 12)
+        frmMain.FeaturePanel.Controls.Add(FeatureControlPanel)
+    End Sub
+
 End Module

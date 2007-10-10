@@ -89,9 +89,9 @@ Public Class frmMain
         Core.Tibia.HideMenu()
     End Sub
 
-    Private Sub SendCommandcmd_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SendCommandcmd.Click
-        CommandParser(CommandLinetxt.Text)
-        CommandLinetxt.Clear()
+    Private Sub SendCommandcmd_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        'CommandParser(CommandLinetxt.Text)
+        'CommandLinetxt.Clear()
     End Sub
 
     Protected Overrides Sub Finalize()
@@ -155,12 +155,12 @@ Public Class frmMain
         CommandParser("exp off")
     End Sub
 
-    Private Sub ToolStripMenuItem35_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem35.Click
+    Private Sub ToolStripMenuItem35_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim res As String = InputBox("Enter the delay in seconds to eat. Example: 30.", "Auto Eater Delay", "30")
         If Not String.IsNullOrEmpty(res) Then CommandParser("eat " & res)
     End Sub
 
-    Private Sub ToolStripMenuItem36_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem36.Click
+    Private Sub ToolStripMenuItem36_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("eat off")
     End Sub
 
@@ -205,7 +205,7 @@ Public Class frmMain
         CommandParser("runemaker off")
     End Sub
 
-    Private Sub ToolStripMenuItem32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem32.Click
+    Private Sub ToolStripMenuItem32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim number As String = InputBox("Enter the minimum mana points to cast the spell. Example: 100.", "Minimum Mana Points")
         If String.IsNullOrEmpty(number) Then Exit Sub
         Dim spell As String = InputBox("Enter the spell words. Example: eXuRa """"HeAl pLx.", "Spell Words")
@@ -213,7 +213,7 @@ Public Class frmMain
         CommandParser("spell " & number & " """ & spell)
     End Sub
 
-    Private Sub ToolStripMenuItem33_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem33.Click
+    Private Sub ToolStripMenuItem33_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("spell off")
     End Sub
 
@@ -274,6 +274,25 @@ Public Class frmMain
 
 
     Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        Core.ScreenWrite("Eka Testi", ShowTextColors.Yellow)
+        AddFeature("Auto Fisher")
+    End Sub
+
+    Private Sub FtsOnBox_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FtsOnBox.SelectedIndexChanged
+        Select Case FtsOnBox.SelectedItem
+            Case "Spellcaster"
+                ShowFeature(frmSubForms.Spellcaster)
+            Case "Auto Eater"
+                ShowFeature(frmSubForms.AutoEater)
+            Case Else
+                FeaturePanel.Controls.Clear()
+        End Select
+    End Sub
+
+    Private Sub ToolStripMenuItem31_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem31.Click
+        AddFeature("Spellcaster")
+    End Sub
+
+    Private Sub ToolStripMenuItem34_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem34.Click
+        AddFeature("Auto Eater")
     End Sub
 End Class

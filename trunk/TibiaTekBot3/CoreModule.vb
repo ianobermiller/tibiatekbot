@@ -1381,7 +1381,8 @@ Public Module CoreModule
                                         Case 12 'Auto Looter
                                             Select Case Input
                                                 Case 1
-                                                    MsgBox("On")
+                                                    'MsgBox("On")
+                                                    StatusMessage("LOLOL")
                                                 Case 2
                                                     MsgBox("Edit")
                                                 Case 3
@@ -1433,9 +1434,15 @@ Public Module CoreModule
                                         Case 16 'Spell Caster
                                             Select Case Input
                                                 Case 1
-                                                    MsgBox("On")
+                                                    Tibia.SendMessage(WM.TextMenu, 0, 0) 'Close the window
+                                                    Dim number As String = InputBox("Enter the minimum mana points to cast the spell. Example: 100.", "Minimum Mana Points")
+                                                    If String.IsNullOrEmpty(number) Then Exit Sub
+                                                    Dim spell As String = InputBox("Enter the spell words. Example: eXuRa """"HeAl pLx.", "Spell Words")
+                                                    If String.IsNullOrEmpty(spell) Then Exit Sub
+                                                    CommandParser("spell " & number & " """ & spell)
                                                 Case 2
-                                                    MsgBox("Off")
+                                                    Tibia.SendMessage(WM.TextMenu, 0, 0) 'Close the window
+                                                    CommandParser("spell off")
                                                 Case 0
                                                     TextMenuIndex = 2 'Afk Tools 1
                                             End Select
@@ -1916,37 +1923,33 @@ Public Module CoreModule
         End Sub
 
         Public Sub ConsoleWrite(ByVal strString As String)
-            If frmMain.ConsoleWindow.Text = "" Then
-                frmMain.ConsoleWindow.Text = strString
-            Else
-                frmMain.ConsoleWindow.Text = frmMain.ConsoleWindow.Text & vbNewLine & strString
-            End If
+            'If frmMain.ConsoleWindow.Text = "" Then
+            ' frmMain.ConsoleWindow.Text = strString
+            'Else
+            'frmMain.ConsoleWindow.Text = frmMain.ConsoleWindow.Text & vbNewLine & strString
+            'End If
 
         End Sub
 
         Public Sub ConsoleError(ByVal strString As String)
             Dim ErrorMsg As String = "Error: " & strString
-            If frmMain.ConsoleWindow.Text = "" Then
-                frmMain.ConsoleWindow.Text = ErrorMsg
-            Else
-                frmMain.ConsoleWindow.Text = frmMain.ConsoleWindow.Text & vbNewLine & ErrorMsg
-            End If
+            'If frmMain.ConsoleWindow.Text = "" Then
+            'frmMain.ConsoleWindow.Text = ErrorMsg
+            'Else
+            'frmMain.ConsoleWindow.Text = frmMain.ConsoleWindow.Text & vbNewLine & ErrorMsg
+            'End If
         End Sub
 
         Public Sub ConsoleClear()
-            frmMain.ConsoleWindow.Clear()
+            'frmMain.ConsoleWindow.Clear()
         End Sub
 
         Public Sub ScreenWrite(ByVal strString As String, ByVal Color As ShowTextColors)
-            Dim Number As Integer
-            'Tibia.Memory.Read(&H768664, Number, 2)
-            'Tibia.Memory.Write(Consts.ptrScreenTextStart, strString & Chr(0))
-            'Tibia.Memory.Write(Consts.ptrScreenTextColor, Color)
-            'Tibia.Memory.Write(&H768664, Number + 1)
-            Tibia.Memory.Write(Consts.ptrScreenTextTimer, 4000)
-            'Tibia.Memory.Write(&H76866B, 0)
-            'Tibia.Memory.Write(&H76866A, 0)
-            'Tibia.Memory.Write(Consts.ptrScreenTextShow, 1)
+
+        End Sub
+        Public Sub StatusMessage(ByVal strString As String)
+            Tibia.Memory.Write(Consts.ptrStatusMessageTimer, 50, 2)
+            Tibia.Memory.Write(Consts.ptrStatusMessage, strString)
         End Sub
 #End Region
 
