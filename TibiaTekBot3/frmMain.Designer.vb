@@ -57,11 +57,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem29 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem31 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem32 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem33 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem34 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem35 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem36 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem37 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem38 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem39 = New System.Windows.Forms.ToolStripMenuItem
@@ -200,18 +196,17 @@ Partial Class frmMain
         Me.FloatingWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.InsideTibiaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.InsideTibiaWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.ConsoleWindow = New System.Windows.Forms.TextBox
-        Me.SendCommandcmd = New System.Windows.Forms.Button
-        Me.CommandLinetxt = New System.Windows.Forms.TextBox
+        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
+        Me.FtsOnGroup = New System.Windows.Forms.GroupBox
+        Me.FeaturePanel = New System.Windows.Forms.Panel
+        Me.FtsOnBox = New System.Windows.Forms.ListBox
         Me.MenuStrip.SuspendLayout()
         Me.CMMenu.SuspendLayout()
         Me.CMAbout.SuspendLayout()
         Me.CMMenuMode.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.FtsOnGroup.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip
@@ -220,7 +215,7 @@ Partial Class frmMain
         Me.MenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
-        Me.MenuStrip.Size = New System.Drawing.Size(431, 24)
+        Me.MenuStrip.Size = New System.Drawing.Size(443, 24)
         Me.MenuStrip.TabIndex = 4
         Me.MenuStrip.Text = "MenuStrip2"
         '
@@ -236,13 +231,13 @@ Partial Class frmMain
         Me.CMMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem156, Me.ToolStripSeparator2, Me.ToolStripMenuItem1, Me.ToolStripMenuItem29, Me.ToolStripMenuItem62, Me.ToolStripMenuItem78, Me.ToolStripMenuItem104, Me.ToolStripMenuItem125, Me.ToolStripMenuItem137, Me.ToolStripMenuItem149, Me.HelpToolStripMenuItem, Me.ToolStripMenuItem152})
         Me.CMMenu.Name = "ContextMenuStrip1"
         Me.CMMenu.OwnerItem = Me.FunctionsToolStripMenuItem
-        Me.CMMenu.Size = New System.Drawing.Size(152, 252)
+        Me.CMMenu.Size = New System.Drawing.Size(153, 274)
         '
         'ToolStripMenuItem156
         '
         Me.ToolStripMenuItem156.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartToolStripMenuItem, Me.PauseToolStripMenuItem, Me.StopToolStripMenuItem})
         Me.ToolStripMenuItem156.Name = "ToolStripMenuItem156"
-        Me.ToolStripMenuItem156.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem156.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem156.Text = "&Bot State"
         '
         'StartToolStripMenuItem
@@ -266,13 +261,13 @@ Partial Class frmMain
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(148, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem4, Me.ToolStripMenuItem8, Me.ToolStripMenuItem12, Me.ToolStripMenuItem15, Me.ToolStripMenuItem25, Me.ToolStripMenuItem28})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem1.Text = "&General Tools"
         '
         'ToolStripMenuItem4
@@ -439,7 +434,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem29.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.ToolStripMenuItem31, Me.ToolStripMenuItem34, Me.ToolStripMenuItem37, Me.ToolStripMenuItem40, Me.ToolStripMenuItem44, Me.ToolStripMenuItem47, Me.ToolStripMenuItem53, Me.ToolStripMenuItem56, Me.ToolStripMenuItem59, Me.AutoLogToolStripMenuItem, Me.AutoConnectToolStripMenuItem, Me.AutoBackpackOpenerToolStripMenuItem})
         Me.ToolStripMenuItem29.Name = "ToolStripMenuItem29"
-        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem29.Text = "&AFK Tools"
         '
         'ToolStripMenuItem30
@@ -451,41 +446,15 @@ Partial Class frmMain
         '
         'ToolStripMenuItem31
         '
-        Me.ToolStripMenuItem31.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem32, Me.ToolStripMenuItem33})
         Me.ToolStripMenuItem31.Name = "ToolStripMenuItem31"
         Me.ToolStripMenuItem31.Size = New System.Drawing.Size(208, 22)
         Me.ToolStripMenuItem31.Text = "&Spell Caster"
         '
-        'ToolStripMenuItem32
-        '
-        Me.ToolStripMenuItem32.Name = "ToolStripMenuItem32"
-        Me.ToolStripMenuItem32.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem32.Text = "&On"
-        '
-        'ToolStripMenuItem33
-        '
-        Me.ToolStripMenuItem33.Name = "ToolStripMenuItem33"
-        Me.ToolStripMenuItem33.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem33.Text = "O&ff"
-        '
         'ToolStripMenuItem34
         '
-        Me.ToolStripMenuItem34.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem35, Me.ToolStripMenuItem36})
         Me.ToolStripMenuItem34.Name = "ToolStripMenuItem34"
         Me.ToolStripMenuItem34.Size = New System.Drawing.Size(208, 22)
         Me.ToolStripMenuItem34.Text = "Auto &Eater"
-        '
-        'ToolStripMenuItem35
-        '
-        Me.ToolStripMenuItem35.Name = "ToolStripMenuItem35"
-        Me.ToolStripMenuItem35.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem35.Text = "&On"
-        '
-        'ToolStripMenuItem36
-        '
-        Me.ToolStripMenuItem36.Name = "ToolStripMenuItem36"
-        Me.ToolStripMenuItem36.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem36.Text = "O&ff"
         '
         'ToolStripMenuItem37
         '
@@ -679,7 +648,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem62.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem63, Me.ToolStripMenuItem66, Me.ToolStripMenuItem69, Me.ToolStripMenuItem72, Me.ToolStripMenuItem75})
         Me.ToolStripMenuItem62.Name = "ToolStripMenuItem62"
-        Me.ToolStripMenuItem62.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem62.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem62.Text = "&Healing Tools"
         '
         'ToolStripMenuItem63
@@ -786,7 +755,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem78.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem79, Me.ToolStripMenuItem85, Me.ToolStripMenuItem86, Me.ToolStripMenuItem87, Me.ToolStripMenuItem91, Me.ToolStripMenuItem94, Me.ToolStripMenuItem102, Me.ToolStripMenuItem103, Me.StatisticsSkillsLevelEtcToolStripMenuItem, Me.FloorSpyToolStripMenuItem})
         Me.ToolStripMenuItem78.Name = "ToolStripMenuItem78"
-        Me.ToolStripMenuItem78.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem78.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem78.Text = "&Info Tools"
         '
         'ToolStripMenuItem79
@@ -974,7 +943,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem104.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem105, Me.ToolStripMenuItem116, Me.ToolStripMenuItem122})
         Me.ToolStripMenuItem104.Name = "ToolStripMenuItem104"
-        Me.ToolStripMenuItem104.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem104.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem104.Text = "&Training Tools"
         '
         'ToolStripMenuItem105
@@ -1109,7 +1078,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem125.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem126, Me.ToolStripMenuItem129, Me.ToolStripMenuItem132})
         Me.ToolStripMenuItem125.Name = "ToolStripMenuItem125"
-        Me.ToolStripMenuItem125.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem125.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem125.Text = "&Fun Tools"
         '
         'ToolStripMenuItem126
@@ -1188,7 +1157,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem137.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem138, Me.ToolStripMenuItem158, Me.ScreenshooterToolStripMenuItem, Me.ToolStripMenuItem141, Me.ToolStripMenuItem142, Me.ToolStripMenuItem143})
         Me.ToolStripMenuItem137.Name = "ToolStripMenuItem137"
-        Me.ToolStripMenuItem137.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem137.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem137.Text = "&Miscellaneous"
         '
         'ToolStripMenuItem138
@@ -1280,7 +1249,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem149.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem150, Me.ToolStripMenuItem151})
         Me.ToolStripMenuItem149.Name = "ToolStripMenuItem149"
-        Me.ToolStripMenuItem149.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem149.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem149.Text = "&Hide"
         '
         'ToolStripMenuItem150
@@ -1300,13 +1269,13 @@ Partial Class frmMain
         '
         Me.HelpToolStripMenuItem.Enabled = False
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.HelpToolStripMenuItem.Text = "H&elp"
         '
         'ToolStripMenuItem152
         '
         Me.ToolStripMenuItem152.Name = "ToolStripMenuItem152"
-        Me.ToolStripMenuItem152.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem152.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem152.Text = "&Close"
         '
         'OptionsToolStripMenuItem
@@ -1388,46 +1357,11 @@ Partial Class frmMain
         Me.InsideTibiaWindowToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.InsideTibiaWindowToolStripMenuItem.Text = "Inside Tibia &Window"
         '
-        'GroupBox1
+        'TestToolStripMenuItem1
         '
-        Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.ConsoleWindow)
-        Me.GroupBox1.Controls.Add(Me.SendCommandcmd)
-        Me.GroupBox1.Controls.Add(Me.CommandLinetxt)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 27)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(407, 138)
-        Me.GroupBox1.TabIndex = 5
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Console"
-        '
-        'ConsoleWindow
-        '
-        Me.ConsoleWindow.Location = New System.Drawing.Point(6, 16)
-        Me.ConsoleWindow.Multiline = True
-        Me.ConsoleWindow.Name = "ConsoleWindow"
-        Me.ConsoleWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.ConsoleWindow.Size = New System.Drawing.Size(395, 84)
-        Me.ConsoleWindow.TabIndex = 10
-        '
-        'SendCommandcmd
-        '
-        Me.SendCommandcmd.Location = New System.Drawing.Point(361, 106)
-        Me.SendCommandcmd.Name = "SendCommandcmd"
-        Me.SendCommandcmd.Size = New System.Drawing.Size(40, 20)
-        Me.SendCommandcmd.TabIndex = 9
-        Me.SendCommandcmd.Text = "Send"
-        Me.SendCommandcmd.UseVisualStyleBackColor = True
-        '
-        'CommandLinetxt
-        '
-        Me.CommandLinetxt.AcceptsReturn = True
-        Me.CommandLinetxt.Location = New System.Drawing.Point(6, 106)
-        Me.CommandLinetxt.Name = "CommandLinetxt"
-        Me.CommandLinetxt.Size = New System.Drawing.Size(349, 20)
-        Me.CommandLinetxt.TabIndex = 8
+        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
+        Me.TestToolStripMenuItem1.Size = New System.Drawing.Size(38, 20)
+        Me.TestToolStripMenuItem1.Text = "test"
         '
         'NotifyIcon1
         '
@@ -1439,19 +1373,38 @@ Partial Class frmMain
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
         '
-        'TestToolStripMenuItem1
+        'FtsOnGroup
         '
-        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
-        Me.TestToolStripMenuItem1.Size = New System.Drawing.Size(38, 20)
-        Me.TestToolStripMenuItem1.Text = "test"
+        Me.FtsOnGroup.Controls.Add(Me.FeaturePanel)
+        Me.FtsOnGroup.Controls.Add(Me.FtsOnBox)
+        Me.FtsOnGroup.Location = New System.Drawing.Point(2, 33)
+        Me.FtsOnGroup.Name = "FtsOnGroup"
+        Me.FtsOnGroup.Size = New System.Drawing.Size(429, 236)
+        Me.FtsOnGroup.TabIndex = 5
+        Me.FtsOnGroup.TabStop = False
+        Me.FtsOnGroup.Text = "Features Currently Running"
+        '
+        'FeaturePanel
+        '
+        Me.FeaturePanel.Location = New System.Drawing.Point(144, 19)
+        Me.FeaturePanel.Name = "FeaturePanel"
+        Me.FeaturePanel.Size = New System.Drawing.Size(279, 209)
+        Me.FeaturePanel.TabIndex = 7
+        '
+        'FtsOnBox
+        '
+        Me.FtsOnBox.FormattingEnabled = True
+        Me.FtsOnBox.Location = New System.Drawing.Point(6, 19)
+        Me.FtsOnBox.Name = "FtsOnBox"
+        Me.FtsOnBox.Size = New System.Drawing.Size(132, 212)
+        Me.FtsOnBox.TabIndex = 6
         '
         'frmMain
         '
-        Me.AcceptButton = Me.SendCommandcmd
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(431, 177)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(443, 276)
+        Me.Controls.Add(Me.FtsOnGroup)
         Me.Controls.Add(Me.MenuStrip)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = Global.TibiaTekBot3.My.Resources.Resources.ttbv3
@@ -1465,8 +1418,7 @@ Partial Class frmMain
         Me.CMMenu.ResumeLayout(False)
         Me.CMAbout.ResumeLayout(False)
         Me.CMMenuMode.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.FtsOnGroup.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1475,13 +1427,9 @@ Partial Class frmMain
     Friend WithEvents MenuStrip As System.Windows.Forms.MenuStrip
     Friend WithEvents FunctionsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents TestToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NotifyIcon1 As System.Windows.Forms.NotifyIcon
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
-    Friend WithEvents SendCommandcmd As System.Windows.Forms.Button
-    Friend WithEvents CommandLinetxt As System.Windows.Forms.TextBox
-    Friend WithEvents ConsoleWindow As System.Windows.Forms.TextBox
     Friend WithEvents OptionsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CMMenu As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
@@ -1512,12 +1460,7 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem28 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem29 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem30 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem31 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem32 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem33 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem34 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem35 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem36 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem37 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem38 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem39 As System.Windows.Forms.ToolStripMenuItem
@@ -1659,5 +1602,9 @@ Partial Class frmMain
     Friend WithEvents InsideTibiaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InsideTibiaWindowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TestToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FtsOnGroup As System.Windows.Forms.GroupBox
+    Friend WithEvents FtsOnBox As System.Windows.Forms.ListBox
+    Friend WithEvents FeaturePanel As System.Windows.Forms.Panel
+    Friend WithEvents ToolStripMenuItem31 As System.Windows.Forms.ToolStripMenuItem
 
 End Class

@@ -28,6 +28,7 @@ void ShowMenu();
 void HideMenu();
 
 void StartUninjectSelf();
+LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam);
 
 CRITICAL_SECTION CS_TTBRecv;
 CRITICAL_SECTION CS_TTBSend;
@@ -50,6 +51,7 @@ bool bSayMode = false;
 bool bTextMenu = false; // If TextMenu == True, we are showing textmenu so hook the keys 0-9
 HWND *TibiaWindowHandle;
 HWND *TTBWindowHandle;
+HWND WindowHwnd; //Handle for window
 DWORD TTBProcessID;
 HANDLE TTBProcessHandle;
 HMENU mainmenu;
@@ -230,9 +232,9 @@ int WSAAPI TTBRecv(IN SOCKET s, OUT char FAR * buf, IN int len, IN int flags){
 					BYTE *xData = getDecryptedCopy(packetbuffer, packetsize);
 					if(packetsize != 0) {
 						//parsePacketFromServer(xData);
-						//result = 0;
-						//SendMessageTimeout(*TTBWindowHandle, WM_RECV, (WPARAM)packetsize, (LPARAM)(xData+2), SMTO_ABORTIFHUNG | SMTO_NOTIMEOUTIFNOTHUNG, 1000, (PDWORD_PTR)&result);
-						//if (!result) StartUninjectSelf();
+						result = 0;
+						SendMessageTimeout(*TTBWindowHandle, WM_RECV, (WPARAM)packetsize, (LPARAM)(xData+2), SMTO_ABORTIFHUNG | SMTO_NOTIMEOUTIFNOTHUNG, 1000, (PDWORD_PTR)&result);
+						if (!result) StartUninjectSelf();
 					}
 					delete[] xData;
 					delete[] packetbuffer;
@@ -260,7 +262,7 @@ int WSAAPI TTBSend(IN SOCKET s, IN const char FAR * buf, IN int len, IN int flag
 		if(len > 0 && InGame()) {
 		BYTE *xData = getDecryptedCopy((BYTE*)buf, len);
 		// parsePacketFromClient();
-//		i = (int)SendMessage(*TTBWindowHandle, WM_SEND, (WPARAM)len, (LPARAM)xData);
+		i = (int)SendMessage(*TTBWindowHandle, WM_SEND, (WPARAM)len, (LPARAM)xData);
 		delete[] xData;
 		}
 		if (i != 0) iRet = send(s, buf, i,flags );

@@ -1,0 +1,91 @@
+This is guide about how to add new features to the GUI
+
+Overall
+The gui has several things. The forms are Panel controls which are located in frmSubForms.vb file. (THERE MUST BE SMARTER WAY TO SAVE THESE PANELS THAN THIS!).
+In frmMain theres Listbox (FtsOnBox) and Panel (FeaturePanel) where every Feature's Panel is loaded.
+There are three functions when dealing with adding panels. You can found them from MiscUtils.vb
+AddFeature(Feature As Object)
+	Adds feature to the Listbox
+RemoveFeature(Feature As Object)
+	Removes feature from the listbox
+ShowFeature(FeatureControlPanel as Control)
+	Shows the feature next to listbox
+
+Read forward to learn how to use these functions.
+
+Now we add new feature called "Auto Eater". Follow these steps when adding every another feature:
+
+Step 1.
+Make new Panel to frmSubForms.vb  and name it. (Example: Name is "AutoEater")
+
+Step 2.
+Add every control INSIDE the Panel so they will be also loaded to the frmMain window.
+Example:
+Label for "Delay for Eating" text -> Name it to EaterDelaylbl
+Textbox for value (delay for eating) -> Name it to EaterDelaytxtbox
+Button for Activate/Pause -> Name it to EaterOnOff
+Button for Stop -> Name it to EaterStop
+Checkbox for Smart Eating -> Name it to EaterSmartchk
+Label for "Eat When Hp Is Below" -> Name it to EaterSmartlbl
+Textbox for value (Eat when hp is below) -> Name it to EaterSmarttxtbox
+
+Step 3.
+Make code for them like every other control.
+Example:
+Check Activate/Pause button code to see how I change the text. Also here is CommandParser() calls.
+Stop button code includes CommandParser() call. NOTE! Don't put RemoveFeature() call here!
+EaterSmartchk code is simple to Enable/Disable other EaterSmart~ controls.
+
+Step 4.
+Goto frmMain, and FtsOnBox_SelectedIndexChange function.
+Add new case in Select Case sentence for your feature and add ShowFeature call there.
+Example:
+Add: 
+************************
+Case "Auto Eater"
+       ShowFeature(frmSubForms.AutoEater)
+*************************
+That code shows the AutoEater Panel which we created. Also it shows it. (Check MiscUtils.vb for more info)
+
+Step 5.
+At this point it's good to look at CommanParser.vb. Find your function call (which you've hopefully done earlier) and add there:
+************************************************
+Select Case StrToShort(Value)
+     Case 0
+        ......
+        ......
+        RemoveFeature("Your Feature") 'NOTE THIS!
+**************************************************
+You might wonder why we don't add it behind the Stop Button. The reason is that if we've typoed the Stop call to CommandParser it would delete our Feature from the list but wouldn't stop it. So that's why we add it here.
+Example:
+CmdEat function:
+*******************************
+        Select Case StrToShort(Value)
+            Case 0
+                Core.AutoEaterSmart = 0
+                Core.EaterTimerObj.StopTimer()
+                Core.StatusMessage("Auto Eater is now Disabled.")
+                RemoveFeature("Auto Eater") 'WE'VE ADD THIS!
+            Case 1 ....
+************************************
+
+Step 6.
+One more thing. Goto frmMain Menu code, and Add your Feature there to the right section. To it's code add AddFeature("Your Feature") call.
+Example:
+Let's add the Auto Eater menu item, and to the code:
+AddFeature("Auto Eater")
+
+
+Phew! That was it. Now we've added new feature and it should work. May be that I've forgot something bit part. If so, I'm gonna update this. So if something isn't working as you wish look help from Spellcaster and Auto Eater features.
+
+Few Notes:
+-When you're making your Panel, remember to name EVERYTHING, even labels. That way the collection of panels remains well organized.
+  My way to name thing is this:
+  Panel name is my feature name like "AutoEater"
+  Every other control there starts with Eater (e.g EaterDelaytxtbox). That way I can know what belongs to my AutoEater panel
+  I add also the the abbreviation of the control behind the real name (e.g EaterDelatxtbox). Abbrevations for commonly used controls:
+  cmd = button, chk = checkbox, txtbox = textbox, lbl = label and so on.. It doens't matter if you don't follow these. It just my way to keep things more organized.
+
+
+THINGS TODO:
+Find better way to store those Panels than Form.

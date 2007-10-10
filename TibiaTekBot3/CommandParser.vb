@@ -263,17 +263,22 @@ Public Module CommandParserModule
                 Core.SpellManaRequired = 0
                 Core.SpellMsg = ""
                 Core.SpellTimerObj.StopTimer()
-                Core.ConsoleWrite("Spell Caster is now Disabled.")
+                Core.StatusMessage("Spell Caster is now Disabled.")
+                RemoveFeature("Spellcaster")
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.SpellTimerObj.StopTimer()
+                    Core.StatusMessage("Spell Caster is now Paused.")
+                    Exit Sub
+                End If
                 Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "^([1-9][0-9]{1,4})\s+""?(.+)$")
                 If MatchObj.Success Then
                     Core.SpellManaRequired = CUInt(MatchObj.Groups(1).ToString)
                     Core.SpellMsg = MatchObj.Groups(2).ToString
                     Core.SpellTimerObj.StartTimer()
-                    Core.ConsoleWrite("Spell Caster is now Enabled." & Ret & _
-                        "Casting '" & Core.SpellMsg & "' with " & Core.SpellManaRequired & " or more mana points.")
+                    Core.StatusMessage("Spell Caster is now Enabled.")
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Core.StatusMessage("Error in Spellcaster")
                 End If
         End Select
     End Sub
@@ -287,28 +292,34 @@ Public Module CommandParserModule
             Case 0
                 Core.AutoEaterSmart = 0
                 Core.EaterTimerObj.StopTimer()
-                Core.ConsoleWrite("Auto Eater is now Disabled.")
+                Core.StatusMessage("Auto Eater is now Disabled.")
+                RemoveFeature("Auto Eater")
             Case 1
                 Core.AutoEaterSmart = 0
                 Core.EaterTimerObj.Interval = 30000
                 Core.EaterTimerObj.StartTimer()
-                Core.ConsoleWrite("Auto Eater is now Enabled for every 30 seconds.")
+                Core.StatusMessage("Auto Eater is now Enabled for every 30 seconds.")
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.EaterTimerObj.StopTimer()
+                    Core.StatusMessage("Auto Eater is now Paused.")
+                    Exit Sub
+                End If
                 Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "smart\s+([1-9][0-9]{1,4})")
                 If MatchObj.Success Then
                     Core.AutoEaterSmart = CInt(MatchObj.Groups(1).ToString)
                     Core.EaterTimerObj.Interval = 60000
                     Core.EaterTimerObj.StartTimer()
-                    Core.ConsoleWrite("Auto Eater will eat only when you are below " & Core.AutoEaterSmart & " hit points, once every minute.")
+                    Core.StatusMessage("Auto Eater will eat only when you are below " & Core.AutoEaterSmart & " hit points, once every minute.")
                 Else
                     MatchObj = Regex.Match(Arguments(2).ToString, "(\d{1,3})")
                     If MatchObj.Success Then
                         Core.AutoEaterSmart = 0
                         Core.EaterTimerObj.Interval = CInt(MatchObj.Groups(1).ToString) * 1000
                         Core.EaterTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Eater is now Enabled for every " & ((Core.EaterTimerObj.Interval / 1000) Mod 1000) & " second(s).")
+                        Core.StatusMessage("Auto Eater is now Enabled for every " & ((Core.EaterTimerObj.Interval / 1000) Mod 1000) & " second(s).")
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdEat")
                     End If
                 End If
         End Select
