@@ -18,7 +18,7 @@ Public Module CommandParserModule
                 Case "exp"
                     CmdExp(MatchObj.Groups)
                 Case "heal", "heal", "autoheal", "autohealer"
-
+                    CmdHeal(MatchObj.Groups)
                 Case "spell", "spellcaster"
                     CmdSpell(MatchObj.Groups)
                 Case "eat", "eater", "ate"
@@ -40,8 +40,7 @@ Public Module CommandParserModule
                 Case "namespy"
                     CmdNameSpy(MatchObj.Groups)
                 Case Else
-                    Core.ConsoleError("This command does not exist." & Ret & _
-                     "  For a list of available commands type: &help.")
+                    MsgBox("Error: Wrong Call to Commandparser", MsgBoxStyle.OkOnly, "Error")
             End Select
         End If
     End Sub
@@ -62,13 +61,20 @@ Public Module CommandParserModule
             Case 0
                 Core.Tibia.Memory.Write(Core.Consts.ptrNameSpy, Core.Consts.NameSpyDefault, 2)
                 Core.Tibia.Memory.Write(Core.Consts.ptrNameSpy2, Core.Consts.NameSpy2Default, 2)
-                Core.ConsoleWrite("Name Spy is now Disabled.")
+                Core.StatusMessage("Name Spy is now Disabled.")
+                RemoveFeature("Namespy")
             Case 1
                 Core.Tibia.Memory.Write(Core.Consts.ptrNameSpy, &H9090, 2)
                 Core.Tibia.Memory.Write(Core.Consts.ptrNameSpy2, &H9090, 2)
-                Core.ConsoleWrite("Name Spy is now Enabled.")
+                Core.StatusMessage("Name Spy is now Enabled.")
             Case Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                If Arguments(2).ToString = "hide" Then
+                    Core.Tibia.Memory.Write(Core.Consts.ptrNameSpy, Core.Consts.NameSpyDefault, 2)
+                    Core.Tibia.Memory.Write(Core.Consts.ptrNameSpy2, Core.Consts.NameSpy2Default, 2)
+                    Core.StatusMessage("Name Spy is now Disabled.")
+                Else
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdNameSpy")
+                End If
         End Select
     End Sub
 
@@ -83,8 +89,14 @@ Public Module CommandParserModule
                 Core.HealTimerObj.StopTimer()
                 Core.HealMinimumHP = 0
                 Core.HealComment = ""
-                Core.ConsoleWrite("Auto Healer is now Disabled.")
+                Core.StatusMessage("Auto Healer is now Disabled.")
+                RemoveFeature("Auto Healer")
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.HealTimerObj.StopTimer()
+                    Core.StatusMessage("Auto Healer is now Paused.")
+                    Exit Sub
+                End If
                 Dim RegExp As New Regex("([1-9][0-9]{0,4}%?)\s+""([^""]+)(?:""?(?:\s*""""([^""]+))?)?")
                 Dim Match As Match = RegExp.Match(Value)
                 If Match.Success Then
@@ -103,7 +115,7 @@ Public Module CommandParserModule
                                     Core.HealSpell = Spell
                                     Exit For
                                 Case Else
-                                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdHeal")
                                     Exit Sub
                             End Select
                         End If
@@ -114,9 +126,9 @@ Public Module CommandParserModule
                         Core.HealComment = ""
                     End If
                     Core.HealTimerObj.StartTimer()
-                    Core.ConsoleWrite("Auto Healer is now Enabled.")
+                    Core.StatusMessage("Auto Healer is now Enabled.")
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdHeal")
                 End If
         End Select
     End Sub
@@ -130,12 +142,18 @@ Public Module CommandParserModule
         Select Case StrToShort(Value)
             Case 0
                 Core.Tibia.SetWasd(False)
-                Core.ConsoleWrite("WASD is now Disabled.")
+                Core.StatusMessage("WASD is now Disabled.")
+                RemoveFeature("WASD")
             Case 1
                 Core.Tibia.SetWasd(True)
-                Core.ConsoleWrite("WASD is now Enabled.")
+                Core.StatusMessage("WASD is now Enabled.")
             Case Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                If Arguments(2).ToString = "pause" Then
+                    Core.Tibia.SetWasd(False)
+                    Core.StatusMessage("WASD is now Disabled.")
+                    Exit Sub
+                End If
+                MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdWasd")
         End Select
     End Sub
 
@@ -148,32 +166,40 @@ Public Module CommandParserModule
         Select Case StrToShort(Value)
             Case 0
                 Core.ExpCheckerActivated = False
-                Core.LastExperience = 0
+                'Core.LastExperience = 0
                 Core.Tibia.Title = BotName & " - " & Core.CharacterName
-                Core.ConsoleWrite("Experience Checker is now Disabled.")
+                Core.StatusMessage("Experience Checker is now Disabled.")
             Case 1
                 If Core.FakingTitle Then
                     Core.FakingTitle = False
-                    Core.ConsoleWrite("Fake Title is now Disabled.")
                 End If
                 Core.LastExperience = 0
                 Core.ExpCheckerActivated = True
-                Core.ConsoleWrite("Experience Checker is now Enabled.")
+                Core.StatusMessage("Experience Checker is now Enabled.")
             Case Else
+                If Arguments(2).ToString = "stop" Then
+                    Core.ExpCheckerActivated = False
+                    Core.LastExperience = 0
+                    Core.Tibia.Title = BotName & " - " & Core.CharacterName
+                    Core.ShowCreaturesUntilNextLevel = False
+                    Core.StatusMessage("Experience Checker is now Disabled.")
+                    RemoveFeature("Exp Checker")
+                    Exit Sub
+                End If
                 Dim MatchObj As Match = Regex.Match(Value, "creatures?\s+([a-zA-Z]+)", RegexOptions.IgnoreCase)
                 If MatchObj.Success Then
                     Select Case StrToShort(MatchObj.Groups(1).Value.ToLower)
                         Case 0
                             Core.ShowCreaturesUntilNextLevel = False
-                            Core.ConsoleWrite("Showing creatures until next level is now Disabled.")
+                            Core.StatusMessage("Showing creatures until next level is now Disabled.")
                         Case 1
                             Core.ShowCreaturesUntilNextLevel = True
-                            Core.ConsoleWrite("Showing creatures until next level is now Enabled.")
+                            Core.StatusMessage("Showing creatures until next level is now Enabled.")
                         Case Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                            MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdExp")
                     End Select
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdExp")
                 End If
         End Select
     End Sub
@@ -337,8 +363,14 @@ Public Module CommandParserModule
                 Core.RunemakerManaPoints = 0
                 Core.RunemakerSoulPoints = 0
                 Core.RunemakerTimerObj.StopTimer()
-                Core.ConsoleWrite("Runemaker is now Disabled.")
+                Core.StatusMessage("Runemaker is now Disabled.")
+                RemoveFeature("Runemaker")
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.RunemakerTimerObj.StopTimer()
+                    Core.StatusMessage("Runemaker Paused.")
+                    Exit Sub
+                End If
                 Dim RegExp As New Regex("([1-9][0-9]{1,4})\s+([1-9][0-9]{0,2})\s+""([^""]+)""?")
                 Dim Match As Match = RegExp.Match(Value)
                 If Match.Success Then
@@ -357,13 +389,13 @@ Public Module CommandParserModule
                         Core.RunemakerManaPoints = CShort(Match.Groups(1).ToString)
                         Core.RunemakerSoulPoints = CInt(Match.Groups(2).ToString)
                         Core.RunemakerTimerObj.StartTimer()
-                        Core.ConsoleWrite("Runemaker will now make " & C.Name & " when you have more than " & _
+                        Core.StatusMessage("Runemaker will now make " & C.Name & " when you have more than " & _
                             Core.RunemakerManaPoints & " mana points and more than " & Core.RunemakerSoulPoints & " soul points.")
                     Else
-                        Core.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
+                        MsgBox("Invalid Conjure: Spell Name or Spell Words .")
                     End If
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdRunemaker")
                 End If
         End Select
     End Sub
@@ -379,8 +411,14 @@ Public Module CommandParserModule
                 Core.FisherMinimumCapacity = 0
                 Core.FisherSpeed = 0
                 Core.FisherTimerObj.StopTimer()
-                Core.ConsoleWrite("Auto Fisher is now Disabled.")
+                Core.StatusMessage("Auto Fisher is now Disabled.")
+                RemoveFeature("Auto Fisher")
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.FisherTimerObj.StopTimer()
+                    Core.StatusMessage("Fisher Paused.")
+                    Exit Sub
+                End If
                 Dim MatchObj As Match = Regex.Match(Value, "^(\d{1,3})(?:\s+(\S+))?$")
                 If MatchObj.Success Then
                     Select Case MatchObj.Groups(2).Value.ToLower
@@ -388,17 +426,17 @@ Public Module CommandParserModule
                             Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
                             Core.FisherSpeed = 0
                             Core.FisherTimerObj.StartTimer()
-                            Core.ConsoleWrite("Auto Fisher is now Enabled.")
+                            Core.StatusMessage("Auto Fisher is now Enabled.")
                         Case "turbo", "nitro", "fast", "faster", "fastest"
                             Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
                             Core.FisherSpeed = 500
                             Core.FisherTimerObj.StartTimer()
-                            Core.ConsoleWrite("Auto Fisher (Turbo Mode) is now Enabled.")
+                            Core.StatusMessage("Auto Fisher (Turbo Mode) is now Enabled.")
                         Case Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                            MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdFisher")
                     End Select
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdFisher")
                 End If
         End Select
     End Sub

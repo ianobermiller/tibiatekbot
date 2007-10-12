@@ -147,11 +147,11 @@ Public Class frmMain
         CommandParser("light off")
     End Sub
 
-    Private Sub ToolStripMenuItem80_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem80.Click
+    Private Sub ToolStripMenuItem80_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("exp on")
     End Sub
 
-    Private Sub ToolStripMenuItem84_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem84.Click
+    Private Sub ToolStripMenuItem84_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("exp off")
     End Sub
 
@@ -164,25 +164,25 @@ Public Class frmMain
         CommandParser("eat off")
     End Sub
 
-    Private Sub ToolStripMenuItem41_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem41.Click
+    Private Sub ToolStripMenuItem41_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim mincap As String = InputBox("Enter the minimum capacity to fish. Example: 6.", "Minimum Capacity")
         If Not String.IsNullOrEmpty(mincap) Then CommandParser("fisher " & mincap)
     End Sub
 
-    Private Sub ToolStripMenuItem43_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem43.Click
+    Private Sub ToolStripMenuItem43_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("fisher off")
     End Sub
 
-    Private Sub ToolStripMenuItem42_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem42.Click
+    Private Sub ToolStripMenuItem42_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim mincap As String = InputBox("Enter the minimum capacity to fish. Example: 6.", "Minimum Capacity")
         If Not String.IsNullOrEmpty(mincap) Then CommandParser("fisher " & mincap & " turbo")
     End Sub
 
-    Private Sub ToolStripMenuItem139_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem139.Click
+    Private Sub ToolStripMenuItem139_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("wasd on")
     End Sub
 
-    Private Sub ToolStripMenuItem140_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem140.Click
+    Private Sub ToolStripMenuItem140_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("wasd off")
     End Sub
 
@@ -191,7 +191,7 @@ Public Class frmMain
         If Not String.IsNullOrEmpty(advertisement) Then CommandParser("advertise " & advertisement)
     End Sub
 
-    Private Sub ToolStripMenuItem38_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem38.Click
+    Private Sub ToolStripMenuItem38_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim mp As String = InputBox("Enter the minimum mana points to conjure the spell words. Example: 400.", "Minimum Mana Points")
         If String.IsNullOrEmpty(mp) Then Exit Sub
         Dim sp As String = InputBox("Enter the minimum soul points to conjure the spell words. Example: 3.", "Minimum Soul Points")
@@ -201,7 +201,7 @@ Public Class frmMain
         CommandParser("runemaker " & mp & " " & sp & " """ & sw & """")
     End Sub
 
-    Private Sub ToolStripMenuItem39_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem39.Click
+    Private Sub ToolStripMenuItem39_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("runemaker off")
     End Sub
 
@@ -217,11 +217,11 @@ Public Class frmMain
         CommandParser("spell off")
     End Sub
 
-    Private Sub ToolStripMenuItem92_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem92.Click
+    Private Sub ToolStripMenuItem92_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("namespy on")
     End Sub
 
-    Private Sub ToolStripMenuItem93_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem93.Click
+    Private Sub ToolStripMenuItem93_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("namespy off")
     End Sub
 
@@ -283,6 +283,18 @@ Public Class frmMain
                 ShowFeature(frmSubForms.Spellcaster)
             Case "Auto Eater"
                 ShowFeature(frmSubForms.AutoEater)
+            Case "Runemaker"
+                ShowFeature(frmSubForms.Runemaker)
+            Case "Auto Fisher"
+                ShowFeature(frmSubForms.AutoFisher)
+            Case "Namespy"
+                ShowFeature(frmSubForms.Namespy)
+            Case "Auto Healer"
+                ShowFeature(frmSubForms.Autohealer)
+            Case "WASD"
+                ShowFeature(frmSubForms.WASD)
+            Case "Exp Checker"
+                ShowFeature(frmSubForms.ExpChecker)
             Case Else
                 FeaturePanel.Controls.Clear()
         End Select
@@ -294,5 +306,29 @@ Public Class frmMain
 
     Private Sub ToolStripMenuItem34_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem34.Click
         AddFeature("Auto Eater")
+    End Sub
+
+    Private Sub ToolStripMenuItem37_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem37.Click
+        AddFeature("Runemaker")
+    End Sub
+
+    Private Sub ToolStripMenuItem40_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem40.Click
+        AddFeature("Auto Fisher")
+    End Sub
+
+    Private Sub ToolStripMenuItem91_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem91.Click
+        AddFeature("Namespy")
+    End Sub
+
+    Private Sub ToolStripMenuItem63_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem63.Click
+        AddFeature("Auto Healer")
+    End Sub
+
+    Private Sub ToolStripMenuItem138_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem138.Click
+        AddFeature("WASD")
+    End Sub
+
+    Private Sub ToolStripMenuItem79_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem79.Click
+        AddFeature("Exp Checker")
     End Sub
 End Class

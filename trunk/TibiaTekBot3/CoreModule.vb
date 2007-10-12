@@ -552,7 +552,7 @@ Public Module CoreModule
                 RunemakerManaPoints = 0
                 RunemakerSoulPoints = 0
                 RunemakerTimerObj.StopTimer()
-                ConsoleError("You ran out of Soul Points, therefore the Runemaker is now Disabled.")
+                MsgBox("You ran out of Soul Points, therefore the Runemaker is now Disabled.")
                 Exit Sub
             End If
             'Check that there are no items occupying the belt slot
@@ -566,7 +566,7 @@ Public Module CoreModule
                         RunemakerManaPoints = 0
                         RunemakerSoulPoints = 0
                         RunemakerTimerObj.StopTimer()
-                        ConsoleError("Runemaker is stuck. Can't move an item from belt to the backpack. Runemaker is now disabled.")
+                        MsgBox("Runemaker is stuck. Can't move an item from belt to the backpack. Runemaker is now disabled.")
                         Exit Sub
                     End If
                     SendPacketToServer(MoveObject(BeltSlot, GetInventorySlotAsLocation(InventorySlots.Belt), GetInventorySlotAsLocation(InventorySlots.Backpack), 100))
@@ -595,7 +595,7 @@ Public Module CoreModule
                 RunemakerManaPoints = 0
                 RunemakerSoulPoints = 0
                 RunemakerTimerObj.StopTimer()
-                ConsoleError("Blank Rune not found. Runemaker is now disabled.")
+                MsgBox("Blank Rune not found. Runemaker is now disabled.")
                 Exit Sub
             End If
 
@@ -614,7 +614,7 @@ Public Module CoreModule
                         RunemakerManaPoints = 0
                         RunemakerSoulPoints = 0
                         RunemakerTimerObj.StopTimer()
-                        ConsoleError("Runemaker is stuck. Can't move item from right hand to belt/arrow slot. Runemaker is now disabled.")
+                        MsgBox("Runemaker is stuck. Can't move item from right hand to belt/arrow slot. Runemaker is now disabled.")
                         Exit Sub
                     End If
                     SendPacketToServer(MoveObject(RightHandSlot, GetInventorySlotAsLocation(InventorySlots.RightHand), GetInventorySlotAsLocation(InventorySlots.Belt), Count))
@@ -631,7 +631,7 @@ Public Module CoreModule
                     RunemakerManaPoints = 0
                     RunemakerSoulPoints = 0
                     RunemakerTimerObj.StopTimer()
-                    ConsoleError("Runemaker is stuck. Can't move blank rune from container to right hand. Runemaker is now disabled.")
+                    MsgBox("Runemaker is stuck. Can't move blank rune from container to right hand. Runemaker is now disabled.")
                     Exit Sub
                 End If
                 SendPacketToServer(MoveObject(BlankRune.ID, BlankRune.Location, GetInventorySlotAsLocation(InventorySlots.RightHand), 1))
@@ -647,7 +647,7 @@ Public Module CoreModule
                     RunemakerManaPoints = 0
                     RunemakerSoulPoints = 0
                     RunemakerTimerObj.StopTimer()
-                    ConsoleError("Runemaker is stuck. Unable to conjure spell words to convert the blank rune. Runemaker is now disabled.")
+                    MsgBox("Runemaker is stuck. Unable to conjure spell words to convert the blank rune. Runemaker is now disabled.")
                     Exit Sub
                 End If
                 SendPacketToServer(Speak(RunemakerConjure.Words))
@@ -663,7 +663,7 @@ Public Module CoreModule
                     RunemakerManaPoints = 0
                     RunemakerSoulPoints = 0
                     RunemakerTimerObj.StopTimer()
-                    ConsoleError("Runemaker is stuck. Can't move " & RunemakerConjure.Name & " Rune to it's container. Runemaker is now disabled.")
+                    MsgBox("Runemaker is stuck. Can't move " & RunemakerConjure.Name & " Rune to it's container. Runemaker is now disabled.")
                     Exit Sub
                 End If
                 SendPacketToServer(MoveObject(RightHandSlot, GetInventorySlotAsLocation(InventorySlots.RightHand), BlankRune.Location, 1))
@@ -682,7 +682,7 @@ Public Module CoreModule
                         RunemakerManaPoints = 0
                         RunemakerSoulPoints = 0
                         RunemakerTimerObj.StopTimer()
-                        ConsoleError("Runemaker is stuck. Can't move object in arrow slot to your right hand. Runemaker is now disabled.")
+                        MsgBox("Runemaker is stuck. Can't move object in arrow slot to your right hand. Runemaker is now disabled.")
                         Exit Sub
                     End If
                     SendPacketToServer(MoveObject(FirstRightHandSlot, GetInventorySlotAsLocation(InventorySlots.Belt), GetInventorySlotAsLocation(InventorySlots.RightHand), Count))
@@ -710,12 +710,12 @@ Public Module CoreModule
             Dim Tiles As New List(Of TileObject)
             Dim Tile As TileObject
             If Not Container.FindItem(WormItemData, WormID, 0, 0, Consts.MaxContainers - 1) Then
-                ConsoleError("Auto Fisher couldn't find any worms, it is now Disabled.")
+                MsgBox("Auto Fisher couldn't find any worms, it is now Disabled.")
                 FisherTimerObj.StopTimer()
                 Exit Sub
             End If
             If Not Container.FindItem(FishingRodItemData, FishingRodID, 0, 0, Consts.MaxContainers - 1) Then
-                ConsoleError("Auto Fisher couldn't find any fishing rods, pausing for 10 seconds.")
+                MsgBox("Auto Fisher couldn't find any fishing rods, pausing for 10 seconds.")
                 FisherTimerObj.Interval = 10000
                 Exit Sub
             End If
@@ -1113,7 +1113,7 @@ Public Module CoreModule
                     '   MsgBox(ex.Message)
                     'End Try
                 Case WM.Ping
-                    ConsoleWrite("Pinged")
+                    StatusMessage("Pinged")
                     M.Result = 1
                 Case WM.Recv 'packetfromserver
                     Dim CurByte As Integer = 0
@@ -1153,9 +1153,9 @@ Public Module CoreModule
                     End If
                     'M.Result = 500
                 Case WM.Hooked
-                    ConsoleWrite("Hooked " & M.WParam.ToInt32 & " " & M.LParam.ToInt32)
+                    StatusMessage("Thank You for selectin TibiaTek Bot")
                 Case WM.Unhooked
-                    ConsoleWrite("UnHooked " & M.WParam.ToInt32 & " " & M.LParam.ToInt32)
+                    StatusMessage("Thank You for Using TibiaTek Bot")
                 Case WM.Uninjected
                     InjectionState = InjectionState.Uninjected
                     [Stop]()
@@ -1904,7 +1904,7 @@ Public Module CoreModule
                                 If Regex.IsMatch(Message, TradeWatcherRegex, RegexOptions.IgnoreCase) Then
                                     'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message))
                                     'For now let's just put that text to the console
-                                    ConsoleWrite("Offer: " & Name & "[" & Level & "]: " & Message)
+                                    '!!!!!ConsoleWrite("Offer: " & Name & "[" & Level & "]: " & Message)
                                 End If
                             End If
                             'Log("Message", Name & "[" & Level & "] said in " & Channel & ": " & Message) 'Logging not enabled
@@ -1928,6 +1928,7 @@ Public Module CoreModule
             'Else
             'frmMain.ConsoleWindow.Text = frmMain.ConsoleWindow.Text & vbNewLine & strString
             'End If
+            MsgBox("Using old function ConsoleWrite(). Please change it to StatusMessage()")
 
         End Sub
 
@@ -1938,6 +1939,7 @@ Public Module CoreModule
             'Else
             'frmMain.ConsoleWindow.Text = frmMain.ConsoleWindow.Text & vbNewLine & ErrorMsg
             'End If
+            MsgBox("Using old function ConsoleError(). Please change it to MsgBox or StatusMessage()")
         End Sub
 
         Public Sub ConsoleClear()
