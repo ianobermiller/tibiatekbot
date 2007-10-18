@@ -38,7 +38,9 @@ Partial Class frmHFBattlelist
         Me.ControlBox = False
         Me.Controls.Add(Me.GetCharlb)
         Me.Name = "frmHFBattlelist"
+        Me.ShowIcon = False
         Me.Text = "Select Character"
+        Me.TopMost = True
         Me.ResumeLayout(False)
 
     End Sub

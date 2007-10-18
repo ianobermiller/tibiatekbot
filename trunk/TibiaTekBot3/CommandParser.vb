@@ -45,6 +45,8 @@ Public Module CommandParserModule
                     CmdUH(MatchObj.Groups)
                 Case "healfriend"
                     CmdHealFriend(MatchObj.Groups)
+                Case "drinker", "drink", "manadrink", "manadrinker", "mf", "manafluid"
+                    CmdDrinker(MatchObj.Groups)
                 Case Else
                     MsgBox("Error: Wrong Call to Commandparser", MsgBoxStyle.OkOnly, "Error")
             End Select
@@ -710,6 +712,81 @@ Public Module CommandParserModule
         End Select
     End Sub
 
+#End Region
+
+#Region " Auto Heal Party Command "
+
+    Private Sub CmdHealParty(ByVal Arguments As GroupCollection)
+        Select Case StrToShort(Arguments(2).ToString)
+            Case 0
+                Core.HealPartyMinimumHPPercentage = 0
+                Core.HealPartyTimerObj.StopTimer()
+                Core.StatusMessage("Auto Heal Party is now Disabled.")
+                RemoveFeature("Heal Party")
+            Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.HealPartyTimerObj.StopTimer()
+                    Core.StatusMessage("Auto Heal Party is now Paused.")
+                    Exit Sub
+                End If
+                Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""?([^""]+)""?")
+                If MatchObj.Success Then
+                    Core.HealPartyMinimumHPPercentage = CInt(MatchObj.Groups(1).Value)
+                    Dim HealthType As String = ""
+                    Select Case MatchObj.Groups(2).Value.ToLower
+                        Case "ultimate healing", "uh", "adura vita"
+                            Core.HealPartyHealType = HealTypes.UltimateHealingRune
+                            HealthType = "Ultimate Healing."
+                        Case "exura sio", "heal friend", "sio"
+                            Core.HealPartyHealType = HealTypes.ExuraSio
+                            HealthType = "Exura Sio."
+                        Case "both"
+                            Core.HealPartyHealType = HealTypes.Both
+                            HealthType = "both Exura Sio and Ultimate Healing."
+                        Case Else
+                            MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdHealParty")
+                            frmSubForms.HPHptxtbox.Text = "Activate"
+                            Exit Sub
+                    End Select
+                    Core.HealPartyTimerObj.StartTimer()
+                    Core.StatusMessage("Healing party members when their hit points are less than " & Core.HealPartyMinimumHPPercentage & "% with " & HealthType)
+                Else
+                    MsgBox("Invalid percentage given. Please give percentage between 1-99")
+                    frmSubForms.HPHptxtbox.Text = "Activate"
+                End If
+        End Select
+    End Sub
+
+#End Region
+
+#Region " Auto Drinker Command "
+    Private Sub CmdDrinker(ByVal Arguments As GroupCollection)
+        Dim Value As String = Arguments(2).ToString.ToLower
+        Select Case StrToShort(Value)
+            Case 0
+                Core.AutoDrinkerTimerObj.StopTimer()
+                Core.DrinkerManaRequired = 0
+                Core.StatusMessage("Auto Drinker is now Disabled.")
+                RemoveFeature("Auto Drinker")
+            Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.AutoDrinkerTimerObj.StopTimer()
+                    Core.StatusMessage("Auto Drinker is now Paused.")
+                    Exit Sub
+                End If
+                Dim RegExp As New Regex("^[1-9]\d{1,3}$")
+                Dim Match As Match = RegExp.Match(Value)
+                If Match.Success Then
+                    Core.DrinkerManaRequired = Value
+                    Core.AutoDrinkerTimerObj.Interval = Core.Consts.HealersCheckInterval
+                    Core.AutoDrinkerTimerObj.StartTimer()
+                    Core.StatusMessage("Auto Drinker is now Enabled.")
+                Else
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdDrinker")
+                    frmSubForms.DrinkerManatxtbox.Text = "Activate"
+                End If
+        End Select
+    End Sub
 #End Region
 
 End Module

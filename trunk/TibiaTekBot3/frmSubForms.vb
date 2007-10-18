@@ -388,4 +388,53 @@ Public Class frmSubForms
         Dim SelectChar As New frmHFBattlelist
         SelectChar.Show()
     End Sub
+
+    Private Sub HPOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HPOnOff.Click
+        If HPOnOff.Text = "Activate" Then
+            If Not String.IsNullOrEmpty(HPHptxtbox.Text) And HpTypescb.SelectedIndex <> -1 Then
+                Select Case HFTypecb.SelectedIndex
+                    Case 0
+                        CommandParser("healparty " & HPHptxtbox.Text & " ""uh""")
+                        HPOnOff.Text = "Pause"
+                    Case 1
+                        CommandParser("healparty " & HPHptxtbox.Text & " ""sio""")
+                        HPOnOff.Text = "Pause"
+                    Case 2
+                        CommandParser("healparty " & HPHptxtbox.Text & " ""both""")
+                        HPOnOff.Text = "Pause"
+                    Case Else
+                        MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+                End Select
+            Else
+                MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End If
+        Else
+            CommandParser("healparty pause")
+            HPOnOff.Text = "Activate"
+        End If
+    End Sub
+
+    Private Sub HPStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HPStop.Click
+        CommandParser("healparty off")
+        HPOnOff.Text = "Activate"
+    End Sub
+
+    Private Sub DrinkerOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DrinkerOnOff.Click
+        If DrinkerOnOff.Text = "Activate" Then
+            If Not String.IsNullOrEmpty(DrinkerManatxtbox.Text) Then
+                CommandParser("drinker " & DrinkerManatxtbox.Text)
+                DrinkerOnOff.Text = "Pause"
+            Else
+                MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End If
+        Else
+            CommandParser("drinker pause")
+            DrinkerOnOff.Text = "Activate"
+        End If
+    End Sub
+
+    Private Sub DrinkerStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DrinkerStop.Click
+        CommandParser("drinker off")
+        DrinkerOnOff.Text = "Activate"
+    End Sub
 End Class

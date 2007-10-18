@@ -107,4 +107,14 @@ Public Module MiscUtils
         Core.Tibia.Memory.Write(CodeCave, &HFFEBED00, 4) ' ---"----
     End Sub
 
+    Public Function IsPrivateServer() As Boolean
+        Dim ServerAddress As String = ""
+        Core.Tibia.Memory.Read(Core.Consts.ptrServerAddressBegin, ServerAddress)
+        If ServerAddress = "login01.tibia.com" Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+
 End Module

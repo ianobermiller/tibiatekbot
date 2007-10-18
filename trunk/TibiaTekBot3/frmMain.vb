@@ -306,6 +306,10 @@ Public Class frmMain
                 ShowFeature(frmSubForms.AutoUHer)
             Case "Heal Friend"
                 ShowFeature(frmSubForms.HealFriend)
+            Case "Heal Party"
+                ShowFeature(frmSubForms.HealParty)
+            Case "Auto Drinker"
+                ShowFeature(frmSubForms.AutoDrinker)
             Case Else
                 FeaturePanel.Controls.Clear()
         End Select
@@ -364,7 +368,7 @@ Public Class frmMain
     End Sub
 
     Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-
+        MsgBox(Core.DatInfo.GetInfo(Core.Definitions.GetItemID("Rope")).HasExtraByte)
     End Sub
 
     Private Sub AMuletNecklaceChangerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AMuletNecklaceChangerToolStripMenuItem.Click
@@ -377,5 +381,13 @@ Public Class frmMain
 
     Private Sub ToolStripMenuItem69_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem69.Click
         AddFeature("Heal Friend")
+    End Sub
+
+    Private Sub ToolStripMenuItem72_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem72.Click
+        AddFeature("Heal Party")
+    End Sub
+
+    Private Sub ToolStripMenuItem75_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem75.Click
+        AddFeature("Auto Drinker")
     End Sub
 End Class

@@ -807,4 +807,11 @@ Public Module Constants
         ExuraSio
         Both
     End Enum
+
+    Public Enum Fluids As ULong
+        'Another ones
+        Water = &H1
+        Mana = &HA
+        ManaOpenTibia = &H2
+    End Enum
 End Module
