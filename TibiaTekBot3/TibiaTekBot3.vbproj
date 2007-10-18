@@ -95,6 +95,12 @@
     <Compile Include="frmSubForms.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmHFBattlelist.Designer.vb">
+      <DependentUpon>frmHFBattlelist.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHFBattlelist.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Items.vb" />
     <Compile Include="Lang.vb" />
     <Compile Include="MapReader.vb" />
@@ -130,6 +136,10 @@
     <Compile Include="Win32API.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmHFBattlelist.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmHFBattlelist.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmMain.vb</DependentUpon>

@@ -101,14 +101,15 @@ Partial Class frmSubForms
         Me.UHerHptxtbox = New System.Windows.Forms.TextBox
         Me.UHerHplbl = New System.Windows.Forms.Label
         Me.HealFriend = New System.Windows.Forms.Panel
+        Me.HFStop = New System.Windows.Forms.Button
+        Me.HFOnOff = New System.Windows.Forms.Button
+        Me.HFTypecb = New System.Windows.Forms.ComboBox
+        Me.HFTypelbl = New System.Windows.Forms.Label
+        Me.HFHptxtbox = New System.Windows.Forms.TextBox
+        Me.HFHplbl = New System.Windows.Forms.Label
         Me.HFNametxtbox = New System.Windows.Forms.TextBox
         Me.HFNamelbl = New System.Windows.Forms.Label
-        Me.HFHplbl = New System.Windows.Forms.Label
-        Me.HFHptxtbox = New System.Windows.Forms.TextBox
-        Me.HFTypelbl = New System.Windows.Forms.Label
-        Me.HFTypecb = New System.Windows.Forms.ComboBox
-        Me.HFOnOff = New System.Windows.Forms.Button
-        Me.HFStop = New System.Windows.Forms.Button
+        Me.HFGetBL = New System.Windows.Forms.Button
         Me.Spellcaster.SuspendLayout()
         Me.AutoEater.SuspendLayout()
         Me.Runemaker.SuspendLayout()
@@ -882,6 +883,7 @@ Partial Class frmSubForms
         '
         'HealFriend
         '
+        Me.HealFriend.Controls.Add(Me.HFGetBL)
         Me.HealFriend.Controls.Add(Me.HFStop)
         Me.HealFriend.Controls.Add(Me.HFOnOff)
         Me.HealFriend.Controls.Add(Me.HFTypecb)
@@ -892,77 +894,86 @@ Partial Class frmSubForms
         Me.HealFriend.Controls.Add(Me.HFNamelbl)
         Me.HealFriend.Location = New System.Drawing.Point(580, 384)
         Me.HealFriend.Name = "HealFriend"
-        Me.HealFriend.Size = New System.Drawing.Size(252, 158)
+        Me.HealFriend.Size = New System.Drawing.Size(252, 134)
         Me.HealFriend.TabIndex = 15
         '
-        'HFNametxtbox
+        'HFStop
         '
-        Me.HFNametxtbox.Location = New System.Drawing.Point(0, 16)
-        Me.HFNametxtbox.Name = "HFNametxtbox"
-        Me.HFNametxtbox.Size = New System.Drawing.Size(128, 20)
-        Me.HFNametxtbox.TabIndex = 1
-        '
-        'HFNamelbl
-        '
-        Me.HFNamelbl.AutoSize = True
-        Me.HFNamelbl.Location = New System.Drawing.Point(-1, 0)
-        Me.HFNamelbl.Name = "HFNamelbl"
-        Me.HFNamelbl.Size = New System.Drawing.Size(74, 13)
-        Me.HFNamelbl.TabIndex = 0
-        Me.HFNamelbl.Text = "Friend's Name"
-        '
-        'HFHplbl
-        '
-        Me.HFHplbl.AutoSize = True
-        Me.HFHplbl.Location = New System.Drawing.Point(-1, 43)
-        Me.HFHplbl.Name = "HFHplbl"
-        Me.HFHplbl.Size = New System.Drawing.Size(165, 13)
-        Me.HFHplbl.TabIndex = 2
-        Me.HFHplbl.Text = "Minimum Hitpoins (or Percentage)"
-        '
-        'HFHptxtbox
-        '
-        Me.HFHptxtbox.Location = New System.Drawing.Point(0, 60)
-        Me.HFHptxtbox.Name = "HFHptxtbox"
-        Me.HFHptxtbox.Size = New System.Drawing.Size(130, 20)
-        Me.HFHptxtbox.TabIndex = 3
-        '
-        'HFTypelbl
-        '
-        Me.HFTypelbl.AutoSize = True
-        Me.HFTypelbl.Location = New System.Drawing.Point(-1, 85)
-        Me.HFTypelbl.Name = "HFTypelbl"
-        Me.HFTypelbl.Size = New System.Drawing.Size(65, 13)
-        Me.HFTypelbl.TabIndex = 4
-        Me.HFTypelbl.Text = "Healer Type"
-        '
-        'HFTypecb
-        '
-        Me.HFTypecb.FormattingEnabled = True
-        Me.HFTypecb.Items.AddRange(New Object() {"UH-Rune", "Exura Sio-Spell", "Both"})
-        Me.HFTypecb.Location = New System.Drawing.Point(-2, 103)
-        Me.HFTypecb.Name = "HFTypecb"
-        Me.HFTypecb.Size = New System.Drawing.Size(113, 21)
-        Me.HFTypecb.TabIndex = 5
-        Me.HFTypecb.Text = "Healing Type"
+        Me.HFStop.Location = New System.Drawing.Point(147, 104)
+        Me.HFStop.Name = "HFStop"
+        Me.HFStop.Size = New System.Drawing.Size(84, 20)
+        Me.HFStop.TabIndex = 7
+        Me.HFStop.Text = "Stop"
+        Me.HFStop.UseVisualStyleBackColor = True
         '
         'HFOnOff
         '
-        Me.HFOnOff.Location = New System.Drawing.Point(169, 15)
+        Me.HFOnOff.Location = New System.Drawing.Point(147, 78)
         Me.HFOnOff.Name = "HFOnOff"
         Me.HFOnOff.Size = New System.Drawing.Size(84, 20)
         Me.HFOnOff.TabIndex = 6
         Me.HFOnOff.Text = "Activate"
         Me.HFOnOff.UseVisualStyleBackColor = True
         '
-        'HFStop
+        'HFTypecb
         '
-        Me.HFStop.Location = New System.Drawing.Point(169, 43)
-        Me.HFStop.Name = "HFStop"
-        Me.HFStop.Size = New System.Drawing.Size(84, 20)
-        Me.HFStop.TabIndex = 7
-        Me.HFStop.Text = "Stop"
-        Me.HFStop.UseVisualStyleBackColor = True
+        Me.HFTypecb.FormattingEnabled = True
+        Me.HFTypecb.Items.AddRange(New Object() {"UH-Rune", "Exura Sio-Spell", "Both"})
+        Me.HFTypecb.Location = New System.Drawing.Point(0, 103)
+        Me.HFTypecb.Name = "HFTypecb"
+        Me.HFTypecb.Size = New System.Drawing.Size(113, 21)
+        Me.HFTypecb.TabIndex = 5
+        Me.HFTypecb.Text = "Healing Type"
+        '
+        'HFTypelbl
+        '
+        Me.HFTypelbl.AutoSize = True
+        Me.HFTypelbl.Location = New System.Drawing.Point(0, 85)
+        Me.HFTypelbl.Name = "HFTypelbl"
+        Me.HFTypelbl.Size = New System.Drawing.Size(65, 13)
+        Me.HFTypelbl.TabIndex = 4
+        Me.HFTypelbl.Text = "Healer Type"
+        '
+        'HFHptxtbox
+        '
+        Me.HFHptxtbox.Location = New System.Drawing.Point(0, 60)
+        Me.HFHptxtbox.Name = "HFHptxtbox"
+        Me.HFHptxtbox.Size = New System.Drawing.Size(113, 20)
+        Me.HFHptxtbox.TabIndex = 3
+        '
+        'HFHplbl
+        '
+        Me.HFHplbl.AutoSize = True
+        Me.HFHplbl.Location = New System.Drawing.Point(0, 43)
+        Me.HFHplbl.Name = "HFHplbl"
+        Me.HFHplbl.Size = New System.Drawing.Size(162, 13)
+        Me.HFHplbl.TabIndex = 2
+        Me.HFHplbl.Text = "Minimum Percentage of Hitpoints"
+        '
+        'HFNametxtbox
+        '
+        Me.HFNametxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.HFNametxtbox.Name = "HFNametxtbox"
+        Me.HFNametxtbox.Size = New System.Drawing.Size(113, 20)
+        Me.HFNametxtbox.TabIndex = 1
+        '
+        'HFNamelbl
+        '
+        Me.HFNamelbl.AutoSize = True
+        Me.HFNamelbl.Location = New System.Drawing.Point(0, 0)
+        Me.HFNamelbl.Name = "HFNamelbl"
+        Me.HFNamelbl.Size = New System.Drawing.Size(74, 13)
+        Me.HFNamelbl.TabIndex = 0
+        Me.HFNamelbl.Text = "Friend's Name"
+        '
+        'HFGetBL
+        '
+        Me.HFGetBL.Location = New System.Drawing.Point(129, 15)
+        Me.HFGetBL.Name = "HFGetBL"
+        Me.HFGetBL.Size = New System.Drawing.Size(102, 20)
+        Me.HFGetBL.TabIndex = 8
+        Me.HFGetBL.Text = "Get from Battlelist"
+        Me.HFGetBL.UseVisualStyleBackColor = True
         '
         'frmSubForms
         '
@@ -1112,4 +1123,5 @@ Partial Class frmSubForms
     Friend WithEvents HFTypelbl As System.Windows.Forms.Label
     Friend WithEvents HFHptxtbox As System.Windows.Forms.TextBox
     Friend WithEvents HFHplbl As System.Windows.Forms.Label
+    Friend WithEvents HFGetBL As System.Windows.Forms.Button
 End Class

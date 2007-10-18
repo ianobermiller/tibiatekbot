@@ -668,13 +668,20 @@ Public Module CommandParserModule
                 Core.HealFriendCharacterName = ""
                 Core.HealFriendHealthPercentage = 0
                 Core.HealFriendTimerObj.StopTimer()
+                RemoveFeature("Heal Friend")
                 Core.StatusMessage("Auto Heal Friend is now Disabled.")
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.HealFriendTimerObj.StopTimer()
+                    Core.StatusMessage("Auto Heal Friend is now Paused.")
+                    Exit Sub
+                End If
                 Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""([^""]+)""\s+""([^""]+)""?")
                 If MatchObj.Success Then
                     Core.HealFriendHealthPercentage = CUShort(MatchObj.Groups(1).ToString)
                     If Core.HealFriendHealthPercentage < 0 Or Core.HealFriendHealthPercentage > 99 Then
                         MsgBox("Invalid Percentage. Please specify persentages between 1-99")
+                        frmSubForms.HFOnOff.Text = "Activate"
                         Exit Sub
                     End If
                     Dim HealthType As String = ""
@@ -690,6 +697,7 @@ Public Module CommandParserModule
                             HealthType = "both Exura Sio and Ultimate Healing."
                         Case Else
                             MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdHealFriend")
+                            frmSubForms.HFOnOff.Text = "Activate"
                             Exit Sub
                     End Select
                     Core.HealFriendCharacterName = MatchObj.Groups(3).Value
@@ -697,6 +705,7 @@ Public Module CommandParserModule
                     Core.StatusMessage("Healing '" & Core.HealFriendCharacterName & "' when his/her hit points are less than " & Core.HealFriendHealthPercentage & "% with " & HealthType)
                 Else
                     MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdHealFriend")
+                    frmSubForms.HFOnOff.Text = "Activate"
                 End If
         End Select
     End Sub

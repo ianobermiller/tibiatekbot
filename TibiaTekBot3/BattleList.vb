@@ -248,7 +248,7 @@ Public Module BattleListModule
                 Core.Tibia.Memory.Read(Core.Consts.ptrBattleListBegin + (IndexPosition * Core.Consts.BLCoordYOffset), CurrentLoc.Y, 2)
                 Core.Tibia.Memory.Read(Core.Consts.ptrBattleListBegin + (IndexPosition * Core.Consts.BLCoordZOffset), CurrentLoc.Z, 1)
 
-                If LocationDefinition.Equals(CurrentLoc, Loc) Then
+                If CurrentLoc.X = Loc.X And CurrentLoc.Y = Loc.Y And CurrentLoc.Z = Loc.Z Then
                     If MustBeOnScreen AndAlso Not IsOnScreen Then Return False
                     Return True
                 End If
