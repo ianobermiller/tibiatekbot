@@ -356,18 +356,36 @@ Public Class frmSubForms
 
     Private Sub HFOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HFOnOff.Click
         If HFOnOff.Text = "Activate" Then
-            If Not String.IsNullOrEmpty(HFHptxtbox.Text) And Not String.IsNullOrEmpty(HFNametxtbox.Text) And Not HFTypecb.SelectedIndex <> -1 Then
+            If Not String.IsNullOrEmpty(HFHptxtbox.Text) And Not String.IsNullOrEmpty(HFNametxtbox.Text) And HFTypecb.SelectedIndex <> -1 Then
                 Select Case HFTypecb.SelectedIndex
                     Case 0
                         CommandParser("healfriend " & HFHptxtbox.Text & " ""uh"" " & """" & HFNametxtbox.Text & """")
+                        HFOnOff.Text = "Pause"
                     Case 1
                         CommandParser("healfriend " & HFHptxtbox.Text & " ""sio"" " & """" & HFNametxtbox.Text & """")
+                        HFOnOff.Text = "Pause"
                     Case 2
                         CommandParser("healfriend " & HFHptxtbox.Text & " ""both"" " & """" & HFNametxtbox.Text & """")
+                        HFOnOff.Text = "Pause"
                     Case Else
                         MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
                 End Select
+            Else
+                MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
             End If
+        Else
+            CommandParser("healfriend pause")
+            HFOnOff.Text = "Activate"
         End If
+    End Sub
+
+    Private Sub HFStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HFStop.Click
+        CommandParser("healfriend off")
+        HFOnOff.Text = "Activate"
+    End Sub
+
+    Private Sub HFGetBL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HFGetBL.Click
+        Dim SelectChar As New frmHFBattlelist
+        SelectChar.Show()
     End Sub
 End Class

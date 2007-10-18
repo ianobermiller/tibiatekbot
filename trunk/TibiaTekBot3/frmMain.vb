@@ -304,6 +304,8 @@ Public Class frmMain
                 ShowFeature(frmSubForms.Changer)
             Case "Auto UHer"
                 ShowFeature(frmSubForms.AutoUHer)
+            Case "Heal Friend"
+                ShowFeature(frmSubForms.HealFriend)
             Case Else
                 FeaturePanel.Controls.Clear()
         End Select
@@ -371,5 +373,9 @@ Public Class frmMain
 
     Private Sub ToolStripMenuItem66_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem66.Click
         AddFeature("Auto UHer")
+    End Sub
+
+    Private Sub ToolStripMenuItem69_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem69.Click
+        AddFeature("Heal Friend")
     End Sub
 End Class

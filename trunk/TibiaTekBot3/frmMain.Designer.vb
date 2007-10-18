@@ -45,6 +45,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem26 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem28 = New System.Windows.Forms.ToolStripMenuItem
+        Me.AMuletNecklaceChangerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem29 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem31 = New System.Windows.Forms.ToolStripMenuItem
@@ -68,8 +69,6 @@ Partial Class frmMain
         Me.ToolStripMenuItem63 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem66 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem69 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem70 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem71 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem72 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem73 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem74 = New System.Windows.Forms.ToolStripMenuItem
@@ -166,7 +165,6 @@ Partial Class frmMain
         Me.FtsOnGroup = New System.Windows.Forms.GroupBox
         Me.FeaturePanel = New System.Windows.Forms.Panel
         Me.FtsOnBox = New System.Windows.Forms.ListBox
-        Me.AMuletNecklaceChangerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip.SuspendLayout()
         Me.CMMenu.SuspendLayout()
         Me.CMAbout.SuspendLayout()
@@ -201,7 +199,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem156.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartToolStripMenuItem, Me.PauseToolStripMenuItem, Me.StopToolStripMenuItem})
         Me.ToolStripMenuItem156.Name = "ToolStripMenuItem156"
-        Me.ToolStripMenuItem156.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem156.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem156.Text = "&Bot State"
         '
         'StartToolStripMenuItem
@@ -225,7 +223,7 @@ Partial Class frmMain
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(148, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         'ToolStripMenuItem1
         '
@@ -239,7 +237,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem5, Me.ToolStripMenuItem6, Me.ToolStripMenuItem7})
         Me.ToolStripMenuItem4.Enabled = False
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(195, 22)
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(208, 22)
         Me.ToolStripMenuItem4.Text = "Configuration &Manager"
         '
         'ToolStripMenuItem5
@@ -265,7 +263,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem8.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem9, Me.ToolStripMenuItem10, Me.ToolStripMenuItem11})
         Me.ToolStripMenuItem8.Enabled = False
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(195, 22)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(208, 22)
         Me.ToolStripMenuItem8.Text = "&Auto Looter"
         '
         'ToolStripMenuItem9
@@ -291,7 +289,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem12.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem13, Me.ToolStripMenuItem14})
         Me.ToolStripMenuItem12.Enabled = False
         Me.ToolStripMenuItem12.Name = "ToolStripMenuItem12"
-        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(195, 22)
+        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(208, 22)
         Me.ToolStripMenuItem12.Text = "Auto &Stacker"
         '
         'ToolStripMenuItem13
@@ -309,7 +307,7 @@ Partial Class frmMain
         'ToolStripMenuItem15
         '
         Me.ToolStripMenuItem15.Name = "ToolStripMenuItem15"
-        Me.ToolStripMenuItem15.Size = New System.Drawing.Size(195, 22)
+        Me.ToolStripMenuItem15.Size = New System.Drawing.Size(208, 22)
         Me.ToolStripMenuItem15.Text = "&Light Effects"
         '
         'ToolStripMenuItem25
@@ -317,7 +315,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem25.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem26, Me.ToolStripMenuItem27})
         Me.ToolStripMenuItem25.Enabled = False
         Me.ToolStripMenuItem25.Name = "ToolStripMenuItem25"
-        Me.ToolStripMenuItem25.Size = New System.Drawing.Size(195, 22)
+        Me.ToolStripMenuItem25.Size = New System.Drawing.Size(208, 22)
         Me.ToolStripMenuItem25.Text = "Ammunition &Restacker"
         '
         'ToolStripMenuItem26
@@ -335,14 +333,20 @@ Partial Class frmMain
         'ToolStripMenuItem28
         '
         Me.ToolStripMenuItem28.Name = "ToolStripMenuItem28"
-        Me.ToolStripMenuItem28.Size = New System.Drawing.Size(195, 22)
+        Me.ToolStripMenuItem28.Size = New System.Drawing.Size(208, 22)
         Me.ToolStripMenuItem28.Text = "&FPS Changer"
+        '
+        'AMuletNecklaceChangerToolStripMenuItem
+        '
+        Me.AMuletNecklaceChangerToolStripMenuItem.Name = "AMuletNecklaceChangerToolStripMenuItem"
+        Me.AMuletNecklaceChangerToolStripMenuItem.Size = New System.Drawing.Size(208, 22)
+        Me.AMuletNecklaceChangerToolStripMenuItem.Text = "A&mulet/Necklace Changer"
         '
         'ToolStripMenuItem29
         '
         Me.ToolStripMenuItem29.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.ToolStripMenuItem31, Me.ToolStripMenuItem34, Me.ToolStripMenuItem37, Me.ToolStripMenuItem40, Me.ToolStripMenuItem44, Me.ToolStripMenuItem47, Me.ToolStripMenuItem53, Me.ToolStripMenuItem56, Me.AutoLogToolStripMenuItem, Me.AutoConnectToolStripMenuItem, Me.AutoBackpackOpenerToolStripMenuItem})
         Me.ToolStripMenuItem29.Name = "ToolStripMenuItem29"
-        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem29.Text = "&AFK Tools"
         '
         'ToolStripMenuItem30
@@ -482,23 +486,9 @@ Partial Class frmMain
         '
         'ToolStripMenuItem69
         '
-        Me.ToolStripMenuItem69.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem70, Me.ToolStripMenuItem71})
-        Me.ToolStripMenuItem69.Enabled = False
         Me.ToolStripMenuItem69.Name = "ToolStripMenuItem69"
         Me.ToolStripMenuItem69.Size = New System.Drawing.Size(173, 22)
         Me.ToolStripMenuItem69.Text = "Auto Heal &Friend"
-        '
-        'ToolStripMenuItem70
-        '
-        Me.ToolStripMenuItem70.Name = "ToolStripMenuItem70"
-        Me.ToolStripMenuItem70.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem70.Text = "&On"
-        '
-        'ToolStripMenuItem71
-        '
-        Me.ToolStripMenuItem71.Name = "ToolStripMenuItem71"
-        Me.ToolStripMenuItem71.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem71.Text = "O&ff"
         '
         'ToolStripMenuItem72
         '
@@ -544,7 +534,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem78.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem79, Me.ToolStripMenuItem85, Me.ToolStripMenuItem86, Me.ToolStripMenuItem87, Me.ToolStripMenuItem91, Me.ToolStripMenuItem94, Me.ToolStripMenuItem102, Me.ToolStripMenuItem103, Me.StatisticsSkillsLevelEtcToolStripMenuItem, Me.FloorSpyToolStripMenuItem})
         Me.ToolStripMenuItem78.Name = "ToolStripMenuItem78"
-        Me.ToolStripMenuItem78.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem78.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem78.Text = "&Info Tools"
         '
         'ToolStripMenuItem79
@@ -686,7 +676,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem104.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem105, Me.ToolStripMenuItem116, Me.ToolStripMenuItem122})
         Me.ToolStripMenuItem104.Name = "ToolStripMenuItem104"
-        Me.ToolStripMenuItem104.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem104.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem104.Text = "&Training Tools"
         '
         'ToolStripMenuItem105
@@ -821,7 +811,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem125.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem126, Me.ToolStripMenuItem129, Me.ToolStripMenuItem132})
         Me.ToolStripMenuItem125.Name = "ToolStripMenuItem125"
-        Me.ToolStripMenuItem125.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem125.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem125.Text = "&Fun Tools"
         '
         'ToolStripMenuItem126
@@ -900,7 +890,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem137.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem138, Me.ToolStripMenuItem158, Me.ScreenshooterToolStripMenuItem, Me.ToolStripMenuItem141, Me.ToolStripMenuItem142, Me.ToolStripMenuItem143})
         Me.ToolStripMenuItem137.Name = "ToolStripMenuItem137"
-        Me.ToolStripMenuItem137.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem137.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem137.Text = "&Miscellaneous"
         '
         'ToolStripMenuItem138
@@ -979,7 +969,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem149.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem150, Me.ToolStripMenuItem151})
         Me.ToolStripMenuItem149.Name = "ToolStripMenuItem149"
-        Me.ToolStripMenuItem149.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem149.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem149.Text = "&Hide"
         '
         'ToolStripMenuItem150
@@ -999,13 +989,13 @@ Partial Class frmMain
         '
         Me.HelpToolStripMenuItem.Enabled = False
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.HelpToolStripMenuItem.Text = "H&elp"
         '
         'ToolStripMenuItem152
         '
         Me.ToolStripMenuItem152.Name = "ToolStripMenuItem152"
-        Me.ToolStripMenuItem152.Size = New System.Drawing.Size(151, 22)
+        Me.ToolStripMenuItem152.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem152.Text = "&Close"
         '
         'OptionsToolStripMenuItem
@@ -1129,12 +1119,6 @@ Partial Class frmMain
         Me.FtsOnBox.Size = New System.Drawing.Size(132, 212)
         Me.FtsOnBox.TabIndex = 6
         '
-        'AMuletNecklaceChangerToolStripMenuItem
-        '
-        Me.AMuletNecklaceChangerToolStripMenuItem.Name = "AMuletNecklaceChangerToolStripMenuItem"
-        Me.AMuletNecklaceChangerToolStripMenuItem.Size = New System.Drawing.Size(208, 22)
-        Me.AMuletNecklaceChangerToolStripMenuItem.Text = "A&mulet/Necklace Changer"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1200,8 +1184,6 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem63 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem66 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem69 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem70 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem71 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem72 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem73 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem74 As System.Windows.Forms.ToolStripMenuItem

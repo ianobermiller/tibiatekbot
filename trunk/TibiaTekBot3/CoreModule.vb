@@ -1072,6 +1072,7 @@ Public Module CoreModule
                 If Not Container.FindItem(Amulet, AmuletId, 0, 0, Consts.MaxContainers - 1) Then
                     Core.StatusMessage("Couldn't Find " & Definitions.GetItemName(AmuletId) & ". Amulet/Necklace Changer is now Stopped.")
                     AmuletChangerTimerObj.StopTimer()
+                    frmSubForms.ChangerOnOff.Checked = False
                     Exit Sub
                 End If
                 Core.SendPacketToServer(PacketUtils.MoveObject(Amulet, GetInventorySlotAsLocation(InventorySlots.Neck), 1))
@@ -1136,7 +1137,6 @@ Public Module CoreModule
         Private Sub UHOnLocation(ByVal Loc As LocationDefinition)
             Dim BL As New BattleList
             BL.Reset()
-            BL.Find(Loc)
             Dim UHRuneID As UShort = Definitions.GetItemID("Ultimate Healing")
             Core.SendPacketToServer(UseObjectOnPlayerAsHotkey(UHRuneID, Loc))
             Core.StatusMessage("Uhed player: " & BL.GetName)
