@@ -82,4 +82,29 @@ Public Module MiscUtils
         frmMain.FeaturePanel.Controls.Add(FeatureControlPanel)
     End Sub
 
+    Public Sub InjectLastAttackedId()
+        Dim CodeCave As Integer = &H5920B3
+        'I'd like to tell about this function first. Because we can't surely find any address
+        'where is the last attacked Id we need to create one. So I find the place where attacked
+        'Id is writed to the memory, and made code cave where I write that value in another place of
+        'the memory if it's not zero
+        'Things to know: Adr where Tibia put's atkd id: 450DC3
+        '                New LastAttackedEntityId: 76DA10
+        '                CodeCave: 5920B3
+        '                Continue Old Code: 450DC9
+        'Offset 450DC3 . The place where Tibia puts attacked Id to the memory (adr: 60EA9C)
+
+        Core.Tibia.Memory.Write(&H450DC3, &H1412EBE9, 5) ' JMP 592040
+        Core.Tibia.Memory.Write(&H450DC8, &H90, 1) 'NOP
+        'Offset 592040 . Our codecave
+        Core.Tibia.Memory.Write(CodeCave, &HFE83, 3) : CodeCave += 3 'CMP ESI,0
+        Core.Tibia.Memory.Write(CodeCave, &H674, 2) : CodeCave += 2 'JE 59204B
+        Core.Tibia.Memory.Write(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [0076DA10],ESI
+        Core.Tibia.Memory.Write(CodeCave, &H76DA10, 4) : CodeCave += 4 '---------"--------
+        Core.Tibia.Memory.Write(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [60599C],ESI
+        Core.Tibia.Memory.Write(CodeCave, &H60EA9C, 4) : CodeCave += 4 '------"---------
+        Core.Tibia.Memory.Write(CodeCave, &HE9, 1) : CodeCave += 1 'JMP 450DC9
+        Core.Tibia.Memory.Write(CodeCave, &HFFEBED00, 4) ' ---"----
+    End Sub
+
 End Module

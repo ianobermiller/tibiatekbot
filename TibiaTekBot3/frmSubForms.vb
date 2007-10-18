@@ -1,5 +1,5 @@
 Public Class frmSubForms
-    'TODO: I'm sure there's better way to do this than the way I'm usin (form..)
+    'TODO: Improve HealFriend. Add Smart healer (give mana points when using uh and when sio)
     Private Sub SpellOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SpellOnOff.Click
         If SpellOnOff.Text = "Activate" Then
             If SpellNametxtbox.Text <> vbNullString And SpellManatxtbox.Text <> vbNullString Then
@@ -164,8 +164,210 @@ Public Class frmSubForms
     End Sub
 
     Private Sub ExpStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExpStop.Click
-        CommandParser("exp stop")
+        CommandParser("exp end")
         ExpCreaturesOnOffchk.Checked = False
         ExpOnOffchk.Checked = False
+    End Sub
+
+    Private Sub LightModecb_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LightModecb.SelectedIndexChanged
+        If LightOnOffchk.Checked = True Then
+            Select Case LightModecb.SelectedIndex
+                Case 0
+                    CommandParser("light on")
+                Case 1
+                    CommandParser("light torch")
+                Case 2
+                    CommandParser("light great torch")
+                Case 3
+                    CommandParser("light ultimate torch")
+                Case 4
+                    CommandParser("light utevo lux")
+                Case 5
+                    CommandParser("light utevo gran lux")
+                Case 6
+                    CommandParser("light utevo vis lux")
+                Case 7
+                    CommandParser("light light wand")
+                Case Else
+                    MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End Select
+        End If
+    End Sub
+
+    Private Sub LightOnOffchk_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LightOnOffchk.CheckedChanged
+        If LightOnOffchk.Checked = True Then
+            Select Case LightModecb.SelectedIndex
+                Case 0
+                    CommandParser("light on")
+                Case 1
+                    CommandParser("light torch")
+                Case 2
+                    CommandParser("light great torch")
+                Case 3
+                    CommandParser("light ultimate torch")
+                Case 4
+                    CommandParser("light utevo lux")
+                Case 5
+                    CommandParser("light utevo gran lux")
+                Case 6
+                    CommandParser("light utevo vis lux")
+                Case 7
+                    CommandParser("light light wand")
+                Case Else
+                    MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End Select
+        Else
+            CommandParser("light pause")
+        End If
+    End Sub
+
+    Private Sub LightStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LightStop.Click
+        CommandParser("light off")
+        LightModecb.Text = "Select Light Mode"
+        LightOnOffchk.Checked = False
+    End Sub
+
+    Private Sub AdvertiserOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AdvertiserOnOff.Click
+        If AdvertiserOnOff.Text = "Activate" Then
+            If Not String.IsNullOrEmpty(AdvertiseMsgtxtbox.Text) Then
+                CommandParser("advertiser """ & AdvertiseMsgtxtbox.Text & """")
+                AdvertiserOnOff.Text = "Pause"
+            Else
+                MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End If
+        Else
+            CommandParser("advertiser pause")
+            AdvertiserOnOff.Text = "Activate"
+        End If
+    End Sub
+
+    Private Sub AdvertiseStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AdvertiseStop.Click
+        CommandParser("advertiser off")
+        AdvertiseMsgtxtbox.Clear()
+        AdvertiserOnOff.Text = "Activate"
+    End Sub
+
+    Private Sub WatcherOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles WatcherOnOff.Click
+        If WatcherOnOff.Text = "Activate" Then
+            If Not String.IsNullOrEmpty(WatcherExptxtbox.Text) Then
+                CommandParser("watcher " & WatcherExptxtbox.Text)
+                WatcherOnOff.Text = "Pause"
+            Else
+                MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End If
+        Else
+            CommandParser("watcher pause")
+            WatcherOnOff.Text = "Activate"
+        End If
+    End Sub
+
+    Private Sub WatcherStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles WatcherStop.Click
+        CommandParser("watcher off")
+        WatcherExptxtbox.Text = ""
+        WatcherOnOff.Text = "Activate"
+    End Sub
+
+    Private Sub WatcherOpen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles WatcherOpen.Click
+        Try
+            Process.Start(Application.StartupPath & "\Offers.txt")
+        Catch
+            MsgBox("Couldn't Open Offers.txt")
+        End Try
+
+
+    End Sub
+
+    Private Sub FPSOnOffcb_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FPSOnOffcb.CheckedChanged
+        If FPSOnOffcb.Checked = True Then
+            CommandParser("fpschanger on")
+        Else
+            CommandParser("fpschanger pause")
+        End If
+    End Sub
+
+    Private Sub FPSStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FPSStop.Click
+        CommandParser("fpschanger off")
+    End Sub
+
+    Private Sub UploaderOnOffcb_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UploaderOnOffcb.CheckedChanged
+        If UploaderOnOffcb.Checked = True Then
+            CommandParser("statsuploader on")
+        Else
+            CommandParser("statsuploader pause")
+        End If
+    End Sub
+
+    Private Sub UploaderStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UploaderStop.Click
+        CommandParser("statsuploader off")
+    End Sub
+
+    Private Sub ChangerOnOff_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChangerOnOff.CheckedChanged
+        If ChangerOnOff.Checked = True Then
+            Select Case ChangerAmuletscb.SelectedIndex
+                Case 0
+                    CommandParser("changer on")
+                Case 1
+                    CommandParser("changer Stone Skin Amulet")
+                Case 2
+                    CommandParser("changer Bronze Amulet")
+                Case 3
+                    CommandParser("changer Elven Amulet")
+                Case 4
+                    CommandParser("changer Protection Amulet")
+                Case 5
+                    CommandParser("changer Silver Amulet")
+                Case 6
+                    CommandParser("chaner Strange Talisman")
+                Case 7
+                    CommandParser("Dragon Necklace")
+                Case 8
+                    CommandParser("Garlic Necklace")
+                Case Else
+                    MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End Select
+        Else
+            CommandParser("changer pause")
+        End If
+    End Sub
+
+    Private Sub ChangerStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChangerStop.Click
+        CommandParser("changer off")
+        ChangerOnOff.Checked = False
+    End Sub
+
+    Private Sub UHerOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UHerOnOff.Click
+        If UHerOnOff.Text = "Activate" Then
+            If Not String.IsNullOrEmpty(UHerHptxtbox.Text) Then
+                CommandParser("uher " & UHerHptxtbox.Text)
+                UHerOnOff.Text = "Pause"
+            Else
+                MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End If
+        Else
+            CommandParser("uher pause")
+            UHerOnOff.Text = "Activate"
+        End If
+    End Sub
+
+    Private Sub UHerStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UHerStop.Click
+        CommandParser("uher off")
+        UHerOnOff.Text = "Activate"
+    End Sub
+
+    Private Sub HFOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HFOnOff.Click
+        If HFOnOff.Text = "Activate" Then
+            If Not String.IsNullOrEmpty(HFHptxtbox.Text) And Not String.IsNullOrEmpty(HFNametxtbox.Text) And Not HFTypecb.SelectedIndex <> -1 Then
+                Select Case HFTypecb.SelectedIndex
+                    Case 0
+                        CommandParser("healfriend " & HFHptxtbox.Text & " ""uh"" " & """" & HFNametxtbox.Text & """")
+                    Case 1
+                        CommandParser("healfriend " & HFHptxtbox.Text & " ""sio"" " & """" & HFNametxtbox.Text & """")
+                    Case 2
+                        CommandParser("healfriend " & HFHptxtbox.Text & " ""both"" " & """" & HFNametxtbox.Text & """")
+                    Case Else
+                        MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+                End Select
+            End If
+        End If
     End Sub
 End Class

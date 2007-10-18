@@ -67,6 +67,48 @@ Partial Class frmSubForms
         Me.ExpStop = New System.Windows.Forms.Button
         Me.ExpCreaturesOnOffchk = New System.Windows.Forms.CheckBox
         Me.ExpOnOffchk = New System.Windows.Forms.CheckBox
+        Me.LightEffects = New System.Windows.Forms.Panel
+        Me.LightStop = New System.Windows.Forms.Button
+        Me.LightModelbl = New System.Windows.Forms.Label
+        Me.LightModecb = New System.Windows.Forms.ComboBox
+        Me.LightOnOffchk = New System.Windows.Forms.CheckBox
+        Me.Advertiser = New System.Windows.Forms.Panel
+        Me.AdvertiseMsglbl = New System.Windows.Forms.Label
+        Me.AdvertiseStop = New System.Windows.Forms.Button
+        Me.AdvertiserOnOff = New System.Windows.Forms.Button
+        Me.AdvertiseMsgtxtbox = New System.Windows.Forms.TextBox
+        Me.Watcher = New System.Windows.Forms.Panel
+        Me.WatcherInfolbl = New System.Windows.Forms.Label
+        Me.WatcherOpen = New System.Windows.Forms.Button
+        Me.WatcherStop = New System.Windows.Forms.Button
+        Me.WatcherOnOff = New System.Windows.Forms.Button
+        Me.WatcherExptxtbox = New System.Windows.Forms.TextBox
+        Me.WatcherExpressionlbl = New System.Windows.Forms.Label
+        Me.FPSChanger = New System.Windows.Forms.Panel
+        Me.FPSStop = New System.Windows.Forms.Button
+        Me.FPSOnOffcb = New System.Windows.Forms.CheckBox
+        Me.StatsUploader = New System.Windows.Forms.Panel
+        Me.UploaderStop = New System.Windows.Forms.Button
+        Me.UploaderOnOffcb = New System.Windows.Forms.CheckBox
+        Me.Changer = New System.Windows.Forms.Panel
+        Me.ChangerStop = New System.Windows.Forms.Button
+        Me.ChangerOnOff = New System.Windows.Forms.CheckBox
+        Me.ChangerAmuletscb = New System.Windows.Forms.ComboBox
+        Me.ChangerAmuletlbl = New System.Windows.Forms.Label
+        Me.AutoUHer = New System.Windows.Forms.Panel
+        Me.UHerStop = New System.Windows.Forms.Button
+        Me.UHerOnOff = New System.Windows.Forms.Button
+        Me.UHerHptxtbox = New System.Windows.Forms.TextBox
+        Me.UHerHplbl = New System.Windows.Forms.Label
+        Me.HealFriend = New System.Windows.Forms.Panel
+        Me.HFNametxtbox = New System.Windows.Forms.TextBox
+        Me.HFNamelbl = New System.Windows.Forms.Label
+        Me.HFHplbl = New System.Windows.Forms.Label
+        Me.HFHptxtbox = New System.Windows.Forms.TextBox
+        Me.HFTypelbl = New System.Windows.Forms.Label
+        Me.HFTypecb = New System.Windows.Forms.ComboBox
+        Me.HFOnOff = New System.Windows.Forms.Button
+        Me.HFStop = New System.Windows.Forms.Button
         Me.Spellcaster.SuspendLayout()
         Me.AutoEater.SuspendLayout()
         Me.Runemaker.SuspendLayout()
@@ -75,6 +117,14 @@ Partial Class frmSubForms
         Me.Autohealer.SuspendLayout()
         Me.WASD.SuspendLayout()
         Me.ExpChecker.SuspendLayout()
+        Me.LightEffects.SuspendLayout()
+        Me.Advertiser.SuspendLayout()
+        Me.Watcher.SuspendLayout()
+        Me.FPSChanger.SuspendLayout()
+        Me.StatsUploader.SuspendLayout()
+        Me.Changer.SuspendLayout()
+        Me.AutoUHer.SuspendLayout()
+        Me.HealFriend.SuspendLayout()
         Me.SuspendLayout()
         '
         'Spellcaster
@@ -521,11 +571,411 @@ Partial Class frmSubForms
         Me.ExpOnOffchk.Text = "Show Exprience"
         Me.ExpOnOffchk.UseVisualStyleBackColor = True
         '
+        'LightEffects
+        '
+        Me.LightEffects.Controls.Add(Me.LightStop)
+        Me.LightEffects.Controls.Add(Me.LightModelbl)
+        Me.LightEffects.Controls.Add(Me.LightModecb)
+        Me.LightEffects.Controls.Add(Me.LightOnOffchk)
+        Me.LightEffects.Location = New System.Drawing.Point(359, 164)
+        Me.LightEffects.Name = "LightEffects"
+        Me.LightEffects.Size = New System.Drawing.Size(201, 106)
+        Me.LightEffects.TabIndex = 8
+        '
+        'LightStop
+        '
+        Me.LightStop.Location = New System.Drawing.Point(0, 70)
+        Me.LightStop.Name = "LightStop"
+        Me.LightStop.Size = New System.Drawing.Size(84, 20)
+        Me.LightStop.TabIndex = 3
+        Me.LightStop.Text = "Stop"
+        Me.LightStop.UseVisualStyleBackColor = True
+        '
+        'LightModelbl
+        '
+        Me.LightModelbl.AutoSize = True
+        Me.LightModelbl.Location = New System.Drawing.Point(0, 0)
+        Me.LightModelbl.Name = "LightModelbl"
+        Me.LightModelbl.Size = New System.Drawing.Size(60, 13)
+        Me.LightModelbl.TabIndex = 2
+        Me.LightModelbl.Text = "Light Mode"
+        '
+        'LightModecb
+        '
+        Me.LightModecb.Items.AddRange(New Object() {"Full Light", "Torch", "Great Torch", "Ultimate Torch", "Utevo Lux", "Utevo Gran Lux", "Utevo Vis Lux", "Light Wand"})
+        Me.LightModecb.Location = New System.Drawing.Point(0, 17)
+        Me.LightModecb.Name = "LightModecb"
+        Me.LightModecb.Size = New System.Drawing.Size(126, 21)
+        Me.LightModecb.TabIndex = 1
+        Me.LightModecb.Text = "Select Light Mode"
+        '
+        'LightOnOffchk
+        '
+        Me.LightOnOffchk.AutoSize = True
+        Me.LightOnOffchk.Location = New System.Drawing.Point(0, 47)
+        Me.LightOnOffchk.Name = "LightOnOffchk"
+        Me.LightOnOffchk.Size = New System.Drawing.Size(107, 17)
+        Me.LightOnOffchk.TabIndex = 0
+        Me.LightOnOffchk.Text = "Use Light Effects"
+        Me.LightOnOffchk.UseVisualStyleBackColor = True
+        '
+        'Advertiser
+        '
+        Me.Advertiser.Controls.Add(Me.AdvertiseMsglbl)
+        Me.Advertiser.Controls.Add(Me.AdvertiseStop)
+        Me.Advertiser.Controls.Add(Me.AdvertiserOnOff)
+        Me.Advertiser.Controls.Add(Me.AdvertiseMsgtxtbox)
+        Me.Advertiser.Location = New System.Drawing.Point(578, 181)
+        Me.Advertiser.Name = "Advertiser"
+        Me.Advertiser.Size = New System.Drawing.Size(279, 89)
+        Me.Advertiser.TabIndex = 9
+        '
+        'AdvertiseMsglbl
+        '
+        Me.AdvertiseMsglbl.AutoSize = True
+        Me.AdvertiseMsglbl.Location = New System.Drawing.Point(0, 0)
+        Me.AdvertiseMsglbl.Name = "AdvertiseMsglbl"
+        Me.AdvertiseMsglbl.Size = New System.Drawing.Size(105, 13)
+        Me.AdvertiseMsglbl.TabIndex = 3
+        Me.AdvertiseMsglbl.Text = "Advertising Message"
+        '
+        'AdvertiseStop
+        '
+        Me.AdvertiseStop.Location = New System.Drawing.Point(90, 48)
+        Me.AdvertiseStop.Name = "AdvertiseStop"
+        Me.AdvertiseStop.Size = New System.Drawing.Size(84, 20)
+        Me.AdvertiseStop.TabIndex = 2
+        Me.AdvertiseStop.Text = "Stop"
+        Me.AdvertiseStop.UseVisualStyleBackColor = True
+        '
+        'AdvertiserOnOff
+        '
+        Me.AdvertiserOnOff.Location = New System.Drawing.Point(0, 48)
+        Me.AdvertiserOnOff.Name = "AdvertiserOnOff"
+        Me.AdvertiserOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.AdvertiserOnOff.TabIndex = 1
+        Me.AdvertiserOnOff.Text = "Activate"
+        Me.AdvertiserOnOff.UseVisualStyleBackColor = True
+        '
+        'AdvertiseMsgtxtbox
+        '
+        Me.AdvertiseMsgtxtbox.Location = New System.Drawing.Point(0, 20)
+        Me.AdvertiseMsgtxtbox.Name = "AdvertiseMsgtxtbox"
+        Me.AdvertiseMsgtxtbox.Size = New System.Drawing.Size(255, 20)
+        Me.AdvertiseMsgtxtbox.TabIndex = 0
+        '
+        'Watcher
+        '
+        Me.Watcher.Controls.Add(Me.WatcherInfolbl)
+        Me.Watcher.Controls.Add(Me.WatcherOpen)
+        Me.Watcher.Controls.Add(Me.WatcherStop)
+        Me.Watcher.Controls.Add(Me.WatcherOnOff)
+        Me.Watcher.Controls.Add(Me.WatcherExptxtbox)
+        Me.Watcher.Controls.Add(Me.WatcherExpressionlbl)
+        Me.Watcher.Location = New System.Drawing.Point(12, 338)
+        Me.Watcher.Name = "Watcher"
+        Me.Watcher.Size = New System.Drawing.Size(271, 122)
+        Me.Watcher.TabIndex = 10
+        '
+        'WatcherInfolbl
+        '
+        Me.WatcherInfolbl.AutoSize = True
+        Me.WatcherInfolbl.Location = New System.Drawing.Point(90, 46)
+        Me.WatcherInfolbl.Name = "WatcherInfolbl"
+        Me.WatcherInfolbl.Size = New System.Drawing.Size(163, 39)
+        Me.WatcherInfolbl.TabIndex = 8
+        Me.WatcherInfolbl.Text = "Trade Channel Watcher will write" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "every offer to text file located" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "to your Tibia" & _
+            "Tek Bot directory"
+        '
+        'WatcherOpen
+        '
+        Me.WatcherOpen.Location = New System.Drawing.Point(0, 94)
+        Me.WatcherOpen.Name = "WatcherOpen"
+        Me.WatcherOpen.Size = New System.Drawing.Size(84, 20)
+        Me.WatcherOpen.TabIndex = 7
+        Me.WatcherOpen.Text = "Show Offers"
+        Me.WatcherOpen.UseVisualStyleBackColor = True
+        '
+        'WatcherStop
+        '
+        Me.WatcherStop.Location = New System.Drawing.Point(0, 68)
+        Me.WatcherStop.Name = "WatcherStop"
+        Me.WatcherStop.Size = New System.Drawing.Size(84, 20)
+        Me.WatcherStop.TabIndex = 6
+        Me.WatcherStop.Text = "Stop"
+        Me.WatcherStop.UseVisualStyleBackColor = True
+        '
+        'WatcherOnOff
+        '
+        Me.WatcherOnOff.Location = New System.Drawing.Point(0, 42)
+        Me.WatcherOnOff.Name = "WatcherOnOff"
+        Me.WatcherOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.WatcherOnOff.TabIndex = 5
+        Me.WatcherOnOff.Text = "Activate"
+        Me.WatcherOnOff.UseVisualStyleBackColor = True
+        '
+        'WatcherExptxtbox
+        '
+        Me.WatcherExptxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.WatcherExptxtbox.Name = "WatcherExptxtbox"
+        Me.WatcherExptxtbox.Size = New System.Drawing.Size(253, 20)
+        Me.WatcherExptxtbox.TabIndex = 4
+        '
+        'WatcherExpressionlbl
+        '
+        Me.WatcherExpressionlbl.AutoSize = True
+        Me.WatcherExpressionlbl.Location = New System.Drawing.Point(0, 0)
+        Me.WatcherExpressionlbl.Name = "WatcherExpressionlbl"
+        Me.WatcherExpressionlbl.Size = New System.Drawing.Size(145, 13)
+        Me.WatcherExpressionlbl.TabIndex = 2
+        Me.WatcherExpressionlbl.Text = "Regular Expression for match"
+        '
+        'FPSChanger
+        '
+        Me.FPSChanger.Controls.Add(Me.FPSStop)
+        Me.FPSChanger.Controls.Add(Me.FPSOnOffcb)
+        Me.FPSChanger.Location = New System.Drawing.Point(174, 260)
+        Me.FPSChanger.Name = "FPSChanger"
+        Me.FPSChanger.Size = New System.Drawing.Size(165, 65)
+        Me.FPSChanger.TabIndex = 11
+        '
+        'FPSStop
+        '
+        Me.FPSStop.Location = New System.Drawing.Point(0, 23)
+        Me.FPSStop.Name = "FPSStop"
+        Me.FPSStop.Size = New System.Drawing.Size(84, 20)
+        Me.FPSStop.TabIndex = 1
+        Me.FPSStop.Text = "Stop"
+        Me.FPSStop.UseVisualStyleBackColor = True
+        '
+        'FPSOnOffcb
+        '
+        Me.FPSOnOffcb.AutoSize = True
+        Me.FPSOnOffcb.Location = New System.Drawing.Point(0, 0)
+        Me.FPSOnOffcb.Name = "FPSOnOffcb"
+        Me.FPSOnOffcb.Size = New System.Drawing.Size(150, 17)
+        Me.FPSOnOffcb.TabIndex = 0
+        Me.FPSOnOffcb.Text = "Change FPS automatically"
+        Me.FPSOnOffcb.UseVisualStyleBackColor = True
+        '
+        'StatsUploader
+        '
+        Me.StatsUploader.Controls.Add(Me.UploaderStop)
+        Me.StatsUploader.Controls.Add(Me.UploaderOnOffcb)
+        Me.StatsUploader.Location = New System.Drawing.Point(361, 277)
+        Me.StatsUploader.Name = "StatsUploader"
+        Me.StatsUploader.Size = New System.Drawing.Size(198, 48)
+        Me.StatsUploader.TabIndex = 12
+        '
+        'UploaderStop
+        '
+        Me.UploaderStop.Location = New System.Drawing.Point(0, 23)
+        Me.UploaderStop.Name = "UploaderStop"
+        Me.UploaderStop.Size = New System.Drawing.Size(84, 20)
+        Me.UploaderStop.TabIndex = 1
+        Me.UploaderStop.Text = "Stop"
+        Me.UploaderStop.UseVisualStyleBackColor = True
+        '
+        'UploaderOnOffcb
+        '
+        Me.UploaderOnOffcb.AutoSize = True
+        Me.UploaderOnOffcb.Location = New System.Drawing.Point(0, 0)
+        Me.UploaderOnOffcb.Name = "UploaderOnOffcb"
+        Me.UploaderOnOffcb.Size = New System.Drawing.Size(137, 17)
+        Me.UploaderOnOffcb.TabIndex = 0
+        Me.UploaderOnOffcb.Text = "Enable Stats Uploading"
+        Me.UploaderOnOffcb.UseVisualStyleBackColor = True
+        '
+        'Changer
+        '
+        Me.Changer.Controls.Add(Me.ChangerStop)
+        Me.Changer.Controls.Add(Me.ChangerOnOff)
+        Me.Changer.Controls.Add(Me.ChangerAmuletscb)
+        Me.Changer.Controls.Add(Me.ChangerAmuletlbl)
+        Me.Changer.Location = New System.Drawing.Point(288, 339)
+        Me.Changer.Name = "Changer"
+        Me.Changer.Size = New System.Drawing.Size(176, 95)
+        Me.Changer.TabIndex = 13
+        '
+        'ChangerStop
+        '
+        Me.ChangerStop.Location = New System.Drawing.Point(0, 64)
+        Me.ChangerStop.Name = "ChangerStop"
+        Me.ChangerStop.Size = New System.Drawing.Size(84, 20)
+        Me.ChangerStop.TabIndex = 3
+        Me.ChangerStop.Text = "Stop"
+        Me.ChangerStop.UseVisualStyleBackColor = True
+        '
+        'ChangerOnOff
+        '
+        Me.ChangerOnOff.AutoSize = True
+        Me.ChangerOnOff.Location = New System.Drawing.Point(0, 43)
+        Me.ChangerOnOff.Name = "ChangerOnOff"
+        Me.ChangerOnOff.Size = New System.Drawing.Size(163, 17)
+        Me.ChangerOnOff.TabIndex = 2
+        Me.ChangerOnOff.Text = "Change Amulet Automatically"
+        Me.ChangerOnOff.UseVisualStyleBackColor = True
+        '
+        'ChangerAmuletscb
+        '
+        Me.ChangerAmuletscb.FormattingEnabled = True
+        Me.ChangerAmuletscb.Items.AddRange(New Object() {"Amulet/Necklace Currently On", "Stone Skin Amulet", "Bronze Amulet", "Elven Amulet", "Protection Amulet", "Silver Amulet", "Strange Talisman", "Dragon Necklace", "Garlic Necklace"})
+        Me.ChangerAmuletscb.Location = New System.Drawing.Point(0, 16)
+        Me.ChangerAmuletscb.Name = "ChangerAmuletscb"
+        Me.ChangerAmuletscb.Size = New System.Drawing.Size(176, 21)
+        Me.ChangerAmuletscb.TabIndex = 1
+        Me.ChangerAmuletscb.Text = "Select Amulet"
+        '
+        'ChangerAmuletlbl
+        '
+        Me.ChangerAmuletlbl.AutoSize = True
+        Me.ChangerAmuletlbl.Location = New System.Drawing.Point(-3, 0)
+        Me.ChangerAmuletlbl.Name = "ChangerAmuletlbl"
+        Me.ChangerAmuletlbl.Size = New System.Drawing.Size(91, 13)
+        Me.ChangerAmuletlbl.TabIndex = 0
+        Me.ChangerAmuletlbl.Text = "Amulet to Change"
+        '
+        'AutoUHer
+        '
+        Me.AutoUHer.Controls.Add(Me.UHerStop)
+        Me.AutoUHer.Controls.Add(Me.UHerOnOff)
+        Me.AutoUHer.Controls.Add(Me.UHerHptxtbox)
+        Me.AutoUHer.Controls.Add(Me.UHerHplbl)
+        Me.AutoUHer.Location = New System.Drawing.Point(582, 277)
+        Me.AutoUHer.Name = "AutoUHer"
+        Me.AutoUHer.Size = New System.Drawing.Size(183, 97)
+        Me.AutoUHer.TabIndex = 14
+        '
+        'UHerStop
+        '
+        Me.UHerStop.Location = New System.Drawing.Point(0, 68)
+        Me.UHerStop.Name = "UHerStop"
+        Me.UHerStop.Size = New System.Drawing.Size(84, 20)
+        Me.UHerStop.TabIndex = 3
+        Me.UHerStop.Text = "Stop"
+        Me.UHerStop.UseVisualStyleBackColor = True
+        '
+        'UHerOnOff
+        '
+        Me.UHerOnOff.Location = New System.Drawing.Point(-1, 42)
+        Me.UHerOnOff.Name = "UHerOnOff"
+        Me.UHerOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.UHerOnOff.TabIndex = 2
+        Me.UHerOnOff.Text = "Activate"
+        Me.UHerOnOff.UseVisualStyleBackColor = True
+        '
+        'UHerHptxtbox
+        '
+        Me.UHerHptxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.UHerHptxtbox.Name = "UHerHptxtbox"
+        Me.UHerHptxtbox.Size = New System.Drawing.Size(94, 20)
+        Me.UHerHptxtbox.TabIndex = 1
+        '
+        'UHerHplbl
+        '
+        Me.UHerHplbl.AutoSize = True
+        Me.UHerHplbl.Location = New System.Drawing.Point(0, 0)
+        Me.UHerHplbl.Name = "UHerHplbl"
+        Me.UHerHplbl.Size = New System.Drawing.Size(150, 13)
+        Me.UHerHplbl.TabIndex = 0
+        Me.UHerHplbl.Text = "Minimum Hitpoints (or Percent)"
+        '
+        'HealFriend
+        '
+        Me.HealFriend.Controls.Add(Me.HFStop)
+        Me.HealFriend.Controls.Add(Me.HFOnOff)
+        Me.HealFriend.Controls.Add(Me.HFTypecb)
+        Me.HealFriend.Controls.Add(Me.HFTypelbl)
+        Me.HealFriend.Controls.Add(Me.HFHptxtbox)
+        Me.HealFriend.Controls.Add(Me.HFHplbl)
+        Me.HealFriend.Controls.Add(Me.HFNametxtbox)
+        Me.HealFriend.Controls.Add(Me.HFNamelbl)
+        Me.HealFriend.Location = New System.Drawing.Point(580, 384)
+        Me.HealFriend.Name = "HealFriend"
+        Me.HealFriend.Size = New System.Drawing.Size(252, 158)
+        Me.HealFriend.TabIndex = 15
+        '
+        'HFNametxtbox
+        '
+        Me.HFNametxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.HFNametxtbox.Name = "HFNametxtbox"
+        Me.HFNametxtbox.Size = New System.Drawing.Size(128, 20)
+        Me.HFNametxtbox.TabIndex = 1
+        '
+        'HFNamelbl
+        '
+        Me.HFNamelbl.AutoSize = True
+        Me.HFNamelbl.Location = New System.Drawing.Point(-1, 0)
+        Me.HFNamelbl.Name = "HFNamelbl"
+        Me.HFNamelbl.Size = New System.Drawing.Size(74, 13)
+        Me.HFNamelbl.TabIndex = 0
+        Me.HFNamelbl.Text = "Friend's Name"
+        '
+        'HFHplbl
+        '
+        Me.HFHplbl.AutoSize = True
+        Me.HFHplbl.Location = New System.Drawing.Point(-1, 43)
+        Me.HFHplbl.Name = "HFHplbl"
+        Me.HFHplbl.Size = New System.Drawing.Size(165, 13)
+        Me.HFHplbl.TabIndex = 2
+        Me.HFHplbl.Text = "Minimum Hitpoins (or Percentage)"
+        '
+        'HFHptxtbox
+        '
+        Me.HFHptxtbox.Location = New System.Drawing.Point(0, 60)
+        Me.HFHptxtbox.Name = "HFHptxtbox"
+        Me.HFHptxtbox.Size = New System.Drawing.Size(130, 20)
+        Me.HFHptxtbox.TabIndex = 3
+        '
+        'HFTypelbl
+        '
+        Me.HFTypelbl.AutoSize = True
+        Me.HFTypelbl.Location = New System.Drawing.Point(-1, 85)
+        Me.HFTypelbl.Name = "HFTypelbl"
+        Me.HFTypelbl.Size = New System.Drawing.Size(65, 13)
+        Me.HFTypelbl.TabIndex = 4
+        Me.HFTypelbl.Text = "Healer Type"
+        '
+        'HFTypecb
+        '
+        Me.HFTypecb.FormattingEnabled = True
+        Me.HFTypecb.Items.AddRange(New Object() {"UH-Rune", "Exura Sio-Spell", "Both"})
+        Me.HFTypecb.Location = New System.Drawing.Point(-2, 103)
+        Me.HFTypecb.Name = "HFTypecb"
+        Me.HFTypecb.Size = New System.Drawing.Size(113, 21)
+        Me.HFTypecb.TabIndex = 5
+        Me.HFTypecb.Text = "Healing Type"
+        '
+        'HFOnOff
+        '
+        Me.HFOnOff.Location = New System.Drawing.Point(169, 15)
+        Me.HFOnOff.Name = "HFOnOff"
+        Me.HFOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.HFOnOff.TabIndex = 6
+        Me.HFOnOff.Text = "Activate"
+        Me.HFOnOff.UseVisualStyleBackColor = True
+        '
+        'HFStop
+        '
+        Me.HFStop.Location = New System.Drawing.Point(169, 43)
+        Me.HFStop.Name = "HFStop"
+        Me.HFStop.Size = New System.Drawing.Size(84, 20)
+        Me.HFStop.TabIndex = 7
+        Me.HFStop.Text = "Stop"
+        Me.HFStop.UseVisualStyleBackColor = True
+        '
         'frmSubForms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(869, 484)
+        Me.ClientSize = New System.Drawing.Size(869, 651)
+        Me.Controls.Add(Me.HealFriend)
+        Me.Controls.Add(Me.AutoUHer)
+        Me.Controls.Add(Me.Changer)
+        Me.Controls.Add(Me.StatsUploader)
+        Me.Controls.Add(Me.FPSChanger)
+        Me.Controls.Add(Me.Advertiser)
+        Me.Controls.Add(Me.LightEffects)
         Me.Controls.Add(Me.ExpChecker)
         Me.Controls.Add(Me.WASD)
         Me.Controls.Add(Me.Autohealer)
@@ -534,6 +984,7 @@ Partial Class frmSubForms
         Me.Controls.Add(Me.Runemaker)
         Me.Controls.Add(Me.AutoEater)
         Me.Controls.Add(Me.Spellcaster)
+        Me.Controls.Add(Me.Watcher)
         Me.Name = "frmSubForms"
         Me.Text = "There NEED TO BE better solution than this!"
         Me.Spellcaster.ResumeLayout(False)
@@ -552,6 +1003,22 @@ Partial Class frmSubForms
         Me.WASD.PerformLayout()
         Me.ExpChecker.ResumeLayout(False)
         Me.ExpChecker.PerformLayout()
+        Me.LightEffects.ResumeLayout(False)
+        Me.LightEffects.PerformLayout()
+        Me.Advertiser.ResumeLayout(False)
+        Me.Advertiser.PerformLayout()
+        Me.Watcher.ResumeLayout(False)
+        Me.Watcher.PerformLayout()
+        Me.FPSChanger.ResumeLayout(False)
+        Me.FPSChanger.PerformLayout()
+        Me.StatsUploader.ResumeLayout(False)
+        Me.StatsUploader.PerformLayout()
+        Me.Changer.ResumeLayout(False)
+        Me.Changer.PerformLayout()
+        Me.AutoUHer.ResumeLayout(False)
+        Me.AutoUHer.PerformLayout()
+        Me.HealFriend.ResumeLayout(False)
+        Me.HealFriend.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -603,4 +1070,46 @@ Partial Class frmSubForms
     Friend WithEvents ExpStop As System.Windows.Forms.Button
     Friend WithEvents ExpCreaturesOnOffchk As System.Windows.Forms.CheckBox
     Friend WithEvents ExpOnOffchk As System.Windows.Forms.CheckBox
+    Friend WithEvents LightEffects As System.Windows.Forms.Panel
+    Friend WithEvents LightModelbl As System.Windows.Forms.Label
+    Friend WithEvents LightModecb As System.Windows.Forms.ComboBox
+    Friend WithEvents LightOnOffchk As System.Windows.Forms.CheckBox
+    Friend WithEvents LightStop As System.Windows.Forms.Button
+    Friend WithEvents Advertiser As System.Windows.Forms.Panel
+    Friend WithEvents AdvertiseMsgtxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents AdvertiseStop As System.Windows.Forms.Button
+    Friend WithEvents AdvertiserOnOff As System.Windows.Forms.Button
+    Friend WithEvents AdvertiseMsglbl As System.Windows.Forms.Label
+    Friend WithEvents Watcher As System.Windows.Forms.Panel
+    Friend WithEvents WatcherStop As System.Windows.Forms.Button
+    Friend WithEvents WatcherOnOff As System.Windows.Forms.Button
+    Friend WithEvents WatcherExptxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents WatcherExpressionlbl As System.Windows.Forms.Label
+    Friend WithEvents WatcherOpen As System.Windows.Forms.Button
+    Friend WithEvents WatcherInfolbl As System.Windows.Forms.Label
+    Friend WithEvents FPSChanger As System.Windows.Forms.Panel
+    Friend WithEvents FPSStop As System.Windows.Forms.Button
+    Friend WithEvents FPSOnOffcb As System.Windows.Forms.CheckBox
+    Friend WithEvents StatsUploader As System.Windows.Forms.Panel
+    Friend WithEvents UploaderOnOffcb As System.Windows.Forms.CheckBox
+    Friend WithEvents UploaderStop As System.Windows.Forms.Button
+    Friend WithEvents Changer As System.Windows.Forms.Panel
+    Friend WithEvents ChangerAmuletlbl As System.Windows.Forms.Label
+    Friend WithEvents ChangerAmuletscb As System.Windows.Forms.ComboBox
+    Friend WithEvents ChangerStop As System.Windows.Forms.Button
+    Friend WithEvents ChangerOnOff As System.Windows.Forms.CheckBox
+    Friend WithEvents AutoUHer As System.Windows.Forms.Panel
+    Friend WithEvents UHerHplbl As System.Windows.Forms.Label
+    Friend WithEvents UHerHptxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents UHerStop As System.Windows.Forms.Button
+    Friend WithEvents UHerOnOff As System.Windows.Forms.Button
+    Friend WithEvents HealFriend As System.Windows.Forms.Panel
+    Friend WithEvents HFNametxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents HFNamelbl As System.Windows.Forms.Label
+    Friend WithEvents HFStop As System.Windows.Forms.Button
+    Friend WithEvents HFOnOff As System.Windows.Forms.Button
+    Friend WithEvents HFTypecb As System.Windows.Forms.ComboBox
+    Friend WithEvents HFTypelbl As System.Windows.Forms.Label
+    Friend WithEvents HFHptxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents HFHplbl As System.Windows.Forms.Label
 End Class

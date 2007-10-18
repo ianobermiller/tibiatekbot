@@ -1,9 +1,10 @@
-Imports System.Runtime.InteropServices, System.Windows.forms, AutoItX3Lib, _
+Imports System.Runtime.InteropServices, System.Windows.forms, _
         System.Text.RegularExpressions, System.Math, System.Xml
 
 Public Module CoreModule
 
     Public Core As New CoreClass
+
 
 #Region " Structures "
 
@@ -22,6 +23,7 @@ Public Module CoreModule
 
     Public Class CoreClass
 
+        Public Creatures As New Creatures
         Public Structure ChatMessageDefinition
             Dim Prioritize As Boolean
             Dim MessageType As MessageType
@@ -47,7 +49,7 @@ Public Module CoreModule
         Public WithEvents ChatMessageQueueTimerObj As ThreadTimer
         Public WithEvents HealTimerObj As ThreadTimer
         Public ChatMessageQueueList As New List(Of ChatMessageDefinition)
-        Public AutoIt As AutoItX3
+        'Public AutoIt As AutoItX3
         Public WithEvents ChildWindowTimerObj As ThreadTimer
         Public WithEvents ExpCheckerTimerObj As ThreadTimer
         Public WithEvents SpellTimerObj As ThreadTimer
@@ -62,10 +64,15 @@ Public Module CoreModule
         Public WithEvents PingTimerObj As ThreadTimer
         Public PacketsFromServerQueue As New Queue(Of Byte())
         Public WithEvents PacketsFromServerTimerObj As ThreadTimer
+        Public WithEvents AmuletChangerTimerObj As ThreadTimer
+        Public WithEvents UHTimerObj As ThreadTimer
+        Public WithEvents HealFriendObj As ThreadTimer
+        Public WithEvents HealFriendTimerObj As ThreadTimer
 
 #End Region
 
 #Region " Variables "
+        Public LoggingIn As Boolean = False
         Public InjectionState As InjectionState = InjectionState.Uninjected
         Public State As BotState = BotState.Running
         Public ConstantsLoaded As Boolean = False
@@ -133,12 +140,20 @@ Public Module CoreModule
         Public MenuMode As MenuMode = Constants.MenuMode.InsideWindow
         Public ShowingTextMenu As Boolean = False
         Public TextMenuIndex As Integer = 0
+
+        Public AmuletId As Integer = 0
+
+        Public UHHPRequired As Integer = 0
+
+        Public HealFriendCharacterName As String = ""
+        Public HealFriendHealthPercentage As Integer = 0
+        Public HealFriendHealType As HealTypes = HealTypes.None
 #End Region
 
 #Region " Initialization "
 
         Public Sub New()
-            AutoIt = New AutoItX3()
+            'AutoIt = New AutoItX3()
             Consts = New ConstantsClass()
             Spells = New SpellsClass()
             Definitions = New ItemsClass
@@ -161,6 +176,10 @@ Public Module CoreModule
             StatsUploaderTimerObj = New ThreadTimer()
             PingTimerObj = New ThreadTimer(5000)
             PacketsFromServerTimerObj = New ThreadTimer(5)
+            AmuletChangerTimerObj = New ThreadTimer(300)
+            UHTimerObj = New ThreadTimer(1000)
+            HealFriendObj = New ThreadTimer(300)
+            HealFriendTimerObj = New ThreadTimer(300)
         End Sub
 
 #End Region
@@ -178,6 +197,7 @@ Public Module CoreModule
             ExpCheckerTimerObj.StartTimer()
             PingTimerObj.StartTimer()
             PacketsFromServerTimerObj.StartTimer()
+            InjectLastAttackedId()
         End Sub
 
 #End Region
@@ -811,236 +831,320 @@ Public Module CoreModule
 
 #Region " Stats Uploader Timer "
         Private Sub StatsUploaderTimerObj_Execute() Handles StatsUploaderTimerObj.OnExecute
-            'Try
-            If Not InGame() Then Exit Sub
-            'StatsUploaderIsBusy = True
-            Dim Client As New System.Net.WebClient
-            Dim BL As New BattleList
-            BL.JumpToEntity(SpecialEntity.Myself)
-            Dim xmlFile As New System.Xml.XmlDocument()
+            Try
+                If Not InGame() Then Exit Sub
+                'StatsUploaderIsBusy = True
+                Dim Client As New System.Net.WebClient
+                Dim BL As New BattleList
+                BL.JumpToEntity(SpecialEntity.Myself)
+                Dim xmlFile As New System.Xml.XmlDocument()
 
-            Dim xmlStats As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Stats", "")
+                Dim xmlStats As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Stats", "")
 
-            Dim xmlLastUpdate As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "LastUpdate", "")
-            xmlLastUpdate.InnerText = Date.Now.ToLongDateString & " " & Date.Now.ToLongTimeString
+                Dim xmlLastUpdate As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "LastUpdate", "")
+                xmlLastUpdate.InnerText = Date.Now.ToLongDateString & " " & Date.Now.ToLongTimeString
 
-            Dim xmlName As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Name", "")
-            xmlName.InnerText = BL.GetName
+                Dim xmlName As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Name", "")
+                xmlName.InnerText = BL.GetName
 
-            Dim xmlLevel As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Level", "")
-            xmlLevel.InnerText = CharacterLevel
+                Dim xmlLevel As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Level", "")
+                xmlLevel.InnerText = CharacterLevel
 
-            Dim xmlExperience As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Experience", "")
-            xmlExperience.InnerText = CharacterExperience
+                Dim xmlExperience As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Experience", "")
+                xmlExperience.InnerText = CharacterExperience
 
-            Dim xmlCurrentLevelExperience As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "CurrentLevelExperience", "")
-            xmlCurrentLevelExperience.InnerText = CurrentLevelExp
+                Dim xmlCurrentLevelExperience As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "CurrentLevelExperience", "")
+                xmlCurrentLevelExperience.InnerText = CurrentLevelExp
 
-            Dim xmlNextLevelExperience As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "NextLevelExperience", "")
-            xmlNextLevelExperience.InnerText = NextLevelExp
+                Dim xmlNextLevelExperience As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "NextLevelExperience", "")
+                xmlNextLevelExperience.InnerText = NextLevelExp
 
-            Dim xmlExpForNextLevel As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "ExpForNextLevel", "")
-            xmlExpForNextLevel.InnerText = (NextLevelExp - CharacterExperience)
+                Dim xmlExpForNextLevel As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "ExpForNextLevel", "")
+                xmlExpForNextLevel.InnerText = (NextLevelExp - CharacterExperience)
 
-            Dim xmlHitPoints As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "HitPoints", "")
-            xmlHitPoints.InnerText = CharacterHitPoints
+                Dim xmlHitPoints As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "HitPoints", "")
+                xmlHitPoints.InnerText = CharacterHitPoints
 
-            Dim xmlManaPoints As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "ManaPoints", "")
-            xmlManaPoints.InnerText = CharacterManaPoints
+                Dim xmlManaPoints As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "ManaPoints", "")
+                xmlManaPoints.InnerText = CharacterManaPoints
 
-            Dim xmlSoulPoints As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "SoulPoints", "")
-            xmlSoulPoints.InnerText = CharacterSoulPoints
+                Dim xmlSoulPoints As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "SoulPoints", "")
+                xmlSoulPoints.InnerText = CharacterSoulPoints
 
-            Dim xmlCapacity As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Capacity", "")
-            Dim Capacity As Integer = 0
-            Core.Tibia.Memory.Read(Consts.ptrCapacity, Capacity, 2)
-            xmlCapacity.InnerText = Capacity
+                Dim xmlCapacity As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Capacity", "")
+                Dim Capacity As Integer = 0
+                Core.Tibia.Memory.Read(Consts.ptrCapacity, Capacity, 2)
+                xmlCapacity.InnerText = Capacity
 
-            Dim xmlStamina As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Stamina", "")
-            Dim Stamina As Integer = 0
-            Core.Tibia.Memory.Read(Consts.ptrStamina, Stamina, 4)
-            Dim StaminaTime As TimeSpan = TimeSpan.FromSeconds(Stamina)
-            xmlStamina.InnerText = StaminaTime.ToString
+                Dim xmlStamina As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Stamina", "")
+                Dim Stamina As Integer = 0
+                Core.Tibia.Memory.Read(Consts.ptrStamina, Stamina, 4)
+                Dim StaminaTime As TimeSpan = TimeSpan.FromSeconds(Stamina)
+                xmlStamina.InnerText = StaminaTime.ToString
 
-            Dim xmlSkills As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Skills", "")
-            Dim Skill As Integer = 0
-            Dim SkillPercent As Integer = 0
+                Dim xmlSkills As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Skills", "")
+                Dim Skill As Integer = 0
+                Dim SkillPercent As Integer = 0
 
-            Dim xmlFistFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "FistFighting", "")
-            Dim xmlFistFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-            Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.FistFighting * Consts.SkillsDist), Skill, 1)
-            Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), SkillPercent, 1)
-            xmlFistFighting.InnerText = Skill
-            xmlFistFightingP.InnerText = SkillPercent
-            xmlFistFighting.Attributes.Append(xmlFistFightingP)
-            xmlSkills.AppendChild(xmlFistFighting)
+                Dim xmlFistFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "FistFighting", "")
+                Dim xmlFistFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
+                Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.FistFighting * Consts.SkillsDist), Skill, 1)
+                Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), SkillPercent, 1)
+                xmlFistFighting.InnerText = Skill
+                xmlFistFightingP.InnerText = SkillPercent
+                xmlFistFighting.Attributes.Append(xmlFistFightingP)
+                xmlSkills.AppendChild(xmlFistFighting)
 
-            Dim xmlClubFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "ClubFighting", "")
-            Dim xmlClubFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-            Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.ClubFighting * Consts.SkillsDist), Skill, 1)
-            Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), SkillPercent, 1)
-            xmlClubFighting.InnerText = Skill
-            xmlClubFightingP.InnerText = SkillPercent
-            xmlClubFighting.Attributes.Append(xmlClubFightingP)
-            xmlSkills.AppendChild(xmlClubFighting)
+                Dim xmlClubFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "ClubFighting", "")
+                Dim xmlClubFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
+                Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.ClubFighting * Consts.SkillsDist), Skill, 1)
+                Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), SkillPercent, 1)
+                xmlClubFighting.InnerText = Skill
+                xmlClubFightingP.InnerText = SkillPercent
+                xmlClubFighting.Attributes.Append(xmlClubFightingP)
+                xmlSkills.AppendChild(xmlClubFighting)
 
-            Dim xmlSwordFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "SwordFighting", "")
-            Dim xmlSwordFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-            Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.SwordFighting * Consts.SkillsDist), Skill, 1)
-            Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), SkillPercent, 1)
-            xmlSwordFighting.InnerText = Skill
-            xmlSwordFightingP.InnerText = SkillPercent
-            xmlSwordFighting.Attributes.Append(xmlSwordFightingP)
-            xmlSkills.AppendChild(xmlSwordFighting)
+                Dim xmlSwordFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "SwordFighting", "")
+                Dim xmlSwordFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
+                Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.SwordFighting * Consts.SkillsDist), Skill, 1)
+                Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), SkillPercent, 1)
+                xmlSwordFighting.InnerText = Skill
+                xmlSwordFightingP.InnerText = SkillPercent
+                xmlSwordFighting.Attributes.Append(xmlSwordFightingP)
+                xmlSkills.AppendChild(xmlSwordFighting)
 
-            Dim xmlAxeFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "AxeFighting", "")
-            Dim xmlAxeFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-            Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.AxeFighting * Consts.SkillsDist), Skill, 1)
-            Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), SkillPercent, 1)
-            xmlAxeFighting.InnerText = Skill
-            xmlAxeFightingP.InnerText = SkillPercent
-            xmlAxeFighting.Attributes.Append(xmlAxeFightingP)
-            xmlSkills.AppendChild(xmlAxeFighting)
+                Dim xmlAxeFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "AxeFighting", "")
+                Dim xmlAxeFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
+                Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.AxeFighting * Consts.SkillsDist), Skill, 1)
+                Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), SkillPercent, 1)
+                xmlAxeFighting.InnerText = Skill
+                xmlAxeFightingP.InnerText = SkillPercent
+                xmlAxeFighting.Attributes.Append(xmlAxeFightingP)
+                xmlSkills.AppendChild(xmlAxeFighting)
 
-            Dim xmlDistanceFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "DistanceFighting", "")
-            Dim xmlDistanceFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-            Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.DistanceFighting * Consts.SkillsDist), Skill, 1)
-            Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), SkillPercent, 1)
-            xmlDistanceFighting.InnerText = Skill
-            xmlDistanceFightingP.InnerText = SkillPercent
-            xmlDistanceFighting.Attributes.Append(xmlDistanceFightingP)
-            xmlSkills.AppendChild(xmlDistanceFighting)
+                Dim xmlDistanceFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "DistanceFighting", "")
+                Dim xmlDistanceFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
+                Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.DistanceFighting * Consts.SkillsDist), Skill, 1)
+                Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), SkillPercent, 1)
+                xmlDistanceFighting.InnerText = Skill
+                xmlDistanceFightingP.InnerText = SkillPercent
+                xmlDistanceFighting.Attributes.Append(xmlDistanceFightingP)
+                xmlSkills.AppendChild(xmlDistanceFighting)
 
-            Dim xmlShielding As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Shielding", "")
-            Dim xmlShieldingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-            Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.Shielding * Consts.SkillsDist), Skill, 1)
-            Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), SkillPercent, 1)
-            xmlShielding.InnerText = Skill
-            xmlShieldingP.InnerText = SkillPercent
-            xmlShielding.Attributes.Append(xmlShieldingP)
-            xmlSkills.AppendChild(xmlShielding)
+                Dim xmlShielding As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Shielding", "")
+                Dim xmlShieldingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
+                Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.Shielding * Consts.SkillsDist), Skill, 1)
+                Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), SkillPercent, 1)
+                xmlShielding.InnerText = Skill
+                xmlShieldingP.InnerText = SkillPercent
+                xmlShielding.Attributes.Append(xmlShieldingP)
+                xmlSkills.AppendChild(xmlShielding)
 
-            Dim xmlFishing As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Fishing", "")
-            Dim xmlFishingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-            Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.Fishing * Consts.SkillsDist), Skill, 1)
-            Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), SkillPercent, 1)
-            xmlFishing.InnerText = Skill
-            xmlFishingP.InnerText = SkillPercent
-            xmlFishing.Attributes.Append(xmlFishingP)
-            xmlSkills.AppendChild(xmlFishing)
+                Dim xmlFishing As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Fishing", "")
+                Dim xmlFishingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
+                Core.Tibia.Memory.Read(Consts.ptrSkillsBegin + (Skills.Fishing * Consts.SkillsDist), Skill, 1)
+                Core.Tibia.Memory.Read(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), SkillPercent, 1)
+                xmlFishing.InnerText = Skill
+                xmlFishingP.InnerText = SkillPercent
+                xmlFishing.Attributes.Append(xmlFishingP)
+                xmlSkills.AppendChild(xmlFishing)
 
-            Dim xmlBattlelist As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Battlelist", "")
-            BL.Reset(True)
-            Do
-                If BL.IsOnScreen AndAlso Not BL.IsMyself Then
-                    Dim xmlEntity As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Entity", "")
-                    Dim Loc As LocationDefinition = BL.GetLocation
-                    Dim X As XmlAttribute = xmlFile.CreateAttribute("X")
-                    X.Value = Loc.X
-                    Dim Y As XmlAttribute = xmlFile.CreateAttribute("Y")
-                    Y.Value = Loc.Y
-                    Dim Z As XmlAttribute = xmlFile.CreateAttribute("Z")
-                    Z.Value = Loc.Z
-                    Dim HP As XmlAttribute = xmlFile.CreateAttribute("HP")
-                    HP.Value = BL.GetHPPercentage
-                    xmlEntity.InnerText = BL.GetName
-                    xmlEntity.Attributes.Append(HP)
-                    xmlEntity.Attributes.Append(X)
-                    xmlEntity.Attributes.Append(Y)
-                    xmlEntity.Attributes.Append(Z)
-                    xmlBattlelist.AppendChild(xmlEntity)
+                Dim xmlBattlelist As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Battlelist", "")
+                BL.Reset(True)
+                Do
+                    If BL.IsOnScreen AndAlso Not BL.IsMyself Then
+                        Dim xmlEntity As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Entity", "")
+                        Dim Loc As LocationDefinition = BL.GetLocation
+                        Dim X As XmlAttribute = xmlFile.CreateAttribute("X")
+                        X.Value = Loc.X
+                        Dim Y As XmlAttribute = xmlFile.CreateAttribute("Y")
+                        Y.Value = Loc.Y
+                        Dim Z As XmlAttribute = xmlFile.CreateAttribute("Z")
+                        Z.Value = Loc.Z
+                        Dim HP As XmlAttribute = xmlFile.CreateAttribute("HP")
+                        HP.Value = BL.GetHPPercentage
+                        xmlEntity.InnerText = BL.GetName
+                        xmlEntity.Attributes.Append(HP)
+                        xmlEntity.Attributes.Append(X)
+                        xmlEntity.Attributes.Append(Y)
+                        xmlEntity.Attributes.Append(Z)
+                        xmlBattlelist.AppendChild(xmlEntity)
+                    End If
+                Loop While BL.NextEntity(True)
+                Dim xmlVipList As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "VipList", "")
+                Dim Vip As New VipList
+                Vip.Reset(False)
+                Do
+                    If Vip.IsOnline Then
+                        Dim xmlPlayer As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Player", "")
+                        xmlPlayer.InnerText = Vip.GetName
+                        xmlVipList.AppendChild(xmlPlayer)
+                    End If
+                Loop While Vip.NextPlayer(False)
+
+                Dim xmlContainers As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Containers", "")
+                Dim Container As New Container
+                Dim ContainerItemCount As Integer
+                Dim Item As ContainerItemDefinition
+                Container.Reset()
+                Do
+                    If Container.IsOpened Then
+                        ContainerItemCount = Container.GetItemCount
+                        Dim xmlContainer As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Container", "")
+                        Dim xmlContainerName As XmlAttribute = xmlFile.CreateAttribute("Name")
+                        xmlContainerName.InnerText = Container.GetName
+                        xmlContainer.Attributes.Append(xmlContainerName)
+                        Dim xmlContainerSize As XmlAttribute = xmlFile.CreateAttribute("Size")
+                        xmlContainerSize.InnerText = Container.GetContainerSize
+                        Dim xmlContainerItems As XmlAttribute = xmlFile.CreateAttribute("Items")
+                        xmlContainerItems.InnerText = ContainerItemCount
+                        xmlContainer.Attributes.Append(xmlContainerName)
+                        xmlContainer.Attributes.Append(xmlContainerItems)
+                        xmlContainer.Attributes.Append(xmlContainerSize)
+                        For I As Integer = 0 To ContainerItemCount - 1
+                            Item = Container.Items(I)
+                            Dim xmlItem As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Item", "")
+                            Dim xmlItemName As XmlAttribute = xmlFile.CreateAttribute("Name")
+                            xmlItemName.InnerText = Definitions.GetItemName(Item.ID)
+                            Dim xmlItemID As XmlAttribute = xmlFile.CreateAttribute("ID")
+                            xmlItemID.InnerText = Item.ID
+                            Dim xmlItemCount As XmlAttribute = xmlFile.CreateAttribute("Count")
+                            xmlItemCount.InnerText = Item.Count
+                            Dim xmlItemSlot As XmlAttribute = xmlFile.CreateAttribute("Slot")
+                            xmlItemSlot.InnerText = Item.Slot
+                            xmlItem.Attributes.Append(xmlItemName)
+                            xmlItem.Attributes.Append(xmlItemID)
+                            xmlItem.Attributes.Append(xmlItemSlot)
+                            xmlItem.Attributes.Append(xmlItemCount)
+                            xmlContainer.AppendChild(xmlItem)
+                        Next
+                        xmlContainers.AppendChild(xmlContainer)
+                    End If
+                Loop While Container.NextContainer
+
+                xmlStats.AppendChild(xmlName)
+                xmlStats.AppendChild(xmlLevel)
+                xmlStats.AppendChild(xmlExperience)
+                xmlStats.AppendChild(xmlCurrentLevelExperience)
+                xmlStats.AppendChild(xmlNextLevelExperience)
+                xmlStats.AppendChild(xmlExpForNextLevel)
+                xmlStats.AppendChild(xmlHitPoints)
+                xmlStats.AppendChild(xmlManaPoints)
+                xmlStats.AppendChild(xmlSoulPoints)
+                xmlStats.AppendChild(xmlCapacity)
+                xmlStats.AppendChild(xmlStamina)
+                xmlStats.AppendChild(xmlSkills)
+                xmlStats.AppendChild(xmlBattlelist)
+                xmlStats.AppendChild(xmlVipList)
+                xmlStats.AppendChild(xmlContainers)
+                xmlStats.AppendChild(xmlLastUpdate)
+
+                xmlFile.AppendChild(xmlStats)
+
+                If Consts.StatsUploaderSaveOnDiskOnly Then
+                    xmlFile.Save(Consts.StatsUploaderPath & Consts.StatsUploaderFilename)
+                Else
+                    xmlFile.Save("temp.xml")
+                    'Dim CS As New CaptureScreen.CaptureScreen
+                    'CS.CaptureScreenToFile("screenshot.jpg", ImageFormat.Jpeg)
+                    If IO.File.Exists("temp.xml") Then  'AndAlso IO.File.Exists("screenshot.jpg")
+                        Client.UploadFile("ftp://" & Consts.StatsUploaderUserID & ":" & Consts.StatsUploaderPassword & "@" & Consts.StatsUploaderUrl & Consts.StatsUploaderPath & Consts.StatsUploaderFilename, "Temp.xml")
+                        'Client.UploadFile("ftp://" & Consts.StatsUploaderUserID & ":" & Consts.StatsUploaderPassword & "@" & Consts.StatsUploaderUrl & Consts.StatsUploaderPath & "screenshot.jpg", "screenshot.jpg")
+                        IO.File.Delete("temp.xml")
+                        'IO.File.Delete("screenshot.jpg")
+                    End If
                 End If
-            Loop While BL.NextEntity(True)
-            Dim xmlVipList As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "VipList", "")
-            Dim Vip As New VipList
-            Vip.Reset(False)
-            Do
-                If Vip.IsOnline Then
-                    Dim xmlPlayer As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Player", "")
-                    xmlPlayer.InnerText = Vip.GetName
-                    xmlVipList.AppendChild(xmlPlayer)
-                End If
-            Loop While Vip.NextPlayer(False)
-
-            Dim xmlContainers As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Containers", "")
-            Dim Container As New Container
-            Dim ContainerItemCount As Integer
-            Dim Item As ContainerItemDefinition
-            Container.Reset()
-            Do
-                If Container.IsOpened Then
-                    ContainerItemCount = Container.GetItemCount
-                    Dim xmlContainer As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Container", "")
-                    Dim xmlContainerName As XmlAttribute = xmlFile.CreateAttribute("Name")
-                    xmlContainerName.InnerText = Container.GetName
-                    xmlContainer.Attributes.Append(xmlContainerName)
-                    Dim xmlContainerSize As XmlAttribute = xmlFile.CreateAttribute("Size")
-                    xmlContainerSize.InnerText = Container.GetContainerSize
-                    Dim xmlContainerItems As XmlAttribute = xmlFile.CreateAttribute("Items")
-                    xmlContainerItems.InnerText = ContainerItemCount
-                    xmlContainer.Attributes.Append(xmlContainerName)
-                    xmlContainer.Attributes.Append(xmlContainerItems)
-                    xmlContainer.Attributes.Append(xmlContainerSize)
-                    For I As Integer = 0 To ContainerItemCount - 1
-                        Item = Container.Items(I)
-                        Dim xmlItem As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Item", "")
-                        Dim xmlItemName As XmlAttribute = xmlFile.CreateAttribute("Name")
-                        xmlItemName.InnerText = Definitions.GetItemName(Item.ID)
-                        Dim xmlItemID As XmlAttribute = xmlFile.CreateAttribute("ID")
-                        xmlItemID.InnerText = Item.ID
-                        Dim xmlItemCount As XmlAttribute = xmlFile.CreateAttribute("Count")
-                        xmlItemCount.InnerText = Item.Count
-                        Dim xmlItemSlot As XmlAttribute = xmlFile.CreateAttribute("Slot")
-                        xmlItemSlot.InnerText = Item.Slot
-                        xmlItem.Attributes.Append(xmlItemName)
-                        xmlItem.Attributes.Append(xmlItemID)
-                        xmlItem.Attributes.Append(xmlItemSlot)
-                        xmlItem.Attributes.Append(xmlItemCount)
-                        xmlContainer.AppendChild(xmlItem)
-                    Next
-                    xmlContainers.AppendChild(xmlContainer)
-                End If
-            Loop While Container.NextContainer
-
-            xmlStats.AppendChild(xmlName)
-            xmlStats.AppendChild(xmlLevel)
-            xmlStats.AppendChild(xmlExperience)
-            xmlStats.AppendChild(xmlCurrentLevelExperience)
-            xmlStats.AppendChild(xmlNextLevelExperience)
-            xmlStats.AppendChild(xmlExpForNextLevel)
-            xmlStats.AppendChild(xmlHitPoints)
-            xmlStats.AppendChild(xmlManaPoints)
-            xmlStats.AppendChild(xmlSoulPoints)
-            xmlStats.AppendChild(xmlCapacity)
-            xmlStats.AppendChild(xmlStamina)
-            xmlStats.AppendChild(xmlSkills)
-            xmlStats.AppendChild(xmlBattlelist)
-            xmlStats.AppendChild(xmlVipList)
-            xmlStats.AppendChild(xmlContainers)
-            xmlStats.AppendChild(xmlLastUpdate)
-
-            xmlFile.AppendChild(xmlStats)
-
-            If Consts.StatsUploaderSaveOnDiskOnly Then
-                xmlFile.Save(Consts.StatsUploaderPath & Consts.StatsUploaderFilename)
-            Else
-                xmlFile.Save("temp.xml")
-                'Dim CS As New CaptureScreen.CaptureScreen
-                'CS.CaptureScreenToFile("screenshot.jpg", ImageFormat.Jpeg)
-                If IO.File.Exists("temp.xml") Then  'AndAlso IO.File.Exists("screenshot.jpg")
-                    MsgBox("ftp://" & Consts.StatsUploaderUserID & ":" & Consts.StatsUploaderPassword & "@" & Consts.StatsUploaderUrl & Consts.StatsUploaderPath & Consts.StatsUploaderFilename)
-                    Client.UploadFile("ftp://" & Consts.StatsUploaderUserID & ":" & Consts.StatsUploaderPassword & "@" & Consts.StatsUploaderUrl & Consts.StatsUploaderPath & Consts.StatsUploaderFilename, "Temp.xml")
-                    'Client.UploadFile("ftp://" & Consts.StatsUploaderUserID & ":" & Consts.StatsUploaderPassword & "@" & Consts.StatsUploaderUrl & Consts.StatsUploaderPath & "screenshot.jpg", "screenshot.jpg")
-                    IO.File.Delete("temp.xml")
-                    'IO.File.Delete("screenshot.jpg")
-                End If
-            End If
-            'Catch
-            'Finally
-            'StatsUploaderIsBusy = False
-            'End Try
+            Catch
+            Finally
+                'StatsUploaderIsBusy = False
+            End Try
         End Sub
 #End Region
+
+#Region " Amulet/Necklace Changer "
+        Private Sub AmuletChangerTimerObj_Execute() Handles AmuletChangerTimerObj.OnExecute
+            If Not InGame() Then Exit Sub
+            Dim Cont As New Container
+            Dim Amulet As New ContainerItemDefinition
+            Dim NeckSlot As Integer = 0
+            Core.Tibia.Memory.Read(Core.Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Core.Consts.ItemDist), NeckSlot, 2)
+            If NeckSlot = 0 Then 'No amulet, let's change there something :)
+                If Not Container.FindItem(Amulet, AmuletId, 0, 0, Consts.MaxContainers - 1) Then
+                    Core.StatusMessage("Couldn't Find " & Definitions.GetItemName(AmuletId) & ". Amulet/Necklace Changer is now Stopped.")
+                    AmuletChangerTimerObj.StopTimer()
+                    Exit Sub
+                End If
+                Core.SendPacketToServer(PacketUtils.MoveObject(Amulet, GetInventorySlotAsLocation(InventorySlots.Neck), 1))
+            End If
+
+        End Sub
+#End Region
+
+#Region " Auto UHer "
+
+        Private Sub UHTimerObj_Execute() Handles UHTimerObj.OnExecute
+            If Not InGame() Then Exit Sub
+            Dim UHID As UShort = Definitions.GetItemID("Ultimate Healing")
+            If UHTimerObj.Interval > Consts.HealersCheckInterval Then UHTimerObj.Interval = Consts.HealersCheckInterval
+            If UHHPRequired = 0 Then
+                UHTimerObj.StopTimer()
+                Exit Sub
+            End If
+            If CharacterHitPoints > UHHPRequired Then Exit Sub
+            UHTimerObj.Interval = Consts.HealersAfterHealDelay
+            Core.SendPacketToServer(UseObjectOnPlayerAsHotkey(UHID, CharacterLoc))
+            'Proxy.SendPacketToClient(CreatureSpeak(Proxy.CharacterName, MessageType.MonsterSay, 0, "Uh!", CharacterLoc.X, CharacterLoc.Y, CharacterLoc.Z))
+        End Sub
+#End Region
+
+#Region " Heal Friend Timer "
+
+        Private Sub HealFriendTimerObj_Execute() Handles HealFriendTimerObj.OnExecute
+            SyncLock HealFriendTimerObj
+                If Not InGame() Then Exit Sub
+                Dim BL As New BattleList
+                If HealFriendCharacterName.Length = 0 OrElse HealFriendHealthPercentage = 0 OrElse HealFriendHealType = HealTypes.None Then
+                    HealFriendCharacterName = ""
+                    HealFriendHealthPercentage = 0
+                    HealFriendHealType = HealTypes.None
+                    Exit Sub
+                End If
+                If HealFriendTimerObj.Interval > Consts.HealersCheckInterval Then HealFriendTimerObj.Interval = Consts.HealersCheckInterval
+                If BL.Find(HealFriendCharacterName, True) AndAlso BL.GetFloor = CharacterLoc.Z AndAlso BL.GetHPPercentage <= HealFriendHealthPercentage Then
+                    Select Case HealFriendHealType
+                        Case HealTypes.ExuraSio
+                            If CharacterManaPoints < Spells.GetSpellMana("Heal Friend") Then Exit Sub
+                            SioPlayer(HealFriendCharacterName)
+                        Case HealTypes.UltimateHealingRune
+                            UHOnLocation(BL.GetLocation)
+                        Case HealTypes.Both
+                            If CharacterManaPoints >= Spells.GetSpellMana("Heal Friend") Then
+                                SioPlayer(HealFriendCharacterName)
+                            Else
+                                UHOnLocation(BL.GetLocation)
+                            End If
+                    End Select
+                    HealFriendTimerObj.Interval = Consts.HealersAfterHealDelay
+                End If
+            End SyncLock
+        End Sub
+
+        Private Sub SioPlayer(ByVal Name As String)
+            Core.SendPacketToServer(Speak(Spells.GetSpellWords("Heal Friend") & " """ & Name & """"))
+        End Sub
+
+        Private Sub UHOnLocation(ByVal Loc As LocationDefinition)
+            Dim BL As New BattleList
+            BL.Reset()
+            BL.Find(Loc)
+            Dim UHRuneID As UShort = Definitions.GetItemID("Ultimate Healing")
+            Core.SendPacketToServer(UseObjectOnPlayerAsHotkey(UHRuneID, Loc))
+            Core.StatusMessage("Uhed player: " & BL.GetName)
+        End Sub
+
+#End Region
+
+
 
 #End Region
 
@@ -1073,6 +1177,10 @@ Public Module CoreModule
             ExpCheckerActivated = False
             FakingTitle = False
             ExpCheckerTimerObj.StopTimer()
+            AmuletChangerTimerObj.StopTimer()
+            AmuletId = 0
+            UHTimerObj.StopTimer()
+            UHHPRequired = 0
 
             ChatMessageQueueList.Clear()
             ChatMessageQueueTimerObj.StopTimer()
@@ -1082,6 +1190,13 @@ Public Module CoreModule
         Public Function InGame() As Boolean
             Static Dim InGame_ As Integer = 0
             Core.Tibia.Memory.Read(Consts.ptrInGame, InGame_, 1)
+            If LoggingIn = False And InGame_ = 8 Then
+                StatusMessage("Logged In")
+                LoggingIn = True
+            End If
+            If InGame_ = 0 And LoggingIn = True Then
+                LoggingIn = False
+            End If
             If MapReaderTimerObj.State = ThreadTimerState.Stopped Then MapReaderTimerObj.StartTimer()
             Return InGame_ = 8
         End Function
@@ -1837,6 +1952,7 @@ Public Module CoreModule
             Dim Pos As Integer = 4
             Dim ID As Integer = GetByte(bytBuffer, Pos)
             'Core.ConsoleWrite(Hex(ID))
+            IO.File.AppendAllText(Application.StartupPath & "\ID.txt", "From Client: " & BytesToStr(bytBuffer) & ControlChars.NewLine)
             Select Case ID
                 Case &H1E 'ping
                 Case &H82 'use item
@@ -1856,11 +1972,39 @@ Public Module CoreModule
             Dim Pos As Integer = 0
             Dim PacketLength As UShort = GetWord(bytBuffer, Pos) + 2
             Dim Loc As LocationDefinition
+            Dim ID As Integer = 0
+            Dim OneByte As Byte = 0
             'Pos = 2
             Dim PacketID As Integer = 0
             PacketID = GetByte(bytBuffer, Pos)
-            'Core.ConsoleWrite(Hex(PacketID))
+            'IO.File.AppendAllText(Application.StartupPath & "\ID.txt", "From Server: " & BytesToStr(bytBuffer) & ControlChars.NewLine)
             Select Case PacketID
+                Case &H85 'Projectile
+                    Dim From As New LocationDefinition
+                    Dim Too As New LocationDefinition
+                    Dim Type As Integer = 0
+                    From = GetLocation(bytBuffer, Pos)
+                    Too = GetLocation(bytBuffer, Pos)
+                    Type = GetByte(bytBuffer, Pos)
+                    'MsgBox("Projectile-- From: " & From.X & " " & From.Y & " " & From.Z & " To: " & Too.X & " " & Too.Y & " " & Too.Z & " Type: " & Type)
+                Case &H8C 'creature health
+                    ID = GetDWord(bytBuffer, Pos)
+                    OneByte = GetByte(bytBuffer, Pos)
+                    If OneByte > 0 Then Exit Select
+                    If ShowCreaturesUntilNextLevel Then
+                        Dim LastAttackedID As Integer = 0
+                        Tibia.Memory.Read(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
+                        If ID = LastAttackedID Then
+                            Dim BL As New BattleList
+                            Dim Name As String = 0
+                            If Not BL.Find(ID) Then Exit Select
+                            Name = BL.GetName()
+                            If Creatures.Creatures.ContainsKey(Name) Then
+                                Dim N As Integer = (NextLevelExp - CharacterExperience) / Creatures.Creatures(Name).Experience
+                                Core.StatusMessage("You need to kill " & N & " " & Name & " to level up.")
+                            End If
+                        End If
+                    End If
                 Case &HAA 'received message
                     GetDWord(bytBuffer, Pos)
                     Dim Name As String = ""
@@ -1902,9 +2046,8 @@ Public Module CoreModule
                             Message = GetString(bytBuffer, Pos)
                             If TradeWatcherActive AndAlso ChanType = ChannelType.Trade AndAlso Not Name.Equals(CharacterName) Then
                                 If Regex.IsMatch(Message, TradeWatcherRegex, RegexOptions.IgnoreCase) Then
-                                    'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message))
-                                    'For now let's just put that text to the console
-                                    '!!!!!ConsoleWrite("Offer: " & Name & "[" & Level & "]: " & Message)
+                                    Core.StatusMessage("Offer: " & Name & "[" & Level & "]: " & Message)
+                                    System.IO.File.AppendAllText(Application.StartupPath & "\Offers.txt", "Offer: " & Name & "[" & Level & "]: " & Message & ControlChars.NewLine)
                                 End If
                             End If
                             'Log("Message", Name & "[" & Level & "] said in " & Channel & ": " & Message) 'Logging not enabled

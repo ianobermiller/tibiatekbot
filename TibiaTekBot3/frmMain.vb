@@ -111,39 +111,39 @@ Public Class frmMain
         System.Diagnostics.Process.Start(BotWebsite)
     End Sub
 
-    Private Sub ToolStripMenuItem16_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem16.Click
+    Private Sub ToolStripMenuItem16_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light on")
     End Sub
 
-    Private Sub ToolStripMenuItem17_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem17.Click
+    Private Sub ToolStripMenuItem17_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light torch")
     End Sub
 
-    Private Sub ToolStripMenuItem18_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem18.Click
+    Private Sub ToolStripMenuItem18_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light great torch")
     End Sub
 
-    Private Sub ToolStripMenuItem19_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem19.Click
+    Private Sub ToolStripMenuItem19_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light ultimate torch")
     End Sub
 
-    Private Sub ToolStripMenuItem20_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem20.Click
+    Private Sub ToolStripMenuItem20_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light utevo lux")
     End Sub
 
-    Private Sub ToolStripMenuItem21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem21.Click
+    Private Sub ToolStripMenuItem21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light utevo gran lux")
     End Sub
 
-    Private Sub ToolStripMenuItem22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem22.Click
+    Private Sub ToolStripMenuItem22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light utevo vis lux")
     End Sub
 
-    Private Sub ToolStripMenuItem23_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem23.Click
+    Private Sub ToolStripMenuItem23_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light light wand")
     End Sub
 
-    Private Sub ToolStripMenuItem24_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem24.Click
+    Private Sub ToolStripMenuItem24_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("light off")
     End Sub
 
@@ -186,7 +186,7 @@ Public Class frmMain
         CommandParser("wasd off")
     End Sub
 
-    Private Sub ToolStripMenuItem45_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem45.Click
+    Private Sub ToolStripMenuItem45_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim advertisement As String = InputBox("Enter your advertisement. Example: sell 10 bp of uh ~ thais.", "Advertisement")
         If Not String.IsNullOrEmpty(advertisement) Then CommandParser("advertise " & advertisement)
     End Sub
@@ -225,19 +225,19 @@ Public Class frmMain
         CommandParser("namespy off")
     End Sub
 
-    Private Sub ToolStripMenuItem60_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem60.Click
+    Private Sub ToolStripMenuItem60_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("fpschanger on")
     End Sub
 
-    Private Sub ToolStripMenuItem61_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem61.Click
+    Private Sub ToolStripMenuItem61_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("fpschanger off")
     End Sub
 
-    Private Sub ToolStripMenuItem57_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem57.Click
+    Private Sub ToolStripMenuItem57_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("statsuploader on")
     End Sub
 
-    Private Sub ToolStripMenuItem58_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem58.Click
+    Private Sub ToolStripMenuItem58_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("statsuploader off")
     End Sub
 
@@ -263,18 +263,13 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub ToolStripMenuItem48_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem48.Click
+    Private Sub ToolStripMenuItem48_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim reg As String = InputBox("Enter the regular expression pattern to match. Example: bps? of uh.", "Regular Expression Pattern")
         If Not String.IsNullOrEmpty(reg) Then CommandParser("watch " & reg)
     End Sub
 
-    Private Sub ToolStripMenuItem49_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem49.Click
+    Private Sub ToolStripMenuItem49_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         CommandParser("watch off")
-    End Sub
-
-
-    Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        AddFeature("Auto Fisher")
     End Sub
 
     Private Sub FtsOnBox_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FtsOnBox.SelectedIndexChanged
@@ -295,6 +290,20 @@ Public Class frmMain
                 ShowFeature(frmSubForms.WASD)
             Case "Exp Checker"
                 ShowFeature(frmSubForms.ExpChecker)
+            Case "Light Effects"
+                ShowFeature(frmSubForms.LightEffects)
+            Case "Advertiser"
+                ShowFeature(frmSubForms.Advertiser)
+            Case "Watcher"
+                ShowFeature(frmSubForms.Watcher)
+            Case "FPS Changer"
+                ShowFeature(frmSubForms.FPSChanger)
+            Case "Stats Uploader"
+                ShowFeature(frmSubForms.StatsUploader)
+            Case "Amulet Changer"
+                ShowFeature(frmSubForms.Changer)
+            Case "Auto UHer"
+                ShowFeature(frmSubForms.AutoUHer)
             Case Else
                 FeaturePanel.Controls.Clear()
         End Select
@@ -330,5 +339,37 @@ Public Class frmMain
 
     Private Sub ToolStripMenuItem79_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem79.Click
         AddFeature("Exp Checker")
+    End Sub
+
+    Private Sub ToolStripMenuItem15_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem15.Click
+        AddFeature("Light Effects")
+    End Sub
+
+    Private Sub ToolStripMenuItem44_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem44.Click
+        AddFeature("Advertiser")
+    End Sub
+
+    Private Sub ToolStripMenuItem47_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem47.Click
+        AddFeature("Watcher")
+    End Sub
+
+    Private Sub ToolStripMenuItem28_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem28.Click
+        AddFeature("FPS Changer")
+    End Sub
+
+    Private Sub ToolStripMenuItem56_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem56.Click
+        AddFeature("Stats Uploader")
+    End Sub
+
+    Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
+
+    End Sub
+
+    Private Sub AMuletNecklaceChangerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AMuletNecklaceChangerToolStripMenuItem.Click
+        AddFeature("Amulet Changer")
+    End Sub
+
+    Private Sub ToolStripMenuItem66_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem66.Click
+        AddFeature("Auto UHer")
     End Sub
 End Class

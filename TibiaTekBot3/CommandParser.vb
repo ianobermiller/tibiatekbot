@@ -39,6 +39,12 @@ Public Module CommandParserModule
                     CmdStatusUploader(MatchObj.Groups)
                 Case "namespy"
                     CmdNameSpy(MatchObj.Groups)
+                Case "changer", "amulet changer", "necklace changer", "amulet/necklace changer"
+                    cmdChanger(MatchObj.Groups)
+                Case "uh", "uher"
+                    CmdUH(MatchObj.Groups)
+                Case "healfriend"
+                    CmdHealFriend(MatchObj.Groups)
                 Case Else
                     MsgBox("Error: Wrong Call to Commandparser", MsgBoxStyle.OkOnly, "Error")
             End Select
@@ -177,7 +183,7 @@ Public Module CommandParserModule
                 Core.ExpCheckerActivated = True
                 Core.StatusMessage("Experience Checker is now Enabled.")
             Case Else
-                If Arguments(2).ToString = "stop" Then
+                If Arguments(2).ToString = "end" Then
                     Core.ExpCheckerActivated = False
                     Core.LastExperience = 0
                     Core.Tibia.Title = BotName & " - " & Core.CharacterName
@@ -212,13 +218,13 @@ Public Module CommandParserModule
         Select Case Arguments(1).Value
             Case "stop", "halt"
                 Core.Stop()
-                Core.ConsoleWrite("The bot is now stopped. All operations have been canceled.")
+                Core.StatusMessage("The bot is now stopped. All operations have been canceled.")
             Case "resume", "start", "continue"
                 Core.Resume()
-                Core.ConsoleWrite("The bot is now resuming all operations.")
+                Core.StatusMessage("The bot is now resuming all operations.")
             Case "pause", "freeze"
                 Core.Pause()
-                Core.ConsoleWrite("The bot is now paused.")
+                Core.StatusMessage("The bot is now paused.")
         End Select
     End Sub
 
@@ -232,45 +238,52 @@ Public Module CommandParserModule
             Case 0
                 Core.SetLight(LightIntensity.Small, LightColor.UtevoLux)
                 Core.LightEffectTimerObj.StopTimer()
-                Core.ConsoleWrite("Light Effect is now Disabled.")
+                Core.StatusMessage("Light Effect is now Disabled.")
+                RemoveFeature("Light Effects")
             Case 1
                 Core.LightC = LightColor.BrightSword
                 Core.LightI = LightIntensity.Inmense
-                Core.ConsoleWrite("Full Light Effect is now Enabled.")
+                Core.StatusMessage("Full Light Effect is now Enabled.")
                 Core.LightEffectTimerObj.StartTimer()
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.SetLight(LightIntensity.Small, LightColor.UtevoLux)
+                    Core.LightEffectTimerObj.StopTimer()
+                    Core.StatusMessage("Light Effect is now Disabled.")
+                    Exit Sub
+                End If
                 Dim strOutput As String = "{0} Light Effect is now Enabled."
                 Select Case Value.ToLower()
                     Case "torch"
                         Core.LightI = LightIntensity.Medium
                         Core.LightC = LightColor.Torch
-                        Core.ConsoleWrite("Torch Light Effect is now Enabled.")
+                        Core.StatusMessage("Torch Light Effect is now Enabled.")
                     Case "great torch"
                         Core.LightI = LightIntensity.VeryLarge
                         Core.LightC = LightColor.Torch
-                        Core.ConsoleWrite("Great Torch Light Effect is now Enabled.")
+                        Core.StatusMessage("Great Torch Light Effect is now Enabled.")
                     Case "ultimate torch"
                         Core.LightI = LightIntensity.Huge
                         Core.LightC = LightColor.Torch
-                        Core.ConsoleWrite("Ultimate Torch Light Effect is now Enabled.")
+                        Core.StatusMessage("Ultimate Torch Light Effect is now Enabled.")
                     Case "utevo lux"
                         Core.LightI = LightIntensity.Medium
                         Core.LightC = LightColor.UtevoLux
-                        Core.ConsoleWrite("Utevo Lux Light Effect is now Enabled.")
+                        Core.StatusMessage("Utevo Lux Light Effect is now Enabled.")
                     Case "utevo gran lux"
                         Core.LightI = LightIntensity.Large
                         Core.LightC = LightColor.UtevoLux
-                        Core.ConsoleWrite("Utevo Gran Lux Light Effect is now Enabled.")
+                        Core.StatusMessage("Utevo Gran Lux Light Effect is now Enabled.")
                     Case "utevo vis lux"
                         Core.LightI = LightIntensity.VeryLarge
                         Core.LightC = LightColor.UtevoLux
-                        Core.ConsoleWrite("Utevo Vis Lux Light Effect is now Enabled.")
+                        Core.StatusMessage("Utevo Vis Lux Light Effect is now Enabled.")
                     Case "light wand"
                         Core.LightI = LightIntensity.Large
                         Core.LightC = LightColor.LightWand
-                        Core.ConsoleWrite("Light Wand Light Effect is now Enabled.")
+                        Core.StatusMessage("Light Wand Light Effect is now Enabled.")
                     Case Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdLight")
                         Exit Sub
                 End Select
                 Core.LightEffectTimerObj.StartTimer()
@@ -449,18 +462,23 @@ Public Module CommandParserModule
         Dim Value As String = Arguments(2).ToString
         Select Case StrToShort(Value)
             Case 0
-                Core.AdvertiseMsg = ""
                 Core.AdvertiseTimerObj.StopTimer()
-                Core.ConsoleWrite("Trade Channel Advertiser is now Disabled.")
+                Core.StatusMessage("Trade Channel Advertiser is now Disabled.")
+                RemoveFeature("Advertiser")
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.AdvertiseTimerObj.StopTimer()
+                    Core.StatusMessage("Trade Channel Advertiser is now Paused.")
+                    Exit Sub
+                End If
                 Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, """([^""]+)""?")
                 If MatchObj.Success Then
                     'OpenChannel("Trade", ChannelType.Trade)
                     Core.AdvertiseMsg = MatchObj.Groups(1).ToString
-                    Core.ConsoleWrite("Trade Channel Advertiser is now Enabled. Make sure the Trade Channel is opened.")
+                    Core.StatusMessage("Trade Channel Advertiser is now Enabled. Make sure the Trade Channel is opened.")
                     Core.AdvertiseTimerObj.StartTimer(1000)
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdAdvertiser")
                 End If
         End Select
 
@@ -476,10 +494,16 @@ Public Module CommandParserModule
             Case 0
                 Core.TradeWatcherActive = False
                 Core.TradeWatcherRegex = ""
-                Core.ConsoleWrite("Trade Channel Watcher is now Disabled.")
+                Core.StatusMessage("Trade Channel Watcher is now Disabled.")
+                RemoveFeature("Watcher")
             Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.TradeWatcherActive = False
+                    Core.StatusMessage("Trade Channel Watcher is now Paused.")
+                    Exit Sub
+                End If
                 If String.IsNullOrEmpty(Value) Then
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdTradeWatcher")
                     Exit Sub
                 End If
                 Dim RegExp As Regex
@@ -487,10 +511,10 @@ Public Module CommandParserModule
                     RegExp = New Regex(Value)
                     Core.TradeWatcherRegex = Value
                     Core.TradeWatcherActive = True
-                    Core.ConsoleWrite("Trade Channel Watcher will now match advertisements with the following pattern '" & Core.TradeWatcherRegex & "'. Make sure the Trade channel is opened.")
+                    Core.StatusMessage("Trade Channel Watcher will now match advertisements with the following pattern '" & Core.TradeWatcherRegex & "'. Make sure the Trade channel is opened.")
                 Catch ex As Exception
-                    Core.ConsoleError("Sorry, but this is not a valid regular expression." & Ret & _
-                    "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.")
+                    MsgBox("Sorry, but the regular expression you inserted is not valid.")
+                    frmSubForms.AdvertiserOnOff.Text = "Activate"
                 End Try
         End Select
     End Sub
@@ -504,12 +528,19 @@ Public Module CommandParserModule
             Case 0
                 Core.FPSChangerTimerObj.StopTimer()
                 Core.Tibia.Memory.Write(Core.FrameRateBegin + Core.Consts.FrameRateLimitOffset, FPSBToX(Core.Consts.FPSWhenActive))
-                Core.ConsoleWrite("FPS Changer is now Disabled.")
+                Core.StatusMessage("FPS Changer is now Disabled.")
+                RemoveFeature("FPS Changer")
             Case 1
                 Core.FPSChangerTimerObj.StartTimer()
-                Core.ConsoleWrite("FPS Changer is now Enabled.")
+                Core.StatusMessage("FPS Changer is now Enabled.")
             Case Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                If Arguments(2).ToString = "pause" Then
+                    Core.FPSChangerTimerObj.StopTimer()
+                    Core.Tibia.Memory.Write(Core.FrameRateBegin + Core.Consts.FrameRateLimitOffset, FPSBToX(Core.Consts.FPSWhenActive))
+                    Core.StatusMessage("FPS Changer is now Paused.")
+                    Exit Sub
+                End If
+                MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdFpsChanger")
         End Select
     End Sub
 
@@ -521,30 +552,152 @@ Public Module CommandParserModule
         Select Case StrToShort(Arguments(2).ToString)
             Case 0
                 Core.StatsUploaderTimerObj.StopTimer()
-                Core.ConsoleWrite("Stats Uploader is now Disabled.")
+                Core.StatusMessage("Stats Uploader is now Disabled.")
+                RemoveFeature("Stats Uploader")
             Case 1
                 If Core.Consts.StatsUploaderSaveOnDiskOnly Then
                     If Core.Consts.StatsUploaderPath.Length = 0 OrElse Core.Consts.StatsUploaderFilename.Length = 0 Then
-                        Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
+                        MsgBox("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
                         Exit Sub
                     End If
                     Core.StatsUploaderTimerObj.Interval = Core.Consts.StatsUploaderFrequency
                     Core.StatsUploaderTimerObj.StartTimer()
-                    Core.ConsoleWrite("Stats Uploader is now Enabled.")
+                    Core.StatusMessage("Stats Uploader is now Enabled.")
                 Else
                     If Core.Consts.StatsUploaderUrl.Length = 0 _
                         OrElse Core.Consts.StatsUploaderUserID.Length = 0 _
                         OrElse Core.Consts.StatsUploaderPassword.Length = 0 _
                         OrElse Core.Consts.StatsUploaderFrequency = 0 Then
-                        Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
+                        MsgBox("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
                         Exit Sub
                     End If
                     Core.StatsUploaderTimerObj.Interval = Core.Consts.StatsUploaderFrequency
                     Core.StatsUploaderTimerObj.StartTimer()
-                    Core.ConsoleWrite("Stats Uploader is now Enabled.")
+                    Core.StatusMessage("Stats Uploader is now Enabled.")
                 End If
             Case Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                If Arguments(2).ToString = "pause" Then
+                    Core.StatsUploaderTimerObj.StopTimer()
+                    Core.StatusMessage("Stats Uploader is now Paused.")
+                    Exit Sub
+                End If
+                MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdStatsUploader")
+        End Select
+    End Sub
+
+#End Region
+
+#Region " Amulet/Necklace Changer"
+    Private Sub cmdChanger(ByVal Arguments As GroupCollection)
+        Select Case StrToShort(Arguments(2).Value)
+            Case 0
+                Core.AmuletChangerTimerObj.StopTimer()
+                Core.AmuletId = 0
+                Core.StatusMessage("Amulet/Necklace Changer is now Disabled.")
+                RemoveFeature("Amulet Changer")
+            Case 1
+                Dim TempId As Integer
+                Core.Tibia.Memory.Read(Core.Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Core.Consts.ItemDist), TempId, 2)
+                If TempId = 0 Then
+                    MsgBox("You are not wearing any amulet. Please select amulet you want to change")
+                    frmSubForms.ChangerOnOff.Checked = False
+                    Exit Sub
+                End If
+                Core.AmuletId = TempId
+                Core.AmuletChangerTimerObj.StartTimer()
+                Core.StatusMessage("Amulet/Necklace Chaner is now Enabled.")
+            Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.AmuletChangerTimerObj.StopTimer()
+                    Core.StatusMessage("Amulet/Necklace Changer is now Paused.")
+                    Exit Sub
+                End If
+                Core.AmuletId = Core.Definitions.GetItemID(Arguments(2).ToString)
+                If Core.AmuletId = 0 Then
+                    MsgBox("Invalid Amulet/Necklace Name")
+                    frmSubForms.ChangerOnOff.Checked = False
+                    Exit Sub
+                End If
+                Core.AmuletChangerTimerObj.StartTimer()
+                Core.StatusMessage("Amulet/Necklace Changer is now Enabled.")
+        End Select
+    End Sub
+#End Region
+
+#Region " Auto UHer "
+    Private Sub CmdUH(ByVal Arguments As GroupCollection)
+        Dim Value As String = Arguments(2).ToString
+        Select Case StrToShort(Value)
+            Case 0
+                Core.UHTimerObj.StopTimer()
+                Core.UHHPRequired = 0
+                Core.StatusMessage("Auto UHer is now Disabled.")
+                RemoveFeature("Auto UHer")
+            Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.UHTimerObj.StopTimer()
+                    Core.StatusMessage("Auto UHer is now Paused.")
+                    Exit Sub
+                End If
+                Dim RegExp As New Regex("[1-9][0-9]{0,4}%?")
+                Dim Match As Match = RegExp.Match(Value)
+                If Match.Success Then
+                    Dim Match2 As Match = Regex.Match(Value, "([1-9][0-9])%")
+                    If Not Match2.Success Then
+                        Core.UHHPRequired = CUInt(Value)
+                        Core.UHTimerObj.StartTimer()
+                        Core.StatusMessage("Auto UHer will now 'UH' you if you are below " & Core.UHHPRequired & " hit points.")
+                    Else
+                        Core.UHHPRequired = Core.CharacterMaxHitPoints * (CInt(Match2.Groups(1).Value) / 100)
+                        Core.UHTimerObj.StartTimer()
+                        Core.StatusMessage("Auto UHer will now 'UH' you if you are below " & Value & " hit points.")
+                    End If
+                Else
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdUH")
+                    frmSubForms.UHerHptxtbox.Text = "Activate"
+                End If
+        End Select
+    End Sub
+#End Region
+
+#Region " Auto Heal Friend Command "
+
+    Private Sub CmdHealFriend(ByVal Arguments As GroupCollection)
+        Select Case StrToShort(Arguments(2).ToString)
+            Case 0
+                Core.HealFriendCharacterName = ""
+                Core.HealFriendHealthPercentage = 0
+                Core.HealFriendTimerObj.StopTimer()
+                Core.StatusMessage("Auto Heal Friend is now Disabled.")
+            Case Else
+                Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""([^""]+)""\s+""([^""]+)""?")
+                If MatchObj.Success Then
+                    Core.HealFriendHealthPercentage = CUShort(MatchObj.Groups(1).ToString)
+                    If Core.HealFriendHealthPercentage < 0 Or Core.HealFriendHealthPercentage > 99 Then
+                        MsgBox("Invalid Percentage. Please specify persentages between 1-99")
+                        Exit Sub
+                    End If
+                    Dim HealthType As String = ""
+                    Select Case MatchObj.Groups(2).ToString.ToLower
+                        Case "ultimate healing", "uh", "adura vita"
+                            Core.HealFriendHealType = HealTypes.UltimateHealingRune
+                            HealthType = "Ultimate Healing."
+                        Case "exura sio", "heal friend", "sio"
+                            Core.HealFriendHealType = HealTypes.ExuraSio
+                            HealthType = "Exura Sio."
+                        Case "both"
+                            Core.HealFriendHealType = HealTypes.Both
+                            HealthType = "both Exura Sio and Ultimate Healing."
+                        Case Else
+                            MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdHealFriend")
+                            Exit Sub
+                    End Select
+                    Core.HealFriendCharacterName = MatchObj.Groups(3).Value
+                    Core.HealFriendTimerObj.StartTimer()
+                    Core.StatusMessage("Healing '" & Core.HealFriendCharacterName & "' when his/her hit points are less than " & Core.HealFriendHealthPercentage & "% with " & HealthType)
+                Else
+                    MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdHealFriend")
+                End If
         End Select
     End Sub
 

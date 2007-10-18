@@ -33,7 +33,7 @@ Step 3.
 Make code for them like every other control.
 Example:
 Check Activate/Pause button code to see how I change the text. Also here is CommandParser() calls.
-Stop button code includes CommandParser() call. NOTE! Don't put RemoveFeature() call here!
+Stop button code includes CommandParser() call. NOTE! Don't put RemoveFeature() call here! Also it turns the Active/Pause buttons caption back to Active.
 EaterSmartchk code is simple to Enable/Disable other EaterSmart~ controls.
 
 Step 4.
