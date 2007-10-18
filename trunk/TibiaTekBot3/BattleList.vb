@@ -240,6 +240,22 @@ Public Module BattleListModule
             Return False
         End Function 'Find By ID
 
+        Public Function Find(ByVal Loc As LocationDefinition, Optional ByVal MustBeOnScreen As Boolean = False) As Boolean
+            Dim CurrentLoc As New LocationDefinition
+            For IndexPosition = 0 To Core.Consts.BLMax - 1
+                'Reading Creatures XYZ
+                Core.Tibia.Memory.Read(Core.Consts.ptrBattleListBegin + (IndexPosition * Core.Consts.BLCoordXOffset), CurrentLoc.X, 2)
+                Core.Tibia.Memory.Read(Core.Consts.ptrBattleListBegin + (IndexPosition * Core.Consts.BLCoordYOffset), CurrentLoc.Y, 2)
+                Core.Tibia.Memory.Read(Core.Consts.ptrBattleListBegin + (IndexPosition * Core.Consts.BLCoordZOffset), CurrentLoc.Z, 1)
+
+                If LocationDefinition.Equals(CurrentLoc, Loc) Then
+                    If MustBeOnScreen AndAlso Not IsOnScreen Then Return False
+                    Return True
+                End If
+            Next
+            Return False
+        End Function
+
         Public Function JumpToEntity(ByVal Type As SpecialEntity) As Boolean
             Dim Found As Boolean = False
             Dim ID As Integer

@@ -408,9 +408,9 @@ LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam)
 				return 0;
 			} else if(wParam == VK_PRIOR) {
 				bTextMenu = !bTextMenu;
-				PostMessage(*TTBWindowHandle, WM_TEXTMENU, bTextMenu, 0);
+				//PostMessage(*TTBWindowHandle, WM_TEXTMENU, bTextMenu, 0);
 			} else if (wParam == VK_NEXT) {
-				Beep(0x7D0, 100);
+				//Beep(0x7D0, 100);
 			}
 			if (bWASD && InGame() && *WASDPOPUP != 11) {
 				if(bSayMode) {

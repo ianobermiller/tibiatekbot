@@ -63,6 +63,7 @@
     <Compile Include="Constants.vb" />
     <Compile Include="Container.vb" />
     <Compile Include="CoreModule.vb" />
+    <Compile Include="Creatures.vb" />
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -187,16 +188,6 @@
     <None Include="Resources\ttb splash5.jpg" />
     <None Include="Resources\ttbv3_16.ico" />
     <None Include="Resources\ttbv3.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="AutoItX3Lib">
-      <Guid>{F8937E53-D444-4E71-9275-35B64210CC3B}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

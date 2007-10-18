@@ -800,4 +800,11 @@ Public Module Constants
         Green = 22
         DarkBlue = 24
     End Enum
+
+    Public Enum HealTypes
+        None
+        UltimateHealingRune
+        ExuraSio
+        Both
+    End Enum
 End Module
