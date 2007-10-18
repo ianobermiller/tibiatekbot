@@ -533,6 +533,20 @@ Module PacketUtils
     End Function
 #End Region
 
+#Region " Use Hotkey "
+    Public Function UseHotkey(ByVal ItemId As UInt32, Optional ByVal ExtraByte As Byte = 0) As Byte()
+        Dim bytBuffer(1) As Byte
+        AddByte(bytBuffer, &H84)
+        AddWord(bytBuffer, &HFFFF)
+        AddWord(bytBuffer, &H0)
+        AddByte(bytBuffer, &H0)
+        AddWord(bytBuffer, ItemId)
+        If Core.DatInfo.GetInfo(ItemId).HasExtraByte Then AddByte(bytBuffer, ExtraByte)
+        AddDWord(bytBuffer, Core.CharacterID)
+        Return bytBuffer
+    End Function
+#End Region
+
     Public Function TestPacket()
         Dim bytBuffer(&H1) As Byte
         AddByte(bytBuffer, &HA)

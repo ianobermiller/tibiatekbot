@@ -70,11 +70,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem66 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem69 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem72 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem73 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem74 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem75 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem76 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem77 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem78 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem79 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem85 = New System.Windows.Forms.ToolStripMenuItem
@@ -492,43 +488,15 @@ Partial Class frmMain
         '
         'ToolStripMenuItem72
         '
-        Me.ToolStripMenuItem72.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem73, Me.ToolStripMenuItem74})
-        Me.ToolStripMenuItem72.Enabled = False
         Me.ToolStripMenuItem72.Name = "ToolStripMenuItem72"
         Me.ToolStripMenuItem72.Size = New System.Drawing.Size(173, 22)
         Me.ToolStripMenuItem72.Text = "Auto Heal &Party"
         '
-        'ToolStripMenuItem73
-        '
-        Me.ToolStripMenuItem73.Name = "ToolStripMenuItem73"
-        Me.ToolStripMenuItem73.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem73.Text = "&On"
-        '
-        'ToolStripMenuItem74
-        '
-        Me.ToolStripMenuItem74.Name = "ToolStripMenuItem74"
-        Me.ToolStripMenuItem74.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem74.Text = "O&ff"
-        '
         'ToolStripMenuItem75
         '
-        Me.ToolStripMenuItem75.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem76, Me.ToolStripMenuItem77})
-        Me.ToolStripMenuItem75.Enabled = False
         Me.ToolStripMenuItem75.Name = "ToolStripMenuItem75"
         Me.ToolStripMenuItem75.Size = New System.Drawing.Size(173, 22)
         Me.ToolStripMenuItem75.Text = "&Mana Fluid Drinker"
-        '
-        'ToolStripMenuItem76
-        '
-        Me.ToolStripMenuItem76.Name = "ToolStripMenuItem76"
-        Me.ToolStripMenuItem76.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem76.Text = "&On"
-        '
-        'ToolStripMenuItem77
-        '
-        Me.ToolStripMenuItem77.Name = "ToolStripMenuItem77"
-        Me.ToolStripMenuItem77.Size = New System.Drawing.Size(101, 22)
-        Me.ToolStripMenuItem77.Text = "O&ff"
         '
         'ToolStripMenuItem78
         '
@@ -1185,11 +1153,7 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem66 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem69 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem72 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem73 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem74 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem75 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem76 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem77 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem78 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem79 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem85 As System.Windows.Forms.ToolStripMenuItem

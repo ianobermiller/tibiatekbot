@@ -43,6 +43,7 @@ Public Module CoreModule
         Public Consts As New ConstantsClass
         Public Spells As New SpellsClass
         Public Definitions As New ItemsClass
+        Public DatInfo As New DatReaderClass
         Public WithEvents CharacterTimerObj As ThreadTimer
         Public WithEvents TibiaWindowTimerObj As ThreadTimer
         Public WithEvents LightEffectTimerObj As ThreadTimer
@@ -68,6 +69,8 @@ Public Module CoreModule
         Public WithEvents UHTimerObj As ThreadTimer
         Public WithEvents HealFriendObj As ThreadTimer
         Public WithEvents HealFriendTimerObj As ThreadTimer
+        Public WithEvents HealPartyTimerObj As ThreadTimer
+        Public WithEvents AutoDrinkerTimerObj As ThreadTimer
 
 #End Region
 
@@ -148,6 +151,12 @@ Public Module CoreModule
         Public HealFriendCharacterName As String = ""
         Public HealFriendHealthPercentage As Integer = 0
         Public HealFriendHealType As HealTypes = HealTypes.None
+
+        Public HealPartyMinimumHPPercentage As Integer = 0
+        Public HealPartyHealType As HealTypes = HealTypes.None
+
+        Public DrinkerManaRequired As Integer = 0
+
 #End Region
 
 #Region " Initialization "
@@ -157,6 +166,7 @@ Public Module CoreModule
             Consts = New ConstantsClass()
             Spells = New SpellsClass()
             Definitions = New ItemsClass
+            DatInfo = New DatReaderClass()
             State = BotState.Running
             CharacterTimerObj = New ThreadTimer(300) 'fast o.o
             TibiaWindowTimerObj = New ThreadTimer(1000)
@@ -180,6 +190,8 @@ Public Module CoreModule
             UHTimerObj = New ThreadTimer(1000)
             HealFriendObj = New ThreadTimer(300)
             HealFriendTimerObj = New ThreadTimer(300)
+            HealPartyTimerObj = New ThreadTimer(300)
+            AutoDrinkerTimerObj = New ThreadTimer(300)
         End Sub
 
 #End Region
@@ -188,6 +200,7 @@ Public Module CoreModule
 
         Public Sub AfterInjection()
             Consts.LoadConstants(GetConfigurationDirectory() & "\" & Versions.Items(Tibia.Version).ConstantsFile)
+            DatInfo.ReadDatFile(GetConfigurationDirectory() & "\" & Versions.Items(Tibia.Version).DatFile)
             Tibia.Memory.Read(Consts.ptrFrameRateBegin, FrameRateBegin, 4)
             ConstantsLoaded = True
             CharacterTimerObj.StartTimer()
@@ -1070,9 +1083,7 @@ Public Module CoreModule
             Core.Tibia.Memory.Read(Core.Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Core.Consts.ItemDist), NeckSlot, 2)
             If NeckSlot = 0 Then 'No amulet, let's change there something :)
                 If Not Container.FindItem(Amulet, AmuletId, 0, 0, Consts.MaxContainers - 1) Then
-                    Core.StatusMessage("Couldn't Find " & Definitions.GetItemName(AmuletId) & ". Amulet/Necklace Changer is now Stopped.")
-                    AmuletChangerTimerObj.StopTimer()
-                    frmSubForms.ChangerOnOff.Checked = False
+                    Core.StatusMessage("Couldn't Find " & Definitions.GetItemName(AmuletId))
                     Exit Sub
                 End If
                 Core.SendPacketToServer(PacketUtils.MoveObject(Amulet, GetInventorySlotAsLocation(InventorySlots.Neck), 1))
@@ -1144,6 +1155,72 @@ Public Module CoreModule
 
 #End Region
 
+#Region " Heal Party Timer "
+
+        Private Sub HealPartyTimerObj_Execute() Handles HealPartyTimerObj.OnExecute
+            SyncLock HealPartyTimerObj
+                If Not InGame() Then Exit Sub
+                Dim BL As New BattleList
+                If HealPartyMinimumHPPercentage = 0 OrElse HealPartyHealType = HealTypes.None Then
+                    HealPartyMinimumHPPercentage = 0
+                    HealPartyHealType = HealTypes.None
+                    Exit Sub
+                End If
+
+                If HealPartyTimerObj.Interval > Consts.HealersCheckInterval Then HealPartyTimerObj.Interval = Consts.HealersCheckInterval
+
+                BL.Reset(True)
+                Do
+                    If Not BL.IsOnScreen OrElse BL.IsMyself OrElse BL.GetFloor <> CharacterLoc.Z Then Continue Do
+                    Dim PLPartyStatus As PartyStatus = BL.GetPartyStatus
+                    If (PLPartyStatus = PartyStatus.Member OrElse PLPartyStatus = PartyStatus.Leader) _
+                        AndAlso BL.GetHPPercentage <= HealPartyMinimumHPPercentage Then
+                        Select Case HealPartyHealType
+                            Case HealTypes.ExuraSio
+                                If CharacterManaPoints < Spells.GetSpellMana("Heal Friend") Then Exit Sub
+                                SioPlayer(BL.GetName)
+                            Case HealTypes.UltimateHealingRune
+                                UHOnLocation(BL.GetLocation)
+                            Case HealTypes.Both
+                                If CharacterManaPoints >= Spells.GetSpellMana("Heal Friend") Then
+                                    SioPlayer(BL.GetName)
+                                Else
+                                    UHOnLocation(BL.GetLocation)
+                                End If
+                        End Select
+                        HealPartyTimerObj.Interval = Consts.HealersAfterHealDelay
+                        Exit Sub
+                    End If
+                Loop While BL.NextEntity(True)
+            End SyncLock
+        End Sub
+
+#End Region
+
+#Region " Auto Drinker Timer "
+
+        Public Sub AutoDrinkerTimerObj_Execute() Handles AutoDrinkerTimerObj.OnExecute
+            SyncLock AutoDrinkerTimerObj
+                If Not InGame() Then Exit Sub
+                If AutoDrinkerTimerObj.Interval > Consts.HealersCheckInterval Then AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
+                If DrinkerManaRequired = 0 Then Exit Sub
+                If CharacterManaPoints = 0 Then
+                    Exit Sub
+                ElseIf CharacterManaPoints <= DrinkerManaRequired Then
+                    Dim ItemID As Integer = 0
+                    If IsPrivateServer() Then
+                        Core.SendPacketToServer(UseHotkey(Definitions.GetItemID("Vial"), Fluids.ManaOpenTibia))
+                    Else
+                        Core.SendPacketToServer(UseHotkey(Definitions.GetItemID("Vial"), Fluids.Mana))
+                    End If
+                    AutoDrinkerTimerObj.Interval = Consts.HealersAfterHealDelay
+                End If
+            End SyncLock
+        End Sub
+
+
+#End Region
+
 
 
 #End Region
@@ -1181,6 +1258,13 @@ Public Module CoreModule
             AmuletId = 0
             UHTimerObj.StopTimer()
             UHHPRequired = 0
+            HealFriendObj.StopTimer()
+            HealFriendCharacterName = ""
+            HealFriendHealthPercentage = 0
+            HealFriendHealType = HealTypes.None
+            HealTimerObj.StopTimer()
+            DrinkerManaRequired = 0
+            AutoDrinkerTimerObj.StopTimer()
 
             ChatMessageQueueList.Clear()
             ChatMessageQueueTimerObj.StopTimer()

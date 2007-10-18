@@ -101,6 +101,7 @@ Partial Class frmSubForms
         Me.UHerHptxtbox = New System.Windows.Forms.TextBox
         Me.UHerHplbl = New System.Windows.Forms.Label
         Me.HealFriend = New System.Windows.Forms.Panel
+        Me.HFGetBL = New System.Windows.Forms.Button
         Me.HFStop = New System.Windows.Forms.Button
         Me.HFOnOff = New System.Windows.Forms.Button
         Me.HFTypecb = New System.Windows.Forms.ComboBox
@@ -109,7 +110,18 @@ Partial Class frmSubForms
         Me.HFHplbl = New System.Windows.Forms.Label
         Me.HFNametxtbox = New System.Windows.Forms.TextBox
         Me.HFNamelbl = New System.Windows.Forms.Label
-        Me.HFGetBL = New System.Windows.Forms.Button
+        Me.HealParty = New System.Windows.Forms.Panel
+        Me.HPStop = New System.Windows.Forms.Button
+        Me.HPOnOff = New System.Windows.Forms.Button
+        Me.HpTypescb = New System.Windows.Forms.ComboBox
+        Me.HpTypelbl = New System.Windows.Forms.Label
+        Me.HPHptxtbox = New System.Windows.Forms.TextBox
+        Me.HPHplbl = New System.Windows.Forms.Label
+        Me.AutoDrinker = New System.Windows.Forms.Panel
+        Me.DrinkerManalbl = New System.Windows.Forms.Label
+        Me.DrinkerManatxtbox = New System.Windows.Forms.TextBox
+        Me.DrinkerOnOff = New System.Windows.Forms.Button
+        Me.DrinkerStop = New System.Windows.Forms.Button
         Me.Spellcaster.SuspendLayout()
         Me.AutoEater.SuspendLayout()
         Me.Runemaker.SuspendLayout()
@@ -126,6 +138,8 @@ Partial Class frmSubForms
         Me.Changer.SuspendLayout()
         Me.AutoUHer.SuspendLayout()
         Me.HealFriend.SuspendLayout()
+        Me.HealParty.SuspendLayout()
+        Me.AutoDrinker.SuspendLayout()
         Me.SuspendLayout()
         '
         'Spellcaster
@@ -897,6 +911,15 @@ Partial Class frmSubForms
         Me.HealFriend.Size = New System.Drawing.Size(252, 134)
         Me.HealFriend.TabIndex = 15
         '
+        'HFGetBL
+        '
+        Me.HFGetBL.Location = New System.Drawing.Point(129, 15)
+        Me.HFGetBL.Name = "HFGetBL"
+        Me.HFGetBL.Size = New System.Drawing.Size(102, 20)
+        Me.HFGetBL.TabIndex = 8
+        Me.HFGetBL.Text = "Get from Battlelist"
+        Me.HFGetBL.UseVisualStyleBackColor = True
+        '
         'HFStop
         '
         Me.HFStop.Location = New System.Drawing.Point(147, 104)
@@ -930,9 +953,9 @@ Partial Class frmSubForms
         Me.HFTypelbl.AutoSize = True
         Me.HFTypelbl.Location = New System.Drawing.Point(0, 85)
         Me.HFTypelbl.Name = "HFTypelbl"
-        Me.HFTypelbl.Size = New System.Drawing.Size(65, 13)
+        Me.HFTypelbl.Size = New System.Drawing.Size(70, 13)
         Me.HFTypelbl.TabIndex = 4
-        Me.HFTypelbl.Text = "Healer Type"
+        Me.HFTypelbl.Text = "Healing Type"
         '
         'HFHptxtbox
         '
@@ -966,20 +989,124 @@ Partial Class frmSubForms
         Me.HFNamelbl.TabIndex = 0
         Me.HFNamelbl.Text = "Friend's Name"
         '
-        'HFGetBL
+        'HealParty
         '
-        Me.HFGetBL.Location = New System.Drawing.Point(129, 15)
-        Me.HFGetBL.Name = "HFGetBL"
-        Me.HFGetBL.Size = New System.Drawing.Size(102, 20)
-        Me.HFGetBL.TabIndex = 8
-        Me.HFGetBL.Text = "Get from Battlelist"
-        Me.HFGetBL.UseVisualStyleBackColor = True
+        Me.HealParty.Controls.Add(Me.HPStop)
+        Me.HealParty.Controls.Add(Me.HPOnOff)
+        Me.HealParty.Controls.Add(Me.HpTypescb)
+        Me.HealParty.Controls.Add(Me.HpTypelbl)
+        Me.HealParty.Controls.Add(Me.HPHptxtbox)
+        Me.HealParty.Controls.Add(Me.HPHplbl)
+        Me.HealParty.Location = New System.Drawing.Point(12, 469)
+        Me.HealParty.Name = "HealParty"
+        Me.HealParty.Size = New System.Drawing.Size(225, 130)
+        Me.HealParty.TabIndex = 16
+        '
+        'HPStop
+        '
+        Me.HPStop.Location = New System.Drawing.Point(0, 110)
+        Me.HPStop.Name = "HPStop"
+        Me.HPStop.Size = New System.Drawing.Size(84, 20)
+        Me.HPStop.TabIndex = 5
+        Me.HPStop.Text = "Stop"
+        Me.HPStop.UseVisualStyleBackColor = True
+        '
+        'HPOnOff
+        '
+        Me.HPOnOff.Location = New System.Drawing.Point(0, 84)
+        Me.HPOnOff.Name = "HPOnOff"
+        Me.HPOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.HPOnOff.TabIndex = 4
+        Me.HPOnOff.Text = "Activate"
+        Me.HPOnOff.UseVisualStyleBackColor = True
+        '
+        'HpTypescb
+        '
+        Me.HpTypescb.FormattingEnabled = True
+        Me.HpTypescb.Items.AddRange(New Object() {"UH-Rune", "Exura Sio-Spell", "Both"})
+        Me.HpTypescb.Location = New System.Drawing.Point(0, 55)
+        Me.HpTypescb.Name = "HpTypescb"
+        Me.HpTypescb.Size = New System.Drawing.Size(107, 21)
+        Me.HpTypescb.TabIndex = 3
+        Me.HpTypescb.Text = "Healing Type"
+        '
+        'HpTypelbl
+        '
+        Me.HpTypelbl.AutoSize = True
+        Me.HpTypelbl.Location = New System.Drawing.Point(0, 39)
+        Me.HpTypelbl.Name = "HpTypelbl"
+        Me.HpTypelbl.Size = New System.Drawing.Size(70, 13)
+        Me.HpTypelbl.TabIndex = 2
+        Me.HpTypelbl.Text = "Healing Type"
+        '
+        'HPHptxtbox
+        '
+        Me.HPHptxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.HPHptxtbox.Name = "HPHptxtbox"
+        Me.HPHptxtbox.Size = New System.Drawing.Size(107, 20)
+        Me.HPHptxtbox.TabIndex = 1
+        '
+        'HPHplbl
+        '
+        Me.HPHplbl.AutoSize = True
+        Me.HPHplbl.Location = New System.Drawing.Point(0, 0)
+        Me.HPHplbl.Name = "HPHplbl"
+        Me.HPHplbl.Size = New System.Drawing.Size(162, 13)
+        Me.HPHplbl.TabIndex = 0
+        Me.HPHplbl.Text = "Minimum Percentage of Hitpoints"
+        '
+        'AutoDrinker
+        '
+        Me.AutoDrinker.Controls.Add(Me.DrinkerStop)
+        Me.AutoDrinker.Controls.Add(Me.DrinkerOnOff)
+        Me.AutoDrinker.Controls.Add(Me.DrinkerManatxtbox)
+        Me.AutoDrinker.Controls.Add(Me.DrinkerManalbl)
+        Me.AutoDrinker.Location = New System.Drawing.Point(289, 440)
+        Me.AutoDrinker.Name = "AutoDrinker"
+        Me.AutoDrinker.Size = New System.Drawing.Size(163, 104)
+        Me.AutoDrinker.TabIndex = 17
+        '
+        'DrinkerManalbl
+        '
+        Me.DrinkerManalbl.AutoSize = True
+        Me.DrinkerManalbl.Location = New System.Drawing.Point(0, 0)
+        Me.DrinkerManalbl.Name = "DrinkerManalbl"
+        Me.DrinkerManalbl.Size = New System.Drawing.Size(106, 13)
+        Me.DrinkerManalbl.TabIndex = 0
+        Me.DrinkerManalbl.Text = "Minimum Manapoints"
+        '
+        'DrinkerManatxtbox
+        '
+        Me.DrinkerManatxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.DrinkerManatxtbox.Name = "DrinkerManatxtbox"
+        Me.DrinkerManatxtbox.Size = New System.Drawing.Size(107, 20)
+        Me.DrinkerManatxtbox.TabIndex = 1
+        '
+        'DrinkerOnOff
+        '
+        Me.DrinkerOnOff.Location = New System.Drawing.Point(0, 42)
+        Me.DrinkerOnOff.Name = "DrinkerOnOff"
+        Me.DrinkerOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.DrinkerOnOff.TabIndex = 2
+        Me.DrinkerOnOff.Text = "Activate"
+        Me.DrinkerOnOff.UseVisualStyleBackColor = True
+        '
+        'DrinkerStop
+        '
+        Me.DrinkerStop.Location = New System.Drawing.Point(0, 68)
+        Me.DrinkerStop.Name = "DrinkerStop"
+        Me.DrinkerStop.Size = New System.Drawing.Size(84, 20)
+        Me.DrinkerStop.TabIndex = 3
+        Me.DrinkerStop.Text = "Stop"
+        Me.DrinkerStop.UseVisualStyleBackColor = True
         '
         'frmSubForms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(869, 651)
+        Me.Controls.Add(Me.AutoDrinker)
+        Me.Controls.Add(Me.HealParty)
         Me.Controls.Add(Me.HealFriend)
         Me.Controls.Add(Me.AutoUHer)
         Me.Controls.Add(Me.Changer)
@@ -1030,6 +1157,10 @@ Partial Class frmSubForms
         Me.AutoUHer.PerformLayout()
         Me.HealFriend.ResumeLayout(False)
         Me.HealFriend.PerformLayout()
+        Me.HealParty.ResumeLayout(False)
+        Me.HealParty.PerformLayout()
+        Me.AutoDrinker.ResumeLayout(False)
+        Me.AutoDrinker.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1124,4 +1255,16 @@ Partial Class frmSubForms
     Friend WithEvents HFHptxtbox As System.Windows.Forms.TextBox
     Friend WithEvents HFHplbl As System.Windows.Forms.Label
     Friend WithEvents HFGetBL As System.Windows.Forms.Button
+    Friend WithEvents HealParty As System.Windows.Forms.Panel
+    Friend WithEvents HPHplbl As System.Windows.Forms.Label
+    Friend WithEvents HpTypescb As System.Windows.Forms.ComboBox
+    Friend WithEvents HpTypelbl As System.Windows.Forms.Label
+    Friend WithEvents HPHptxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents HPStop As System.Windows.Forms.Button
+    Friend WithEvents HPOnOff As System.Windows.Forms.Button
+    Friend WithEvents AutoDrinker As System.Windows.Forms.Panel
+    Friend WithEvents DrinkerStop As System.Windows.Forms.Button
+    Friend WithEvents DrinkerOnOff As System.Windows.Forms.Button
+    Friend WithEvents DrinkerManatxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents DrinkerManalbl As System.Windows.Forms.Label
 End Class

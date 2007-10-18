@@ -64,6 +64,7 @@
     <Compile Include="Container.vb" />
     <Compile Include="CoreModule.vb" />
     <Compile Include="Creatures.vb" />
+    <Compile Include="DatReader.vb" />
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>

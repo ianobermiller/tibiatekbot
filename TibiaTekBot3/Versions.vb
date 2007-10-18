@@ -11,6 +11,7 @@ Public Module VersionsModule
         Dim CharacterSelectionIndex As Integer
         Dim CodeCave As Integer
         Dim DllFile As String
+        Dim DatFile As String
     End Structure
 
     Public Class VersionsClass
@@ -48,6 +49,7 @@ Public Module VersionsModule
                     V.CharacterSelectionIndex = CInt(VersionElement.GetAttribute("CharacterSelectionIndex"))
                     V.CodeCave = CInt(VersionElement.GetAttribute("CodeCave"))
                     V.DllFile = VersionElement.GetAttribute("DllFile")
+                    V.DatFile = VersionElement.GetAttribute("DatFile")
                     Versions.Add(V.Name, V)
                 Next
             Catch
