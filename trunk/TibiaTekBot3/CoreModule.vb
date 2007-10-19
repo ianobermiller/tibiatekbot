@@ -44,6 +44,7 @@ Public Module CoreModule
         Public Spells As New SpellsClass
         Public Definitions As New ItemsClass
         Public DatInfo As New DatReaderClass
+        Public LootItems As New LootItems
         Public WithEvents CharacterTimerObj As ThreadTimer
         Public WithEvents TibiaWindowTimerObj As ThreadTimer
         Public WithEvents LightEffectTimerObj As ThreadTimer
@@ -167,6 +168,7 @@ Public Module CoreModule
             Spells = New SpellsClass()
             Definitions = New ItemsClass
             DatInfo = New DatReaderClass()
+            LootItems = New LootItems()
             State = BotState.Running
             CharacterTimerObj = New ThreadTimer(300) 'fast o.o
             TibiaWindowTimerObj = New ThreadTimer(1000)
@@ -201,6 +203,7 @@ Public Module CoreModule
         Public Sub AfterInjection()
             Consts.LoadConstants(GetConfigurationDirectory() & "\" & Versions.Items(Tibia.Version).ConstantsFile)
             DatInfo.ReadDatFile(GetConfigurationDirectory() & "\" & Versions.Items(Tibia.Version).DatFile)
+            LootItems.Load()
             Tibia.Memory.Read(Consts.ptrFrameRateBegin, FrameRateBegin, 4)
             ConstantsLoaded = True
             CharacterTimerObj.StartTimer()

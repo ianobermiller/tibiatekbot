@@ -65,6 +65,12 @@
     <Compile Include="CoreModule.vb" />
     <Compile Include="Creatures.vb" />
     <Compile Include="DatReader.vb" />
+    <Compile Include="frmLootItems.Designer.vb">
+      <DependentUpon>frmLootItems.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLootItems.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,7 @@
     </Compile>
     <Compile Include="Items.vb" />
     <Compile Include="Lang.vb" />
+    <Compile Include="LootItems.vb" />
     <Compile Include="MapReader.vb" />
     <Compile Include="Memory.vb" />
     <Compile Include="MiscUtils.vb" />
@@ -140,6 +147,10 @@
     <EmbeddedResource Include="frmHFBattlelist.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmHFBattlelist.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLootItems.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmLootItems.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <SubType>Designer</SubType>
