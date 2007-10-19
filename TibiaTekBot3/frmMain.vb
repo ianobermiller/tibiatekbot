@@ -368,7 +368,8 @@ Public Class frmMain
     End Sub
 
     Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        MsgBox(Core.DatInfo.GetInfo(Core.Definitions.GetItemID("Rope")).HasExtraByte)
+        Dim LootForm As New frmLootItems
+        LootForm.Show()
     End Sub
 
     Private Sub AMuletNecklaceChangerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AMuletNecklaceChangerToolStripMenuItem.Click

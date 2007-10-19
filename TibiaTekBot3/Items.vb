@@ -131,6 +131,7 @@ Public Module ItemsModule
                 Next
             Catch Ex As Exception
                 MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(Name)
                 End
             End Try
         End Sub
