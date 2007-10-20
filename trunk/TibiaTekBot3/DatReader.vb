@@ -110,9 +110,11 @@ Public Module DatReaderModule
             DatTiles(99).Blocking = True
 
             I = 100
-            Dim FS As New FileStream(Filename, FileMode.Open, FileAccess.Read)
-            Dim Reader As New BinaryReader(FS)
+            Dim FS As FileStream
+            Dim Reader As BinaryReader
             Try
+                FS = New FileStream(Filename, FileMode.Open, FileAccess.Read)
+                Reader = New BinaryReader(FS)
                 Reader.ReadBytes(8)
                 B1 = Reader.ReadByte
                 'If B1 <> &H1F Then Throw New Exception("Error loading Tibia.dat file. Invalid version.")

@@ -14,48 +14,51 @@
 
 using namespace TibiaTekBot3;
 
-/* Information required for the Hooking mechanism */
-
+/* DLL Injection Related Stuff */
+WNDPROC WndProc;
+HINSTANCE hMod;
+HWND *TibiaWindowHandle;
+HWND *TTBWindowHandle;
+DWORD TTBProcessID;
+HANDLE TTBProcessHandle;
+//CRITICAL_SECTION CS_TTBRecv;
+CRITICAL_SECTION CS_TTBSend;
 void __declspec(noreturn) UninjectSelf(HMODULE);	//function to unload this DLL
-void parsePacketFromServer(BYTE *xData);
-void SendPacket( const char *packet, int len );					//function to send packets
-void __declspec(noreturn) RecvPacket();				//function to recv packets
-void parsePacketFromServer(BYTE *xData);
+void StartUninjectSelf();
 
-void AddSysMenu();
-void RemSysMenu();
+/* Main Menu Stuff */
+HMENU mainmenu;
 void ShowMenu();
 void HideMenu();
 
-void StartUninjectSelf();
+/* System Menu Stuff */
+HMENU subsys;
+void AddSysMenu();
+void RemSysMenu();
 LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam);
 
-CRITICAL_SECTION CS_TTBRecv;
-CRITICAL_SECTION CS_TTBSend;
-
-/* Prototypes of hooked functions */
-int WSAAPI TTBRecv( IN SOCKET s, OUT char FAR * buf, IN int len, IN int flags );
+/* Hooking Stuff */
+//int WSAAPI TTBRecv( IN SOCKET s, OUT char FAR * buf, IN int len, IN int flags );
 int WSAAPI TTBSend( IN SOCKET s, IN const char FAR * buf, IN int len, IN int flags);
-
 HookInfo g_HookSend;
-HookInfo g_HookRecv;
+//HookInfo g_HookRecv;
+
+/* Packet Stuff */
 BYTE *packetbuffer;
 unsigned long packetsize=0;
 unsigned long packetpos=0;
+//void parsePacketFromServer(BYTE *xData);
+void SendPacket( const char *packet, int len );					//function to send packets
+//void __declspec(noreturn) RecvPacket();				//function to recv packets
+//void parsePacketFromServer(BYTE *xData);
 
-WNDPROC WndProc;
-HINSTANCE hMod;
-
+/* WASD Stuff */
 bool bWASD = false;
 bool bSayMode = false;
+
+/* Text Menu Stuff  */
 bool bTextMenu = false; // If TextMenu == True, we are showing textmenu so hook the keys 0-9
-HWND *TibiaWindowHandle;
-HWND *TTBWindowHandle;
 HWND WindowHwnd; //Handle for window
-DWORD TTBProcessID;
-HANDLE TTBProcessHandle;
-HMENU mainmenu;
-HMENU subsys;
 
 void __declspec(noreturn) UninjectSelf(HMODULE Module)
 {
@@ -145,7 +148,6 @@ void HideMenu(){
 	}
 }
 
-
 void ReadBytesFromMemory(int address, BYTE *buffer, int length){
 	try {
 		static BYTE b;
@@ -171,11 +173,9 @@ void StartUninjectSelf(){
 	}
 }
 
-
 bool Ping(int timeout = 2000){
 	try {
 		unsigned long result = 0;
-		//SendMessage(*TTBWindowHandle, WM_PING, 0, 0);
 		SendMessageTimeout(*TTBWindowHandle, WM_PING, 0,0, SMTO_ABORTIFHUNG | SMTO_NOTIMEOUTIFNOTHUNG, timeout, (PDWORD_PTR)&result);
 		return (result == 1);
 	} catch(...){
@@ -203,7 +203,7 @@ void myTest(){
 	SendMessage(*TTBWindowHandle, WM_TEST, sizeof(struct Test), (LPARAM)test);
 	delete test;
 }
-
+/*
 int WSAAPI TTBRecv(IN SOCKET s, OUT char FAR * buf, IN int len, IN int flags){
 	//Step 1: get the data packets from the real server
 	static unsigned long iRet=0;
@@ -231,7 +231,6 @@ int WSAAPI TTBRecv(IN SOCKET s, OUT char FAR * buf, IN int len, IN int flags){
 					packetpos = 0;
 					BYTE *xData = getDecryptedCopy(packetbuffer, packetsize);
 					if(packetsize != 0) {
-						//parsePacketFromServer(xData);
 						result = 0;
 						SendMessageTimeout(*TTBWindowHandle, WM_RECV, (WPARAM)packetsize, (LPARAM)(xData+2), SMTO_ABORTIFHUNG | SMTO_NOTIMEOUTIFNOTHUNG, 1000, (PDWORD_PTR)&result);
 						if (!result) StartUninjectSelf();
@@ -252,7 +251,7 @@ int WSAAPI TTBRecv(IN SOCKET s, OUT char FAR * buf, IN int len, IN int flags){
 void parsePacketFromServer(BYTE *xData){
 	
 }
-
+*/
 int WSAAPI TTBSend(IN SOCKET s, IN const char FAR * buf, IN int len, IN int flags){
 	static int iRet = 0;
 	static int i;
@@ -442,7 +441,28 @@ LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam)
 	}
     return CallWindowProc(WndProc, hWnd, uMsg, wParam, lParam );
 }
+/*
+ATOM MyRegisterClass(HINSTANCE hInstance)
+{
+	WNDCLASSEX wcex;
 
+	wcex.cbSize = sizeof(WNDCLASSEX); 
+
+	wcex.style			= CS_HREDRAW | CS_VREDRAW;
+	wcex.lpfnWndProc	= (WNDPROC)WndProc;
+	wcex.cbClsExtra		= 0;
+	wcex.cbWndExtra		= 0;
+	wcex.hInstance		= hInstance;
+	wcex.hIcon			= NULL;
+	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
+	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
+	wcex.lpszMenuName	= NULL;
+	wcex.lpszClassName	= (LPCWSTR)szWindowClass;
+	wcex.hIconSm		= NULL;
+
+	return RegisterClassEx(&wcex);
+}
+*/
 extern "C" bool APIENTRY DllMain (HMODULE hModule,
                        DWORD reason,
                        LPVOID reserved)
@@ -451,7 +471,7 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule,
     {
       case DLL_PROCESS_ATTACH:
         {
-			InitializeCriticalSection(&CS_TTBRecv);
+//			InitializeCriticalSection(&CS_TTBRecv);
 			InitializeCriticalSection(&CS_TTBSend);
 			packetpos=0;
 			packetsize=0;
@@ -482,7 +502,7 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule,
 			Hook(&g_HookSend);
 
 			PostMessage(*TTBWindowHandle, WM_HOOKED, 0, 1);
-
+/*
 			g_HookRecv.bHooked=FALSE;
 			g_HookRecv.pfnHookFunc=(PROC)TTBRecv;
 			g_HookRecv.pfnOriginalFunc=NULL;
@@ -492,7 +512,7 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule,
 			Hook(&g_HookRecv);
 
 			PostMessage(*TTBWindowHandle, WM_HOOKED, 0, 2);
-
+*/
 			/* Replace Tibia's Icon with TTB's */
 			HICON icon = LoadIcon(hMod, MAKEINTRESOURCE(IDI_ICON1));
 			PostMessage(*TibiaWindowHandle, WM_SETICON, ICON_BIG, (LPARAM)icon);
@@ -509,10 +529,10 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule,
 			/* Unhook Send and Recv */
 			UnHook(&g_HookSend);
 			PostMessage(*TTBWindowHandle, WM_UNHOOKED, 0, 1);
-			UnHook(&g_HookRecv);
-			PostMessage(*TTBWindowHandle, WM_UNHOOKED, 0, 2);
+//			UnHook(&g_HookRecv);
+//			PostMessage(*TTBWindowHandle, WM_UNHOOKED, 0, 2);
 
-			DeleteCriticalSection(&CS_TTBRecv);
+//			DeleteCriticalSection(&CS_TTBRecv);
 			DeleteCriticalSection(&CS_TTBSend);
 
 			/* Restore Tibia's title */

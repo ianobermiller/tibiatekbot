@@ -55,40 +55,6 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_ICON1               ICON                    "..\\TibiaTekBot3\\Resources\\ttbv3_16.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Dialog
-//
-
-IDD_DIALOG1 DIALOGEX 0, 0, 150, 90
-STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_BORDER
-EXSTYLE WS_EX_TOPMOST | WS_EX_TRANSPARENT
-FONT 8, "Verdana", 700, 0, 0x0
-BEGIN
-    PUSHBUTTON      "Button1",IDC_BUTTON1,51,23,50,14
-    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",0x0,21,52,104,9
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
-BEGIN
-    IDD_DIALOG1, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 140
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 83
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 

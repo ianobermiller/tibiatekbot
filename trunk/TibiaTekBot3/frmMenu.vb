@@ -4,6 +4,7 @@ Public Class frmMenu
     Public MenuCaptions As New Dictionary(Of Integer, String)
     Dim Loaded As Boolean = False
     Dim LastTextMenuIndex As Integer = 0
+    Dim Busy As Boolean = False
 
     Private Sub frmMenu_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
         Win32API.SetForegroundWindow(Core.Tibia.GetWindowHandle)
@@ -336,20 +337,23 @@ Public Class frmMenu
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         If Not Loaded Then Exit Sub
-        If Timer1.Interval < 500 Then Timer1.Interval = 500
-        PictureBox4.SuspendLayout()
+        If Busy Then Exit Sub
+        Busy = True
+        'If Timer1.Interval < 200 Then Timer1.Interval = 200
+        PictureBox1.SuspendLayout()
+        Dim G As Graphics = Me.PictureBox1.CreateGraphics
         If Not LastTextMenuIndex = Core.TextMenuIndex Then
             LastTextMenuIndex = Core.TextMenuIndex
-            PictureBox4.BackgroundImage = My.Resources.menu_bg
-            Timer1.Interval = 100
-            Exit Sub
+            'G.Clear(Color.Fuchsia)
+            'G.DrawImage(My.Resources.menu, 0, 0)
+            'Exit Sub
         End If
-        Dim G As Graphics = Me.PictureBox4.CreateGraphics
         Dim brush As New SolidBrush(Color.FromArgb(255, 254, 127, 127))
         G.DrawString(MenuCaptions(Core.TextMenuIndex), Me.Font, brush, 5, 5)
         G.DrawString(MenuText(Core.TextMenuIndex), Me.Font, Brushes.White, 5, 20)
         G.Flush()
-        PictureBox4.ResumeLayout()
+        PictureBox1.ResumeLayout()
+        Busy = False
     End Sub
 
     Private Sub frmMenu_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown

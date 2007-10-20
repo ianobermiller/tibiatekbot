@@ -7,6 +7,7 @@ Public Module Constants
 #Region " Constants"
 
         Public LatestVersionUrl As String = ""
+        Public ptrIncomingPacket As Integer = 0
         Public MusicalNotesOnAlarm As Boolean = False
         Public EatFromFloor As Boolean = False
         Public EatFromFloorFirst As Boolean = False
@@ -192,7 +193,7 @@ Public Module Constants
 
         Public Sub LoadConstants(ByVal ConstantsFile As String)
             Dim Reader As System.Xml.XmlTextReader
-            Dim CI As CultureInfo = New CultureInfo("en-US", False)
+            Dim CI As New CultureInfo("en-US", False)
             Try
                 Reader = New System.Xml.XmlTextReader(ConstantsFile)
                 Reader.WhitespaceHandling = WhitespaceHandling.None
@@ -211,6 +212,8 @@ Public Module Constants
                                             Select Case Name
                                                 Case "LatestVersionUrl"
                                                     LatestVersionUrl = Value
+                                                Case "ptrIncomingPacket"
+                                                    ptrIncomingPacket = CInt(Value)
                                                 Case "MusicalNotesOnAlarm"
                                                     MusicalNotesOnAlarm = System.Boolean.Parse(Value)
                                                 Case "EatFromFloor"
@@ -614,6 +617,7 @@ Public Module Constants
     Public Enum CodeCave
         TibiaHandleOffset = 0
         TTBHandleOffset = 4
+        WMRecv = 8
     End Enum
 
     Public Enum MenuType

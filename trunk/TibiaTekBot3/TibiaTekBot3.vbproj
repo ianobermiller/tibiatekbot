@@ -198,15 +198,7 @@
     <Content Include="Config\Constants\7.92.xml" />
     <Content Include="Config\Constants\8.00.xml" />
     <Content Include="Config\Versions.xml" />
-    <None Include="Resources\menu_top_left.bmp" />
-    <None Include="Resources\menu_top.bmp" />
-    <None Include="Resources\menu_right.bmp" />
-    <None Include="Resources\menu_left.bmp" />
-    <None Include="Resources\menu_bottom_right.bmp" />
-    <None Include="Resources\menu_bottom_left.bmp" />
-    <None Include="Resources\menu_bottom.bmp" />
-    <None Include="Resources\menu_bg.bmp" />
-    <None Include="Resources\menu_top_right.bmp" />
+    <None Include="Resources\menu.bmp" />
     <None Include="Resources\ttb splash5.jpg" />
     <None Include="Resources\ttbv3_16.ico" />
     <None Include="Resources\ttbv3.ico" />

@@ -25,12 +25,12 @@ const int * const INGAME = (int*)0x766DF8;
 
 #elif TIBIA792
 
-int * const CODECAVE = 0;
-int * const XTEAKEY = 0x75A8AC;
-int * const SOCKETADDR = 0x;
-int * const WASDISONLINE = 0;
-int * const WASDPOPUP = 0;
-int * const INGAME = 0;
+const int * const CODECAVE = 0;
+const int * const XTEAKEY = 0x75A8AC;
+const int * const SOCKETADDR = 0x;
+const int * const WASDISONLINE = 0;
+const int * const WASDPOPUP = 0;
+const int * const INGAME = 0;
 #define INGAME (0)
 #define BUFFERADDR (0)
 #endif
