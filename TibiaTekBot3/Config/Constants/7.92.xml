@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <Constants>
   <Const Name="LatestVersionUrl" Value="http://www.tibiatekbot.com/version.php" />
+  <Const Name="ptrIncomingPacket" Value="H0" />  
   <Const Name="AutoPublishLocation" Value="False" />
   <Const Name="AutoPublishLocationInterval" Value="600000" />
   <Const Name="CreatureExpMultiplier" Value="1.0" />

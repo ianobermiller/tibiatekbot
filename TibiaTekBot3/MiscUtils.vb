@@ -82,6 +82,61 @@ Public Module MiscUtils
         frmMain.FeaturePanel.Controls.Add(FeatureControlPanel)
     End Sub
 
+    Public Sub InjectIncomingPacketInterception()
+        Dim CodeCave As Integer = &H592040
+        Dim TibiaCode As Integer = &H44FE68
+        Dim InterceptionReplacement(0 To 7) As Byte
+        InterceptionReplacement(0) = &HE8
+        InterceptionReplacement(1) = &HD3
+        InterceptionReplacement(2) = &H21
+        InterceptionReplacement(3) = &H14
+        InterceptionReplacement(4) = 0
+        InterceptionReplacement(5) = &H90
+        InterceptionReplacement(6) = &H90
+        InterceptionReplacement(7) = &H90
+
+
+        Dim InterceptionFunction(0 To &H22) As Byte
+        InterceptionFunction(0) = &H50 ' push eax
+        InterceptionFunction(1) = &HB8 ' mov eax, 0
+        InterceptionFunction(2) = 0
+        InterceptionFunction(3) = 0
+        InterceptionFunction(4) = 0
+        InterceptionFunction(5) = 0
+        InterceptionFunction(6) = &H50 ' push eax
+        InterceptionFunction(7) = &H50 ' push eax
+        InterceptionFunction(8) = &HA1 ' mov eax, dword ds:[76DA28]
+        InterceptionFunction(9) = &H28
+        InterceptionFunction(&HA) = &HDA
+        InterceptionFunction(&HB) = &H76
+        InterceptionFunction(&HC) = 0
+        InterceptionFunction(&HD) = &H50 ' push eax
+        InterceptionFunction(&HE) = &HA1 ' mov eax, dword ds:[76DA24]
+        InterceptionFunction(&HF) = &H24
+        InterceptionFunction(&H10) = &HDA
+        InterceptionFunction(&H11) = &H76
+        InterceptionFunction(&H12) = 0
+        InterceptionFunction(&H13) = &H50 ' push eax
+        InterceptionFunction(&H14) = &HE8 ' call user32.SendMessageA
+        InterceptionFunction(&H15) = &H55
+        InterceptionFunction(&H16) = &HC2
+        InterceptionFunction(&H17) = &H7B
+        InterceptionFunction(&H18) = &H77
+        InterceptionFunction(&H19) = &H58 ' pop eax
+        InterceptionFunction(&H1A) = &H8D ' lea eax, dword ptr ds:[esi-A]
+        InterceptionFunction(&H1B) = &H46 ' cmp eax, 0E7
+        InterceptionFunction(&H1C) = &HF6
+        InterceptionFunction(&H1D) = &H3D
+        InterceptionFunction(&H1E) = &HE7
+        InterceptionFunction(&H1F) = 0
+        InterceptionFunction(&H20) = 0
+        InterceptionFunction(&H21) = 0
+        InterceptionFunction(&H22) = &HC3 ' ret
+
+        Win32API.WriteProcessMemory(Core.Tibia.GetProcessHandle, CodeCave, InterceptionFunction, InterceptionFunction.Length, 0)
+        Win32API.WriteProcessMemory(Core.Tibia.GetProcessHandle, TibiaCode, InterceptionReplacement, InterceptionReplacement.Length, 0)
+    End Sub
+
     Public Sub InjectLastAttackedId()
         Dim CodeCave As Integer = &H5920B3
         'I'd like to tell about this function first. Because we can't surely find any address

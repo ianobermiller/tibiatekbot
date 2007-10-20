@@ -84,6 +84,7 @@ Public Class frmSelectClient
             ' Populate CodeCave in the Tibia Client
             Core.Tibia.Memory.Write(Core.Versions.Items(TibiaV).CodeCave + CodeCave.TibiaHandleOffset, Core.Tibia.GetWindowHandle, 4)
             Core.Tibia.Memory.Write(Core.Versions.Items(TibiaV).CodeCave + CodeCave.TTBHandleOffset, Core.TTBHandle, 4)
+            Core.Tibia.Memory.Write(Core.Versions.Items(TibiaV).CodeCave + CodeCave.WMRecv, WM.Recv, 4)
 
             If InjectLibrary(Pid, bytDllPath(0)) Then
                 Core.Tibia.Version = TibiaV

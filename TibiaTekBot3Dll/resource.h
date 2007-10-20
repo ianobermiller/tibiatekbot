@@ -4,9 +4,6 @@
 //
 #define IDI_ICON1                       101
 #define IDI_ICON2                       107
-#define IDD_DIALOG1                     109
-#define IDC_BUTTON1                     1001
-#define IDC_PROGRESS1                   1002
 
 // Next default values for new objects
 // 
