@@ -310,6 +310,12 @@ Public Class frmMain
                 ShowFeature(frmSubForms.HealParty)
             Case "Auto Drinker"
                 ShowFeature(frmSubForms.AutoDrinker)
+            Case "Auto Looter"
+                ShowFeature(frmSubForms.AutoLooter)
+            Case "Auto Stacker"
+                ShowFeature(frmSubForms.AutoStacker)
+            Case "Ammo Restacker"
+                ShowFeature(frmSubForms.AmmoRestacker)
             Case Else
                 FeaturePanel.Controls.Clear()
         End Select
@@ -368,8 +374,7 @@ Public Class frmMain
     End Sub
 
     Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        Dim LootForm As New frmLootItems
-        LootForm.Show()
+        InjectIncomingPacketInterception()
     End Sub
 
     Private Sub AMuletNecklaceChangerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AMuletNecklaceChangerToolStripMenuItem.Click
@@ -390,5 +395,17 @@ Public Class frmMain
 
     Private Sub ToolStripMenuItem75_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem75.Click
         AddFeature("Auto Drinker")
+    End Sub
+
+    Private Sub ToolStripMenuItem8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem8.Click
+        AddFeature("Auto Looter")
+    End Sub
+
+    Private Sub ToolStripMenuItem12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem12.Click
+        AddFeature("Auto Stacker")
+    End Sub
+
+    Private Sub ToolStripMenuItem25_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem25.Click
+        AddFeature("Ammo Restacker")
     End Sub
 End Class

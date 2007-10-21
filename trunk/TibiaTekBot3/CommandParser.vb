@@ -47,6 +47,12 @@ Public Module CommandParserModule
                     CmdHealFriend(MatchObj.Groups)
                 Case "drinker", "drink", "manadrink", "manadrinker", "mf", "manafluid"
                     CmdDrinker(MatchObj.Groups)
+                Case "loot", "looter"
+                    CmdLoot(MatchObj.Groups)
+                Case "stacker", "stack"
+                    CmdStacker(MatchObj.Groups)
+                Case "ammorestacker", "ammo"
+                    CmdAmmoRestacker(MatchObj.Groups)
                 Case Else
                     MsgBox("Error: Wrong Call to Commandparser", MsgBoxStyle.OkOnly, "Error")
             End Select
@@ -787,6 +793,117 @@ Public Module CommandParserModule
                 End If
         End Select
     End Sub
+#End Region
+
+#Region " Auto Looter Command "
+
+    Private Sub CmdLoot(ByVal Arguments As GroupCollection)
+        Select Case StrToShort(Arguments(2).ToString)
+            Case 0
+                Core.LooterMinimumCapacity = 0
+                Core.LooterTimerObj.StopTimer()
+                RemoveFeature("Auto Looter")
+                Core.StatusMessage("Auto Looter is now Disabled.")
+            Case 1
+                Core.LooterMinimumCapacity = 0
+                Core.LooterTimerObj.StartTimer()
+                Core.StatusMessage("Auto Looter will loot until capacity reaches 0.")
+            Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.LooterTimerObj.StopTimer()
+                    Core.StatusMessage("Auto Looter is now Stopped.")
+                    Exit Sub
+                End If
+                Select Case Arguments(2).Value.ToLower
+                    Case "edit"
+                        If Core.LooterTimerObj.State = ThreadTimerState.Running Then
+                            MsgBox("Auto Looter must not be Enabled to edit the Loot Items.")
+                            Exit Sub
+                        End If
+                        Core.StatusMessage("Please wait...")
+                        Core.LootItems.ShowLootCategories()
+                    Case Else
+                        Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]{0,4})")
+                        If MatchObj.Success Then
+                            Core.LooterMinimumCapacity = CUShort(MatchObj.Groups(1).Value)
+                            Core.StatusMessage("Auto Looter will loot until capacity reaches " & Core.LooterMinimumCapacity & ".")
+                            Core.LooterTimerObj.StartTimer()
+                        Else
+                            MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdDrinker")
+                        End If
+                End Select
+
+        End Select
+    End Sub
+
+
+#End Region
+
+#Region " Auto Stacker Command "
+
+    Private Sub CmdStacker(ByVal Arguments As GroupCollection)
+        Select Case StrToShort(Arguments(2).ToString)
+            Case 0
+                Core.StackerTimerObj.StopTimer()
+                Core.StatusMessage("Auto Stacker is now Disabled.")
+                RemoveFeature("Auto Stacker")
+            Case 1
+                Core.StackerTimerObj.Interval = Core.Consts.StackerDelay
+                Core.StackerTimerObj.StartTimer()
+                Core.StatusMessage("Auto Stacker is now Enabled.")
+            Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.StackerTimerObj.StopTimer()
+                    Core.StatusMessage("Auto Stacker is now Paused.")
+                    Exit Sub
+                End If
+                MsgBox("Invalid Type! Please contact the Developers. Error occured in CmdStacker")
+        End Select
+
+    End Sub
+
+#End Region
+
+#Region " Ammunition Restacker Command "
+
+    Private Sub CmdAmmoRestacker(ByVal Arguments As GroupCollection)
+        Dim Value As String = Arguments(2).ToString
+        Select Case StrToShort(Value)
+            Case 0
+                Core.AmmoRestackerItemID = 0
+                Core.AmmoRestackerTimerObj.StopTimer()
+                Core.StatusMessage("Ammunition Restacker is now Disabled.")
+                RemoveFeature("Ammo Restacker")
+            Case Else
+                If Arguments(2).ToString = "pause" Then
+                    Core.AmmoRestackerTimerObj.StopTimer()
+                    Core.StatusMessage("Ammo Restacker is now Paused.")
+                    Exit Sub
+                End If
+                Dim ItemID As Integer
+                Dim ItemCount As Integer
+                Dim RegExp As New Regex("([1-9]\d)")
+                Dim Match As Match = RegExp.Match(Value)
+                If Not Match.Success Then
+                    MsgBox("You must specify the minimum ammunition count between 1 and 99, inclusive.")
+                    frmSubForms.AmmoOnOff.Text = "Activate"
+                    Exit Sub
+                End If
+                Core.Tibia.Memory.Read(Core.Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Core.Consts.ItemDist), ItemID, 2)
+                Core.Tibia.Memory.Read(Core.Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Core.Consts.ItemDist) + Core.Consts.ItemCountOffset, ItemCount, 1)
+                If ItemID = 0 OrElse Not Core.DatInfo.GetInfo(ItemID).IsStackable Then
+                    MsgBox("You must place some of your ammunition on the Belt/Arrow Slot first.")
+                    frmSubForms.AmmoOnOff.Text = "Activate"
+                    Exit Sub
+                End If
+                Core.AmmoRestackerItemID = ItemID
+                Core.AmmoRestackerOutOfAmmo = False
+                Core.AmmoRestackerMinimumItemCount = CInt(Match.Groups(1).Value)
+                Core.AmmoRestackerTimerObj.StartTimer()
+                Core.StatusMessage("Ammunition Restacker is now Enabled.")
+        End Select
+    End Sub
+
 #End Region
 
 End Module

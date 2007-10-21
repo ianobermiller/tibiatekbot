@@ -547,6 +547,34 @@ Module PacketUtils
     End Function
 #End Region
 
+#Region " OpenContainer "
+
+    Public Function OpenContainer(ByRef Loc As LocationDefinition, ByRef ItemID As UShort, ByRef ContainerIndex As Byte) As Byte()
+        Dim bytBuffer(1) As Byte
+        AddByte(bytBuffer, &H82)
+        AddWord(bytBuffer, Loc.X)
+        AddWord(bytBuffer, Loc.Y)
+        AddByte(bytBuffer, Loc.Z)
+        AddWord(bytBuffer, ItemID)
+        AddByte(bytBuffer, 1)
+        AddByte(bytBuffer, ContainerIndex)
+        Return bytBuffer
+    End Function
+
+    Public Function OpenContainer(ByRef Item As ContainerItemDefinition, ByRef ContainerIndex As Byte) As Byte()
+        Dim bytBuffer(1) As Byte
+        AddByte(bytBuffer, &H82)
+        AddWord(bytBuffer, Item.Location.X)
+        AddWord(bytBuffer, Item.Location.Y)
+        AddByte(bytBuffer, Item.Location.Z)
+        AddWord(bytBuffer, Item.ID)
+        AddByte(bytBuffer, Item.Location.Z)
+        AddByte(bytBuffer, ContainerIndex)
+        Return bytBuffer
+    End Function
+
+#End Region
+
     Public Function TestPacket()
         Dim bytBuffer(&H1) As Byte
         AddByte(bytBuffer, &HA)
