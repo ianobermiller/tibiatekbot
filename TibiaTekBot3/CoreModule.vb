@@ -72,6 +72,9 @@ Public Module CoreModule
         Public WithEvents HealFriendTimerObj As ThreadTimer
         Public WithEvents HealPartyTimerObj As ThreadTimer
         Public WithEvents AutoDrinkerTimerObj As ThreadTimer
+        Public WithEvents LooterTimerObj As ThreadTimer
+        Public WithEvents StackerTimerObj As ThreadTimer
+        Public WithEvents AmmoRestackerTimerObj As ThreadTimer
 
 #End Region
 
@@ -158,6 +161,16 @@ Public Module CoreModule
 
         Public DrinkerManaRequired As Integer = 0
 
+        Public LooterMinimumCapacity As Integer = 0
+        Public BagOpened As Boolean = False
+        Public LooterItemID As Integer = 0
+        Public LooterLoc As New LocationDefinition
+        Public ReplacedContainer As Boolean = False
+
+        Public AmmoRestackerItemID As UShort = 0
+        Public AmmoRestackerMinimumItemCount As Integer = 0
+        Public AmmoRestackerOutOfAmmo As Boolean = False
+
 #End Region
 
 #Region " Initialization "
@@ -194,6 +207,9 @@ Public Module CoreModule
             HealFriendTimerObj = New ThreadTimer(300)
             HealPartyTimerObj = New ThreadTimer(300)
             AutoDrinkerTimerObj = New ThreadTimer(300)
+            LooterTimerObj = New ThreadTimer(500)
+            StackerTimerObj = New ThreadTimer()
+            AmmoRestackerTimerObj = New ThreadTimer(1000)
         End Sub
 
 #End Region
@@ -216,6 +232,30 @@ Public Module CoreModule
             InjectLastAttackedId()
             InjectIncomingPacketInterception()
         End Sub
+
+#End Region
+
+#Region " Misc Functions "
+
+#Region " Loot Monster "
+        Private Sub LootMonster()
+            System.Threading.Thread.Sleep(300)
+            If LooterItemID = 0 Then Exit Sub
+            Dim N As Byte = 0
+            'N = Container.ContainerCount
+            'If N > &HF Then N = &HF
+            N = &HE
+            Dim buffer() As Byte = UseObjectOnGround(LooterItemID, LooterLoc, N)
+            If (buffer(11) - 1) = Container.ContainerCount Then
+                ReplacedContainer = True
+            Else
+                ReplacedContainer = False
+            End If
+            'ConsoleWrite(BytesToStr(buffer))
+            Core.SendPacketToServer(buffer)
+            LooterItemID = 0
+        End Sub
+#End Region
 
 #End Region
 
@@ -1225,6 +1265,163 @@ Public Module CoreModule
 
 #End Region
 
+#Region " Auto Looter Timer "
+
+        Private Sub LooterTimerObj_Execute() Handles LooterTimerObj.OnExecute
+            SyncLock LooterTimerObj
+                If Not InGame() Then Exit Sub
+                If Not Consts.UnlimitedCapacity Then
+                    Tibia.Memory.Read(Consts.ptrCapacity, CharacterCapacity, 2)
+                    If CharacterCapacity <= LooterMinimumCapacity Then Exit Sub
+                End If
+                Dim Container As New Container
+                Dim Container2 As New Container
+                Dim Item As ContainerItemDefinition
+                Dim Item2 As ContainerItemDefinition
+                Dim ContainerItemCount As Integer
+                Dim ContainerItemCount2 As Integer
+                Dim Found As Boolean = False
+                Dim BrownBagID As UShort = Definitions.GetItemID("Brown Bag")
+                Container.Reset()
+                Do
+                    If Container.IsOpened Then
+                        If Not Container.GetName.StartsWith("Dead") AndAlso Not Container.GetName.StartsWith("Slain") AndAlso Not Container.GetName.StartsWith("Bag") AndAlso Not Container.GetName.StartsWith("Remains") Then Continue Do
+                        If Container.GetName.StartsWith("Bag") AndAlso Container.GetContainerIndex < &HF Then Continue Do
+                        ContainerItemCount = Container.GetItemCount
+                        For I As Short = ContainerItemCount - 1 To 0 Step -1
+                            Item = Container.Items(I)
+                            If Item.ID = 0 Then Continue For
+                            If Item.ID = BrownBagID AndAlso Not BagOpened AndAlso Consts.LootInBag Then 'got bag!
+                                Core.SendPacketToServer(OpenContainer(Item, &HF))
+                                BagOpened = True
+                                System.Threading.Thread.Sleep(Consts.LootInBagDelay)
+                                Exit Sub
+                            End If
+                            If LootItems.IsLootable(Item.ID) Then
+                                Found = False
+                                If DatInfo.GetInfo(Item.ID).IsStackable Then
+                                    Container2.Reset()
+                                    Do
+                                        'if its a corpse, or a brown bag that has a parent container
+                                        'this is NOT always true, but for the sake of simplicity...
+                                        If Container2.GetName.StartsWith("Dead") _
+                                            OrElse Container2.GetName.StartsWith("Slain") _
+                                            OrElse Container.GetName.StartsWith("Remains") _
+                                            OrElse (Container2.GetName.StartsWith("Bag") _
+                                            AndAlso Container2.HasParent _
+                                            AndAlso Container2.GetContainerID = BrownBagID) Then Continue Do
+                                        If Container2.IsOpened Then
+                                            ContainerItemCount2 = Container2.GetItemCount
+                                            For E As Integer = 0 To ContainerItemCount2 - 1
+                                                Item2 = Container2.Items(E)
+                                                If Item2.Count = &H64 Then Continue For 'already fully stacked, next please..
+                                                If Item2.ID = Item.ID Then
+                                                    Found = True
+                                                    Core.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, Item.Count)))
+                                                    System.Threading.Thread.Sleep(Consts.LootDelay)
+                                                    If (100 - Item2.Count) < Item.Count Then
+                                                        Core.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), Item.Count - (100 - Item2.Count)))
+                                                    End If
+                                                    Exit Do
+                                                End If
+                                            Next
+                                        End If
+                                    Loop While Container2.NextContainer
+                                End If
+                                If Not Found Then Core.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack)))
+                            End If
+                        Next
+                    End If
+                Loop While Container.NextContainer()
+            End SyncLock
+        End Sub
+
+#End Region
+
+#Region " Auto Stacker Timer "
+
+        Private Sub StackerTimerObj_Execute() Handles StackerTimerObj.OnExecute
+            SyncLock StackerTimerObj
+                If Not InGame() Then Exit Sub
+                Dim MyContainer As New Container
+                Dim SecondContainer As New Container
+                Dim ContainerIndex As Integer
+                Dim Item As ContainerItemDefinition
+                Dim Item2 As ContainerItemDefinition
+                Dim ContainerItemCount As Integer
+                MyContainer.Reset()
+                Do
+                    If MyContainer.IsOpened Then
+                        'do not stack if it's fake bp
+                        If MyContainer.GetContainerIndex = &HF AndAlso MyContainer.GetContainerSize = &H24 Then Continue Do
+                        ContainerItemCount = MyContainer.GetItemCount
+                        ContainerIndex = MyContainer.GetContainerIndex
+                        For I As Integer = 0 To ContainerItemCount - 1
+                            Item = MyContainer.Items(I)
+                            If DatInfo.GetInfo(Item.ID).IsStackable AndAlso Item.Count < 100 Then
+                                If Container.FindItem(Item2, Item.ID, ContainerIndex, I + 1, ContainerIndex, 1, 99) Then
+                                    Core.SendPacketToServer(MoveObject(Item, Item2.Location))
+                                    Exit Sub
+                                End If
+                            End If
+                        Next
+                    End If
+                Loop While MyContainer.NextContainer
+            End SyncLock
+        End Sub
+
+#End Region
+
+#Region " Ammo Restacker Timer "
+
+        Public Sub AmmoRestackerTimerObj_Execute() Handles AmmoRestackerTimerObj.OnExecute
+            SyncLock AmmoRestackerTimerObj
+                If Not InGame() Then Exit Sub
+                Dim Container As New Container
+                Dim ContainerItemCount As Integer
+                Dim Item As ContainerItemDefinition
+                Dim Found As Boolean = False
+                Dim AmmoItemID As Integer = 0
+                Dim AmmoItemCount As Integer = 0
+                Dim TotalAmmo As Integer = 0
+                If AmmoRestackerItemID = 0 OrElse AmmoRestackerMinimumItemCount = 0 Then Exit Sub
+                'find out of we really need more ammo
+                Tibia.Memory.Read(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), AmmoItemID, 2)
+                Tibia.Memory.Read(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, AmmoItemCount, 1)
+                If AmmoItemID = AmmoRestackerItemID AndAlso AmmoItemCount > AmmoRestackerMinimumItemCount Then
+                    Exit Sub
+                End If
+                Container.Reset()
+                Do
+                    If Container.IsOpened Then
+                        ContainerItemCount = Container.GetItemCount
+                        For I As Integer = 0 To ContainerItemCount - 1
+                            If Container.Items(I).ID = AmmoRestackerItemID Then
+                                If Not Found Then
+                                    Item = Container.Items(I)
+                                    Found = True
+                                End If
+                                TotalAmmo += Container.Items(I).Count
+                            End If
+                        Next
+                    End If
+                Loop While Container.NextContainer()
+                If Found Then
+                    If AmmoRestackerTimerObj.Interval = 2000 Then AmmoRestackerTimerObj.Interval = 1000
+                    If AmmoRestackerOutOfAmmo Then AmmoRestackerOutOfAmmo = False
+                    Core.SendPacketToServer(MoveObject(AmmoRestackerItemID, Item.Location, GetInventorySlotAsLocation(InventorySlots.Belt), 100 - AmmoItemCount))
+                    Core.SendPacketToClient(SystemMessage(SysMessageType.Information, (TotalAmmo + AmmoItemCount) & " ammunition left."))
+                Else
+                    If Not AmmoRestackerOutOfAmmo Then
+                        AmmoRestackerTimerObj.Interval = 2000
+                        Core.StatusMessage("Warning: You ran out of ammunition.")
+                        AmmoRestackerOutOfAmmo = True
+                    End If
+                End If
+            End SyncLock
+        End Sub
+
+#End Region
 
 
 #End Region
@@ -1269,6 +1466,8 @@ Public Module CoreModule
             HealTimerObj.StopTimer()
             DrinkerManaRequired = 0
             AutoDrinkerTimerObj.StopTimer()
+            LooterTimerObj.StopTimer()
+            LooterMinimumCapacity = 0
 
             ChatMessageQueueList.Clear()
             ChatMessageQueueTimerObj.StopTimer()
@@ -1437,7 +1636,7 @@ Public Module CoreModule
             Dim Pos As Integer = 4
             Dim ID As Integer = GetByte(bytBuffer, Pos)
             'Core.ConsoleWrite(Hex(ID))
-            IO.File.AppendAllText(Application.StartupPath & "\ID.txt", "From Client: " & BytesToStr(bytBuffer) & ControlChars.NewLine)
+            'IO.File.AppendAllText(Application.StartupPath & "\ID.txt", "From Client: " & BytesToStr(bytBuffer) & ControlChars.NewLine)
             Select Case ID
                 Case &H1E 'ping
                 Case &H82 'use item
@@ -1453,6 +1652,7 @@ Public Module CoreModule
 #Region " PacketFromServer "
 
         Private Sub PacketFromServer(ByVal bytBuffer() As Byte)
+            'TODO: THIS SHIT DOESN'T WORK PROPERLY!
             'Core.ConsoleWrite(BytesToStr(bytBuffer))
             Dim Pos As Integer = 0
             Dim PacketLength As UShort = GetWord(bytBuffer, Pos) + 2
@@ -1461,9 +1661,51 @@ Public Module CoreModule
             Dim OneByte As Byte = 0
             'Pos = 2
             Dim PacketID As Integer = 0
+            Dim Word As UShort = 0
             PacketID = GetByte(bytBuffer, Pos)
             'IO.File.AppendAllText(Application.StartupPath & "\ID.txt", "From Server: " & BytesToStr(bytBuffer) & ControlChars.NewLine)
             Select Case PacketID
+                Case &H6A 'add object to map
+                    Loc = GetLocation(bytBuffer, Pos)
+                    ID = GetWord(bytBuffer, Pos)
+                    If ID = &H62 Then 'known creature, skip this
+                        Pos += 6
+                        Word = GetWord(bytBuffer, Pos)
+                        If Word = 0 Then 'invisible!
+                            Pos += 2
+                        Else
+                            Pos += 5 'skip outfit stuff
+                        End If
+                        Pos += 6
+                    ElseIf ID = &H61 Then 'unknown creatre, skip that shit
+                        Pos += 8 'word + word
+                        Word = GetWord(bytBuffer, Pos) 'skip creature name
+                        Pos += Word + 2 'Integer + Integer
+                        Word = GetWord(bytBuffer, Pos) 'outfit? or invis?
+                        Pos += 2
+                        If Word > 0 Then Pos += 3 'skip outfit stuff
+                        Pos += 6
+                    ElseIf ID = &H63 Then
+                        Pos += 5
+                    ElseIf DatInfo.GetInfo(ID).IsFluidContainer Then
+                        Pos += 1
+                    ElseIf DatInfo.GetInfo(ID).IsContainer Then
+                        Core.StatusMessage("Container Added")
+                        If LooterTimerObj.State = ThreadTimerState.Running Then
+                            If Not ((Definitions.GetItemKind(ID) And ItemKind.Container) = ItemKind.Container) Then 'if its known container, skip
+                                Dim BL As New BattleList
+                                BL.JumpToEntity(SpecialEntity.Myself)
+                                If BL.GetDistanceFromLocation(Loc) <= Consts.LootMaxDistance Then
+                                    BagOpened = False
+                                    LooterItemID = ID
+                                    LooterLoc = Loc
+                                    LootMonster()
+                                End If
+                            End If
+                        End If
+                    ElseIf DatInfo.GetInfo(ID).HasExtraByte Then
+                        Pos += 1
+                    End If
                 Case &H85 'Projectile
                     Dim From As New LocationDefinition
                     Dim Too As New LocationDefinition

@@ -437,4 +437,63 @@ Public Class frmSubForms
         CommandParser("drinker off")
         DrinkerOnOff.Text = "Activate"
     End Sub
+
+    Private Sub LooterOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LooterOnOff.Click
+        If LooterOnOff.Text = "Activate" Then
+            If Not String.IsNullOrEmpty(LooterCaptxtbox.Text) Then
+                If CInt(LooterCaptxtbox.Text) = 0 Then
+                    CommandParser("looter on")
+                Else
+                    CommandParser("looter " & LooterCaptxtbox.Text)
+                End If
+                LooterOnOff.Text = "Pause"
+            Else
+                MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End If
+            Else
+                CommandParser("looter pause")
+                LooterOnOff.Text = "Activate"
+            End If
+    End Sub
+
+    Private Sub LooterEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LooterEdit.Click
+        CommandParser("looter edit")
+    End Sub
+
+    Private Sub LooterStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LooterStop.Click
+        CommandParser("looter off")
+        LooterOnOff.Text = "Activate"
+    End Sub
+
+    Private Sub StackerOnOff_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StackerOnOff.CheckedChanged
+        If StackerOnOff.Checked = True Then
+            CommandParser("stacker on")
+        Else
+            CommandParser("stacker pause")
+        End If
+    End Sub
+
+    Private Sub StackerOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StackerOff.Click
+        CommandParser("stacker off")
+        StackerOnOff.Checked = False
+    End Sub
+
+    Private Sub AmmoOnOff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmmoOnOff.Click
+        If AmmoOnOff.Text = "Activate" Then
+            If Not String.IsNullOrEmpty(AmmoAmounttxtbox.Text) Then
+                CommandParser("ammo " & AmmoAmounttxtbox.Text)
+                AmmoOnOff.Text = "Pause"
+            Else
+                MsgBox("Invalid Parametres! Do you remembered to fill every section", MsgBoxStyle.OkOnly, "Invalid Parametres")
+            End If
+        Else
+            CommandParser("ammo pause")
+            AmmoOnOff.Text = "Activate"
+        End If
+    End Sub
+
+    Private Sub AmmoStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmmoStop.Click
+        CommandParser("ammo off")
+        AmmoOnOff.Text = "Activate"
+    End Sub
 End Class

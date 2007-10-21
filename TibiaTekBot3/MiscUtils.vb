@@ -118,10 +118,10 @@ Public Module MiscUtils
         InterceptionFunction(&H12) = 0
         InterceptionFunction(&H13) = &H50 ' push eax
         InterceptionFunction(&H14) = &HE8 ' call user32.SendMessageA
-        InterceptionFunction(&H15) = &H55
-        InterceptionFunction(&H16) = &HC2
-        InterceptionFunction(&H17) = &H7B
-        InterceptionFunction(&H18) = &H77
+        InterceptionFunction(&H15) = &H2A
+        InterceptionFunction(&H16) = &HD3
+        InterceptionFunction(&H17) = &HDE
+        InterceptionFunction(&H18) = &H7D
         InterceptionFunction(&H19) = &H58 ' pop eax
         InterceptionFunction(&H1A) = &H8D ' lea eax, dword ptr ds:[esi-A]
         InterceptionFunction(&H1B) = &H46 ' cmp eax, 0E7

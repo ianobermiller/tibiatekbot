@@ -25,22 +25,24 @@ Partial Class frmLootItems
         Me.Remove = New System.Windows.Forms.Button
         Me.Savecmd = New System.Windows.Forms.Button
         Me.Cancelcmd = New System.Windows.Forms.Button
+        Me.Lootlbl = New System.Windows.Forms.Label
+        Me.Itemslbl = New System.Windows.Forms.Label
         Me.SuspendLayout()
         '
         'Items
         '
         Me.Items.FormattingEnabled = True
-        Me.Items.Location = New System.Drawing.Point(12, 7)
+        Me.Items.Location = New System.Drawing.Point(12, 20)
         Me.Items.Name = "Items"
-        Me.Items.Size = New System.Drawing.Size(130, 251)
+        Me.Items.Size = New System.Drawing.Size(130, 238)
         Me.Items.TabIndex = 0
         '
         'Loots
         '
         Me.Loots.FormattingEnabled = True
-        Me.Loots.Location = New System.Drawing.Point(188, 7)
+        Me.Loots.Location = New System.Drawing.Point(188, 20)
         Me.Loots.Name = "Loots"
-        Me.Loots.Size = New System.Drawing.Size(130, 251)
+        Me.Loots.Size = New System.Drawing.Size(130, 238)
         Me.Loots.TabIndex = 1
         '
         'Add
@@ -79,11 +81,33 @@ Partial Class frmLootItems
         Me.Cancelcmd.Text = "Cancel"
         Me.Cancelcmd.UseVisualStyleBackColor = True
         '
+        'Lootlbl
+        '
+        Me.Lootlbl.AutoSize = True
+        Me.Lootlbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lootlbl.Location = New System.Drawing.Point(212, 4)
+        Me.Lootlbl.Name = "Lootlbl"
+        Me.Lootlbl.Size = New System.Drawing.Size(81, 13)
+        Me.Lootlbl.TabIndex = 6
+        Me.Lootlbl.Text = "Items to Loot"
+        '
+        'Itemslbl
+        '
+        Me.Itemslbl.AutoSize = True
+        Me.Itemslbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Itemslbl.Location = New System.Drawing.Point(59, 4)
+        Me.Itemslbl.Name = "Itemslbl"
+        Me.Itemslbl.Size = New System.Drawing.Size(37, 13)
+        Me.Itemslbl.TabIndex = 7
+        Me.Itemslbl.Text = "Items"
+        '
         'frmLootItems
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(330, 312)
+        Me.Controls.Add(Me.Itemslbl)
+        Me.Controls.Add(Me.Lootlbl)
         Me.Controls.Add(Me.Cancelcmd)
         Me.Controls.Add(Me.Savecmd)
         Me.Controls.Add(Me.Remove)
@@ -94,6 +118,7 @@ Partial Class frmLootItems
         Me.Text = "Select Items to Loot"
         Me.TopMost = True
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Items As System.Windows.Forms.ListBox
@@ -102,4 +127,6 @@ Partial Class frmLootItems
     Friend WithEvents Remove As System.Windows.Forms.Button
     Friend WithEvents Savecmd As System.Windows.Forms.Button
     Friend WithEvents Cancelcmd As System.Windows.Forms.Button
+    Friend WithEvents Lootlbl As System.Windows.Forms.Label
+    Friend WithEvents Itemslbl As System.Windows.Forms.Label
 End Class

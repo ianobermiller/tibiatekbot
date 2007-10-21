@@ -118,10 +118,24 @@ Partial Class frmSubForms
         Me.HPHptxtbox = New System.Windows.Forms.TextBox
         Me.HPHplbl = New System.Windows.Forms.Label
         Me.AutoDrinker = New System.Windows.Forms.Panel
-        Me.DrinkerManalbl = New System.Windows.Forms.Label
-        Me.DrinkerManatxtbox = New System.Windows.Forms.TextBox
-        Me.DrinkerOnOff = New System.Windows.Forms.Button
         Me.DrinkerStop = New System.Windows.Forms.Button
+        Me.DrinkerOnOff = New System.Windows.Forms.Button
+        Me.DrinkerManatxtbox = New System.Windows.Forms.TextBox
+        Me.DrinkerManalbl = New System.Windows.Forms.Label
+        Me.AutoLooter = New System.Windows.Forms.Panel
+        Me.LooterEdit = New System.Windows.Forms.Button
+        Me.LooterStop = New System.Windows.Forms.Button
+        Me.LooterOnOff = New System.Windows.Forms.Button
+        Me.LooterCaptxtbox = New System.Windows.Forms.TextBox
+        Me.LooterCap = New System.Windows.Forms.Label
+        Me.AutoStacker = New System.Windows.Forms.Panel
+        Me.StackerOff = New System.Windows.Forms.Button
+        Me.StackerOnOff = New System.Windows.Forms.CheckBox
+        Me.AmmoRestacker = New System.Windows.Forms.Panel
+        Me.Ammolbl = New System.Windows.Forms.Label
+        Me.AmmoAmounttxtbox = New System.Windows.Forms.TextBox
+        Me.AmmoOnOff = New System.Windows.Forms.Button
+        Me.AmmoStop = New System.Windows.Forms.Button
         Me.Spellcaster.SuspendLayout()
         Me.AutoEater.SuspendLayout()
         Me.Runemaker.SuspendLayout()
@@ -140,6 +154,9 @@ Partial Class frmSubForms
         Me.HealFriend.SuspendLayout()
         Me.HealParty.SuspendLayout()
         Me.AutoDrinker.SuspendLayout()
+        Me.AutoLooter.SuspendLayout()
+        Me.AutoStacker.SuspendLayout()
+        Me.AmmoRestacker.SuspendLayout()
         Me.SuspendLayout()
         '
         'Spellcaster
@@ -906,7 +923,7 @@ Partial Class frmSubForms
         Me.HealFriend.Controls.Add(Me.HFHplbl)
         Me.HealFriend.Controls.Add(Me.HFNametxtbox)
         Me.HealFriend.Controls.Add(Me.HFNamelbl)
-        Me.HealFriend.Location = New System.Drawing.Point(580, 384)
+        Me.HealFriend.Location = New System.Drawing.Point(578, 394)
         Me.HealFriend.Name = "HealFriend"
         Me.HealFriend.Size = New System.Drawing.Size(252, 134)
         Me.HealFriend.TabIndex = 15
@@ -999,7 +1016,7 @@ Partial Class frmSubForms
         Me.HealParty.Controls.Add(Me.HPHplbl)
         Me.HealParty.Location = New System.Drawing.Point(12, 469)
         Me.HealParty.Name = "HealParty"
-        Me.HealParty.Size = New System.Drawing.Size(225, 130)
+        Me.HealParty.Size = New System.Drawing.Size(169, 130)
         Me.HealParty.TabIndex = 16
         '
         'HPStop
@@ -1061,35 +1078,10 @@ Partial Class frmSubForms
         Me.AutoDrinker.Controls.Add(Me.DrinkerOnOff)
         Me.AutoDrinker.Controls.Add(Me.DrinkerManatxtbox)
         Me.AutoDrinker.Controls.Add(Me.DrinkerManalbl)
-        Me.AutoDrinker.Location = New System.Drawing.Point(289, 440)
+        Me.AutoDrinker.Location = New System.Drawing.Point(190, 469)
         Me.AutoDrinker.Name = "AutoDrinker"
         Me.AutoDrinker.Size = New System.Drawing.Size(163, 104)
         Me.AutoDrinker.TabIndex = 17
-        '
-        'DrinkerManalbl
-        '
-        Me.DrinkerManalbl.AutoSize = True
-        Me.DrinkerManalbl.Location = New System.Drawing.Point(0, 0)
-        Me.DrinkerManalbl.Name = "DrinkerManalbl"
-        Me.DrinkerManalbl.Size = New System.Drawing.Size(106, 13)
-        Me.DrinkerManalbl.TabIndex = 0
-        Me.DrinkerManalbl.Text = "Minimum Manapoints"
-        '
-        'DrinkerManatxtbox
-        '
-        Me.DrinkerManatxtbox.Location = New System.Drawing.Point(0, 16)
-        Me.DrinkerManatxtbox.Name = "DrinkerManatxtbox"
-        Me.DrinkerManatxtbox.Size = New System.Drawing.Size(107, 20)
-        Me.DrinkerManatxtbox.TabIndex = 1
-        '
-        'DrinkerOnOff
-        '
-        Me.DrinkerOnOff.Location = New System.Drawing.Point(0, 42)
-        Me.DrinkerOnOff.Name = "DrinkerOnOff"
-        Me.DrinkerOnOff.Size = New System.Drawing.Size(84, 20)
-        Me.DrinkerOnOff.TabIndex = 2
-        Me.DrinkerOnOff.Text = "Activate"
-        Me.DrinkerOnOff.UseVisualStyleBackColor = True
         '
         'DrinkerStop
         '
@@ -1100,11 +1092,167 @@ Partial Class frmSubForms
         Me.DrinkerStop.Text = "Stop"
         Me.DrinkerStop.UseVisualStyleBackColor = True
         '
+        'DrinkerOnOff
+        '
+        Me.DrinkerOnOff.Location = New System.Drawing.Point(0, 42)
+        Me.DrinkerOnOff.Name = "DrinkerOnOff"
+        Me.DrinkerOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.DrinkerOnOff.TabIndex = 2
+        Me.DrinkerOnOff.Text = "Activate"
+        Me.DrinkerOnOff.UseVisualStyleBackColor = True
+        '
+        'DrinkerManatxtbox
+        '
+        Me.DrinkerManatxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.DrinkerManatxtbox.Name = "DrinkerManatxtbox"
+        Me.DrinkerManatxtbox.Size = New System.Drawing.Size(107, 20)
+        Me.DrinkerManatxtbox.TabIndex = 1
+        '
+        'DrinkerManalbl
+        '
+        Me.DrinkerManalbl.AutoSize = True
+        Me.DrinkerManalbl.Location = New System.Drawing.Point(0, 0)
+        Me.DrinkerManalbl.Name = "DrinkerManalbl"
+        Me.DrinkerManalbl.Size = New System.Drawing.Size(106, 13)
+        Me.DrinkerManalbl.TabIndex = 0
+        Me.DrinkerManalbl.Text = "Minimum Manapoints"
+        '
+        'AutoLooter
+        '
+        Me.AutoLooter.Controls.Add(Me.LooterEdit)
+        Me.AutoLooter.Controls.Add(Me.LooterStop)
+        Me.AutoLooter.Controls.Add(Me.LooterOnOff)
+        Me.AutoLooter.Controls.Add(Me.LooterCaptxtbox)
+        Me.AutoLooter.Controls.Add(Me.LooterCap)
+        Me.AutoLooter.Location = New System.Drawing.Point(12, 605)
+        Me.AutoLooter.Name = "AutoLooter"
+        Me.AutoLooter.Size = New System.Drawing.Size(107, 124)
+        Me.AutoLooter.TabIndex = 18
+        '
+        'LooterEdit
+        '
+        Me.LooterEdit.Location = New System.Drawing.Point(0, 65)
+        Me.LooterEdit.Name = "LooterEdit"
+        Me.LooterEdit.Size = New System.Drawing.Size(84, 20)
+        Me.LooterEdit.TabIndex = 4
+        Me.LooterEdit.Text = "Edit Items"
+        Me.LooterEdit.UseVisualStyleBackColor = True
+        '
+        'LooterStop
+        '
+        Me.LooterStop.Location = New System.Drawing.Point(0, 89)
+        Me.LooterStop.Name = "LooterStop"
+        Me.LooterStop.Size = New System.Drawing.Size(84, 20)
+        Me.LooterStop.TabIndex = 3
+        Me.LooterStop.Text = "Stop"
+        Me.LooterStop.UseVisualStyleBackColor = True
+        '
+        'LooterOnOff
+        '
+        Me.LooterOnOff.Location = New System.Drawing.Point(0, 42)
+        Me.LooterOnOff.Name = "LooterOnOff"
+        Me.LooterOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.LooterOnOff.TabIndex = 2
+        Me.LooterOnOff.Text = "Activate"
+        Me.LooterOnOff.UseVisualStyleBackColor = True
+        '
+        'LooterCaptxtbox
+        '
+        Me.LooterCaptxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.LooterCaptxtbox.Name = "LooterCaptxtbox"
+        Me.LooterCaptxtbox.Size = New System.Drawing.Size(90, 20)
+        Me.LooterCaptxtbox.TabIndex = 1
+        '
+        'LooterCap
+        '
+        Me.LooterCap.AutoSize = True
+        Me.LooterCap.Location = New System.Drawing.Point(0, 0)
+        Me.LooterCap.Name = "LooterCap"
+        Me.LooterCap.Size = New System.Drawing.Size(90, 13)
+        Me.LooterCap.TabIndex = 0
+        Me.LooterCap.Text = "Minimun Capacity"
+        '
+        'AutoStacker
+        '
+        Me.AutoStacker.Controls.Add(Me.StackerOff)
+        Me.AutoStacker.Controls.Add(Me.StackerOnOff)
+        Me.AutoStacker.Location = New System.Drawing.Point(381, 451)
+        Me.AutoStacker.Name = "AutoStacker"
+        Me.AutoStacker.Size = New System.Drawing.Size(154, 47)
+        Me.AutoStacker.TabIndex = 19
+        '
+        'StackerOff
+        '
+        Me.StackerOff.Location = New System.Drawing.Point(0, 23)
+        Me.StackerOff.Name = "StackerOff"
+        Me.StackerOff.Size = New System.Drawing.Size(84, 20)
+        Me.StackerOff.TabIndex = 1
+        Me.StackerOff.Text = "Stop"
+        Me.StackerOff.UseVisualStyleBackColor = True
+        '
+        'StackerOnOff
+        '
+        Me.StackerOnOff.AutoSize = True
+        Me.StackerOnOff.Location = New System.Drawing.Point(0, 0)
+        Me.StackerOnOff.Name = "StackerOnOff"
+        Me.StackerOnOff.Size = New System.Drawing.Size(147, 17)
+        Me.StackerOnOff.TabIndex = 0
+        Me.StackerOnOff.Text = "Stack Items Automatically"
+        Me.StackerOnOff.UseVisualStyleBackColor = True
+        '
+        'AmmoRestacker
+        '
+        Me.AmmoRestacker.Controls.Add(Me.AmmoStop)
+        Me.AmmoRestacker.Controls.Add(Me.AmmoOnOff)
+        Me.AmmoRestacker.Controls.Add(Me.AmmoAmounttxtbox)
+        Me.AmmoRestacker.Controls.Add(Me.Ammolbl)
+        Me.AmmoRestacker.Location = New System.Drawing.Point(365, 511)
+        Me.AmmoRestacker.Name = "AmmoRestacker"
+        Me.AmmoRestacker.Size = New System.Drawing.Size(164, 98)
+        Me.AmmoRestacker.TabIndex = 20
+        '
+        'Ammolbl
+        '
+        Me.Ammolbl.AutoSize = True
+        Me.Ammolbl.Location = New System.Drawing.Point(0, 0)
+        Me.Ammolbl.Name = "Ammolbl"
+        Me.Ammolbl.Size = New System.Drawing.Size(131, 13)
+        Me.Ammolbl.TabIndex = 0
+        Me.Ammolbl.Text = "Minimum Amount of Ammo"
+        '
+        'AmmoAmounttxtbox
+        '
+        Me.AmmoAmounttxtbox.Location = New System.Drawing.Point(0, 16)
+        Me.AmmoAmounttxtbox.Name = "AmmoAmounttxtbox"
+        Me.AmmoAmounttxtbox.Size = New System.Drawing.Size(128, 20)
+        Me.AmmoAmounttxtbox.TabIndex = 1
+        '
+        'AmmoOnOff
+        '
+        Me.AmmoOnOff.Location = New System.Drawing.Point(0, 42)
+        Me.AmmoOnOff.Name = "AmmoOnOff"
+        Me.AmmoOnOff.Size = New System.Drawing.Size(84, 20)
+        Me.AmmoOnOff.TabIndex = 2
+        Me.AmmoOnOff.Text = "Activate"
+        Me.AmmoOnOff.UseVisualStyleBackColor = True
+        '
+        'AmmoStop
+        '
+        Me.AmmoStop.Location = New System.Drawing.Point(0, 68)
+        Me.AmmoStop.Name = "AmmoStop"
+        Me.AmmoStop.Size = New System.Drawing.Size(84, 20)
+        Me.AmmoStop.TabIndex = 3
+        Me.AmmoStop.Text = "Stop"
+        Me.AmmoStop.UseVisualStyleBackColor = True
+        '
         'frmSubForms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(869, 651)
+        Me.ClientSize = New System.Drawing.Size(869, 741)
+        Me.Controls.Add(Me.AmmoRestacker)
+        Me.Controls.Add(Me.AutoStacker)
+        Me.Controls.Add(Me.AutoLooter)
         Me.Controls.Add(Me.AutoDrinker)
         Me.Controls.Add(Me.HealParty)
         Me.Controls.Add(Me.HealFriend)
@@ -1161,6 +1309,12 @@ Partial Class frmSubForms
         Me.HealParty.PerformLayout()
         Me.AutoDrinker.ResumeLayout(False)
         Me.AutoDrinker.PerformLayout()
+        Me.AutoLooter.ResumeLayout(False)
+        Me.AutoLooter.PerformLayout()
+        Me.AutoStacker.ResumeLayout(False)
+        Me.AutoStacker.PerformLayout()
+        Me.AmmoRestacker.ResumeLayout(False)
+        Me.AmmoRestacker.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1267,4 +1421,18 @@ Partial Class frmSubForms
     Friend WithEvents DrinkerOnOff As System.Windows.Forms.Button
     Friend WithEvents DrinkerManatxtbox As System.Windows.Forms.TextBox
     Friend WithEvents DrinkerManalbl As System.Windows.Forms.Label
+    Friend WithEvents AutoLooter As System.Windows.Forms.Panel
+    Friend WithEvents LooterCap As System.Windows.Forms.Label
+    Friend WithEvents LooterCaptxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents LooterStop As System.Windows.Forms.Button
+    Friend WithEvents LooterOnOff As System.Windows.Forms.Button
+    Friend WithEvents LooterEdit As System.Windows.Forms.Button
+    Friend WithEvents AutoStacker As System.Windows.Forms.Panel
+    Friend WithEvents StackerOff As System.Windows.Forms.Button
+    Friend WithEvents StackerOnOff As System.Windows.Forms.CheckBox
+    Friend WithEvents AmmoRestacker As System.Windows.Forms.Panel
+    Friend WithEvents AmmoOnOff As System.Windows.Forms.Button
+    Friend WithEvents AmmoAmounttxtbox As System.Windows.Forms.TextBox
+    Friend WithEvents Ammolbl As System.Windows.Forms.Label
+    Friend WithEvents AmmoStop As System.Windows.Forms.Button
 End Class

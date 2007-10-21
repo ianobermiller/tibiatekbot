@@ -50,11 +50,12 @@ Public Class frmLootItems
 
     Private Sub Savecmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Savecmd.Click
         Core.LootItems.Save()
+        Core.StatusMessage("Loot Items Saved.")
         Me.Close()
     End Sub
 
     Private Sub Cancelcmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancelcmd.Click
-        If MsgBox("Continue without saving changes?", MsgBoxStyle.YesNo, "Don't Save Changes?") Then
+        If MsgBox("Continue without saving changes?", MsgBoxStyle.YesNo, "Don't Save Changes?") = MsgBoxResult.Yes Then
             Core.LootItems.Load()
             Me.Close()
         End If
