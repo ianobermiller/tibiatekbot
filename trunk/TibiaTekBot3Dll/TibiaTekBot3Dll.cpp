@@ -190,9 +190,7 @@ void UninjectIfHung(){
 	}
 }
 
-bool InGame(){
-	return (*INGAME == 8);
-}
+inline bool InGame(){ return (*INGAME == 8); }
 
 void myTest(){
 	struct Test *test = new struct Test;

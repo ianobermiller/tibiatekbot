@@ -44,7 +44,7 @@ Public Module CoreModule
         Public Spells As New SpellsClass
         Public Definitions As New ItemsClass
         Public DatInfo As New DatReaderClass
-        Public LootItems As New LootItems
+        Public LootItems As New LootItemsClass
         Public WithEvents CharacterTimerObj As ThreadTimer
         Public WithEvents TibiaWindowTimerObj As ThreadTimer
         Public WithEvents LightEffectTimerObj As ThreadTimer
@@ -181,7 +181,7 @@ Public Module CoreModule
             Spells = New SpellsClass()
             Definitions = New ItemsClass
             DatInfo = New DatReaderClass()
-            LootItems = New LootItems()
+            LootItems = New LootItemsClass()
             State = BotState.Running
             CharacterTimerObj = New ThreadTimer(300) 'fast o.o
             TibiaWindowTimerObj = New ThreadTimer(1000)

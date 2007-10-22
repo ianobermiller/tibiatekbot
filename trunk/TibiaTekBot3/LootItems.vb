@@ -1,7 +1,7 @@
 Imports System.xml
 Public Module LootItemsModule
 
-    Public Class LootItems
+    Public Class LootItemsClass
         Public Items As New Dictionary(Of UShort, LootItemDefinition)
 
         Public ReadOnly Property GetCount(Optional ByVal Truncate As Boolean = False) As Integer
@@ -52,23 +52,28 @@ Public Module LootItemsModule
         End Sub
 
         Public Sub Load()
-            Dim Document As New XmlDocument
-            Document.Load(GetConfigurationDirectory() & "\LootItems.xml")
-            Dim Name As String = ""
-            Dim ID As UShort = 0
-            Dim ContainerIndex As Integer = 0
-            Dim TempStr As String = ""
-            Items.Clear()
-            For Each Element As XmlElement In Document.Item("LootItems")
-                Try
-                    TempStr = Element.GetAttribute("ID")
-                    If Not String.IsNullOrEmpty(TempStr) AndAlso TempStr.Chars(0) = "H" Then TempStr = "&" + TempStr
-                    ID = CUShort(TempStr)
-                    If Items.ContainsKey(ID) Then Continue For
-                    Items.Add(ID, New LootItemDefinition(ID))
-                Catch
-                End Try
-            Next
+            Try
+                Dim Document As New XmlDocument
+                Document.Load(GetConfigurationDirectory() & "\LootItems.xml")
+                Dim Name As String = ""
+                Dim ID As UShort = 0
+                Dim ContainerIndex As Integer = 0
+                Dim TempStr As String = ""
+                Items.Clear()
+                For Each Element As XmlElement In Document.Item("LootItems")
+                    Try
+                        TempStr = Element.GetAttribute("ID")
+                        If Not String.IsNullOrEmpty(TempStr) AndAlso TempStr.Chars(0) = "H" Then TempStr = "&" + TempStr
+                        ID = CUShort(TempStr)
+                        If Items.ContainsKey(ID) Then Continue For
+                        Items.Add(ID, New LootItemDefinition(ID))
+                    Catch
+                    End Try
+                Next
+            Catch Ex As Exception
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
         Protected Overrides Sub Finalize()
@@ -93,19 +98,24 @@ Public Module LootItemsModule
         End Function
 
         Public Sub Save()
-            Dim Document As New XmlDocument
-            Dim xmlLootItems As XmlElement = Document.CreateElement("LootItems")
-            For Each LootItem As LootItemDefinition In Items.Values
-                Dim xmlItem As XmlElement = Document.CreateElement("Item")
-                Dim xmlID As XmlAttribute = Document.CreateAttribute("ID")
-                xmlID.InnerText = LootItem.GetID
-                xmlItem.Attributes.Append(xmlID)
-                xmlLootItems.AppendChild(xmlItem)
-            Next
-            Dim Declaration As XmlDeclaration = Document.CreateXmlDeclaration("1.0", "", "")
-            Document.AppendChild(Declaration)
-            Document.AppendChild(xmlLootItems)
-            Document.Save(GetConfigurationDirectory() & "\LootItems.xml")
+            Try
+                Dim Document As New XmlDocument
+                Dim xmlLootItems As XmlElement = Document.CreateElement("LootItems")
+                For Each LootItem As LootItemDefinition In Items.Values
+                    Dim xmlItem As XmlElement = Document.CreateElement("Item")
+                    Dim xmlID As XmlAttribute = Document.CreateAttribute("ID")
+                    xmlID.InnerText = LootItem.GetID
+                    xmlItem.Attributes.Append(xmlID)
+                    xmlLootItems.AppendChild(xmlItem)
+                Next
+                Dim Declaration As XmlDeclaration = Document.CreateXmlDeclaration("1.0", "", "")
+                Document.AppendChild(Declaration)
+                Document.AppendChild(xmlLootItems)
+                Document.Save(GetConfigurationDirectory() & "\LootItems.xml")
+            Catch Ex As Exception
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
         Public Function Replace(ByVal ID As UShort, ByVal NewLootItems As LootItemDefinition) As Boolean
