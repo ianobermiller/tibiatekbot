@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="TibiaTekBot3Dll"
 	ProjectGUID="{36DC3CD5-DA85-4EF3-83E0-B0ED8E118095}"
 	RootNamespace="TibiaTekBot3Dll"
@@ -335,11 +335,11 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\TibiaTekBot3\Resources\Tibia_128.ico"
+				RelativePath="..\TibiaTekBot3\Tibia_128.ico"
 				>
 			</File>
 			<File
-				RelativePath="..\TibiaTekBot3\Tibia_128.ico"
+				RelativePath="..\TibiaTekBot3\Resources\Tibia_128.ico"
 				>
 			</File>
 			<File

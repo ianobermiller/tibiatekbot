@@ -22,7 +22,7 @@ Public Class frmLootItems
             End If
         Next
         Items.Sorted = True
-        For Each Loot As LootItems.LootItemDefinition In Core.LootItems.Items.Values
+        For Each Loot As LootItemsClass.LootItemDefinition In Core.LootItems.Items.Values
             Loots.Items.Add(Core.Definitions.GetItemName(Loot.GetID))
         Next
         Loots.Sorted = True
@@ -30,7 +30,7 @@ Public Class frmLootItems
 
     Private Sub Add_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Add.Click
         If Items.SelectedIndex <> -1 Then
-            Dim LootItem As New LootItems.LootItemDefinition
+            Dim LootItem As New LootItemsClass.LootItemDefinition
             LootItem.ID = Core.Definitions.GetItemID(Items.SelectedItem)
             Core.LootItems.Add(LootItem)
             Loots.Items.Add(Items.SelectedItem)
@@ -40,7 +40,7 @@ Public Class frmLootItems
 
     Private Sub Remove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Remove.Click
         If Loots.SelectedIndex <> -1 Then
-            Dim LootItem As New LootItems.LootItemDefinition
+            Dim LootItem As New LootItemsClass.LootItemDefinition
             LootItem.ID = Core.Definitions.GetItemID(Loots.SelectedItem)
             Core.LootItems.Remove(LootItem.ID)
             Items.Items.Add(Loots.SelectedItem)
