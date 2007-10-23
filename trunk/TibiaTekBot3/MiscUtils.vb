@@ -96,7 +96,7 @@ Public Module MiscUtils
         InterceptionReplacement(7) = &H90
 
 
-        Dim InterceptionFunction(0 To &H22) As Byte
+        Dim InterceptionFunction(0 To &H23) As Byte
         InterceptionFunction(0) = &H50 ' push eax
         InterceptionFunction(1) = &HB8 ' mov eax, 0
         InterceptionFunction(2) = 0
@@ -117,21 +117,22 @@ Public Module MiscUtils
         InterceptionFunction(&H11) = &H76
         InterceptionFunction(&H12) = 0
         InterceptionFunction(&H13) = &H50 ' push eax
-        InterceptionFunction(&H14) = &HE8 ' call user32.SendMessageA
-        InterceptionFunction(&H15) = &H55
-        InterceptionFunction(&H16) = &HC2
-        InterceptionFunction(&H17) = &H7B
-        InterceptionFunction(&H18) = &H77
-        InterceptionFunction(&H19) = &H58 ' pop eax
-        InterceptionFunction(&H1A) = &H8D ' lea eax, dword ptr ds:[esi-A]
-        InterceptionFunction(&H1B) = &H46 ' cmp eax, 0E7
-        InterceptionFunction(&H1C) = &HF6
-        InterceptionFunction(&H1D) = &H3D
-        InterceptionFunction(&H1E) = &HE7
-        InterceptionFunction(&H1F) = 0
+        InterceptionFunction(&H14) = &HFF ' CALL DWORD PTR DS:[<&USER32.SendMessageA>]
+        InterceptionFunction(&H15) = &H15
+        InterceptionFunction(&H16) = &HDC
+        InterceptionFunction(&H17) = &H34
+        InterceptionFunction(&H18) = &H59
+        InterceptionFunction(&H19) = 0
+        InterceptionFunction(&H1A) = &H58 ' pop eax
+        InterceptionFunction(&H1B) = &H8D ' lea eax, dword ptr ds:[esi-A]
+        InterceptionFunction(&H1C) = &H46
+        InterceptionFunction(&H1D) = &HF6
+        InterceptionFunction(&H1E) = &H3D
+        InterceptionFunction(&H1F) = &HE7 ' cmp eax, 0E7
         InterceptionFunction(&H20) = 0
         InterceptionFunction(&H21) = 0
-        InterceptionFunction(&H22) = &HC3 ' ret
+        InterceptionFunction(&H22) = 0
+        InterceptionFunction(&H23) = &HC3 ' ret
 
         Win32API.WriteProcessMemory(Core.Tibia.GetProcessHandle, CodeCave, InterceptionFunction, InterceptionFunction.Length, 0)
         Win32API.WriteProcessMemory(Core.Tibia.GetProcessHandle, TibiaCode, InterceptionReplacement, InterceptionReplacement.Length, 0)

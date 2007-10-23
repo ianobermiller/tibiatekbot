@@ -46,7 +46,7 @@ Public Module TibiaModule
             End Set
         End Property
 
-        Public Function Ping(Optional ByVal Timeout As Integer = 2000) As Boolean
+        Public Function Ping(Optional ByVal Timeout As Integer = 1000) As Boolean
             Dim Result As Integer = 0
             SendMessageTimeout(ClientProcess.MainWindowHandle, WM.Ping, 0, 0, SMTO.AbortIfHung Or SMTO.NoTimeoutIfNotHung, Timeout, Result)
             Return Result = 1
@@ -119,7 +119,6 @@ Public Module TibiaModule
             Dim FWI As New FlashWInfo(ClientProcess.MainWindowHandle, FlashWFlags.FLASHW_TIMERNOFG Or FlashWFlags.FLASHW_TRAY Or FlashWFlags.FLASHW_CAPTION, 0, 0)
             FlashWindowEx(FWI)
         End Sub
-
 
     End Class
 
