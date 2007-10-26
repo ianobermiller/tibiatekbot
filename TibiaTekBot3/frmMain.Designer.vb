@@ -178,14 +178,13 @@ Partial Class frmMain
         '
         Me.CMMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem156, Me.ToolStripSeparator2, Me.ToolStripMenuItem1, Me.ToolStripMenuItem29, Me.ToolStripMenuItem62, Me.ToolStripMenuItem78, Me.ToolStripMenuItem104, Me.ToolStripMenuItem125, Me.ToolStripMenuItem137, Me.ToolStripMenuItem149, Me.HelpToolStripMenuItem, Me.ToolStripMenuItem152})
         Me.CMMenu.Name = "ContextMenuStrip1"
-        Me.CMMenu.OwnerItem = Me.FunctionsToolStripMenuItem
-        Me.CMMenu.Size = New System.Drawing.Size(153, 274)
+        Me.CMMenu.Size = New System.Drawing.Size(152, 252)
         '
         'ToolStripMenuItem156
         '
         Me.ToolStripMenuItem156.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartToolStripMenuItem, Me.PauseToolStripMenuItem, Me.StopToolStripMenuItem})
         Me.ToolStripMenuItem156.Name = "ToolStripMenuItem156"
-        Me.ToolStripMenuItem156.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem156.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem156.Text = "&Bot State"
         '
         'StartToolStripMenuItem
@@ -209,13 +208,13 @@ Partial Class frmMain
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(148, 6)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem8, Me.ToolStripMenuItem12, Me.ToolStripMenuItem15, Me.ToolStripMenuItem25, Me.ToolStripMenuItem28, Me.AMuletNecklaceChangerToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem1.Text = "&General Tools"
         '
         'ToolStripMenuItem8
@@ -258,7 +257,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem29.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.ToolStripMenuItem31, Me.ToolStripMenuItem34, Me.ToolStripMenuItem37, Me.ToolStripMenuItem40, Me.ToolStripMenuItem44, Me.ToolStripMenuItem47, Me.ToolStripMenuItem53, Me.ToolStripMenuItem56, Me.AutoLogToolStripMenuItem, Me.AutoConnectToolStripMenuItem, Me.AutoBackpackOpenerToolStripMenuItem})
         Me.ToolStripMenuItem29.Name = "ToolStripMenuItem29"
-        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem29.Text = "&AFK Tools"
         '
         'ToolStripMenuItem30
@@ -381,7 +380,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem62.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem63, Me.ToolStripMenuItem66, Me.ToolStripMenuItem69, Me.ToolStripMenuItem72, Me.ToolStripMenuItem75})
         Me.ToolStripMenuItem62.Name = "ToolStripMenuItem62"
-        Me.ToolStripMenuItem62.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem62.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem62.Text = "&Healing Tools"
         '
         'ToolStripMenuItem63
@@ -418,7 +417,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem78.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem79, Me.ToolStripMenuItem85, Me.ToolStripMenuItem86, Me.ToolStripMenuItem87, Me.ToolStripMenuItem91, Me.ToolStripMenuItem94, Me.ToolStripMenuItem102, Me.ToolStripMenuItem103, Me.StatisticsSkillsLevelEtcToolStripMenuItem, Me.FloorSpyToolStripMenuItem})
         Me.ToolStripMenuItem78.Name = "ToolStripMenuItem78"
-        Me.ToolStripMenuItem78.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem78.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem78.Text = "&Info Tools"
         '
         'ToolStripMenuItem79
@@ -560,7 +559,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem104.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem105, Me.ToolStripMenuItem116, Me.ToolStripMenuItem122})
         Me.ToolStripMenuItem104.Name = "ToolStripMenuItem104"
-        Me.ToolStripMenuItem104.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem104.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem104.Text = "&Training Tools"
         '
         'ToolStripMenuItem105
@@ -695,7 +694,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem125.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem126, Me.ToolStripMenuItem129, Me.ToolStripMenuItem132})
         Me.ToolStripMenuItem125.Name = "ToolStripMenuItem125"
-        Me.ToolStripMenuItem125.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem125.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem125.Text = "&Fun Tools"
         '
         'ToolStripMenuItem126
@@ -774,7 +773,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem137.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem138, Me.ToolStripMenuItem158, Me.ScreenshooterToolStripMenuItem, Me.ToolStripMenuItem141, Me.ToolStripMenuItem142, Me.ToolStripMenuItem143})
         Me.ToolStripMenuItem137.Name = "ToolStripMenuItem137"
-        Me.ToolStripMenuItem137.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem137.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem137.Text = "&Miscellaneous"
         '
         'ToolStripMenuItem138
@@ -853,7 +852,7 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem149.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem150, Me.ToolStripMenuItem151})
         Me.ToolStripMenuItem149.Name = "ToolStripMenuItem149"
-        Me.ToolStripMenuItem149.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem149.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem149.Text = "&Hide"
         '
         'ToolStripMenuItem150
@@ -873,18 +872,17 @@ Partial Class frmMain
         '
         Me.HelpToolStripMenuItem.Enabled = False
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(151, 22)
         Me.HelpToolStripMenuItem.Text = "H&elp"
         '
         'ToolStripMenuItem152
         '
         Me.ToolStripMenuItem152.Name = "ToolStripMenuItem152"
-        Me.ToolStripMenuItem152.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem152.Size = New System.Drawing.Size(151, 22)
         Me.ToolStripMenuItem152.Text = "&Close"
         '
         'OptionsToolStripMenuItem
         '
-        Me.OptionsToolStripMenuItem.Enabled = False
         Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
         Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(56, 20)
         Me.OptionsToolStripMenuItem.Text = "Options"
