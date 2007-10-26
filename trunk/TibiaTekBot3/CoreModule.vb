@@ -230,7 +230,7 @@ Public Module CoreModule
             PingTimerObj.StartTimer()
             PacketsFromServerTimerObj.StartTimer()
             InjectLastAttackedId()
-            InjectIncomingPacketInterception()
+            'InjectIncomingPacketInterception()
         End Sub
 
 #End Region
@@ -1662,7 +1662,7 @@ Public Module CoreModule
             'Pos = 2
             Dim PacketID As Integer = 0
             Dim Word As UShort = 0
-            PacketID = GetByte(bytBuffer, Pos)
+            PacketID = 0 'GetByte(bytBuffer, Pos)
             'IO.File.AppendAllText(Application.StartupPath & "\ID.txt", "From Server: " & BytesToStr(bytBuffer) & ControlChars.NewLine)
             Select Case PacketID
                 Case &H6A 'add object to map

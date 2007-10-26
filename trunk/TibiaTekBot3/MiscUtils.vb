@@ -95,7 +95,6 @@ Public Module MiscUtils
         InterceptionReplacement(6) = &H90
         InterceptionReplacement(7) = &H90
 
-
         Dim InterceptionFunction(0 To &H23) As Byte
         InterceptionFunction(0) = &H50 ' push eax
         InterceptionFunction(1) = &HB8 ' mov eax, 0
@@ -109,9 +108,9 @@ Public Module MiscUtils
         InterceptionFunction(9) = &H28
         InterceptionFunction(&HA) = &HDA
         InterceptionFunction(&HB) = &H76
-        InterceptionFunction(&HC) = 0
-        InterceptionFunction(&HD) = &H50 ' push eax
-        InterceptionFunction(&HE) = &HA1 ' mov eax, dword ds:[76DA24]
+        InterceptionFunction(&HC) = &H0
+        InterceptionFunction(&HD) = &H50 ' PUSH EAX
+        InterceptionFunction(&HE) = &HA1 ' MOV EAX,DWORD PTR DS:[76DA24]
         InterceptionFunction(&HF) = &H24
         InterceptionFunction(&H10) = &HDA
         InterceptionFunction(&H11) = &H76

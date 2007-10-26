@@ -408,4 +408,9 @@ Public Class frmMain
     Private Sub ToolStripMenuItem25_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem25.Click
         AddFeature("Ammo Restacker")
     End Sub
+
+    Private Sub OptionsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OptionsToolStripMenuItem.Click
+        Dim OptionsForm As New frmOptions
+        OptionsForm.Show()
+    End Sub
 End Class
