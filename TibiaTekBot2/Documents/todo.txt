@@ -1,0 +1,8 @@
+exp <monster>
+Tells how many monsters needed to level up
+Result: 12 Slimes to level up
+Make spider to crawl tibia wiki (Checks on tibia wiki on every "edit" page of every monster)
+
+runemaker <time>
+Tells in what time is it going to finish making runes, and at what moment it is going to finish
+Result: In 3 hours 2 minutes (12:02).
