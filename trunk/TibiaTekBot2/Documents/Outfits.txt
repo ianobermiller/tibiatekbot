@@ -1,0 +1,245 @@
+Warwolf
+Orc Rider
+Orc
+Orc Shaman
+Orc Warrior
+Orc Berserker
+Necromancer
+Butterfly Yellow
+Water Elemental
+Blue Demon
+Black Sheep
+White Sheep
+Troll
+Bear
+Beholder
+Ghoul
+Slime
+Quara Predator
+Rat
+Cyclops
+Minotaur Mage
+Minotaur Archer
+Minotaur
+Rotworm
+Wolf
+Snake
+Minotaur Guard
+Spider
+Deer
+Dog
+Skeleton
+Dragon
+Demon
+Poison Spider
+Demon Skeleton
+Giant Spider
+Dragon Lord
+Fire Devil
+Lion
+Polar Bear
+Scorpion
+Wasp
+Bug
+Quara Constrictor
+Quara Hydromancer
+Ghost
+Fire Elemental
+Orc Spearman
+Green Djinn
+Winter Wolf
+Frost Troll
+Witch
+Behemoth
+Cave Rat
+Monk
+Priestess
+Orc Leader
+Pig
+Goblin
+Elf
+Elf Arcanist
+Elf Scout
+Mummy
+Dwarf Geomancer
+Stone Golem
+Vampire
+Dwarf
+Dwarf Guard
+Dwarf Soldier
+Quara Mantassin
+Hero
+Rabbit
+GM
+Swamp Troll
+Quara Pincher
+Banshee
+Ancient Scarab
+Blue Djinn
+Cobra
+Larva
+Scarab
+Pharaoh
+Pharaoh
+Pharaoh
+Pharaoh Dressed
+Pharaoh Dressed
+Pharaoh
+Pharaoh
+Pharaoh Dressed
+Mimic
+Pirate Marauder
+Hyena
+Gargoyle
+Pirate Cutthroat
+Pirate Buccaneer
+Pirate Corsair
+Lich
+Crypt Shambler
+Bonebeast
+Deathslicer
+Efreet
+Marid
+Badger
+Skunk
+Demon
+Elder Beholder
+Gazer
+Yeti
+Chicken
+Crab
+Lizard Templar
+Lizard Sentinel
+Lizard Snakecharmer
+Kongra
+Merlkin
+Sibang
+Crocodile
+Carniphila
+Hydra
+Bat
+Panda
+Centipede
+Tiger
+Old Woman
+Old Man
+Citizen (Male)
+Hunter (Male)
+Mage (Male)
+Knight (Male)
+Nobleman (Male)
+Summoner (Male)
+Warrior (Male)
+
+Citizen (Female)
+Hunter (Female)
+Mage (Female)
+Knight (Female)
+Nobleman (Female)
+Summoner (Female)
+Warrior (Female)
+Barbarian (Male)
+Druid (Male)
+Wizard (Male)
+Oriental (Male)
+Barbarian (Female)
+Druid (Female)
+Wizard (Female)
+Oriental (Female)
+Pirate (Male)
+Ninja (Male)
+Beggar (Male)
+Shaman (Male)
+Pirate (Female)
+Ninja (Female)
+Beggar (Female)
+Shaman (Female)
+Elf NPC
+Dwarf NPC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Carrion Worm
+Enlightened Of The Cult
+Adept Of The Cult
+Pirate Skeleton
+Pirate Ghost
+Tortoise
+Thornback Tortoise
+Mammoth
+Blood Crab
+
+
+
+
+
+
+
+
+
+
+Elephant
+Flamingo
+Buttefly Pink
+Dworc Voodoomaster
+Dworc Fleshhunter
+Dworc Venomsniper
+Parrot
+Terror Bird
+Tarantula
+Serpent Spawn
+Spit Nettle
+Toad
+Seagull
+Azure Frog
+Juggernaut
+Frog
+Butterfly Blue
+Butterfly Red
+Ferumbras
+Hand Of Cursed Fate
+Undead Dragon
+Lost Soul
+Betrayed Wraith
+Dark Torturer
+Spectre
+Destroyer
+Diabolic Imp
+Defiler
+Wyvern
+Hellhound
+Phantasm
+Hellfire
+Hellfire Fighter
+
+Nightmare
+Blightwalker
+Plaguesmith

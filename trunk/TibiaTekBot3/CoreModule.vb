@@ -228,9 +228,9 @@ Public Module CoreModule
             ChatMessageQueueTimerObj.StartTimer()
             ExpCheckerTimerObj.StartTimer()
             PingTimerObj.StartTimer()
-            PacketsFromServerTimerObj.StartTimer()
+            'PacketsFromServerTimerObj.StartTimer()
             InjectLastAttackedId()
-            'InjectIncomingPacketInterception()
+            InjectIncomingPacketInterception()
         End Sub
 
 #End Region
@@ -1527,7 +1527,7 @@ Public Module CoreModule
                         Tibia.Memory.Read(Address + I, CurByte, 1)
                         bytBuffer(I) = CByte(CurByte)
                     Next
-                    PacketsFromServerQueue.Enqueue(bytBuffer)
+                    PacketFromServer(bytBuffer)
                     M.Result = 1
                 Case WM.Send 'packetfromclient
                     Dim CurByte As Integer = 0
