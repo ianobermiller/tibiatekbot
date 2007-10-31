@@ -41,31 +41,51 @@ Public Class PProxy2
 #Region "Properties"
     Public ReadOnly Property CharacterName() As String
         Get
-            Return CharacterNames(CharacterIndex)
+            Try
+                Return CharacterNames(CharacterIndex)
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Get
     End Property
 #End Region
 
     Public Sub SendPacketToServer(ByVal bytBuffer() As Byte)
-        If sckGS.GetState = Winsock.WinsockStates.Connected Then
-            If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
-                ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
+        Try
+            If sckGS.GetState = Winsock.WinsockStates.Connected Then
+                If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
+                    ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
+                End If
+                sckGS.Send(xTeaEncrypt(bytBuffer))
             End If
-            sckGS.Send(xTeaEncrypt(bytBuffer))
-        End If
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Public Sub SendPacketToClient(ByVal bytBuffer() As Byte)
-        If sckGC.GetState = Winsock.WinsockStates.Connected Then
-            If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
-                ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
+        Try
+            If sckGC.GetState = Winsock.WinsockStates.Connected Then
+                If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
+                    ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
+                End If
+                sckGC.Send(xTeaEncrypt(bytBuffer))
             End If
-            sckGC.Send(xTeaEncrypt(bytBuffer))
-        End If
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub prcTibia_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles Client.Exited
-        RaiseEvent ClientHasClosed()
+        Try
+            RaiseEvent ClientHasClosed()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Public Sub New(ByVal Filename As String, ByVal Directory As String)
@@ -101,7 +121,7 @@ Public Class PProxy2
             Client.EnableRaisingEvents = True
             'Client.Refresh()
         Catch Ex As Exception
-            MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -122,7 +142,7 @@ Public Class PProxy2
             Client.Refresh()
             'ClientHandle = Client.Handle
             Return Result
-        Catch ex As Exception
+        Catch
         End Try
         Return False
     End Function
@@ -133,7 +153,9 @@ Public Class PProxy2
             sckGC.Close()
             sckGS.Close()
             RaiseEvent ConnectionLost()
-        Catch ex As Exception
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         End Try
     End Sub
 
@@ -142,7 +164,9 @@ Public Class PProxy2
             sckGS.Close()
             sckGC.Close()
             RaiseEvent ConnectionLost()
-        Catch ex As Exception
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         End Try
     End Sub
 
@@ -150,30 +174,44 @@ Public Class PProxy2
         Try
             sckLC.Close()
             sckLS.Close()
-        Catch ex As Exception
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         End Try
     End Sub
 
     Private Sub sckLS_Disconnected(ByVal sender As Winsock) Handles sckLS.Disconnected
         Try
             sckLS.Close()
-        Catch ex As Exception
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         End Try
     End Sub
 #End Region
 
 #Region " Connection Request "
     Private Sub sckGListen_ConnectionRequest(ByVal sender As Winsock, ByVal requestID As System.Net.Sockets.Socket) Handles sckGListen.ConnectionRequest
-        sckGC.Close()
-        sckGC.Accept(requestID)
-        sckGS.Close()
+        Try
+            sckGC.Close()
+            sckGC.Accept(requestID)
+            sckGS.Close()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub sckLListen_ConnectionRequest(ByVal sender As Winsock, ByVal requestID As System.Net.Sockets.Socket) Handles sckLListen.ConnectionRequest
-        sckLC.Close()
-        sckLC.Accept(requestID)
-        sckLS.Close()
-        sckLS.Connect(Core.LoginServer, LoginPort)
+        Try
+            sckLC.Close()
+            sckLC.Accept(requestID)
+            sckLS.Close()
+            sckLS.Connect(Core.LoginServer, LoginPort)
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 #End Region
 
@@ -185,9 +223,14 @@ Public Class PProxy2
     End Sub
 
     Private Sub sckLC_DataArrival(ByVal sender As Winsock, ByVal BytesTotal As Integer) Handles sckLC.DataArrival
-        Dim bytArray() As Byte = {}
-        sckLC.GetData(bytArray)
-        phLC.GetData(bytArray)
+        Try
+            Dim bytArray() As Byte = {}
+            sckLC.GetData(bytArray)
+            phLC.GetData(bytArray)
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub phLC_SendData(ByRef bytArray() As Byte) Handles phLC.SendData
@@ -216,9 +259,14 @@ Public Class PProxy2
     End Sub
 
     Private Sub sckLS_DataArrival(ByVal sender As Winsock, ByVal BytesTotal As Integer) Handles sckLS.DataArrival
-        Dim bytArray() As Byte = {}
-        sckLS.GetData(bytArray)
-        phLS.GetData(bytArray)
+        Try
+            Dim bytArray() As Byte = {}
+            sckLS.GetData(bytArray)
+            phLS.GetData(bytArray)
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub phLS_SendData(ByRef bytArray() As Byte) Handles phLS.SendData
@@ -257,9 +305,14 @@ Public Class PProxy2
     End Sub
 
     Private Sub sckGS_DataArrival(ByVal sender As Winsock, ByVal BytesTotal As Integer) Handles sckGS.DataArrival
-        Dim bytArray() As Byte = {}
-        sckGS.GetData(bytArray)
-        phGS.GetData(bytArray)
+        Try
+            Dim bytArray() As Byte = {}
+            sckGS.GetData(bytArray)
+            phGS.GetData(bytArray)
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub phGS_SendData(ByRef bytArray() As Byte) Handles phGS.SendData
@@ -292,187 +345,223 @@ Public Class PProxy2
     End Sub
 
     Private Sub sckGC_DataArrival(ByVal sender As Winsock, ByVal BytesTotal As Integer) Handles sckGC.DataArrival
-        Dim bytArray() As Byte = {}
-        sckGC.GetData(bytArray)
-        phGC.GetData(bytArray)
+        Try
+            Dim bytArray() As Byte = {}
+            sckGC.GetData(bytArray)
+            phGC.GetData(bytArray)
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub phGC_SendData(ByRef bytArray() As Byte) Handles phGC.SendData
-        Dim Send As Boolean = True
-        Dim intTemp As Integer = 0
-
-        If Fix(((bytArray.Length - 2) / 8)) <> ((bytArray.Length - 2) / 8) Then
-            Core.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
-            CharacterIndex = intTemp
-            sckGS.Close()
-            'Dim IP As New Net.IPAddress(CharacterIPs(intTemp))
-            sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
-            'strCharName = CharacterNames(intTemp)
-            RaiseEvent ConnectionGained()
-        Else
-
-            bytArray = xTeaDecrypt(bytArray)
-
-            Select Case bytArray(2)
-                Case &HA
-                    Core.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
-                    CharacterIndex = intTemp
-                    sckGS.Close()
-                    sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
-                    'strCharName = CharacterNames(intTemp)
-                Case Else
-            End Select
-
-            RaiseEvent PacketFromClient(bytArray, Send)
-
-            If Not Send Then Exit Sub
-
-            bytArray = xTeaEncrypt(bytArray)
-
-        End If
-        Do Until sckGS.GetState = Winsock.WinsockStates.Connected
-            System.Threading.Thread.Sleep(10)
-        Loop
         Try
-            sckGS.Send(bytArray)
-        Catch ex As Exception
-            sckGS.Close()
-            sckGC.Close()
+            Dim Send As Boolean = True
+            Dim intTemp As Integer = 0
+
+            If Fix(((bytArray.Length - 2) / 8)) <> ((bytArray.Length - 2) / 8) Then
+                Core.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
+                CharacterIndex = intTemp
+                sckGS.Close()
+                'Dim IP As New Net.IPAddress(CharacterIPs(intTemp))
+                sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
+                'strCharName = CharacterNames(intTemp)
+                RaiseEvent ConnectionGained()
+            Else
+
+                bytArray = xTeaDecrypt(bytArray)
+
+                Select Case bytArray(2)
+                    Case &HA
+                        Core.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
+                        CharacterIndex = intTemp
+                        sckGS.Close()
+                        sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
+                        'strCharName = CharacterNames(intTemp)
+                    Case Else
+                End Select
+
+                RaiseEvent PacketFromClient(bytArray, Send)
+
+                If Not Send Then Exit Sub
+
+                bytArray = xTeaEncrypt(bytArray)
+
+            End If
+            Do Until sckGS.GetState = Winsock.WinsockStates.Connected
+                System.Threading.Thread.Sleep(10)
+            Loop
+            Try
+                sckGS.Send(bytArray)
+            Catch ex As Exception
+                sckGS.Close()
+                sckGC.Close()
+            End Try
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         End Try
     End Sub
 #End Region
 
 #Region " xTea Stuff "
     Private Function GetKey() As Byte()
-        Dim bytBuffer() As Byte = {}
+        Try
+            Dim bytBuffer() As Byte = {}
 
-        Core.ReadMemory(Consts.ptrEncryptionKey, bytBuffer, 16)
-        Return bytBuffer
+            Core.ReadMemory(Consts.ptrEncryptionKey, bytBuffer, 16)
+            Return bytBuffer
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Function
 
     Private Function xTeaDecrypt(ByVal bytBuffer() As Byte) As Byte()
-        Dim bytTemp() As Byte
-        Dim bytTemp2() As Byte
-        Dim Key() As Byte = GetKey()
-        Dim intCount As Integer
-        Dim intCount2 As Integer
-        ReDim bytTemp2(UBound(bytBuffer) - 2)
-        For intCount = 0 To ((UBound(bytBuffer) - 1) / 8) - 1
-            bytTemp = Crypt.XTEADecrypt(bytBuffer, 2 + (8 * intCount), 8, Key)
-            For intCount2 = 0 To 7
-                bytTemp2((8 * intCount) + intCount2) = bytTemp(intCount2)
+        Try
+            Dim bytTemp() As Byte
+            Dim bytTemp2() As Byte
+            Dim Key() As Byte = GetKey()
+            Dim intCount As Integer
+            Dim intCount2 As Integer
+            ReDim bytTemp2(UBound(bytBuffer) - 2)
+            For intCount = 0 To ((UBound(bytBuffer) - 1) / 8) - 1
+                bytTemp = Crypt.XTEADecrypt(bytBuffer, 2 + (8 * intCount), 8, Key)
+                For intCount2 = 0 To 7
+                    bytTemp2((8 * intCount) + intCount2) = bytTemp(intCount2)
+                Next
             Next
-        Next
-        Return bytTemp2
+            Return bytTemp2
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Function
 
     Private Function xTeaEncrypt(ByVal bytBuffer() As Byte) As Byte()
-        Dim bytTemp() As Byte
-        Dim bytTemp2(1) As Byte
-        Dim Key() As Byte = GetKey()
-        Dim intCount As Integer
-        For intCount = 0 To ((UBound(bytBuffer) + 1) / 8) - 1
-            bytTemp = Crypt.XTEAEncrypt(bytBuffer, (8 * intCount), 8, Key)
-            AddByteArray(bytTemp2, bytTemp)
-        Next
-        Return bytTemp2
+        Try
+            Dim bytTemp() As Byte
+            Dim bytTemp2(1) As Byte
+            Dim Key() As Byte = GetKey()
+            Dim intCount As Integer
+            For intCount = 0 To ((UBound(bytBuffer) + 1) / 8) - 1
+                bytTemp = Crypt.XTEAEncrypt(bytBuffer, (8 * intCount), 8, Key)
+                AddByteArray(bytTemp2, bytTemp)
+            Next
+            Return bytTemp2
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Function
 
 #End Region
 
     Sub pckCharList(ByRef bytBuffer() As Byte)
-        Dim Pos As Integer = 3
-        Dim Motd As String = GetString(bytBuffer, Pos)
-        Pos += 1
-        Dim TotalChars As Short = GetByte(bytBuffer, Pos)
-        ReDim CharacterNames(TotalChars - 1)
-        ReDim CharacterWorlds(TotalChars - 1)
-        ReDim CharacterIPs(TotalChars - 1)
-        ReDim CharacterPorts(TotalChars - 1)
-        'Dim pck As String = BytesToStr(bytBuffer)
-        For I As Integer = 0 To TotalChars - 1
-            CharacterNames(I) = GetString(bytBuffer, Pos)
-            CharacterWorlds(I) = GetString(bytBuffer, Pos)
-            CharacterIPs(I) = GetDWord(bytBuffer, Pos)
-            CharacterPorts(I) = GetWord(bytBuffer, Pos)
-        Next
-        Dim PremDays As UShort = GetWord(bytBuffer, Pos)
-        ReDim bytBuffer(1)
-        'Dim newBytBuffer(1) As Byte
-        AddByte(bytBuffer, &H14)
-        If Consts.ModifyMOTD Then
-            Dim Tmp As String = (New Random((Now.Millisecond))).Next(1, 300)
-            AddString(bytBuffer, Tmp & BotMOTD)
-        Else
-            AddString(bytBuffer, Motd)
-        End If
-        AddByte(bytBuffer, &H64)
-        AddByte(bytBuffer, CByte(TotalChars))
-        For I As Integer = 0 To TotalChars - 1
-            AddString(bytBuffer, CharacterNames(I))
-            AddString(bytBuffer, CharacterWorlds(I))
-            AddByte(bytBuffer, 127)
-            AddByte(bytBuffer, 0)
-            AddByte(bytBuffer, 0)
-            AddByte(bytBuffer, 1)
-            AddWord(bytBuffer, sckGListen.LocalPort)
-        Next
-        AddWord(bytBuffer, PremDays)
-        'ReDim MyInfo(totalcharacters - 1)
-        '        
-        If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
-            ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
-        End If
-        'bytBuffer = newBytBuffer
-        'Core.ChangeClientTitle(BotName & " - " & "Select your character")
-        'Dim intTemp As Integer
-        'Dim intPlayers As Integer
-        'Dim intPlacement As Integer
-        'Dim intCount1 As Integer
-        'Dim strTempString As String = ""
-        'Dim byt() As Byte
+        Try
+            Dim Pos As Integer = 3
+            Dim Motd As String = GetString(bytBuffer, Pos)
+            Pos += 1
+            Dim TotalChars As Short = GetByte(bytBuffer, Pos)
+            ReDim CharacterNames(TotalChars - 1)
+            ReDim CharacterWorlds(TotalChars - 1)
+            ReDim CharacterIPs(TotalChars - 1)
+            ReDim CharacterPorts(TotalChars - 1)
+            'Dim pck As String = BytesToStr(bytBuffer)
+            For I As Integer = 0 To TotalChars - 1
+                CharacterNames(I) = GetString(bytBuffer, Pos)
+                CharacterWorlds(I) = GetString(bytBuffer, Pos)
+                CharacterIPs(I) = GetDWord(bytBuffer, Pos)
+                CharacterPorts(I) = GetWord(bytBuffer, Pos)
+            Next
+            Dim PremDays As UShort = GetWord(bytBuffer, Pos)
+            ReDim bytBuffer(1)
+            'Dim newBytBuffer(1) As Byte
+            AddByte(bytBuffer, &H14)
+            If Consts.ModifyMOTD Then
+                Dim Tmp As String = (New Random((Now.Millisecond))).Next(1, 300)
+                AddString(bytBuffer, Tmp & BotMOTD)
+            Else
+                AddString(bytBuffer, Motd)
+            End If
+            AddByte(bytBuffer, &H64)
+            AddByte(bytBuffer, CByte(TotalChars))
+            For I As Integer = 0 To TotalChars - 1
+                AddString(bytBuffer, CharacterNames(I))
+                AddString(bytBuffer, CharacterWorlds(I))
+                AddByte(bytBuffer, 127)
+                AddByte(bytBuffer, 0)
+                AddByte(bytBuffer, 0)
+                AddByte(bytBuffer, 1)
+                AddWord(bytBuffer, sckGListen.LocalPort)
+            Next
+            AddWord(bytBuffer, PremDays)
+            'ReDim MyInfo(totalcharacters - 1)
+            '        
+            If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
+                ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
+            End If
+            'bytBuffer = newBytBuffer
+            'Core.ChangeClientTitle(BotName & " - " & "Select your character")
+            'Dim intTemp As Integer
+            'Dim intPlayers As Integer
+            'Dim intPlacement As Integer
+            'Dim intCount1 As Integer
+            'Dim strTempString As String = ""
+            'Dim byt() As Byte
 
-        'intTemp = BytesToWord(bytBuffer(&H3), bytBuffer(&H4)) + 6
-        'intPlayers = bytBuffer(intTemp)
-        'ReDim MyInfo(intPlayers - 1)
-        'intPlacement = intTemp + 1
-        'For intCount1 = 0 To intPlayers - 1
-        'MyInfo(intCount1).strName = strFromArray(bytBuffer, intPlacement + 2, bytBuffer(intPlacement))
-        'intPlacement = intPlacement + bytBuffer(intPlacement) + 2
-        'MyInfo(intCount1).strWorld = strFromArray(bytBuffer, intPlacement + 2, bytBuffer(intPlacement))
-        'intPlacement = intPlacement + bytBuffer(intPlacement) + 2
-        'strTempString = bytBuffer(intPlacement).ToString
-        'strTempString += "." & bytBuffer(intPlacement + 1).ToString
-        'strTempString += "." & bytBuffer(intPlacement + 2).ToString
-        'strTempString += "." & bytBuffer(intPlacement + 3).ToString
-        'MyInfo(intCount1).strIP = strTempString
-        'MyInfo(intCount1).intPort = BitConverter.ToUInt16(bytBuffer, intPlacement + 4)
-        'bytBuffer(intPlacement) = 127
-        'bytBuffer(intPlacement + 1) = 0
-        'bytBuffer(intPlacement + 2) = 0
-        'bytBuffer(intPlacement + 3) = 1
-        'byt = BitConverter.GetBytes(sckGListen.LocalPort)
-        'bytBuffer(intPlacement + 4) = byt(0)
-        'bytBuffer(intPlacement + 5) = byt(1)
-        '   intPlacement += 6
-        'Next
+            'intTemp = BytesToWord(bytBuffer(&H3), bytBuffer(&H4)) + 6
+            'intPlayers = bytBuffer(intTemp)
+            'ReDim MyInfo(intPlayers - 1)
+            'intPlacement = intTemp + 1
+            'For intCount1 = 0 To intPlayers - 1
+            'MyInfo(intCount1).strName = strFromArray(bytBuffer, intPlacement + 2, bytBuffer(intPlacement))
+            'intPlacement = intPlacement + bytBuffer(intPlacement) + 2
+            'MyInfo(intCount1).strWorld = strFromArray(bytBuffer, intPlacement + 2, bytBuffer(intPlacement))
+            'intPlacement = intPlacement + bytBuffer(intPlacement) + 2
+            'strTempString = bytBuffer(intPlacement).ToString
+            'strTempString += "." & bytBuffer(intPlacement + 1).ToString
+            'strTempString += "." & bytBuffer(intPlacement + 2).ToString
+            'strTempString += "." & bytBuffer(intPlacement + 3).ToString
+            'MyInfo(intCount1).strIP = strTempString
+            'MyInfo(intCount1).intPort = BitConverter.ToUInt16(bytBuffer, intPlacement + 4)
+            'bytBuffer(intPlacement) = 127
+            'bytBuffer(intPlacement + 1) = 0
+            'bytBuffer(intPlacement + 2) = 0
+            'bytBuffer(intPlacement + 3) = 1
+            'byt = BitConverter.GetBytes(sckGListen.LocalPort)
+            'bytBuffer(intPlacement + 4) = byt(0)
+            'bytBuffer(intPlacement + 5) = byt(1)
+            '   intPlacement += 6
+            'Next
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub AddByteArray(ByRef bytBuffer() As Byte, ByVal bytAdd() As Byte)
-        Dim intTemp As Integer
-        Dim bytTemp() As Byte
-        Dim intCounter As Integer
-        intTemp = UBound(bytBuffer)
-        ReDim Preserve bytBuffer(intTemp + bytAdd.Length)
-        bytTemp = BitConverter.GetBytes(BitConverter.ToInt16(bytBuffer, 0) + bytAdd.Length)
-        bytBuffer(0) = bytTemp(0)
-        bytBuffer(1) = bytTemp(1)
-        For intCounter = 1 To bytAdd.Length
-            bytBuffer(intTemp + intCounter) = bytAdd(intCounter - 1)
-        Next
+        Try
+            Dim intTemp As Integer
+            Dim bytTemp() As Byte
+            Dim intCounter As Integer
+            intTemp = UBound(bytBuffer)
+            ReDim Preserve bytBuffer(intTemp + bytAdd.Length)
+            bytTemp = BitConverter.GetBytes(BitConverter.ToInt16(bytBuffer, 0) + bytAdd.Length)
+            bytBuffer(0) = bytTemp(0)
+            bytBuffer(1) = bytTemp(1)
+            For intCounter = 1 To bytAdd.Length
+                bytBuffer(intTemp + intCounter) = bytAdd(intCounter - 1)
+            Next
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Class PacketHandler
+
         Private bytBuffer() As Byte = {}
         Private PacketPosition As Integer = 0
         Private PacketSize As Integer
@@ -480,38 +569,48 @@ Public Class PProxy2
         Public Event SendData(ByRef bytArray() As Byte)
 
         Public Sub GetData(ByRef bytData() As Byte)
-            Dim Count1 As Integer
-            Dim PSize As Integer = bytData.Length
-            Dim PPosition As Integer = 0
+            Try
+                Dim Count1 As Integer
+                Dim PSize As Integer = bytData.Length
+                Dim PPosition As Integer = 0
 
-            Do
-                If PacketPosition = 0 Then
-                    PacketSize = BtoW(bytData(PPosition), bytData(PPosition + 1)) + 2
-                    ReDim bytBuffer(PacketSize - 1)
-                    bytBuffer(0) = bytData(PPosition)
-                    bytBuffer(1) = bytData(PPosition + 1)
-                    PacketPosition = 2
-                    PPosition = PPosition + 2
-                End If
-                If PacketSize - PacketPosition > PSize - PPosition Then
-                    For Count1 = 0 To PSize - (PPosition + 1)
-                        bytBuffer(PacketPosition + Count1) = bytData(PPosition + Count1)
-                    Next
-                    PacketPosition += Count1
-                    PPosition += Count1
-                Else
-                    For Count1 = 0 To PacketSize - (PacketPosition + 1)
-                        bytBuffer(PacketPosition + Count1) = bytData(PPosition + Count1)
-                    Next
-                    PacketPosition = 0
-                    PPosition += Count1
-                    RaiseEvent SendData(bytBuffer)
-                End If
-            Loop Until PPosition = PSize
+                Do
+                    If PacketPosition = 0 Then
+                        PacketSize = BtoW(bytData(PPosition), bytData(PPosition + 1)) + 2
+                        ReDim bytBuffer(PacketSize - 1)
+                        bytBuffer(0) = bytData(PPosition)
+                        bytBuffer(1) = bytData(PPosition + 1)
+                        PacketPosition = 2
+                        PPosition = PPosition + 2
+                    End If
+                    If PacketSize - PacketPosition > PSize - PPosition Then
+                        For Count1 = 0 To PSize - (PPosition + 1)
+                            bytBuffer(PacketPosition + Count1) = bytData(PPosition + Count1)
+                        Next
+                        PacketPosition += Count1
+                        PPosition += Count1
+                    Else
+                        For Count1 = 0 To PacketSize - (PacketPosition + 1)
+                            bytBuffer(PacketPosition + Count1) = bytData(PPosition + Count1)
+                        Next
+                        PacketPosition = 0
+                        PPosition += Count1
+                        RaiseEvent SendData(bytBuffer)
+                    End If
+                Loop Until PPosition = PSize
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
         Private Function BtoW(ByVal byt1 As Byte, ByVal byt2 As Byte) As Integer
-            Return (byt1 + (byt2 * 256))
+            Try
+                Return (byt1 + (byt2 * 256))
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
     End Class
 End Class

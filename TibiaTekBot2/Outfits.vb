@@ -14,31 +14,45 @@ Public Module OutfitsModule
 
         Public ReadOnly Property GetOutfits() As OutfitDefinition()
             Get
-                Dim OutfitsArray(OutfitsList.Count) As OutfitDefinition
-                OutfitsList.CopyTo(OutfitsArray)
-                Return OutfitsArray
+                Try
+                    Dim OutfitsArray(OutfitsList.Count) As OutfitDefinition
+                    OutfitsList.CopyTo(OutfitsArray)
+                    Return OutfitsArray
+                Catch Ex As Exception
+                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
             End Get
         End Property
 
         Public Function GetOutfitByName(ByVal Name As String, ByRef Outfit As OutfitDefinition) As Boolean
-            For Each TempOutfit As OutfitDefinition In OutfitsList
-                If String.Compare(TempOutfit.Name, Name, True) = 0 Then
-                    Outfit = TempOutfit
-                    Return True
-                End If
-            Next
-            Return False
+            Try
+                For Each TempOutfit As OutfitDefinition In OutfitsList
+                    If String.Compare(TempOutfit.Name, Name, True) = 0 Then
+                        Outfit = TempOutfit
+                        Return True
+                    End If
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function GetOutfitByID(ByVal ID As UShort, ByRef Outfit As OutfitDefinition) As Boolean
-            For Each TempOutfit As OutfitDefinition In OutfitsList
-                If TempOutfit.ID = ID Then
-                    Outfit = TempOutfit
-                    Return True
-                End If
-            Next
-            Return False
-
+            Try
+                For Each TempOutfit As OutfitDefinition In OutfitsList
+                    If TempOutfit.ID = ID Then
+                        Outfit = TempOutfit
+                        Return True
+                    End If
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Sub New()
@@ -46,7 +60,7 @@ Public Module OutfitsModule
         End Sub
 
         Public Sub LoadOutfits()
-            Dim Reader As New System.Xml.XmlTextReader(GetConfigurationDirectory & "\Outfits.xml")
+            Dim Reader As New System.Xml.XmlTextReader(GetConfigurationDirectory() & "\Outfits.xml")
             Dim Outfit As OutfitDefinition
             Dim Value As String
             OutfitsList.Clear()

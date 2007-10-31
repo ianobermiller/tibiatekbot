@@ -533,14 +533,14 @@ Public Module ConstantsModule
     End Class
 
     Public Const Ret As Char = Chr(&HA)
-    Public Const BotVersion As String = "2.0.9.1"
+    Public Const BotVersion As String = "2.1.0"
     Public Const BotStage As String = "Final" 'Alpha,Beta,Final,etc
     Public Const BotName As String = "TibiaTek Bot"
-    Public Const BotWebsite As String = "http://www.tibiatekbot.com"
+    Public Const BotWebsite As String = "http://www.tibiatek.com"
     Public Const BotMOTD As String = Ret & "Welcome to TibiaTek Bot." & Ret & _
         "Have a great day!" & Ret & _
         "Dont forget to visit us at:" & Ret & _
-        "http://www.tibiatekbot.com/ and " & Ret & _
+        "http://www.tibiatek.com/ and " & Ret & _
         "http://www.xcreations.net/~tpforums/forum/"
     Public Const ConsoleChannelID As Integer = &H64
     Public Const ConsoleLevel As Integer = &H539

@@ -68,22 +68,27 @@ Public Module HotkeySettingsModule
         End Function
 
         Private Sub WriteToMemory()
-            For I As Integer = 0 To Consts.HotkeyMax - 1
-                Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I), Hotkeys(I).UseMode, 1)
-                Select Case Hotkeys(I).Type
-                    Case HotkeyType.Item
-                        Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemOffset, Hotkeys(I).ItemID, 2)
-                        Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, Hotkeys(I).ItemData, 1)
-                    Case HotkeyType.Text
-                        Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextAutoSendDist * I) + Consts.HotkeyTextAutoSendOffset, Hotkeys(I).AutoSendText, 1)
-                        Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextDist * I) + Consts.HotkeyTextOffset, Hotkeys(I).Text)
-                    Case HotkeyType.None
-                        Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemOffset, 0, 2)
-                        Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, 0, 1)
-                        Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextAutoSendDist * I) + Consts.HotkeyTextAutoSendOffset, 0, 1)
-                        Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextDist * I) + Consts.HotkeyTextOffset, "")
-                End Select
-            Next
+            Try
+                For I As Integer = 0 To Consts.HotkeyMax - 1
+                    Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I), Hotkeys(I).UseMode, 1)
+                    Select Case Hotkeys(I).Type
+                        Case HotkeyType.Item
+                            Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemOffset, Hotkeys(I).ItemID, 2)
+                            Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, Hotkeys(I).ItemData, 1)
+                        Case HotkeyType.Text
+                            Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextAutoSendDist * I) + Consts.HotkeyTextAutoSendOffset, Hotkeys(I).AutoSendText, 1)
+                            Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextDist * I) + Consts.HotkeyTextOffset, Hotkeys(I).Text)
+                        Case HotkeyType.None
+                            Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemOffset, 0, 2)
+                            Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, 0, 1)
+                            Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextAutoSendDist * I) + Consts.HotkeyTextAutoSendOffset, 0, 1)
+                            Core.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextDist * I) + Consts.HotkeyTextOffset, "")
+                    End Select
+                Next
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
 #End Region
@@ -91,10 +96,15 @@ Public Module HotkeySettingsModule
 #Region " Loading/Reading "
 
         Public Function Load(Optional ByVal Filename As String = "") As Boolean
-            If String.IsNullOrEmpty(Filename) Then Filename = Core.GetProfileDirectory & "\" & "Hotkeys.xml"
-            If Not ReadFromFile(Filename) Then Return False
-            WriteToMemory()
-            Return True
+            Try
+                If String.IsNullOrEmpty(Filename) Then Filename = Core.GetProfileDirectory & "\" & "Hotkeys.xml"
+                If Not ReadFromFile(Filename) Then Return False
+                WriteToMemory()
+                Return True
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Private Function ReadFromFile(ByVal Filename As String) As Boolean
@@ -120,30 +130,35 @@ Public Module HotkeySettingsModule
         End Function
 
         Public Sub LoadFromMemory()
-            Dim UseMode As Integer = 0
-            Dim ItemID As Integer = 0
-            Dim AutoSend As Integer = 0
-            Dim ItemData As Integer = 0
-            Dim Text As String = ""
-            For I As Integer = 0 To Consts.HotkeyMax - 1
-                Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I), UseMode, 1)
-                Hotkeys(I).UseMode = CType(UseMode, HotkeyUseMode)
-                Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextDist * I) + Consts.HotkeyTextOffset, Text)
-                Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemOffset, ItemID, 2)
-                If ItemID > 0 Then 'item
-                    Hotkeys(I).Type = HotkeyType.Item
-                    Hotkeys(I).ItemID = CUShort(ItemID)
-                    Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, ItemData, 4)
-                    Hotkeys(I).ItemData = CUInt(ItemData)
-                ElseIf Text.Length > 0 Then 'text
-                    Hotkeys(I).Type = HotkeyType.Text
-                    Hotkeys(I).Text = Text
-                    Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextAutoSendDist * I) + Consts.HotkeyTextAutoSendOffset, AutoSend, 1)
-                    Hotkeys(I).AutoSendText = CBool(AutoSend)
-                Else 'none
-                    Hotkeys(I).Type = HotkeyType.None
-                End If
-            Next
+            Try
+                Dim UseMode As Integer = 0
+                Dim ItemID As Integer = 0
+                Dim AutoSend As Integer = 0
+                Dim ItemData As Integer = 0
+                Dim Text As String = ""
+                For I As Integer = 0 To Consts.HotkeyMax - 1
+                    Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I), UseMode, 1)
+                    Hotkeys(I).UseMode = CType(UseMode, HotkeyUseMode)
+                    Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextDist * I) + Consts.HotkeyTextOffset, Text)
+                    Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemOffset, ItemID, 2)
+                    If ItemID > 0 Then 'item
+                        Hotkeys(I).Type = HotkeyType.Item
+                        Hotkeys(I).ItemID = CUShort(ItemID)
+                        Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, ItemData, 4)
+                        Hotkeys(I).ItemData = CUInt(ItemData)
+                    ElseIf Text.Length > 0 Then 'text
+                        Hotkeys(I).Type = HotkeyType.Text
+                        Hotkeys(I).Text = Text
+                        Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextAutoSendDist * I) + Consts.HotkeyTextAutoSendOffset, AutoSend, 1)
+                        Hotkeys(I).AutoSendText = CBool(AutoSend)
+                    Else 'none
+                        Hotkeys(I).Type = HotkeyType.None
+                    End If
+                Next
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
 #End Region

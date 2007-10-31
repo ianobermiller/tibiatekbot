@@ -33,6 +33,11 @@ Public NotInheritable Class frmSplashScreen
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-        Me.Close()
+        Try
+            Me.Close()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 End Class

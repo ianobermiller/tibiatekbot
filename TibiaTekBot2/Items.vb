@@ -22,25 +22,40 @@ Public Module ItemsModule
         End Sub
 
         Public Function GetItemKind(ByVal ID As UShort) As ItemKind
-            For Each Item As ItemDefinition In ItemsList
-                If Item.ItemID = ID Then Return Item.Kind
-            Next
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If Item.ItemID = ID Then Return Item.Kind
+                Next
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function GetItemName(ByVal ID As UShort) As String
-            For Each Item As ItemDefinition In ItemsList
-                If Item.ItemID = ID Then Return Item.Name
-            Next
-            Return "Unknown"
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If Item.ItemID = ID Then Return Item.Name
+                Next
+                Return "Unknown"
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function GetItemID(ByVal Name As String) As UShort
-            For Each Item As ItemDefinition In ItemsList
-                If String.Compare(Item.Name, Name, True) = 0 Then
-                    Return Item.ItemID
-                End If
-            Next
-            Return 0
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If String.Compare(Item.Name, Name, True) = 0 Then
+                        Return Item.ItemID
+                    End If
+                Next
+                Return 0
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Sub LoadItems()
@@ -135,45 +150,75 @@ Public Module ItemsModule
         End Sub
 
         Public Function IsRune(ByVal ID As UShort) As Boolean
-            For Each Item As ItemDefinition In ItemsList
-                If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Rune) Then Return True
-            Next
-            Return False
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Rune) Then Return True
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function IsThrowable(ByVal ID As UShort) As Boolean
-            For Each Item As ItemDefinition In ItemsList
-                If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Throwable) Then Return True
-            Next
-            Return False
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Throwable) Then Return True
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function IsNeck(ByVal ID As UShort) As Boolean
-            For Each Item As ItemDefinition In ItemsList
-                If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Neck) Then Return True
-            Next
-            Return False
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Neck) Then Return True
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function IsRing(ByVal ID As UShort) As Boolean
-            For Each Item As ItemDefinition In ItemsList
-                If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Ring) Then Return True
-            Next
-            Return False
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Ring) Then Return True
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function IsFood(ByVal ID As UShort) As Boolean
-            For Each Item As ItemDefinition In ItemsList
-                If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Food) Then Return True
-            Next
-            Return False
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Food) Then Return True
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function IsAmmunition(ByVal ID As UShort) As Boolean
-            For Each Item As ItemDefinition In ItemsList
-                If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Ammunition) Then Return True
-            Next
-            Return False
+            Try
+                For Each Item As ItemDefinition In ItemsList
+                    If Item.ItemID = ID AndAlso (Item.Kind And ItemKind.Ammunition) Then Return True
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
     End Class

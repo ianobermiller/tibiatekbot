@@ -40,18 +40,28 @@ Public Module WinsockModule
             Me.New(IP, 8181)
         End Sub
         Public Sub New(ByVal IP As String, ByVal Port As Long)
-            RemoteIP = IP
-            RemotePort = Port
-            LocalPort = Port
-            _bufferCol = New Collection
-            AddHandler NetworkChange.NetworkAvailabilityChanged, AddressOf Me.NetWorkAvailabilityChangedCallback
+            Try
+                RemoteIP = IP
+                RemotePort = Port
+                LocalPort = Port
+                _bufferCol = New Collection
+                AddHandler NetworkChange.NetworkAvailabilityChanged, AddressOf Me.NetWorkAvailabilityChangedCallback
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 #End Region
 
         Private Sub NetWorkAvailabilityChangedCallback(ByVal sender As Object, ByVal e As System.Net.NetworkInformation.NetworkAvailabilityEventArgs)
-            If Not e.IsAvailable Then
-                ChangeState(WinsockStates.Closed)
-            End If
+            Try
+                If Not e.IsAvailable Then
+                    ChangeState(WinsockStates.Closed)
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
 #Region " Properties "
@@ -101,9 +111,15 @@ Public Module WinsockModule
 #Region " Methods "
 
         Public Sub Listen()
-            Dim x As New System.Threading.Thread(AddressOf DoListen)
-            x.Start()
+            Try
+                Dim x As New System.Threading.Thread(AddressOf DoListen)
+                x.Start()
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
+
         Public Sub Close()
             Try
                 Select Case GetState
@@ -120,6 +136,7 @@ Public Module WinsockModule
                 RaiseEvent HandleError(Me, ex.Message, ex.TargetSite.Name, ex.ToString)
             End Try
         End Sub
+
         Public Sub Accept(ByVal requestID As Socket)
             Try
                 ChangeState(WinsockStates.ConnectionPending)
@@ -192,20 +209,35 @@ Public Module WinsockModule
 
 #Region " Public Functions/Subs "
         Public Function LocalIP() As String
-            Dim h As System.Net.IPHostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName)
-            Return CType(h.AddressList.GetValue(0), Net.IPAddress).ToString
+            Try
+                Dim h As System.Net.IPHostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName)
+                Return CType(h.AddressList.GetValue(0), Net.IPAddress).ToString
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
         Public Function RemoteHostIP() As String
-            Dim iEP As IPEndPoint = _Client.RemoteEndPoint
-            Return iEP.Address.ToString
+            Try
+                Dim iEP As IPEndPoint = _Client.RemoteEndPoint
+                Return iEP.Address.ToString
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 #End Region
 
 #Region " Send Overloads "
 
         Public Sub Send(ByVal Data As String)
-            Dim sendBytes() As Byte = System.Text.Encoding.ASCII.GetBytes(Data)
-            Me.Send(sendBytes)
+            Try
+                Dim sendBytes() As Byte = System.Text.Encoding.ASCII.GetBytes(Data)
+                Me.Send(sendBytes)
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
         Public Sub Send(ByVal Data() As Byte)
@@ -225,30 +257,46 @@ Public Module WinsockModule
 #Region " GetData Overloads "
 
         Public Sub GetData(ByRef data As String)
-            Dim byt() As Byte = {}
-            GetData(byt)
-            For i As Integer = 0 To UBound(byt)
-                If byt(i) = 10 Then
-                    data &= vbLf
-                Else
-                    data &= ChrW(byt(i))
-                End If
-            Next
+            Try
+                Dim byt() As Byte = {}
+                GetData(byt)
+                For i As Integer = 0 To UBound(byt)
+                    If byt(i) = 10 Then
+                        data &= vbLf
+                    Else
+                        data &= ChrW(byt(i))
+                    End If
+                Next
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
+
         Public Sub GetData(ByRef bytes() As Byte)
-            If _bufferCol.Count = 0 Then Throw New IndexOutOfRangeException("Nothing in buffer.")
-            Dim byt() As Byte = Me._bufferCol.Item(1)
-            _bufferCol.Remove(1)
-            ReDim bytes(UBound(byt))
-            byt.CopyTo(bytes, 0)
+            Try
+                If _bufferCol.Count = 0 Then Throw New IndexOutOfRangeException("Nothing in buffer.")
+                Dim byt() As Byte = Me._bufferCol.Item(1)
+                _bufferCol.Remove(1)
+                ReDim bytes(UBound(byt))
+                byt.CopyTo(bytes, 0)
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
 #End Region
 
 #Region " Private Functions/Subs "
         Private Sub ChangeState(ByVal new_state As WinsockStates)
-            _State = new_state
-            RaiseEvent StateChanged(Me, _State)
+            Try
+                _State = new_state
+                RaiseEvent StateChanged(Me, _State)
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
         Private Sub OnConnected(ByVal asyn As IAsyncResult)
             Try
@@ -360,16 +408,21 @@ Public Module WinsockModule
             End Try
         End Sub
         Private Sub AddToBuffer(ByVal bytes() As Byte, ByVal count As Integer)
-            Dim curUB As Integer
-            If Not _buffer Is Nothing Then curUB = UBound(_buffer) Else curUB = -1
-            Dim newUB As Integer = curUB + count
-            ReDim Preserve _buffer(newUB)
-            Array.Copy(bytes, 0, _buffer, curUB + 1, count)
-            If count < bytes.Length - 1 And _buffer.Length > 0 Then
-                _bufferCol.Add(_buffer)
-                RaiseEvent DataArrival(Me, _buffer.Length)
-                _buffer = Nothing
-            End If
+            Try
+                Dim curUB As Integer
+                If Not _buffer Is Nothing Then curUB = UBound(_buffer) Else curUB = -1
+                Dim newUB As Integer = curUB + count
+                ReDim Preserve _buffer(newUB)
+                Array.Copy(bytes, 0, _buffer, curUB + 1, count)
+                If count < bytes.Length - 1 And _buffer.Length > 0 Then
+                    _bufferCol.Add(_buffer)
+                    RaiseEvent DataArrival(Me, _buffer.Length)
+                    _buffer = Nothing
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 #End Region
         Enum WinsockStates

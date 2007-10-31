@@ -28,207 +28,92 @@ Public Module WalkerModule
 
 
         Public Function MoveChar() As Boolean
-            Dim BL As New BattleList
-            Dim TD As New TileData
-            BL.Reset()
-            TD.Reset()
-            BL.JumpToEntity(SpecialEntity.Myself)
-            TD.JumpToTile(TileData.SpecialTile.Myself)
-            Dim StatusText As String = ""
-            Dim StatusTimer As Integer = 0
-            Core.ReadMemory(Consts.ptrStatusMessage, StatusText)
-            Core.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
-            Core.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
-            Core.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
-            Core.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 1)
-            If StatusText = "There is no way." And StatusTimer <> 0 Then
-                'BL.JumpToEntity(SpecialEntity.Myself)
-                If BL.IsWalking = False Then
-                    Core.WriteMemory(Consts.ptrGoToX, BL.GetLocation.X, 2)
-                    Core.WriteMemory(Consts.ptrGoToY, BL.GetLocation.Y, 2)
-                    Core.WriteMemory(Consts.ptrGoToZ, BL.GetLocation.Z, 1)
-                    BL.IsWalking = True
-                    IsReady = False
-                    Return False
+            Try
+                Dim BL As New BattleList
+                Dim TD As New TileData
+                BL.Reset()
+                TD.Reset()
+                BL.JumpToEntity(SpecialEntity.Myself)
+                TD.JumpToTile(TileData.SpecialTile.Myself)
+                Dim StatusText As String = ""
+                Dim StatusTimer As Integer = 0
+                Core.ReadMemory(Consts.ptrStatusMessage, StatusText)
+                Core.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
+                Core.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
+                Core.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
+                Core.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 1)
+                If StatusText = "There is no way." And StatusTimer <> 0 Then
+                    'BL.JumpToEntity(SpecialEntity.Myself)
+                    If BL.IsWalking = False Then
+                        Core.WriteMemory(Consts.ptrGoToX, BL.GetLocation.X, 2)
+                        Core.WriteMemory(Consts.ptrGoToY, BL.GetLocation.Y, 2)
+                        Core.WriteMemory(Consts.ptrGoToZ, BL.GetLocation.Z, 1)
+                        BL.IsWalking = True
+                        IsReady = False
+                        Return False
+                    End If
                 End If
-            End If
 
-            Select Case Type
-                Case WaypointType.Walk
-                    If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
-                        IsReady = True
-                        Return True
-                    Else
-                        If BL.IsWalking = False Then
-                            Core.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
-                            Core.WriteMemory(Consts.ptrGoToY, CInt(Coordinates.Y), 2)
-                            Core.WriteMemory(Consts.ptrGoToZ, CInt(Coordinates.Z), 1)
-                            BL.IsWalking = True
-                            IsReady = False
-                            Return False
-                        End If
-                    End If
-
-                Case WaypointType.Ladder
-                    If Core.CharacterLoc.Z <> Coordinates.Z Then
-                        IsReady = True
-                        Return True
-                    End If
-                    If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
-                        'TD.JumpToTile(TileData.SpecialTile.Myself)
-                        TD.Get_TileInfo()
-                        For i As Integer = 0 To TD.Count
-                            If Definitions.GetItemKind(TD.ObjectId(i)) = ItemKind.UsableTeleport Then
-                                Core.Proxy.SendPacketToServer(UseObjectOnGround(TD.ObjectId(i), Coordinates))
+                Select Case Type
+                    Case WaypointType.Walk
+                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                            IsReady = True
+                            Return True
+                        Else
+                            If BL.IsWalking = False Then
+                                Core.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
+                                Core.WriteMemory(Consts.ptrGoToY, CInt(Coordinates.Y), 2)
+                                Core.WriteMemory(Consts.ptrGoToZ, CInt(Coordinates.Z), 1)
+                                BL.IsWalking = True
                                 IsReady = False
                                 Return False
                             End If
-                        Next
-
-                    Else
-                        If BL.IsWalking = False Then
-                            Core.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
-                            Core.WriteMemory(Consts.ptrGoToY, CInt(Coordinates.Y), 2)
-                            Core.WriteMemory(Consts.ptrGoToZ, CInt(Coordinates.Z), 1)
-                            BL.IsWalking = True
-                            IsReady = False
-                            Return False
                         End If
-                    End If
 
-                Case WaypointType.Rope
-                    If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
-                        'TD.JumpToTile(TileData.SpecialTile.Myself)
-                        BL.JumpToEntity(SpecialEntity.Myself)
-                        Dim Container As New Container
-                        'Dim Rope As ContainerItemDefinition
-                        Dim RopeId As UShort = Definitions.GetItemID("Rope")
-                        Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(RopeId, BL.GetLocation, TD.TileId))
-                        System.Threading.Thread.Sleep(2000)
+                    Case WaypointType.Ladder
                         If Core.CharacterLoc.Z <> Coordinates.Z Then
                             IsReady = True
                             Return True
                         End If
-                    ElseIf Core.CharacterLoc.Z <> Coordinates.Z Then
-                        IsReady = True
-                        Return True
-                    ElseIf BL.IsWalking = False Then
-                        Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                        Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                        Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
-                        BL.IsWalking = True
-                        IsReady = False
-                        Return False
-                    End If
-                Case WaypointType.StairsOrHole
-                    If Core.CharacterLoc.Z <> Coordinates.Z Then
-                        IsReady = True
-                        Return True
-                    Else
-                        If BL.IsWalking = False Then
-                            Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                            Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                            Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
-                            BL.IsWalking = True
-                            IsReady = False
-                            Return False
-                        End If
-                    End If
-                Case WaypointType.Say
-                    If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
-                        Dim CM As New ChatMessageDefinition
-                        System.Threading.Thread.Sleep(1000)
-                        CM.MessageType = MessageType.Normal
-                        CM.Prioritize = True
-                        CM.Message = Info
-                        Core.ChatMessageQueueList.Add(CM)
-                        System.Threading.Thread.Sleep(1000)
-                        'Core.Proxy.SendPacketToServer(Speak())
-                        IsReady = True
-                        Return True
-                    Else
-                        If BL.IsWalking = False Then
-                            Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                            Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                            Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
-                            BL.IsWalking = True
-                            IsReady = False
-                            Return False
-                        End If
-                    End If
-                Case WaypointType.Wait
-                    If Core.WalkerWaitUntil < Date.Now Then
-                        IsReady = True
-                        Core.WalkerFirstTime = True
-                        Return True
-                    Else
-                        IsReady = False
-                        Core.WalkerFirstTime = False
-                        Return False
-                    End If
-                Case WaypointType.Sewer
-                    If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
-                        'Let's get Sewer's id and position
-                        TD.Get_TileInfo()
-                        Dim SewerId As Integer = 0
-                        Dim SewerStackPos As Integer = 0
-                        For i As Integer = 0 To TD.Count
-                            If Definitions.GetItemKind(TD.ObjectId(i)) = ItemKind.UsableTeleport2 Then
-                                Core.Proxy.SendPacketToServer(UseObjectOnGround(TD.ObjectId(i), Core.CharacterLoc))
-                                If Core.CharacterLoc.Z <> Coordinates.Z Then
-                                    IsReady = True
-                                    Return True
+                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                            'TD.JumpToTile(TileData.SpecialTile.Myself)
+                            TD.Get_TileInfo()
+                            For i As Integer = 0 To TD.Count
+                                If Definitions.GetItemKind(TD.ObjectId(i)) = ItemKind.UsableTeleport Then
+                                    Core.Proxy.SendPacketToServer(UseObjectOnGround(TD.ObjectId(i), Coordinates))
+                                    IsReady = False
+                                    Return False
                                 End If
-                            End If
-                        Next
-                    Else
-                        If BL.IsWalking = False Then
-                            Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                            Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                            Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
-                            BL.IsWalking = True
-                            IsReady = False
-                            Return False
-                        End If
-                    End If
-                Case WaypointType.Shovel
-                    If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
-                        Dim HoleLoc As New LocationDefinition
-                        'Finding hole location
-                        HoleLoc = Core.CharacterLoc
-                        Select Case CType(Info, Directions)
-                            Case Directions.Left
-                                HoleLoc.X -= 1
-                            Case Directions.Right
-                                HoleLoc.X += 1
-                            Case Directions.Up
-                                HoleLoc.Y -= 1
-                            Case Directions.Down
-                                HoleLoc.Y += 1
-                        End Select
-                        'Finding Shovel
-                        Dim Shovel As ContainerItemDefinition
-                        If Container.FindItem(Shovel, Definitions.GetItemID("Shovel")) = False Then
-                            If Container.FindItem(Shovel, Definitions.GetItemID("Light Shovel")) = False Then
-                                Core.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
-                                System.Threading.Thread.Sleep(10000)
+                            Next
+
+                        Else
+                            If BL.IsWalking = False Then
+                                Core.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
+                                Core.WriteMemory(Consts.ptrGoToY, CInt(Coordinates.Y), 2)
+                                Core.WriteMemory(Consts.ptrGoToZ, CInt(Coordinates.Z), 1)
+                                BL.IsWalking = True
                                 IsReady = False
                                 Return False
                             End If
                         End If
-                        Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(Shovel.ID, HoleLoc))
-                        System.Threading.Thread.Sleep(1000)
-                        Core.WriteMemory(Consts.ptrGoToX, HoleLoc.X, 2)
-                        Core.WriteMemory(Consts.ptrGoToY, HoleLoc.Y, 2)
-                        Core.WriteMemory(Consts.ptrGoToZ, HoleLoc.Z, 1)
-                        System.Threading.Thread.Sleep(2000)
-                        BL.IsWalking = True
-                        If Core.CharacterLoc.Z <> HoleLoc.Z Then
+
+                    Case WaypointType.Rope
+                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                            'TD.JumpToTile(TileData.SpecialTile.Myself)
+                            BL.JumpToEntity(SpecialEntity.Myself)
+                            Dim Container As New Container
+                            'Dim Rope As ContainerItemDefinition
+                            Dim RopeId As UShort = Definitions.GetItemID("Rope")
+                            Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(RopeId, BL.GetLocation, TD.TileId))
+                            System.Threading.Thread.Sleep(2000)
+                            If Core.CharacterLoc.Z <> Coordinates.Z Then
+                                IsReady = True
+                                Return True
+                            End If
+                        ElseIf Core.CharacterLoc.Z <> Coordinates.Z Then
                             IsReady = True
                             Return True
-                        End If
-                    Else
-                        If BL.IsWalking = False Then
+                        ElseIf BL.IsWalking = False Then
                             Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
                             Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
                             Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
@@ -236,54 +121,184 @@ Public Module WalkerModule
                             IsReady = False
                             Return False
                         End If
-                    End If
-            End Select
+                    Case WaypointType.StairsOrHole
+                        If Core.CharacterLoc.Z <> Coordinates.Z Then
+                            IsReady = True
+                            Return True
+                        Else
+                            If BL.IsWalking = False Then
+                                Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                BL.IsWalking = True
+                                IsReady = False
+                                Return False
+                            End If
+                        End If
+                    Case WaypointType.Say
+                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                            Dim CM As New ChatMessageDefinition
+                            System.Threading.Thread.Sleep(1000)
+                            CM.MessageType = MessageType.Normal
+                            CM.Prioritize = True
+                            CM.Message = Info
+                            Core.ChatMessageQueueList.Add(CM)
+                            System.Threading.Thread.Sleep(1000)
+                            'Core.Proxy.SendPacketToServer(Speak())
+                            IsReady = True
+                            Return True
+                        Else
+                            If BL.IsWalking = False Then
+                                Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                BL.IsWalking = True
+                                IsReady = False
+                                Return False
+                            End If
+                        End If
+                    Case WaypointType.Wait
+                        If Core.WalkerWaitUntil < Date.Now Then
+                            IsReady = True
+                            Core.WalkerFirstTime = True
+                            Return True
+                        Else
+                            IsReady = False
+                            Core.WalkerFirstTime = False
+                            Return False
+                        End If
+                    Case WaypointType.Sewer
+                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                            'Let's get Sewer's id and position
+                            TD.Get_TileInfo()
+                            Dim SewerId As Integer = 0
+                            Dim SewerStackPos As Integer = 0
+                            For i As Integer = 0 To TD.Count
+                                If Definitions.GetItemKind(TD.ObjectId(i)) = ItemKind.UsableTeleport2 Then
+                                    Core.Proxy.SendPacketToServer(UseObjectOnGround(TD.ObjectId(i), Core.CharacterLoc))
+                                    If Core.CharacterLoc.Z <> Coordinates.Z Then
+                                        IsReady = True
+                                        Return True
+                                    End If
+                                End If
+                            Next
+                        Else
+                            If BL.IsWalking = False Then
+                                Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                BL.IsWalking = True
+                                IsReady = False
+                                Return False
+                            End If
+                        End If
+                    Case WaypointType.Shovel
+                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                            Dim HoleLoc As New LocationDefinition
+                            'Finding hole location
+                            HoleLoc = Core.CharacterLoc
+                            Select Case CType(Info, Directions)
+                                Case Directions.Left
+                                    HoleLoc.X -= 1
+                                Case Directions.Right
+                                    HoleLoc.X += 1
+                                Case Directions.Up
+                                    HoleLoc.Y -= 1
+                                Case Directions.Down
+                                    HoleLoc.Y += 1
+                            End Select
+                            'Finding Shovel
+                            Dim Shovel As ContainerItemDefinition
+                            If Container.FindItem(Shovel, Definitions.GetItemID("Shovel")) = False Then
+                                If Container.FindItem(Shovel, Definitions.GetItemID("Light Shovel")) = False Then
+                                    Core.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
+                                    System.Threading.Thread.Sleep(10000)
+                                    IsReady = False
+                                    Return False
+                                End If
+                            End If
+                            Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(Shovel.ID, HoleLoc))
+                            System.Threading.Thread.Sleep(1000)
+                            Core.WriteMemory(Consts.ptrGoToX, HoleLoc.X, 2)
+                            Core.WriteMemory(Consts.ptrGoToY, HoleLoc.Y, 2)
+                            Core.WriteMemory(Consts.ptrGoToZ, HoleLoc.Z, 1)
+                            System.Threading.Thread.Sleep(2000)
+                            BL.IsWalking = True
+                            If Core.CharacterLoc.Z <> HoleLoc.Z Then
+                                IsReady = True
+                                Return True
+                            End If
+                        Else
+                            If BL.IsWalking = False Then
+                                Core.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Core.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Core.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                BL.IsWalking = True
+                                IsReady = False
+                                Return False
+                            End If
+                        End If
+                End Select
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Shared Function CheckDistance() As Boolean
-            Dim BL As New BattleList
-            Dim PrevWp As New LocationDefinition
+            Try
+                Dim BL As New BattleList
+                Dim PrevWp As New LocationDefinition
 
-            If Core.Walker_Waypoints.Count = 0 Then Return True
-            PrevWp = Core.Walker_Waypoints(Core.Walker_Waypoints.Count - 1).Coordinates
+                If Core.Walker_Waypoints.Count = 0 Then Return True
+                PrevWp = Core.Walker_Waypoints(Core.Walker_Waypoints.Count - 1).Coordinates
 
-            BL.JumpToEntity(SpecialEntity.Myself)
-            If BL.GetDistanceFromLocation(PrevWp) > Consts.WaypointMaxDistance Then
-                Core.ConsoleError("The waypoint is too far.")
-                Return False
-            Else
-                Return True
-            End If
+                BL.JumpToEntity(SpecialEntity.Myself)
+                If BL.GetDistanceFromLocation(PrevWp) > Consts.WaypointMaxDistance Then
+                    Core.ConsoleError("The waypoint is too far.")
+                    Return False
+                Else
+                    Return True
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
     End Class
 
     Public Sub Save(ByVal Path As String)
-        Dim Document As New XmlDocument
-        Dim xmlWayPoints As XmlElement = Document.CreateElement("Waypoints")
-        For Each WayPoint As Walker In Core.Walker_Waypoints
-            Dim xmlWayPoint As XmlElement = Document.CreateElement("WayPoint")
-            Dim xmlPosX As XmlAttribute = Document.CreateAttribute("PosX")
-            xmlPosX.InnerText = WayPoint.Coordinates.X
-            Dim xmlPosY As XmlAttribute = Document.CreateAttribute("PosY")
-            xmlPosY.InnerText = WayPoint.Coordinates.Y
-            Dim xmlPosZ As XmlAttribute = Document.CreateAttribute("PosZ")
-            xmlPosZ.InnerText = WayPoint.Coordinates.Z
-            Dim xmlType As XmlAttribute = Document.CreateAttribute("Type")
-            xmlType.InnerText = WayPoint.Type
-            Dim xmlInfo As XmlAttribute = Document.CreateAttribute("Info")
-            xmlInfo.InnerText = WayPoint.Info
+        Try
+            Dim Document As New XmlDocument
+            Dim xmlWayPoints As XmlElement = Document.CreateElement("Waypoints")
+            For Each WayPoint As Walker In Core.Walker_Waypoints
+                Dim xmlWayPoint As XmlElement = Document.CreateElement("WayPoint")
+                Dim xmlPosX As XmlAttribute = Document.CreateAttribute("PosX")
+                xmlPosX.InnerText = WayPoint.Coordinates.X
+                Dim xmlPosY As XmlAttribute = Document.CreateAttribute("PosY")
+                xmlPosY.InnerText = WayPoint.Coordinates.Y
+                Dim xmlPosZ As XmlAttribute = Document.CreateAttribute("PosZ")
+                xmlPosZ.InnerText = WayPoint.Coordinates.Z
+                Dim xmlType As XmlAttribute = Document.CreateAttribute("Type")
+                xmlType.InnerText = WayPoint.Type
+                Dim xmlInfo As XmlAttribute = Document.CreateAttribute("Info")
+                xmlInfo.InnerText = WayPoint.Info
 
-            xmlWayPoint.Attributes.Append(xmlPosX)
-            xmlWayPoint.Attributes.Append(xmlPosY)
-            xmlWayPoint.Attributes.Append(xmlPosZ)
-            xmlWayPoint.Attributes.Append(xmlType)
-            xmlWayPoint.Attributes.Append(xmlInfo)
-            xmlWayPoints.AppendChild(xmlWayPoint)
-        Next
-        Dim Declaration As XmlDeclaration = Document.CreateXmlDeclaration("1.0", "", "")
-        Document.AppendChild(Declaration)
-        Document.AppendChild(xmlWayPoints)
-        Document.Save(Path)
+                xmlWayPoint.Attributes.Append(xmlPosX)
+                xmlWayPoint.Attributes.Append(xmlPosY)
+                xmlWayPoint.Attributes.Append(xmlPosZ)
+                xmlWayPoint.Attributes.Append(xmlType)
+                xmlWayPoint.Attributes.Append(xmlInfo)
+                xmlWayPoints.AppendChild(xmlWayPoint)
+            Next
+            Dim Declaration As XmlDeclaration = Document.CreateXmlDeclaration("1.0", "", "")
+            Document.AppendChild(Declaration)
+            Document.AppendChild(xmlWayPoints)
+            Document.Save(Path)
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Public Sub Load(ByVal Path As String)
@@ -316,42 +331,47 @@ Public Module WalkerModule
         End Try
     End Sub
     Public Sub UpdateList()
-        Core.CavebotForm.Waypointslst.Items.Clear()
-        If Core.Walker_Waypoints.Count = 0 Then Exit Sub
-        Dim Character As Walker
-        Dim WPType As String
-        For Each Character In Core.Walker_Waypoints
-            Select Case Character.Type
-                Case Walker.WaypointType.Ladder
-                    WPType = "L"
-                Case Walker.WaypointType.Rope
-                    WPType = "R"
-                Case Walker.WaypointType.StairsOrHole
-                    WPType = "S/H"
-                Case Walker.WaypointType.Walk
-                    WPType = "W"
-                Case Walker.WaypointType.Say
-                    WPType = "S"
-                Case Walker.WaypointType.Wait
-                    WPType = "WT"
-                Case Walker.WaypointType.Sewer
-                    WPType = "SE"
-                Case Walker.WaypointType.Shovel
-                    WPType = "SH"
-                Case Else
-                    WPType = "NotFound"
-            End Select
+        Try
+            Core.CavebotForm.Waypointslst.Items.Clear()
+            If Core.Walker_Waypoints.Count = 0 Then Exit Sub
+            Dim Character As Walker
+            Dim WPType As String
+            For Each Character In Core.Walker_Waypoints
+                Select Case Character.Type
+                    Case Walker.WaypointType.Ladder
+                        WPType = "L"
+                    Case Walker.WaypointType.Rope
+                        WPType = "R"
+                    Case Walker.WaypointType.StairsOrHole
+                        WPType = "S/H"
+                    Case Walker.WaypointType.Walk
+                        WPType = "W"
+                    Case Walker.WaypointType.Say
+                        WPType = "S"
+                    Case Walker.WaypointType.Wait
+                        WPType = "WT"
+                    Case Walker.WaypointType.Sewer
+                        WPType = "SE"
+                    Case Walker.WaypointType.Shovel
+                        WPType = "SH"
+                    Case Else
+                        WPType = "NotFound"
+                End Select
 
-            If Character.Type = Walker.WaypointType.Wait Then
-                Core.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
+                If Character.Type = Walker.WaypointType.Wait Then
+                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
 
-            Else
+                Else
 
-                Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-        & ":" & Character.Coordinates.Y _
-        & ":" & Character.Coordinates.Z & " " & Character.Info)
-            End If
-        Next
+                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
+            & ":" & Character.Coordinates.Y _
+            & ":" & Character.Coordinates.Z & " " & Character.Info)
+                End If
+            Next
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
 End Module

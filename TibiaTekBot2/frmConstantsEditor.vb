@@ -25,7 +25,7 @@ Public Class frmConstantsEditor
             Consts.LoadConstants()
             Core.ConsoleWrite("New Constants Loaded.")
         Catch Ex As Exception
-            MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -48,7 +48,8 @@ Public Class frmConstantsEditor
                 DataGrid.Rows.Add(Name, Value)
             Next
         Catch Ex As Exception
-            MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         Finally
             DataGrid.ResumeLayout()
         End Try
@@ -59,21 +60,36 @@ Public Class frmConstantsEditor
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        Save_Click(Nothing, Nothing)
-        Hide()
+        Try
+            Save_Click(Nothing, Nothing)
+            Hide()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
 
     Private Sub DataGrid_UserDeletingRow(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewRowCancelEventArgs) Handles DataGrid.UserDeletingRow
-        If MessageBox.Show("Are you sure you want to delete this row? TibiaTek Bot may stop working properly!", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
-            e.Cancel = False
-        Else
-            e.Cancel = True
-        End If
+        Try
+            If MessageBox.Show("Are you sure you want to delete this row? TibiaTek Bot may stop working properly!", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+                e.Cancel = False
+            Else
+                e.Cancel = True
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub frmConstantsEditor_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        e.Cancel = True
-        Me.Hide()
+        Try
+            e.Cancel = True
+            Me.Hide()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 End Class

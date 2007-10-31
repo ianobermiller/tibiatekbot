@@ -8,6 +8,7 @@
     <Item Name="Destroy Field" Kind="Rune" ID="HC4C"/>
     <Item Name="Energy Field" Kind="Rune" ID="HC5C"/>
     <Item Name="Fire Field" Kind="Rune" ID="HC74"/>
+	<Item Name="Fireball" Kind="Rune" ID="HC75"/>
     <Item Name="Explosion" Kind="Rune" ID="HC80"/>
     <Item Name="Convince Creature" Kind="Rune" ID="HC69"/>
     <Item Name="Great Fireball" Kind="Rune" ID="HC77"/>
