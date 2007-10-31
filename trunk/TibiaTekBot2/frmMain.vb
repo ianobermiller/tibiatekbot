@@ -8,40 +8,59 @@ Public Class frmMain
     Public LoginServer As String
 
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        NotifyIcon.Visible = False
+        Try
+            NotifyIcon.Visible = False
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        SC = New frmSplashScreen
-        SC.ShowDialog()
-        LoadTibiaEXE()
-        System.GC.Collect()
+        Try
+            SC = New frmSplashScreen
+            SC.ShowDialog()
+            LoadTibiaEXE()
+            System.GC.Collect()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub frmMain_Closing(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
-            Me.NotifyIcon.Visible = False
-            e.Cancel = False
-        Else
-            e.Cancel = True
-        End If
+        Try
+            If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
+                Me.NotifyIcon.Visible = False
+                e.Cancel = False
+            Else
+                e.Cancel = True
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub frmMain_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
-        If Core.InGame Then
-            Me.Text = "TibiaTek Bot - " & Core.Proxy.CharacterName
-            FunctionsToolStripMenuItem.Enabled = True
-            AboutToolStripMenuItem.Enabled = True
-        Else
-            If Not (Core.Proxy Is Nothing OrElse Core.Proxy.Client Is Nothing) Then
-                Me.Text = "TibiaTek Bot - " & Hex(Core.Proxy.Client.Handle.ToString)
+        Try
+            If Core.InGame Then
+                Me.Text = "TibiaTek Bot - " & Core.Proxy.CharacterName
+                FunctionsToolStripMenuItem.Enabled = True
+                AboutToolStripMenuItem.Enabled = True
             Else
-                Me.Text = "TibiaTek Bot"
+                If Not (Core.Proxy Is Nothing OrElse Core.Proxy.Client Is Nothing) Then
+                    Me.Text = "TibiaTek Bot - " & Hex(Core.Proxy.Client.Handle.ToString)
+                Else
+                    Me.Text = "TibiaTek Bot"
+                End If
+                FunctionsToolStripMenuItem.Enabled = False
+                AboutToolStripMenuItem.Enabled = False
             End If
-            FunctionsToolStripMenuItem.Enabled = False
-            AboutToolStripMenuItem.Enabled = False
-        End If
-
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
 #Region " Load Stuff "
@@ -102,93 +121,100 @@ Public Class frmMain
                     Core.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
                 End If
             End If
-        Catch ex As Exception
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         End Try
     End Sub
 
     Public Sub CreateLoadXML()
-        Dim Filename As String = ""
-        Dim Directory As String = ""
-        Dim dlgOpen As New OpenFileDialog
-        Dim xmlFile As New System.Xml.XmlDocument()
-        Dim xmlClient As System.Xml.XmlNode
-        Dim xmlFilename As Xml.XmlNode
-        Dim xmlDirectory As Xml.XmlNode
-        Dim xmlAddresses As Xml.XmlNode
-        Dim xmlAddress1 As Xml.XmlNode
-        Dim xmlAddress2 As Xml.XmlNode
-        Dim xmlAddress3 As Xml.XmlNode
-        Dim xmlAddress4 As Xml.XmlNode
-        Dim xmlAddress5 As Xml.XmlNode
-        Dim xmlAddress6 As Xml.XmlNode
-        Dim xmlAddress7 As Xml.XmlNode
-        Dim xmlAddress8 As Xml.XmlNode
-        Dim xmlAddress9 As Xml.XmlNode
-        Dim xmlAddress10 As Xml.XmlNode
-        Dim xmlAddress11 As Xml.XmlNode
-        With dlgOpen
-            .Title = "Tibia's Location"
-            .Filter = "Executable|*.exe"
-        End With
-        If MessageBox.Show("Please find the location of your Tibia Client.", "Notice", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Forms.DialogResult.Cancel Then
-            End
-        End If
-        If dlgOpen.ShowDialog() = Forms.DialogResult.Cancel Then
-            End
-        End If
-        For I As Integer = dlgOpen.FileName.Length - 1 To 0 Step -1
-            If dlgOpen.FileName.Chars(I) = "\" Then
-                Directory = Strings.Left(dlgOpen.FileName, I)
-                Filename = Strings.Right(dlgOpen.FileName, dlgOpen.FileName.Length - I - 1)
-                Exit For
+        Try
+            Dim Filename As String = ""
+            Dim Directory As String = ""
+            Dim dlgOpen As New OpenFileDialog
+            Dim xmlFile As New System.Xml.XmlDocument()
+            Dim xmlClient As System.Xml.XmlNode
+            Dim xmlFilename As Xml.XmlNode
+            Dim xmlDirectory As Xml.XmlNode
+            Dim xmlAddresses As Xml.XmlNode
+            Dim xmlAddress1 As Xml.XmlNode
+            Dim xmlAddress2 As Xml.XmlNode
+            Dim xmlAddress3 As Xml.XmlNode
+            Dim xmlAddress4 As Xml.XmlNode
+            Dim xmlAddress5 As Xml.XmlNode
+            Dim xmlAddress6 As Xml.XmlNode
+            Dim xmlAddress7 As Xml.XmlNode
+            Dim xmlAddress8 As Xml.XmlNode
+            Dim xmlAddress9 As Xml.XmlNode
+            Dim xmlAddress10 As Xml.XmlNode
+            Dim xmlAddress11 As Xml.XmlNode
+            With dlgOpen
+                .Title = "Tibia's Location"
+                .Filter = "Executable|*.exe"
+            End With
+            If MessageBox.Show("Please find the location of your Tibia Client.", "Notice", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Forms.DialogResult.Cancel Then
+                End
             End If
-        Next
-        If Directory = "" Or Filename = "" Then Exit Sub
-        xmlClient = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Client", "")
-        xmlFilename = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Filename", "")
-        xmlFilename.InnerText = Filename
-        xmlDirectory = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Directory", "")
-        xmlDirectory.InnerText = Directory
-        xmlAddresses = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Addresses", "")
-        xmlAddress1 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress1.InnerText = "login01.tibia.com:7171"
-        xmlAddress2 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress2.InnerText = "login02.tibia.com:7171"
-        xmlAddress3 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress3.InnerText = "login03.tibia.com:7171"
-        xmlAddress4 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress4.InnerText = "login04.tibia.com:7171"
-        xmlAddress5 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress5.InnerText = "login05.tibia.com:7171"
-        xmlAddress6 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress6.InnerText = "tibia1.cipsoft.com:7171"
-        xmlAddress7 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress7.InnerText = "tibia2.cipsoft.com:7171"
-        xmlAddress8 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress8.InnerText = "tibia3.cipsoft.com:7171"
-        xmlAddress9 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress9.InnerText = "tibia4.cipsoft.com:7171"
-        xmlAddress10 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress10.InnerText = "tibia5.cipsoft.com:7171"
-        xmlAddress11 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
-        xmlAddress11.InnerText = "localhost:7171"
-        xmlAddresses.AppendChild(xmlAddress1)
-        xmlAddresses.AppendChild(xmlAddress2)
-        xmlAddresses.AppendChild(xmlAddress3)
-        xmlAddresses.AppendChild(xmlAddress4)
-        xmlAddresses.AppendChild(xmlAddress5)
-        xmlAddresses.AppendChild(xmlAddress6)
-        xmlAddresses.AppendChild(xmlAddress7)
-        xmlAddresses.AppendChild(xmlAddress8)
-        xmlAddresses.AppendChild(xmlAddress9)
-        xmlAddresses.AppendChild(xmlAddress10)
-        xmlAddresses.AppendChild(xmlAddress11)
-        xmlClient.AppendChild(xmlFilename)
-        xmlClient.AppendChild(xmlDirectory)
-        xmlClient.AppendChild(xmlAddresses)
-        xmlFile.AppendChild(xmlClient)
-        If IO.File.Exists(GetConfigurationDirectory() & "\Data.xml") Then IO.File.Delete(GetConfigurationDirectory() & "\Data.xml")
-        xmlFile.Save(GetConfigurationDirectory() & "\Data.xml")
+            If dlgOpen.ShowDialog() = Forms.DialogResult.Cancel Then
+                End
+            End If
+            For I As Integer = dlgOpen.FileName.Length - 1 To 0 Step -1
+                If dlgOpen.FileName.Chars(I) = "\" Then
+                    Directory = Strings.Left(dlgOpen.FileName, I)
+                    Filename = Strings.Right(dlgOpen.FileName, dlgOpen.FileName.Length - I - 1)
+                    Exit For
+                End If
+            Next
+            If Directory = "" Or Filename = "" Then Exit Sub
+            xmlClient = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Client", "")
+            xmlFilename = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Filename", "")
+            xmlFilename.InnerText = Filename
+            xmlDirectory = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Directory", "")
+            xmlDirectory.InnerText = Directory
+            xmlAddresses = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Addresses", "")
+            xmlAddress1 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress1.InnerText = "login01.tibia.com:7171"
+            xmlAddress2 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress2.InnerText = "login02.tibia.com:7171"
+            xmlAddress3 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress3.InnerText = "login03.tibia.com:7171"
+            xmlAddress4 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress4.InnerText = "login04.tibia.com:7171"
+            xmlAddress5 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress5.InnerText = "login05.tibia.com:7171"
+            xmlAddress6 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress6.InnerText = "tibia1.cipsoft.com:7171"
+            xmlAddress7 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress7.InnerText = "tibia2.cipsoft.com:7171"
+            xmlAddress8 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress8.InnerText = "tibia3.cipsoft.com:7171"
+            xmlAddress9 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress9.InnerText = "tibia4.cipsoft.com:7171"
+            xmlAddress10 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress10.InnerText = "tibia5.cipsoft.com:7171"
+            xmlAddress11 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress11.InnerText = "localhost:7171"
+            xmlAddresses.AppendChild(xmlAddress1)
+            xmlAddresses.AppendChild(xmlAddress2)
+            xmlAddresses.AppendChild(xmlAddress3)
+            xmlAddresses.AppendChild(xmlAddress4)
+            xmlAddresses.AppendChild(xmlAddress5)
+            xmlAddresses.AppendChild(xmlAddress6)
+            xmlAddresses.AppendChild(xmlAddress7)
+            xmlAddresses.AppendChild(xmlAddress8)
+            xmlAddresses.AppendChild(xmlAddress9)
+            xmlAddresses.AppendChild(xmlAddress10)
+            xmlAddresses.AppendChild(xmlAddress11)
+            xmlClient.AppendChild(xmlFilename)
+            xmlClient.AppendChild(xmlDirectory)
+            xmlClient.AppendChild(xmlAddresses)
+            xmlFile.AppendChild(xmlClient)
+            If IO.File.Exists(GetConfigurationDirectory() & "\Data.xml") Then IO.File.Delete(GetConfigurationDirectory() & "\Data.xml")
+            xmlFile.Save(GetConfigurationDirectory() & "\Data.xml")
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
 #End Region
@@ -196,40 +222,55 @@ Public Class frmMain
 #Region " Popup Menu "
 
     Private Sub PopupMenu_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles PopupMenu.Opening
-        If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
-            CavebotMenuItem.Enabled = False
-        Else
-            CavebotMenuItem.Enabled = True
-        End If
-        If Core.TibiaClientIsVisible Then
-            ShowHideTibiaWindow.Name = "Hide Tibia Window"
-        Else
-            ShowHideTibiaWindow.Name = "Show Tibia Window"
-        End If
+        Try
+            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+                CavebotMenuItem.Enabled = False
+            Else
+                CavebotMenuItem.Enabled = True
+            End If
+            If Core.TibiaClientIsVisible Then
+                ShowHideTibiaWindow.Name = "Hide Tibia Window"
+            Else
+                ShowHideTibiaWindow.Name = "Show Tibia Window"
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub CloseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClosePopupItem.Click
-        If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
-            Try
-                If Not Core.Proxy Is Nothing Then
-                    If Not Core.Proxy.Client Is Nothing Then
-                        Core.Proxy.Client.CloseMainWindow()
-                        Me.NotifyIcon.Visible = False
+        Try
+            If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
+                Try
+                    If Not Core.Proxy Is Nothing Then
+                        If Not Core.Proxy.Client Is Nothing Then
+                            Core.Proxy.Client.CloseMainWindow()
+                            Me.NotifyIcon.Visible = False
+                        End If
                     End If
-                End If
-            Catch
-            Finally
-                End
-            End Try
-        End If
+                Catch
+                Finally
+                    End
+                End Try
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub AlarmsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AlarmsToolStripMenuItem.Click
-        If Not Core.InGame Then
-            Beep()
-            Exit Sub
-        End If
-        Core.AlarmsForm.Show()
+        Try
+            If Not Core.InGame Then
+                Beep()
+                Exit Sub
+            End If
+            Core.AlarmsForm.Show()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub ShowHideTibiaWindow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowHideTibiaWindow.Click
@@ -251,50 +292,75 @@ Public Class frmMain
     End Sub
 
     Private Sub ConstantsEditorMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConstantsEditorMenuItem.Click
-        Core.ConstantsEditorForm.Show()
+        Try
+            Core.ConstantsEditorForm.Show()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub CavebotMenuItem_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles CavebotMenuItem.Click
-        If Not Core.InGame Then
-            Beep()
-            Exit Sub
-        End If
-        If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
-            MessageBox.Show("Cavebot is currently running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
-        End If
-        Core.CavebotForm.Show()
+        Try
+            If Not Core.InGame Then
+                Beep()
+                Exit Sub
+            End If
+            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+                MessageBox.Show("Cavebot is currently running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+            Core.CavebotForm.Show()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub CharacterStatisticsMenuItem_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles CharacterStatisticsMenuItem.Click
-        If Not Core.InGame Then
-            Beep()
-            Exit Sub
-        End If
-        Core.CharacterStatisticsForm.Show()
+        Try
+            If Not Core.InGame Then
+                Beep()
+                Exit Sub
+            End If
+            Core.CharacterStatisticsForm.Show()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub ShowHideToolMenuMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem2.Click
-        If IsVisible Then
-            Me.Hide()
-            IsVisible = False
-        Else
-            Me.Show()
-            IsVisible = True
-        End If
+        Try
+            If IsVisible Then
+                Me.Hide()
+                IsVisible = False
+            Else
+                Me.Show()
+                IsVisible = True
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub changeloginserver_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem3.Click
-        If Not Core.InGame Then
-            LoginSelectForm = New frmLoginSelectDialog()
-            If LoginSelectForm.ShowDialog() <> Forms.DialogResult.OK Then Exit Sub
-            For I As Integer = 0 To 3
-                Core.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "localhost")
-                Core.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Core.Proxy.sckLListen.LocalPort, 2)
-            Next
-        Else
-            MessageBox.Show("You are currently in-game.")
-        End If
+        Try
+            If Not Core.InGame Then
+                LoginSelectForm = New frmLoginSelectDialog()
+                If LoginSelectForm.ShowDialog() <> Forms.DialogResult.OK Then Exit Sub
+                For I As Integer = 0 To 3
+                    Core.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "localhost")
+                    Core.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Core.Proxy.sckLListen.LocalPort, 2)
+                Next
+            Else
+                MessageBox.Show("You are currently in-game.")
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
 #End Region
@@ -788,7 +854,4 @@ Public Class frmMain
     End Sub
 #End Region
 
-    Private Sub frmMain_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
-        Me.NotifyIcon.Visible = False
-    End Sub
 End Class

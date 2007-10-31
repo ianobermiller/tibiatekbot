@@ -166,58 +166,73 @@ Public Class frmMapViewer
     End Sub
 
     Private Sub PictureBox1_MouseMove(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseMove
-        If Paused Then Exit Sub
-        TileObjectsList.SuspendLayout()
-        TileObjectsList.Items.Clear()
-        Dim Left As Integer = Math.Floor(e.X / 25)
-        Dim Top As Integer = Math.Floor(e.Y / 25)
-        Dim Loc As LocationDefinition
-        Loc.X = Core.CharacterLoc.X + (Left - 8)
-        Loc.Y = Core.CharacterLoc.Y + (Top - 6)
-        Loc.Z = Core.CharacterLoc.Z
-        ToolTip1.SetToolTip(PictureBox1, "(" & Loc.X & "," & Loc.Y & "," & Loc.Z & ")")
-        If Left >= 18 OrElse Top >= 14 Then Exit Sub
-        Dim StackCount As Integer = 0
-        Dim ObjectID As Integer = 0
-        Dim Data As Integer = 0
-        Dim BL As New BattleList
-        Dim Output As String = ""
-        Dim ItemName As String = ""
-        Dim TileObjects() As TileObject = Core.Map.GetTileObjects(Left, Top, Floor.Value)
-        StackCount = TileObjects.Length
-        For Each TileObj As TileObject In TileObjects
-            ObjectID = TileObj.GetObjectID
-            Data = TileObj.GetData
-            If ObjectID = &H63 Then
-                BL.Find(Data)
-                Output = BL.GetName & " (H" & Hex(Data) & ")"
-            Else
-                ItemName = Definitions.GetItemName(ObjectID)
-                Output = ItemName & " (H" & Hex(ObjectID) & ")"
-            End If
-            TileObjectsList.Items.Add(Output)
-        Next
-        TileObjectsList.ResumeLayout()
+        Try
+            If Paused Then Exit Sub
+            TileObjectsList.SuspendLayout()
+            TileObjectsList.Items.Clear()
+            Dim Left As Integer = Math.Floor(e.X / 25)
+            Dim Top As Integer = Math.Floor(e.Y / 25)
+            Dim Loc As LocationDefinition
+            Loc.X = Core.CharacterLoc.X + (Left - 8)
+            Loc.Y = Core.CharacterLoc.Y + (Top - 6)
+            Loc.Z = Core.CharacterLoc.Z
+            ToolTip1.SetToolTip(PictureBox1, "(" & Loc.X & "," & Loc.Y & "," & Loc.Z & ")")
+            If Left >= 18 OrElse Top >= 14 Then Exit Sub
+            Dim StackCount As Integer = 0
+            Dim ObjectID As Integer = 0
+            Dim Data As Integer = 0
+            Dim BL As New BattleList
+            Dim Output As String = ""
+            Dim ItemName As String = ""
+            Dim TileObjects() As TileObject = Core.Map.GetTileObjects(Left, Top, Floor.Value)
+            StackCount = TileObjects.Length
+            For Each TileObj As TileObject In TileObjects
+                ObjectID = TileObj.GetObjectID
+                Data = TileObj.GetData
+                If ObjectID = &H63 Then
+                    BL.Find(Data)
+                    Output = BL.GetName & " (H" & Hex(Data) & ")"
+                Else
+                    ItemName = Definitions.GetItemName(ObjectID)
+                    Output = ItemName & " (H" & Hex(ObjectID) & ")"
+                End If
+                TileObjectsList.Items.Add(Output)
+            Next
+            TileObjectsList.ResumeLayout()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Public Sub PictureBox1_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseDown
-        Dim Left As Integer = Math.Floor(e.X / 25)
-        Dim Top As Integer = Math.Floor(e.Y / 25)
-        Dim Loc As LocationDefinition
-        Loc.X = Core.CharacterLoc.X + (Left - 8)
-        Loc.Y = Core.CharacterLoc.Y + (Top - 6)
-        Loc.Z = Core.CharacterLoc.Z
-        Core.WriteMemory(Consts.ptrGoToX, CInt(Loc.X), 2)
-        Core.WriteMemory(Consts.ptrGoToY, CInt(Loc.Y), 2)
-        Core.WriteMemory(Consts.ptrGoToZ, CInt(Loc.Z), 1)
-        Dim bl As New BattleList
-        bl.JumpToEntity(SpecialEntity.Myself)
-        bl.IsWalking = True
+        Try
+            Dim Left As Integer = Math.Floor(e.X / 25)
+            Dim Top As Integer = Math.Floor(e.Y / 25)
+            Dim Loc As LocationDefinition
+            Loc.X = Core.CharacterLoc.X + (Left - 8)
+            Loc.Y = Core.CharacterLoc.Y + (Top - 6)
+            Loc.Z = Core.CharacterLoc.Z
+            Core.WriteMemory(Consts.ptrGoToX, CInt(Loc.X), 2)
+            Core.WriteMemory(Consts.ptrGoToY, CInt(Loc.Y), 2)
+            Core.WriteMemory(Consts.ptrGoToZ, CInt(Loc.Z), 1)
+            Dim bl As New BattleList
+            bl.JumpToEntity(SpecialEntity.Myself)
+            bl.IsWalking = True
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub ToolTip1_Popup(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PopupEventArgs) Handles ToolTip1.Popup
-        Dim Left As Integer = Math.Floor((Windows.Forms.Control.MousePosition.X - PictureBox1.Left) / 25)
-        Dim Top As Integer = Math.Floor((Windows.Forms.Control.MousePosition.Y - PictureBox1.Top) / 25)
+        Try
+            Dim Left As Integer = Math.Floor((Windows.Forms.Control.MousePosition.X - PictureBox1.Left) / 25)
+            Dim Top As Integer = Math.Floor((Windows.Forms.Control.MousePosition.Y - PictureBox1.Top) / 25)
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub PictureBox1_MouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseClick

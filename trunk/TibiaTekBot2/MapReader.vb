@@ -72,110 +72,140 @@ Public Module MapReaderModule
         Private Busy As Boolean = False
 
         Public Shared Function WorldZToClientZ(ByVal WorldMapZ As Integer) As Integer
-            If WorldMapZ >= 0 AndAlso WorldMapZ <= 7 Then
-                Return 7 - WorldMapZ
-            ElseIf WorldMapZ >= 8 AndAlso WorldMapZ <= 15 Then
-                Return WorldMapZ - 8
-            Else
-                Throw New IndexOutOfRangeException("World Map Z (Floor level) has has to be between 0 and 15 inclusive.")
-            End If
+            Try
+                If WorldMapZ >= 0 AndAlso WorldMapZ <= 7 Then
+                    Return 7 - WorldMapZ
+                ElseIf WorldMapZ >= 8 AndAlso WorldMapZ <= 15 Then
+                    Return WorldMapZ - 8
+                Else
+                    Throw New IndexOutOfRangeException("World Map Z (Floor level) has has to be between 0 and 15 inclusive.")
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Shared Function ClientZToWorldZ(ByVal ClientZ As Integer) As Integer
-            Dim CharZ As Integer = Core.CharacterLoc.Z
-            If CharZ >= 0 AndAlso CharZ <= 7 Then 'above ground
-                Return 7 - ClientZ
-            ElseIf CharZ >= 8 AndAlso CharZ <= 15 Then 'below ground
-                Return 8 + ClientZ
-            End If
-            Return 0
+            Try
+                Dim CharZ As Integer = Core.CharacterLoc.Z
+                If CharZ >= 0 AndAlso CharZ <= 7 Then 'above ground
+                    Return 7 - ClientZ
+                ElseIf CharZ >= 8 AndAlso CharZ <= 15 Then 'below ground
+                    Return 8 + ClientZ
+                End If
+                Return 0
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function GetAddress(ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer) As Integer
-            Dim SomeX As Integer = 0
-            Dim SomeY As Integer = 0
-            Dim SomeZ As Integer = 0
-            Dim CellNumber As Integer = 0
-            SomeX = MapX + X - 8
-            If SomeX > 17 Then
-                SomeX -= 18
-            ElseIf SomeX < 0 Then
-                SomeX += 18
-            End If
-            SomeY = MapY + Y - 6
-            If SomeY > 13 Then
-                SomeY -= 14
-            ElseIf SomeY < 0 Then
-                SomeY += 14
-            End If
-            If Core.CharacterLoc.Z >= 0 AndAlso Core.CharacterLoc.Z <= 7 Then
-                SomeZ = MapZ - WorldZToClientZ(Core.CharacterLoc.Z) + Z
-            ElseIf Core.CharacterLoc.Z >= 8 AndAlso Core.CharacterLoc.Z <= 15 Then
-                SomeZ = MapZ + WorldZToClientZ(Core.CharacterLoc.Z) - Z
-            End If
-            If SomeZ < 0 Then
-                SomeZ += 8
-            ElseIf SomeZ > 7 Then
-                SomeZ -= 8
-            End If
-            CellNumber = SomeX + (SomeY * 18) + (SomeZ * 14 * 18)
-            Return MapBegins + (CellNumber * Consts.MapTileDist)
+            Try
+                Dim SomeX As Integer = 0
+                Dim SomeY As Integer = 0
+                Dim SomeZ As Integer = 0
+                Dim CellNumber As Integer = 0
+                SomeX = MapX + X - 8
+                If SomeX > 17 Then
+                    SomeX -= 18
+                ElseIf SomeX < 0 Then
+                    SomeX += 18
+                End If
+                SomeY = MapY + Y - 6
+                If SomeY > 13 Then
+                    SomeY -= 14
+                ElseIf SomeY < 0 Then
+                    SomeY += 14
+                End If
+                If Core.CharacterLoc.Z >= 0 AndAlso Core.CharacterLoc.Z <= 7 Then
+                    SomeZ = MapZ - WorldZToClientZ(Core.CharacterLoc.Z) + Z
+                ElseIf Core.CharacterLoc.Z >= 8 AndAlso Core.CharacterLoc.Z <= 15 Then
+                    SomeZ = MapZ + WorldZToClientZ(Core.CharacterLoc.Z) - Z
+                End If
+                If SomeZ < 0 Then
+                    SomeZ += 8
+                ElseIf SomeZ > 7 Then
+                    SomeZ -= 8
+                End If
+                CellNumber = SomeX + (SomeY * 18) + (SomeZ * 14 * 18)
+                Return MapBegins + (CellNumber * Consts.MapTileDist)
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Sub RefreshMapBeginning()
-            Core.ReadMemory(Consts.ptrMapPointer, MapBegins, 4)
+            Try
+                Core.ReadMemory(Consts.ptrMapPointer, MapBegins, 4)
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
         Public Function FindObjectInTile(ByRef [Object] As TileObject, ByVal ItemID As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer) As Boolean
-            Dim Count As Integer = 0
-            Dim ID As Integer = 0
-            Dim Data As Integer = 0
-            Dim ExtraData As Integer = 0
-            Dim Address As Integer = GetAddress(X, Y, Z)
-            Core.ReadMemory(Address, Count, 1)
-            For I As Integer = 0 To Count - 1
-                Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
-                If ID = ItemID Then
-                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
-                    Dim MapLocation As LocationDefinition
-                    Dim ClientCoords As ClientCoordinates
-                    MapLocation.X = Core.CharacterLoc.X + X - 8
-                    MapLocation.Y = Core.CharacterLoc.Y + Y - 6
-                    MapLocation.Z = ClientZToWorldZ(Z)
-                    ClientCoords.X = X
-                    ClientCoords.Y = Y
-                    ClientCoords.Z = Z
-                    [Object] = New TileObject(ItemID, Data, ExtraData, MapLocation, ClientCoords, I)
-                    Return True
-                End If
-            Next
-            Return False
+            Try
+                Dim Count As Integer = 0
+                Dim ID As Integer = 0
+                Dim Data As Integer = 0
+                Dim ExtraData As Integer = 0
+                Dim Address As Integer = GetAddress(X, Y, Z)
+                Core.ReadMemory(Address, Count, 1)
+                For I As Integer = 0 To Count - 1
+                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
+                    If ID = ItemID Then
+                        Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+                        Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
+                        Dim MapLocation As LocationDefinition
+                        Dim ClientCoords As ClientCoordinates
+                        MapLocation.X = Core.CharacterLoc.X + X - 8
+                        MapLocation.Y = Core.CharacterLoc.Y + Y - 6
+                        MapLocation.Z = ClientZToWorldZ(Z)
+                        ClientCoords.X = X
+                        ClientCoords.Y = Y
+                        ClientCoords.Z = Z
+                        [Object] = New TileObject(ItemID, Data, ExtraData, MapLocation, ClientCoords, I)
+                        Return True
+                    End If
+                Next
+                Return False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public Function GetTileObjects(ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer) As TileObject()
-            Dim Address As Integer = GetAddress(X, Y, Z)
-            Dim Count As Integer = 0
-            Dim ID As Integer = 0
-            Dim Data As Integer = 0
-            Dim ExtraData As Integer = 0
-            Dim MapLocation As LocationDefinition
-            Dim ClientCoords As ClientCoordinates
-            MapLocation.X = Core.CharacterLoc.X + X - 8
-            MapLocation.Y = Core.CharacterLoc.Y + Y - 6
-            MapLocation.Z = ClientZToWorldZ(Z)
-            ClientCoords.X = X
-            ClientCoords.Y = Y
-            ClientCoords.Z = Z
-            Core.ReadMemory(Address, Count, 1)
-            Dim TileObjects(Count - 1) As TileObject
-            For I As Integer = 0 To Count - 1
-                Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
-                Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
-                TileObjects(I) = New TileObject(ID, Data, ExtraData, MapLocation, ClientCoords, I)
-            Next
-            Return TileObjects
+            Try
+                Dim Address As Integer = GetAddress(X, Y, Z)
+                Dim Count As Integer = 0
+                Dim ID As Integer = 0
+                Dim Data As Integer = 0
+                Dim ExtraData As Integer = 0
+                Dim MapLocation As LocationDefinition
+                Dim ClientCoords As ClientCoordinates
+                MapLocation.X = Core.CharacterLoc.X + X - 8
+                MapLocation.Y = Core.CharacterLoc.Y + Y - 6
+                MapLocation.Z = ClientZToWorldZ(Z)
+                ClientCoords.X = X
+                ClientCoords.Y = Y
+                ClientCoords.Z = Z
+                Core.ReadMemory(Address, Count, 1)
+                Dim TileObjects(Count - 1) As TileObject
+                For I As Integer = 0 To Count - 1
+                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
+                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
+                    TileObjects(I) = New TileObject(ID, Data, ExtraData, MapLocation, ClientCoords, I)
+                Next
+                Return TileObjects
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Function
 
         Public ReadOnly Property IsBusy() As Boolean
@@ -188,39 +218,49 @@ Public Module MapReaderModule
         End Sub
 
         Public Sub Refresh()
-            Busy = True
-            If MapBegins = 0 Then RefreshMapBeginning()
-            SyncLock Me
-                FindYourSelf()
-                'WriteMap()
-            End SyncLock
-            Busy = False
+            Try
+                Busy = True
+                If MapBegins = 0 Then RefreshMapBeginning()
+                SyncLock Me
+                    FindYourSelf()
+                    'WriteMap()
+                End SyncLock
+                Busy = False
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
         Private Sub FindYourSelf()
-            MapZ = 0
-            MapY = 0
-            MapZ = 0
-            Dim StackSize As Integer = 0
-            Dim ObjectID As Integer = 0
-            Dim Data As Integer = 0
-            For I As Integer = 0 To 2015
-                Core.ReadMemory(MapBegins + (Consts.MapTileDist * I), StackSize, 1)
-                If StackSize < 2 Then Continue For ' there's got to be a tile, and another object, at least
-                For E As Integer = 0 To StackSize - 1
-                    Core.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ObjectID, 2)
-                    If ObjectID = &H63 Then
-                        Core.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                        If Data = Core.CharacterID Then
-                            MapI = I
-                            MapZ = Fix(I / (14 * 18))
-                            MapY = Fix((I - MapZ * 14 * 18) / 18)
-                            MapX = Fix((I - MapZ * 14 * 18 - MapY * 18))
-                            Exit Sub
+            Try
+                MapZ = 0
+                MapY = 0
+                MapZ = 0
+                Dim StackSize As Integer = 0
+                Dim ObjectID As Integer = 0
+                Dim Data As Integer = 0
+                For I As Integer = 0 To 2015
+                    Core.ReadMemory(MapBegins + (Consts.MapTileDist * I), StackSize, 1)
+                    If StackSize < 2 Then Continue For ' there's got to be a tile, and another object, at least
+                    For E As Integer = 0 To StackSize - 1
+                        Core.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ObjectID, 2)
+                        If ObjectID = &H63 Then
+                            Core.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+                            If Data = Core.CharacterID Then
+                                MapI = I
+                                MapZ = Fix(I / (14 * 18))
+                                MapY = Fix((I - MapZ * 14 * 18) / 18)
+                                MapX = Fix((I - MapZ * 14 * 18 - MapY * 18))
+                                Exit Sub
+                            End If
                         End If
-                    End If
+                    Next
                 Next
-            Next
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
         End Sub
 
     End Class
