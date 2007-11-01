@@ -104,6 +104,8 @@ Public Module CommandParserModule
                     CmdWalker(MatchObj.Groups)
                 Case "combo", "combobot"
                     CmdCombobot(MatchObj.Groups)
+                Case "amuletchanger"
+                    cmdChanger(MatchObj.Groups)
                 Case Else
                     Core.ConsoleError("This command does not exist." & Ret & _
                         "  For a list of available commands type: &help.")
@@ -650,6 +652,20 @@ Public Module CommandParserModule
                 "Note: When using continue mode, you should make waypoints to go circle" & Ret & _
                 "Note: Walker uses same waypoints as Cavebot, and you can add them with commands &walker add or &cavebot add. " & Ret & _
                 "  (type &help cavebot for more info about adding)")
+            Case "combobot", "combo"
+                Core.ConsoleWrite("«Combobot»" & Ret & _
+                "Usage: &combobot <""Leader Name"" | off>." & Ret & _
+                "Example: &combobot ""Jokuperkele""." & Ret & _
+                "  Makes comboshots even easier (and more effective) what they are normally. " & Ret & _
+                "Note: Combobot fires rune when <leader name> shoots rune and to the same target" & Ret & _
+                "Note: At this point combobot works only with Sudden Death runes.")
+            Case "amuletchanger"
+                Core.ConsoleWrite("«Amulet Changer»" & Ret & _
+                "Usage: &amuletchanger <on | off | ""Amulet name"">." & Ret & _
+                "Example: &amuletchanger ""Stone Skin Amulet""." & Ret & _
+                "  Times when you died because you didn't have time to change amulet are now over." & Ret & _
+                "Note: &amuletchanger on is using the amulet you have in your amulet-slot." & Ret & _
+                "Note: Names of amulets are case-sensitive (e.g stone skin amuet <> Stone Skin Amulet)")
             Case Else
                 Select Case Topic.ToLower
                     Case "general", "general tools", "a"
@@ -662,7 +678,9 @@ Public Module CommandParserModule
                         "  Light Effect -> &light." & Ret & _
                         "  Ammunition Restacker -> &ammorestacker." & Ret & _
                         "  Commands Lister -> &list" & Ret & _
-                        "  Walker -> &walker")
+                        "  Walker -> &walker" & Ret & _
+                        "  Amulet Changer -> &amuletchanger" & Ret & _
+                        "  Combobot -> &combobot")
                     Case "healing", "healing tools", "b"
                         Core.ConsoleWrite("Healing Tools:" & Ret & _
                         "  NAME -> COMMAND" & Ret & _
@@ -1844,6 +1862,7 @@ Public Module CommandParserModule
 #Region " List Commands Command "
     Private Sub CmdCommands()
         Core.ConsoleWrite("Listing all commands. Type &help <command> for help. Example: &help attack." & Ret & _
+            "&amuletchanger <on | off | ""Name Of The Amulet"">" & Ret & _
             "&advertise ""<advertisement>""" & Ret & _
             "&ammorestacker <minimum ammunition | off>" & Ret & _
             "&attack <on | off | auto | stand | follow | offensive | balanced | " & _
@@ -1852,9 +1871,10 @@ Public Module CommandParserModule
             "&chameleon <""<outfit name or id>"" <addons 0-3> | copy ""<player name>"">" & Ret & _
             "&char ""<Player Name>""" & Ret & _
             "&config <load | edit | clear>" & Ret & _
-            "&drinker <minimum mana points | off>" & Ret & _
-            "&eat <on | off | time in seconds | <smart <minimum hit points>> >")
+            "&combobot ""<Leader Name>"" | Off")
         Core.ConsoleWrite(" " & Ret & _
+            "&drinker <minimum mana points | off>" & Ret & _
+            "&eat <on | off | time in seconds | <smart <minimum hit points>> >" & Ret & _
             "&exp <on | creatures <on | off> | off>" & Ret & _
             "&faketitle <off | ""<new title>"">" & Ret & _
             "&feedback" & Ret & _
@@ -1863,10 +1883,10 @@ Public Module CommandParserModule
             "&guild <online | both> ""<guild name>""" & Ret & _
             "&help <command>" & Ret & _
             "&heal <minimum hit points percent | minimum hit points> ""<healing spell words or spell name>"" [""""<comment>]" & Ret & _
-            "&healfriend <hit points percent> ""<uh | sio | both>"" ""<player name>""" & Ret & _
-            "&healparty <minimum hit points percent>% ""<sio | uh | both>""" & Ret & _
-            "&hotkeys <save | load>")
+            "&healfriend <hit points percent> ""<uh | sio | both>"" ""<player name>""")
         Core.ConsoleWrite(" " & Ret & _
+            "&healparty <minimum hit points percent>% ""<sio | uh | both>""" & Ret & _
+            "&hotkeys <save | load>" & Ret & _
             "&light <on | off | torch | great torch | ultimate tor" & _
             "ch | utevo lux | utevo gran lux | utevo vis lux | light wand>" & Ret & _
             "&log <on | off>" & Ret & _
@@ -1875,10 +1895,10 @@ Public Module CommandParserModule
             "&mapviewer" & Ret & _
             "&namespy <on | off>" & Ret & _
             "&open <""Local File or URL"" | <wiki | character | guild | erig | google | mytibia> ""<search terms>"" >" & Ret & _
-            "&pickup <on | off>" & Ret & _
-            "&rainbow <on | off | fast | slow>" & Ret & _
-            "&reload <spells | outfits | items | constants | dat>")
+            "&pickup <on | off>")
         Core.ConsoleWrite(" " & Ret & _
+            "&rainbow <on | off | fast | slow>" & Ret & _
+            "&reload <spells | outfits | items | constants | dat>" & Ret & _
             "&runemaker <minimum mana points> <minimum soul points> ""<spell words or spell name>""" & Ret & _
             "&spell <off | <minimum mana points> <spell words>>" & Ret & _
             "&stacker <on | off>" & Ret & _
@@ -2347,6 +2367,41 @@ Public Module CommandParserModule
                     Core.ComboBotLeader = MatchObj.Groups(1).ToString
                     Core.ComboBotEnabled = True
                     Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
+                Else
+                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                End If
+        End Select
+    End Sub
+#End Region
+
+#Region " Amulet/Necklace Changer"
+    Private Sub cmdChanger(ByVal Arguments As GroupCollection)
+        Dim Value As String = Arguments(2).ToString
+        Select Case StrToShort(Arguments(2).Value)
+            Case 0
+                Core.AmuletChangerTimerObj.StopTimer()
+                Core.AmuletId = 0
+                Core.ConsoleWrite("Amulet/Necklace Changer is now Disabled.")
+            Case 1
+                Dim TempId As Integer
+                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), TempId, 2)
+                If TempId = 0 Then
+                    Core.ConsoleError("You are not wearing any amulet. Please select amulet you want to change")
+                    Exit Sub
+                End If
+                Core.AmuletId = TempId
+                Core.AmuletChangerTimerObj.StartTimer()
+                Core.ConsoleWrite("Amulet/Necklace Chaner is now Enabled.")
+            Case Else
+                Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
+                If MatchObj.Success Then
+                    Core.AmuletId = Definitions.GetItemID(MatchObj.Groups(1).ToString)
+                    If Core.AmuletId = 0 Then
+                        Core.ConsoleError("Invalid Amulet/Necklace Name")
+                        Exit Sub
+                    End If
+                    Core.AmuletChangerTimerObj.StartTimer()
+                    Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
                 Else
                     Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                 End If
