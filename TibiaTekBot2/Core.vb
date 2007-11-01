@@ -140,6 +140,7 @@ Public Module CoreModule
         Public WithEvents WalkerTimerObj As ThreadTimer
         Public WithEvents CharacterStatisticsForm As New frmCharacterStatistics
         Public WithEvents AutoAddTimerObj As ThreadTimer
+        Public WithEvents AmuletChangerTimerObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -283,6 +284,8 @@ Public Module CoreModule
 
         Public ComboBotEnabled As Boolean = False
         Public ComboBotLeader As String = ""
+
+        Public AmuletId As Integer = 0
 
 #End Region
 
@@ -493,6 +496,7 @@ Public Module CoreModule
                 WindowTimerObj = New ThreadTimer(100)
                 WalkerTimerObj = New ThreadTimer(100)
                 AutoAddTimerObj = New ThreadTimer(100)
+                AmuletChangerTimerObj = New ThreadTimer(300)
             Catch Ex As Exception
                 MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -987,6 +991,8 @@ Public Module CoreModule
                 WalkerTimerObj.StopTimer()
                 AutoAddTimerObj.StopTimer()
                 LearningMode = False
+                AmuletChangerTimerObj.StopTimer()
+                AmuletId = 0
                 Log("Event", "All timers are now stopped.")
             Catch Ex As Exception
                 MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2932,6 +2938,27 @@ Public Module CoreModule
         End Sub
 #End Region
 
+#Region " Amulet/Necklace Changer "
+        Private Sub AmuletChangerTimerObj_Execute() Handles AmuletChangerTimerObj.OnExecute
+            Try
+                If Not InGame() Then Exit Sub
+                Dim Cont As New Container
+                Dim Amulet As New ContainerItemDefinition
+                Dim NeckSlot As Integer = 0
+                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), NeckSlot, 2)
+                If NeckSlot = 0 Then 'No amulet, let's change there something :)
+                    If Not Container.FindItem(Amulet, AmuletId, 0, 0, Consts.MaxContainers - 1) Then
+                        Exit Sub
+                    End If
+                    Core.Proxy.SendPacketToServer(PacketUtils.MoveObject(Amulet, GetInventorySlotAsLocation(InventorySlots.Neck), 1))
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+#End Region
+
 #End Region
 
 #Region " Proxy Events "
@@ -3177,8 +3204,9 @@ Public Module CoreModule
                             WalkerChar.Coordinates = Location
                             Walker_Waypoints.Add(WalkerChar)
                         End If
-                    Case &H84
-                        Core.ConsoleWrite(BytesToStr(bytBuffer))
+                    Case &H84 'Use hotkey
+                        'Core.ConsoleWrite(BytesToStr(bytBuffer))
+                        Pos += 13
                     Case &H8A
                         Dim SpellID As Integer = GetByte(bytBuffer, Pos)
                         GetDWord(bytBuffer, Pos)
