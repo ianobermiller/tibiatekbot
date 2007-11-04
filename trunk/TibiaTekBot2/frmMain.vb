@@ -841,6 +841,7 @@ Public Class frmMain
     End Sub
 
     Private Sub HideToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HideToolStripMenuItem.Click
+        Me.NotifyIcon.Visible = True
         IsVisible = False
         Me.Hide()
     End Sub
@@ -853,5 +854,4 @@ Public Class frmMain
         CommandParser("exp creatures off")
     End Sub
 #End Region
-
 End Class

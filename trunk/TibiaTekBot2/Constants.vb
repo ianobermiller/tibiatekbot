@@ -823,6 +823,7 @@ Public Module ConstantsModule
         Attacking
         OpeningBody
         Looting
+        None
     End Enum
 
     Public Enum Directions As Integer
