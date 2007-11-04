@@ -965,15 +965,24 @@ Public Module CommandParserModule
 
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Core.ConsoleWrite("Begin Test")
-        Dim BL As New BattleList
-        If BL.Find("Mapple Vans") Then
-            'Core.ConsoleWrite(BL.GetEntityID.ToString)
-            'Core.ConsoleWrite(BytesToStr(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), BL.GetEntityID)))
-            Core.Proxy.SendPacketToServer(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), BL.GetEntityID))
-        Else
-            Core.ConsoleWrite("Couldn't find Chepri")
-        End If
-        Core.ConsoleWrite("End Test")
+        Select Case Arguments(2).ToString.ToLower
+            Case "wpindex"
+                Core.ConsoleWrite(SelectNearestWaypoint(Core.Walker_Waypoints))
+            Case Else
+                Select Case Core.CBState
+                    Case CavebotState.Attacking
+                        Core.ConsoleWrite("Attaking")
+                    Case CavebotState.Looting
+                        Core.ConsoleWrite("Looting")
+                    Case CavebotState.None
+                        Core.ConsoleWrite("None")
+                    Case CavebotState.OpeningBody
+                        Core.ConsoleWrite("Open Body")
+                    Case CavebotState.Walking
+                        Core.ConsoleWrite("Walking")
+                End Select
+                Core.ConsoleWrite("End Test")
+        End Select
     End Sub
 
 #End Region
@@ -2014,7 +2023,34 @@ Public Module CommandParserModule
                 Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                 Core.ConsoleWrite("Cavebot is now Enabled.")
                 Core.CBState = CavebotState.Walking
-            Case Else 'ADD
+            Case Else 'ADD or Continue
+                If Arguments(2).ToString = "continue" Then
+                    If Core.Walker_Waypoints.Count = 0 Then
+                        Core.ConsoleWrite("No waypoints found.")
+                        Exit Sub
+                    End If
+                    Core.WaypointIndex = SelectNearestWaypoint(Core.Walker_Waypoints)
+                    If Core.WaypointIndex = -1 Then
+                        Core.ConsoleError("No waypoints found on this floor.")
+                        Exit Sub
+                    End If
+                    If Consts.LootWithCavebot Then
+                        Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
+                        Core.LooterTimerObj.StartTimer()
+                    End If
+                    Core.AutoAttackerTimerObj.StartTimer()
+                    Core.CaveBotTimerObj.StartTimer()
+                    Core.AutoEaterSmart = 0
+                    Core.EaterTimerObj.Interval = 20000
+                    Core.EaterTimerObj.StartTimer()
+                    Core.IsOpeningReady = True
+                    Core.CBCreatureDied = False
+                    Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                    Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+                    Core.ConsoleWrite("Cavebot is now Enabled.")
+                    Core.CBState = CavebotState.Walking
+                    Exit Sub
+                End If
                 Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase)
                 If MatchObj.Success Then
                     Dim BL As New BattleList
@@ -2047,9 +2083,6 @@ Public Module CommandParserModule
                     End Select
 
                     Core.Walker_Waypoints.Add(Character)
-                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-                    & ":" & Character.Coordinates.Y _
-                    & ":" & Character.Coordinates.Z)
                 Else
                     MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
                     If MatchObj.Success Then
@@ -2077,9 +2110,6 @@ Public Module CommandParserModule
                         End Select
 
                         Core.Walker_Waypoints.Add(Character)
-                        Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-                        & ":" & Character.Coordinates.Y _
-                        & ":" & Character.Coordinates.Z)
                         Core.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
                     Else
                         MatchObj = Regex.Match(Arguments(2).ToString, "add\swait\s(\d{1,5})")
@@ -2094,7 +2124,6 @@ Public Module CommandParserModule
                             Character.Info = MatchObj.Groups(1).ToString
                             WPType = "WT"
                             Core.Walker_Waypoints.Add(Character)
-                            Core.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
                             Core.ConsoleWrite("Wait waypoint added.")
                         Else
                             MatchObj = Regex.Match(Arguments(2).ToString, "add\ssay\s+""?(.+)$")
@@ -2110,9 +2139,6 @@ Public Module CommandParserModule
                                 WPType = "S"
 
                                 Core.Walker_Waypoints.Add(Character)
-                                Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-                                & ":" & Character.Coordinates.Y _
-                                & ":" & Character.Coordinates.Z & " " & Character.Info)
                                 Core.ConsoleWrite("Say waypoint added.")
                             Else
                                 MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
@@ -2139,11 +2165,7 @@ Public Module CommandParserModule
                                             Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                             Exit Sub
                                     End Select
-
                                     Core.Walker_Waypoints.Add(Character)
-                                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-                                    & ":" & Character.Coordinates.Y _
-                                    & ":" & Character.Coordinates.Z)
                                 Else
                                     MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
                                     If MatchObj.Success Then
@@ -2180,7 +2202,7 @@ Public Module CommandParserModule
                 Core.WalkerTimerObj.StopTimer()
                 Core.WalkerLoop = False
                 Core.WaypointIndex = 0
-                Core.ConsoleWrite("Walker Stopped")
+                Core.ConsoleWrite("Walker is now Disabled.")
             Case 1
                 If Core.Walker_Waypoints.Count = 0 Then
                     Core.ConsoleError("No Waypoints Found")
@@ -2189,7 +2211,7 @@ Public Module CommandParserModule
                 Core.WaypointIndex = 0
                 Core.WalkerTimerObj.StartTimer()
                 Core.WalkerLoop = False
-                Core.ConsoleWrite("Walker On")
+                Core.ConsoleWrite("Walker is now Enabled.")
             Case Else
                 Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "continue", RegexOptions.IgnoreCase)
                 If MatchObj.Success Then
@@ -2229,9 +2251,6 @@ Public Module CommandParserModule
                         End Select
 
                         Core.Walker_Waypoints.Add(Character)
-                        Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-                        & ":" & Character.Coordinates.Y _
-                        & ":" & Character.Coordinates.Z)
                     Else
                         MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
                         If MatchObj.Success Then
@@ -2259,9 +2278,6 @@ Public Module CommandParserModule
                             End Select
 
                             Core.Walker_Waypoints.Add(Character)
-                            Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-                            & ":" & Character.Coordinates.Y _
-                            & ":" & Character.Coordinates.Z)
                             Core.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
                         Else
                             MatchObj = Regex.Match(Arguments(2).ToString, "add\swait\s(\d{1,5})")
@@ -2292,9 +2308,6 @@ Public Module CommandParserModule
                                     WPType = "S"
 
                                     Core.Walker_Waypoints.Add(Character)
-                                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-                                    & ":" & Character.Coordinates.Y _
-                                    & ":" & Character.Coordinates.Z & " " & Character.Info)
                                     Core.ConsoleWrite("Say waypoint added.")
                                 Else
                                     MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
@@ -2322,9 +2335,6 @@ Public Module CommandParserModule
                                                 Exit Sub
                                         End Select
                                         Core.Walker_Waypoints.Add(Character)
-                                        Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
-                                        & ":" & Character.Coordinates.Y _
-                                        & ":" & Character.Coordinates.Z)
                                     Else
                                         MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
                                         If MatchObj.Success Then

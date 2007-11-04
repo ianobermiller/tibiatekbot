@@ -1246,7 +1246,7 @@ Public Module CoreModule
                                 Else
                                     Exit Sub
                                 End If
-                            ElseIf CaveBotTimerObj.State = ThreadTimerState.Stopped Then
+                            ElseIf CaveBotTimerObj.State = ThreadTimerState.Running Then
                                 If Consts.LootEatFromCorpse AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
                                 End If
@@ -2467,6 +2467,7 @@ Public Module CoreModule
                 Core.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
                 Core.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
                 Core.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                If Capacity < CInt(CavebotForm.LootMinimumCap.Value) Then Return True
                 If Capacity <= LooterMinimumCapacity Then Return True
                 If StatusMessage.Equals("This object is too heavy.") AndAlso StatusTmr <> 0 Then
                     Return True
@@ -2544,10 +2545,13 @@ Public Module CoreModule
                 Select Case CBState
                     Case CavebotState.Walking
                         CBCreatureDied = False
-                        If BL.JumpToEntity(SpecialEntity.Attacked) Then
-                            'Core.ConsoleWrite("Moving to the Attacked mode")
+                        If BL.JumpToEntity(SpecialEntity.Attacked) AndAlso (BL.IsOnScreen Or BattleList.CreaturesOnScreen) Then
                             CBState = CavebotState.Attacking
-                            Exit Select
+                            Core.WriteMemory(Consts.ptrGoToX, BL.GetLocation.X, 4)
+                            Core.WriteMemory(Consts.ptrGoToY, BL.GetLocation.Y, 4)
+                            Core.WriteMemory(Consts.ptrGoToZ, BL.GetLocation.Z, 1)
+                            BL.IsWalking = True
+                            Exit Sub
                         End If
                         If Walker_Waypoints(WaypointIndex).MoveChar() Then
                             WaypointIndex += 1
@@ -2562,13 +2566,17 @@ Public Module CoreModule
                             End If
                         End If
                     Case CavebotState.Attacking
-                        BL.JumpToEntity(SpecialEntity.Attacked)
-                        If Not BL.IsOnScreen Or BattleList.CreaturesOnScreen = False Then
-                            If BL.GetHPPercentage = 0 Then
-                                Core.CBState = CavebotState.OpeningBody
-                                Exit Select
+                        If BL.JumpToEntity(SpecialEntity.Attacked) Then
+                            If Not BL.IsOnScreen Or BattleList.CreaturesOnScreen = False Then
+                                If BL.GetHPPercentage = 0 Then
+                                    Core.CBState = CavebotState.OpeningBody
+                                    Exit Select
+                                End If
+                                Core.ConsoleWrite("Attacking -> Walking")
+                                Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
+                                CBState = CavebotState.Walking
                             End If
-                            'Core.ConsoleWrite("Moving to the Walking Mode")
+                        Else
                             CBState = CavebotState.Walking
                         End If
                         Dim Chase As Integer
@@ -2577,40 +2585,42 @@ Public Module CoreModule
                             Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
                             Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                         End If
-                        If BL.GetDistance > 2 And BL.IsWalking = True Then
+                        If BL.GetDistance > 4 And BL.IsWalking = False Then
+                            Core.ConsoleWrite("Walking to the Creature")
                             Core.WriteMemory(Consts.ptrGoToX, BL.GetLocation.X, 4)
                             Core.WriteMemory(Consts.ptrGoToY, BL.GetLocation.Y, 4)
                             Core.WriteMemory(Consts.ptrGoToZ, BL.GetLocation.Z, 1)
                             BL.JumpToEntity(SpecialEntity.Myself)
                             BL.IsWalking = True
+                            System.Threading.Thread.Sleep(1000)
                             Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
                             Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                         End If
                         'Changing CBstate.OpeningBody in the proxy section.
                     Case CavebotState.OpeningBody
-                        CBCreatureDied = False
-                        If IsOpeningReady = True Then
-                            CurrentContCount = Container.ContainerCount
-                            If CurrentContCount > CBContainerCount Then
-                                CBState = CavebotState.Looting ' : Core.ConsoleWrite("Looting state ->")
-                            Else
-                                If Date.Now > WaitTime Then
+                            CBCreatureDied = False
+                            If IsOpeningReady = True Then
+                                CurrentContCount = Container.ContainerCount
+                                If CurrentContCount > CBContainerCount Then
+                                    CBState = CavebotState.Looting ' : Core.ConsoleWrite("Looting state ->")
+                                Else
+                                    If Date.Now > WaitTime Then
 
-                                    'Core.ConsoleWrite("Running out of time, Walking ->")
-                                    CBState = CavebotState.Walking
+                                        'Core.ConsoleWrite("Running out of time, Walking ->")
+                                        CBState = CavebotState.Walking
+                                    End If
                                 End If
+                                If ReplacedContainer = True Then CBState = CavebotState.Walking ' : Core.ConsoleWrite("Too much bp's open, walk!")
                             End If
-                            If ReplacedContainer = True Then CBState = CavebotState.Walking ' : Core.ConsoleWrite("Too much bp's open, walk!")
-                        End If
                     Case CavebotState.Looting
-                        Dim KeepWalking As Boolean = True
-                        If CavebotForm.EatFromCorpses.Checked Then
-                            KeepWalking = IsEaterReady()
-                        End If
-                        If KeepWalking AndAlso CavebotForm.LootFromCorpses.Checked Then
-                            KeepWalking = IsLooterReady()
-                        End If
-                        If KeepWalking Then CBState = CavebotState.Walking
+                            Dim KeepWalking As Boolean = True
+                            If CavebotForm.EatFromCorpses.Checked Then
+                                KeepWalking = IsEaterReady()
+                            End If
+                            If KeepWalking AndAlso CavebotForm.LootFromCorpses.Checked Then
+                                KeepWalking = IsLooterReady()
+                            End If
+                            If KeepWalking Then CBState = CavebotState.Walking
                 End Select
 
             Catch Ex As Exception
@@ -2628,6 +2638,7 @@ Public Module CoreModule
                 'MyBL.JumpToEntity(SpecialEntity.Myself)
                 If BL.JumpToEntity(SpecialEntity.Attacked) Then Exit Sub
                 If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                    If CBState = CavebotState.Attacking Then Exit Sub
                     If CBState = CavebotState.Looting Or CBState = CavebotState.OpeningBody OrElse Walker_Waypoints(WaypointIndex).Type = Walker.WaypointType.Wait Then Exit Sub
                 End If
                 'We are not attacking, so..
@@ -2643,12 +2654,19 @@ Public Module CoreModule
                                         Exit Sub
                                     End If
                                 End If
+                                If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                                    CBState = CavebotState.None
+                                    'Core.ConsoleWrite("AttackerTimer: STOP!")
+                                    Proxy.SendPacketToServer(PacketUtils.StopEverything)
+                                    System.Threading.Thread.Sleep(1000)
+                                End If
                                 WriteMemory(Consts.ptrAttackedEntityID, BL.GetEntityID, 4)
                                 Proxy.SendPacketToServer(AttackEntity(BL.GetEntityID))
-                                System.Threading.Thread.Sleep(1000)
+                                If CaveBotTimerObj.State = ThreadTimerState.Running Then CBState = CavebotState.Attacking
+                                System.Threading.Thread.Sleep(2000)
                                 Exit Sub
                             End If
-                        End If
+                    End If
                     End If
                 Loop While BL.NextEntity(True) = True
 
@@ -3403,13 +3421,14 @@ Public Module CoreModule
                                                 'WriteMemory(Consts.ptrGoToX, 0, 1)
                                                 'WriteMemory(Consts.ptrGoToY, 0, 1)
                                                 'WriteMemory(Consts.ptrGoToZ, 0, 1)
-                                                StopPlayer()
                                                 BL.IsWalking = False
                                                 CBContainerCount = Container.ContainerCount
                                                 IsOpeningReady = False
                                                 WaitTime = Date.Now.AddSeconds(5)
                                                 CBCreatureDied = True
                                                 CBState = CavebotState.OpeningBody
+                                                'Core.ConsoleWrite("Looter Part of Proxy: STOP")
+                                                StopPlayer()
                                             End If
                                             BagOpened = False
                                             LooterItemID = ID

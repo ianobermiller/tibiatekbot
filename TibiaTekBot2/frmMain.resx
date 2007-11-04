@@ -200,6 +200,9 @@
   <data name="NotifyIcon.Text" xml:space="preserve">
     <value>TibiaTek Bot</value>
   </data>
+  <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
   </metadata>
@@ -354,7 +357,7 @@
     <value>&amp;Commands List</value>
   </data>
   <data name="GeneralToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>151, 22</value>
   </data>
   <data name="GeneralToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;General Tools</value>
@@ -546,7 +549,7 @@
     <value>F&amp;PS Changer</value>
   </data>
   <data name="HealingToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>151, 22</value>
   </data>
   <data name="HealingToolsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;AFK Tools</value>
@@ -642,7 +645,7 @@
     <value>&amp;Mana Fluid Drinker</value>
   </data>
   <data name="AFKToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>151, 22</value>
   </data>
   <data name="AFKToolsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Healing Tools</value>
@@ -801,7 +804,7 @@
     <value>Get &amp;Item IDs</value>
   </data>
   <data name="InfoToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>151, 22</value>
   </data>
   <data name="InfoToolsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Info Tools</value>
@@ -927,7 +930,7 @@
     <value>Auto &amp;Pickup</value>
   </data>
   <data name="TrainingToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>151, 22</value>
   </data>
   <data name="TrainingToolsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Training Tools</value>
@@ -999,7 +1002,7 @@
     <value>&amp;Rainbow Outfit</value>
   </data>
   <data name="FunToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>151, 22</value>
   </data>
   <data name="FunToolsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Fun Tools</value>
@@ -1047,7 +1050,7 @@
     <value>&amp;Reload Configuration Files</value>
   </data>
   <data name="MiscToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>151, 22</value>
   </data>
   <data name="MiscToolsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Misc. Tools</value>

@@ -147,6 +147,7 @@ Module MiscUtils
             Dim BL As New BattleList
             BL.JumpToEntity(SpecialEntity.Myself)
             BL.IsWalking = False
+            'Core.ConsoleWrite("Stop Player: STOP")
             Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
             Core.WriteMemory(Consts.ptrGoToX, 0, 4)
             Core.WriteMemory(Consts.ptrGoToY, 0, 4)
@@ -197,5 +198,45 @@ Module MiscUtils
             End
         End Try
     End Sub
+
+    Public Function SelectNearestWaypoint(ByVal Waypoints As List(Of Walker)) As Integer
+        Try
+            Dim X, Y, Z As New Integer
+            Dim WaypointBuffer As New List(Of Walker)
+            Dim NearestDist As Double = 999999.0
+            Dim Dist As Double = 0.0
+            Z = Core.CharacterLoc.Z
+
+            'Let's find every waypoint which is at the same floor
+            For Each Waypoint As Walker In Waypoints
+                If Waypoint.Coordinates.Z = Z Then
+                    WaypointBuffer.Add(Waypoint)
+                End If
+            Next
+            'No waypoints found
+            If WaypointBuffer.Count = 0 Then
+                Return -1
+            End If
+            Dim NearestWaypointIndex As Integer = 0
+
+            For I As Integer = 0 To Waypoints.Count - 1
+                If Z <> Waypoints(I).Coordinates.Z Then
+                    Continue For
+                End If
+                X = Abs(Waypoints(I).Coordinates.X - Core.CharacterLoc.X)
+                Y = Abs(Waypoints(I).Coordinates.Y - Core.CharacterLoc.Y)
+                Dist = Sqrt(Pow(X, 2) + Pow(Y, 2))
+
+                If Dist < NearestDist Then
+                    NearestDist = Dist
+                    NearestWaypointIndex = I
+                End If
+            Next
+            Return NearestWaypointIndex
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
 
 End Module
