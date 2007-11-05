@@ -1,0 +1,34 @@
+#summary How to use the Configuration Manager.
+#labels Phase-Support,Phase-Deploy,Featured
+
+= Introduction =
+
+The Configuration Manager is a tool that allows you to automatically use commands of the bot when a certain character logins.
+
+
+= How to Use =
+
+To open the Configuration Manager's editable text box use the command *&config edit*.
+On the text box write each command on a separate line. 
+
+After pressing *Ok* all changes will be saved under this file:
+`{TTB Root}\Profiles\{Character World}\{Character Name}\config.txt`
+
+*Note ^1^:* this file can also be edited from any other text editor.
+
+To load the Configuration Manager changes use the command *&config load*.
+
+
+*Example of a proper input:*
+{{{
+&exp on
+&loot on
+&attack on
+}}}
+
+= Notes =
+
+
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
