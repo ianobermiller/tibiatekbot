@@ -5,7 +5,7 @@
 The TibiaTek Development Team currently develops applications for the MMORPG game called Tibia. The main project right now is [TibiaTekBot TibiaTek Bot] (TTB).
 
 = History =
-The team was officially formed after OsQu became a developer for TibiaTek Bot. This happened around the middle stages of the development phase of TibiaTek Bot v2, during the first months of 2007.
+The team was officially formed after OsQu became a developer for [TibiaTekBot TibiaTek Bot]. This happened around the middle stages of the development phase of [TibiaTekBot TibiaTek Bot] v2, during the first months of 2007.
 
 = The Team =
 
