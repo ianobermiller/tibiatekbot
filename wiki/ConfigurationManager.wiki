@@ -16,7 +16,7 @@ After pressing *Ok* all changes will be saved under this file:
 
 *Note ^1^:* this file can also be edited from any other text editor.
 
-To load the Configuration Manager changes use the command *&config load*.
+To manually load the Configuration Manager changes use the command *&config load*.
 
 
 *Example of a proper input:*
