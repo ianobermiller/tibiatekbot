@@ -516,7 +516,7 @@ Module PacketUtils
                     AddByte(bytBuffer, TObj.GetStackPosition)
                 End If
             End If
-            Trace.WriteLine("UseObjectWithObjectOnGround>" & BytesToStr(bytBuffer))
+            '            Trace.WriteLine("UseObjectWithObjectOnGround>" & BytesToStr(bytBuffer))
             Return bytBuffer
         Catch Ex As Exception
             MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
