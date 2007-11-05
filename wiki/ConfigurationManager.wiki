@@ -34,7 +34,7 @@ To manually load the Configuration Manager changes use the command *&config load
 &stacker on
 &loot on
 &eat on
-&spell 30 "exura
+&spell 30 "exura "":3"
 &uh 300
 &attack on
 }}}
