@@ -124,6 +124,22 @@
     <value>243, 4</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 204</value>
+  </data>
+  <data name="&gt;&gt;PopupMenu.Name" xml:space="preserve">
+    <value>PopupMenu</value>
+  </data>
+  <data name="&gt;&gt;PopupMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="NotifyIcon.Text" xml:space="preserve">
+    <value>TibiaTek Bot</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="ToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
     <value>210, 22</value>
   </data>
@@ -145,7 +161,6 @@
   <data name="CavebotMenuItem.Text" xml:space="preserve">
     <value>Cavebot/Walker</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="CharacterStatisticsMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -188,24 +203,141 @@
   <data name="ClosePopupItem.Text" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 204</value>
-  </data>
-  <data name="&gt;&gt;PopupMenu.Name" xml:space="preserve">
-    <value>PopupMenu</value>
-  </data>
-  <data name="&gt;&gt;PopupMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="NotifyIcon.Text" xml:space="preserve">
-    <value>TibiaTek Bot</value>
-  </data>
-  <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
   </metadata>
+  <data name="ConfigurationManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="ConfigurationManagerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Configuration &amp;Manager</value>
+  </data>
+  <data name="AutoLooterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="AutoLooterToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Auto Looter</value>
+  </data>
+  <data name="AutoStackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="AutoStackerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;Stacker</value>
+  </data>
+  <data name="LightEffectsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="LightEffectsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Light Effects</value>
+  </data>
+  <data name="AmmunitionRestackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="AmmunitionRestackerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ammunition &amp;Restacker</value>
+  </data>
+  <data name="CommandsListToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="CommandsListToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Commands List</value>
+  </data>
+  <data name="CombobotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="CombobotToolStripMenuItem.Text" xml:space="preserve">
+    <value>C&amp;ombobot</value>
+  </data>
+  <data name="GeneralToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="GeneralToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;General Tools</value>
+  </data>
+  <data name="HealingToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="HealingToolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;AFK Tools</value>
+  </data>
+  <data name="AFKToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="AFKToolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Healing Tools</value>
+  </data>
+  <data name="InfoToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="InfoToolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Info Tools</value>
+  </data>
+  <data name="TrainingToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="TrainingToolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Training Tools</value>
+  </data>
+  <data name="FunToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="FunToolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Fun Tools</value>
+  </data>
+  <data name="MiscToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="MiscToolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Misc. Tools</value>
+  </data>
+  <data name="FunctionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 20</value>
+  </data>
+  <data name="FunctionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Tools Menu</value>
+  </data>
+  <data name="AboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 20</value>
+  </data>
+  <data name="AboutToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;About</value>
+  </data>
+  <data name="HideToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 20</value>
+  </data>
+  <data name="HideToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Hide</value>
+  </data>
+  <data name="ExitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="ExitToolStripMenuItem.Text" xml:space="preserve">
+    <value>E&amp;xit</value>
+  </data>
+  <data name="MenuStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="MenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 24</value>
+  </data>
+  <data name="MenuStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="MenuStrip1.Text" xml:space="preserve">
+    <value>MenuStrip1</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Name" xml:space="preserve">
+    <value>MenuStrip1</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MenuStrip1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="EditToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 22</value>
   </data>
@@ -223,12 +355,6 @@
   </data>
   <data name="ClearToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Clear</value>
-  </data>
-  <data name="ConfigurationManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="ConfigurationManagerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Configuration &amp;Manager</value>
   </data>
   <data name="OnToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 22</value>
@@ -248,12 +374,6 @@
   <data name="OffToolStripMenuItem.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoLooterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="AutoLooterToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Auto Looter</value>
-  </data>
   <data name="OnToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
   </data>
@@ -265,12 +385,6 @@
   </data>
   <data name="OffToolStripMenuItem1.Text" xml:space="preserve">
     <value>O&amp;ff</value>
-  </data>
-  <data name="AutoStackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="AutoStackerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;Stacker</value>
   </data>
   <data name="UtToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>160, 22</value>
@@ -326,41 +440,23 @@
   <data name="OffToolStripMenuItem2.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="LightEffectsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="LightEffectsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Light Effects</value>
-  </data>
   <data name="OnToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="OnToolStripMenuItem2.Text" xml:space="preserve">
     <value>&amp;On</value>
   </data>
   <data name="OffToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="OffToolStripMenuItem3.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AmmunitionRestackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
+  <data name="SpellCasterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
   </data>
-  <data name="AmmunitionRestackerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Ammunition &amp;Restacker</value>
-  </data>
-  <data name="CommandsListToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="CommandsListToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Commands List</value>
-  </data>
-  <data name="GeneralToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 22</value>
-  </data>
-  <data name="GeneralToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;General Tools</value>
+  <data name="SpellCasterToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Spell Caster</value>
   </data>
   <data name="OnToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -374,11 +470,11 @@
   <data name="OffToolStripMenuItem4.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="SpellCasterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AutoEaterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="SpellCasterToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Spell Caster</value>
+  <data name="AutoEaterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;Eater</value>
   </data>
   <data name="OnToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -392,11 +488,11 @@
   <data name="OffToolStripMenuItem5.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoEaterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RunemakerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="AutoEaterToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;Eater</value>
+  <data name="RunemakerToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Runemaker</value>
   </data>
   <data name="OnToolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -410,11 +506,11 @@
   <data name="OffToolStripMenuItem6.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="RunemakerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AutoFisherToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="RunemakerToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Runemaker</value>
+  <data name="AutoFisherToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;Fisher</value>
   </data>
   <data name="OnToolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
     <value>113, 22</value>
@@ -434,11 +530,11 @@
   <data name="OffToolStripMenuItem7.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoFisherToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="TradeChannelAdvertiserToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="AutoFisherToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;Fisher</value>
+  <data name="TradeChannelAdvertiserToolStripMenuItem.Text" xml:space="preserve">
+    <value>Trade Channel &amp;Advertiser</value>
   </data>
   <data name="OnToolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -452,11 +548,11 @@
   <data name="OffToolStripMenuItem8.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="TradeChannelAdvertiserToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="TradeChannelWatcherToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="TradeChannelAdvertiserToolStripMenuItem.Text" xml:space="preserve">
-    <value>Trade Channel &amp;Advertiser</value>
+  <data name="TradeChannelWatcherToolStripMenuItem.Text" xml:space="preserve">
+    <value>Trade Channel &amp;Watcher</value>
   </data>
   <data name="OnToolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -470,11 +566,11 @@
   <data name="OffToolStripMenuItem9.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="TradeChannelWatcherToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="EventsLoggingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="TradeChannelWatcherToolStripMenuItem.Text" xml:space="preserve">
-    <value>Trade Channel &amp;Watcher</value>
+  <data name="EventsLoggingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Events &amp;Logging</value>
   </data>
   <data name="OnToolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -488,11 +584,11 @@
   <data name="OffToolStripMenuItem10.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="EventsLoggingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="CavebotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="EventsLoggingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Events &amp;Logging</value>
+  <data name="CavebotToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Cavebot</value>
   </data>
   <data name="OnToolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -506,11 +602,11 @@
   <data name="OffToolStripMenuItem11.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="CavebotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="StatsUploaderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="CavebotToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Cavebot</value>
+  <data name="StatsUploaderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stats &amp;Uploader</value>
   </data>
   <data name="OnToolStripMenuItem11.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -524,11 +620,11 @@
   <data name="OffToolStripMenuItem12.Text" xml:space="preserve">
     <value>Off</value>
   </data>
-  <data name="StatsUploaderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FPSChangerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>208, 22</value>
   </data>
-  <data name="StatsUploaderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stats &amp;Uploader</value>
+  <data name="FPSChangerToolStripMenuItem.Text" xml:space="preserve">
+    <value>F&amp;PS Changer</value>
   </data>
   <data name="OnToolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -542,17 +638,11 @@
   <data name="OffToolStripMenuItem13.Text" xml:space="preserve">
     <value>Off</value>
   </data>
-  <data name="FPSChangerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 22</value>
+  <data name="AutoHealerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 22</value>
   </data>
-  <data name="FPSChangerToolStripMenuItem.Text" xml:space="preserve">
-    <value>F&amp;PS Changer</value>
-  </data>
-  <data name="HealingToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 22</value>
-  </data>
-  <data name="HealingToolsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;AFK Tools</value>
+  <data name="AutoHealerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;Healer</value>
   </data>
   <data name="OnToolStripMenuItem13.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -566,11 +656,11 @@
   <data name="OffToolStripMenuItem14.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoHealerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AutoUHerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 22</value>
   </data>
-  <data name="AutoHealerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;Healer</value>
+  <data name="AutoUHerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;UHer</value>
   </data>
   <data name="OnToolStripMenuItem14.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -584,11 +674,11 @@
   <data name="OffToolStripMenuItem15.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoUHerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AutoHealFriendToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 22</value>
   </data>
-  <data name="AutoUHerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;UHer</value>
+  <data name="AutoHealFriendToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto Heal &amp;Friend</value>
   </data>
   <data name="OnToolStripMenuItem15.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -602,11 +692,11 @@
   <data name="OffToolStripMenuItem16.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoHealFriendToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AutoHealPartyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 22</value>
   </data>
-  <data name="AutoHealFriendToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto Heal &amp;Friend</value>
+  <data name="AutoHealPartyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto Heal &amp;Party</value>
   </data>
   <data name="OnToolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -620,11 +710,11 @@
   <data name="OffToolStripMenuItem17.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoHealPartyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ManaFluidDrinkerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 22</value>
   </data>
-  <data name="AutoHealPartyToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto Heal &amp;Party</value>
+  <data name="ManaFluidDrinkerToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Mana Fluid Drinker</value>
   </data>
   <data name="OnToolStripMenuItem17.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -638,23 +728,23 @@
   <data name="OffToolStripMenuItem18.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="ManaFluidDrinkerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 22</value>
+  <data name="ExperienceCheckerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 22</value>
   </data>
-  <data name="ManaFluidDrinkerToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Mana Fluid Drinker</value>
-  </data>
-  <data name="AFKToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 22</value>
-  </data>
-  <data name="AFKToolsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Healing Tools</value>
+  <data name="ExperienceCheckerToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Experience Checker</value>
   </data>
   <data name="OnToolStripMenuItem22.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 22</value>
   </data>
   <data name="OnToolStripMenuItem22.Text" xml:space="preserve">
     <value>&amp;On</value>
+  </data>
+  <data name="CreaturesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="CreaturesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Creatures</value>
   </data>
   <data name="OnToolStripMenuItem26.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -668,23 +758,11 @@
   <data name="OffToolStripMenuItem20.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="CreaturesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="CreaturesToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Creatures</value>
-  </data>
   <data name="OffToolStripMenuItem23.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 22</value>
   </data>
   <data name="OffToolStripMenuItem23.Text" xml:space="preserve">
     <value>O&amp;ff</value>
-  </data>
-  <data name="ExperienceCheckerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 22</value>
-  </data>
-  <data name="ExperienceCheckerToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Experience Checker</value>
   </data>
   <data name="CharacterInformationLookupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>229, 22</value>
@@ -697,6 +775,12 @@
   </data>
   <data name="GuildMembersLookupToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Guild Members Lookup</value>
+  </data>
+  <data name="FloorExplorerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 22</value>
+  </data>
+  <data name="FloorExplorerToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Floor Explorer</value>
   </data>
   <data name="UpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 22</value>
@@ -716,11 +800,11 @@
   <data name="BelowToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Below</value>
   </data>
-  <data name="FloorExplorerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="NameSpyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>229, 22</value>
   </data>
-  <data name="FloorExplorerToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Floor Explorer</value>
+  <data name="NameSpyToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Name Spy</value>
   </data>
   <data name="OnToolStripMenuItem21.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -734,11 +818,11 @@
   <data name="OffToolStripMenuItem22.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="NameSpyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="OpenFileWebsitesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>229, 22</value>
   </data>
-  <data name="NameSpyToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Name Spy</value>
+  <data name="OpenFileWebsitesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Open File/Websites</value>
   </data>
   <data name="FileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>213, 22</value>
@@ -785,12 +869,6 @@
   <data name="MytibiacomToolStripMenuItem.Text" xml:space="preserve">
     <value>Mytibia.com</value>
   </data>
-  <data name="OpenFileWebsitesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>229, 22</value>
-  </data>
-  <data name="OpenFileWebsitesToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Open File/Websites</value>
-  </data>
   <data name="SendLocationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>229, 22</value>
   </data>
@@ -803,11 +881,11 @@
   <data name="GetItemIDsToolStripMenuItem.Text" xml:space="preserve">
     <value>Get &amp;Item IDs</value>
   </data>
-  <data name="InfoToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 22</value>
+  <data name="AutoAttackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
   </data>
-  <data name="InfoToolsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Info Tools</value>
+  <data name="AutoAttackerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;Attacker</value>
   </data>
   <data name="OnToolStripMenuItem23.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 22</value>
@@ -821,6 +899,12 @@
   <data name="AutoToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Automatic</value>
   </data>
+  <data name="StanceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="StanceToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Stance</value>
+  </data>
   <data name="StandToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 22</value>
   </data>
@@ -833,11 +917,11 @@
   <data name="FollowToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Follow</value>
   </data>
-  <data name="StanceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="FightingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 22</value>
   </data>
-  <data name="StanceToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Stance</value>
+  <data name="FightingToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Fighting</value>
   </data>
   <data name="OffensiveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 22</value>
@@ -857,23 +941,17 @@
   <data name="DefensiveToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Defensive</value>
   </data>
-  <data name="FightingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="FightingToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Fighting</value>
-  </data>
   <data name="OffToolStripMenuItem26.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 22</value>
   </data>
   <data name="OffToolStripMenuItem26.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoAttackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="TrainerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
-  <data name="AutoAttackerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;Attacker</value>
+  <data name="TrainerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;Trainer</value>
   </data>
   <data name="OnToolStripMenuItem24.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 22</value>
@@ -905,11 +983,11 @@
   <data name="OffToolStripMenuItem24.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="TrainerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AutoPickupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
-  <data name="TrainerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;Trainer</value>
+  <data name="AutoPickupToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;Pickup</value>
   </data>
   <data name="OnToolStripMenuItem25.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -923,17 +1001,11 @@
   <data name="OffToolStripMenuItem25.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="AutoPickupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+  <data name="FakeTitleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 22</value>
   </data>
-  <data name="AutoPickupToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;Pickup</value>
-  </data>
-  <data name="TrainingToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 22</value>
-  </data>
-  <data name="TrainingToolsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Training Tools</value>
+  <data name="FakeTitleToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Fake Title</value>
   </data>
   <data name="OnToolStripMenuItem18.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
@@ -947,11 +1019,11 @@
   <data name="OffToolStripMenuItem19.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="FakeTitleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="ChameleonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>157, 22</value>
   </data>
-  <data name="FakeTitleToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Fake Title</value>
+  <data name="ChameleonToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Chameleon</value>
   </data>
   <data name="OnToolStripMenuItem19.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 22</value>
@@ -965,11 +1037,11 @@
   <data name="CopyToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Copy Outfit</value>
   </data>
-  <data name="ChameleonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RainbowOutfitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>157, 22</value>
   </data>
-  <data name="ChameleonToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Chameleon</value>
+  <data name="RainbowOutfitToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Rainbow Outfit</value>
   </data>
   <data name="OnToolStripMenuItem20.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 22</value>
@@ -995,23 +1067,17 @@
   <data name="OffToolStripMenuItem21.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="RainbowOutfitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 22</value>
-  </data>
-  <data name="RainbowOutfitToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Rainbow Outfit</value>
-  </data>
-  <data name="FunToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 22</value>
-  </data>
-  <data name="FunToolsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Fun Tools</value>
-  </data>
   <data name="FeedbackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>210, 22</value>
   </data>
   <data name="FeedbackToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Feedback</value>
+  </data>
+  <data name="ReloadDataFilesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 22</value>
+  </data>
+  <data name="ReloadDataFilesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Reload Configuration Files</value>
   </data>
   <data name="SpellsxmlToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 22</value>
@@ -1043,24 +1109,6 @@
   <data name="TibiadatToolStripMenuItem.Text" xml:space="preserve">
     <value>Tibia.dat</value>
   </data>
-  <data name="ReloadDataFilesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 22</value>
-  </data>
-  <data name="ReloadDataFilesToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Reload Configuration Files</value>
-  </data>
-  <data name="MiscToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 22</value>
-  </data>
-  <data name="MiscToolsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Misc. Tools</value>
-  </data>
-  <data name="FunctionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
-  </data>
-  <data name="FunctionsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Tools Menu</value>
-  </data>
   <data name="AboutUsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 22</value>
   </data>
@@ -1079,47 +1127,17 @@
   <data name="VersionToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Version</value>
   </data>
-  <data name="AboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 20</value>
+  <data name="OnToolStripMenuItem27.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
   </data>
-  <data name="AboutToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;About</value>
+  <data name="OnToolStripMenuItem27.Text" xml:space="preserve">
+    <value>&amp;On</value>
   </data>
-  <data name="HideToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 20</value>
+  <data name="OffToolStripMenuItem27.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
   </data>
-  <data name="HideToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Hide</value>
-  </data>
-  <data name="ExitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="ExitToolStripMenuItem.Text" xml:space="preserve">
-    <value>E&amp;xit</value>
-  </data>
-  <data name="MenuStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="MenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 24</value>
-  </data>
-  <data name="MenuStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="MenuStrip1.Text" xml:space="preserve">
-    <value>MenuStrip1</value>
-  </data>
-  <data name="&gt;&gt;MenuStrip1.Name" xml:space="preserve">
-    <value>MenuStrip1</value>
-  </data>
-  <data name="&gt;&gt;MenuStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MenuStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MenuStrip1.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="OffToolStripMenuItem27.Text" xml:space="preserve">
+    <value>O&amp;ff</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -2107,6 +2125,24 @@
     <value>ExitToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;ExitToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CombobotToolStripMenuItem.Name" xml:space="preserve">
+    <value>CombobotToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;CombobotToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OnToolStripMenuItem27.Name" xml:space="preserve">
+    <value>OnToolStripMenuItem27</value>
+  </data>
+  <data name="&gt;&gt;OnToolStripMenuItem27.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffToolStripMenuItem27.Name" xml:space="preserve">
+    <value>OffToolStripMenuItem27</value>
+  </data>
+  <data name="&gt;&gt;OffToolStripMenuItem27.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

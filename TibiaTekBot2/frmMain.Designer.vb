@@ -185,6 +185,9 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.HideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.CombobotToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.OnToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem
+        Me.OffToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -278,7 +281,7 @@ Partial Class frmMain
         '
         'GeneralToolStripMenuItem
         '
-        Me.GeneralToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigurationManagerToolStripMenuItem, Me.AutoLooterToolStripMenuItem, Me.AutoStackerToolStripMenuItem, Me.LightEffectsToolStripMenuItem, Me.AmmunitionRestackerToolStripMenuItem, Me.CommandsListToolStripMenuItem})
+        Me.GeneralToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigurationManagerToolStripMenuItem, Me.AutoLooterToolStripMenuItem, Me.AutoStackerToolStripMenuItem, Me.LightEffectsToolStripMenuItem, Me.AmmunitionRestackerToolStripMenuItem, Me.CommandsListToolStripMenuItem, Me.CombobotToolStripMenuItem})
         Me.GeneralToolStripMenuItem.Name = "GeneralToolStripMenuItem"
         resources.ApplyResources(Me.GeneralToolStripMenuItem, "GeneralToolStripMenuItem")
         '
@@ -1058,6 +1061,22 @@ Partial Class frmMain
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         resources.ApplyResources(Me.ExitToolStripMenuItem, "ExitToolStripMenuItem")
         '
+        'CombobotToolStripMenuItem
+        '
+        Me.CombobotToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnToolStripMenuItem27, Me.OffToolStripMenuItem27})
+        Me.CombobotToolStripMenuItem.Name = "CombobotToolStripMenuItem"
+        resources.ApplyResources(Me.CombobotToolStripMenuItem, "CombobotToolStripMenuItem")
+        '
+        'OnToolStripMenuItem27
+        '
+        Me.OnToolStripMenuItem27.Name = "OnToolStripMenuItem27"
+        resources.ApplyResources(Me.OnToolStripMenuItem27, "OnToolStripMenuItem27")
+        '
+        'OffToolStripMenuItem27
+        '
+        Me.OffToolStripMenuItem27.Name = "OffToolStripMenuItem27"
+        resources.ApplyResources(Me.OffToolStripMenuItem27, "OffToolStripMenuItem27")
+        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -1247,4 +1266,7 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator5 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CharacterStatisticsMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CombobotToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents OnToolStripMenuItem27 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents OffToolStripMenuItem27 As System.Windows.Forms.ToolStripMenuItem
 End Class

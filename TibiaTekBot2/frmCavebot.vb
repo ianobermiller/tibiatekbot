@@ -185,11 +185,14 @@ Public Class frmCavebot
     End Sub
 
     Private Sub Savecmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Savecmd.Click
-
+        If Core.Walker_Waypoints.Count = 0 Then
+            MsgBox("No waypoints to save.", MsgBoxStyle.Question, "Cannot save waypoints")
+            Exit Sub
+        End If
         Dim SaveDlg As New SaveFileDialog
         Dim WalkerChar As New Walker
         With SaveDlg
-            .InitialDirectory = Core.GetProfileDirectory() & "\"
+            .InitialDirectory = GetWaypointsDirectory() & "\"
             .FileName = Core.Proxy.CharacterName & ".Waypoints.xml"
             .DefaultExt = "xml"
             .Title = BotName & " - Save Cavebot Waypoints"
@@ -209,7 +212,7 @@ Public Class frmCavebot
         Dim OpenDlg As New OpenFileDialog
         Dim WalkerChar As New Walker
         With OpenDlg
-            .InitialDirectory = Core.GetProfileDirectory() & "\"
+            .InitialDirectory = GetWaypointsDirectory() & "\"
             .Title = BotName & " - Load Cavebot Waypoints"
             .DefaultExt = "xml"
             .Filter = "Xml Files|*.xml"

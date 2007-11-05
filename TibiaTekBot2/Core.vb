@@ -264,6 +264,7 @@ Public Module CoreModule
         Public CBContainerCount As Integer = 0
         Public CBCreatureDied As Boolean = False
         Public LearningMode As Boolean = False
+        Public IgnoreCreature As List(Of Integer)
 
         Public LooterItemID As Integer = 0
         Public LooterLoc As LocationDefinition
@@ -2534,6 +2535,8 @@ Public Module CoreModule
             Try
                 If CaveBotTimerObj.State = ThreadTimerState.Stopped Then Exit Sub
                 Dim BL As New BattleList
+                Dim MyselfBL As New BattleList
+                MyselfBL.JumpToEntity(SpecialEntity.Myself)
                 Dim PlayerZ As Integer
                 Dim CurrentContCount As Integer = 0
                 Dim StatusText As String = ""
@@ -2547,13 +2550,15 @@ Public Module CoreModule
                         CBCreatureDied = False
                         If BL.JumpToEntity(SpecialEntity.Attacked) AndAlso (BL.IsOnScreen Or BattleList.CreaturesOnScreen) Then
                             CBState = CavebotState.Attacking
-                            Core.WriteMemory(Consts.ptrGoToX, BL.GetLocation.X, 4)
-                            Core.WriteMemory(Consts.ptrGoToY, BL.GetLocation.Y, 4)
-                            Core.WriteMemory(Consts.ptrGoToZ, BL.GetLocation.Z, 1)
+                            Core.WriteMemory(Consts.ptrGoToX, 0, 4)
+                            Core.WriteMemory(Consts.ptrGoToY, 0, 4)
+                            Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
                             BL.IsWalking = True
                             Exit Sub
                         End If
-                        If Walker_Waypoints(WaypointIndex).MoveChar() Then
+                        If BL.JumpToEntity(SpecialEntity.Attacked) Then
+                            Exit Sub
+                        ElseIf Walker_Waypoints(WaypointIndex).MoveChar() Then
                             WaypointIndex += 1
                         End If
                         If WaypointIndex = Walker_Waypoints.Count Then
@@ -2567,16 +2572,14 @@ Public Module CoreModule
                         End If
                     Case CavebotState.Attacking
                         If BL.JumpToEntity(SpecialEntity.Attacked) Then
-                            If Not BL.IsOnScreen Or BattleList.CreaturesOnScreen = False Then
-                                If BL.GetHPPercentage = 0 Then
-                                    Core.CBState = CavebotState.OpeningBody
-                                    Exit Select
-                                End If
-                                Core.ConsoleWrite("Attacking -> Walking")
-                                Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
-                                CBState = CavebotState.Walking
+                            If BL.GetHPPercentage = 0 Then
+                                Core.CBState = CavebotState.OpeningBody
+                                Exit Select
                             End If
-                        Else
+                        End If
+                        If BattleList.CreaturesOnScreen = False Then
+                            'Core.ConsoleWrite("Attacking -> Walking")
+                            Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
                             CBState = CavebotState.Walking
                         End If
                         Dim Chase As Integer
@@ -2585,42 +2588,37 @@ Public Module CoreModule
                             Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
                             Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                         End If
-                        If BL.GetDistance > 4 And BL.IsWalking = False Then
-                            Core.ConsoleWrite("Walking to the Creature")
-                            Core.WriteMemory(Consts.ptrGoToX, BL.GetLocation.X, 4)
-                            Core.WriteMemory(Consts.ptrGoToY, BL.GetLocation.Y, 4)
-                            Core.WriteMemory(Consts.ptrGoToZ, BL.GetLocation.Z, 1)
-                            BL.JumpToEntity(SpecialEntity.Myself)
-                            BL.IsWalking = True
+                        If BL.GetHPPercentage < 30 And BL.IsWalking = True And MyselfBL.IsWalking = False And BL.GetDistance > 4 Then
+                            'Core.ConsoleWrite("PRESS STOP YOU IDIOT. CHAR IS PROBABLY STANDING")
+                            Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
                             System.Threading.Thread.Sleep(1000)
-                            Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
-                            Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+                            CBState = CavebotState.Walking
                         End If
                         'Changing CBstate.OpeningBody in the proxy section.
                     Case CavebotState.OpeningBody
-                            CBCreatureDied = False
-                            If IsOpeningReady = True Then
-                                CurrentContCount = Container.ContainerCount
-                                If CurrentContCount > CBContainerCount Then
-                                    CBState = CavebotState.Looting ' : Core.ConsoleWrite("Looting state ->")
-                                Else
-                                    If Date.Now > WaitTime Then
+                        CBCreatureDied = False
+                        If IsOpeningReady = True Then
+                            CurrentContCount = Container.ContainerCount
+                            If CurrentContCount > CBContainerCount Then
+                                CBState = CavebotState.Looting ' : Core.ConsoleWrite("Looting state ->")
+                            Else
+                                If Date.Now > WaitTime Then
 
-                                        'Core.ConsoleWrite("Running out of time, Walking ->")
-                                        CBState = CavebotState.Walking
-                                    End If
+                                    'Core.ConsoleWrite("Running out of time, Walking ->")
+                                    CBState = CavebotState.Walking
                                 End If
-                                If ReplacedContainer = True Then CBState = CavebotState.Walking ' : Core.ConsoleWrite("Too much bp's open, walk!")
                             End If
+                            If ReplacedContainer = True Then CBState = CavebotState.Walking ' : Core.ConsoleWrite("Too much bp's open, walk!")
+                        End If
                     Case CavebotState.Looting
-                            Dim KeepWalking As Boolean = True
-                            If CavebotForm.EatFromCorpses.Checked Then
-                                KeepWalking = IsEaterReady()
-                            End If
-                            If KeepWalking AndAlso CavebotForm.LootFromCorpses.Checked Then
-                                KeepWalking = IsLooterReady()
-                            End If
-                            If KeepWalking Then CBState = CavebotState.Walking
+                        Dim KeepWalking As Boolean = True
+                        If CavebotForm.EatFromCorpses.Checked Then
+                            KeepWalking = IsEaterReady()
+                        End If
+                        If KeepWalking AndAlso CavebotForm.LootFromCorpses.Checked Then
+                            KeepWalking = IsLooterReady()
+                        End If
+                        If KeepWalking Then CBState = CavebotState.Walking
                 End Select
 
             Catch Ex As Exception
@@ -2638,8 +2636,7 @@ Public Module CoreModule
                 'MyBL.JumpToEntity(SpecialEntity.Myself)
                 If BL.JumpToEntity(SpecialEntity.Attacked) Then Exit Sub
                 If CaveBotTimerObj.State = ThreadTimerState.Running Then
-                    If CBState = CavebotState.Attacking Then Exit Sub
-                    If CBState = CavebotState.Looting Or CBState = CavebotState.OpeningBody OrElse Walker_Waypoints(WaypointIndex).Type = Walker.WaypointType.Wait Then Exit Sub
+                    If CBState <> CavebotState.Walking OrElse Walker_Waypoints(WaypointIndex).Type = Walker.WaypointType.Wait Then Exit Sub
                 End If
                 'We are not attacking, so..
                 BL.Reset()
@@ -2658,6 +2655,9 @@ Public Module CoreModule
                                     CBState = CavebotState.None
                                     'Core.ConsoleWrite("AttackerTimer: STOP!")
                                     Proxy.SendPacketToServer(PacketUtils.StopEverything)
+                                    Core.WriteMemory(Consts.ptrGoToX, 0, 4)
+                                    Core.WriteMemory(Consts.ptrGoToY, 0, 4)
+                                    Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
                                     System.Threading.Thread.Sleep(1000)
                                 End If
                                 WriteMemory(Consts.ptrAttackedEntityID, BL.GetEntityID, 4)
@@ -2666,7 +2666,7 @@ Public Module CoreModule
                                 System.Threading.Thread.Sleep(2000)
                                 Exit Sub
                             End If
-                    End If
+                        End If
                     End If
                 Loop While BL.NextEntity(True) = True
 
@@ -3438,245 +3438,245 @@ Public Module CoreModule
                                         End If
                                     End If
                                 End If
-                            ElseIf DatInfo.GetInfo(ID).HasExtraByte Then
-                                Pos += 1
-                            End If
+                                ElseIf DatInfo.GetInfo(ID).HasExtraByte Then
+                                    Pos += 1
+                                End If
                         Case &H6B 'update tile object
-                            Pos += 6 'position, stackpos
-                            ID = GetWord(bytBuffer, Pos)
-                            If ID = &H62 Then 'known creature, skip this
-                                Pos += 6
-                                Word = GetWord(bytBuffer, Pos)
-                                If Word = 0 Then 'invisible!
+                                Pos += 6 'position, stackpos
+                                ID = GetWord(bytBuffer, Pos)
+                                If ID = &H62 Then 'known creature, skip this
+                                    Pos += 6
+                                    Word = GetWord(bytBuffer, Pos)
+                                    If Word = 0 Then 'invisible!
+                                        Pos += 2
+                                    Else
+                                        Pos += 5 'skip outfit stuff
+                                    End If
+                                    Pos += 6
+                                ElseIf ID = &H61 Then 'unknown creatre, skip that shit
+                                    Pos += 8 'word + word
+                                    Word = GetWord(bytBuffer, Pos) 'skip creature name
+                                    Pos += Word + 2 'Integer + Integer
+                                    Word = GetWord(bytBuffer, Pos) 'outfit? or invis?
                                     Pos += 2
-                                Else
-                                    Pos += 5 'skip outfit stuff
+                                    If Word > 0 Then Pos += 3 'skip outfit stuff
+                                    Pos += 6
+                                ElseIf ID = &H63 Then
+                                    Pos += 5
+                                ElseIf DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
+                                    Pos += 1
                                 End If
-                                Pos += 6
-                            ElseIf ID = &H61 Then 'unknown creatre, skip that shit
-                                Pos += 8 'word + word
-                                Word = GetWord(bytBuffer, Pos) 'skip creature name
-                                Pos += Word + 2 'Integer + Integer
-                                Word = GetWord(bytBuffer, Pos) 'outfit? or invis?
-                                Pos += 2
-                                If Word > 0 Then Pos += 3 'skip outfit stuff
-                                Pos += 6
-                            ElseIf ID = &H63 Then
-                                Pos += 5
-                            ElseIf DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
-                                Pos += 1
-                            End If
                         Case &H6C 'remove item from map
-                            'Trace.WriteLine("FromServer: " & BytesToStr(bytBuffer))
-                            Pos += 6 'loc + Integer
+                                'Trace.WriteLine("FromServer: " & BytesToStr(bytBuffer))
+                                Pos += 6 'loc + Integer
                         Case &H6D 'move creature
-                            Pos += 11 'loc + Integer + loc
+                                Pos += 11 'loc + Integer + loc
                         Case &H6E 'get container
-                            Pos += 3 'container index, itemid
-                            Word = GetWord(bytBuffer, Pos)
-                            Pos += Word + 2 'name,size,hasparent
-                            OneByte = GetByte(bytBuffer, Pos)
-                            For I As Integer = 1 To OneByte
-                                ID = GetWord(bytBuffer, Pos)
-                                If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
-                                    Pos += 1
-                                End If
-                            Next
+                                Pos += 3 'container index, itemid
+                                Word = GetWord(bytBuffer, Pos)
+                                Pos += Word + 2 'name,size,hasparent
+                                OneByte = GetByte(bytBuffer, Pos)
+                                For I As Integer = 1 To OneByte
+                                    ID = GetWord(bytBuffer, Pos)
+                                    If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
+                                        Pos += 1
+                                    End If
+                                Next
                         Case &H6F 'close container
-                            Pos += 1 'containerindex
+                                Pos += 1 'containerindex
                         Case &H70 'add item to container
-                            Pos += 1
-                            ID = GetWord(bytBuffer, Pos)
-                            If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
                                 Pos += 1
-                            End If
-                        Case &H71 'update container item
-                            Pos += 2
-                            ID = GetWord(bytBuffer, Pos)
-                            If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
-                                Pos += 1
-                            End If
-                        Case &H72 'remove container item
-                            Pos += 2
-                        Case &H78
-                            Pos += 1 'slot
-                            ID = GetWord(bytBuffer, Pos)
-                            If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
-                                Pos += 1
-                            End If
-                        Case &H79 'remove inventory item
-                            Pos += 1
-                        Case &H7D, &H7E 'trade item request
-                            Word = GetWord(bytBuffer, Pos)
-                            Pos += Word  'name
-                            OneByte = GetByte(bytBuffer, Pos)
-                            For I As Integer = 1 To OneByte
                                 ID = GetWord(bytBuffer, Pos)
                                 If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
                                     Pos += 1
                                 End If
-                            Next
+                        Case &H71 'update container item
+                                Pos += 2
+                                ID = GetWord(bytBuffer, Pos)
+                                If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
+                                    Pos += 1
+                                End If
+                        Case &H72 'remove container item
+                                Pos += 2
+                        Case &H78
+                                Pos += 1 'slot
+                                ID = GetWord(bytBuffer, Pos)
+                                If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
+                                    Pos += 1
+                                End If
+                        Case &H79 'remove inventory item
+                                Pos += 1
+                        Case &H7D, &H7E 'trade item request
+                                Word = GetWord(bytBuffer, Pos)
+                                Pos += Word  'name
+                                OneByte = GetByte(bytBuffer, Pos)
+                                For I As Integer = 1 To OneByte
+                                    ID = GetWord(bytBuffer, Pos)
+                                    If DatInfo.GetInfo(ID).HasExtraByte Or Definitions.IsRune(ID) Then
+                                        Pos += 1
+                                    End If
+                                Next
                         Case &H7F 'close trade
                         Case &H82 'world light
-                            Pos += 2 'intensity,color
+                                Pos += 2 'intensity,color
                         Case &H83 'magic effect
-                            Pos += 6
+                                Pos += 6
                         Case &H84 'animated text
-                            Pos += 6
-                            Word = GetWord(bytBuffer, Pos)
-                            Pos += Word
+                                Pos += 6
+                                Word = GetWord(bytBuffer, Pos)
+                                Pos += Word
                         Case &H85 'projectile?
-                            'Core.ConsoleWrite(BytesToStr(bytBuffer))
-                            Dim FromBL As New BattleList
-                            Dim ToBl As New BattleList
-                            Dim Type As Integer = 0
-                            FromBL.Find(GetLocation(bytBuffer, Pos))
-                            ToBl.Find(GetLocation(bytBuffer, Pos))
-                            Type = GetByte(bytBuffer, Pos)
-                            If ComboBotEnabled Then
-                                If Type = 11 Then 'SD rune
-                                    If ComboBotLeader = FromBL.GetName AndAlso ToBl.GetEntityID <> 0 Then
-                                        Proxy.SendPacketToServer(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), ToBl.GetEntityID))
-                                    End If
-                                End If
-                            End If
-                        Case &H86 'direct hit, black square
-                            Dim AttackedID As Integer = 0
-                            Dim EntityID As Integer = 0
-                            EntityID = GetDWord(bytBuffer, Pos)
-                            If (AutoAttackerActivated) Then
-                                If BattleList.IsPlayer(EntityID) OrElse EntityID = AutoAttackerIgnoredID Then Exit Sub
-                                ReadMemory(Consts.ptrAttackedEntityID, AttackedID, 4)
-                                If AttackedID = 0 Then
-                                    WriteMemory(Consts.ptrFollowedEntityID, AutoAttackerIgnoredID, 4)
-                                    WriteMemory(Consts.ptrAttackedEntityID, EntityID, 4)
-                                    Proxy.SendPacketToServer(AttackEntity(EntityID))
-                                End If
-                            End If
-                            Pos += 1
-                        Case &H8C 'creature health
-                            ID = GetDWord(bytBuffer, Pos)
-                            OneByte = GetByte(bytBuffer, Pos)
-                            If OneByte > 0 Then Continue While
-                            CBCreatureDied = True
-                            If ShowCreaturesUntilNextLevel Then
-                                Dim LastAttackedID As Integer = 0
-                                ReadMemory(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
-                                If ID = LastAttackedID Then
-                                    Dim BL As New BattleList
-                                    Dim Name As String = 0
-                                    If Not BL.Find(ID) Then Continue While
-                                    Name = BL.GetName()
-                                    If Creatures.Creatures.ContainsKey(Name) Then
-                                        Dim N As Integer = (NextLevelExp - Experience) / Creatures.Creatures(Name).Experience
-                                        Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up."))
-                                    End If
-                                End If
-                            End If
-                        Case &H8D 'creature light
-                            Pos += 6 'id, light intensity, light color
-                        Case &H8E 'add creature, or invisible creature
-                            Pos += 4
-                            Word = GetWord(bytBuffer, Pos)
-                            If Word <> 0 Then
-                                Pos += 5
-                            Else
-                                Pos += 2
-                            End If
-                        Case &H90 'creature got skull change
-                            Pos += 5 'id, skull
-                        Case &HA0 'stats
-                            Pos += 22 'constant
-                        Case &HA1 'player skills
-                            Pos += 14
-                            'skill level+ skill percent
-                            'fist,club,sword,axe,dist,shield,fish
-                        Case &HA2 'icons
-                            Dim Condition As Conditions = CType(GetWord(bytBuffer, Pos), Conditions)
-                            If Not MagicShieldActivated AndAlso CBool((Condition And Conditions.MagicShield) = Conditions.MagicShield) Then 'got magic shield plx
-                                MagicShieldActivated = True
-                            ElseIf MagicShieldActivated AndAlso Not CBool((Condition And Conditions.MagicShield)) Then
-                                MagicShieldActivated = False
-                                Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))
-                            End If
-                        Case &HAA 'received message
-                            GetDWord(bytBuffer, Pos)
-                            Dim Name As String = ""
-                            Dim Level As Integer = 0
-                            Dim Message As String = ""
-                            Name = GetString(bytBuffer, Pos)
-                            Level = GetWord(bytBuffer, Pos)
-                            Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
-                            Select Case MessageType
-                                'cant add monstersay or monsteryell here... or we will have the message alarm alerting when there is no reason to do so
-                                Case MessageType.Normal, MessageType.Whisper, MessageType.Yell ', ConstantsModule.MessageType.MonsterSay, ConstantsModule.MessageType.MonsterYell 
-                                    Loc = GetLocation(bytBuffer, Pos)
-                                    Message = GetString(bytBuffer, Pos)
-                                    MessageAlarm(MessageType, Name, Level, Loc, Message)
-                                Case ConstantsModule.MessageType.MonsterSay, ConstantsModule.MessageType.MonsterYell
-                                    Loc = GetLocation(bytBuffer, Pos)
-                                    Message = GetString(bytBuffer, Pos)
-                                Case MessageType.Channel, MessageType.ChannelGM, MessageType.ChannelTutor, MessageType.ChannelCounsellor
-                                    Dim Channel As String = ""
-                                    Dim ChanType As ChannelType = CType(GetWord(bytBuffer, Pos), ChannelType)
-                                    Select Case ChanType
-                                        Case ChannelType.Console
-                                            Channel = "Console"
-                                        Case ChannelType.GameChat
-                                            Channel = "Game Chat"
-                                        Case ChannelType.GuildChat
-                                            Channel = "Guild Chat"
-                                        Case ChannelType.Help
-                                            Channel = "Help"
-                                        Case ChannelType.Personal
-                                            Channel = "Personal"
-                                        Case ChannelType.RLChat
-                                            Channel = "RL Chat"
-                                        Case ChannelType.Trade
-                                            Channel = "Trade"
-                                        Case Else
-                                            Channel = "Unknown"
-                                    End Select
-                                    Message = GetString(bytBuffer, Pos)
-                                    If TradeWatcherActive AndAlso ChanType = ChannelType.Trade AndAlso Not Name.Equals(Proxy.CharacterName) Then
-                                        If Regex.IsMatch(Message, TradeWatcherRegex, RegexOptions.IgnoreCase) Then
-                                            Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message))
+                                'Core.ConsoleWrite(BytesToStr(bytBuffer))
+                                Dim FromBL As New BattleList
+                                Dim ToBl As New BattleList
+                                Dim Type As Integer = 0
+                                FromBL.Find(GetLocation(bytBuffer, Pos))
+                                ToBl.Find(GetLocation(bytBuffer, Pos))
+                                Type = GetByte(bytBuffer, Pos)
+                                If ComboBotEnabled Then
+                                    If Type = 11 Then 'SD rune
+                                        If ComboBotLeader = FromBL.GetName AndAlso ToBl.GetEntityID <> 0 Then
+                                            Proxy.SendPacketToServer(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), ToBl.GetEntityID))
                                         End If
                                     End If
-                                    Log("Message", Name & "[" & Level & "] said in " & Channel & ": " & Message)
-                                Case MessageType.PM, MessageType.PMGM 'private message
-                                    Message = GetString(bytBuffer, Pos)
-                                    MessageAlarm(MessageType, Name, Level, Loc, Message)
-                            End Select
+                                End If
+                        Case &H86 'direct hit, black square
+                                Dim AttackedID As Integer = 0
+                                Dim EntityID As Integer = 0
+                                EntityID = GetDWord(bytBuffer, Pos)
+                                If (AutoAttackerActivated) Then
+                                    If BattleList.IsPlayer(EntityID) OrElse EntityID = AutoAttackerIgnoredID Then Exit Sub
+                                    ReadMemory(Consts.ptrAttackedEntityID, AttackedID, 4)
+                                    If AttackedID = 0 Then
+                                        WriteMemory(Consts.ptrFollowedEntityID, AutoAttackerIgnoredID, 4)
+                                        WriteMemory(Consts.ptrAttackedEntityID, EntityID, 4)
+                                        Proxy.SendPacketToServer(AttackEntity(EntityID))
+                                    End If
+                                End If
+                                Pos += 1
+                        Case &H8C 'creature health
+                                ID = GetDWord(bytBuffer, Pos)
+                                OneByte = GetByte(bytBuffer, Pos)
+                                If OneByte > 0 Then Continue While
+                                CBCreatureDied = True
+                                If ShowCreaturesUntilNextLevel Then
+                                    Dim LastAttackedID As Integer = 0
+                                    ReadMemory(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
+                                    If ID = LastAttackedID Then
+                                        Dim BL As New BattleList
+                                        Dim Name As String = 0
+                                        If Not BL.Find(ID) Then Continue While
+                                        Name = BL.GetName()
+                                        If Creatures.Creatures.ContainsKey(Name) Then
+                                            Dim N As Integer = (NextLevelExp - Experience) / Creatures.Creatures(Name).Experience
+                                            Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up."))
+                                        End If
+                                    End If
+                                End If
+                        Case &H8D 'creature light
+                                Pos += 6 'id, light intensity, light color
+                        Case &H8E 'add creature, or invisible creature
+                                Pos += 4
+                                Word = GetWord(bytBuffer, Pos)
+                                If Word <> 0 Then
+                                    Pos += 5
+                                Else
+                                    Pos += 2
+                                End If
+                        Case &H90 'creature got skull change
+                                Pos += 5 'id, skull
+                        Case &HA0 'stats
+                                Pos += 22 'constant
+                        Case &HA1 'player skills
+                                Pos += 14
+                                'skill level+ skill percent
+                                'fist,club,sword,axe,dist,shield,fish
+                        Case &HA2 'icons
+                                Dim Condition As Conditions = CType(GetWord(bytBuffer, Pos), Conditions)
+                                If Not MagicShieldActivated AndAlso CBool((Condition And Conditions.MagicShield) = Conditions.MagicShield) Then 'got magic shield plx
+                                    MagicShieldActivated = True
+                                ElseIf MagicShieldActivated AndAlso Not CBool((Condition And Conditions.MagicShield)) Then
+                                    MagicShieldActivated = False
+                                    Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))
+                                End If
+                        Case &HAA 'received message
+                                GetDWord(bytBuffer, Pos)
+                                Dim Name As String = ""
+                                Dim Level As Integer = 0
+                                Dim Message As String = ""
+                                Name = GetString(bytBuffer, Pos)
+                                Level = GetWord(bytBuffer, Pos)
+                                Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
+                                Select Case MessageType
+                                    'cant add monstersay or monsteryell here... or we will have the message alarm alerting when there is no reason to do so
+                                    Case MessageType.Normal, MessageType.Whisper, MessageType.Yell ', ConstantsModule.MessageType.MonsterSay, ConstantsModule.MessageType.MonsterYell 
+                                        Loc = GetLocation(bytBuffer, Pos)
+                                        Message = GetString(bytBuffer, Pos)
+                                        MessageAlarm(MessageType, Name, Level, Loc, Message)
+                                    Case ConstantsModule.MessageType.MonsterSay, ConstantsModule.MessageType.MonsterYell
+                                        Loc = GetLocation(bytBuffer, Pos)
+                                        Message = GetString(bytBuffer, Pos)
+                                    Case MessageType.Channel, MessageType.ChannelGM, MessageType.ChannelTutor, MessageType.ChannelCounsellor
+                                        Dim Channel As String = ""
+                                        Dim ChanType As ChannelType = CType(GetWord(bytBuffer, Pos), ChannelType)
+                                        Select Case ChanType
+                                            Case ChannelType.Console
+                                                Channel = "Console"
+                                            Case ChannelType.GameChat
+                                                Channel = "Game Chat"
+                                            Case ChannelType.GuildChat
+                                                Channel = "Guild Chat"
+                                            Case ChannelType.Help
+                                                Channel = "Help"
+                                            Case ChannelType.Personal
+                                                Channel = "Personal"
+                                            Case ChannelType.RLChat
+                                                Channel = "RL Chat"
+                                            Case ChannelType.Trade
+                                                Channel = "Trade"
+                                            Case Else
+                                                Channel = "Unknown"
+                                        End Select
+                                        Message = GetString(bytBuffer, Pos)
+                                        If TradeWatcherActive AndAlso ChanType = ChannelType.Trade AndAlso Not Name.Equals(Proxy.CharacterName) Then
+                                            If Regex.IsMatch(Message, TradeWatcherRegex, RegexOptions.IgnoreCase) Then
+                                                Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message))
+                                            End If
+                                        End If
+                                        Log("Message", Name & "[" & Level & "] said in " & Channel & ": " & Message)
+                                    Case MessageType.PM, MessageType.PMGM 'private message
+                                        Message = GetString(bytBuffer, Pos)
+                                        MessageAlarm(MessageType, Name, Level, Loc, Message)
+                                End Select
                         Case &HAB 'channel dialog
-                            OneByte = GetByte(bytBuffer, Pos)
-                            For I As Byte = 1 To OneByte
-                                Pos += 2 'channel id
+                                OneByte = GetByte(bytBuffer, Pos)
+                                For I As Byte = 1 To OneByte
+                                    Pos += 2 'channel id
+                                    Word = GetWord(bytBuffer, Pos)
+                                    Pos += Word 'channel name
+                                Next
+                        Case &HAC 'channel
+                                Pos += 2 'channel id o.o
                                 Word = GetWord(bytBuffer, Pos)
                                 Pos += Word 'channel name
-                            Next
-                        Case &HAC 'channel
-                            Pos += 2 'channel id o.o
-                            Word = GetWord(bytBuffer, Pos)
-                            Pos += Word 'channel name
                         Case &HAD 'open private
-                            Word = GetWord(bytBuffer, Pos)
-                            Pos += Word
+                                Word = GetWord(bytBuffer, Pos)
+                                Pos += Word
                         Case &HB3 'close private
-                            Pos += 2
+                                Pos += 2
                         Case &HD2 'get new vip?
-                            Pos += 4 'id
-                            Word = GetWord(bytBuffer, Pos)
-                            Pos += Word + 1 'name, isonline
+                                Pos += 4 'id
+                                Word = GetWord(bytBuffer, Pos)
+                                Pos += Word + 1 'name, isonline
                         Case &HD3 'vip login
-                            Pos += 4
+                                Pos += 4
                         Case &HD4 'viplogout
-                            Pos += 4
+                                Pos += 4
                         Case Else
 #If TRACE Then
-                            'Trace.WriteLine("FromServer: " & Hex(PacketID) & " @ Pos " & (Pos - 1) & vbCrLf & "->" & BytesToStr(bytBuffer, Pos - 1))
+                                'Trace.WriteLine("FromServer: " & Hex(PacketID) & " @ Pos " & (Pos - 1) & vbCrLf & "->" & BytesToStr(bytBuffer, Pos - 1))
 #End If
-                            Exit While
+                                Exit While
                     End Select
 
                 End While
