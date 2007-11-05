@@ -141,6 +141,7 @@ Public Module CoreModule
         Public WithEvents CharacterStatisticsForm As New frmCharacterStatistics
         Public WithEvents AutoAddTimerObj As ThreadTimer
         Public WithEvents AmuletChangerTimerObj As ThreadTimer
+        Public WithEvents RingChangerTimerObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -286,8 +287,9 @@ Public Module CoreModule
         Public ComboBotEnabled As Boolean = False
         Public ComboBotLeader As String = ""
 
-        Public AmuletId As Integer = 0
+        Public AmuletID As Integer = 0
 
+        Public RingID As Integer = 0
 #End Region
 
 #Region " Memory Reading/Writing "
@@ -498,6 +500,7 @@ Public Module CoreModule
                 WalkerTimerObj = New ThreadTimer(100)
                 AutoAddTimerObj = New ThreadTimer(100)
                 AmuletChangerTimerObj = New ThreadTimer(300)
+                RingChangerTimerObj = New ThreadTimer(300)
             Catch Ex As Exception
                 MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -993,7 +996,9 @@ Public Module CoreModule
                 AutoAddTimerObj.StopTimer()
                 LearningMode = False
                 AmuletChangerTimerObj.StopTimer()
-                AmuletId = 0
+                AmuletID = 0
+                RingChangerTimerObj.StopTimer()
+                RingID = 0
                 Log("Event", "All timers are now stopped.")
             Catch Ex As Exception
                 MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2965,10 +2970,31 @@ Public Module CoreModule
                 Dim NeckSlot As Integer = 0
                 Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), NeckSlot, 2)
                 If NeckSlot = 0 Then 'No amulet, let's change there something :)
-                    If Not Container.FindItem(Amulet, AmuletId, 0, 0, Consts.MaxContainers - 1) Then
+                    If Not Container.FindItem(Amulet, AmuletID, 0, 0, Consts.MaxContainers - 1) Then
                         Exit Sub
                     End If
                     Core.Proxy.SendPacketToServer(PacketUtils.MoveObject(Amulet, GetInventorySlotAsLocation(InventorySlots.Neck), 1))
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+#End Region
+
+#Region " Amulet/Necklace Changer "
+        Private Sub RingChangerTimerObj_Execute() Handles RingChangerTimerObj.OnExecute
+            Try
+                If Not InGame() Then Exit Sub
+                Dim Cont As New Container
+                Dim Ring As New ContainerItemDefinition
+                Dim FingerSlot As Integer = 0
+                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Finger - 1) * Consts.ItemDist), FingerSlot, 2)
+                If FingerSlot = 0 Then 'No amulet, let's change there something :)
+                    If Not Container.FindItem(Ring, RingID, 0, 0, Consts.MaxContainers - 1) Then
+                        Exit Sub
+                    End If
+                    Core.Proxy.SendPacketToServer(PacketUtils.MoveObject(Ring, GetInventorySlotAsLocation(InventorySlots.Finger), 1))
                 End If
             Catch Ex As Exception
                 MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3160,6 +3186,16 @@ Public Module CoreModule
                                 Dim ItemDef As ContainerItemDefinition
                                 If Container.FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
                                     Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(InventorySlots.Finger)))
+                                Else
+                                    ConsoleError("Could not find " & Definitions.GetItemName(ItemID) & ", make sure it is on an open container.")
+                                End If
+                                Send = False
+                            End If
+                            If Definitions.IsNeck(ItemID) Then
+                                Dim ItemDef As ContainerItemDefinition
+                                If Container.FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+                                    Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(InventorySlots.Neck)))
+                                    AmuletID = ItemID
                                 Else
                                     ConsoleError("Could not find " & Definitions.GetItemName(ItemID) & ", make sure it is on an open container.")
                                 End If

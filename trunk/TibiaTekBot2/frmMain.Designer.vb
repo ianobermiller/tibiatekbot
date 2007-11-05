@@ -229,8 +229,8 @@ Partial Class frmMain
         '
         'CharacterStatisticsMenuItem
         '
-        resources.ApplyResources(Me.CharacterStatisticsMenuItem, "CharacterStatisticsMenuItem")
         Me.CharacterStatisticsMenuItem.Name = "CharacterStatisticsMenuItem"
+        resources.ApplyResources(Me.CharacterStatisticsMenuItem, "CharacterStatisticsMenuItem")
         '
         'ToolStripSeparator5
         '
