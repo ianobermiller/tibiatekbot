@@ -28,7 +28,7 @@ Public Module HotkeySettingsModule
 
         Public Function Save(Optional ByVal Filename As String = "") As Boolean
             Try
-                If String.IsNullOrEmpty(Filename) Then Filename = Core.GetProfileDirectory & "\" & "Hotkeys.xml"
+                If String.IsNullOrEmpty(Filename) Then Filename = Core.GetProfileDirectory & "\" & "HotkeySettings.xml"
                 Dim Document As New XmlDocument
                 Dim xmlHotkeys As XmlElement = Document.CreateElement("Hotkeys")
                 Dim Combinations() As String = System.Enum.GetNames(GetType(HotkeyCombination))
@@ -97,7 +97,7 @@ Public Module HotkeySettingsModule
 
         Public Function Load(Optional ByVal Filename As String = "") As Boolean
             Try
-                If String.IsNullOrEmpty(Filename) Then Filename = Core.GetProfileDirectory & "\" & "Hotkeys.xml"
+                If String.IsNullOrEmpty(Filename) Then Filename = Core.GetProfileDirectory & "\" & "HotkeySettings.xml"
                 If Not ReadFromFile(Filename) Then Return False
                 WriteToMemory()
                 Return True
