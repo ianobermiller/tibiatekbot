@@ -3,7 +3,7 @@
 
 = Introduction =
 
-The Configuration Manager is a tool that allows you to automatically use commands of the bot when a certain character logins.
+The Configuration Manager is a tool that allows the user to automatically use commands of the bot when a certain character logins.
 
 
 = How to Use =
