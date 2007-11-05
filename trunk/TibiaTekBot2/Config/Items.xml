@@ -1,25 +1,28 @@
 <?xml version="1.0"?>
 <Items>
-    <Item Name="Ultimate Healing" Kind="Rune" ID="HC58"/>
-    <Item Name="Intense Healing" Kind="Rune" ID="HC50"/>
-    <Item Name="Sudden Death" Kind="Rune" ID="HC53"/>
-    <Item Name="Blank" Kind="Tool" ID="HC4B"/>
-    <Item Name="Heavy Magic Missile" Kind="Rune" ID="HC7E"/>
-    <Item Name="Destroy Field" Kind="Rune" ID="HC4C"/>
-    <Item Name="Energy Field" Kind="Rune" ID="HC5C"/>
-    <Item Name="Fire Field" Kind="Rune" ID="HC74"/>
-	<Item Name="Fireball" Kind="Rune" ID="HC75"/>
-    <Item Name="Explosion" Kind="Rune" ID="HC80"/>
-    <Item Name="Convince Creature" Kind="Rune" ID="HC69"/>
-    <Item Name="Great Fireball" Kind="Rune" ID="HC77"/>
-    <Item Name="Light Magic Missile" Kind="Rune" ID="HC66"/>
-    <Item Name="Poison Field" Kind="Rune" ID="HC64"/>
-    <Item Name="Chameleon" Kind="Rune" ID="HC6A"/>
-    <Item Name="Antidote" Kind="Rune" ID="HC51"/>
-    <Item Name="Firebomb" Kind="Rune" ID="HC78"/>
-    <Item Name="Poison Wall" Kind="Rune" ID="HC68"/>
-    <Item Name="Energy Wall" Kind="Rune" ID="HC5E"/>
-    <Item Name="Fire Wall" Kind="Rune" ID="HC76"/>
+    <Item Name="Blank Rune" Kind="Tool" ID="HC4B"/>
+	<Item Name="Ultimate Healing Rune" Kind="Rune" ID="HC58"/>
+    <Item Name="Intense Healing Rune" Kind="Rune" ID="HC50"/>
+    <Item Name="Sudden Death Rune" Kind="Rune" ID="HC53"/>
+    <Item Name="Blank Rune" Kind="Tool" ID="HC4B"/>
+    <Item Name="Heavy Magic Missile Rune" Kind="Rune" ID="HC7E"/>
+    <Item Name="Destroy Field Rune" Kind="Rune" ID="HC4C"/>
+    <Item Name="Energy Field Rune" Kind="Rune" ID="HC5C"/>
+    <Item Name="Fire Field Rune" Kind="Rune" ID="HC74"/>
+	<Item Name="Fireball Rune" Kind="Rune" ID="HC75"/>
+    <Item Name="Explosion Rune" Kind="Rune" ID="HC80"/>
+    <Item Name="Convince Creature Rune" Kind="Rune" ID="HC69"/>
+    <Item Name="Great Fireball Rune" Kind="Rune" ID="HC77"/>
+    <Item Name="Light Magic Missile Rune" Kind="Rune" ID="HC66"/>
+    <Item Name="Poison Field Rune" Kind="Rune" ID="HC64"/>
+    <Item Name="Chameleon Rune" Kind="Rune" ID="HC6A"/>
+    <Item Name="Antidote Rune" Kind="Rune" ID="HC51"/>
+    <Item Name="Firebomb Rune" Kind="Rune" ID="HC78"/>
+    <Item Name="Poison Wall Rune" Kind="Rune" ID="HC68"/>
+    <Item Name="Energy Wall Rune" Kind="Rune" ID="HC5E"/>
+    <Item Name="Fire Wall Rune" Kind="Rune" ID="HC76"/>
+	<Item Name="Paralyze Rune" Kind="Rune" ID="HC5D"/>
+	
     <Item Name="Fish" Kind="Food" ID="Hdfa"/>
     <Item Name="Ham" Kind="Food" ID="Hdfe"/>
     <Item Name="Meat" Kind="Food" ID="Hdf9"/>
@@ -209,7 +212,8 @@
     <Item Name="Bright Sword" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCDF"/>
     <Item Name="Royal Helmet" Kind="Equipment,Helmet" ID="HD40"/>
     <Item Name="Golden Armor" Kind="Armor" ID="HD20"/>
-    <Item Name="Giant Sword" Kind="Equipment,DoubleHandedWeapon,Tool" ID="HCD1"/>
+	<Item Name="Krimhorn Helmet" Kind="Equipment,Helmet" ID="H198"/>
+	<Item Name="Giant Sword" Kind="Equipment,DoubleHandedWeapon,Tool" ID="HCD1"/>
     <Item Name="Crown Legs" Kind="Equipment,Leg" ID="HD36"/>
     <Item Name="Boots Of Haste" Kind="Equipment,Footwear" ID="HC07"/>
     <Item Name="Demon Shield" Kind="Equipment,Shield" ID="HD5C"/>
