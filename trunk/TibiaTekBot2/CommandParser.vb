@@ -217,54 +217,54 @@ Public Module CommandParserModule
 #Region " Chameleon Command "
 
     Private Sub CmdChameleon(ByVal Arguments As GroupCollection)
-        Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, """([^""]+)(?:""\s+(\d))?")
+        Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "copy ""([^""]+)""?$")
         Dim BL As New BattleList
         Dim Found As Boolean = False
         If MatchObj.Success Then
-            Dim Request As String = MatchObj.Groups(1).Value
-            Dim Outfit As New OutfitDefinition
-            If Regex.IsMatch(Request, "^\d+$") Then
-                Found = CoreModule.Outfits.GetOutfitByID(CUShort(Request), Outfit)
-            Else
-                Found = CoreModule.Outfits.GetOutfitByName(Request, Outfit)
-            End If
-            If Found Then
-                BL.JumpToEntity(SpecialEntity.Myself)
-                BL.OutfitID = Outfit.ID
-
-                If Not String.IsNullOrEmpty(MatchObj.Groups(2).Value) Then
-                    If CInt(MatchObj.Groups(2).Value) > 3 Then Exit Sub
-                    BL.Addons = CType(CInt(MatchObj.Groups(2).Value), Addons)
+            BL.Reset()
+            Dim Name As String = MatchObj.Groups(1).Value
+            Found = False
+            Do
+                If BL.IsOnScreen Then
+                    If String.Compare(Name, BL.GetName, True) = 0 Then
+                        Found = True
+                        Exit Do
+                    End If
                 End If
-                Core.ConsoleWrite("Your outfit has been changed to " & Outfit.Name & ".")
-            Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+            Loop While BL.NextEntity(True)
+            If Found Then
+                Dim BL2 As New BattleList
+                BL2.JumpToEntity(SpecialEntity.Myself)
+                BL2.OutfitID = BL.OutfitID
+                BL2.Addons = BL.Addons
+                BL2.HeadColor = BL.HeadColor
+                BL2.BodyColor = BL.BodyColor
+                BL2.LegsColor = BL.LegsColor
+                BL2.FeetColor = BL.FeetColor
+                Core.Proxy.SendPacketToServer(ChangeOutfit(BL2.OutfitID, CByte(BL2.HeadColor), CByte(BL2.BodyColor), CByte(BL2.LegsColor), CByte(BL2.FeetColor), CByte(BL2.Addons)))
+                Core.ConsoleWrite("Your outfit has been changed to " & BL.GetName & ".")
             End If
         Else
-            MatchObj = Regex.Match(Arguments(2).ToString, "^copy ""([^""]+)""?$")
+            MatchObj = Regex.Match(Arguments(2).ToString, """([^""]+)(?:""\s+(\d))?")
             If MatchObj.Success Then
-                BL.Reset()
-                Dim Name As String = MatchObj.Groups(1).Value
-                Found = False
-                Do
-                    If BL.IsOnScreen Then
-                        If String.Compare(Name, BL.GetName, True) = 0 Then
-                            Found = True
-                            Exit Do
-                        End If
-                    End If
-                Loop While BL.NextEntity(True)
+                Dim Request As String = MatchObj.Groups(1).Value
+                Dim Outfit As New OutfitDefinition
+                If Regex.IsMatch(Request, "^\d+$") Then
+                    Found = CoreModule.Outfits.GetOutfitByID(CUShort(Request), Outfit)
+                Else
+                    Found = CoreModule.Outfits.GetOutfitByName(Request, Outfit)
+                End If
                 If Found Then
-                    Dim BL2 As New BattleList
-                    BL2.JumpToEntity(SpecialEntity.Myself)
-                    BL2.OutfitID = BL.OutfitID
-                    BL2.Addons = BL.Addons
-                    BL2.HeadColor = BL.HeadColor
-                    BL2.BodyColor = BL.BodyColor
-                    BL2.LegsColor = BL.LegsColor
-                    BL2.FeetColor = BL.FeetColor
-                    Core.Proxy.SendPacketToServer(ChangeOutfit(BL2.OutfitID, CByte(BL2.HeadColor), CByte(BL2.BodyColor), CByte(BL2.LegsColor), CByte(BL2.FeetColor), CByte(BL2.Addons)))
-                    Core.ConsoleWrite("Your outfit has been changed to " & BL.GetName & ".")
+                    BL.JumpToEntity(SpecialEntity.Myself)
+                    BL.OutfitID = Outfit.ID
+
+                    If Not String.IsNullOrEmpty(MatchObj.Groups(2).Value) Then
+                        If CInt(MatchObj.Groups(2).Value) > 3 Then Exit Sub
+                        BL.Addons = CType(CInt(MatchObj.Groups(2).Value), Addons)
+                    End If
+                    Core.ConsoleWrite("Your outfit has been changed to " & Outfit.Name & ".")
+                Else
+                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                 End If
             Else
                 Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
@@ -636,7 +636,7 @@ Public Module CommandParserModule
                 "Note: Uses same delays as auto healer.")
             Case "cavebot"
                 Core.ConsoleWrite("«Cavebot»" & Ret & _
-                "Usage: &cavebot <on | off | add <walk | rope | ladder | sewer> <hole | stairs | shovel <up | down | left | right>>" & Ret & _
+                "Usage: &cavebot <on | off | continue | add <walk | rope | ladder | sewer> <hole | stairs | shovel <up | down | left | right>>" & Ret & _
                 "Example: &cavebot on." & Ret & _
                 "Example: &cavebot add stairs up." & Ret & _
                 "Comment: " & Ret & _
@@ -981,8 +981,9 @@ Public Module CommandParserModule
                     Case CavebotState.Walking
                         Core.ConsoleWrite("Walking")
                 End Select
-                Core.ConsoleWrite("End Test")
         End Select
+        Core.ConsoleWrite("End Test")
+
     End Sub
 
 #End Region

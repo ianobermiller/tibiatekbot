@@ -853,5 +853,14 @@ Public Class frmMain
     Private Sub OffToolStripMenuItem20_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem20.Click
         CommandParser("exp creatures off")
     End Sub
+
+    Private Sub OnToolStripMenuItem27_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem27.Click
+        Dim leadername As String = InputBox("Enter the name of the leader. Example: Jokuperkele", "Name of the Leader")
+        CommandParser("combobot """ & leadername)
+    End Sub
+
+    Private Sub OffToolStripMenuItem27_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem27.Click
+        CommandParser("combobot off")
+    End Sub
 #End Region
 End Class
