@@ -105,7 +105,9 @@ Public Module CommandParserModule
                 Case "combo", "combobot"
                     CmdCombobot(MatchObj.Groups)
                 Case "amuletchanger"
-                    cmdChanger(MatchObj.Groups)
+                    CmdAmuletChanger(MatchObj.Groups)
+                Case "ringchanger"
+                    CmdRingChanger(MatchObj.Groups)
                 Case Else
                     Core.ConsoleError("This command does not exist." & Ret & _
                         "  For a list of available commands type: &help.")
@@ -2386,33 +2388,68 @@ Public Module CommandParserModule
 #End Region
 
 #Region " Amulet/Necklace Changer"
-    Private Sub cmdChanger(ByVal Arguments As GroupCollection)
-        Dim Value As String = Arguments(2).ToString
-        Select Case StrToShort(Arguments(2).Value)
+    Private Sub CmdAmuletChanger(ByVal Arguments As GroupCollection)
+        Dim Value As String = Arguments(2).Value
+        Select Case StrToShort(Value)
             Case 0
                 Core.AmuletChangerTimerObj.StopTimer()
                 Core.AmuletId = 0
                 Core.ConsoleWrite("Amulet/Necklace Changer is now Disabled.")
             Case 1
-                Dim TempId As Integer
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), TempId, 2)
-                If TempId = 0 Then
-                    Core.ConsoleError("You are not wearing any amulet. Please select amulet you want to change")
+                Dim ItemID As Integer
+                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), ItemID, 2)
+                If ItemID = 0 Then
+                    Core.ConsoleError("You are not wearing any amulet. Please equip the amulet that you want to restack.")
                     Exit Sub
                 End If
-                Core.AmuletId = TempId
+                Core.AmuletId = ItemID
                 Core.AmuletChangerTimerObj.StartTimer()
-                Core.ConsoleWrite("Amulet/Necklace Chaner is now Enabled.")
+                Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
             Case Else
                 Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
                 If MatchObj.Success Then
                     Core.AmuletId = Definitions.GetItemID(MatchObj.Groups(1).ToString)
-                    If Core.AmuletId = 0 Then
-                        Core.ConsoleError("Invalid Amulet/Necklace Name")
+                    If Core.AmuletID = 0 AndAlso Definitions.IsNeck(Core.AmuletID) Then
+                        Core.ConsoleError("Invalid Amulet/Necklace Name.")
                         Exit Sub
                     End If
                     Core.AmuletChangerTimerObj.StartTimer()
                     Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
+                Else
+                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                End If
+        End Select
+    End Sub
+#End Region
+
+
+#Region " Ring Changer"
+    Private Sub CmdRingChanger(ByVal Arguments As GroupCollection)
+        Select Case StrToShort(Arguments(2).Value)
+            Case 0
+                Core.RingChangerTimerObj.StopTimer()
+                Core.RingID = 0
+                Core.ConsoleWrite("Ring Changer is now Disabled.")
+            Case 1
+                Dim ItemID As Integer
+                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Finger - 1) * Consts.ItemDist), ItemID, 2)
+                If ItemID = 0 Then
+                    Core.ConsoleError("You are not wearing any ring. Please equip the ring that you want to change.")
+                    Exit Sub
+                End If
+                Core.RingID = ItemID
+                Core.RingChangerTimerObj.StartTimer()
+                Core.ConsoleWrite("Ring Changer is now Enabled.")
+            Case Else
+                Dim MatchObj As Match = Regex.Match(Arguments(2).Value, """([^""]+)")
+                If MatchObj.Success Then
+                    Core.RingID = Definitions.GetItemID(MatchObj.Groups(1).ToString)
+                    If Core.RingID = 0 AndAlso Definitions.IsRing(Core.RingID) Then
+                        Core.ConsoleError("Invalid Ring Name.")
+                        Exit Sub
+                    End If
+                    Core.RingChangerTimerObj.StartTimer()
+                    Core.ConsoleWrite("Ring Changer is now Enabled.")
                 Else
                     Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                 End If

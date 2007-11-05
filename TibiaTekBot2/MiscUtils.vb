@@ -131,7 +131,6 @@ Module MiscUtils
     End Function
 
     Public Sub Log(ByVal Source As String, ByVal Text As String)
-
         If Core.LoggingEnabled OrElse Consts.DebugOnLog Then
             Try
                 Dim TextFile As New StreamWriter(Core.ExecutablePath & "\Log.txt", True)
@@ -198,6 +197,29 @@ Module MiscUtils
             End
         End Try
     End Sub
+
+    Public Function IsConnectionAvailable() As Boolean
+        Try
+            Dim WebReq As System.Net.WebRequest = System.Net.WebRequest.Create(New System.Uri("http://www.google.com/"))
+            WebReq.Timeout = 1000
+            Dim WebResp As System.Net.WebResponse
+            Try
+                WebResp = WebReq.GetResponse
+            Catch ex As Exception
+                Return False
+            Finally
+                Try
+                    WebResp.Close()
+                    WebReq = Nothing
+                Catch
+                End Try
+            End Try
+            Return True
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
 
     Public Function SelectNearestWaypoint(ByVal Waypoints As List(Of Walker)) As Integer
         Try

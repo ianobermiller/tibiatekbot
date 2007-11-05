@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<Versions>
-    <Version Name="7.92" ConstantsFile="Constants\7.92.xml" DllFile="TibiaTekBot3Dll.7.92.dll" InGame="&amp;H75D3E0" CodeCave="0" CharacterListBegin="&amp;H75D3A0" CharacterListDist="&amp;H54" CharacterSelectionIndex="&amp;H75D3A0" DatFile="Constants\Tibia7.92.dat" />
-    <Version Name="8.00" ConstantsFile="Constants\8.00.xml" DllFile="TibiaTekBot3Dll.8.00.dll" InGame="&amp;H766DF8" CodeCave="&amp;H76DA20" CharacterListBegin="&amp;H766DBC" CharacterListDist="&amp;H54" CharacterSelectionIndex="&amp;H766DB8" DatFile="Constants\Tibia8.00.dat"/>
-</Versions>
