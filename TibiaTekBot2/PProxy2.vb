@@ -217,8 +217,15 @@ Public Class PProxy2
 
 #Region " LoginClient "
     Private Sub sckLC_HandleError(ByVal sender As Winsock, ByVal Description As String, ByVal Method As String, ByVal myEx As String) Handles sckLC.HandleError
+        Try
+            sckLC.Close()
+            sckLS.Close()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
 #If DEBUG Then
-        MessageBox.Show(Description & " + " & Method & " + " & myEx, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'MessageBox.Show(Description & " + " & Method & " + " & myEx, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 #End If
     End Sub
 
@@ -253,8 +260,15 @@ Public Class PProxy2
 
 #Region " LoginServer "
     Private Sub sckLS_HandleError(ByVal sender As Winsock, ByVal Description As String, ByVal Method As String, ByVal myEx As String) Handles sckLS.HandleError
+        Try
+            sckLC.Close()
+            sckLS.Close()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
 #If DEBUG Then
-        MessageBox.Show(Description & " + " & Method & " + " & myEx, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'MessageBox.Show(Description & " + " & Method & " + " & myEx, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 #End If
     End Sub
 
@@ -299,8 +313,15 @@ Public Class PProxy2
 
 #Region " GameServer "
     Private Sub sckGS_HandleError(ByVal sender As Winsock, ByVal Description As String, ByVal Method As String, ByVal myEx As String) Handles sckGS.HandleError
+        Try
+            sckGC.Close()
+            sckGS.Close()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
 #If DEBUG Then
-        MessageBox.Show(Description & " + " & Method & " + " & myEx, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'MessageBox.Show(Description & " + " & Method & " + " & myEx, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 #End If
     End Sub
 
@@ -339,8 +360,15 @@ Public Class PProxy2
 
 #Region " GameClient "
     Private Sub sckGC_HandleError(ByVal sender As Winsock, ByVal Description As String, ByVal Method As String, ByVal myEx As String) Handles sckGC.HandleError
+        Try
+            sckGC.Close()
+            sckGS.Close()
+        Catch Ex As Exception
+            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
 #If DEBUG Then
-        MessageBox.Show(Description & " + " & Method & " + " & myEx, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'MessageBox.Show(Description & " + " & Method & " + " & myEx, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 #End If
     End Sub
 
@@ -369,9 +397,7 @@ Public Class PProxy2
                 'strCharName = CharacterNames(intTemp)
                 RaiseEvent ConnectionGained()
             Else
-
                 bytArray = xTeaDecrypt(bytArray)
-
                 Select Case bytArray(2)
                     Case &HA
                         Core.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)

@@ -3,7 +3,7 @@
     <Item Name="Ultimate Healing" Kind="Rune" ID="HC58"/>
     <Item Name="Intense Healing" Kind="Rune" ID="HC50"/>
     <Item Name="Sudden Death" Kind="Rune" ID="HC53"/>
-    <Item Name="Blank" Kind="Rune" ID="HC4B"/>
+    <Item Name="Blank" Kind="Tool" ID="HC4B"/>
     <Item Name="Heavy Magic Missile" Kind="Rune" ID="HC7E"/>
     <Item Name="Destroy Field" Kind="Rune" ID="HC4C"/>
     <Item Name="Energy Field" Kind="Rune" ID="HC5C"/>

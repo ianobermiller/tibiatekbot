@@ -145,7 +145,7 @@ Public Module HotkeySettingsModule
                         Hotkeys(I).Type = HotkeyType.Item
                         Hotkeys(I).ItemID = CUShort(ItemID)
                         Core.ReadMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, ItemData, 4)
-                        Hotkeys(I).ItemData = CUInt(ItemData)
+                        Hotkeys(I).ItemData = ItemData
                     ElseIf Text.Length > 0 Then 'text
                         Hotkeys(I).Type = HotkeyType.Text
                         Hotkeys(I).Text = Text
@@ -156,7 +156,7 @@ Public Module HotkeySettingsModule
                     End If
                 Next
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Sub
