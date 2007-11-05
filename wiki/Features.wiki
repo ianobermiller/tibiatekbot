@@ -1,46 +1,45 @@
 #summary Features of TibiaTek Bot v2
+#labels Featured,Phase-Design,Phase-Implementation
 
 = Since v2.1 =
 
- * OT (Open Tibia) Supported
- * Both Console and GUI
- * Light Effects
- * Runemaker
- * Cavebot / Walker
- * Combobot
- * Experience Checker (plus Creatures needed to kill)
+ * Ammunition Restacker (bolts, arrows, etc)
+ * Amulet Changer
  * Auto Attacker (allows you to train with slimes)
- * Spell Caster
- * Configuration Manager (automatically load your last configuration)
- * Auto Stacker (keeps your containers organized)
  * Auto Eater (even eat from the floor, smart option allows you to eat only when needed)
- * Auto UHer (heal yourself with Ultimate Healing runes)
- * Auto Healer (heal yourself using spells)
  * Auto Fisher (fishes only where there's fish)
+ * Auto Healer (heal yourself using spells)
  * Auto Heal Friend
  * Auto Heal Party
  * Auto Looter
- * Trade Channel Advertiser
- * Trade Channel Watcher
- * Character Information Lookup
- * Floor Lookup
- * Guild Members Lookup
- * Ammunition Restacker (bolts, arrows, etc)
  * Auto Pickup (any throwable item)
- * Stats Uploader (put your stats in any FTP server, or on your local hard drive)
- * Map Viewer
- * Chameleon
+ * Auto Stacker (keeps your containers organized)
  * Auto Trainer (train with monks, ghouls, or even other players)
- * Send Location (send your current location to other players)
- * FPS Changer
- * Rainbow Outfit
- * Namespy (or X-Ray)
- * Mana fluid Drinker
- * Amulet Changer
- * Ring Changer
+ * Auto UHer (heal yourself with Ultimate Healing runes)
+ * Cavebot / Walker
+ * Chameleon
+ * Character Information Lookup
+ * Combobot
+ * Configuration Manager (automatically load your last configuration)
+ * Console and GUI
+ * Experience Checker (plus Creatures needed to kill)
  * Fake Tibia Title
  * Floor Explorer (to see what's above, below or round you)
+ * Floor Lookup
+ * FPS Changer
+ * Guild Members Lookup
  * Hotkeys for every character
+ * Light Effects
+ * Mana fluid Drinker
+ * Map Viewer
+ * Namespy (or X-Ray)
  * Open programs directly from Tibia
-
-= Details =
+ * OT (Open Tibia) Supported
+ * Rainbow Outfit
+ * Ring Changer
+ * Runemaker
+ * Send Location (send your current location to other players)
+ * Spell Caster
+ * Stats Uploader (put your stats in any FTP server, or on your local hard drive)
+ * Trade Channel Advertiser
+ * Trade Channel Watcher
