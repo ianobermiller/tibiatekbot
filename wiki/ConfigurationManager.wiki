@@ -25,3 +25,16 @@ To manually load the Configuration Manager changes use the command *&config load
 &loot on
 &attack on
 }}}
+
+*Recommended input:
+{{{
+&exp on
+&exp creatures on
+&light on
+&stacker on
+&loot on
+&eat on
+&spell 30 "exura
+&uh 300
+&attack on
+}}}
