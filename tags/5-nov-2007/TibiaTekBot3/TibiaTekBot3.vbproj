@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C8DD2A32-18CB-4881-8FE0-353C7FDC23F5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>TibiaTekBot3.My.MyApplication</StartupObject>
+    <RootNamespace>TibiaTekBot3</RootNamespace>
+    <AssemblyName>TibiaTekBot3</AssemblyName>
+    <MyType>WindowsForms</MyType>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>false</DefineTrace>
+    <OutputPath>..\release\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>Full</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>false</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\release\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <DebugSymbols>true</DebugSymbols>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BattleList.vb" />
+    <Compile Include="CommandParser.vb" />
+    <Compile Include="Constants.vb" />
+    <Compile Include="Container.vb" />
+    <Compile Include="CoreModule.vb" />
+    <Compile Include="Creatures.vb" />
+    <Compile Include="DatReader.vb" />
+    <Compile Include="frmLootItems.Designer.vb">
+      <DependentUpon>frmLootItems.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLootItems.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.vb">
+      <DependentUpon>frmMain.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMenu.Designer.vb">
+      <DependentUpon>frmMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectClient.designer.vb">
+      <DependentUpon>frmSelectClient.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectClient.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSplashScreen.Designer.vb">
+      <DependentUpon>frmSplashScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSplashScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSubForms.Designer.vb">
+      <DependentUpon>frmSubForms.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSubForms.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHFBattlelist.Designer.vb">
+      <DependentUpon>frmHFBattlelist.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHFBattlelist.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Items.vb" />
+    <Compile Include="Lang.vb" />
+    <Compile Include="LootItems.vb" />
+    <Compile Include="MapReader.vb" />
+    <Compile Include="Memory.vb" />
+    <Compile Include="MiscUtils.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="frmOptions.Designer.vb">
+      <DependentUpon>frmOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmOptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PacketUtils.vb" />
+    <Compile Include="Spells.vb" />
+    <Compile Include="ThreadTimer.vb" />
+    <Compile Include="TibiaModule.vb" />
+    <Compile Include="Versions.vb" />
+    <Compile Include="VipList.vb" />
+    <Compile Include="Win32API.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmHFBattlelist.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmHFBattlelist.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLootItems.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmLootItems.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMenu.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmMenu.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmOptions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectClient.resx">
+      <DependentUpon>frmSelectClient.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSplashScreen.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSubForms.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSubForms.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\Constants\7.92.xml" />
+    <Content Include="Config\Constants\8.00.xml" />
+    <Content Include="Config\Versions.xml" />
+    <None Include="Resources\menu.bmp" />
+    <None Include="Resources\ttb splash5.jpg" />
+    <None Include="Resources\ttbv3_16.ico" />
+    <None Include="Resources\ttbv3.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
