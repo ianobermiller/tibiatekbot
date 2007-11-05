@@ -18,14 +18,6 @@ After pressing *Ok* all changes will be saved under this file:
 
 To manually load the Configuration Manager changes use the command *&config load*.
 
-
-*Example of a proper input:*
-{{{
-&exp on
-&loot on
-&attack on
-}}}
-
 *Recommended input:
 {{{
 &exp on
