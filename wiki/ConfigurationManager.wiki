@@ -25,10 +25,3 @@ To load the Configuration Manager changes use the command *&config load*.
 &loot on
 &attack on
 }}}
-
-= Notes =
-
-
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
