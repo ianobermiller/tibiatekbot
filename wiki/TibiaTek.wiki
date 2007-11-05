@@ -9,6 +9,6 @@ The team was officially formed after OsQu became a developer for [TibiaTekBot Ti
 
 = The Team =
 
- * Cameri (Programming and Support)
- * OsQu (Programming and Support)
- * Genosonic (Graphics)
+ * [Cameri] (Programming and Support)
+ * [OsQu] (Programming and Support)
+ * [Genosonic] (Graphics)
