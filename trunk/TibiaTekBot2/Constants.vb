@@ -154,6 +154,7 @@ Public Module ConstantsModule
         Public LootDelay As Integer = 0
         Public LootInBag As Boolean = False
         Public LootInBagDelay As Integer = 0
+        Public SmartAttacker As Boolean = False
 
         Public HotkeyMax As Integer = 0
         Public HotkeyItemDataOffset As UShort = 0
@@ -488,6 +489,8 @@ Public Module ConstantsModule
                                                     LootInBag = System.Boolean.Parse(Value)
                                                 Case "LootInBagDelay"
                                                     LootInBagDelay = CInt(Value)
+                                                Case "SmartAttacker"
+                                                    SmartAttacker = System.Boolean.Parse(Value)
                                                 Case "HotkeyMax"
                                                     HotkeyMax = CInt(Value)
                                                 Case "HotkeyItemDataOffset"

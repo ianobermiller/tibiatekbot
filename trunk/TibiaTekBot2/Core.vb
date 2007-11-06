@@ -2640,43 +2640,85 @@ Public Module CoreModule
         Public Sub AutoAttackerTimerObj_Execute() Handles AutoAttackerTimerObj.OnExecute
             Try
                 Dim BL As New BattleList 'Variables
-                'Dim MyBL As New BattleList
+                Dim AttackerMonsters As New SortedList
+                Dim AttackBL As New BattleList
                 'MyBL.JumpToEntity(SpecialEntity.Myself)
-                If BL.JumpToEntity(SpecialEntity.Attacked) Then Exit Sub
                 If CaveBotTimerObj.State = ThreadTimerState.Running Then
                     If CBState <> CavebotState.Walking OrElse Walker_Waypoints(WaypointIndex).Type = Walker.WaypointType.Wait Then Exit Sub
                 End If
-                'We are not attacking, so..
-                BL.Reset()
-                'Looping trough battlelist
-                Do
-                    If BL.IsMyself Then Continue Do
-                    If Not BL.IsPlayer AndAlso BL.IsOnScreen AndAlso BL.GetLocation.Z = Core.CharacterLoc.Z Then
-                        If BL.GetDistance < Consts.CavebotAttackerRadius Then
-                            If CheckRadius(BL.GetEntityID) = True Then
-                                If AutoAttackerListEnabled Then
-                                    If Not Core.AutoAttackerList.Contains(BL.GetName) Then
-                                        Exit Sub
+                AttackerMonsters.Clear()
+                If Consts.SmartAttacker Then 'If Using Smart Attack (whole time attack the nearest creature)
+                    BL.Reset()
+                    Do
+                        If BL.IsMyself Then Continue Do
+                        If Not BL.IsPlayer AndAlso BL.IsOnScreen AndAlso BL.GetLocation.Z = Core.CharacterLoc.Z Then
+                            If BL.GetDistance < Consts.CavebotAttackerRadius Then
+                                If CheckRadius(BL.GetEntityID) = True Then
+                                    If AutoAttackerListEnabled Then
+                                        If Not Core.AutoAttackerList.Contains(BL.GetName) Then
+                                            Exit Sub
+                                        End If
+                                    End If
+                                    If Not AttackerMonsters.ContainsKey(BL.GetDistance) Then 'If list doesn't contain Distance add it
+                                        AttackerMonsters.Add(BL.GetDistance, BL.GetEntityID) 'Add distance
                                     End If
                                 End If
-                                If CaveBotTimerObj.State = ThreadTimerState.Running Then
-                                    CBState = CavebotState.None
-                                    'Core.ConsoleWrite("AttackerTimer: STOP!")
-                                    Proxy.SendPacketToServer(PacketUtils.StopEverything)
-                                    Core.WriteMemory(Consts.ptrGoToX, 0, 4)
-                                    Core.WriteMemory(Consts.ptrGoToY, 0, 4)
-                                    Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
-                                    System.Threading.Thread.Sleep(1000)
-                                End If
-                                WriteMemory(Consts.ptrAttackedEntityID, BL.GetEntityID, 4)
-                                Proxy.SendPacketToServer(AttackEntity(BL.GetEntityID))
-                                If CaveBotTimerObj.State = ThreadTimerState.Running Then CBState = CavebotState.Attacking
-                                System.Threading.Thread.Sleep(2000)
-                                Exit Sub
                             End If
                         End If
+                    Loop While BL.NextEntity(True) = True
+                    'Attacking part
+                    If AttackerMonsters.Count = 0 Then Exit Sub
+                    If AttackBL.JumpToEntity(SpecialEntity.Attacked) Then
+                        If BL.GetEntityID.Equals(AttackerMonsters.GetByIndex(0)) Then Exit Sub
                     End If
-                Loop While BL.NextEntity(True) = True
+                    If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                        CBState = CavebotState.None
+                        'Core.ConsoleWrite("AttackerTimer: STOP!")
+                        Proxy.SendPacketToServer(PacketUtils.StopEverything)
+                        Core.WriteMemory(Consts.ptrGoToX, 0, 4)
+                        Core.WriteMemory(Consts.ptrGoToY, 0, 4)
+                        Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
+                        System.Threading.Thread.Sleep(1000)
+                    End If
+                    WriteMemory(Consts.ptrAttackedEntityID, AttackerMonsters.GetByIndex(0), 4)
+                    Proxy.SendPacketToServer(AttackEntity(AttackerMonsters.GetByIndex(0)))
+                    If CaveBotTimerObj.State = ThreadTimerState.Running Then CBState = CavebotState.Attacking
+                    System.Threading.Thread.Sleep(2000)
+                    Exit Sub
+                Else
+                    If BL.JumpToEntity(SpecialEntity.Attacked) Then Exit Sub
+                    'We are not attacking, so..
+                    BL.Reset()
+                    'Looping trough battlelist
+                    Do
+                        If BL.IsMyself Then Continue Do
+                        If Not BL.IsPlayer AndAlso BL.IsOnScreen AndAlso BL.GetLocation.Z = Core.CharacterLoc.Z Then
+                            If BL.GetDistance < Consts.CavebotAttackerRadius Then
+                                If CheckRadius(BL.GetEntityID) = True Then
+                                    If AutoAttackerListEnabled Then
+                                        If Not Core.AutoAttackerList.Contains(BL.GetName) Then
+                                            Exit Sub
+                                        End If
+                                    End If
+                                    If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                                        CBState = CavebotState.None
+                                        'Core.ConsoleWrite("AttackerTimer: STOP!")
+                                        Proxy.SendPacketToServer(PacketUtils.StopEverything)
+                                        Core.WriteMemory(Consts.ptrGoToX, 0, 4)
+                                        Core.WriteMemory(Consts.ptrGoToY, 0, 4)
+                                        Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
+                                        System.Threading.Thread.Sleep(1000)
+                                    End If
+                                    WriteMemory(Consts.ptrAttackedEntityID, BL.GetEntityID, 4)
+                                    Proxy.SendPacketToServer(AttackEntity(BL.GetEntityID))
+                                    If CaveBotTimerObj.State = ThreadTimerState.Running Then CBState = CavebotState.Attacking
+                                    System.Threading.Thread.Sleep(2000)
+                                    Exit Sub
+                                End If
+                            End If
+                        End If
+                    Loop While BL.NextEntity(True) = True
+                End If
 
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

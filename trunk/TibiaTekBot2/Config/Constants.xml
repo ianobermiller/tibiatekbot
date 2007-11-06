@@ -26,6 +26,7 @@
   <Const Name="EquipItemsOnUse" Value="True" />
   <Const Name="AutoStackerDelay" Value="1000" />
   <Const Name="ModifyMOTD" Value="True" />
+  <Const Name="SmartAttacker" Value="True" />
   <Const Name="FPSWhenActive" Value="10" />
   <Const Name="FPSWhenInactive" Value="1" />
   <Const Name="FPSWhenMinimized" Value="1" />

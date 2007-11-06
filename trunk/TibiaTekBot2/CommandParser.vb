@@ -968,8 +968,33 @@ Public Module CommandParserModule
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Core.ConsoleWrite("Begin Test")
         Select Case Arguments(2).ToString.ToLower
-            Case "wpindex"
-                Core.ConsoleWrite(SelectNearestWaypoint(Core.Walker_Waypoints))
+            Case "bl"
+                Dim BL As New BattleList
+                BL.JumpToEntity(SpecialEntity.Myself)
+                Core.ConsoleWrite("BL: " & BL.GetLocation.Z & " Core:" & Core.CharacterLoc.Z)
+            Case "attacker"
+                Dim BL As New BattleList
+                Dim MyBl As New BattleList
+                Dim AttackerMonsters As SortedList
+                MyBl.JumpToEntity(SpecialEntity.Myself)
+                BL.Reset()
+                AttackerMonsters = New SortedList
+                AttackerMonsters.Clear()
+                Do
+                    If BL.IsMyself Then Continue Do
+                    If BL.IsPlayer Then Continue Do
+                    If Not BL.IsOnScreen Then Continue Do
+                    If BL.GetLocation.Z = MyBl.GetLocation.Z Then
+                        If Not AttackerMonsters.ContainsKey(BL.GetDistance) Then
+                            AttackerMonsters.Add(BL.GetDistance, BL.GetEntityID)
+                            Core.ConsoleWrite(BL.GetName)
+                        End If
+                    End If
+                Loop While BL.NextEntity
+                If AttackerMonsters.Count > 0 Then
+                    Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(AttackerMonsters.GetByIndex(0)))
+                    Core.WriteMemory(Consts.ptrAttackedEntityID, AttackerMonsters.GetByIndex(0), 4)
+                End If
             Case Else
                 Select Case Core.CBState
                     Case CavebotState.Attacking
@@ -2380,8 +2405,27 @@ Public Module CommandParserModule
                     Core.ComboBotLeader = MatchObj.Groups(1).ToString
                     Core.ComboBotEnabled = True
                     Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
+                    Exit Sub
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    If Value = "leader" Then
+                        Dim BL As New BattleList
+                        BL.Reset()
+                        If BL.JumpToEntity(SpecialEntity.Attacked) OrElse BL.JumpToEntity(SpecialEntity.Followed) Then
+                            If BL.IsPlayer Then
+                                Core.ComboBotLeader = BL.GetName
+                                Core.ComboBotEnabled = True
+                                Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
+                                Exit Sub
+                            Else
+                                Core.ConsoleError("You can only set players as leader.")
+                                Exit Sub
+                            End If
+                        Else
+                            Core.ConsoleError("You need to Attack/Follow player to set him/her as leader.")
+                            Exit Sub
+                        End If
+                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    End If
                 End If
         End Select
     End Sub
@@ -2421,7 +2465,6 @@ Public Module CommandParserModule
         End Select
     End Sub
 #End Region
-
 
 #Region " Ring Changer"
     Private Sub CmdRingChanger(ByVal Arguments As GroupCollection)
