@@ -30,6 +30,7 @@ Partial Class frmAlarms
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim tablalala As System.Windows.Forms.TabPage
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlarms))
         Me.GroupBox13 = New System.Windows.Forms.GroupBox
         Me.GroupBox15 = New System.Windows.Forms.GroupBox
         Me.Label8 = New System.Windows.Forms.Label
@@ -1019,7 +1020,7 @@ Partial Class frmAlarms
         Me.Controls.Add(Me.AlarmsSave)
         Me.Controls.Add(Me.Tabs)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb2
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
         Me.Name = "frmAlarms"
         Me.Text = "Alarms"
         tablalala.ResumeLayout(False)

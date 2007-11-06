@@ -125,7 +125,7 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 204</value>
+    <value>211, 226</value>
   </data>
   <data name="&gt;&gt;PopupMenu.Name" xml:space="preserve">
     <value>PopupMenu</value>
@@ -185,6 +185,12 @@
   <data name="ConstantsEditorMenuItem.Text" xml:space="preserve">
     <value>Constants Editor</value>
   </data>
+  <data name="MCPatchMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 22</value>
+  </data>
+  <data name="MCPatchMenuItem.Text" xml:space="preserve">
+    <value>Tibia Multi-Client Patch</value>
+  </data>
   <data name="ToolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>207, 6</value>
   </data>
@@ -206,48 +212,6 @@
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
   </metadata>
-  <data name="ConfigurationManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="ConfigurationManagerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Configuration &amp;Manager</value>
-  </data>
-  <data name="AutoLooterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="AutoLooterToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Auto Looter</value>
-  </data>
-  <data name="AutoStackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="AutoStackerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Auto &amp;Stacker</value>
-  </data>
-  <data name="LightEffectsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="LightEffectsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Light Effects</value>
-  </data>
-  <data name="AmmunitionRestackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="AmmunitionRestackerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Ammunition &amp;Restacker</value>
-  </data>
-  <data name="CommandsListToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="CommandsListToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Commands List</value>
-  </data>
-  <data name="CombobotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="CombobotToolStripMenuItem.Text" xml:space="preserve">
-    <value>C&amp;ombobot</value>
-  </data>
   <data name="GeneralToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
@@ -283,6 +247,24 @@
   </data>
   <data name="FunToolsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Fun Tools</value>
+  </data>
+  <data name="FeedbackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 22</value>
+  </data>
+  <data name="FeedbackToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Feedback</value>
+  </data>
+  <data name="ReloadDataFilesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 22</value>
+  </data>
+  <data name="ReloadDataFilesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Reload Configuration Files</value>
+  </data>
+  <data name="PatchToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 22</value>
+  </data>
+  <data name="PatchToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Tibia Multi-Client Patch</value>
   </data>
   <data name="MiscToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
@@ -338,6 +320,12 @@
   <data name="&gt;&gt;MenuStrip1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="ConfigurationManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="ConfigurationManagerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Configuration &amp;Manager</value>
+  </data>
   <data name="EditToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 22</value>
   </data>
@@ -355,6 +343,12 @@
   </data>
   <data name="ClearToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Clear</value>
+  </data>
+  <data name="AutoLooterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="AutoLooterToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Auto Looter</value>
   </data>
   <data name="OnToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 22</value>
@@ -374,6 +368,12 @@
   <data name="OffToolStripMenuItem.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
+  <data name="AutoStackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="AutoStackerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto &amp;Stacker</value>
+  </data>
   <data name="OnToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 22</value>
   </data>
@@ -385,6 +385,12 @@
   </data>
   <data name="OffToolStripMenuItem1.Text" xml:space="preserve">
     <value>O&amp;ff</value>
+  </data>
+  <data name="LightEffectsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="LightEffectsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Light Effects</value>
   </data>
   <data name="UtToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>160, 22</value>
@@ -440,16 +446,46 @@
   <data name="OffToolStripMenuItem2.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
+  <data name="AmmunitionRestackerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="AmmunitionRestackerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ammunition &amp;Restacker</value>
+  </data>
   <data name="OnToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>101, 22</value>
   </data>
   <data name="OnToolStripMenuItem2.Text" xml:space="preserve">
     <value>&amp;On</value>
   </data>
   <data name="OffToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>101, 22</value>
   </data>
   <data name="OffToolStripMenuItem3.Text" xml:space="preserve">
+    <value>O&amp;ff</value>
+  </data>
+  <data name="CommandsListToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="CommandsListToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Commands List</value>
+  </data>
+  <data name="CombobotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 22</value>
+  </data>
+  <data name="CombobotToolStripMenuItem.Text" xml:space="preserve">
+    <value>C&amp;ombobot</value>
+  </data>
+  <data name="OnToolStripMenuItem27.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 22</value>
+  </data>
+  <data name="OnToolStripMenuItem27.Text" xml:space="preserve">
+    <value>&amp;On</value>
+  </data>
+  <data name="OffToolStripMenuItem27.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 22</value>
+  </data>
+  <data name="OffToolStripMenuItem27.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
   <data name="SpellCasterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
@@ -1067,18 +1103,6 @@
   <data name="OffToolStripMenuItem21.Text" xml:space="preserve">
     <value>O&amp;ff</value>
   </data>
-  <data name="FeedbackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 22</value>
-  </data>
-  <data name="FeedbackToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Feedback</value>
-  </data>
-  <data name="ReloadDataFilesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 22</value>
-  </data>
-  <data name="ReloadDataFilesToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Reload Configuration Files</value>
-  </data>
   <data name="SpellsxmlToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 22</value>
   </data>
@@ -1110,34 +1134,28 @@
     <value>Tibia.dat</value>
   </data>
   <data name="AboutUsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 22</value>
+    <value>190, 22</value>
   </data>
   <data name="AboutUsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;About Us</value>
   </data>
   <data name="WebsiteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 22</value>
+    <value>190, 22</value>
   </data>
   <data name="WebsiteToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Website</value>
+    <value>Official &amp;Website</value>
   </data>
   <data name="VersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 22</value>
+    <value>190, 22</value>
   </data>
   <data name="VersionToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Version</value>
   </data>
-  <data name="OnToolStripMenuItem27.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+  <data name="DevelopmentWebsiteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
   </data>
-  <data name="OnToolStripMenuItem27.Text" xml:space="preserve">
-    <value>&amp;On</value>
-  </data>
-  <data name="OffToolStripMenuItem27.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
-  </data>
-  <data name="OffToolStripMenuItem27.Text" xml:space="preserve">
-    <value>O&amp;ff</value>
+  <data name="DevelopmentWebsiteToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Development Website</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1207,6 +1225,12 @@
     <value>ConstantsEditorMenuItem</value>
   </data>
   <data name="&gt;&gt;ConstantsEditorMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MCPatchMenuItem.Name" xml:space="preserve">
+    <value>MCPatchMenuItem</value>
+  </data>
+  <data name="&gt;&gt;MCPatchMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ToolStripSeparator2.Name" xml:space="preserve">
@@ -1393,6 +1417,24 @@
     <value>CommandsListToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;CommandsListToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CombobotToolStripMenuItem.Name" xml:space="preserve">
+    <value>CombobotToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;CombobotToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OnToolStripMenuItem27.Name" xml:space="preserve">
+    <value>OnToolStripMenuItem27</value>
+  </data>
+  <data name="&gt;&gt;OnToolStripMenuItem27.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffToolStripMenuItem27.Name" xml:space="preserve">
+    <value>OffToolStripMenuItem27</value>
+  </data>
+  <data name="&gt;&gt;OffToolStripMenuItem27.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;HealingToolsToolStripMenuItem.Name" xml:space="preserve">
@@ -2127,22 +2169,16 @@
   <data name="&gt;&gt;ExitToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;CombobotToolStripMenuItem.Name" xml:space="preserve">
-    <value>CombobotToolStripMenuItem</value>
+  <data name="&gt;&gt;DevelopmentWebsiteToolStripMenuItem.Name" xml:space="preserve">
+    <value>DevelopmentWebsiteToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;CombobotToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;DevelopmentWebsiteToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;OnToolStripMenuItem27.Name" xml:space="preserve">
-    <value>OnToolStripMenuItem27</value>
+  <data name="&gt;&gt;PatchToolStripMenuItem.Name" xml:space="preserve">
+    <value>PatchToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;OnToolStripMenuItem27.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;OffToolStripMenuItem27.Name" xml:space="preserve">
-    <value>OffToolStripMenuItem27</value>
-  </data>
-  <data name="&gt;&gt;OffToolStripMenuItem27.Type" xml:space="preserve">
+  <data name="&gt;&gt;PatchToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

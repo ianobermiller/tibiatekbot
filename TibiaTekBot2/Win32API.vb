@@ -3,7 +3,7 @@ Imports System.Runtime.InteropServices
 Public Class Win32API
 
     Public Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As Int32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
-    Public Declare Function WriteProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByVal lpBuffer() As Byte, ByVal nSize As Int16, ByVal lpNumberOfBytesWritten As Int32) As Long
+    Public Declare Function WriteProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByVal lpBuffer() As Byte, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
     Public Declare Function SetWindowText Lib "user32" Alias "SetWindowTextA" (ByVal hwnd As Int32, ByVal lpString As String) As Int32
     Public Declare Function GetWindowPlacement Lib "user32" (ByVal hWnd As IntPtr, ByRef windowPlacement As WindowPlacement) As Boolean
     Public Declare Function GetForegroundWindow Lib "user32" () As Integer

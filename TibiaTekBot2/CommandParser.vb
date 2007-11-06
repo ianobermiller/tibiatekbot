@@ -6,7 +6,7 @@ Imports System.Text.RegularExpressions, TibiaTekBot.frmMain, _
 Public Module CommandParserModule
 
     Public Sub CommandParser(ByVal Message As String)
-
+        If Not Core.InGame() Then Exit Sub
         Dim MatchObj As Match = Regex.Match(Message, "^([a-zA-Z]+)\s*([^;]*)$")
         If MatchObj.Success Then
             Select Case MatchObj.Groups(1).Value.ToLower

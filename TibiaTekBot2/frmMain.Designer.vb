@@ -31,6 +31,7 @@ Partial Class frmMain
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem
         Me.ConstantsEditorMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.MCPatchMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
         Me.ShowHideTibiaWindow = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
@@ -63,6 +64,9 @@ Partial Class frmMain
         Me.OnToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem
         Me.OffToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem
         Me.CommandsListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.CombobotToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.OnToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem
+        Me.OffToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem
         Me.HealingToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.SpellCasterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.OnToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem
@@ -185,9 +189,8 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.HideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CombobotToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.OnToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem
-        Me.OffToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem
+        Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.PatchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -196,12 +199,12 @@ Partial Class frmMain
         '
         Me.NotifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info
         Me.NotifyIcon.ContextMenuStrip = Me.PopupMenu
-        Me.NotifyIcon.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb2_16x16
+        Me.NotifyIcon.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21_16
         resources.ApplyResources(Me.NotifyIcon, "NotifyIcon")
         '
         'PopupMenu
         '
-        Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2, Me.ToolStripSeparator4, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ToolStripMenuItem3, Me.ConstantsEditorMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
+        Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2, Me.ToolStripSeparator4, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ToolStripMenuItem3, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.PopupMenu.ShowImageMargin = False
@@ -229,8 +232,8 @@ Partial Class frmMain
         '
         'CharacterStatisticsMenuItem
         '
-        Me.CharacterStatisticsMenuItem.Name = "CharacterStatisticsMenuItem"
         resources.ApplyResources(Me.CharacterStatisticsMenuItem, "CharacterStatisticsMenuItem")
+        Me.CharacterStatisticsMenuItem.Name = "CharacterStatisticsMenuItem"
         '
         'ToolStripSeparator5
         '
@@ -246,6 +249,11 @@ Partial Class frmMain
         '
         Me.ConstantsEditorMenuItem.Name = "ConstantsEditorMenuItem"
         resources.ApplyResources(Me.ConstantsEditorMenuItem, "ConstantsEditorMenuItem")
+        '
+        'MCPatchMenuItem
+        '
+        Me.MCPatchMenuItem.Name = "MCPatchMenuItem"
+        resources.ApplyResources(Me.MCPatchMenuItem, "MCPatchMenuItem")
         '
         'ToolStripSeparator2
         '
@@ -414,6 +422,22 @@ Partial Class frmMain
         '
         Me.CommandsListToolStripMenuItem.Name = "CommandsListToolStripMenuItem"
         resources.ApplyResources(Me.CommandsListToolStripMenuItem, "CommandsListToolStripMenuItem")
+        '
+        'CombobotToolStripMenuItem
+        '
+        Me.CombobotToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnToolStripMenuItem27, Me.OffToolStripMenuItem27})
+        Me.CombobotToolStripMenuItem.Name = "CombobotToolStripMenuItem"
+        resources.ApplyResources(Me.CombobotToolStripMenuItem, "CombobotToolStripMenuItem")
+        '
+        'OnToolStripMenuItem27
+        '
+        Me.OnToolStripMenuItem27.Name = "OnToolStripMenuItem27"
+        resources.ApplyResources(Me.OnToolStripMenuItem27, "OnToolStripMenuItem27")
+        '
+        'OffToolStripMenuItem27
+        '
+        Me.OffToolStripMenuItem27.Name = "OffToolStripMenuItem27"
+        resources.ApplyResources(Me.OffToolStripMenuItem27, "OffToolStripMenuItem27")
         '
         'HealingToolsToolStripMenuItem
         '
@@ -990,7 +1014,7 @@ Partial Class frmMain
         '
         'MiscToolsToolStripMenuItem
         '
-        Me.MiscToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FeedbackToolStripMenuItem, Me.ReloadDataFilesToolStripMenuItem})
+        Me.MiscToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FeedbackToolStripMenuItem, Me.ReloadDataFilesToolStripMenuItem, Me.PatchToolStripMenuItem})
         Me.MiscToolsToolStripMenuItem.Name = "MiscToolsToolStripMenuItem"
         resources.ApplyResources(Me.MiscToolsToolStripMenuItem, "MiscToolsToolStripMenuItem")
         '
@@ -1032,7 +1056,7 @@ Partial Class frmMain
         '
         'AboutToolStripMenuItem
         '
-        Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutUsToolStripMenuItem, Me.WebsiteToolStripMenuItem, Me.VersionToolStripMenuItem})
+        Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutUsToolStripMenuItem, Me.WebsiteToolStripMenuItem, Me.VersionToolStripMenuItem, Me.DevelopmentWebsiteToolStripMenuItem})
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         resources.ApplyResources(Me.AboutToolStripMenuItem, "AboutToolStripMenuItem")
         '
@@ -1061,21 +1085,15 @@ Partial Class frmMain
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         resources.ApplyResources(Me.ExitToolStripMenuItem, "ExitToolStripMenuItem")
         '
-        'CombobotToolStripMenuItem
+        'DevelopmentWebsiteToolStripMenuItem
         '
-        Me.CombobotToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnToolStripMenuItem27, Me.OffToolStripMenuItem27})
-        Me.CombobotToolStripMenuItem.Name = "CombobotToolStripMenuItem"
-        resources.ApplyResources(Me.CombobotToolStripMenuItem, "CombobotToolStripMenuItem")
+        Me.DevelopmentWebsiteToolStripMenuItem.Name = "DevelopmentWebsiteToolStripMenuItem"
+        resources.ApplyResources(Me.DevelopmentWebsiteToolStripMenuItem, "DevelopmentWebsiteToolStripMenuItem")
         '
-        'OnToolStripMenuItem27
+        'PatchToolStripMenuItem
         '
-        Me.OnToolStripMenuItem27.Name = "OnToolStripMenuItem27"
-        resources.ApplyResources(Me.OnToolStripMenuItem27, "OnToolStripMenuItem27")
-        '
-        'OffToolStripMenuItem27
-        '
-        Me.OffToolStripMenuItem27.Name = "OffToolStripMenuItem27"
-        resources.ApplyResources(Me.OffToolStripMenuItem27, "OffToolStripMenuItem27")
+        Me.PatchToolStripMenuItem.Name = "PatchToolStripMenuItem"
+        resources.ApplyResources(Me.PatchToolStripMenuItem, "PatchToolStripMenuItem")
         '
         'frmMain
         '
@@ -1086,7 +1104,7 @@ Partial Class frmMain
         Me.ControlBox = False
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb2
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
@@ -1269,4 +1287,7 @@ Partial Class frmMain
     Friend WithEvents CombobotToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OnToolStripMenuItem27 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OffToolStripMenuItem27 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MCPatchMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DevelopmentWebsiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PatchToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
