@@ -1,0 +1,6 @@
+#summary TibiaTek Bot User Manual.
+#labels Phase-Deploy,Phase-QA,Phase-Support
+
+= Introduction =
+
+The manual is not yet available.
