@@ -24,8 +24,8 @@ Imports System, System.Net, System.Net.Sockets, System.Text, System.Globalizatio
 ' 5. Add Ammo Restacker (done)
 ' 6. Add Auto Attacker (done)
 ' 7. Add Char Information (done)
-' 8. Add Configuration Manager 
-' 9. Add Auto Drinker
+' 8. Add Configuration Manager (done)
+' 9. Add Auto Drinker (done)
 ' 10. Add Auto Eater (done)
 ' 11. Add Edit Command ???
 ' 12. Add Experience Checker (done)
@@ -43,7 +43,7 @@ Imports System, System.Net, System.Net.Sockets, System.Text, System.Globalizatio
 ' 24. Add Auto Looter (done)
 ' 25. Add Monsters/exp
 ' 26. Add Open (done)
-' 27. Add Outfit Copier
+' 27. Add Outfit Copier (done)
 ' 28. Add Spear Pickup (done)
 ' 29. Add Spell Caster (done)
 ' 30. Add Auto UHer (done)
