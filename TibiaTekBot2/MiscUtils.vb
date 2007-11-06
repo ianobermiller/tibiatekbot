@@ -21,6 +21,16 @@ Module MiscUtils
         Return "\Data"
     End Function
 
+    Public Function TimeSpanToString(ByVal Time As TimeSpan) As String
+        If Time.Days > 0 Then
+            Return Time.Days & "d" & Time.Hours & "h" & Time.Minutes & "m" & Time.Seconds & "s"
+        Else
+            Return Time.Hours & "h" & Time.Minutes & "m" & Time.Seconds & "s"
+        End If
+
+
+    End Function
+
     Public Function FPSXToB(ByVal X As Double) As Double
         Try
             Return Round(1100 / (X + 5), 1)

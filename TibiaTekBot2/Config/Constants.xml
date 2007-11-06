@@ -20,8 +20,8 @@
   <Const Name="EatFromFloorFirst" Value="True" />
   <Const Name="EatFromFloorMaxDistance" Value="1.5" />
   <Const Name="AutoPickUpDelay" Value="2000" />
-  <Const Name="HealersCheckInterval" Value="500" />
-  <Const Name="HealersAfterHealDelay" Value="1000" />
+  <Const Name="HealersCheckInterval" Value="300" />
+  <Const Name="HealersAfterHealDelay" Value="300" />
   <Const Name="HotkeysCanEquipItems" Value="True" />
   <Const Name="EquipItemsOnUse" Value="True" />
   <Const Name="AutoStackerDelay" Value="1000" />
@@ -66,12 +66,16 @@
   <Const Name="ptrFirstContainer" Value="H617000" />
   <Const Name="ptrInventoryBegin" Value="H616f88" />
   <Const Name="ptrLevel" Value="H60EAC0" />
+  <Const Name="ptrLevelPercent" Value="H60EAB8" />
+  <Const Name="ptrMagicLevel" Value="H60EABC" />
+  <Const Name="ptrMagicLevelPercent" Value="H60EAB4" />
   <Const Name="ptrExperience" Value="H60EAC4" />
   <Const Name="ptrFollowedEntityID" Value="H60EA98" />
   <Const Name="ptrAttackedEntityID" Value="H60EA9C" />
   <Const Name="ptrLastAttackedEntityID" Value="H76DA10" />
   <Const Name="ptrMaxHitPoints" Value="H60EAC8" />
   <Const Name="ptrHitPoints" Value="H60EACC" />
+  <Const Name="ptrMaxManaPoints" Value="H60EAAC" />
   <Const Name="ptrManaPoints" Value="H60EAB0" />
   <Const Name="ptrSoulPoints" Value="H60EAA8" />
   <Const Name="ptrCapacity" Value="H60EAA0" />
@@ -153,4 +157,7 @@
   <Const Name="NameSpy2Default" Value="H4275" />
   <Const Name="CavebotAttackerShrinkRadius" Value="1.0" />
   <Const Name="WaypointMaxDistance" Value="100" />
+  <Const Name="MCPatchOffset" Value="HF6224" />
+  <Const Name="MCPatchReplacement" Value="HEB" />
+  <Const Name="MCPatchOriginal" Value="H75" />
 </Constants>

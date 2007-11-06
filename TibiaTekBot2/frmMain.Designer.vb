@@ -183,14 +183,14 @@ Partial Class frmMain
         Me.ItemsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ConstantsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TibiadatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.PatchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutUsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.WebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.HideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.PatchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -232,8 +232,8 @@ Partial Class frmMain
         '
         'CharacterStatisticsMenuItem
         '
-        resources.ApplyResources(Me.CharacterStatisticsMenuItem, "CharacterStatisticsMenuItem")
         Me.CharacterStatisticsMenuItem.Name = "CharacterStatisticsMenuItem"
+        resources.ApplyResources(Me.CharacterStatisticsMenuItem, "CharacterStatisticsMenuItem")
         '
         'ToolStripSeparator5
         '
@@ -1054,6 +1054,11 @@ Partial Class frmMain
         Me.TibiadatToolStripMenuItem.Name = "TibiadatToolStripMenuItem"
         resources.ApplyResources(Me.TibiadatToolStripMenuItem, "TibiadatToolStripMenuItem")
         '
+        'PatchToolStripMenuItem
+        '
+        Me.PatchToolStripMenuItem.Name = "PatchToolStripMenuItem"
+        resources.ApplyResources(Me.PatchToolStripMenuItem, "PatchToolStripMenuItem")
+        '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutUsToolStripMenuItem, Me.WebsiteToolStripMenuItem, Me.VersionToolStripMenuItem, Me.DevelopmentWebsiteToolStripMenuItem})
@@ -1075,6 +1080,11 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
         resources.ApplyResources(Me.VersionToolStripMenuItem, "VersionToolStripMenuItem")
         '
+        'DevelopmentWebsiteToolStripMenuItem
+        '
+        Me.DevelopmentWebsiteToolStripMenuItem.Name = "DevelopmentWebsiteToolStripMenuItem"
+        resources.ApplyResources(Me.DevelopmentWebsiteToolStripMenuItem, "DevelopmentWebsiteToolStripMenuItem")
+        '
         'HideToolStripMenuItem
         '
         Me.HideToolStripMenuItem.Name = "HideToolStripMenuItem"
@@ -1084,16 +1094,6 @@ Partial Class frmMain
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         resources.ApplyResources(Me.ExitToolStripMenuItem, "ExitToolStripMenuItem")
-        '
-        'DevelopmentWebsiteToolStripMenuItem
-        '
-        Me.DevelopmentWebsiteToolStripMenuItem.Name = "DevelopmentWebsiteToolStripMenuItem"
-        resources.ApplyResources(Me.DevelopmentWebsiteToolStripMenuItem, "DevelopmentWebsiteToolStripMenuItem")
-        '
-        'PatchToolStripMenuItem
-        '
-        Me.PatchToolStripMenuItem.Name = "PatchToolStripMenuItem"
-        resources.ApplyResources(Me.PatchToolStripMenuItem, "PatchToolStripMenuItem")
         '
         'frmMain
         '

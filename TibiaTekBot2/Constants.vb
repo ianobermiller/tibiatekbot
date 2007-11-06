@@ -56,6 +56,7 @@ Public Module ConstantsModule
         Public ptrMaxHitPoints As Integer = 0
         Public ptrHitPoints As Integer = 0
         Public ptrManaPoints As Integer = 0
+        Public ptrMaxManaPoints As Integer = 0
         Public ptrSoulPoints As Integer = 0
         Public ptrCapacity As Integer = 0
         Public ptrCoordX As Integer = 0
@@ -77,6 +78,7 @@ Public Module ConstantsModule
         Public ptrHotkeyBegin As Integer = 0
         Public ptrWindowBegin As Integer = 0
         Public ptrLevelPercent As Integer = 0
+        Public ptrMagicLevel As Integer = 0
         Public ptrMagicLevelPercent As Integer = 0
 
         Public WindowLeftOffset As Integer = 0
@@ -310,6 +312,8 @@ Public Module ConstantsModule
                                                     ptrHitPoints = CInt(Value)
                                                 Case "ptrManaPoints"
                                                     ptrManaPoints = CInt(Value)
+                                                Case "ptrMaxManaPoints"
+                                                    ptrMaxManaPoints = CInt(Value)
                                                 Case "ptrSoulPoints"
                                                     ptrSoulPoints = CInt(Value)
                                                 Case "ptrCapacity"
@@ -350,6 +354,8 @@ Public Module ConstantsModule
                                                     ptrWindowBegin = CInt(Value)
                                                 Case "ptrLevelPercent"
                                                     ptrLevelPercent = CInt(Value)
+                                                Case "ptrMagicLevel"
+                                                    ptrMagicLevel = CInt(Value)
                                                 Case "ptrMagicLevelPercent"
                                                     ptrMagicLevelPercent = CInt(Value)
                                                 Case "WindowLeftOffset"
@@ -554,7 +560,7 @@ Public Module ConstantsModule
         "http://www.tibiatek.com/ and " & Ret & _
         "http://www.xcreations.net/~tpforums/forum/"
     Public Const ConsoleChannelID As Integer = &H64
-    Public Const ConsoleLevel As Integer = &H539
+    Public Const ConsoleLevel As Integer = &H65
     Public Const ConsoleName As String = BotName
     Public Const Debug As Boolean = False
 
