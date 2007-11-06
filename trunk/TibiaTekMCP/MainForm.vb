@@ -12,11 +12,11 @@ Public Class MainForm
             If Not OpenDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then Exit Sub
             Dim FVI As FileVersionInfo = FileVersionInfo.GetVersionInfo(OpenDialog.FileName)
             If Not FVI.ProductName.Equals(MySettings.Default.ProductName) Then
-                MessageBox.Show(MySettings.Default.ErrorMsg1, MySettings.Default.ErrorCaption, MessageBoxButtons.OK)
+                MessageBox.Show(MySettings.Default.ErrorMsg1, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
             If Not FVI.ProductVersion.Equals(MySettings.Default.ProductVersion) Then
-                MessageBox.Show(MySettings.Default.ErrorMsg2 & MySettings.Default.ProductVersion, MySettings.Default.ErrorCaption, MessageBoxButtons.OK)
+                MessageBox.Show(MySettings.Default.ErrorMsg2 & MySettings.Default.ProductVersion, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
             Filename = OpenDialog.FileName
@@ -30,7 +30,7 @@ Public Class MainForm
             Dim FSR As New FileStream(Filename, FileMode.Open, FileAccess.Read)
             FSR.Seek(MySettings.Default.PatchOffset, SeekOrigin.Begin)
             If FSR.ReadByte = MySettings.Default.PatchReplacement Then
-                MessageBox.Show(MySettings.Default.ErrorMsg3, MySettings.Default.ErrorCaption, MessageBoxButtons.OK)
+                MessageBox.Show(MySettings.Default.ErrorMsg3, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 FSR.Close()
                 Exit Sub
             End If
@@ -38,7 +38,7 @@ Public Class MainForm
             TibiaExecutableTextBox.Text = Filename
             PatchButton.Enabled = True
         Catch Ex As Exception
-            MessageBox.Show("Error: " & Ex.Message & vbCrLf & "Stack Trace: " & Ex.StackTrace, MySettings.Default.ErrorCaption, MessageBoxButtons.OK)
+            MessageBox.Show("Error: " & Ex.Message & vbCrLf & "Stack Trace: " & Ex.StackTrace, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -50,9 +50,9 @@ Public Class MainForm
     Private Sub PatchButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PatchButton.Click
         
         Try
-            If MessageBox.Show("Would you like to make a backup of your Tibia Executable?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
+            If MessageBox.Show(MySettings.Default.PatchMsg1, MySettings.Default.QuestionCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
                 File.Copy(Filename, Directory & "\" & MySettings.Default.BackupExecutable, True)
-                MessageBox.Show("Backup of the Tibia Executable saved to """ & Directory & "\" & MySettings.Default.BackupExecutable & """.", "Backup Complete", MessageBoxButtons.OK)
+                MessageBox.Show(MySettings.Default.PatchMsg2 & " """ & Directory & "\" & MySettings.Default.BackupExecutable & """.", MySettings.Default.PatchCaption1, MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
             If SaveDialog.ShowDialog() <> Forms.DialogResult.OK Then
@@ -65,11 +65,10 @@ Public Class MainForm
             ProgressBar1.Visible = True
             BGW.RunWorkerAsync()
         Catch Ex As Exception
-            MessageBox.Show("Error: " & Ex.Message & vbCrLf & "Stack Trace: " & Ex.StackTrace, MySettings.Default.ErrorCaption, MessageBoxButtons.OK)
+            MessageBox.Show("Error: " & Ex.Message & vbCrLf & "Stack Trace: " & Ex.StackTrace, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
-
 
     Private Sub BGW_ProgressChanged(ByVal sender As System.Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles BGW.ProgressChanged
         ProgressBar1.Value = e.ProgressPercentage
@@ -110,11 +109,20 @@ Public Class MainForm
                 File.Delete(SaveDialog.FileName)
             End If
             File.Move(Directory & "\Tibia.exe.tmp", SaveDialog.FileName)
-            MessageBox.Show("Successfully patched.", "Complete", MessageBoxButtons.OK)
+            MessageBox.Show(MySettings.Default.PatchMsg3, MySettings.Default.CompleteCaption, MessageBoxButtons.OK, MessageBoxIcon.Information)
             PatchButton.Enabled = False
         Catch Ex As Exception
-            MessageBox.Show("Error: " & Ex.Message & vbCrLf & "Stack Trace: " & Ex.StackTrace, MySettings.Default.ErrorCaption, MessageBoxButtons.OK)
+            MessageBox.Show("Error: " & Ex.Message & vbCrLf & "Stack Trace: " & Ex.StackTrace, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
+
+    Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        System.Diagnostics.Process.Start(MySettings.Default.CreditsTTDTUrl)
+    End Sub
+
+    Private Sub LinkLabel2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
+        System.Diagnostics.Process.Start(MySettings.Default.CreditsTSUrl)
+    End Sub
+
 End Class
