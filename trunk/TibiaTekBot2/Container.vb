@@ -2,7 +2,7 @@
 Public Module ContainerModule
 
     Public Structure ContainerItemDefinition
-        Dim ID As UShort
+        Dim ID As Integer
         Dim Count As Integer
         Dim ContainerIndex As Integer
         Dim Slot As Integer
@@ -14,7 +14,7 @@ Public Module ContainerModule
                 Me.ContainerIndex = ContainerIndex
                 Me.Slot = Slot
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Sub
@@ -26,7 +26,7 @@ Public Module ContainerModule
                 Me.ContainerIndex = 0
                 Me.Slot = 0
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Sub
@@ -38,7 +38,7 @@ Public Module ContainerModule
                 Me.ContainerIndex = 0
                 Me.Slot = 0
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Sub
@@ -53,7 +53,7 @@ Public Module ContainerModule
                     Loc.Z = Slot
                     Return Loc
                 Catch Ex As Exception
-                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End
                 End Try
             End Get
@@ -66,7 +66,7 @@ Public Module ContainerModule
                     End If
                     Slot = NewValue.Z
                 Catch Ex As Exception
-                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End
                 End Try
             End Set
@@ -94,7 +94,7 @@ Public Module ContainerModule
                 End If
                 Return Me.ContainerIsOpened
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -111,12 +111,12 @@ Public Module ContainerModule
                     Return False
                 End If
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
 
-        Public Shared Function FindItem(ByRef Item As ContainerItemDefinition, ByVal ItemID As Short, Optional ByVal ContainerIndexOffset As Integer = 0, Optional ByVal IndexOffset As Integer = 0, Optional ByVal ContainerIndexMax As Integer = 0, Optional ByVal MinCount As Integer = 0, Optional ByVal MaxCount As Integer = 100) As Boolean
+        Public Shared Function FindItem(ByRef Item As ContainerItemDefinition, ByVal ItemID As Integer, Optional ByVal ContainerIndexOffset As Integer = 0, Optional ByVal IndexOffset As Integer = 0, Optional ByVal ContainerIndexMax As Integer = 0, Optional ByVal MinCount As Integer = 0, Optional ByVal MaxCount As Integer = 100) As Boolean
             Try
                 Dim mIsOpened As Integer = 0
                 Dim mContainerItemCount As Integer = 0
@@ -126,11 +126,11 @@ Public Module ContainerModule
                 If ContainerIndexMax = 0 Then ContainerIndexMax = ContainerIndexOffset
                 If ContainerIndexMax >= Consts.MaxContainers Then ContainerIndexMax = Consts.MaxContainers - 1
                 If ContainerIndexOffset > (Consts.MaxContainers - 1) Then ContainerIndexOffset = Consts.MaxContainers - 1
-                For I As Short = ContainerIndexOffset To ContainerIndexMax
+                For I As Integer = ContainerIndexOffset To ContainerIndexMax
                     Core.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
                     Core.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + Consts.ContainerItemCountOffset, mContainerItemCount, 1)
-                    If mIsOpened Then
-                        Dim ItemIndexStart As Short
+                    If CBool(mIsOpened) Then
+                        Dim ItemIndexStart As Integer
                         If FirstLoop Then
                             ItemIndexStart = IndexOffset
                             FirstLoop = False
@@ -138,7 +138,7 @@ Public Module ContainerModule
                             ItemIndexStart = 0
                         End If
                         If ItemIndexStart >= mContainerItemCount Then Continue For
-                        For E As Short = ItemIndexStart To mContainerItemCount - 1
+                        For E As Integer = ItemIndexStart To mContainerItemCount - 1
                             Core.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + (Consts.ItemDist * E) + Consts.ContainerFirstItemOffset, mItemID, 2)
                             Core.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + (Consts.ItemDist * E) + Consts.ContainerFirstItemOffset + Consts.ItemCountOffset, mItemCount, 1)
                             If ItemID = mItemID AndAlso mItemCount >= MinCount AndAlso mItemCount <= MaxCount Then 'found!
@@ -153,7 +153,7 @@ Public Module ContainerModule
                 Next
                 Return False
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -161,9 +161,9 @@ Public Module ContainerModule
         Public Function NextContainer() As Boolean
             Try
                 Dim mIsOpened As Integer = 0
-                For I As Short = Me.ContainerIndex + 1 To Consts.MaxContainers - 1
+                For I As Integer = Me.ContainerIndex + 1 To Consts.MaxContainers - 1
                     Core.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
-                    If mIsOpened Then
+                    If CBool(mIsOpened) Then
                         ContainerIndex = I
                         ContainerItemCount = GetItemCount()
                         ContainerIsOpened = True
@@ -172,7 +172,7 @@ Public Module ContainerModule
                 Next
                 Return False
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -188,7 +188,7 @@ Public Module ContainerModule
                 Loop While Cont.NextContainer()
                 Return ContCount
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -199,7 +199,7 @@ Public Module ContainerModule
                 Core.ReadMemory(Consts.ptrFirstContainer + (Index * Consts.ContainerDist), mIsOpened, 1)
                 Return CBool(mIsOpened)
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -210,7 +210,7 @@ Public Module ContainerModule
                 Core.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist), mIsOpened, 1)
                 Return CBool(mIsOpened)
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -222,7 +222,7 @@ Public Module ContainerModule
                     Core.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerNameOffset, Name)
                     Return Name
                 Catch Ex As Exception
-                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End
                 End Try
             End Get
@@ -231,9 +231,9 @@ Public Module ContainerModule
         Public Function PrevContainer() As Boolean
             Try
                 Dim mIsOpened As Integer = 0
-                For I As Short = ContainerIndex To 0 Step -1
+                For I As Integer = ContainerIndex To 0 Step -1
                     Core.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
-                    If mIsOpened Then
+                    If CBool(mIsOpened) Then
                         ContainerIndex = I
                         Me.ContainerItemCount = GetItemCount()
                         Me.ContainerIsOpened = True
@@ -242,7 +242,7 @@ Public Module ContainerModule
                 Next
                 Return False
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -257,7 +257,7 @@ Public Module ContainerModule
                 Do
                     If MyC.IsOpened() Then
                         ContainerItemCount = MyC.GetItemCount
-                        For I As Short = 0 To ContainerItemCount - 1
+                        For I As Integer = 0 To ContainerItemCount - 1
                             Item = MyC.Items(I)
                             If Item.ID = ItemID Then
                                 If Item.Count = 0 Then
@@ -271,7 +271,7 @@ Public Module ContainerModule
                 Loop While MyC.NextContainer()
                 Return Count
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -283,7 +283,7 @@ Public Module ContainerModule
                     Core.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerItemCountOffset, ItemCount, 1)
                     Return CInt(ItemCount)
                 Catch Ex As Exception
-                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End
                 End Try
             End Get
@@ -296,7 +296,7 @@ Public Module ContainerModule
                     Core.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerSizeOffset, Size, 1)
                     Return CInt(Size)
                 Catch Ex As Exception
-                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End
                 End Try
             End Get
@@ -309,7 +309,7 @@ Public Module ContainerModule
                     Core.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerIDOffset, ID, 4)
                     Return CInt(ID)
                 Catch Ex As Exception
-                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End
                 End Try
             End Get
@@ -321,7 +321,7 @@ Public Module ContainerModule
                 Core.ReadMemory(Consts.ptrFirstContainer + (CIndex * Consts.ContainerDist) + Consts.ContainerHasParentOffset, HasP, 1)
                 Return (HasP = 1)
             Catch Ex As Exception
-                MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
             End Try
         End Function
@@ -333,7 +333,7 @@ Public Module ContainerModule
                     Core.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerHasParentOffset, HasP, 1)
                     Return (HasP = 1)
                 Catch Ex As Exception
-                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End
                 End Try
             End Get
@@ -366,7 +366,7 @@ Public Module ContainerModule
                     End If
                     Return Item
                 Catch Ex As Exception
-                    MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End
                 End Try
             End Get

@@ -178,6 +178,10 @@ Public Module ConstantsModule
         Public ptrStatusMessage As Integer = 0
         Public ptrStatusMessageTimer As Integer = 0
 
+        Public MCPatchOffset As Integer = 0
+        Public MCPatchReplacement As Integer = 0
+        Public MCPatchOriginal As Integer = 0
+
         Public Sub New()
             LoadConstants()
         End Sub
@@ -514,6 +518,12 @@ Public Module ConstantsModule
                                                     WaypointMaxDistance = CInt(Value)
                                                 Case "CavebotAttackerRadius"
                                                     CavebotAttackerRadius = System.Double.Parse(Value, NumberStyles.Number, CI)
+                                                Case "MCPatchOffset"
+                                                    MCPatchOffset = CInt(Value)
+                                                Case "MCPatchReplacement"
+                                                    MCPatchReplacement = CInt(Value)
+                                                Case "MCPatchOriginal"
+                                                    MCPatchOriginal = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
@@ -534,6 +544,7 @@ Public Module ConstantsModule
 
     Public Const Ret As Char = Chr(&HA)
     Public Const BotVersion As String = "2.1.0"
+    Public Const TibiaVersion As String = "8.00"
     Public Const BotStage As String = "Final" 'Alpha,Beta,Final,etc
     Public Const BotName As String = "TibiaTek Bot"
     Public Const BotWebsite As String = "http://www.tibiatek.com"
@@ -716,7 +727,7 @@ Public Module ConstantsModule
     End Enum
 
     Public Enum Skills
-        FistFighting
+        FistFighting = 0
         ClubFighting
         SwordFighting
         AxeFighting

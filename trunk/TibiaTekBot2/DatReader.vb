@@ -50,7 +50,7 @@ Public Module DatReaderModule
             End Get
         End Property
 
-        Public Function GetInfo(ByVal ItemID As UShort) As DatTile
+        Public Function GetInfo(ByVal ItemID As Integer) As DatTile
             If ItemID >= DatTiles.Length Then Return Nothing
             Return DatTiles(ItemID)
         End Function

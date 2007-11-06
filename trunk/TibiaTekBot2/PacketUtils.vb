@@ -16,7 +16,7 @@ Module PacketUtils
             Start = intTemp + Start
             Return strString
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -27,7 +27,7 @@ Module PacketUtils
             Start += 1
             Return Result
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -38,7 +38,7 @@ Module PacketUtils
             Start += 2
             Return Result
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -52,7 +52,7 @@ Module PacketUtils
             Start += 4
             Return Result
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -65,7 +65,7 @@ Module PacketUtils
             Loc.Z = GetByte(bytbuffer, Start)
             Return Loc
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -86,7 +86,7 @@ Module PacketUtils
             bytBuffer(1) = bytTemp(1)
             bytBuffer(intTemp + 1) = bytByte
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -104,7 +104,7 @@ Module PacketUtils
             bytBuffer(intTemp + 1) = bytTemp(0)
             bytBuffer(intTemp + 2) = bytTemp(1)
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -124,7 +124,7 @@ Module PacketUtils
                 bytBuffer(intTemp + I + 1) = bytTemp(I)
             Next
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -147,7 +147,7 @@ Module PacketUtils
                 bytBuffer(intTemp + intCounter) = Asc(chrTemp(intCounter - 1))
             Next
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -188,7 +188,7 @@ Module PacketUtils
             AddString(bytBuffer, Message)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -202,7 +202,7 @@ Module PacketUtils
             AddString(bytBuffer, Message)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -215,7 +215,7 @@ Module PacketUtils
             AddString(bytBuffer, Message)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -231,7 +231,7 @@ Module PacketUtils
             AddString(bytBuffer, Message)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -259,7 +259,7 @@ Module PacketUtils
             AddString(bytBuffer, Message)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -277,7 +277,7 @@ Module PacketUtils
             AddString(bytBuffer, ChannelName)
             Core.Proxy.SendPacketToClient(bytBuffer)
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -354,7 +354,7 @@ Module PacketUtils
     'Return bytBuffer
     'End Function
 
-    Public Function MoveObject(ByVal ItemID As UShort, ByVal Source As LocationDefinition, ByVal Destination As LocationDefinition, ByVal Count As Byte) As Byte()
+    Public Function MoveObject(ByVal ItemID As Integer, ByVal Source As LocationDefinition, ByVal Destination As LocationDefinition, ByVal Count As Integer) As Byte()
         Try
             Dim bytBuffer(1) As Byte
             AddByte(bytBuffer, &H78)
@@ -366,15 +366,15 @@ Module PacketUtils
             AddWord(bytBuffer, Destination.X)
             AddWord(bytBuffer, Destination.Y)
             AddByte(bytBuffer, Destination.Z)
-            AddByte(bytBuffer, Count)
+            AddByte(bytBuffer, CByte(Count))
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
 
-    Public Function MoveObject(ByVal Item As ContainerItemDefinition, ByVal Destination As LocationDefinition, ByVal Count As Byte) As Byte()
+    Public Function MoveObject(ByVal Item As ContainerItemDefinition, ByVal Destination As LocationDefinition, ByVal Count As Integer) As Byte()
         Try
             Dim bytBuffer(1) As Byte
             AddByte(bytBuffer, &H78)
@@ -386,10 +386,10 @@ Module PacketUtils
             AddWord(bytBuffer, Destination.X)
             AddWord(bytBuffer, Destination.Y)
             AddByte(bytBuffer, Destination.Z)
-            AddByte(bytBuffer, Count)
+            AddByte(bytBuffer, CByte(Count))
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -411,7 +411,7 @@ Module PacketUtils
             AddByte(bytBuffer, Count)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -432,12 +432,12 @@ Module PacketUtils
             AddByte(bytBuffer, Item.ContainerIndex)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
 
-    Public Function UseObjectOnGround(ByVal ItemID As UShort, ByVal Source As LocationDefinition, Optional ByVal OpenLoc As Byte = 1) As Byte()
+    Public Function UseObjectOnGround(ByVal ItemID As Integer, ByVal Source As LocationDefinition, Optional ByVal OpenLoc As Byte = 1) As Byte()
         Try
             Dim bytBuffer(&H1) As Byte
             AddByte(bytBuffer, &H82)
@@ -457,7 +457,7 @@ Module PacketUtils
             AddByte(bytBuffer, OpenLoc)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -519,7 +519,7 @@ Module PacketUtils
             '            Trace.WriteLine("UseObjectWithObjectOnGround>" & BytesToStr(bytBuffer))
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -534,7 +534,7 @@ Module PacketUtils
             AddByte(bytBuffer, &HBE)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -551,7 +551,7 @@ Module PacketUtils
             AddString(bytBuffer, Message)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -590,7 +590,7 @@ Module PacketUtils
             AddByte(bytBuffer, SecureMode)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -633,7 +633,7 @@ Module PacketUtils
 #End Region
 
 #Region " Change Outfit"
-    Public Function ChangeOutfit(ByVal OutfitID As UShort, ByVal HeadColor As Byte, ByVal BodyColor As Byte, ByVal LegsColor As Byte, ByVal FeetColor As Byte, ByVal Addons As Byte) As Byte()
+    Public Function ChangeOutfit(ByVal OutfitID As Integer, ByVal HeadColor As Integer, ByVal BodyColor As Integer, ByVal LegsColor As Integer, ByVal FeetColor As Integer, ByVal Addons As Integer) As Byte()
         Try
             Dim bytBuffer(1) As Byte
             AddByte(bytBuffer, &HD3)
@@ -645,7 +645,7 @@ Module PacketUtils
             AddByte(bytBuffer, Addons)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -665,7 +665,7 @@ Module PacketUtils
 
 #End Region
 
-    Public Function UseFishingRodOnLocation(ByVal FishingRod As ContainerItemDefinition, ByVal Destination As LocationDefinition, ByVal Sprite As UInt32) As Byte()
+    Public Function UseFishingRodOnLocation(ByVal FishingRod As ContainerItemDefinition, ByVal Destination As LocationDefinition, ByVal Sprite As Int32) As Byte()
         Try
             Dim bytBuffer(&H1) As Byte
             AddByte(bytBuffer, &H83)
@@ -681,7 +681,7 @@ Module PacketUtils
             AddByte(bytBuffer, &H0)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -703,7 +703,7 @@ Module PacketUtils
             AddByte(bytBuffer, &H1) '
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -725,7 +725,7 @@ Module PacketUtils
             AddByte(bytBuffer, &H1) '
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -742,7 +742,7 @@ Module PacketUtils
             AddDWord(bytBuffer, PlayerID)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -760,7 +760,7 @@ Module PacketUtils
             End If
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -777,7 +777,7 @@ Module PacketUtils
             AddByte(bytBuffer, Slot)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -804,7 +804,7 @@ Module PacketUtils
             Next
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -824,7 +824,7 @@ Module PacketUtils
             AddString(bytBuffer, ShortText)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -845,7 +845,7 @@ Module PacketUtils
             AddByte(bytBuffer, ContainerIndex)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -862,7 +862,7 @@ Module PacketUtils
             AddByte(bytBuffer, ContainerIndex)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -878,7 +878,7 @@ Module PacketUtils
             AddByte(bytBuffer, ContainerIndex)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -897,7 +897,7 @@ Module PacketUtils
             AddByte(bytBuffer, CByte(Animation))
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -928,7 +928,7 @@ Module PacketUtils
             AddByte(bytBuffer, &H1)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -937,14 +937,14 @@ Module PacketUtils
 
 #Region " AttackEntity "
 
-    Public Function AttackEntity(ByVal EntityID As UInt32) As Byte()
+    Public Function AttackEntity(ByVal EntityID As Int32) As Byte()
         Try
             Dim bytBuffer(1) As Byte
             AddByte(bytBuffer, &HA1)
             AddDWord(bytBuffer, EntityID)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -959,7 +959,7 @@ Module PacketUtils
             AddByte(bytBuffer, &H14)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function
@@ -967,7 +967,7 @@ Module PacketUtils
 #End Region
 
 #Region " Use Hotkey "
-    Public Function UseHotkey(ByVal ItemId As UInt32, Optional ByVal ExtraByte As Byte = 0) As Byte()
+    Public Function UseHotkey(ByVal ItemId As Int32, Optional ByVal ExtraByte As Integer = 0) As Byte()
         Try
             Dim bytBuffer(1) As Byte
             AddByte(bytBuffer, &H84)
@@ -979,7 +979,7 @@ Module PacketUtils
             AddDWord(bytBuffer, Core.CharacterID)
             Return bytBuffer
         Catch Ex As Exception
-            MessageBox.Show("Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source, Ex.TargetSite.Name, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Function

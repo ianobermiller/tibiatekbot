@@ -40,62 +40,54 @@ Partial Class frmCharacterStatistics
         Me.Label16 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label18 = New System.Windows.Forms.Label
-        Me.LevelActual = New System.Windows.Forms.Label
-        Me.ExperienceActual = New System.Windows.Forms.Label
-        Me.MagicLevelActual = New System.Windows.Forms.Label
-        Me.FistActual = New System.Windows.Forms.Label
-        Me.ClubActual = New System.Windows.Forms.Label
-        Me.SwordActual = New System.Windows.Forms.Label
-        Me.AxeActual = New System.Windows.Forms.Label
-        Me.DistanceActual = New System.Windows.Forms.Label
-        Me.ShieldingActual = New System.Windows.Forms.Label
-        Me.FishingActual = New System.Windows.Forms.Label
-        Me.HitPointsActual = New System.Windows.Forms.Label
-        Me.ManaPointsActual = New System.Windows.Forms.Label
-        Me.SoulPointsActual = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.FishingRate = New System.Windows.Forms.Label
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.Label42 = New System.Windows.Forms.Label
-        Me.Label43 = New System.Windows.Forms.Label
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.Label47 = New System.Windows.Forms.Label
-        Me.Label48 = New System.Windows.Forms.Label
-        Me.ExperienceCompleted = New System.Windows.Forms.Label
-        Me.LevelCompleted = New System.Windows.Forms.Label
-        Me.Label51 = New System.Windows.Forms.Label
-        Me.Label52 = New System.Windows.Forms.Label
-        Me.Label53 = New System.Windows.Forms.Label
-        Me.Label54 = New System.Windows.Forms.Label
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.ExperienceRemaining = New System.Windows.Forms.Label
-        Me.LevelRemaining = New System.Windows.Forms.Label
-        Me.LevelRate = New System.Windows.Forms.Label
-        Me.ExperienceRate = New System.Windows.Forms.Label
-        Me.MagicLevelRate = New System.Windows.Forms.Label
-        Me.ClubRate = New System.Windows.Forms.Label
-        Me.ShieldingRate = New System.Windows.Forms.Label
-        Me.DistanceRate = New System.Windows.Forms.Label
-        Me.AxeRate = New System.Windows.Forms.Label
-        Me.SwordRate = New System.Windows.Forms.Label
-        Me.FistRate = New System.Windows.Forms.Label
-        Me.CapacityActual = New System.Windows.Forms.Label
-        Me.Label73 = New System.Windows.Forms.Label
-        Me.Label74 = New System.Windows.Forms.Label
+        Me.ActualLevelLabel = New System.Windows.Forms.Label
+        Me.ActualExperienceLabel = New System.Windows.Forms.Label
+        Me.ActualMagicLevelLabel = New System.Windows.Forms.Label
+        Me.ActualFistLabel = New System.Windows.Forms.Label
+        Me.ActualClubLabel = New System.Windows.Forms.Label
+        Me.ActualSwordLabel = New System.Windows.Forms.Label
+        Me.ActualAxeLabel = New System.Windows.Forms.Label
+        Me.ActualDistanceLabel = New System.Windows.Forms.Label
+        Me.ActualShieldingLabel = New System.Windows.Forms.Label
+        Me.ActualFishingLabel = New System.Windows.Forms.Label
+        Me.ActualHitPointsLabel = New System.Windows.Forms.Label
+        Me.ActualManaPointsLabel = New System.Windows.Forms.Label
+        Me.ActualSoulPointsLabel = New System.Windows.Forms.Label
+        Me.RateFishingLabel = New System.Windows.Forms.Label
+        Me.ETAFishingLabel = New System.Windows.Forms.Label
+        Me.TotalFishingLabel = New System.Windows.Forms.Label
+        Me.TotalShieldingLabel = New System.Windows.Forms.Label
+        Me.TotalDistanceLabel = New System.Windows.Forms.Label
+        Me.TotalAxeLabel = New System.Windows.Forms.Label
+        Me.TotalSwordLabel = New System.Windows.Forms.Label
+        Me.TotalFistLabel = New System.Windows.Forms.Label
+        Me.TotalMagicLevelLabel = New System.Windows.Forms.Label
+        Me.TotalExperience = New System.Windows.Forms.Label
+        Me.TotalLevelLabel = New System.Windows.Forms.Label
+        Me.TotalClubLabel = New System.Windows.Forms.Label
+        Me.ETAShieldingLabel = New System.Windows.Forms.Label
+        Me.ETADistanceLabel = New System.Windows.Forms.Label
+        Me.ETAAxeLabel = New System.Windows.Forms.Label
+        Me.ETASwordLabel = New System.Windows.Forms.Label
+        Me.ETAClubLabel = New System.Windows.Forms.Label
+        Me.ETAFistLabel = New System.Windows.Forms.Label
+        Me.ETAMagicLevelLabel = New System.Windows.Forms.Label
+        Me.ETAExperienceLabel = New System.Windows.Forms.Label
+        Me.RemainingLevelLabel = New System.Windows.Forms.Label
+        Me.RateLevelLabel = New System.Windows.Forms.Label
+        Me.RateExperienceLabel = New System.Windows.Forms.Label
+        Me.RateMagicLevelLabel = New System.Windows.Forms.Label
+        Me.RateClubLabel = New System.Windows.Forms.Label
+        Me.RateShieldingLabel = New System.Windows.Forms.Label
+        Me.RateDistanceLabel = New System.Windows.Forms.Label
+        Me.RateAxeLabel = New System.Windows.Forms.Label
+        Me.RateSwordLabel = New System.Windows.Forms.Label
+        Me.RateFistLabel = New System.Windows.Forms.Label
+        Me.ActualCapacityLabel = New System.Windows.Forms.Label
         Me.Label71 = New System.Windows.Forms.Label
         Me.Label76 = New System.Windows.Forms.Label
-        Me.GoldActual = New System.Windows.Forms.Label
-        Me.GoldRate = New System.Windows.Forms.Label
+        Me.ActualGoldLabel = New System.Windows.Forms.Label
+        Me.RateGold = New System.Windows.Forms.Label
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button
         Me.GroupBox1.SuspendLayout()
@@ -104,22 +96,28 @@ Partial Class frmCharacterStatistics
         '
         'GroupBox1
         '
+        Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.TableLayoutPanel1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(441, 394)
+        Me.GroupBox1.Size = New System.Drawing.Size(429, 394)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Statistics"
         '
         'TableLayoutPanel1
         '
+        Me.TableLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel1.ColumnCount = 5
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
         Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label5, 0, 1)
@@ -138,62 +136,54 @@ Partial Class frmCharacterStatistics
         Me.TableLayoutPanel1.Controls.Add(Me.Label16, 0, 13)
         Me.TableLayoutPanel1.Controls.Add(Me.Label17, 0, 11)
         Me.TableLayoutPanel1.Controls.Add(Me.Label18, 0, 12)
-        Me.TableLayoutPanel1.Controls.Add(Me.LevelActual, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.ExperienceActual, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.MagicLevelActual, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.FistActual, 1, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.ClubActual, 1, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.SwordActual, 1, 6)
-        Me.TableLayoutPanel1.Controls.Add(Me.AxeActual, 1, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.DistanceActual, 1, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.ShieldingActual, 1, 9)
-        Me.TableLayoutPanel1.Controls.Add(Me.FishingActual, 1, 10)
-        Me.TableLayoutPanel1.Controls.Add(Me.HitPointsActual, 1, 11)
-        Me.TableLayoutPanel1.Controls.Add(Me.ManaPointsActual, 1, 12)
-        Me.TableLayoutPanel1.Controls.Add(Me.SoulPointsActual, 1, 13)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label32, 2, 13)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label33, 3, 13)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label35, 3, 12)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label36, 2, 12)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label37, 3, 11)
-        Me.TableLayoutPanel1.Controls.Add(Me.FishingRate, 4, 10)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label40, 3, 10)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label41, 2, 10)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label42, 2, 11)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label43, 2, 9)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label44, 2, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label45, 2, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label46, 2, 6)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label47, 2, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label48, 2, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.ExperienceCompleted, 2, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.LevelCompleted, 2, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label51, 2, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label52, 3, 9)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label53, 3, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label54, 3, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label55, 3, 6)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label56, 3, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label57, 3, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label58, 3, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.ExperienceRemaining, 3, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.LevelRemaining, 3, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.LevelRate, 4, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.ExperienceRate, 4, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.MagicLevelRate, 4, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.ClubRate, 4, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.ShieldingRate, 4, 9)
-        Me.TableLayoutPanel1.Controls.Add(Me.DistanceRate, 4, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.AxeRate, 4, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.SwordRate, 4, 6)
-        Me.TableLayoutPanel1.Controls.Add(Me.FistRate, 4, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.CapacityActual, 1, 14)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label73, 2, 14)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label74, 3, 14)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualLevelLabel, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualExperienceLabel, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualMagicLevelLabel, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualFistLabel, 1, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualClubLabel, 1, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualSwordLabel, 1, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualAxeLabel, 1, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualDistanceLabel, 1, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualShieldingLabel, 1, 9)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualFishingLabel, 1, 10)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualHitPointsLabel, 1, 11)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualManaPointsLabel, 1, 12)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualSoulPointsLabel, 1, 13)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateFishingLabel, 4, 10)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETAFishingLabel, 3, 10)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalFishingLabel, 2, 10)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalShieldingLabel, 2, 9)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalDistanceLabel, 2, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalAxeLabel, 2, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalSwordLabel, 2, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalFistLabel, 2, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalMagicLevelLabel, 2, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalExperience, 2, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalLevelLabel, 2, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.TotalClubLabel, 2, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETAShieldingLabel, 3, 9)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETADistanceLabel, 3, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETAAxeLabel, 3, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETASwordLabel, 3, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETAClubLabel, 3, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETAFistLabel, 3, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETAMagicLevelLabel, 3, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.ETAExperienceLabel, 3, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.RemainingLevelLabel, 3, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateLevelLabel, 4, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateExperienceLabel, 4, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateMagicLevelLabel, 4, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateClubLabel, 4, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateShieldingLabel, 4, 9)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateDistanceLabel, 4, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateAxeLabel, 4, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateSwordLabel, 4, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateFistLabel, 4, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualCapacityLabel, 1, 14)
         Me.TableLayoutPanel1.Controls.Add(Me.Label71, 0, 15)
         Me.TableLayoutPanel1.Controls.Add(Me.Label76, 0, 14)
-        Me.TableLayoutPanel1.Controls.Add(Me.GoldActual, 1, 15)
-        Me.TableLayoutPanel1.Controls.Add(Me.GoldRate, 4, 15)
+        Me.TableLayoutPanel1.Controls.Add(Me.ActualGoldLabel, 1, 15)
+        Me.TableLayoutPanel1.Controls.Add(Me.RateGold, 4, 15)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(6, 19)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 17
@@ -214,7 +204,7 @@ Partial Class frmCharacterStatistics
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(429, 369)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(417, 369)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'Label1
@@ -231,7 +221,7 @@ Partial Class frmCharacterStatistics
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(98, 0)
+        Me.Label2.Location = New System.Drawing.Point(78, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(47, 13)
         Me.Label2.TabIndex = 1
@@ -268,7 +258,7 @@ Partial Class frmCharacterStatistics
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(340, 0)
+        Me.Label3.Location = New System.Drawing.Point(243, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(38, 13)
         Me.Label3.TabIndex = 2
@@ -278,7 +268,7 @@ Partial Class frmCharacterStatistics
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(261, 0)
+        Me.Label4.Location = New System.Drawing.Point(177, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(60, 13)
         Me.Label4.TabIndex = 3
@@ -288,11 +278,11 @@ Partial Class frmCharacterStatistics
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(179, 0)
+        Me.Label8.Location = New System.Drawing.Point(131, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(70, 13)
+        Me.Label8.Size = New System.Drawing.Size(40, 13)
         Me.Label8.TabIndex = 7
-        Me.Label8.Text = "Completed:"
+        Me.Label8.Text = "Total:"
         '
         'Label9
         '
@@ -384,473 +374,401 @@ Partial Class frmCharacterStatistics
         Me.Label18.TabIndex = 17
         Me.Label18.Text = "Mana Points:"
         '
-        'LevelActual
-        '
-        Me.LevelActual.AutoSize = True
-        Me.LevelActual.Location = New System.Drawing.Point(98, 20)
-        Me.LevelActual.Name = "LevelActual"
-        Me.LevelActual.Size = New System.Drawing.Size(13, 13)
-        Me.LevelActual.TabIndex = 18
-        Me.LevelActual.Text = "0"
-        '
-        'ExperienceActual
-        '
-        Me.ExperienceActual.AutoSize = True
-        Me.ExperienceActual.Location = New System.Drawing.Point(98, 40)
-        Me.ExperienceActual.Name = "ExperienceActual"
-        Me.ExperienceActual.Size = New System.Drawing.Size(13, 13)
-        Me.ExperienceActual.TabIndex = 19
-        Me.ExperienceActual.Text = "0"
-        '
-        'MagicLevelActual
-        '
-        Me.MagicLevelActual.AutoSize = True
-        Me.MagicLevelActual.Location = New System.Drawing.Point(98, 60)
-        Me.MagicLevelActual.Name = "MagicLevelActual"
-        Me.MagicLevelActual.Size = New System.Drawing.Size(13, 13)
-        Me.MagicLevelActual.TabIndex = 20
-        Me.MagicLevelActual.Text = "0"
-        '
-        'FistActual
-        '
-        Me.FistActual.AutoSize = True
-        Me.FistActual.Location = New System.Drawing.Point(98, 80)
-        Me.FistActual.Name = "FistActual"
-        Me.FistActual.Size = New System.Drawing.Size(13, 13)
-        Me.FistActual.TabIndex = 21
-        Me.FistActual.Text = "0"
-        '
-        'ClubActual
-        '
-        Me.ClubActual.AutoSize = True
-        Me.ClubActual.Location = New System.Drawing.Point(98, 100)
-        Me.ClubActual.Name = "ClubActual"
-        Me.ClubActual.Size = New System.Drawing.Size(13, 13)
-        Me.ClubActual.TabIndex = 22
-        Me.ClubActual.Text = "0"
-        '
-        'SwordActual
-        '
-        Me.SwordActual.AutoSize = True
-        Me.SwordActual.Location = New System.Drawing.Point(98, 120)
-        Me.SwordActual.Name = "SwordActual"
-        Me.SwordActual.Size = New System.Drawing.Size(13, 13)
-        Me.SwordActual.TabIndex = 23
-        Me.SwordActual.Text = "0"
-        '
-        'AxeActual
-        '
-        Me.AxeActual.AutoSize = True
-        Me.AxeActual.Location = New System.Drawing.Point(98, 140)
-        Me.AxeActual.Name = "AxeActual"
-        Me.AxeActual.Size = New System.Drawing.Size(13, 13)
-        Me.AxeActual.TabIndex = 24
-        Me.AxeActual.Text = "0"
-        '
-        'DistanceActual
-        '
-        Me.DistanceActual.AutoSize = True
-        Me.DistanceActual.Location = New System.Drawing.Point(98, 160)
-        Me.DistanceActual.Name = "DistanceActual"
-        Me.DistanceActual.Size = New System.Drawing.Size(13, 13)
-        Me.DistanceActual.TabIndex = 25
-        Me.DistanceActual.Text = "0"
-        '
-        'ShieldingActual
-        '
-        Me.ShieldingActual.AutoSize = True
-        Me.ShieldingActual.Location = New System.Drawing.Point(98, 180)
-        Me.ShieldingActual.Name = "ShieldingActual"
-        Me.ShieldingActual.Size = New System.Drawing.Size(13, 13)
-        Me.ShieldingActual.TabIndex = 26
-        Me.ShieldingActual.Text = "0"
-        '
-        'FishingActual
-        '
-        Me.FishingActual.AutoSize = True
-        Me.FishingActual.Location = New System.Drawing.Point(98, 200)
-        Me.FishingActual.Name = "FishingActual"
-        Me.FishingActual.Size = New System.Drawing.Size(13, 13)
-        Me.FishingActual.TabIndex = 27
-        Me.FishingActual.Text = "0"
-        '
-        'HitPointsActual
-        '
-        Me.HitPointsActual.AutoSize = True
-        Me.HitPointsActual.Location = New System.Drawing.Point(98, 220)
-        Me.HitPointsActual.Name = "HitPointsActual"
-        Me.HitPointsActual.Size = New System.Drawing.Size(13, 13)
-        Me.HitPointsActual.TabIndex = 28
-        Me.HitPointsActual.Text = "0"
-        '
-        'ManaPointsActual
-        '
-        Me.ManaPointsActual.AutoSize = True
-        Me.ManaPointsActual.Location = New System.Drawing.Point(98, 240)
-        Me.ManaPointsActual.Name = "ManaPointsActual"
-        Me.ManaPointsActual.Size = New System.Drawing.Size(13, 13)
-        Me.ManaPointsActual.TabIndex = 29
-        Me.ManaPointsActual.Text = "0"
-        '
-        'SoulPointsActual
-        '
-        Me.SoulPointsActual.AutoSize = True
-        Me.SoulPointsActual.Location = New System.Drawing.Point(98, 260)
-        Me.SoulPointsActual.Name = "SoulPointsActual"
-        Me.SoulPointsActual.Size = New System.Drawing.Size(13, 13)
-        Me.SoulPointsActual.TabIndex = 30
-        Me.SoulPointsActual.Text = "0"
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(179, 260)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(21, 13)
-        Me.Label32.TabIndex = 31
-        Me.Label32.Text = "0%"
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(261, 260)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(21, 13)
-        Me.Label33.TabIndex = 32
-        Me.Label33.Text = "0%"
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(261, 240)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(21, 13)
-        Me.Label35.TabIndex = 34
-        Me.Label35.Text = "0%"
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(179, 240)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(21, 13)
-        Me.Label36.TabIndex = 35
-        Me.Label36.Text = "0%"
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(261, 220)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(21, 13)
-        Me.Label37.TabIndex = 36
-        Me.Label37.Text = "0%"
-        '
-        'FishingRate
-        '
-        Me.FishingRate.AutoSize = True
-        Me.FishingRate.Location = New System.Drawing.Point(340, 200)
-        Me.FishingRate.Name = "FishingRate"
-        Me.FishingRate.Size = New System.Drawing.Size(24, 13)
-        Me.FishingRate.TabIndex = 38
-        Me.FishingRate.Text = "0/h"
-        '
-        'Label40
-        '
-        Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(261, 200)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(21, 13)
-        Me.Label40.TabIndex = 39
-        Me.Label40.Text = "0%"
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(179, 200)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(21, 13)
-        Me.Label41.TabIndex = 40
-        Me.Label41.Text = "0%"
-        '
-        'Label42
-        '
-        Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(179, 220)
-        Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(21, 13)
-        Me.Label42.TabIndex = 41
-        Me.Label42.Text = "0%"
-        '
-        'Label43
-        '
-        Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(179, 180)
-        Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(21, 13)
-        Me.Label43.TabIndex = 42
-        Me.Label43.Text = "0%"
-        '
-        'Label44
-        '
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(179, 160)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(21, 13)
-        Me.Label44.TabIndex = 43
-        Me.Label44.Text = "0%"
-        '
-        'Label45
-        '
-        Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(179, 140)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(21, 13)
-        Me.Label45.TabIndex = 44
-        Me.Label45.Text = "0%"
-        '
-        'Label46
-        '
-        Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(179, 120)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(21, 13)
-        Me.Label46.TabIndex = 45
-        Me.Label46.Text = "0%"
-        '
-        'Label47
-        '
-        Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(179, 80)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(21, 13)
-        Me.Label47.TabIndex = 46
-        Me.Label47.Text = "0%"
-        '
-        'Label48
-        '
-        Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(179, 60)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(21, 13)
-        Me.Label48.TabIndex = 47
-        Me.Label48.Text = "0%"
-        '
-        'ExperienceCompleted
-        '
-        Me.ExperienceCompleted.AutoSize = True
-        Me.ExperienceCompleted.Location = New System.Drawing.Point(179, 40)
-        Me.ExperienceCompleted.Name = "ExperienceCompleted"
-        Me.ExperienceCompleted.Size = New System.Drawing.Size(13, 13)
-        Me.ExperienceCompleted.TabIndex = 48
-        Me.ExperienceCompleted.Text = "0"
-        '
-        'LevelCompleted
-        '
-        Me.LevelCompleted.AutoSize = True
-        Me.LevelCompleted.Location = New System.Drawing.Point(179, 20)
-        Me.LevelCompleted.Name = "LevelCompleted"
-        Me.LevelCompleted.Size = New System.Drawing.Size(21, 13)
-        Me.LevelCompleted.TabIndex = 49
-        Me.LevelCompleted.Text = "0%"
-        '
-        'Label51
-        '
-        Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(179, 100)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(21, 13)
-        Me.Label51.TabIndex = 50
-        Me.Label51.Text = "0%"
-        '
-        'Label52
-        '
-        Me.Label52.AutoSize = True
-        Me.Label52.Location = New System.Drawing.Point(261, 180)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(21, 13)
-        Me.Label52.TabIndex = 51
-        Me.Label52.Text = "0%"
-        '
-        'Label53
-        '
-        Me.Label53.AutoSize = True
-        Me.Label53.Location = New System.Drawing.Point(261, 160)
-        Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(21, 13)
-        Me.Label53.TabIndex = 52
-        Me.Label53.Text = "0%"
-        '
-        'Label54
-        '
-        Me.Label54.AutoSize = True
-        Me.Label54.Location = New System.Drawing.Point(261, 140)
-        Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(21, 13)
-        Me.Label54.TabIndex = 53
-        Me.Label54.Text = "0%"
-        '
-        'Label55
-        '
-        Me.Label55.AutoSize = True
-        Me.Label55.Location = New System.Drawing.Point(261, 120)
-        Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(21, 13)
-        Me.Label55.TabIndex = 54
-        Me.Label55.Text = "0%"
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(261, 100)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(21, 13)
-        Me.Label56.TabIndex = 55
-        Me.Label56.Text = "0%"
-        '
-        'Label57
-        '
-        Me.Label57.AutoSize = True
-        Me.Label57.Location = New System.Drawing.Point(261, 80)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(21, 13)
-        Me.Label57.TabIndex = 56
-        Me.Label57.Text = "0%"
-        '
-        'Label58
-        '
-        Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(261, 60)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(21, 13)
-        Me.Label58.TabIndex = 57
-        Me.Label58.Text = "0%"
-        '
-        'ExperienceRemaining
-        '
-        Me.ExperienceRemaining.AutoSize = True
-        Me.ExperienceRemaining.Location = New System.Drawing.Point(261, 40)
-        Me.ExperienceRemaining.Name = "ExperienceRemaining"
-        Me.ExperienceRemaining.Size = New System.Drawing.Size(13, 13)
-        Me.ExperienceRemaining.TabIndex = 58
-        Me.ExperienceRemaining.Text = "0"
-        '
-        'LevelRemaining
-        '
-        Me.LevelRemaining.AutoSize = True
-        Me.LevelRemaining.Location = New System.Drawing.Point(261, 20)
-        Me.LevelRemaining.Name = "LevelRemaining"
-        Me.LevelRemaining.Size = New System.Drawing.Size(13, 13)
-        Me.LevelRemaining.TabIndex = 59
-        Me.LevelRemaining.Text = "0"
-        '
-        'LevelRate
-        '
-        Me.LevelRate.AutoSize = True
-        Me.LevelRate.Location = New System.Drawing.Point(340, 20)
-        Me.LevelRate.Name = "LevelRate"
-        Me.LevelRate.Size = New System.Drawing.Size(24, 13)
-        Me.LevelRate.TabIndex = 60
-        Me.LevelRate.Text = "0/h"
-        '
-        'ExperienceRate
-        '
-        Me.ExperienceRate.AutoSize = True
-        Me.ExperienceRate.Location = New System.Drawing.Point(340, 40)
-        Me.ExperienceRate.Name = "ExperienceRate"
-        Me.ExperienceRate.Size = New System.Drawing.Size(24, 13)
-        Me.ExperienceRate.TabIndex = 61
-        Me.ExperienceRate.Text = "0/h"
-        '
-        'MagicLevelRate
-        '
-        Me.MagicLevelRate.AutoSize = True
-        Me.MagicLevelRate.Location = New System.Drawing.Point(340, 60)
-        Me.MagicLevelRate.Name = "MagicLevelRate"
-        Me.MagicLevelRate.Size = New System.Drawing.Size(24, 13)
-        Me.MagicLevelRate.TabIndex = 62
-        Me.MagicLevelRate.Text = "0/h"
-        '
-        'ClubRate
-        '
-        Me.ClubRate.AutoSize = True
-        Me.ClubRate.Location = New System.Drawing.Point(340, 100)
-        Me.ClubRate.Name = "ClubRate"
-        Me.ClubRate.Size = New System.Drawing.Size(24, 13)
-        Me.ClubRate.TabIndex = 63
-        Me.ClubRate.Text = "0/h"
-        '
-        'ShieldingRate
-        '
-        Me.ShieldingRate.AutoSize = True
-        Me.ShieldingRate.Location = New System.Drawing.Point(340, 180)
-        Me.ShieldingRate.Name = "ShieldingRate"
-        Me.ShieldingRate.Size = New System.Drawing.Size(24, 13)
-        Me.ShieldingRate.TabIndex = 65
-        Me.ShieldingRate.Text = "0/h"
-        '
-        'DistanceRate
-        '
-        Me.DistanceRate.AutoSize = True
-        Me.DistanceRate.Location = New System.Drawing.Point(340, 160)
-        Me.DistanceRate.Name = "DistanceRate"
-        Me.DistanceRate.Size = New System.Drawing.Size(24, 13)
-        Me.DistanceRate.TabIndex = 66
-        Me.DistanceRate.Text = "0/h"
-        '
-        'AxeRate
-        '
-        Me.AxeRate.AutoSize = True
-        Me.AxeRate.Location = New System.Drawing.Point(340, 140)
-        Me.AxeRate.Name = "AxeRate"
-        Me.AxeRate.Size = New System.Drawing.Size(24, 13)
-        Me.AxeRate.TabIndex = 67
-        Me.AxeRate.Text = "0/h"
-        '
-        'SwordRate
-        '
-        Me.SwordRate.AutoSize = True
-        Me.SwordRate.Location = New System.Drawing.Point(340, 120)
-        Me.SwordRate.Name = "SwordRate"
-        Me.SwordRate.Size = New System.Drawing.Size(24, 13)
-        Me.SwordRate.TabIndex = 68
-        Me.SwordRate.Text = "0/h"
-        '
-        'FistRate
-        '
-        Me.FistRate.AutoSize = True
-        Me.FistRate.Location = New System.Drawing.Point(340, 80)
-        Me.FistRate.Name = "FistRate"
-        Me.FistRate.Size = New System.Drawing.Size(24, 13)
-        Me.FistRate.TabIndex = 69
-        Me.FistRate.Text = "0/h"
-        '
-        'CapacityActual
-        '
-        Me.CapacityActual.AutoSize = True
-        Me.CapacityActual.Location = New System.Drawing.Point(98, 280)
-        Me.CapacityActual.Name = "CapacityActual"
-        Me.CapacityActual.Size = New System.Drawing.Size(13, 13)
-        Me.CapacityActual.TabIndex = 71
-        Me.CapacityActual.Text = "0"
-        '
-        'Label73
-        '
-        Me.Label73.AutoSize = True
-        Me.Label73.Location = New System.Drawing.Point(179, 280)
-        Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(21, 13)
-        Me.Label73.TabIndex = 72
-        Me.Label73.Text = "0%"
-        '
-        'Label74
-        '
-        Me.Label74.AutoSize = True
-        Me.Label74.Location = New System.Drawing.Point(261, 280)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(21, 13)
-        Me.Label74.TabIndex = 73
-        Me.Label74.Text = "0%"
+        'ActualLevelLabel
+        '
+        Me.ActualLevelLabel.AutoSize = True
+        Me.ActualLevelLabel.Location = New System.Drawing.Point(78, 20)
+        Me.ActualLevelLabel.Name = "ActualLevelLabel"
+        Me.ActualLevelLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualLevelLabel.TabIndex = 18
+        Me.ActualLevelLabel.Text = "0"
+        '
+        'ActualExperienceLabel
+        '
+        Me.ActualExperienceLabel.AutoSize = True
+        Me.ActualExperienceLabel.Location = New System.Drawing.Point(78, 40)
+        Me.ActualExperienceLabel.Name = "ActualExperienceLabel"
+        Me.ActualExperienceLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualExperienceLabel.TabIndex = 19
+        Me.ActualExperienceLabel.Text = "0"
+        '
+        'ActualMagicLevelLabel
+        '
+        Me.ActualMagicLevelLabel.AutoSize = True
+        Me.ActualMagicLevelLabel.Location = New System.Drawing.Point(78, 60)
+        Me.ActualMagicLevelLabel.Name = "ActualMagicLevelLabel"
+        Me.ActualMagicLevelLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualMagicLevelLabel.TabIndex = 20
+        Me.ActualMagicLevelLabel.Text = "0"
+        '
+        'ActualFistLabel
+        '
+        Me.ActualFistLabel.AutoSize = True
+        Me.ActualFistLabel.Location = New System.Drawing.Point(78, 80)
+        Me.ActualFistLabel.Name = "ActualFistLabel"
+        Me.ActualFistLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualFistLabel.TabIndex = 21
+        Me.ActualFistLabel.Text = "0"
+        '
+        'ActualClubLabel
+        '
+        Me.ActualClubLabel.AutoSize = True
+        Me.ActualClubLabel.Location = New System.Drawing.Point(78, 100)
+        Me.ActualClubLabel.Name = "ActualClubLabel"
+        Me.ActualClubLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualClubLabel.TabIndex = 22
+        Me.ActualClubLabel.Text = "0"
+        '
+        'ActualSwordLabel
+        '
+        Me.ActualSwordLabel.AutoSize = True
+        Me.ActualSwordLabel.Location = New System.Drawing.Point(78, 120)
+        Me.ActualSwordLabel.Name = "ActualSwordLabel"
+        Me.ActualSwordLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualSwordLabel.TabIndex = 23
+        Me.ActualSwordLabel.Text = "0"
+        '
+        'ActualAxeLabel
+        '
+        Me.ActualAxeLabel.AutoSize = True
+        Me.ActualAxeLabel.Location = New System.Drawing.Point(78, 140)
+        Me.ActualAxeLabel.Name = "ActualAxeLabel"
+        Me.ActualAxeLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualAxeLabel.TabIndex = 24
+        Me.ActualAxeLabel.Text = "0"
+        '
+        'ActualDistanceLabel
+        '
+        Me.ActualDistanceLabel.AutoSize = True
+        Me.ActualDistanceLabel.Location = New System.Drawing.Point(78, 160)
+        Me.ActualDistanceLabel.Name = "ActualDistanceLabel"
+        Me.ActualDistanceLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualDistanceLabel.TabIndex = 25
+        Me.ActualDistanceLabel.Text = "0"
+        '
+        'ActualShieldingLabel
+        '
+        Me.ActualShieldingLabel.AutoSize = True
+        Me.ActualShieldingLabel.Location = New System.Drawing.Point(78, 180)
+        Me.ActualShieldingLabel.Name = "ActualShieldingLabel"
+        Me.ActualShieldingLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualShieldingLabel.TabIndex = 26
+        Me.ActualShieldingLabel.Text = "0"
+        '
+        'ActualFishingLabel
+        '
+        Me.ActualFishingLabel.AutoSize = True
+        Me.ActualFishingLabel.Location = New System.Drawing.Point(78, 200)
+        Me.ActualFishingLabel.Name = "ActualFishingLabel"
+        Me.ActualFishingLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualFishingLabel.TabIndex = 27
+        Me.ActualFishingLabel.Text = "0"
+        '
+        'ActualHitPointsLabel
+        '
+        Me.ActualHitPointsLabel.AutoSize = True
+        Me.ActualHitPointsLabel.Location = New System.Drawing.Point(78, 220)
+        Me.ActualHitPointsLabel.Name = "ActualHitPointsLabel"
+        Me.ActualHitPointsLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualHitPointsLabel.TabIndex = 28
+        Me.ActualHitPointsLabel.Text = "0"
+        '
+        'ActualManaPointsLabel
+        '
+        Me.ActualManaPointsLabel.AutoSize = True
+        Me.ActualManaPointsLabel.Location = New System.Drawing.Point(78, 240)
+        Me.ActualManaPointsLabel.Name = "ActualManaPointsLabel"
+        Me.ActualManaPointsLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualManaPointsLabel.TabIndex = 29
+        Me.ActualManaPointsLabel.Text = "0"
+        '
+        'ActualSoulPointsLabel
+        '
+        Me.ActualSoulPointsLabel.AutoSize = True
+        Me.ActualSoulPointsLabel.Location = New System.Drawing.Point(78, 260)
+        Me.ActualSoulPointsLabel.Name = "ActualSoulPointsLabel"
+        Me.ActualSoulPointsLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualSoulPointsLabel.TabIndex = 30
+        Me.ActualSoulPointsLabel.Text = "0"
+        '
+        'RateFishingLabel
+        '
+        Me.RateFishingLabel.AutoSize = True
+        Me.RateFishingLabel.Location = New System.Drawing.Point(243, 200)
+        Me.RateFishingLabel.Name = "RateFishingLabel"
+        Me.RateFishingLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateFishingLabel.TabIndex = 38
+        Me.RateFishingLabel.Text = "0/h"
+        '
+        'ETAFishingLabel
+        '
+        Me.ETAFishingLabel.AutoSize = True
+        Me.ETAFishingLabel.Location = New System.Drawing.Point(177, 200)
+        Me.ETAFishingLabel.Name = "ETAFishingLabel"
+        Me.ETAFishingLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETAFishingLabel.TabIndex = 39
+        Me.ETAFishingLabel.Text = "0"
+        '
+        'TotalFishingLabel
+        '
+        Me.TotalFishingLabel.AutoSize = True
+        Me.TotalFishingLabel.Location = New System.Drawing.Point(131, 200)
+        Me.TotalFishingLabel.Name = "TotalFishingLabel"
+        Me.TotalFishingLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalFishingLabel.TabIndex = 40
+        Me.TotalFishingLabel.Text = "0%"
+        '
+        'TotalShieldingLabel
+        '
+        Me.TotalShieldingLabel.AutoSize = True
+        Me.TotalShieldingLabel.Location = New System.Drawing.Point(131, 180)
+        Me.TotalShieldingLabel.Name = "TotalShieldingLabel"
+        Me.TotalShieldingLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalShieldingLabel.TabIndex = 42
+        Me.TotalShieldingLabel.Text = "0%"
+        '
+        'TotalDistanceLabel
+        '
+        Me.TotalDistanceLabel.AutoSize = True
+        Me.TotalDistanceLabel.Location = New System.Drawing.Point(131, 160)
+        Me.TotalDistanceLabel.Name = "TotalDistanceLabel"
+        Me.TotalDistanceLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalDistanceLabel.TabIndex = 43
+        Me.TotalDistanceLabel.Text = "0%"
+        '
+        'TotalAxeLabel
+        '
+        Me.TotalAxeLabel.AutoSize = True
+        Me.TotalAxeLabel.Location = New System.Drawing.Point(131, 140)
+        Me.TotalAxeLabel.Name = "TotalAxeLabel"
+        Me.TotalAxeLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalAxeLabel.TabIndex = 44
+        Me.TotalAxeLabel.Text = "0%"
+        '
+        'TotalSwordLabel
+        '
+        Me.TotalSwordLabel.AutoSize = True
+        Me.TotalSwordLabel.Location = New System.Drawing.Point(131, 120)
+        Me.TotalSwordLabel.Name = "TotalSwordLabel"
+        Me.TotalSwordLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalSwordLabel.TabIndex = 45
+        Me.TotalSwordLabel.Text = "0%"
+        '
+        'TotalFistLabel
+        '
+        Me.TotalFistLabel.AutoSize = True
+        Me.TotalFistLabel.Location = New System.Drawing.Point(131, 80)
+        Me.TotalFistLabel.Name = "TotalFistLabel"
+        Me.TotalFistLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalFistLabel.TabIndex = 46
+        Me.TotalFistLabel.Text = "0%"
+        '
+        'TotalMagicLevelLabel
+        '
+        Me.TotalMagicLevelLabel.AutoSize = True
+        Me.TotalMagicLevelLabel.Location = New System.Drawing.Point(131, 60)
+        Me.TotalMagicLevelLabel.Name = "TotalMagicLevelLabel"
+        Me.TotalMagicLevelLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalMagicLevelLabel.TabIndex = 47
+        Me.TotalMagicLevelLabel.Text = "0%"
+        '
+        'TotalExperience
+        '
+        Me.TotalExperience.AutoSize = True
+        Me.TotalExperience.Location = New System.Drawing.Point(131, 40)
+        Me.TotalExperience.Name = "TotalExperience"
+        Me.TotalExperience.Size = New System.Drawing.Size(13, 13)
+        Me.TotalExperience.TabIndex = 48
+        Me.TotalExperience.Text = "0"
+        '
+        'TotalLevelLabel
+        '
+        Me.TotalLevelLabel.AutoSize = True
+        Me.TotalLevelLabel.Location = New System.Drawing.Point(131, 20)
+        Me.TotalLevelLabel.Name = "TotalLevelLabel"
+        Me.TotalLevelLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalLevelLabel.TabIndex = 49
+        Me.TotalLevelLabel.Text = "0%"
+        '
+        'TotalClubLabel
+        '
+        Me.TotalClubLabel.AutoSize = True
+        Me.TotalClubLabel.Location = New System.Drawing.Point(131, 100)
+        Me.TotalClubLabel.Name = "TotalClubLabel"
+        Me.TotalClubLabel.Size = New System.Drawing.Size(21, 13)
+        Me.TotalClubLabel.TabIndex = 50
+        Me.TotalClubLabel.Text = "0%"
+        '
+        'ETAShieldingLabel
+        '
+        Me.ETAShieldingLabel.AutoSize = True
+        Me.ETAShieldingLabel.Location = New System.Drawing.Point(177, 180)
+        Me.ETAShieldingLabel.Name = "ETAShieldingLabel"
+        Me.ETAShieldingLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETAShieldingLabel.TabIndex = 51
+        Me.ETAShieldingLabel.Text = "0"
+        '
+        'ETADistanceLabel
+        '
+        Me.ETADistanceLabel.AutoSize = True
+        Me.ETADistanceLabel.Location = New System.Drawing.Point(177, 160)
+        Me.ETADistanceLabel.Name = "ETADistanceLabel"
+        Me.ETADistanceLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETADistanceLabel.TabIndex = 52
+        Me.ETADistanceLabel.Text = "0"
+        '
+        'ETAAxeLabel
+        '
+        Me.ETAAxeLabel.AutoSize = True
+        Me.ETAAxeLabel.Location = New System.Drawing.Point(177, 140)
+        Me.ETAAxeLabel.Name = "ETAAxeLabel"
+        Me.ETAAxeLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETAAxeLabel.TabIndex = 53
+        Me.ETAAxeLabel.Text = "0"
+        '
+        'ETASwordLabel
+        '
+        Me.ETASwordLabel.AutoSize = True
+        Me.ETASwordLabel.Location = New System.Drawing.Point(177, 120)
+        Me.ETASwordLabel.Name = "ETASwordLabel"
+        Me.ETASwordLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETASwordLabel.TabIndex = 54
+        Me.ETASwordLabel.Text = "0"
+        '
+        'ETAClubLabel
+        '
+        Me.ETAClubLabel.AutoSize = True
+        Me.ETAClubLabel.Location = New System.Drawing.Point(177, 100)
+        Me.ETAClubLabel.Name = "ETAClubLabel"
+        Me.ETAClubLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETAClubLabel.TabIndex = 55
+        Me.ETAClubLabel.Text = "0"
+        '
+        'ETAFistLabel
+        '
+        Me.ETAFistLabel.AutoSize = True
+        Me.ETAFistLabel.Location = New System.Drawing.Point(177, 80)
+        Me.ETAFistLabel.Name = "ETAFistLabel"
+        Me.ETAFistLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETAFistLabel.TabIndex = 56
+        Me.ETAFistLabel.Text = "0"
+        '
+        'ETAMagicLevelLabel
+        '
+        Me.ETAMagicLevelLabel.AutoSize = True
+        Me.ETAMagicLevelLabel.Location = New System.Drawing.Point(177, 60)
+        Me.ETAMagicLevelLabel.Name = "ETAMagicLevelLabel"
+        Me.ETAMagicLevelLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETAMagicLevelLabel.TabIndex = 57
+        Me.ETAMagicLevelLabel.Text = "0"
+        '
+        'ETAExperienceLabel
+        '
+        Me.ETAExperienceLabel.AutoSize = True
+        Me.ETAExperienceLabel.Location = New System.Drawing.Point(177, 40)
+        Me.ETAExperienceLabel.Name = "ETAExperienceLabel"
+        Me.ETAExperienceLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ETAExperienceLabel.TabIndex = 58
+        Me.ETAExperienceLabel.Text = "0"
+        '
+        'RemainingLevelLabel
+        '
+        Me.RemainingLevelLabel.AutoSize = True
+        Me.RemainingLevelLabel.Location = New System.Drawing.Point(177, 20)
+        Me.RemainingLevelLabel.Name = "RemainingLevelLabel"
+        Me.RemainingLevelLabel.Size = New System.Drawing.Size(13, 13)
+        Me.RemainingLevelLabel.TabIndex = 59
+        Me.RemainingLevelLabel.Text = "0"
+        '
+        'RateLevelLabel
+        '
+        Me.RateLevelLabel.AutoSize = True
+        Me.RateLevelLabel.Location = New System.Drawing.Point(243, 20)
+        Me.RateLevelLabel.Name = "RateLevelLabel"
+        Me.RateLevelLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateLevelLabel.TabIndex = 60
+        Me.RateLevelLabel.Text = "0/h"
+        '
+        'RateExperienceLabel
+        '
+        Me.RateExperienceLabel.AutoSize = True
+        Me.RateExperienceLabel.Location = New System.Drawing.Point(243, 40)
+        Me.RateExperienceLabel.Name = "RateExperienceLabel"
+        Me.RateExperienceLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateExperienceLabel.TabIndex = 61
+        Me.RateExperienceLabel.Text = "0/h"
+        '
+        'RateMagicLevelLabel
+        '
+        Me.RateMagicLevelLabel.AutoSize = True
+        Me.RateMagicLevelLabel.Location = New System.Drawing.Point(243, 60)
+        Me.RateMagicLevelLabel.Name = "RateMagicLevelLabel"
+        Me.RateMagicLevelLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateMagicLevelLabel.TabIndex = 62
+        Me.RateMagicLevelLabel.Text = "0/h"
+        '
+        'RateClubLabel
+        '
+        Me.RateClubLabel.AutoSize = True
+        Me.RateClubLabel.Location = New System.Drawing.Point(243, 100)
+        Me.RateClubLabel.Name = "RateClubLabel"
+        Me.RateClubLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateClubLabel.TabIndex = 63
+        Me.RateClubLabel.Text = "0/h"
+        '
+        'RateShieldingLabel
+        '
+        Me.RateShieldingLabel.AutoSize = True
+        Me.RateShieldingLabel.Location = New System.Drawing.Point(243, 180)
+        Me.RateShieldingLabel.Name = "RateShieldingLabel"
+        Me.RateShieldingLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateShieldingLabel.TabIndex = 65
+        Me.RateShieldingLabel.Text = "0/h"
+        '
+        'RateDistanceLabel
+        '
+        Me.RateDistanceLabel.AutoSize = True
+        Me.RateDistanceLabel.Location = New System.Drawing.Point(243, 160)
+        Me.RateDistanceLabel.Name = "RateDistanceLabel"
+        Me.RateDistanceLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateDistanceLabel.TabIndex = 66
+        Me.RateDistanceLabel.Text = "0/h"
+        '
+        'RateAxeLabel
+        '
+        Me.RateAxeLabel.AutoSize = True
+        Me.RateAxeLabel.Location = New System.Drawing.Point(243, 140)
+        Me.RateAxeLabel.Name = "RateAxeLabel"
+        Me.RateAxeLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateAxeLabel.TabIndex = 67
+        Me.RateAxeLabel.Text = "0/h"
+        '
+        'RateSwordLabel
+        '
+        Me.RateSwordLabel.AutoSize = True
+        Me.RateSwordLabel.Location = New System.Drawing.Point(243, 120)
+        Me.RateSwordLabel.Name = "RateSwordLabel"
+        Me.RateSwordLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateSwordLabel.TabIndex = 68
+        Me.RateSwordLabel.Text = "0/h"
+        '
+        'RateFistLabel
+        '
+        Me.RateFistLabel.AutoSize = True
+        Me.RateFistLabel.Location = New System.Drawing.Point(243, 80)
+        Me.RateFistLabel.Name = "RateFistLabel"
+        Me.RateFistLabel.Size = New System.Drawing.Size(24, 13)
+        Me.RateFistLabel.TabIndex = 69
+        Me.RateFistLabel.Text = "0/h"
+        '
+        'ActualCapacityLabel
+        '
+        Me.ActualCapacityLabel.AutoSize = True
+        Me.ActualCapacityLabel.Location = New System.Drawing.Point(78, 280)
+        Me.ActualCapacityLabel.Name = "ActualCapacityLabel"
+        Me.ActualCapacityLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualCapacityLabel.TabIndex = 71
+        Me.ActualCapacityLabel.Text = "0"
         '
         'Label71
         '
@@ -870,23 +788,23 @@ Partial Class frmCharacterStatistics
         Me.Label76.TabIndex = 75
         Me.Label76.Text = "Capacity:"
         '
-        'GoldActual
+        'ActualGoldLabel
         '
-        Me.GoldActual.AutoSize = True
-        Me.GoldActual.Location = New System.Drawing.Point(98, 300)
-        Me.GoldActual.Name = "GoldActual"
-        Me.GoldActual.Size = New System.Drawing.Size(13, 13)
-        Me.GoldActual.TabIndex = 76
-        Me.GoldActual.Text = "0"
+        Me.ActualGoldLabel.AutoSize = True
+        Me.ActualGoldLabel.Location = New System.Drawing.Point(78, 300)
+        Me.ActualGoldLabel.Name = "ActualGoldLabel"
+        Me.ActualGoldLabel.Size = New System.Drawing.Size(13, 13)
+        Me.ActualGoldLabel.TabIndex = 76
+        Me.ActualGoldLabel.Text = "0"
         '
-        'GoldRate
+        'RateGold
         '
-        Me.GoldRate.AutoSize = True
-        Me.GoldRate.Location = New System.Drawing.Point(340, 300)
-        Me.GoldRate.Name = "GoldRate"
-        Me.GoldRate.Size = New System.Drawing.Size(24, 13)
-        Me.GoldRate.TabIndex = 79
-        Me.GoldRate.Text = "0/h"
+        Me.RateGold.AutoSize = True
+        Me.RateGold.Location = New System.Drawing.Point(243, 300)
+        Me.RateGold.Name = "RateGold"
+        Me.RateGold.Size = New System.Drawing.Size(24, 13)
+        Me.RateGold.TabIndex = 79
+        Me.RateGold.Text = "0/h"
         '
         'Timer1
         '
@@ -906,7 +824,7 @@ Partial Class frmCharacterStatistics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(465, 441)
+        Me.ClientSize = New System.Drawing.Size(453, 441)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -914,6 +832,7 @@ Partial Class frmCharacterStatistics
         Me.Name = "frmCharacterStatistics"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.Text = "Character Statistics"
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
         Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
@@ -940,62 +859,54 @@ Partial Class frmCharacterStatistics
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents LevelActual As System.Windows.Forms.Label
-    Friend WithEvents ExperienceActual As System.Windows.Forms.Label
-    Friend WithEvents MagicLevelActual As System.Windows.Forms.Label
-    Friend WithEvents FistActual As System.Windows.Forms.Label
-    Friend WithEvents ClubActual As System.Windows.Forms.Label
-    Friend WithEvents SwordActual As System.Windows.Forms.Label
-    Friend WithEvents AxeActual As System.Windows.Forms.Label
-    Friend WithEvents DistanceActual As System.Windows.Forms.Label
-    Friend WithEvents ShieldingActual As System.Windows.Forms.Label
-    Friend WithEvents FishingActual As System.Windows.Forms.Label
-    Friend WithEvents HitPointsActual As System.Windows.Forms.Label
-    Friend WithEvents ManaPointsActual As System.Windows.Forms.Label
-    Friend WithEvents SoulPointsActual As System.Windows.Forms.Label
-    Friend WithEvents Label32 As System.Windows.Forms.Label
-    Friend WithEvents Label33 As System.Windows.Forms.Label
-    Friend WithEvents Label35 As System.Windows.Forms.Label
-    Friend WithEvents Label36 As System.Windows.Forms.Label
-    Friend WithEvents Label37 As System.Windows.Forms.Label
-    Friend WithEvents FishingRate As System.Windows.Forms.Label
-    Friend WithEvents Label40 As System.Windows.Forms.Label
-    Friend WithEvents Label41 As System.Windows.Forms.Label
-    Friend WithEvents Label42 As System.Windows.Forms.Label
-    Friend WithEvents Label43 As System.Windows.Forms.Label
-    Friend WithEvents Label44 As System.Windows.Forms.Label
-    Friend WithEvents Label45 As System.Windows.Forms.Label
-    Friend WithEvents Label46 As System.Windows.Forms.Label
-    Friend WithEvents Label47 As System.Windows.Forms.Label
-    Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents ExperienceCompleted As System.Windows.Forms.Label
-    Friend WithEvents LevelCompleted As System.Windows.Forms.Label
-    Friend WithEvents Label51 As System.Windows.Forms.Label
-    Friend WithEvents Label52 As System.Windows.Forms.Label
-    Friend WithEvents Label53 As System.Windows.Forms.Label
-    Friend WithEvents Label54 As System.Windows.Forms.Label
-    Friend WithEvents Label55 As System.Windows.Forms.Label
-    Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents Label57 As System.Windows.Forms.Label
-    Friend WithEvents Label58 As System.Windows.Forms.Label
-    Friend WithEvents ExperienceRemaining As System.Windows.Forms.Label
-    Friend WithEvents LevelRemaining As System.Windows.Forms.Label
-    Friend WithEvents LevelRate As System.Windows.Forms.Label
-    Friend WithEvents ExperienceRate As System.Windows.Forms.Label
-    Friend WithEvents MagicLevelRate As System.Windows.Forms.Label
-    Friend WithEvents ClubRate As System.Windows.Forms.Label
-    Friend WithEvents ShieldingRate As System.Windows.Forms.Label
-    Friend WithEvents DistanceRate As System.Windows.Forms.Label
-    Friend WithEvents AxeRate As System.Windows.Forms.Label
-    Friend WithEvents SwordRate As System.Windows.Forms.Label
-    Friend WithEvents FistRate As System.Windows.Forms.Label
-    Friend WithEvents CapacityActual As System.Windows.Forms.Label
-    Friend WithEvents Label73 As System.Windows.Forms.Label
-    Friend WithEvents Label74 As System.Windows.Forms.Label
+    Friend WithEvents ActualLevelLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualExperienceLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualMagicLevelLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualFistLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualClubLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualSwordLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualAxeLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualDistanceLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualShieldingLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualFishingLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualHitPointsLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualManaPointsLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualSoulPointsLabel As System.Windows.Forms.Label
+    Friend WithEvents RateFishingLabel As System.Windows.Forms.Label
+    Friend WithEvents ETAFishingLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalFishingLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalShieldingLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalDistanceLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalAxeLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalSwordLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalFistLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalMagicLevelLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalExperience As System.Windows.Forms.Label
+    Friend WithEvents TotalLevelLabel As System.Windows.Forms.Label
+    Friend WithEvents TotalClubLabel As System.Windows.Forms.Label
+    Friend WithEvents ETAShieldingLabel As System.Windows.Forms.Label
+    Friend WithEvents ETADistanceLabel As System.Windows.Forms.Label
+    Friend WithEvents ETAAxeLabel As System.Windows.Forms.Label
+    Friend WithEvents ETASwordLabel As System.Windows.Forms.Label
+    Friend WithEvents ETAClubLabel As System.Windows.Forms.Label
+    Friend WithEvents ETAFistLabel As System.Windows.Forms.Label
+    Friend WithEvents ETAMagicLevelLabel As System.Windows.Forms.Label
+    Friend WithEvents ETAExperienceLabel As System.Windows.Forms.Label
+    Friend WithEvents RemainingLevelLabel As System.Windows.Forms.Label
+    Friend WithEvents RateLevelLabel As System.Windows.Forms.Label
+    Friend WithEvents RateExperienceLabel As System.Windows.Forms.Label
+    Friend WithEvents RateMagicLevelLabel As System.Windows.Forms.Label
+    Friend WithEvents RateClubLabel As System.Windows.Forms.Label
+    Friend WithEvents RateShieldingLabel As System.Windows.Forms.Label
+    Friend WithEvents RateDistanceLabel As System.Windows.Forms.Label
+    Friend WithEvents RateAxeLabel As System.Windows.Forms.Label
+    Friend WithEvents RateSwordLabel As System.Windows.Forms.Label
+    Friend WithEvents RateFistLabel As System.Windows.Forms.Label
+    Friend WithEvents ActualCapacityLabel As System.Windows.Forms.Label
     Friend WithEvents Label71 As System.Windows.Forms.Label
     Friend WithEvents Label76 As System.Windows.Forms.Label
-    Friend WithEvents GoldActual As System.Windows.Forms.Label
-    Friend WithEvents GoldRate As System.Windows.Forms.Label
+    Friend WithEvents ActualGoldLabel As System.Windows.Forms.Label
+    Friend WithEvents RateGold As System.Windows.Forms.Label
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

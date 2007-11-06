@@ -118,11 +118,47 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ttb2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ttb2.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="holeopen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\holeopen.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="otherplayer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\otherplayer.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mailbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\mailbox.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="waternofish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\waternofish.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="creature" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\creature.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="waterfish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\waterfish.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="notwalkable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\notwalkable.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="depot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\depot.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="player" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\player.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="void" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\lava.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stairsgodown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\stairsgodown.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ttb2_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ttb2_16x16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stairsgoup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\stairsgoup.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="doorclosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\doorclosed.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,61 +166,34 @@
   <data name="doorlocked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\doorlocked.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dooropen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\dooropen.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="holeclosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\holeclosed.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="holeopen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\holeopen.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ladder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\ladder.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mailbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\mailbox.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="notwalkable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\notwalkable.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="otherplayer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\otherplayer.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="player" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\player.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stairsgodown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\stairsgodown.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stairsgoup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\stairsgoup.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="swamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\swamp.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="walkable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\walkable.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="teleport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\teleport.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ttb2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ttb2.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ttb2_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ttb2_16x16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ttb2_16x161" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ttb2_16x161.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="void" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\lava.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="holeclosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\holeclosed.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="walkable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\walkable.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dooropen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\dooropen.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="waterfish" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\waterfish.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ladder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\ladder.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="waternofish" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\waternofish.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="swamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\swamp.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ttb_splash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ttb splash.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ttb21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ttb21.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ttb21_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ttb21_16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
