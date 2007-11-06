@@ -19,46 +19,21 @@ Partial Class MainForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.OpenDialog = New System.Windows.Forms.OpenFileDialog
+        Me.SaveDialog = New System.Windows.Forms.SaveFileDialog
+        Me.BGW = New System.ComponentModel.BackgroundWorker
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar
+        Me.Label1 = New System.Windows.Forms.Label
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
+        Me.CloseButton = New System.Windows.Forms.Button
+        Me.PatchButton = New System.Windows.Forms.Button
         Me.TibiaExecutableGroupBox = New System.Windows.Forms.GroupBox
         Me.BrowseButton = New System.Windows.Forms.Button
         Me.TibiaExecutableTextBox = New System.Windows.Forms.TextBox
-        Me.OpenDialog = New System.Windows.Forms.OpenFileDialog
-        Me.SaveDialog = New System.Windows.Forms.SaveFileDialog
-        Me.CloseButton = New System.Windows.Forms.Button
-        Me.PatchButton = New System.Windows.Forms.Button
-        Me.BGW = New System.ComponentModel.BackgroundWorker
-        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar
         Me.TibiaExecutableGroupBox.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'TibiaExecutableGroupBox
-        '
-        Me.TibiaExecutableGroupBox.Controls.Add(Me.BrowseButton)
-        Me.TibiaExecutableGroupBox.Controls.Add(Me.TibiaExecutableTextBox)
-        Me.TibiaExecutableGroupBox.Location = New System.Drawing.Point(12, 12)
-        Me.TibiaExecutableGroupBox.Name = "TibiaExecutableGroupBox"
-        Me.TibiaExecutableGroupBox.Size = New System.Drawing.Size(313, 52)
-        Me.TibiaExecutableGroupBox.TabIndex = 0
-        Me.TibiaExecutableGroupBox.TabStop = False
-        Me.TibiaExecutableGroupBox.Text = "Tibia Executable"
-        '
-        'BrowseButton
-        '
-        Me.BrowseButton.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.TibiaTek_Multi_Client_Patcher.My.MySettings.Default, "BrowseText", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.BrowseButton.Location = New System.Drawing.Point(255, 19)
-        Me.BrowseButton.Name = "BrowseButton"
-        Me.BrowseButton.Size = New System.Drawing.Size(52, 20)
-        Me.BrowseButton.TabIndex = 1
-        Me.BrowseButton.Text = Global.TibiaTek_Multi_Client_Patcher.My.MySettings.Default.BrowseText
-        Me.BrowseButton.UseVisualStyleBackColor = True
-        '
-        'TibiaExecutableTextBox
-        '
-        Me.TibiaExecutableTextBox.Location = New System.Drawing.Point(6, 19)
-        Me.TibiaExecutableTextBox.Name = "TibiaExecutableTextBox"
-        Me.TibiaExecutableTextBox.ReadOnly = True
-        Me.TibiaExecutableTextBox.Size = New System.Drawing.Size(243, 20)
-        Me.TibiaExecutableTextBox.TabIndex = 0
         '
         'OpenDialog
         '
@@ -71,6 +46,56 @@ Partial Class MainForm
         Me.SaveDialog.DefaultExt = "exe"
         Me.SaveDialog.FileName = "Tibia.exe"
         Me.SaveDialog.Filter = "Executable|*.exe"
+        '
+        'BGW
+        '
+        Me.BGW.WorkerReportsProgress = True
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(93, 70)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(151, 19)
+        Me.ProgressBar1.TabIndex = 3
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Enabled = False
+        Me.Label1.Location = New System.Drawing.Point(12, 100)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(42, 13)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "Credits:"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(287, 100)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(27, 13)
+        Me.Label2.TabIndex = 7
+        Me.Label2.Text = "Stiju"
+        '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.Location = New System.Drawing.Point(211, 100)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(70, 13)
+        Me.LinkLabel2.TabIndex = 6
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = Global.TibiaTek_Multi_Client_Patcher.My.MySettings.Default.CreditsTS
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(60, 100)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(145, 13)
+        Me.LinkLabel1.TabIndex = 5
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = Global.TibiaTek_Multi_Client_Patcher.My.MySettings.Default.CreditsTTDT
         '
         'CloseButton
         '
@@ -92,22 +117,44 @@ Partial Class MainForm
         Me.PatchButton.Text = Global.TibiaTek_Multi_Client_Patcher.My.MySettings.Default.PatchText
         Me.PatchButton.UseVisualStyleBackColor = True
         '
-        'BGW
+        'TibiaExecutableGroupBox
         '
-        Me.BGW.WorkerReportsProgress = True
+        Me.TibiaExecutableGroupBox.Controls.Add(Me.BrowseButton)
+        Me.TibiaExecutableGroupBox.Controls.Add(Me.TibiaExecutableTextBox)
+        Me.TibiaExecutableGroupBox.Location = New System.Drawing.Point(12, 12)
+        Me.TibiaExecutableGroupBox.Name = "TibiaExecutableGroupBox"
+        Me.TibiaExecutableGroupBox.Size = New System.Drawing.Size(313, 52)
+        Me.TibiaExecutableGroupBox.TabIndex = 0
+        Me.TibiaExecutableGroupBox.TabStop = False
+        Me.TibiaExecutableGroupBox.Text = Global.TibiaTek_Multi_Client_Patcher.My.MySettings.Default.TibiaExecutableText
         '
-        'ProgressBar1
+        'BrowseButton
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(93, 70)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(151, 19)
-        Me.ProgressBar1.TabIndex = 3
+        Me.BrowseButton.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.TibiaTek_Multi_Client_Patcher.My.MySettings.Default, "BrowseText", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.BrowseButton.Location = New System.Drawing.Point(238, 19)
+        Me.BrowseButton.Name = "BrowseButton"
+        Me.BrowseButton.Size = New System.Drawing.Size(69, 23)
+        Me.BrowseButton.TabIndex = 1
+        Me.BrowseButton.Text = Global.TibiaTek_Multi_Client_Patcher.My.MySettings.Default.BrowseText
+        Me.BrowseButton.UseVisualStyleBackColor = True
+        '
+        'TibiaExecutableTextBox
+        '
+        Me.TibiaExecutableTextBox.Location = New System.Drawing.Point(6, 19)
+        Me.TibiaExecutableTextBox.Name = "TibiaExecutableTextBox"
+        Me.TibiaExecutableTextBox.ReadOnly = True
+        Me.TibiaExecutableTextBox.Size = New System.Drawing.Size(226, 20)
+        Me.TibiaExecutableTextBox.TabIndex = 0
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(337, 101)
+        Me.ClientSize = New System.Drawing.Size(337, 122)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.LinkLabel2)
+        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.CloseButton)
         Me.Controls.Add(Me.PatchButton)
@@ -122,6 +169,7 @@ Partial Class MainForm
         Me.TibiaExecutableGroupBox.ResumeLayout(False)
         Me.TibiaExecutableGroupBox.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents TibiaExecutableGroupBox As System.Windows.Forms.GroupBox
@@ -133,5 +181,9 @@ Partial Class MainForm
     Friend WithEvents SaveDialog As System.Windows.Forms.SaveFileDialog
     Friend WithEvents BGW As System.ComponentModel.BackgroundWorker
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
+    Friend WithEvents LinkLabel2 As System.Windows.Forms.LinkLabel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
 
 End Class

@@ -179,6 +179,96 @@ Namespace My
                 Return CType(Me("QuestionCaption"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Tibia Executable")>  _
+        Public ReadOnly Property TibiaExecutableText() As String
+            Get
+                Return CType(Me("TibiaExecutableText"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Would you like to make a backup of your Tibia Executable?")>  _
+        Public ReadOnly Property PatchMsg1() As String
+            Get
+                Return CType(Me("PatchMsg1"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Backup of the Tibia Executable saved to")>  _
+        Public ReadOnly Property PatchMsg2() As String
+            Get
+                Return CType(Me("PatchMsg2"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Backup Complete")>  _
+        Public ReadOnly Property PatchCaption1() As String
+            Get
+                Return CType(Me("PatchCaption1"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Complete")>  _
+        Public ReadOnly Property CompleteCaption() As String
+            Get
+                Return CType(Me("CompleteCaption"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Successfully patched.")>  _
+        Public ReadOnly Property PatchMsg3() As String
+            Get
+                Return CType(Me("PatchMsg3"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("TibiaTek Development Team")>  _
+        Public ReadOnly Property CreditsTTDT() As String
+            Get
+                Return CType(Me("CreditsTTDT"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Tibiasoft.com")>  _
+        Public ReadOnly Property CreditsTS() As String
+            Get
+                Return CType(Me("CreditsTS"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://www.tibiatek.com/")>  _
+        Public ReadOnly Property CreditsTTDTUrl() As String
+            Get
+                Return CType(Me("CreditsTTDTUrl"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://www.tibiasoft.com/")>  _
+        Public ReadOnly Property CreditsTSUrl() As String
+            Get
+                Return CType(Me("CreditsTSUrl"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 

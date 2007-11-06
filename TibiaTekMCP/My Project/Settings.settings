@@ -44,5 +44,35 @@
     <Setting Name="QuestionCaption" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Question</Value>
     </Setting>
+    <Setting Name="TibiaExecutableText" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tibia Executable</Value>
+    </Setting>
+    <Setting Name="PatchMsg1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Would you like to make a backup of your Tibia Executable?</Value>
+    </Setting>
+    <Setting Name="PatchMsg2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Backup of the Tibia Executable saved to</Value>
+    </Setting>
+    <Setting Name="PatchCaption1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Backup Complete</Value>
+    </Setting>
+    <Setting Name="CompleteCaption" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Complete</Value>
+    </Setting>
+    <Setting Name="PatchMsg3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Successfully patched.</Value>
+    </Setting>
+    <Setting Name="CreditsTTDT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">TibiaTek Development Team</Value>
+    </Setting>
+    <Setting Name="CreditsTS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tibiasoft.com</Value>
+    </Setting>
+    <Setting Name="CreditsTTDTUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.tibiatek.com/</Value>
+    </Setting>
+    <Setting Name="CreditsTSUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.tibiasoft.com/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
