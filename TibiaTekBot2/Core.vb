@@ -1,5 +1,24 @@
-Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, System.Math
-Imports System, System.Net, System.Net.Sockets, System.Text, System.Globalization, _
+'    Copyright (C) 2007 TibiaTek Development Team
+'
+'    This file is part of TibiaTek Bot.
+'
+'    TibiaTek Bot is free software: you can redistribute it and/or modify
+'    it under the terms of the GNU General Public License as published by
+'    the Free Software Foundation, either version 3 of the License, or
+'    (at your option) any later version.
+'
+'    TibiaTek Bot is distributed in the hope that it will be useful,
+'    but WITHOUT ANY WARRANTY; without even the implied warranty of
+'    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'    GNU General Public License for more details.
+'
+'    You should have received a copy of the GNU General Public License
+'    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
+'    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
+'    Boston, MA 02111-1307, USA.Imports System.Math
+
+Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, System.Math, _
+  System, System.Net, System.Net.Sockets, System.Text, System.Globalization, _
         System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, System.Drawing.Imaging, _
         TibiaTekBot.PProxy2, TibiaTekBot.ThreadTimer, System.ComponentModel, System.Runtime.InteropServices
 
@@ -581,12 +600,12 @@ Public Module CoreModule
                 Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "&x=" & CharacterLoc.X & "&y=" & CharacterLoc.Y & "&z=" & CharacterLoc.Z)
                 Dim Client As New WebClient
                 Client.Headers.Add("Content-Type", "application/x-www-form-urlencoded")
-                Dim URI As New System.Uri("http://www.tibiatekbot.com/updatemaploc.php")
+                Dim URI As New System.Uri("http://www.tibiatek.com/updatemaploc.php")
                 Client.UploadData(URI, "POST", Content)
                 Dim ChatMessage As ChatMessageDefinition
                 ChatMessage.Destinatary = SendLocationDestinatary
                 ChatMessage.MessageType = MessageType.PM
-                ChatMessage.Message = "http://www.tibiatekbot.com/map.php?charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "#pointer"
+                ChatMessage.Message = "http://www.tibiatek.com/map.php?charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "#pointer"
                 ChatMessageQueueList.Add(ChatMessage)
                 ConsoleWrite("Your location will be sent to " & SendLocationDestinatary & " , you can check it yourself by typing: &open """ & ChatMessage.Message & ".")
             Catch Ex As Exception
@@ -3327,7 +3346,7 @@ Public Module CoreModule
                                         Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("feedback=" & System.Web.HttpUtility.UrlEncode(Data))
                                         Dim Client As New WebClient
                                         Client.Headers.Add("Content-Type", "application/x-www-form-urlencoded")
-                                        Dim URI As New System.Uri("http://www.tibiatekbot.com/feedback.php")
+                                        Dim URI As New System.Uri("http://www.tibiatek.com/feedback.php")
                                         Client.UploadDataAsync(URI, "POST", Content)
                                         ConsoleWrite("Thank you for your feedback, it is greatly appreciated.")
                                     Catch

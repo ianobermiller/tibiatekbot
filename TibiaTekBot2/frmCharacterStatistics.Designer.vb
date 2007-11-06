@@ -1,3 +1,22 @@
+'    Copyright (C) 2007 TibiaTek Development Team
+'
+'    This file is part of TibiaTek Bot.
+'
+'    TibiaTek Bot is free software: you can redistribute it and/or modify
+'    it under the terms of the GNU General Public License as published by
+'    the Free Software Foundation, either version 3 of the License, or
+'    (at your option) any later version.
+'
+'    TibiaTek Bot is distributed in the hope that it will be useful,
+'    but WITHOUT ANY WARRANTY; without even the implied warranty of
+'    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'    GNU General Public License for more details.
+'
+'    You should have received a copy of the GNU General Public License
+'    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
+'    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
+'    Boston, MA 02111-1307, USA.Imports System.Math
+
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmCharacterStatistics
     Inherits System.Windows.Forms.Form
@@ -103,7 +122,7 @@ Partial Class frmCharacterStatistics
         Me.GroupBox1.Controls.Add(Me.TableLayoutPanel1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(429, 394)
+        Me.GroupBox1.Size = New System.Drawing.Size(429, 355)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Statistics"
@@ -204,7 +223,7 @@ Partial Class frmCharacterStatistics
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(417, 369)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(417, 330)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'Label1
@@ -804,7 +823,7 @@ Partial Class frmCharacterStatistics
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(12, 412)
+        Me.Button1.Location = New System.Drawing.Point(14, 402)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 1
