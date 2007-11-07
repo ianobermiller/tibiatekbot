@@ -60,7 +60,7 @@ Public NotInheritable Class frmSplashScreen
         End Try
     End Sub
 
-    Private Sub frmSplashScreen_DoubleClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.DoubleClick
+    Private Sub frmSplashScreen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Click
         Try
             Me.Close()
         Catch Ex As Exception

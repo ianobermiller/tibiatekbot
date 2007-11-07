@@ -31,7 +31,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("TibiaTek Bot Development Team")> 
 <Assembly: AssemblyProduct("TibiaTek Bot")> 
-<Assembly: AssemblyCopyright("Copyright ©  2006-2007")> 
+<Assembly: AssemblyCopyright("Copyright ©  2006-2007 GNU General Public License")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -50,5 +50,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.0.9.1")> 
-<Assembly: AssemblyFileVersion("2.0.9.1")> 
+<Assembly: AssemblyVersion("2.1.0.0")> 
+<Assembly: AssemblyFileVersion("2.1.0.0")> 

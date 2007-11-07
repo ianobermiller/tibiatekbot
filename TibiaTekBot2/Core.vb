@@ -597,7 +597,9 @@ Public Module CoreModule
 
         Private Sub BGWSendLocation_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BGWSendLocation.DoWork
             Try
-                Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "&x=" & CharacterLoc.X & "&y=" & CharacterLoc.Y & "&z=" & CharacterLoc.Z)
+                Dim R As New Random(System.DateTime.Now.Millisecond)
+                Dim Key As Integer = R.Next(1000, 9999)
+                Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "&x=" & CharacterLoc.X & "&y=" & CharacterLoc.Y & "&z=" & CharacterLoc.Z & "&key=" & Key)
                 Dim Client As New WebClient
                 Client.Headers.Add("Content-Type", "application/x-www-form-urlencoded")
                 Dim URI As New System.Uri("http://www.tibiatek.com/updatemaploc.php")
@@ -605,7 +607,7 @@ Public Module CoreModule
                 Dim ChatMessage As ChatMessageDefinition
                 ChatMessage.Destinatary = SendLocationDestinatary
                 ChatMessage.MessageType = MessageType.PM
-                ChatMessage.Message = "http://www.tibiatek.com/map.php?charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "#pointer"
+                ChatMessage.Message = "http://www.tibiatek.com/map.php?charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "&key=" & Key & "#pointer"
                 ChatMessageQueueList.Add(ChatMessage)
                 ConsoleWrite("Your location will be sent to " & SendLocationDestinatary & " , you can check it yourself by typing: &open """ & ChatMessage.Message & ".")
             Catch Ex As Exception
@@ -3630,12 +3632,15 @@ Public Module CoreModule
                             Dim FromBL As New BattleList
                             Dim ToBl As New BattleList
                             Dim Type As Integer = 0
-                            FromBL.Find(GetLocation(bytBuffer, Pos))
-                            ToBl.Find(GetLocation(bytBuffer, Pos))
+
+                            Dim FromFound As Boolean = FromBL.Find(GetLocation(bytBuffer, Pos), True)
+                            Dim ToFound As Boolean = ToBl.Find(GetLocation(bytBuffer, Pos), True)
                             Type = GetByte(bytBuffer, Pos)
+                            If Not (FromFound And ToFound) Then Continue While
+                            'ConsoleWrite("Projectile type: " & Type.ToString & " (" & FromBL.GetName & "->" & ToBl.GetName & ") ")
                             If ComboBotEnabled Then
                                 If Type = 11 Then 'SD rune
-                                    If ComboBotLeader = FromBL.GetName AndAlso ToBl.GetEntityID <> 0 Then
+                                    If ComboBotLeader = FromBL.GetName Then
                                         Proxy.SendPacketToServer(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), ToBl.GetEntityID))
                                     End If
                                 End If

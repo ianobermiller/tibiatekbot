@@ -931,4 +931,7 @@ Public Class frmMain
 #End Region
 
 
+    Private Sub LicenseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LicenseToolStripMenuItem.Click
+        System.Diagnostics.Process.Start("COPYING.txt")
+    End Sub
 End Class
