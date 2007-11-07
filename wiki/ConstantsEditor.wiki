@@ -3,11 +3,11 @@
 
 = Introduction =
 
-Constants editor let's you modify the Constants.xml file which is located to TTB_DIR\Config\Constants.xml. You can reach the Constants Editor from Tray Icon -> Constants Editor.
+Constants editor lets you modify the Constants.xml file which is located at TTB_DIR\Config\Constants.xml. You can reach the Constants Editor from Tray Icon -> Constants Editor.
 
 = Content =
 
-Constants.xml file contains every data that TibiaTek bot uses. You can find there very memory address, *but what's more important: you can find there options for the bot.* In case you want to use Fps Changer you can define the FPS for the changer. These are the default values for FPS changer:
+Constants.xml file contains every data that TibiaTek bot uses. You can find there very memory address, *but what's more important: you can find there options of the bot.* In case you want to use Fps Changer you can define the FPS for the changer. These are the default values for FPS changer:
 {{{
 FPSWhenActive: 10
 FPSWhenInactive: 1
@@ -15,7 +15,7 @@ FPSWhenMinimized: 1
 FPSWhenHidden: 1
 }}}
 
-As you see the names of the options are pretty self-explaining.
+As you see the names of the options are pretty self-explanatory.
 
 = How to Use =
 
