@@ -287,10 +287,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Alarms\Battlelist.wav" />
+    <Content Include="Alarms\Items.wav" />
     <Content Include="Alarms\Private Message.wav" />
     <Content Include="Alarms\Public Message.wav" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
-    <None Include="Documents\Outfits.xls" />
     <None Include="Resources\trayicon.ico" />
     <Content Include="Alarms\Status.wav" />
     <None Include="Resources\Image1.jpg" />
@@ -316,14 +316,14 @@
     <None Include="MapReader\doorlocked.gif" />
     <None Include="MapReader\dooropen.gif" />
     <Content Include="Config\Constants.xml" />
+    <Content Include="Config\Creatures.xml" />
     <Content Include="Config\Items.xml" />
     <Content Include="Config\LootItems.xml" />
     <Content Include="Config\Outfits.xml" />
     <Content Include="Config\Spells.xml" />
-    <Content Include="Documents\changelog.txt" />
-    <Content Include="Documents\Outfits.txt" />
-    <Content Include="Documents\Outfits.xml" />
-    <Content Include="Documents\todo.txt" />
+    <Content Include="COPYING.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\tibiatekbot.ico" />
     <None Include="Resources\ttb splash.jpg" />
     <Content Include="Resources\ttb21.ico" />

@@ -388,12 +388,12 @@ Public Module BattleListModule
                     Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordXOffset, X, 2)
                     Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordYOffset, Y, 2)
                     Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Z, 1)
-                    CurrentLoc.X = CUShort(X)
-                    CurrentLoc.Y = CUShort(Y)
-                    CurrentLoc.Z = CInt(Z)
+                    CurrentLoc.X = X
+                    CurrentLoc.Y = Y
+                    CurrentLoc.Z = Z
 
                     If Loc.X = CurrentLoc.X And Loc.Y = CurrentLoc.Y And Loc.Z = CurrentLoc.Z Then
-                        If MustBeOnScreen AndAlso Not IsOnScreen Then Return False
+                        If MustBeOnScreen AndAlso Not IsOnScreen Then Continue For
                         Return True
                     End If
                 Next
