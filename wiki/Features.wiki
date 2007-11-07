@@ -28,7 +28,7 @@
  * Floor Lookup
  * FPS Changer
  * Guild Members Lookup
- * Separate hotkey settings for every character
+ * Separate Hotkey Sets for every character
  * Light Effects
  * Mana fluid Drinker
  * Map Viewer
