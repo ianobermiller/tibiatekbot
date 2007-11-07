@@ -1,0 +1,193 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Constants editor let's you modify the Constants.xml file which is located to TTB_DIR\Config\Constants.xml. You can reach the Constants Editor from Tray Icon -> Constants Editor.
+
+= Content =
+
+Constants.xml file contains every data that TibiaTek bot uses. You can find there very memory address, *but what's more important: you can find there options for the bot.* In case you want to use Fps Changer you can define the FPS for the changer. These are the default values for FPS changer:
+{{{
+FPSWhenActive: 10
+FPSWhenInactive: 1
+FPSWhenMinimized: 1
+FPSWhenHidden: 1
+}}}
+
+As you see the names of the options are pretty self-explaining.
+
+= How to Use =
+
+Open Constants editor and you'll see two rows. One with names and another with values. Double click value to change it. *IMPORTANT:* If the value has digits, use them even you've entered the value which doesn't have digits (e.g use 2.0 instead of 2).
+When the value is True or False that means On or Off. Don't put anything else to these lines.
+
+*If you aren't 100% sure what you are doing take the backup of the Constants.xml first!*
+
+
+= Constants and Explanations  =
+{{{
+LatestVersionUrl: http://www.tibiatek.com/version.php -- Location where TibiaTek bot checks if it's up to date
+AutoPublishLocation: False -- Option for &sendloaction command. 
+AutoPublishLocationInterval: 600000 -- Option for &sendloaction command
+CreatureExpMultiplier: 1.0 -- Used in &exp creature on|off command. Change this when using bot with Private Server what has different exp rate
+ShowInvisibleCreatures: True -- Show invisible creatures automatically
+MusicalNotesOnAlarm: True -- When alarming show musical note animation top of you character
+DebugOnLog: False -- Used in debugging
+ClearLogOnStartup: True -- Used in debugging
+LootWithCavebot: True -- Used in &cavebot command. You can determine if you want to loot with cavebot. NOTE: You can definy it also from Cavebot window
+CavebotLootMinCap: 0 -- Used in &cavebot command. Tells cavebot when it's time to stop looting. NOTE: You can definy it also from Cavebot window
+CavebotAttackerRadius: 5.0 -- Used in &cavebot and &attacker commands. Determines the distance when cavebot/attacker attacks to the creature. You may want to change this if you are hunting in open area or narrow cave
+LootDelay: 500 -- Delay for looter. It loots one item in <LootDelay> time. The value is in milliseconds
+LootInBag: True -- Determines if looter opens bag and loots it.
+LootInBagDelay: 500 -- Delay for looting from bag. It loots one item in <LootInBagDelay> time. The value is in milliseconds
+LootEatFromCorpse: True -- When you open corpse with auto looter, it determines if looter eats from the corpse too.
+LootMaxDistance: 2.9 -- The max distance for the looter to go open the corpse. If you want it too loot just the tiles that are around you, use value 1.5
+EatFromFloor: True -- Determines if auto eater eats from floor too.
+EatFromFloorFirst: True --  Determines if auto looter eats first from floor, then from backpack
+EatFromFloorMaxDistance: 1.5 -- Max distance for eating the food from floor.
+AutoPickUpDelay: 2000 -- Delay where Pickuper pickups the item. Value is in milliseconds
+HealersCheckInterval: 300 -- Delay for autohealer to check your heal. Value is in milliseconds
+HealersAfterHealDelay: 300 -- Determines the delay after healing. Value is in milliseconds
+HotkeysCanEquipItems: True -- Determines can you bind hotkeys to equip items
+EquipItemsOnUse: True -- Determines can you equip items on use
+AutoStackerDelay: 1000 -- Delay for auto stacker. It stacks one item in <AutoStackerDelay>. Value is in milliseconds
+ModifyMOTD: True -- Use modified MOTD when connecting
+SmartAttacker: True -- If enabled, auto attacker will attack to the closest enemy
+FPSWhenActive: 10 -- Fps when Tibia Window is active
+FPSWhenInactive: 1 -- Fps when Tibia Window is inactive
+FPSWhenMinimized: 1 -- Fps when Tibia Window is minimized
+FPSWhenHidden: 1 -- Fps when Tibia Window is hidden
+FlashTaskbarWhenMessaged: False -- Flash taskbar when message (Public or Private) arrives.
+FlashTaskbarWhenAlarmFires: True -- Flash taskbar when alarm fires.
+StatsUploaderSaveOnDiskOnly: False -- Upload stats (use &statsuploader command) only to your disk. Use this if you don't have ftp acces to any server.
+StatsUploaderUrl: ftp.server.com -- Url of the server
+StatsUploaderPath: / -- Path where to upload the stats
+StatsUploaderFilename: stats.xml -- Filename of the uploaded file
+StatsUploaderUserID: userid -- User id for connecting to server
+StatsUploaderPassword: password -- Password for connecting to server
+StatsUploaderFrequency: 30000 -- Time in milliseconds when statsuploader uploads your stats.
+*Memory Addresses for the bot STARTS*
+ptrWindowBegin: H6198B4 -- 
+WindowLeftOffset: H14 -- 
+WindowTopOffset: H18 -- 
+WindowWidthOffset: H1C -- 
+WindowHeightOffset: H20 -- 
+WindowCaptionOffset: H50 -- 
+WindowButtonPressedOffset: H28 -- 
+WindowButton1Offset: H2C -- 
+WindowButton2Offset: H30 -- 
+WindowButton3Offset: H34 -- 
+WindowButton4Offset: H38 -- 
+ptrInGame: H766DF8 -- 
+ptrFrameRateBegin: H76793C -- 
+ptrEnterOneNamePerLine: H594670 -- 
+ptrCharacterSelectionIndex: H766DB8 -- 
+ptrEncryptionKey: H7637AC -- 
+ptrRSAKey: H593610 -- 
+RSAKeyOpenTibia: 109120132967... --
+ptrServerAddressBegin: H75EAE8
+ptrServerPortBegin: H75EB4C
+ServerAddressDist: H70
+ServerAddressCount: HA
+ptrCharacterID: H60EAD0
+ptrBattleListBegin: H60EB30
+ptrFirstContainer: H617000
+ptrInventoryBegin: H616f88
+ptrLevel: H60EAC0
+ptrLevelPercent: H60EAB8
+ptrMagicLevel: H60EABC
+ptrMagicLevelPercent: H60EAB4
+ptrExperience: H60EAC4
+ptrFollowedEntityID: H60EA98
+ptrAttackedEntityID: H60EA9C
+ptrLastAttackedEntityID: H76DA10
+ptrMaxHitPoints: H60EAC8
+ptrHitPoints: H60EACC
+ptrMaxManaPoints: H60EAAC
+ptrManaPoints: H60EAB0
+ptrSoulPoints: H60EAA8
+ptrCapacity: H60EAA0
+ptrCoordX: H6198F8
+ptrCoordY: H6198F4
+ptrCoordZ: H6198F0
+ptrSecureMode: H763BCC
+ptrFightingMode: H763BD4
+ptrChasingMode: H763BD0
+ptrMapPointer: H61E408
+ptrConditions: H60EA58
+ptrVipListBegin: H60C7F0
+ptrSkillsBegin: H60EA78
+ptrSkillsPercentBegin: H60EA5C
+ptrStamina: H60EAA4
+ptrGoToX: H60EB14
+ptrGoToY: H60EB10
+ptrGoToZ: H60EB0C
+ptrHotkeyBegin: H763C18
+ptrStatusMessage: H768458
+ptrStatusMessageTimer: H768454
+ptrCharacterListBegin: H766DBC
+CharacterListDist: H54
+CharacterListWorldOffset: H30
+HotkeyMax: H24
+HotkeyItemDataOffset: H90
+HotkeyItemOffset: H120
+HotkeyItemDist: 4
+HotkeyTextAutoSendOffset: H1B0
+HotkeyTextAutoSendDist: 1
+HotkeyTextOffset: H1D8
+HotkeyTextDist: H100
+BLMax: H96
+BLDist: HA0
+BLNameOffset: H4
+BLCoordXOffset: H24
+BLCoordYOffset: H28
+BLCoordZOffset: H2C
+BLDirectionOffset: H50
+BLWalkingOffset: H4C
+BLOutfitOffset: H60
+BLHeadCOffset: H64
+BLBodyCOffset: H68
+BLLegsCOffset: H6C
+BLFeetCOffset: H70
+BLAddonsOffset: H74
+BLLightIntensityOffset: H78
+BLLightColorOffset: H7C
+BLHPPercentOffset: H88
+BLSpeedOffset: H8C
+BLOnScreenOffset: H90
+BLSkullOffset: H94
+BLPartyOffset: H98
+MaxContainers: H10
+ContainerDist: H1EC
+ContainerIDOffset: 4
+ContainerNameOffset: H10
+ContainerSizeOffset: H30
+ContainerHasParentOffset: H34
+ContainerItemCountOffset: H38
+ContainerFirstItemOffset: H3C
+ItemDist: HC
+ItemCountOffset: 4
+MapObjectIdOffset: 4
+MapObjectDataOffset: 8
+MapObjectExtraDataOffset: HC
+MapObjectDist: HC
+MapTileDist: HAC
+VipMax: H64
+VipNameOffset: 4
+VipStatusOffset: H22
+VipDist: H2C
+SkillsDist: 4
+FrameRateCurrentOffset: H60
+FrameRateLimitOffset: H58
+ptrNameSpy: H4DD2D7
+ptrNameSpy2: H4DD2E1
+NameSpyDefault: H4C75
+NameSpy2Default: H4275
+*Memory Addresses for the bot ENDS*
+CavebotAttackerShrinkRadius: 1.0
+WaypointMaxDistance: 100 -- Walking waypoints max distance.
+MCPatchOffset: HF6224
+MCPatchReplacement: HEB
+MCPatchOriginal: H75
+MCPatchOriginal: H75
+}}}
