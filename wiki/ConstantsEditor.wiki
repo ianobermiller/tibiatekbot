@@ -1,5 +1,5 @@
 #summary How to use Constants Editor
-#labels Phase-Design,Featured
+#labels Featured,Phase-Support,Phase-Deploy
 
 = Introduction =
 
@@ -7,7 +7,7 @@ Constants editor lets you modify the Constants.xml file which is located at TTB_
 
 = Content =
 
-Constants.xml file contains every data that TibiaTek bot uses. You can find there very memory address, *but what's more important: you can find there options of the bot.* In case you want to use Fps Changer you can define the FPS for the changer. These are the default values for FPS changer:
+Constants.xml file contains every data that [TibiaTek Bot] uses. You can find the very memory addresses, *but what's more important: you can find the options of the bot.* In case you want to use FPS Changer you can define the FPS for the changer. These are the default values for the FPS changer:
 {{{
 FPSWhenActive: 10
 FPSWhenInactive: 1
@@ -19,30 +19,30 @@ As you see the names of the options are pretty self-explanatory.
 
 = How to Use =
 
-Open Constants editor and you'll see two rows. One with names and another with values. Double click value to change it. *IMPORTANT:* If the value has digits, use them even you've entered the value which doesn't have digits (e.g use 2.0 instead of 2).
-When the value is True or False that means On or Off. Don't put anything else to these lines.
+Open Constants Editor and you'll see two columns. One with the names and another with the values. Double click a value to change it.
+*IMPORTANT:* If the value is a number, remember to add a decimal point and a zero even if  the value is a whole number (e.g use 2.0 instead of 2).
+When the value is a Boolean: True or False (On or Off respectively). Don't put anything else on these values.
 
-*If you aren't 100% sure what you are doing take the backup of the Constants.xml first!*
-
+*If you aren't 100% sure of what you are doing make a backup copy of the Constants.xml file first!*
 
 = Constants and Explanations  =
 
- * LatestVersionUrl: http://www.tibiatek.com/version.php -- Location where TibiaTek bot checks if it's up to date
- * AutoPublishLocation: False -- Option for &sendloaction command. 
- * AutoPublishLocationInterval: 600000 -- Option for &sendloaction command
- * CreatureExpMultiplier: 1.0 -- Used in &exp creature on|off command. Change this when using bot with Private Server what has different exp rate
- * ShowInvisibleCreatures: True -- Show invisible creatures automatically
- * MusicalNotesOnAlarm: True -- When alarming show musical note animation top of you character
- * DebugOnLog: False -- Used in debugging
- * ClearLogOnStartup: True -- Used in debugging
- * LootWithCavebot: True -- Used in &cavebot command. You can determine if you want to l loot with cavebot. NOTE: You can definy it also from Cavebot window
- * CavebotLootMinCap: 0 -- Used in &cavebot command. Tells cavebot when it's time to stop looting. NOTE: You can definy it also from Cavebot window
- * CavebotAttackerRadius: 5.0 -- Used in &cavebot and &attacker commands. Determines the distance when cavebot/attacker attacks to the creature. You may want to change this if you are hunting in open area or narrow cave.
- * LootDelay: 500 -- Delay for looter. It loots one item in <LootDelay> time. The value is in milliseconds
- * LootInBag: True -- Determines if looter opens bag and loots it.
- * LootInBagDelay: 500 -- Delay for looting from bag. It loots one item in <LootInBagDelay> time. The value is in milliseconds
- * LootEatFromCorpse: True -- When you open corpse with auto looter, it determines if looter eats from the corpse too.
- * LootMaxDistance: 2.9 -- The max distance for the looter to go open the corpse. If you want it too loot just the tiles that are around you, use value 1.5
+ * LatestVersionUrl: http://www.tibiatek.com/version.php -- Location where TibiaTek bot checks if it's up to date, do not change this.
+ * AutoPublishLocation: False -- Option for &sendlocation command, enables automatic publishing of the character's location. 
+ * AutoPublishLocationInterval: 600000 -- Option for &sendlocation command, time interval between publishing of the character's location.
+ * CreatureExpMultiplier: 1.0 -- Used in &exp creature on|off command. Change this when using bot with Private Server what has different experience rate.
+ * ShowInvisibleCreatures: True -- Show invisible creatures as white druids automatically.
+ * MusicalNotesOnAlarm: True -- When alarming show musical note animation top of you character.
+ * DebugOnLog: False -- Used for debugging.
+ * ClearLogOnStartup: True -- Used for debugging
+ * LootWithCavebot: True -- Option for &cavebot command. You can determine if you want to  loot with the cavebot. You can also define this value from the Cavebot window.
+ * CavebotLootMinCap: 0 -- Option for &cavebot command. Tells the Cavebot when it's time to stop looting. You can also define it from the Cavebot window.
+ * CavebotAttackerRadius: 5.0 -- Option for &cavebot and &attacker commands. Determines the distance to attack between the cavebot/attacker and the creature. You may want to change this if you are hunting in open areas or a narrow cave.
+ * LootDelay: 500 -- Option for &loot command. Delay at which the Auto Looter will start gathering items. The value is in milliseconds.
+ * LootInBag: True -- Option for &loot command. Determines if the Auto Looter opens bags inside monsters to loot them.
+ * LootInBagDelay: 500 -- Option for &loot command. Delay at which the Auto Looter will start gathering items from the bags. The value is in milliseconds.
+ * LootEatFromCorpse: True -- Option for &loot command. Determines if the Auto Looter eats the food inside corpses.
+ * LootMaxDistance: 2.9 -- Option for &loot command. Determines the max distance for the Auto Looter to walk and open the corpse. If you want it too loot just the tiles around you, use the value 1.5.
  * EatFromFloor: True -- Determines if auto eater eats from floor too.
  * EatFromFloorFirst: True --  Determines if auto looter eats first from floor, then from backpack
  * EatFromFloorMaxDistance: 1.5 -- Max distance for eating the food from floor.
