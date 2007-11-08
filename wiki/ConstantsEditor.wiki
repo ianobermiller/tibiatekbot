@@ -45,31 +45,32 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
  * LootInBagDelay: 500 -- Option for &loot command. Delay at which the Auto Looter will start gathering items from the bags. The value is in milliseconds.
  * LootEatFromCorpse: True -- Option for &loot command. Determines if the Auto Looter eats the food inside corpses.
  * LootMaxDistance: 2.9 -- Option for &loot command. Determines the max distance for the Auto Looter to walk and open the corpse. If you want it too loot just the tiles around you, use the value 1.5.
- * EatFromFloor: True -- Determines if auto eater eats from floor too.
- * EatFromFloorFirst: True --  Determines if auto looter eats first from floor, then from backpack
- * EatFromFloorMaxDistance: 1.5 -- Max distance for eating the food from floor.
- * AutoPickUpDelay: 2000 -- Delay where Pickuper pickups the item. Value is in milliseconds
- * HealersCheckInterval: 300 -- Delay for autohealer to check your heal. Value is in milliseconds
- * HealersAfterHealDelay: 300 -- Determines the delay after healing. Value is in milliseconds
- * HotkeysCanEquipItems: True -- Determines can you bind hotkeys to equip items
- * EquipItemsOnUse: True -- Determines can you equip items on use
- * AutoStackerDelay: 1000 -- Delay for auto stacker. It stacks one item at a time. Value is in milliseconds
- * ModifyMOTD: True -- Use modified MOTD when connecting
- * SmartAttacker: True -- If enabled, auto attacker will attack to the closest enemy
- * FPSWhenActive: 10 -- Fps when Tibia Window is active
- * FPSWhenInactive: 1 -- Fps when Tibia Window is inactive
- * FPSWhenMinimized: 1 -- Fps when Tibia Window is minimized
- * FPSWhenHidden: 1 -- Fps when Tibia Window is hidden
- * FlashTaskbarWhenMessaged: False -- Flash taskbar when message (Public or Private) arrives.
- * FlashTaskbarWhenAlarmFires: True -- Flash taskbar when alarm fires.
- * StatsUploaderSaveOnDiskOnly: False -- Upload stats (use &statsuploader command) only to your disk. Use this if you don't have ftp acces to any server.
- * StatsUploaderUrl: ftp.server.com -- Url of the server
- * StatsUploaderPath: / -- Path where to upload the stats
- * StatsUploaderFilename: stats.xml -- Filename of the uploaded file
- * StatsUploaderUserID: userid -- User id for connecting to server
- * StatsUploaderPassword: password -- Password for connecting to server
- * StatsUploaderFrequency: 30000 -- Time in milliseconds when statsuploader uploads your  stats.
-*Memory Addresses for the bot STARTS*
+ * EatFromFloor: True -- Option for &eat command. Determines if Auto Eater eats from floor too.
+ * EatFromFloorFirst: True --  Option for &eat command. Determines if the Auto Eater eats first from the floor, and then from backpack.
+ * EatFromFloorMaxDistance: 1.5 -- Option for &eat command. Determines the maximum distance for eating the food from the floor.
+ * AutoPickUpDelay: 2000 -- Option for &pickup command. Determines the delay for the Auto Pickup to pickup the item. The value is in milliseconds.
+ * HealersCheckInterval: 300 -- Option for &heal command. Determines the delay for Auto Healer to check your heal. The value is in milliseconds.
+ * HealersAfterHealDelay: 300 -- Option for &heal command. Determines the delay after healing. Value is in milliseconds.
+ * HotkeysCanEquipItems: True -- Determines can you bind hotkeys to equip items.
+ * EquipItemsOnUse: True -- Determines can you equip items on use.
+ * AutoStackerDelay: 1000 -- Option for &stacker command. Determines the delay for the Auto Stacker. It stacks one item at a time. The value is in milliseconds.
+ * ModifyMOTD: True -- Use modified MOTD when connecting.
+ * SmartAttacker: True -- If enabled, auto attacker will attack to the closest enemy.
+ * FPSWhenActive: 10 -- Determines the Frame Per Second when the Tibia Window is active.
+ * FPSWhenInactive: 1 -- Determines the Frame Per Second when the Tibia Window is inactive.
+ * FPSWhenMinimized: 1 -- Determines the Frame Per Second when the Tibia Window is minimized.
+ * FPSWhenHidden: 1 -- Determines the Frame Per Second when the Tibia Window is hidden.
+ * FlashTaskbarWhenMessaged: False -- Determines if the taskbar flashes when a message (Public or Private) arrives.
+ * FlashTaskbarWhenAlarmFires: True -- Determines if the taskbar flashes when an alarm fires.
+ * StatsUploaderSaveOnDiskOnly: False -- Option for &uploadstats command. Determines if the stats are to be uploaded/saved only to your disk. Use this if you don't have FTP acces to any server.
+ * StatsUploaderUrl: ftp.server.com -- Determines the URL of the FTP server.
+ * StatsUploaderPath: / -- Path where to upload the stats in the FTP server.
+ * StatsUploaderFilename: stats.xml -- Filename of the file to be uploaded.
+ * StatsUploaderUserID: userid -- Username used to connect to the FTP server.
+ * StatsUploaderPassword: password -- Password used to connect to the FTP server.
+ * StatsUploaderFrequency: 30000 -- Time interval for the Stats Uploader to upload your  stats.
+
+*Memory Addresses for when the bot STARTS*
  * ptrWindowBegin: H6198B4
  * WindowLeftOffset: H14
  * WindowTopOffset: H18
