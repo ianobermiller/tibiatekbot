@@ -1,7 +1,7 @@
 #labels Phase-Implementation
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
-|| Nov 8, 2007 || 1.Added SpellCasterDelay and SpellCasterInterval to Constants.xml and updated the SpellTimerObj_Execute function (Issue #16). 2.Fixed bug when using amulets (Issue #17) 3.Started improving GUI (Issue #14) || Cameri2005 ||
+|| Nov 8, 2007 || 1.Added [ConstantsEditor SpellCasterDelay] and [ConstantsEditor SpellCasterInterval] to Constants.xml and updated the SpellTimerObj_Execute function (Issue #16). 2.Fixed bug when using amulets (Issue #17) 3.Started improving GUI (Issue #14) || Cameri2005 ||
 || Nov 7, 2007 || Added try..catch to all functions in Cavebot.vb || Cameri2005 ||
 || Nov 7, 2007 || Fixed bug in Items.xml, all rune names were stripped of the _" Rune"_ part || Genosonic ||
 
