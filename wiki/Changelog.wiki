@@ -1,10 +1,10 @@
 #labels Phase-Implementation
-=TibiaTek Bot=
+==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
 || Nov 7, 2007 || Fixed bug in Items.xml, all rune names were stripped of the _" Rune"_ part || Genosonic ||
 
-=TibiaTek Multi-Client Patcher=
+==TibiaTek Multi-Client Patcher==
 || *Date* || *Description* || *Author* ||
 
-=TibiaTek Statistics=
+==TibiaTek Statistics==
 || *Date* || *Description* || *Author* ||
