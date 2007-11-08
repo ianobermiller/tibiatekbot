@@ -1,6 +1,7 @@
 #labels Phase-Implementation
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
+|| Nov 7, 2007 || Added try..catch to all functions in Cavebot.vb || Cameri2005 ||
 || Nov 7, 2007 || Fixed bug in Items.xml, all rune names were stripped of the _" Rune"_ part || Genosonic ||
 
 ==TibiaTek Multi-Client Patcher==
