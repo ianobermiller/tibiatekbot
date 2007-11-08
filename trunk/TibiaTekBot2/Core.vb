@@ -3343,6 +3343,7 @@ Public Module CoreModule
                                 Send = False
                             Case &HFE
                                 Dim Data As String = GetString(bytBuffer, Pos)
+                                Data &= vbLf & vbLf & "Sent by: " & Proxy.CharacterName & " (" & Proxy.CharacterWorlds(Proxy.CharacterIndex) & ") "
                                 If Data.Length > 0 Then
                                     Try
                                         Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("feedback=" & System.Web.HttpUtility.UrlEncode(Data))

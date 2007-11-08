@@ -136,12 +136,11 @@ Public Class frmCharacterStatistics
                 InitialExperience = Core.Experience
             End If
 
-
             ' Magic Level
             Core.ReadMemory(Consts.ptrMagicLevel, ActualMagicLevel, 1)
             ActualMagicLevelLabel.Text = ActualMagicLevel.ToString
-            Core.ReadMemory(Consts.ptrMagicLevel, ActualMagicLevelPercent, 1)
-            RemainingMagicLevelLabel.Text = (100 - ActualMagicLevelPercent.ToString) & "%"
+            Core.ReadMemory(Consts.ptrMagicLevelPercent, ActualMagicLevelPercent, 1)
+            RemainingMagicLevelLabel.Text = (100 - ActualMagicLevelPercent) & "%"
             Rate = (ActualMagicLevelPercent - InitialMagicLevelPercent) / TimeDiff.TotalHours
             If Rate > 0 Then
                 ETA = TimeSpan.FromHours((100 - ActualMagicLevelPercent) / Rate)
