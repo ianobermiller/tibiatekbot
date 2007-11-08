@@ -1632,7 +1632,7 @@ Public Module CommandParserModule
                 Core.SpellTimerObj.StopTimer()
                 Core.ConsoleWrite("Spell Caster is now Disabled.")
             Case Else
-                Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "^([1-9][0-9]{1,4})\s+""?(.+)$")
+                Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "^([1-9][0-9]{1,4})\s+""?(.+)$")
                 If MatchObj.Success Then
                     Core.SpellManaRequired = CUInt(MatchObj.Groups(1).ToString)
                     Core.SpellMsg = MatchObj.Groups(2).ToString

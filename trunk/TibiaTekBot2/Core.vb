@@ -2322,12 +2322,12 @@ Public Module CoreModule
         Private Sub SpellTimerObj_Execute() Handles SpellTimerObj.OnExecute
             Try
                 If Not InGame() Then Exit Sub
-                If SpellTimerObj.Interval = 4000 Then SpellTimerObj.Interval = 1000
-                If SpellManaRequired = 0 OrElse SpellMsg.Length = 0 Then Exit Sub
+                If SpellTimerObj.Interval = Consts.SpellCasterDelay Then SpellTimerObj.Interval = Consts.SpellCasterInterval
+                If SpellManaRequired = 0 OrElse String.IsNullOrEmpty(SpellMsg) Then Exit Sub
                 If ManaPoints = 0 Then
                     Exit Sub
                 ElseIf ManaPoints >= SpellManaRequired Then
-                    SpellTimerObj.Interval = 4000
+                    SpellTimerObj.Interval = Consts.SpellCasterDelay
                     Proxy.SendPacketToServer(Speak(SpellMsg))
                 End If
             Catch Ex As Exception
@@ -3048,7 +3048,7 @@ Public Module CoreModule
         End Sub
 #End Region
 
-#Region " Amulet/Necklace Changer "
+#Region " Ring Changer "
         Private Sub RingChangerTimerObj_Execute() Handles RingChangerTimerObj.OnExecute
             Try
                 If Not InGame() Then Exit Sub
@@ -3279,6 +3279,10 @@ Public Module CoreModule
                                 Send = False
                             End If
                         ElseIf Consts.EquipItemsOnUse Then
+                            If Definitions.IsNeck(ItemID) Then
+                                Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(InventorySlots.Neck), 1))
+                                Send = False
+                            End If
                             If Definitions.IsRing(ItemID) Then
                                 Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(InventorySlots.Finger), 1))
                                 Send = False

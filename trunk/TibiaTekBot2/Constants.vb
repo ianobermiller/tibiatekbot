@@ -204,6 +204,9 @@ Public Module ConstantsModule
         Public MCPatchReplacement As Integer = 0
         Public MCPatchOriginal As Integer = 0
 
+        Public SpellCasterInterval As Integer = 0
+        Public SpellCasterDelay As Integer = 0
+
         Public Sub New()
             LoadConstants()
         End Sub
@@ -552,6 +555,11 @@ Public Module ConstantsModule
                                                     MCPatchReplacement = CInt(Value)
                                                 Case "MCPatchOriginal"
                                                     MCPatchOriginal = CInt(Value)
+
+                                                Case "SpellCasterInterval"
+                                                    SpellCasterInterval = CInt(Value)
+                                                Case "SpellCasterDelay"
+                                                    SpellCasterDelay = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
