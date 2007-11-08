@@ -38,6 +38,8 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
  * LootWithCavebot: True -- Option for &cavebot command. You can determine if you want to  loot with the cavebot. You can also define this value from the Cavebot window.
  * CavebotLootMinCap: 0 -- Option for &cavebot command. Tells the Cavebot when it's time to stop looting. You can also define it from the Cavebot window.
  * CavebotAttackerRadius: 5.0 -- Option for &cavebot and &attacker commands. Determines the distance to attack between the cavebot/attacker and the creature. You may want to change this if you are hunting in open areas or a narrow cave.
+ * CavebotAttackerShrinkRadius: 1.0 -- Option to shrink radius when other players are on the screen?
+ * WaypointMaxDistance: 100 -- Option to set the waypoints max distance
  * LootDelay: 500 -- Option for &loot command. Delay at which the Auto Looter will start gathering items. The value is in milliseconds.
  * LootInBag: True -- Option for &loot command. Determines if the Auto Looter opens bags inside monsters to loot them.
  * LootInBagDelay: 500 -- Option for &loot command. Delay at which the Auto Looter will start gathering items from the bags. The value is in milliseconds.
@@ -51,7 +53,7 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
  * HealersAfterHealDelay: 300 -- Determines the delay after healing. Value is in milliseconds
  * HotkeysCanEquipItems: True -- Determines can you bind hotkeys to equip items
  * EquipItemsOnUse: True -- Determines can you equip items on use
- * AutoStackerDelay: 1000 -- Delay for auto stacker. It stacks one item in <AutoStackerDelay>. Value is in milliseconds
+ * AutoStackerDelay: 1000 -- Delay for auto stacker. It stacks one item at a time. Value is in milliseconds
  * ModifyMOTD: True -- Use modified MOTD when connecting
  * SmartAttacker: True -- If enabled, auto attacker will attack to the closest enemy
  * FPSWhenActive: 10 -- Fps when Tibia Window is active
@@ -185,9 +187,6 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
  * NameSpyDefault: H4C75
  * NameSpy2Default: H4275
 *Memory Addresses for the bot ENDS*
- * CavebotAttackerShrinkRadius: 1.0
- * WaypointMaxDistance: 100 -- Walking waypoints max distance.
  * MCPatchOffset: HF6224
  * MCPatchReplacement: HEB
- * MCPatchOriginal: H75
  * MCPatchOriginal: H75
