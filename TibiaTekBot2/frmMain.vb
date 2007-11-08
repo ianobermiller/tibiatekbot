@@ -42,10 +42,19 @@ Public Class frmMain
             SC.ShowDialog()
             LoadTibiaEXE()
             System.GC.Collect()
+            InitializeControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
+    End Sub
+
+    Private Sub InitializeControls()
+        ' Spell Caster
+        For Each Spell As SpellDefinition In CoreModule.Spells.SupportiveSpells
+            SpellCasterSpell.Items.Add(Spell.Words)
+        Next
+
     End Sub
 
     Private Sub frmMain_Closing(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
@@ -68,6 +77,8 @@ Public Class frmMain
                 Me.Text = "TibiaTek Bot - " & Core.Proxy.CharacterName
                 FunctionsToolStripMenuItem.Enabled = True
                 AboutToolStripMenuItem.Enabled = True
+                RefreshControls()
+                MainTabControl.Enabled = True
             Else
                 If Not (Core.Proxy Is Nothing OrElse Core.Proxy.Client Is Nothing) Then
                     Me.Text = "TibiaTek Bot - " & Hex(Core.Proxy.Client.Handle.ToString)
@@ -76,6 +87,34 @@ Public Class frmMain
                 End If
                 FunctionsToolStripMenuItem.Enabled = False
                 AboutToolStripMenuItem.Enabled = False
+                MainTabControl.Enabled = False
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshControls()
+        Try
+            RefreshSpellCasterControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshSpellCasterControls()
+        Try
+            SpellCasterTrigger.Checked = Core.SpellTimerObj.State = ThreadTimerState.Running
+            If Core.SpellTimerObj.State = ThreadTimerState.Running Then
+                SpellCasterSpell.Text = Core.SpellMsg
+                SpellCasterMinimumManaPoints.Value = Core.SpellManaRequired
+                SpellCasterSpell.Enabled = False
+                SpellCasterMinimumManaPoints.Enabled = False
+            Else
+                SpellCasterSpell.Enabled = True
+                SpellCasterMinimumManaPoints.Enabled = True
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -932,6 +971,44 @@ Public Class frmMain
 
 
     Private Sub LicenseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LicenseToolStripMenuItem.Click
-        System.Diagnostics.Process.Start("COPYING.txt")
+        Try
+            System.Diagnostics.Process.Start("COPYING.txt")
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub SpellCasterTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SpellCasterTrigger.CheckedChanged
+        Static FirstTime As Boolean = True
+        Try
+            If FirstTime Then
+                FirstTime = False
+                Exit Sub
+            End If
+            If SpellCasterTrigger.Checked Then
+                If String.IsNullOrEmpty(SpellCasterSpell.Text) Then
+                    SpellCasterTrigger.Checked = False
+                    MessageBox.Show("The spell must not be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                If SpellCasterMinimumManaPoints.Value = 0 Then
+                    SpellCasterTrigger.Checked = False
+                    MessageBox.Show("The spell minimum mana points must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.SpellMsg = SpellCasterSpell.Text
+                Core.SpellManaRequired = SpellCasterMinimumManaPoints.Value
+                Core.SpellTimerObj.StartTimer()
+            Else
+                Core.SpellTimerObj.StopTimer()
+                Core.SpellMsg = String.Empty
+                Core.SpellManaRequired = 0
+            End If
+            RefreshSpellCasterControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 End Class

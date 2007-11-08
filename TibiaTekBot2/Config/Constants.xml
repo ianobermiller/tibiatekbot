@@ -43,6 +43,8 @@
   <Const Name="HealersCheckInterval" Value="300" />
   <Const Name="HealersAfterHealDelay" Value="300" />
   <Const Name="HotkeysCanEquipItems" Value="True" />
+  <Const Name="SpellCasterInterval" Value="1000" />
+  <Const Name="SpellCasterDelay" Value="4000" />
   <Const Name="EquipItemsOnUse" Value="True" />
   <Const Name="AutoStackerDelay" Value="1000" />
   <Const Name="ModifyMOTD" Value="True" />

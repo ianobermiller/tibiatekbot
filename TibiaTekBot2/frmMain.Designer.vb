@@ -208,11 +208,53 @@ Partial Class frmMain
         Me.WebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.HideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.MainTabControl = New System.Windows.Forms.TabControl
+        Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.GeneralTabControl = New System.Windows.Forms.TabControl
+        Me.TabPage8 = New System.Windows.Forms.TabPage
+        Me.TabPage13 = New System.Windows.Forms.TabPage
+        Me.TabPage2 = New System.Windows.Forms.TabPage
+        Me.AFKTabControl = New System.Windows.Forms.TabControl
+        Me.TabPage14 = New System.Windows.Forms.TabPage
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.SpellCasterTrigger = New System.Windows.Forms.CheckBox
+        Me.SpellCasterMinimumManaPoints = New System.Windows.Forms.NumericUpDown
+        Me.Label3 = New System.Windows.Forms.Label
+        Me.SpellCasterSpell = New System.Windows.Forms.ComboBox
+        Me.Label1 = New System.Windows.Forms.Label
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
+        Me.TabPage17 = New System.Windows.Forms.TabPage
+        Me.TabPage3 = New System.Windows.Forms.TabPage
+        Me.HealingTabControl = New System.Windows.Forms.TabControl
+        Me.TabPage23 = New System.Windows.Forms.TabPage
+        Me.TabPage24 = New System.Windows.Forms.TabPage
+        Me.TabPage4 = New System.Windows.Forms.TabPage
+        Me.TabPage5 = New System.Windows.Forms.TabPage
+        Me.TabPage6 = New System.Windows.Forms.TabPage
+        Me.TabPage7 = New System.Windows.Forms.TabPage
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.MiscReloadTibiaDatButton = New System.Windows.Forms.Button
+        Me.MiscReloadOutfitsButton = New System.Windows.Forms.Button
+        Me.MiscReloadConstantsButton = New System.Windows.Forms.Button
+        Me.MiscReloadItemsButton = New System.Windows.Forms.Button
+        Me.MiscReloadSpellsButton = New System.Windows.Forms.Button
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
+        Me.MainTabControl.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.GeneralTabControl.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        Me.AFKTabControl.SuspendLayout()
+        Me.TabPage14.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage3.SuspendLayout()
+        Me.HealingTabControl.SuspendLayout()
+        Me.TabPage7.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'NotifyIcon
@@ -298,6 +340,7 @@ Partial Class frmMain
         'MenuStrip1
         '
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.AboutToolStripMenuItem, Me.HideToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.MenuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
         Me.MenuStrip1.Name = "MenuStrip1"
         '
@@ -1105,6 +1148,11 @@ Partial Class frmMain
         Me.DevelopmentWebsiteToolStripMenuItem.Name = "DevelopmentWebsiteToolStripMenuItem"
         resources.ApplyResources(Me.DevelopmentWebsiteToolStripMenuItem, "DevelopmentWebsiteToolStripMenuItem")
         '
+        'LicenseToolStripMenuItem
+        '
+        Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
+        resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
+        '
         'HideToolStripMenuItem
         '
         Me.HideToolStripMenuItem.Name = "HideToolStripMenuItem"
@@ -1115,20 +1163,221 @@ Partial Class frmMain
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         resources.ApplyResources(Me.ExitToolStripMenuItem, "ExitToolStripMenuItem")
         '
-        'LicenseToolStripMenuItem
+        'MainTabControl
         '
-        Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
-        resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
+        resources.ApplyResources(Me.MainTabControl, "MainTabControl")
+        Me.MainTabControl.Controls.Add(Me.TabPage1)
+        Me.MainTabControl.Controls.Add(Me.TabPage2)
+        Me.MainTabControl.Controls.Add(Me.TabPage3)
+        Me.MainTabControl.Controls.Add(Me.TabPage4)
+        Me.MainTabControl.Controls.Add(Me.TabPage5)
+        Me.MainTabControl.Controls.Add(Me.TabPage6)
+        Me.MainTabControl.Controls.Add(Me.TabPage7)
+        Me.MainTabControl.Name = "MainTabControl"
+        Me.MainTabControl.SelectedIndex = 0
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.GeneralTabControl)
+        resources.ApplyResources(Me.TabPage1, "TabPage1")
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'GeneralTabControl
+        '
+        resources.ApplyResources(Me.GeneralTabControl, "GeneralTabControl")
+        Me.GeneralTabControl.Controls.Add(Me.TabPage8)
+        Me.GeneralTabControl.Controls.Add(Me.TabPage13)
+        Me.GeneralTabControl.Name = "GeneralTabControl"
+        Me.GeneralTabControl.SelectedIndex = 0
+        '
+        'TabPage8
+        '
+        resources.ApplyResources(Me.TabPage8, "TabPage8")
+        Me.TabPage8.Name = "TabPage8"
+        Me.TabPage8.UseVisualStyleBackColor = True
+        '
+        'TabPage13
+        '
+        resources.ApplyResources(Me.TabPage13, "TabPage13")
+        Me.TabPage13.Name = "TabPage13"
+        Me.TabPage13.UseVisualStyleBackColor = True
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.AFKTabControl)
+        resources.ApplyResources(Me.TabPage2, "TabPage2")
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'AFKTabControl
+        '
+        resources.ApplyResources(Me.AFKTabControl, "AFKTabControl")
+        Me.AFKTabControl.Controls.Add(Me.TabPage14)
+        Me.AFKTabControl.Controls.Add(Me.TabPage17)
+        Me.AFKTabControl.Name = "AFKTabControl"
+        Me.AFKTabControl.SelectedIndex = 0
+        '
+        'TabPage14
+        '
+        Me.TabPage14.Controls.Add(Me.GroupBox2)
+        Me.TabPage14.Controls.Add(Me.TableLayoutPanel1)
+        resources.ApplyResources(Me.TabPage14, "TabPage14")
+        Me.TabPage14.Name = "TabPage14"
+        Me.TabPage14.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.SpellCasterTrigger)
+        Me.GroupBox2.Controls.Add(Me.SpellCasterMinimumManaPoints)
+        Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.GroupBox2.Controls.Add(Me.SpellCasterSpell)
+        Me.GroupBox2.Controls.Add(Me.Label1)
+        resources.ApplyResources(Me.GroupBox2, "GroupBox2")
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.TabStop = False
+        '
+        'SpellCasterTrigger
+        '
+        resources.ApplyResources(Me.SpellCasterTrigger, "SpellCasterTrigger")
+        Me.SpellCasterTrigger.Name = "SpellCasterTrigger"
+        Me.SpellCasterTrigger.UseVisualStyleBackColor = True
+        '
+        'SpellCasterMinimumManaPoints
+        '
+        resources.ApplyResources(Me.SpellCasterMinimumManaPoints, "SpellCasterMinimumManaPoints")
+        Me.SpellCasterMinimumManaPoints.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
+        Me.SpellCasterMinimumManaPoints.Name = "SpellCasterMinimumManaPoints"
+        '
+        'Label3
+        '
+        resources.ApplyResources(Me.Label3, "Label3")
+        Me.Label3.Name = "Label3"
+        '
+        'SpellCasterSpell
+        '
+        Me.SpellCasterSpell.FormattingEnabled = True
+        resources.ApplyResources(Me.SpellCasterSpell, "SpellCasterSpell")
+        Me.SpellCasterSpell.Name = "SpellCasterSpell"
+        '
+        'Label1
+        '
+        resources.ApplyResources(Me.Label1, "Label1")
+        Me.Label1.Name = "Label1"
+        '
+        'TableLayoutPanel1
+        '
+        resources.ApplyResources(Me.TableLayoutPanel1, "TableLayoutPanel1")
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        '
+        'TabPage17
+        '
+        resources.ApplyResources(Me.TabPage17, "TabPage17")
+        Me.TabPage17.Name = "TabPage17"
+        Me.TabPage17.UseVisualStyleBackColor = True
+        '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.HealingTabControl)
+        resources.ApplyResources(Me.TabPage3, "TabPage3")
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'HealingTabControl
+        '
+        resources.ApplyResources(Me.HealingTabControl, "HealingTabControl")
+        Me.HealingTabControl.Controls.Add(Me.TabPage23)
+        Me.HealingTabControl.Controls.Add(Me.TabPage24)
+        Me.HealingTabControl.Name = "HealingTabControl"
+        Me.HealingTabControl.SelectedIndex = 0
+        '
+        'TabPage23
+        '
+        resources.ApplyResources(Me.TabPage23, "TabPage23")
+        Me.TabPage23.Name = "TabPage23"
+        Me.TabPage23.UseVisualStyleBackColor = True
+        '
+        'TabPage24
+        '
+        resources.ApplyResources(Me.TabPage24, "TabPage24")
+        Me.TabPage24.Name = "TabPage24"
+        Me.TabPage24.UseVisualStyleBackColor = True
+        '
+        'TabPage4
+        '
+        resources.ApplyResources(Me.TabPage4, "TabPage4")
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'TabPage5
+        '
+        resources.ApplyResources(Me.TabPage5, "TabPage5")
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'TabPage6
+        '
+        resources.ApplyResources(Me.TabPage6, "TabPage6")
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.UseVisualStyleBackColor = True
+        '
+        'TabPage7
+        '
+        Me.TabPage7.Controls.Add(Me.GroupBox1)
+        resources.ApplyResources(Me.TabPage7, "TabPage7")
+        Me.TabPage7.Name = "TabPage7"
+        Me.TabPage7.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.MiscReloadTibiaDatButton)
+        Me.GroupBox1.Controls.Add(Me.MiscReloadOutfitsButton)
+        Me.GroupBox1.Controls.Add(Me.MiscReloadConstantsButton)
+        Me.GroupBox1.Controls.Add(Me.MiscReloadItemsButton)
+        Me.GroupBox1.Controls.Add(Me.MiscReloadSpellsButton)
+        resources.ApplyResources(Me.GroupBox1, "GroupBox1")
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.TabStop = False
+        '
+        'MiscReloadTibiaDatButton
+        '
+        resources.ApplyResources(Me.MiscReloadTibiaDatButton, "MiscReloadTibiaDatButton")
+        Me.MiscReloadTibiaDatButton.Name = "MiscReloadTibiaDatButton"
+        Me.MiscReloadTibiaDatButton.UseVisualStyleBackColor = True
+        '
+        'MiscReloadOutfitsButton
+        '
+        resources.ApplyResources(Me.MiscReloadOutfitsButton, "MiscReloadOutfitsButton")
+        Me.MiscReloadOutfitsButton.Name = "MiscReloadOutfitsButton"
+        Me.MiscReloadOutfitsButton.UseVisualStyleBackColor = True
+        '
+        'MiscReloadConstantsButton
+        '
+        resources.ApplyResources(Me.MiscReloadConstantsButton, "MiscReloadConstantsButton")
+        Me.MiscReloadConstantsButton.Name = "MiscReloadConstantsButton"
+        Me.MiscReloadConstantsButton.UseVisualStyleBackColor = True
+        '
+        'MiscReloadItemsButton
+        '
+        resources.ApplyResources(Me.MiscReloadItemsButton, "MiscReloadItemsButton")
+        Me.MiscReloadItemsButton.Name = "MiscReloadItemsButton"
+        Me.MiscReloadItemsButton.UseVisualStyleBackColor = True
+        '
+        'MiscReloadSpellsButton
+        '
+        resources.ApplyResources(Me.MiscReloadSpellsButton, "MiscReloadSpellsButton")
+        Me.MiscReloadSpellsButton.Name = "MiscReloadSpellsButton"
+        Me.MiscReloadSpellsButton.UseVisualStyleBackColor = True
         '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange
-        Me.BackColor = System.Drawing.SystemColors.Window
-        Me.ControlBox = False
+        Me.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Controls.Add(Me.MainTabControl)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
@@ -1136,11 +1385,23 @@ Partial Class frmMain
         Me.MinimizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
-        Me.TopMost = True
         Me.TransparencyKey = System.Drawing.SystemColors.ActiveBorder
         Me.PopupMenu.ResumeLayout(False)
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.MainTabControl.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.GeneralTabControl.ResumeLayout(False)
+        Me.TabPage2.ResumeLayout(False)
+        Me.AFKTabControl.ResumeLayout(False)
+        Me.TabPage14.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage3.ResumeLayout(False)
+        Me.HealingTabControl.ResumeLayout(False)
+        Me.TabPage7.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1316,4 +1577,34 @@ Partial Class frmMain
     Friend WithEvents DevelopmentWebsiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PatchToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents LicenseToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MainTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage6 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage7 As System.Windows.Forms.TabPage
+    Friend WithEvents HealingTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents TabPage23 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage24 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents MiscReloadOutfitsButton As System.Windows.Forms.Button
+    Friend WithEvents MiscReloadConstantsButton As System.Windows.Forms.Button
+    Friend WithEvents MiscReloadItemsButton As System.Windows.Forms.Button
+    Friend WithEvents MiscReloadSpellsButton As System.Windows.Forms.Button
+    Friend WithEvents MiscReloadTibiaDatButton As System.Windows.Forms.Button
+    Friend WithEvents GeneralTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents TabPage8 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage13 As System.Windows.Forms.TabPage
+    Friend WithEvents AFKTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents TabPage14 As System.Windows.Forms.TabPage
+    Friend WithEvents TabPage17 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents SpellCasterSpell As System.Windows.Forms.ComboBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents SpellCasterMinimumManaPoints As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents SpellCasterTrigger As System.Windows.Forms.CheckBox
 End Class
