@@ -15,8 +15,8 @@ Examples:
 {{{ 
 &exp on
 &light on
-&loot off
-&trainer off
+&fpschanger on
+&attack on
 }}}
 
 == Commands with More Arguments ==
