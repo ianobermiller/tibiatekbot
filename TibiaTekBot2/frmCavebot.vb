@@ -292,9 +292,13 @@ Public Class frmCavebot
             If EnableMonsterList.Checked Then
                 MonsterList.Enabled = True
                 Core.AutoAttackerListEnabled = True
+                AddMonster.Enabled = True
+                RemoveMonster.Enabled = True
             Else
                 MonsterList.Enabled = False
                 Core.AutoAttackerListEnabled = False
+                AddMonster.Enabled = False
+                RemoveMonster.Enabled = False
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -319,8 +323,8 @@ Public Class frmCavebot
                 Beep()
                 Exit Sub
             End If
-            MonsterList.Items.RemoveAt(MonsterList.SelectedIndex)
             Core.AutoAttackerList.RemoveAt(MonsterList.SelectedIndex)
+            MonsterList.Items.RemoveAt(MonsterList.SelectedIndex)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
