@@ -327,6 +327,7 @@ Partial Class frmCavebot
         '
         'RemoveMonster
         '
+        Me.RemoveMonster.Enabled = False
         Me.RemoveMonster.Location = New System.Drawing.Point(70, 218)
         Me.RemoveMonster.Name = "RemoveMonster"
         Me.RemoveMonster.Size = New System.Drawing.Size(59, 24)
@@ -336,6 +337,7 @@ Partial Class frmCavebot
         '
         'AddMonster
         '
+        Me.AddMonster.Enabled = False
         Me.AddMonster.Location = New System.Drawing.Point(6, 218)
         Me.AddMonster.Name = "AddMonster"
         Me.AddMonster.Size = New System.Drawing.Size(59, 24)
