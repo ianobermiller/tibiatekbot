@@ -1,0 +1,51 @@
+#summary Explains the Syntax of TibiaTek Bot
+
+= Introduction =
+
+Every command in TibiaTek Bot starts with &. They are supposed to write in TibiaTek Bot channel but you can also write them to normal channel also. 
+
+= Commands and Arguments =
+
+TibiaTek Bot has two kinds of commands. Those who take just "on" or "off" as argument and those who get more than that. Let's start with the ones who get only "on" or "off".
+
+== Commands with "on" or "off" Argument ==
+
+These commands are easy to use. Just write command name and then on or off as attribute.
+Examples:
+{{{ 
+&exp on
+&light on
+&loot off
+&trainer off
+}}}
+
+== Commands with More Arguments ==
+
+These commands are fair easy to use too. When it takes number as attribute just write it. But when taking any text put it inside quotion marks.
+Examples:
+{{{
+&char "Tib Tek Warrior"
+&heal 90% "exura"
+&runemaker 270 2 "Heavy Magic Missile"
+}}}
+
+There is also commands that take static arguments. You recognize them from their &help <command> output. For example &help light:
+{{{
+Tib Tek Warrior [17]: &help light
+TibiaTek Bot [101]: «Light Effect»
+Usage: &light <on | off | torch | great torch | ultimate torch | utevo lux | utevo gran lux | utevo vis lux | light wand>.
+Example: &light ultimate torch
+}}}
+
+When those attributes don't have quotatation marks then it's constant and you *don't* use quotation marks with it.
+
+Compare these two commands. In the first you *have to* use quatation marks, and in the second one you *don't* use.
+{{{
+TibiaTek Bot [101]: «Character Information Lookup»
+Usage: &char "<Player Name>".
+Example: &char "Tib Tek Warrior"
+--------------------
+TibiaTek Bot [101]: «Configuration Manager»
+Usage: &config <load | edit | clear>.
+Example: &config edit
+}}}
