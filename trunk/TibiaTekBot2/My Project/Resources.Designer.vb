@@ -8,26 +8,6 @@
 ' </auto-generated>
 '------------------------------------------------------------------------------
 
-'    Copyright (C) 2007 TibiaTek Development Team
-'
-'    This file is part of TibiaTek Bot.
-'
-'    TibiaTek Bot is free software: you can redistribute it and/or modify
-'    it under the terms of the GNU General Public License as published by
-'    the Free Software Foundation, either version 3 of the License, or
-'    (at your option) any later version.
-'
-'    TibiaTek Bot is distributed in the hope that it will be useful,
-'    but WITHOUT ANY WARRANTY; without even the implied warranty of
-'    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-'    GNU General Public License for more details.
-'
-'    You should have received a copy of the GNU General Public License
-'    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
-'    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-'    Boston, MA 02111-1307, USA.Imports System.Math
-
-
 Option Strict On
 Option Explicit On
 
@@ -78,6 +58,48 @@ Namespace My.Resources
             Set
                 resourceCulture = value
             End Set
+        End Property
+        
+        Friend ReadOnly Property Alarms() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Alarms", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Cavebot() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Cavebot", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property ChangeLoginServer() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ChangeLoginServer", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property CharacterStatistics() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("CharacterStatistics", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Close() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Close", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property ConstantsEditor() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ConstantsEditor", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
         End Property
         
         Friend ReadOnly Property creature() As System.Drawing.Bitmap
@@ -192,31 +214,24 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property Tibia() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Tibia", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property TibiaMultiClientPatch() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("TibiaMultiClientPatch", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
         Friend ReadOnly Property ttb_splash() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ttb_splash", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        Friend ReadOnly Property ttb2() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("ttb2", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        Friend ReadOnly Property ttb2_16x16() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("ttb2_16x16", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
-            End Get
-        End Property
-        
-        Friend ReadOnly Property ttb2_16x161() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("ttb2_16x161", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         

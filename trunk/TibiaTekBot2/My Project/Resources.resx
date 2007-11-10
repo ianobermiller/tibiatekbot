@@ -1,24 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--
-    Copyright (C) 2007 TibiaTek Development Team
-
-    This file is part of TibiaTek Bot.
-
-    TibiaTek Bot is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    TibiaTek Bot is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
-    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.Imports System.Math
--->
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -138,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ttb2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ttb2.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="holeopen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\holeopen.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -174,9 +151,6 @@
   <data name="stairsgodown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\stairsgodown.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ttb2_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ttb2_16x16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="stairsgoup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\stairsgoup.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -191,9 +165,6 @@
   </data>
   <data name="teleport" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\teleport.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ttb2_16x161" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ttb2_16x161.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="holeclosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\holeclosed.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -215,5 +186,29 @@
   </data>
   <data name="ttb21_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ttb21_16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Alarms" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Alarms.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cavebot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cavebot.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChangeLoginServer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ChangeLoginServer.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CharacterStatistics" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CharacterStatistics.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConstantsEditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ConstantsEditor.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tibia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tibia.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TibiaMultiClientPatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TibiaMultiClientPatch.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
