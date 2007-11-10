@@ -15,7 +15,7 @@
 '    You should have received a copy of the GNU General Public License
 '    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-'    Boston, MA 02111-1307, USA.Imports System.Math
+'    Boston, MA 02111-1307, USA.
 
 Imports System.Text.RegularExpressions, TibiaTekBot.frmMain, _
     TibiaTekBot.Constants, _
@@ -868,7 +868,7 @@ Public Module CommandParserModule
                 Core.StackerTimerObj.StopTimer()
                 Core.ConsoleWrite("Auto Stacker is now Disabled.")
             Case 1
-                Core.StackerTimerObj.Interval = Consts.StackerDelay
+                Core.StackerTimerObj.Interval = Consts.AutoStackerDelay
                 Core.StackerTimerObj.StartTimer()
                 Core.ConsoleWrite("Auto Stacker is now Enabled.")
             Case Else
@@ -1086,7 +1086,7 @@ Public Module CommandParserModule
                 Dim RegExp As New Regex("([1-9][0-9]{0,4}%?)\s+""([^""]+)(?:""?(?:\s*""""([^""]+))?)?")
                 Dim Match As Match = RegExp.Match(Value)
                 If Match.Success Then
-                    Dim Match2 As Match = Regex.Match(Match.Groups(1).Value, "([1-9][0-9])%")
+                    Dim Match2 As Match = Regex.Match(Match.Groups(1).Value, "([1-9][0-9]?)%")
                     If Match2.Success Then
                         Dim MaxHitPoints As Integer = 0
                         Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
@@ -1094,8 +1094,8 @@ Public Module CommandParserModule
                     Else
                         Core.HealMinimumHP = CInt(Match.Groups(1).Value)
                     End If
-                    For Each Spell As SpellDefinition In CoreModule.Spells.SupportiveSpells
-                        If String.Compare(Spell.Name, Match.Groups(2).Value, True) = 0 OrElse String.Compare(Spell.Words, Match.Groups(2).Value, True) = 0 Then
+                    For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                        If Spell.Name.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) Then
                             Select Case Spell.Name.ToLower
                                 Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing"
                                     Core.HealSpell = Spell
@@ -1217,21 +1217,22 @@ Public Module CommandParserModule
                 Dim Match As Match = RegExp.Match(Value)
                 If Match.Success Then
                     Dim Found As Boolean = False
-                    Dim C As New ConjureDefinition
-                    For Each Conjure As ConjureDefinition In CoreModule.Spells.Conjures
-                        If String.Compare(Conjure.Name, Match.Groups(3).ToString, True) = 0 _
-                        OrElse String.Compare(Conjure.Words, Match.Groups(3).ToString, True) = 0 Then
-                            C = Conjure
+                    Dim S As New SpellDefinition
+                    For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                        If (Spell.Name.Equals(Match.Groups(3).Value, StringComparison.CurrentCultureIgnoreCase) _
+                        OrElse Spell.Words.Equals(Match.Groups(3).ToString, StringComparison.CurrentCultureIgnoreCase)) _
+                        AndAlso Spell.Kind = SpellKind.Rune Then
+                            S = Spell
                             Found = True
                             Exit For
                         End If
                     Next
                     If Found Then
-                        Core.RunemakerConjure = C
-                        Core.RunemakerManaPoints = CShort(Match.Groups(1).ToString)
-                        Core.RunemakerSoulPoints = CInt(Match.Groups(2).ToString)
+                        Core.RunemakerSpell = S
+                        Core.RunemakerManaPoints = CShort(Match.Groups(1).Value)
+                        Core.RunemakerSoulPoints = CInt(Match.Groups(2).Value)
                         Core.RunemakerTimerObj.StartTimer()
-                        Core.ConsoleWrite("Runemaker will now make " & C.Name & " when you have more than " & _
+                        Core.ConsoleWrite("Runemaker will now make " & S.Name & " when you have more than " & _
                             Core.RunemakerManaPoints & " mana points and more than " & Core.RunemakerSoulPoints & " soul points.")
                     Else
                         Core.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
@@ -1655,8 +1656,7 @@ Public Module CommandParserModule
         "Graphics: Genosonic." & Ret & _
         "Powered by PProxy v2.0, developed by CPargermer." & Ret & _
         "For versioning information, type: &version." & Ret & _
-        "To go to our website, type: &website." & Ret & _
-        "Don't forget to visit the TProgramming community at www.tpforums.net!.")
+        "To go to our website, type: &website.")
     End Sub
 
 #End Region
@@ -1672,21 +1672,21 @@ Public Module CommandParserModule
                 Core.ConsoleWrite("Auto Eater is now Disabled.")
             Case 1
                 Core.AutoEaterSmart = 0
-                Core.EaterTimerObj.Interval = 30000
+                Core.EaterTimerObj.Interval = Consts.AutoEaterInterval
                 Core.EaterTimerObj.StartTimer()
                 Core.ConsoleWrite("Auto Eater is now Enabled for every 30 seconds.")
             Case Else
-                Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "smart\s+([1-9][0-9]{1,4})")
+                Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "smart\s+([1-9]\d{1,4})")
                 If MatchObj.Success Then
                     Core.AutoEaterSmart = CInt(MatchObj.Groups(1).ToString)
-                    Core.EaterTimerObj.Interval = 60000
+                    Core.EaterTimerObj.Interval = Consts.AutoEaterSmartInterval
                     Core.EaterTimerObj.StartTimer()
                     Core.ConsoleWrite("Auto Eater will eat only when you are below " & Core.AutoEaterSmart & " hit points, once every minute.")
                 Else
-                    MatchObj = Regex.Match(Arguments(2).ToString, "(\d{1,3})")
+                    MatchObj = Regex.Match(Arguments(2).ToString, "([1-9]\d{0,2})")
                     If MatchObj.Success Then
                         Core.AutoEaterSmart = 0
-                        Core.EaterTimerObj.Interval = CInt(MatchObj.Groups(1).ToString) * 1000
+                        Core.EaterTimerObj.Interval = CInt(MatchObj.Groups(1).Value) * 1000
                         Core.EaterTimerObj.StartTimer()
                         Core.ConsoleWrite("Auto Eater is now Enabled for every " & ((Core.EaterTimerObj.Interval / 1000) Mod 1000) & " second(s).")
                     Else
