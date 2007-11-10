@@ -15,7 +15,7 @@
 '    You should have received a copy of the GNU General Public License
 '    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-'    Boston, MA 02111-1307, USA.Imports System.Math
+'    Boston, MA 02111-1307, USA.
 
 Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, System.Math, _
   System, System.Net, System.Net.Sockets, System.Text, System.Globalization, _
@@ -212,7 +212,7 @@ Public Module CoreModule
         Public FisherSpeed As UShort = 0
         Public FisherMinimumCapacity As Integer = 0
 
-        Public RunemakerConjure As ConjureDefinition = Nothing
+        Public RunemakerSpell As SpellDefinition = Nothing
         Public RunemakerManaPoints As Integer = 0
         Public RunemakerSoulPoints As Integer = 0
 
@@ -973,7 +973,7 @@ Public Module CoreModule
                 FisherMinimumCapacity = 0
                 FisherSpeed = 0
                 RunemakerTimerObj.StopTimer()
-                RunemakerConjure = Nothing
+                RunemakerSpell = Nothing
                 RunemakerManaPoints = 0
                 RunemakerSoulPoints = 0
                 AutoTrainerTimerObj.StopTimer()
@@ -1837,11 +1837,11 @@ Public Module CoreModule
                 If RunemakerManaPoints = 0 OrElse RunemakerSoulPoints = 0 Then Exit Sub
 
                 'continue only if there enough mana
-                If ManaPoints < RunemakerManaPoints OrElse ManaPoints < RunemakerConjure.ManaPoints Then
+                If ManaPoints < RunemakerManaPoints OrElse ManaPoints < RunemakerSpell.ManaPoints Then
                     Exit Sub
                 End If
                 'exit if not enough soulpoints
-                If SoulPoints < RunemakerSoulPoints OrElse SoulPoints < RunemakerConjure.SoulPoints Then
+                If SoulPoints < RunemakerSoulPoints OrElse SoulPoints < RunemakerSpell.SoulPoints Then
                     RunemakerManaPoints = 0
                     RunemakerSoulPoints = 0
                     RunemakerTimerObj.StopTimer()
@@ -1945,7 +1945,7 @@ Public Module CoreModule
                         ConsoleError("Runemaker is stuck. Unable to conjure spell words to convert the blank rune. Runemaker is now disabled.")
                         Exit Sub
                     End If
-                    Proxy.SendPacketToServer(Speak(RunemakerConjure.Words))
+                    Proxy.SendPacketToServer(Speak(RunemakerSpell.Words))
                     System.Threading.Thread.Sleep(1000)
                     Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                 Loop Until RightHandSlot <> BlankRuneID
@@ -1958,7 +1958,7 @@ Public Module CoreModule
                         RunemakerManaPoints = 0
                         RunemakerSoulPoints = 0
                         RunemakerTimerObj.StopTimer()
-                        ConsoleError("Runemaker is stuck. Can't move " & RunemakerConjure.Name & " Rune to it's container. Runemaker is now disabled.")
+                        ConsoleError("Runemaker is stuck. Can't move " & RunemakerSpell.Name & " Rune to it's container. Runemaker is now disabled.")
                         Exit Sub
                     End If
                     Proxy.SendPacketToServer(MoveObject(RightHandSlot, GetInventorySlotAsLocation(InventorySlots.RightHand), BlankRune.Location, 1))

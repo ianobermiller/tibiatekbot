@@ -15,7 +15,7 @@
 '    You should have received a copy of the GNU General Public License
 '    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-'    Boston, MA 02111-1307, USA.Imports System.Math
+'    Boston, MA 02111-1307, USA.
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmMain
@@ -42,13 +42,13 @@ Partial Class frmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.PopupMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem
+        Me.ShowHideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator
         Me.AlarmsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CavebotMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CharacterStatisticsMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
-        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem
+        Me.ChangeLoginServerPopupItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ConstantsEditorMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MCPatchMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
@@ -212,6 +212,8 @@ Partial Class frmMain
         Me.HideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
+        Me.TabPage10 = New System.Windows.Forms.TabPage
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.GeneralTabControl = New System.Windows.Forms.TabControl
         Me.TabPage8 = New System.Windows.Forms.TabPage
@@ -219,21 +221,77 @@ Partial Class frmMain
         Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.AFKTabControl = New System.Windows.Forms.TabControl
         Me.TabPage14 = New System.Windows.Forms.TabPage
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox
+        Me.AutoFisherTrigger = New System.Windows.Forms.CheckBox
+        Me.AutoFisherTurbo = New System.Windows.Forms.CheckBox
+        Me.AutoFisherMinimumCapacity = New System.Windows.Forms.NumericUpDown
+        Me.Label7 = New System.Windows.Forms.Label
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox
+        Me.AutoEaterEatFromFloorFirst = New System.Windows.Forms.CheckBox
+        Me.Label20 = New System.Windows.Forms.Label
+        Me.AutoEaterInterval = New System.Windows.Forms.NumericUpDown
+        Me.Label18 = New System.Windows.Forms.Label
+        Me.AutoEaterEatFromFloor = New System.Windows.Forms.CheckBox
+        Me.AutoEaterMinimumHitPoints = New System.Windows.Forms.NumericUpDown
+        Me.Label6 = New System.Windows.Forms.Label
+        Me.AutoEaterTrigger = New System.Windows.Forms.CheckBox
+        Me.AutoEaterSmart = New System.Windows.Forms.CheckBox
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox
+        Me.RunemakerTrigger = New System.Windows.Forms.CheckBox
+        Me.RunemakerMinimumSoulPoints = New System.Windows.Forms.NumericUpDown
+        Me.Label5 = New System.Windows.Forms.Label
+        Me.RunemakerMinimumManaPoints = New System.Windows.Forms.NumericUpDown
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.RunemakerSpell = New System.Windows.Forms.ComboBox
+        Me.Label2 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.SpellCasterTrigger = New System.Windows.Forms.CheckBox
         Me.SpellCasterMinimumManaPoints = New System.Windows.Forms.NumericUpDown
         Me.Label3 = New System.Windows.Forms.Label
         Me.SpellCasterSpell = New System.Windows.Forms.ComboBox
         Me.Label1 = New System.Windows.Forms.Label
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
         Me.TabPage17 = New System.Windows.Forms.TabPage
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel
+        Me.TextBox5 = New System.Windows.Forms.TextBox
+        Me.Label17 = New System.Windows.Forms.Label
+        Me.TextBox6 = New System.Windows.Forms.TextBox
+        Me.Label19 = New System.Windows.Forms.Label
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
+        Me.TextBox3 = New System.Windows.Forms.TextBox
+        Me.TextBox2 = New System.Windows.Forms.TextBox
+        Me.Label14 = New System.Windows.Forms.Label
+        Me.TextBox1 = New System.Windows.Forms.TextBox
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.Label16 = New System.Windows.Forms.Label
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
+        Me.Label10 = New System.Windows.Forms.Label
+        Me.Label11 = New System.Windows.Forms.Label
+        Me.Label12 = New System.Windows.Forms.Label
+        Me.Label13 = New System.Windows.Forms.Label
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown
+        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown
+        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox
+        Me.CavebotTrigger = New System.Windows.Forms.CheckBox
+        Me.CavebotConfigure = New System.Windows.Forms.Button
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox
+        Me.TradeChannelWatcherTrigger = New System.Windows.Forms.CheckBox
+        Me.TradeChannelWatcherExpression = New System.Windows.Forms.TextBox
+        Me.Label9 = New System.Windows.Forms.Label
+        Me.TabPage9 = New System.Windows.Forms.TabPage
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox
+        Me.TradeChannelAdvertiserTrigger = New System.Windows.Forms.CheckBox
+        Me.TradeChannelAdvertiserAdvertisement = New System.Windows.Forms.TextBox
+        Me.Label8 = New System.Windows.Forms.Label
         Me.TabPage3 = New System.Windows.Forms.TabPage
         Me.HealingTabControl = New System.Windows.Forms.TabControl
         Me.TabPage23 = New System.Windows.Forms.TabPage
         Me.TabPage24 = New System.Windows.Forms.TabPage
-        Me.TabPage4 = New System.Windows.Forms.TabPage
-        Me.TabPage5 = New System.Windows.Forms.TabPage
-        Me.TabPage6 = New System.Windows.Forms.TabPage
         Me.TabPage7 = New System.Windows.Forms.TabPage
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.MiscReloadTibiaDatButton = New System.Windows.Forms.Button
@@ -241,16 +299,42 @@ Partial Class frmMain
         Me.MiscReloadConstantsButton = New System.Windows.Forms.Button
         Me.MiscReloadItemsButton = New System.Windows.Forms.Button
         Me.MiscReloadSpellsButton = New System.Windows.Forms.Button
+        Me.TabPage4 = New System.Windows.Forms.TabPage
+        Me.TabPage5 = New System.Windows.Forms.TabPage
+        Me.TabPage6 = New System.Windows.Forms.TabPage
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
+        Me.TabPage10.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage1.SuspendLayout()
         Me.GeneralTabControl.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.AFKTabControl.SuspendLayout()
         Me.TabPage14.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        CType(Me.AutoFisherMinimumCapacity, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox4.SuspendLayout()
+        CType(Me.AutoEaterInterval, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.AutoEaterMinimumHitPoints, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.RunemakerMinimumSoulPoints, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RunemakerMinimumManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage17.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
+        Me.GroupBox9.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox8.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        Me.TabPage9.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.HealingTabControl.SuspendLayout()
         Me.TabPage7.SuspendLayout()
@@ -266,16 +350,15 @@ Partial Class frmMain
         '
         'PopupMenu
         '
-        Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem2, Me.ToolStripSeparator4, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ToolStripMenuItem3, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
+        Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.PopupMenu.ShowImageMargin = False
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
-        'ToolStripMenuItem2
+        'ShowHideToolStripMenuItem
         '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        resources.ApplyResources(Me.ToolStripMenuItem2, "ToolStripMenuItem2")
+        resources.ApplyResources(Me.ShowHideToolStripMenuItem, "ShowHideToolStripMenuItem")
+        Me.ShowHideToolStripMenuItem.Name = "ShowHideToolStripMenuItem"
         '
         'ToolStripSeparator4
         '
@@ -284,38 +367,38 @@ Partial Class frmMain
         '
         'AlarmsToolStripMenuItem
         '
-        Me.AlarmsToolStripMenuItem.Name = "AlarmsToolStripMenuItem"
         resources.ApplyResources(Me.AlarmsToolStripMenuItem, "AlarmsToolStripMenuItem")
+        Me.AlarmsToolStripMenuItem.Name = "AlarmsToolStripMenuItem"
         '
         'CavebotMenuItem
         '
-        Me.CavebotMenuItem.Name = "CavebotMenuItem"
         resources.ApplyResources(Me.CavebotMenuItem, "CavebotMenuItem")
+        Me.CavebotMenuItem.Name = "CavebotMenuItem"
         '
         'CharacterStatisticsMenuItem
         '
-        Me.CharacterStatisticsMenuItem.Name = "CharacterStatisticsMenuItem"
         resources.ApplyResources(Me.CharacterStatisticsMenuItem, "CharacterStatisticsMenuItem")
+        Me.CharacterStatisticsMenuItem.Name = "CharacterStatisticsMenuItem"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
         resources.ApplyResources(Me.ToolStripSeparator5, "ToolStripSeparator5")
         '
-        'ToolStripMenuItem3
+        'ChangeLoginServerPopupItem
         '
-        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        resources.ApplyResources(Me.ToolStripMenuItem3, "ToolStripMenuItem3")
+        resources.ApplyResources(Me.ChangeLoginServerPopupItem, "ChangeLoginServerPopupItem")
+        Me.ChangeLoginServerPopupItem.Name = "ChangeLoginServerPopupItem"
         '
         'ConstantsEditorMenuItem
         '
-        Me.ConstantsEditorMenuItem.Name = "ConstantsEditorMenuItem"
         resources.ApplyResources(Me.ConstantsEditorMenuItem, "ConstantsEditorMenuItem")
+        Me.ConstantsEditorMenuItem.Name = "ConstantsEditorMenuItem"
         '
         'MCPatchMenuItem
         '
-        Me.MCPatchMenuItem.Name = "MCPatchMenuItem"
         resources.ApplyResources(Me.MCPatchMenuItem, "MCPatchMenuItem")
+        Me.MCPatchMenuItem.Name = "MCPatchMenuItem"
         '
         'ToolStripSeparator2
         '
@@ -324,8 +407,8 @@ Partial Class frmMain
         '
         'ShowHideTibiaWindow
         '
-        Me.ShowHideTibiaWindow.Name = "ShowHideTibiaWindow"
         resources.ApplyResources(Me.ShowHideTibiaWindow, "ShowHideTibiaWindow")
+        Me.ShowHideTibiaWindow.Name = "ShowHideTibiaWindow"
         '
         'ToolStripSeparator1
         '
@@ -334,8 +417,8 @@ Partial Class frmMain
         '
         'ClosePopupItem
         '
-        Me.ClosePopupItem.Name = "ClosePopupItem"
         resources.ApplyResources(Me.ClosePopupItem, "ClosePopupItem")
+        Me.ClosePopupItem.Name = "ClosePopupItem"
         '
         'MenuStrip1
         '
@@ -1166,15 +1249,30 @@ Partial Class frmMain
         'MainTabControl
         '
         resources.ApplyResources(Me.MainTabControl, "MainTabControl")
+        Me.MainTabControl.Controls.Add(Me.TabPage10)
         Me.MainTabControl.Controls.Add(Me.TabPage1)
         Me.MainTabControl.Controls.Add(Me.TabPage2)
         Me.MainTabControl.Controls.Add(Me.TabPage3)
+        Me.MainTabControl.Controls.Add(Me.TabPage7)
         Me.MainTabControl.Controls.Add(Me.TabPage4)
         Me.MainTabControl.Controls.Add(Me.TabPage5)
         Me.MainTabControl.Controls.Add(Me.TabPage6)
-        Me.MainTabControl.Controls.Add(Me.TabPage7)
         Me.MainTabControl.Name = "MainTabControl"
         Me.MainTabControl.SelectedIndex = 0
+        '
+        'TabPage10
+        '
+        Me.TabPage10.Controls.Add(Me.PictureBox1)
+        resources.ApplyResources(Me.TabPage10, "TabPage10")
+        Me.TabPage10.Name = "TabPage10"
+        Me.TabPage10.UseVisualStyleBackColor = True
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.TibiaTekBot.My.Resources.Resources.ttb_splash
+        resources.ApplyResources(Me.PictureBox1, "PictureBox1")
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.TabStop = False
         '
         'TabPage1
         '
@@ -1215,16 +1313,174 @@ Partial Class frmMain
         resources.ApplyResources(Me.AFKTabControl, "AFKTabControl")
         Me.AFKTabControl.Controls.Add(Me.TabPage14)
         Me.AFKTabControl.Controls.Add(Me.TabPage17)
+        Me.AFKTabControl.Controls.Add(Me.TabPage9)
+        Me.AFKTabControl.Multiline = True
         Me.AFKTabControl.Name = "AFKTabControl"
         Me.AFKTabControl.SelectedIndex = 0
         '
         'TabPage14
         '
+        Me.TabPage14.Controls.Add(Me.GroupBox5)
+        Me.TabPage14.Controls.Add(Me.GroupBox4)
+        Me.TabPage14.Controls.Add(Me.GroupBox3)
         Me.TabPage14.Controls.Add(Me.GroupBox2)
-        Me.TabPage14.Controls.Add(Me.TableLayoutPanel1)
         resources.ApplyResources(Me.TabPage14, "TabPage14")
         Me.TabPage14.Name = "TabPage14"
         Me.TabPage14.UseVisualStyleBackColor = True
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.AutoFisherTrigger)
+        Me.GroupBox5.Controls.Add(Me.AutoFisherTurbo)
+        Me.GroupBox5.Controls.Add(Me.AutoFisherMinimumCapacity)
+        Me.GroupBox5.Controls.Add(Me.Label7)
+        resources.ApplyResources(Me.GroupBox5, "GroupBox5")
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.TabStop = False
+        '
+        'AutoFisherTrigger
+        '
+        resources.ApplyResources(Me.AutoFisherTrigger, "AutoFisherTrigger")
+        Me.AutoFisherTrigger.Name = "AutoFisherTrigger"
+        Me.AutoFisherTrigger.UseVisualStyleBackColor = True
+        '
+        'AutoFisherTurbo
+        '
+        resources.ApplyResources(Me.AutoFisherTurbo, "AutoFisherTurbo")
+        Me.AutoFisherTurbo.Name = "AutoFisherTurbo"
+        Me.AutoFisherTurbo.UseVisualStyleBackColor = True
+        '
+        'AutoFisherMinimumCapacity
+        '
+        resources.ApplyResources(Me.AutoFisherMinimumCapacity, "AutoFisherMinimumCapacity")
+        Me.AutoFisherMinimumCapacity.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
+        Me.AutoFisherMinimumCapacity.Name = "AutoFisherMinimumCapacity"
+        '
+        'Label7
+        '
+        resources.ApplyResources(Me.Label7, "Label7")
+        Me.Label7.Name = "Label7"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.AutoEaterEatFromFloorFirst)
+        Me.GroupBox4.Controls.Add(Me.Label20)
+        Me.GroupBox4.Controls.Add(Me.AutoEaterInterval)
+        Me.GroupBox4.Controls.Add(Me.Label18)
+        Me.GroupBox4.Controls.Add(Me.AutoEaterEatFromFloor)
+        Me.GroupBox4.Controls.Add(Me.AutoEaterMinimumHitPoints)
+        Me.GroupBox4.Controls.Add(Me.Label6)
+        Me.GroupBox4.Controls.Add(Me.AutoEaterTrigger)
+        Me.GroupBox4.Controls.Add(Me.AutoEaterSmart)
+        resources.ApplyResources(Me.GroupBox4, "GroupBox4")
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.TabStop = False
+        '
+        'AutoEaterEatFromFloorFirst
+        '
+        resources.ApplyResources(Me.AutoEaterEatFromFloorFirst, "AutoEaterEatFromFloorFirst")
+        Me.AutoEaterEatFromFloorFirst.Name = "AutoEaterEatFromFloorFirst"
+        Me.AutoEaterEatFromFloorFirst.UseVisualStyleBackColor = True
+        '
+        'Label20
+        '
+        resources.ApplyResources(Me.Label20, "Label20")
+        Me.Label20.Name = "Label20"
+        '
+        'AutoEaterInterval
+        '
+        resources.ApplyResources(Me.AutoEaterInterval, "AutoEaterInterval")
+        Me.AutoEaterInterval.Maximum = New Decimal(New Integer() {999000, 0, 0, 0})
+        Me.AutoEaterInterval.Name = "AutoEaterInterval"
+        '
+        'Label18
+        '
+        resources.ApplyResources(Me.Label18, "Label18")
+        Me.Label18.Name = "Label18"
+        '
+        'AutoEaterEatFromFloor
+        '
+        resources.ApplyResources(Me.AutoEaterEatFromFloor, "AutoEaterEatFromFloor")
+        Me.AutoEaterEatFromFloor.Name = "AutoEaterEatFromFloor"
+        Me.AutoEaterEatFromFloor.UseVisualStyleBackColor = True
+        '
+        'AutoEaterMinimumHitPoints
+        '
+        resources.ApplyResources(Me.AutoEaterMinimumHitPoints, "AutoEaterMinimumHitPoints")
+        Me.AutoEaterMinimumHitPoints.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
+        Me.AutoEaterMinimumHitPoints.Name = "AutoEaterMinimumHitPoints"
+        '
+        'Label6
+        '
+        resources.ApplyResources(Me.Label6, "Label6")
+        Me.Label6.Name = "Label6"
+        '
+        'AutoEaterTrigger
+        '
+        resources.ApplyResources(Me.AutoEaterTrigger, "AutoEaterTrigger")
+        Me.AutoEaterTrigger.Name = "AutoEaterTrigger"
+        Me.AutoEaterTrigger.UseVisualStyleBackColor = True
+        '
+        'AutoEaterSmart
+        '
+        resources.ApplyResources(Me.AutoEaterSmart, "AutoEaterSmart")
+        Me.AutoEaterSmart.Name = "AutoEaterSmart"
+        Me.AutoEaterSmart.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.RunemakerTrigger)
+        Me.GroupBox3.Controls.Add(Me.RunemakerMinimumSoulPoints)
+        Me.GroupBox3.Controls.Add(Me.Label5)
+        Me.GroupBox3.Controls.Add(Me.RunemakerMinimumManaPoints)
+        Me.GroupBox3.Controls.Add(Me.Label4)
+        Me.GroupBox3.Controls.Add(Me.RunemakerSpell)
+        Me.GroupBox3.Controls.Add(Me.Label2)
+        resources.ApplyResources(Me.GroupBox3, "GroupBox3")
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.TabStop = False
+        '
+        'RunemakerTrigger
+        '
+        resources.ApplyResources(Me.RunemakerTrigger, "RunemakerTrigger")
+        Me.RunemakerTrigger.Name = "RunemakerTrigger"
+        Me.RunemakerTrigger.UseVisualStyleBackColor = True
+        '
+        'RunemakerMinimumSoulPoints
+        '
+        resources.ApplyResources(Me.RunemakerMinimumSoulPoints, "RunemakerMinimumSoulPoints")
+        Me.RunemakerMinimumSoulPoints.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
+        Me.RunemakerMinimumSoulPoints.Name = "RunemakerMinimumSoulPoints"
+        '
+        'Label5
+        '
+        resources.ApplyResources(Me.Label5, "Label5")
+        Me.Label5.Name = "Label5"
+        '
+        'RunemakerMinimumManaPoints
+        '
+        resources.ApplyResources(Me.RunemakerMinimumManaPoints, "RunemakerMinimumManaPoints")
+        Me.RunemakerMinimumManaPoints.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
+        Me.RunemakerMinimumManaPoints.Name = "RunemakerMinimumManaPoints"
+        '
+        'Label4
+        '
+        resources.ApplyResources(Me.Label4, "Label4")
+        Me.Label4.Name = "Label4"
+        '
+        'RunemakerSpell
+        '
+        Me.RunemakerSpell.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.RunemakerSpell.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.RunemakerSpell.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.RunemakerSpell.FormattingEnabled = True
+        resources.ApplyResources(Me.RunemakerSpell, "RunemakerSpell")
+        Me.RunemakerSpell.Name = "RunemakerSpell"
+        '
+        'Label2
+        '
+        resources.ApplyResources(Me.Label2, "Label2")
+        Me.Label2.Name = "Label2"
         '
         'GroupBox2
         '
@@ -1246,7 +1502,7 @@ Partial Class frmMain
         'SpellCasterMinimumManaPoints
         '
         resources.ApplyResources(Me.SpellCasterMinimumManaPoints, "SpellCasterMinimumManaPoints")
-        Me.SpellCasterMinimumManaPoints.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
+        Me.SpellCasterMinimumManaPoints.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
         Me.SpellCasterMinimumManaPoints.Name = "SpellCasterMinimumManaPoints"
         '
         'Label3
@@ -1256,6 +1512,8 @@ Partial Class frmMain
         '
         'SpellCasterSpell
         '
+        Me.SpellCasterSpell.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.SpellCasterSpell.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.SpellCasterSpell.FormattingEnabled = True
         resources.ApplyResources(Me.SpellCasterSpell, "SpellCasterSpell")
         Me.SpellCasterSpell.Name = "SpellCasterSpell"
@@ -1265,16 +1523,245 @@ Partial Class frmMain
         resources.ApplyResources(Me.Label1, "Label1")
         Me.Label1.Name = "Label1"
         '
-        'TableLayoutPanel1
-        '
-        resources.ApplyResources(Me.TableLayoutPanel1, "TableLayoutPanel1")
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        '
         'TabPage17
         '
+        Me.TabPage17.Controls.Add(Me.GroupBox10)
+        Me.TabPage17.Controls.Add(Me.GroupBox9)
+        Me.TabPage17.Controls.Add(Me.GroupBox8)
+        Me.TabPage17.Controls.Add(Me.GroupBox7)
         resources.ApplyResources(Me.TabPage17, "TabPage17")
         Me.TabPage17.Name = "TabPage17"
         Me.TabPage17.UseVisualStyleBackColor = True
+        '
+        'GroupBox10
+        '
+        Me.GroupBox10.Controls.Add(Me.CheckBox3)
+        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel3)
+        Me.GroupBox10.Controls.Add(Me.CheckBox2)
+        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel2)
+        resources.ApplyResources(Me.GroupBox10, "GroupBox10")
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.TabStop = False
+        '
+        'CheckBox3
+        '
+        resources.ApplyResources(Me.CheckBox3, "CheckBox3")
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel3
+        '
+        resources.ApplyResources(Me.TableLayoutPanel3, "TableLayoutPanel3")
+        Me.TableLayoutPanel3.Controls.Add(Me.TextBox5, 1, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label17, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.TextBox6, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label19, 0, 1)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        '
+        'TextBox5
+        '
+        resources.ApplyResources(Me.TextBox5, "TextBox5")
+        Me.TextBox5.Name = "TextBox5"
+        '
+        'Label17
+        '
+        resources.ApplyResources(Me.Label17, "Label17")
+        Me.Label17.Name = "Label17"
+        '
+        'TextBox6
+        '
+        resources.ApplyResources(Me.TextBox6, "TextBox6")
+        Me.TextBox6.Name = "TextBox6"
+        '
+        'Label19
+        '
+        resources.ApplyResources(Me.Label19, "Label19")
+        Me.Label19.Name = "Label19"
+        '
+        'CheckBox2
+        '
+        resources.ApplyResources(Me.CheckBox2, "CheckBox2")
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel2
+        '
+        resources.ApplyResources(Me.TableLayoutPanel2, "TableLayoutPanel2")
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBox3, 1, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBox2, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label14, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.TextBox1, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label15, 0, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label16, 0, 1)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        '
+        'TextBox3
+        '
+        resources.ApplyResources(Me.TextBox3, "TextBox3")
+        Me.TextBox3.Name = "TextBox3"
+        '
+        'TextBox2
+        '
+        resources.ApplyResources(Me.TextBox2, "TextBox2")
+        Me.TextBox2.Name = "TextBox2"
+        '
+        'Label14
+        '
+        resources.ApplyResources(Me.Label14, "Label14")
+        Me.Label14.Name = "Label14"
+        '
+        'TextBox1
+        '
+        resources.ApplyResources(Me.TextBox1, "TextBox1")
+        Me.TextBox1.Name = "TextBox1"
+        '
+        'Label15
+        '
+        resources.ApplyResources(Me.Label15, "Label15")
+        Me.Label15.Name = "Label15"
+        '
+        'Label16
+        '
+        resources.ApplyResources(Me.Label16, "Label16")
+        Me.Label16.Name = "Label16"
+        '
+        'GroupBox9
+        '
+        Me.GroupBox9.Controls.Add(Me.CheckBox1)
+        Me.GroupBox9.Controls.Add(Me.TableLayoutPanel1)
+        resources.ApplyResources(Me.GroupBox9, "GroupBox9")
+        Me.GroupBox9.Name = "GroupBox9"
+        Me.GroupBox9.TabStop = False
+        '
+        'CheckBox1
+        '
+        resources.ApplyResources(Me.CheckBox1, "CheckBox1")
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel1
+        '
+        resources.ApplyResources(Me.TableLayoutPanel1, "TableLayoutPanel1")
+        Me.TableLayoutPanel1.Controls.Add(Me.Label10, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label11, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label12, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown1, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown2, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown3, 1, 3)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        '
+        'Label10
+        '
+        resources.ApplyResources(Me.Label10, "Label10")
+        Me.Label10.Name = "Label10"
+        '
+        'Label11
+        '
+        resources.ApplyResources(Me.Label11, "Label11")
+        Me.Label11.Name = "Label11"
+        '
+        'Label12
+        '
+        resources.ApplyResources(Me.Label12, "Label12")
+        Me.Label12.Name = "Label12"
+        '
+        'Label13
+        '
+        resources.ApplyResources(Me.Label13, "Label13")
+        Me.Label13.Name = "Label13"
+        '
+        'NumericUpDown1
+        '
+        resources.ApplyResources(Me.NumericUpDown1, "NumericUpDown1")
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        '
+        'NumericUpDown2
+        '
+        resources.ApplyResources(Me.NumericUpDown2, "NumericUpDown2")
+        Me.NumericUpDown2.Name = "NumericUpDown2"
+        '
+        'NumericUpDown3
+        '
+        resources.ApplyResources(Me.NumericUpDown3, "NumericUpDown3")
+        Me.NumericUpDown3.Name = "NumericUpDown3"
+        '
+        'GroupBox8
+        '
+        Me.GroupBox8.Controls.Add(Me.CavebotTrigger)
+        Me.GroupBox8.Controls.Add(Me.CavebotConfigure)
+        resources.ApplyResources(Me.GroupBox8, "GroupBox8")
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.TabStop = False
+        '
+        'CavebotTrigger
+        '
+        resources.ApplyResources(Me.CavebotTrigger, "CavebotTrigger")
+        Me.CavebotTrigger.Name = "CavebotTrigger"
+        Me.CavebotTrigger.UseVisualStyleBackColor = True
+        '
+        'CavebotConfigure
+        '
+        resources.ApplyResources(Me.CavebotConfigure, "CavebotConfigure")
+        Me.CavebotConfigure.Name = "CavebotConfigure"
+        Me.CavebotConfigure.UseVisualStyleBackColor = True
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherTrigger)
+        Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherExpression)
+        Me.GroupBox7.Controls.Add(Me.Label9)
+        resources.ApplyResources(Me.GroupBox7, "GroupBox7")
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.TabStop = False
+        '
+        'TradeChannelWatcherTrigger
+        '
+        resources.ApplyResources(Me.TradeChannelWatcherTrigger, "TradeChannelWatcherTrigger")
+        Me.TradeChannelWatcherTrigger.Name = "TradeChannelWatcherTrigger"
+        Me.TradeChannelWatcherTrigger.UseVisualStyleBackColor = True
+        '
+        'TradeChannelWatcherExpression
+        '
+        resources.ApplyResources(Me.TradeChannelWatcherExpression, "TradeChannelWatcherExpression")
+        Me.TradeChannelWatcherExpression.Name = "TradeChannelWatcherExpression"
+        '
+        'Label9
+        '
+        resources.ApplyResources(Me.Label9, "Label9")
+        Me.Label9.Name = "Label9"
+        '
+        'TabPage9
+        '
+        Me.TabPage9.Controls.Add(Me.GroupBox6)
+        resources.ApplyResources(Me.TabPage9, "TabPage9")
+        Me.TabPage9.Name = "TabPage9"
+        Me.TabPage9.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.TradeChannelAdvertiserTrigger)
+        Me.GroupBox6.Controls.Add(Me.TradeChannelAdvertiserAdvertisement)
+        Me.GroupBox6.Controls.Add(Me.Label8)
+        resources.ApplyResources(Me.GroupBox6, "GroupBox6")
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.TabStop = False
+        '
+        'TradeChannelAdvertiserTrigger
+        '
+        resources.ApplyResources(Me.TradeChannelAdvertiserTrigger, "TradeChannelAdvertiserTrigger")
+        Me.TradeChannelAdvertiserTrigger.Name = "TradeChannelAdvertiserTrigger"
+        Me.TradeChannelAdvertiserTrigger.UseVisualStyleBackColor = True
+        '
+        'TradeChannelAdvertiserAdvertisement
+        '
+        resources.ApplyResources(Me.TradeChannelAdvertiserAdvertisement, "TradeChannelAdvertiserAdvertisement")
+        Me.TradeChannelAdvertiserAdvertisement.Name = "TradeChannelAdvertiserAdvertisement"
+        '
+        'Label8
+        '
+        resources.ApplyResources(Me.Label8, "Label8")
+        Me.Label8.Name = "Label8"
         '
         'TabPage3
         '
@@ -1302,24 +1789,6 @@ Partial Class frmMain
         resources.ApplyResources(Me.TabPage24, "TabPage24")
         Me.TabPage24.Name = "TabPage24"
         Me.TabPage24.UseVisualStyleBackColor = True
-        '
-        'TabPage4
-        '
-        resources.ApplyResources(Me.TabPage4, "TabPage4")
-        Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.UseVisualStyleBackColor = True
-        '
-        'TabPage5
-        '
-        resources.ApplyResources(Me.TabPage5, "TabPage5")
-        Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.UseVisualStyleBackColor = True
-        '
-        'TabPage6
-        '
-        resources.ApplyResources(Me.TabPage6, "TabPage6")
-        Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.UseVisualStyleBackColor = True
         '
         'TabPage7
         '
@@ -1369,6 +1838,24 @@ Partial Class frmMain
         Me.MiscReloadSpellsButton.Name = "MiscReloadSpellsButton"
         Me.MiscReloadSpellsButton.UseVisualStyleBackColor = True
         '
+        'TabPage4
+        '
+        resources.ApplyResources(Me.TabPage4, "TabPage4")
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'TabPage5
+        '
+        resources.ApplyResources(Me.TabPage5, "TabPage5")
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'TabPage6
+        '
+        resources.ApplyResources(Me.TabPage6, "TabPage6")
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -1382,7 +1869,6 @@ Partial Class frmMain
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.TransparencyKey = System.Drawing.SystemColors.ActiveBorder
@@ -1390,14 +1876,47 @@ Partial Class frmMain
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.MainTabControl.ResumeLayout(False)
+        Me.TabPage10.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage1.ResumeLayout(False)
         Me.GeneralTabControl.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.AFKTabControl.ResumeLayout(False)
         Me.TabPage14.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
+        CType(Me.AutoFisherMinimumCapacity, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        CType(Me.AutoEaterInterval, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.AutoEaterMinimumHitPoints, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.RunemakerMinimumSoulPoints, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RunemakerMinimumManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage17.ResumeLayout(False)
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
+        Me.GroupBox9.ResumeLayout(False)
+        Me.GroupBox9.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
+        Me.TabPage9.ResumeLayout(False)
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.HealingTabControl.ResumeLayout(False)
         Me.TabPage7.ResumeLayout(False)
@@ -1561,14 +2080,14 @@ Partial Class frmMain
     Friend WithEvents ConstantsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TibiadatToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CopyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ShowHideToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents HideToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CreaturesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OnToolStripMenuItem26 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OffToolStripMenuItem20 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator5 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents ToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ChangeLoginServerPopupItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CharacterStatisticsMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CombobotToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OnToolStripMenuItem27 As System.Windows.Forms.ToolStripMenuItem
@@ -1601,10 +2120,71 @@ Partial Class frmMain
     Friend WithEvents TabPage14 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage17 As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents SpellCasterSpell As System.Windows.Forms.ComboBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents SpellCasterTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents SpellCasterMinimumManaPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents SpellCasterTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents SpellCasterSpell As System.Windows.Forms.ComboBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
+    Friend WithEvents RunemakerSpell As System.Windows.Forms.ComboBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents RunemakerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents RunemakerMinimumSoulPoints As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents RunemakerMinimumManaPoints As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents AutoEaterTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents AutoEaterSmart As System.Windows.Forms.CheckBox
+    Friend WithEvents AutoEaterMinimumHitPoints As System.Windows.Forms.NumericUpDown
+    Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
+    Friend WithEvents AutoFisherMinimumCapacity As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents AutoFisherTurbo As System.Windows.Forms.CheckBox
+    Friend WithEvents AutoFisherTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
+    Friend WithEvents TradeChannelWatcherTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents TradeChannelWatcherExpression As System.Windows.Forms.TextBox
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
+    Friend WithEvents CavebotTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents CavebotConfigure As System.Windows.Forms.Button
+    Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NumericUpDown3 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
+    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
+    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents AutoEaterEatFromFloor As System.Windows.Forms.CheckBox
+    Friend WithEvents AutoEaterEatFromFloorFirst As System.Windows.Forms.CheckBox
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents AutoEaterInterval As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents TabPage9 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
+    Friend WithEvents TradeChannelAdvertiserTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents TradeChannelAdvertiserAdvertisement As System.Windows.Forms.TextBox
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents TabPage10 As System.Windows.Forms.TabPage
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

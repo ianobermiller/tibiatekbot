@@ -15,10 +15,10 @@
 '    You should have received a copy of the GNU General Public License
 '    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-'    Boston, MA 02111-1307, USA.Imports System.Math
+'    Boston, MA 02111-1307, USA.
 
 Imports System.Windows, TibiaTekBot.PProxy2, System.Runtime.InteropServices, _
-    System.ComponentModel, System.IO
+    System.ComponentModel, System.IO, System.Xml
 
 Public Class frmMain
 
@@ -50,11 +50,27 @@ Public Class frmMain
     End Sub
 
     Private Sub InitializeControls()
-        ' Spell Caster
-        For Each Spell As SpellDefinition In CoreModule.Spells.SupportiveSpells
-            SpellCasterSpell.Items.Add(Spell.Words)
-        Next
-
+        Try
+            ' Spell Caster
+            For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                If Spell.Kind <> SpellKind.Rune Then
+                    SpellCasterSpell.Items.Add(Spell.Words)
+                End If
+            Next
+            ' Runemaker
+            For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                If Spell.Kind = SpellKind.Rune Then
+                    RunemakerSpell.Items.Add(Spell.Name)
+                End If
+            Next
+            ' Auto Eater
+            AutoEaterInterval.Value = Consts.AutoEaterInterval
+            AutoEaterEatFromFloor.Checked = Consts.EatFromFloor
+            AutoEaterEatFromFloorFirst.Checked = Consts.EatFromFloorFirst
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 
     Private Sub frmMain_Closing(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
@@ -98,6 +114,8 @@ Public Class frmMain
     Private Sub RefreshControls()
         Try
             RefreshSpellCasterControls()
+            RefreshRunemakerControls()
+            RefreshAutoEaterControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -107,7 +125,7 @@ Public Class frmMain
     Private Sub RefreshSpellCasterControls()
         Try
             SpellCasterTrigger.Checked = Core.SpellTimerObj.State = ThreadTimerState.Running
-            If Core.SpellTimerObj.State = ThreadTimerState.Running Then
+            If SpellCasterTrigger.Checked Then
                 SpellCasterSpell.Text = Core.SpellMsg
                 SpellCasterMinimumManaPoints.Value = Core.SpellManaRequired
                 SpellCasterSpell.Enabled = False
@@ -115,6 +133,58 @@ Public Class frmMain
             Else
                 SpellCasterSpell.Enabled = True
                 SpellCasterMinimumManaPoints.Enabled = True
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshRunemakerControls()
+        Try
+            RunemakerTrigger.Checked = Core.RunemakerTimerObj.State = ThreadTimerState.Running
+            If RunemakerTrigger.Checked Then
+                RunemakerSpell.Text = Core.RunemakerSpell.Name
+                RunemakerMinimumManaPoints.Value = Core.RunemakerManaPoints
+                RunemakerMinimumSoulPoints.Value = Core.RunemakerSoulPoints
+                RunemakerSpell.Enabled = False
+                RunemakerMinimumManaPoints.Enabled = False
+                RunemakerMinimumSoulPoints.Enabled = False
+            Else
+                RunemakerSpell.Enabled = True
+                RunemakerMinimumManaPoints.Enabled = True
+                RunemakerMinimumSoulPoints.Enabled = True
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshAutoEaterControls()
+        Try
+            AutoEaterTrigger.Checked = Core.EaterTimerObj.State = ThreadTimerState.Running
+            If AutoEaterTrigger.Checked Then
+                AutoEaterSmart.Checked = Core.AutoEaterSmart > 0
+                If AutoEaterSmart.Checked Then
+                    AutoEaterMinimumHitPoints.Value = Core.AutoEaterSmart
+                    'AutoEaterDelay.Value = Consts.AutoEaterSmartInterval
+                Else
+                    AutoEaterMinimumHitPoints.Value = 0
+                    'AutoEaterDelay.Value = Consts.AutoEaterInterval
+                End If
+                AutoEaterEatFromFloor.Enabled = False
+                AutoEaterEatFromFloorFirst.Enabled = False
+                AutoEaterSmart.Enabled = False
+                AutoEaterMinimumHitPoints.Enabled = False
+                AutoEaterInterval.Enabled = False
+                AutoEaterInterval.Value = CInt(Core.EaterTimerObj.Interval)
+            Else
+                AutoEaterEatFromFloor.Enabled = True
+                AutoEaterEatFromFloorFirst.Enabled = True
+                AutoEaterSmart.Enabled = True
+                AutoEaterMinimumHitPoints.Enabled = True
+                AutoEaterInterval.Enabled = True
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -191,22 +261,24 @@ Public Class frmMain
             Dim Filename As String = ""
             Dim Directory As String = ""
             Dim dlgOpen As New OpenFileDialog
-            Dim xmlFile As New System.Xml.XmlDocument()
-            Dim xmlClient As System.Xml.XmlNode
-            Dim xmlFilename As Xml.XmlNode
-            Dim xmlDirectory As Xml.XmlNode
-            Dim xmlAddresses As Xml.XmlNode
-            Dim xmlAddress1 As Xml.XmlNode
-            Dim xmlAddress2 As Xml.XmlNode
-            Dim xmlAddress3 As Xml.XmlNode
-            Dim xmlAddress4 As Xml.XmlNode
-            Dim xmlAddress5 As Xml.XmlNode
-            Dim xmlAddress6 As Xml.XmlNode
-            Dim xmlAddress7 As Xml.XmlNode
-            Dim xmlAddress8 As Xml.XmlNode
-            Dim xmlAddress9 As Xml.XmlNode
-            Dim xmlAddress10 As Xml.XmlNode
-            Dim xmlAddress11 As Xml.XmlNode
+            Dim Document As New XmlDocument()
+            Dim xmlDeclaration As XmlDeclaration = Document.CreateXmlDeclaration("1.0", "us-ascii", "")
+            Dim xmlComment As XmlComment = Document.CreateComment(GNUGPLStatement)
+            Dim xmlClient As XmlElement
+            Dim xmlFilename As XmlElement
+            Dim xmlDirectory As XmlElement
+            Dim xmlAddresses As XmlElement
+            Dim xmlAddress1 As XmlElement
+            Dim xmlAddress2 As XmlElement
+            Dim xmlAddress3 As XmlElement
+            Dim xmlAddress4 As XmlElement
+            Dim xmlAddress5 As XmlElement
+            Dim xmlAddress6 As XmlElement
+            Dim xmlAddress7 As XmlElement
+            Dim xmlAddress8 As XmlElement
+            Dim xmlAddress9 As XmlElement
+            Dim xmlAddress10 As XmlElement
+            Dim xmlAddress11 As XmlElement
             With dlgOpen
                 .Title = "Tibia's Location"
                 .Filter = "Executable|*.exe"
@@ -225,33 +297,33 @@ Public Class frmMain
                 End If
             Next
             If Directory = "" Or Filename = "" Then Exit Sub
-            xmlClient = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Client", "")
-            xmlFilename = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Filename", "")
+            xmlClient = Document.CreateElement("Client")
+            xmlFilename = Document.CreateElement("Filename")
             xmlFilename.InnerText = Filename
-            xmlDirectory = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Directory", "")
+            xmlDirectory = Document.CreateElement("Directory")
             xmlDirectory.InnerText = Directory
-            xmlAddresses = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Addresses", "")
-            xmlAddress1 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddresses = Document.CreateElement("Addresses")
+            xmlAddress1 = Document.CreateElement("Address")
             xmlAddress1.InnerText = "login01.tibia.com:7171"
-            xmlAddress2 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress2 = Document.CreateElement("Address")
             xmlAddress2.InnerText = "login02.tibia.com:7171"
-            xmlAddress3 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress3 = Document.CreateElement("Address")
             xmlAddress3.InnerText = "login03.tibia.com:7171"
-            xmlAddress4 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress4 = Document.CreateElement("Address")
             xmlAddress4.InnerText = "login04.tibia.com:7171"
-            xmlAddress5 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress5 = Document.CreateElement("Address")
             xmlAddress5.InnerText = "login05.tibia.com:7171"
-            xmlAddress6 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress6 = Document.CreateElement("Address")
             xmlAddress6.InnerText = "tibia1.cipsoft.com:7171"
-            xmlAddress7 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress7 = Document.CreateElement("Address")
             xmlAddress7.InnerText = "tibia2.cipsoft.com:7171"
-            xmlAddress8 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress8 = Document.CreateElement("Address")
             xmlAddress8.InnerText = "tibia3.cipsoft.com:7171"
-            xmlAddress9 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress9 = Document.CreateElement("Address")
             xmlAddress9.InnerText = "tibia4.cipsoft.com:7171"
-            xmlAddress10 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress10 = Document.CreateElement("Address")
             xmlAddress10.InnerText = "tibia5.cipsoft.com:7171"
-            xmlAddress11 = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Address", "")
+            xmlAddress11 = Document.CreateElement("Address")
             xmlAddress11.InnerText = "localhost:7171"
             xmlAddresses.AppendChild(xmlAddress1)
             xmlAddresses.AppendChild(xmlAddress2)
@@ -264,12 +336,14 @@ Public Class frmMain
             xmlAddresses.AppendChild(xmlAddress9)
             xmlAddresses.AppendChild(xmlAddress10)
             xmlAddresses.AppendChild(xmlAddress11)
+            Document.AppendChild(xmlDeclaration)
+            xmlClient.AppendChild(XmlComment)
             xmlClient.AppendChild(xmlFilename)
             xmlClient.AppendChild(xmlDirectory)
             xmlClient.AppendChild(xmlAddresses)
-            xmlFile.AppendChild(xmlClient)
+            Document.AppendChild(xmlClient)
             If IO.File.Exists(GetConfigurationDirectory() & "\Data.xml") Then IO.File.Delete(GetConfigurationDirectory() & "\Data.xml")
-            xmlFile.Save(GetConfigurationDirectory() & "\Data.xml")
+            Document.Save(GetConfigurationDirectory() & "\Data.xml")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -430,7 +504,7 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub ShowHideToolMenuMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem2.Click
+    Private Sub ShowHideToolMenuMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowHideToolStripMenuItem.Click
         Try
             If IsVisible Then
                 Me.Hide()
@@ -445,7 +519,7 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub changeloginserver_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem3.Click
+    Private Sub changeloginserver_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChangeLoginServerPopupItem.Click
         Try
             If Not Core.InGame Then
                 LoginSelectForm = New frmLoginSelectDialog()
@@ -969,7 +1043,6 @@ Public Class frmMain
     End Sub
 #End Region
 
-
     Private Sub LicenseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LicenseToolStripMenuItem.Click
         Try
             System.Diagnostics.Process.Start("COPYING.txt")
@@ -1010,5 +1083,122 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
+    End Sub
+
+    Private Sub RunemakerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RunemakerTrigger.CheckedChanged
+        Static FirstTime As Boolean = True
+        Try
+            If FirstTime Then
+                FirstTime = False
+                Exit Sub
+            End If
+            If RunemakerTrigger.Checked Then
+                If String.IsNullOrEmpty(RunemakerSpell.Text) Then
+                    RunemakerTrigger.Checked = False
+                    MessageBox.Show("The spell must not be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                If RunemakerMinimumManaPoints.Value = 0 Then
+                    RunemakerTrigger.Checked = False
+                    MessageBox.Show("The runemaker minimum mana points must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                If RunemakerMinimumSoulPoints.Value = 0 Then
+                    RunemakerTrigger.Checked = False
+                    MessageBox.Show("The runemaker minimum soul points must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Dim Found As Boolean = False
+                For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                    If Spell.Name.Equals(RunemakerSpell.Text) Then
+                        Core.RunemakerSpell = Spell
+                        Found = True
+                        Exit For
+                    End If
+                Next
+                If Not Found Then
+                    RunemakerTrigger.Checked = False
+                    MessageBox.Show("The runemaker spell was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.RunemakerManaPoints = RunemakerMinimumManaPoints.Value
+                Core.RunemakerSoulPoints = RunemakerMinimumSoulPoints.Value
+                Core.RunemakerTimerObj.StartTimer()
+            Else
+                Core.RunemakerTimerObj.StopTimer()
+                Core.RunemakerManaPoints = 0
+                Core.RunemakerSoulPoints = 0
+                Core.RunemakerSpell = Nothing
+            End If
+            RefreshRunemakerControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub AutoEaterSmart_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterSmart.CheckedChanged
+        Try
+            AutoEaterMinimumHitPoints.Enabled = AutoEaterSmart.Checked
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub AutoEaterTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterTrigger.CheckedChanged
+        Static FirstTime As Boolean = True
+        Try
+            If FirstTime Then
+                FirstTime = False
+                Exit Sub
+            End If
+            If AutoEaterTrigger.Checked Then
+                If AutoEaterSmart.Checked Then
+                    If AutoEaterMinimumHitPoints.Value = 0 Then
+                        AutoEaterTrigger.Checked = False
+                        MessageBox.Show("The minimum hit points when the Auto Smart Eater feature is on must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
+                    Core.AutoEaterSmart = AutoEaterMinimumHitPoints.Value
+                Else
+                    Core.AutoEaterSmart = 0
+                End If
+                If AutoEaterInterval.Value = 0 Then
+                    AutoEaterTrigger.Checked = False
+                    MessageBox.Show("The auto eater delay must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.EaterTimerObj.Interval = AutoEaterInterval.Value
+                Core.EaterTimerObj.StartTimer()
+            Else
+                Core.AutoEaterSmart = 0
+                Core.EaterTimerObj.StopTimer()
+            End If
+            RefreshAutoEaterControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub AutoEaterEatFromFloor_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterEatFromFloor.CheckedChanged
+        AutoEaterEatFromFloorFirst.Enabled = AutoEaterEatFromFloor.Checked
+        Consts.EatFromFloor = AutoEaterEatFromFloor.Checked
+        'If Not AutoEaterEatFromFloorFirst.Enabled Then
+        '    AutoEaterEatFromFloorFirst.Checked = False
+        'End If
+    End Sub
+
+    Private Sub AutoEaterDelay_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterInterval.ValueChanged
+        If AutoEaterSmart.Checked Then
+            Consts.AutoEaterSmartInterval = AutoEaterInterval.Value
+        Else
+            Consts.AutoEaterInterval = AutoEaterInterval.Value
+        End If
+    End Sub
+
+    Private Sub AutoEaterEatFromFloorFirst_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterEatFromFloorFirst.CheckedChanged
+        Consts.EatFromFloorFirst = AutoEaterEatFromFloorFirst.Checked
     End Sub
 End Class
