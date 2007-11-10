@@ -48,6 +48,8 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
 ||EatFromFloor||True||Option for &eat command. Determines if Auto Eater eats from floor too.||
 ||EatFromFloorFirst||True|| Option for &eat command. Determines if the Auto Eater eats first from the floor, and then from backpack.||
 ||EatFromFloorMaxDistance||1.5||Option for &eat command. Determines the maximum distance for eating the food from the floor.||
+||AutoEaterInterval||30000|| Option for &eat command. Determines the default interval at which it should try to eat.||
+||AutoEaterSmartInterval||"60000||Option for &eat command. Determines the interval at which it should try to eat when the smart option is enabled.||
 ||AutoPickUpDelay||2000||Option for &pickup command. Determines the delay for the Auto Pickup to pickup the item. The value is in milliseconds.||
 ||HealersCheckInterval||300||Option for &heal command. Determines the delay for Auto Healer to check your heal. The value is in milliseconds.||
 ||HealersAfterHealDelay||300||Option for &heal command. Determines the delay after healing. Value is in milliseconds.||
