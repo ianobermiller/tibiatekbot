@@ -15,7 +15,7 @@
 '    You should have received a copy of the GNU General Public License
 '    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-'    Boston, MA 02111-1307, USA.Imports System.Math
+'    Boston, MA 02111-1307, USA.
 
 Imports System.xml, TibiaTekBot.DatReader, TibiaTekBot.Constants, System.Globalization
 
@@ -30,7 +30,9 @@ Public Module ConstantsModule
         Public EatFromFloor As Boolean = False
         Public EatFromFloorFirst As Boolean = False
         Public EatFromFloorMaxDistance As Double = 0
-        Public StackerDelay As Integer = 0
+        Public AutoEaterInterval As Integer = 0
+        Public AutoEaterSmartInterval As Integer = 0
+        Public AutoStackerDelay As Integer = 0
         Public ModifyMOTD As Boolean = False
         Public RSAKeyOpenTibia As String = ""
         Public AutoPickUpDelay As Integer = 0
@@ -241,7 +243,7 @@ Public Module ConstantsModule
                                                 Case "EatFromFloorMaxDistance"
                                                     EatFromFloorMaxDistance = System.Double.Parse(Value, NumberStyles.Number, CI)
                                                 Case "AutoStackerDelay"
-                                                    StackerDelay = CInt(Value)
+                                                    AutoStackerDelay = CInt(Value)
                                                 Case "ModifyMOTD"
                                                     ModifyMOTD = System.Boolean.Parse(Value)
                                                 Case "RSAKeyOpenTibia"
@@ -560,6 +562,10 @@ Public Module ConstantsModule
                                                     SpellCasterInterval = CInt(Value)
                                                 Case "SpellCasterDelay"
                                                     SpellCasterDelay = CInt(Value)
+                                                Case "AutoEaterInterval"
+                                                    AutoEaterInterval = CInt(Value)
+                                                Case "AutoEaterSmartInterval"
+                                                    AutoEaterSmartInterval = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
@@ -593,6 +599,20 @@ Public Module ConstantsModule
     Public Const ConsoleLevel As Integer = &H65
     Public Const ConsoleName As String = BotName
     Public Const Debug As Boolean = False
+    Public Const GNUGPLStatement As String = "    Copyright (C) 2007 TibiaTek Development Team" & vbCrLf & _
+    "    This file is part of TibiaTek Bot." & vbCrLf & vbCrLf & _
+    "    TibiaTek Bot is free software: you can redistribute it and/or modify" & vbCrLf & _
+    "    it under the terms of the GNU General Public License as published by" & vbCrLf & _
+    "    the Free Software Foundation, either version 3 of the License, or" & vbCrLf & _
+    "    (at your option) any later version." & vbCrLf & vbCrLf & _
+    "    TibiaTek Bot is distributed in the hope that it will be useful," & vbCrLf & _
+    "    but WITHOUT ANY WARRANTY; without even the implied warranty of" & vbCrLf & _
+    "    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" & vbCrLf & _
+    "    GNU General Public License for more details." & vbCrLf & vbCrLf & _
+    "    You should have received a copy of the GNU General Public License" & vbCrLf & _
+    "    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt" & vbCrLf & _
+    "    or write to the Free Software Foundation, 59 Temple Place - Suite 330," & vbCrLf & _
+    "    Boston, MA 02111-1307, USA."
 
     Public Enum InventorySlots
         Head = 1
@@ -809,7 +829,7 @@ Public Module ConstantsModule
         None = 0
         First = 1
         Second = 2
-        Full = 3
+        Both = 3
     End Enum
 
     Public Enum HotkeyCombination
@@ -882,6 +902,16 @@ Public Module ConstantsModule
         DownRight = 5
         DownLeft = 6
         UpLeft = 7
+    End Enum
+
+    Public Enum SpellKind As Integer
+        Rune
+        Food
+        Ammunition
+        Support
+        Offensive
+        Healing
+        Incantation
     End Enum
 
 End Module

@@ -15,7 +15,7 @@
 '    You should have received a copy of the GNU General Public License
 '    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-'    Boston, MA 02111-1307, USA.Imports System.Math
+'    Boston, MA 02111-1307, USA.
 
 Imports System.xml
 
@@ -26,6 +26,8 @@ Public Class frmConstantsEditor
             Dim xmlDocument As New XmlDocument
             Dim xmlDeclaration As XmlDeclaration = xmlDocument.CreateXmlDeclaration("1.0", "us-ascii", "")
             xmlDocument.AppendChild(xmlDeclaration)
+            Dim xmlComment As XmlComment = xmlDocument.CreateComment(GNUGPLStatement)
+            xmlDocument.AppendChild(xmlComment)
             Dim xmlConstants As XmlElement = xmlDocument.CreateElement("Constants")
             For Each Row As DataGridViewRow In DataGrid.Rows
                 If String.IsNullOrEmpty(Row.Cells(0).Value) Then Continue For
