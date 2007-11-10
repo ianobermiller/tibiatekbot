@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
     or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.Imports System.Math
+    Boston, MA 02111-1307, USA.
 -->
 <Constants>
   <Const Name="LatestVersionUrl" Value="http://www.tibiatek.com/version.php" />
@@ -39,6 +39,8 @@
   <Const Name="EatFromFloor" Value="True" />
   <Const Name="EatFromFloorFirst" Value="True" />
   <Const Name="EatFromFloorMaxDistance" Value="1.5" />
+  <Const Name="AutoEaterInterval" Value="30000" />
+  <Const Name="AutoEaterSmartInterval" Value="60000" />
   <Const Name="AutoPickUpDelay" Value="2000" />
   <Const Name="HealersCheckInterval" Value="300" />
   <Const Name="HealersAfterHealDelay" Value="300" />
