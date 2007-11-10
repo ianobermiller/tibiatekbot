@@ -24,7 +24,7 @@
  * Console and GUI
  * Experience Checker (plus Creatures needed to kill)
  * Fake Tibia Title
- * Floor Explorer (to see what's above, below or round you)
+ * Floor Explorer (to see what's above, below or around you)
  * Floor Lookup
  * FPS Changer
  * Guild Members Lookup
