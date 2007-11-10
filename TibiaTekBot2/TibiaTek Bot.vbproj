@@ -347,6 +347,14 @@
     <Content Include="COPYING.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Alarms.ico" />
+    <None Include="Resources\Cavebot.ico" />
+    <None Include="Resources\ChangeLoginServer.ico" />
+    <None Include="Resources\CharacterStatistics.ico" />
+    <None Include="Resources\Close.ico" />
+    <None Include="Resources\ConstantsEditor.ico" />
+    <None Include="Resources\Tibia.ico" />
+    <None Include="Resources\TibiaMultiClientPatch.ico" />
     <Content Include="Resources\tibiatekbot.ico" />
     <None Include="Resources\ttb splash.jpg" />
     <Content Include="Resources\ttb21.ico" />

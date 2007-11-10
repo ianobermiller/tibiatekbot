@@ -15,7 +15,7 @@
 '    You should have received a copy of the GNU General Public License
 '    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-'    Boston, MA 02111-1307, USA.Imports System.Math
+'    Boston, MA 02111-1307, USA.
 
 Imports System.xml
 Public Module LootItemsModule
@@ -164,6 +164,8 @@ Public Module LootItemsModule
                 Next
                 Dim Declaration As XmlDeclaration = Document.CreateXmlDeclaration("1.0", "", "")
                 Document.AppendChild(Declaration)
+                Dim xmlComment As XmlComment = Document.CreateComment(GNUGPLStatement)
+                Document.AppendChild(xmlComment)
                 Document.AppendChild(xmlLootItems)
                 Document.Save(GetConfigurationDirectory() & "\LootItems.xml")
             Catch Ex As Exception
