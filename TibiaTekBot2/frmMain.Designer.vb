@@ -217,6 +217,23 @@ Partial Class frmMain
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.GeneralTabControl = New System.Windows.Forms.TabControl
         Me.TabPage8 = New System.Windows.Forms.TabPage
+        Me.AmmoRestackerBox = New System.Windows.Forms.GroupBox
+        Me.MinAmmo = New System.Windows.Forms.NumericUpDown
+        Me.LightBox = New System.Windows.Forms.GroupBox
+        Me.LightEffectsTrigger = New System.Windows.Forms.CheckBox
+        Me.LightEffect = New System.Windows.Forms.ComboBox
+        Me.LELabel = New System.Windows.Forms.Label
+        Me.AutoStackerBox = New System.Windows.Forms.GroupBox
+        Me.AutoStackerTrigger = New System.Windows.Forms.CheckBox
+        Me.AutoLooterBox = New System.Windows.Forms.GroupBox
+        Me.MinCaplbl = New System.Windows.Forms.Label
+        Me.MinCap = New System.Windows.Forms.NumericUpDown
+        Me.AutoEaterEdit = New System.Windows.Forms.Button
+        Me.AutoLooterTrigger = New System.Windows.Forms.CheckBox
+        Me.ConfigManagerbox = New System.Windows.Forms.GroupBox
+        Me.ClearConfig = New System.Windows.Forms.Button
+        Me.EditConfig = New System.Windows.Forms.Button
+        Me.ConfigLoad = New System.Windows.Forms.Button
         Me.TabPage13 = New System.Windows.Forms.TabPage
         Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.AFKTabControl = New System.Windows.Forms.TabControl
@@ -302,6 +319,12 @@ Partial Class frmMain
         Me.TabPage4 = New System.Windows.Forms.TabPage
         Me.TabPage5 = New System.Windows.Forms.TabPage
         Me.TabPage6 = New System.Windows.Forms.TabPage
+        Me.MinAmmolbl = New System.Windows.Forms.Label
+        Me.AmmoRestackerTrigger = New System.Windows.Forms.CheckBox
+        Me.ComboBotBox = New System.Windows.Forms.GroupBox
+        Me.Leaderlbl = New System.Windows.Forms.Label
+        Me.Leader = New System.Windows.Forms.TextBox
+        Me.CombBotTrigger = New System.Windows.Forms.CheckBox
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -309,6 +332,14 @@ Partial Class frmMain
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage1.SuspendLayout()
         Me.GeneralTabControl.SuspendLayout()
+        Me.TabPage8.SuspendLayout()
+        Me.AmmoRestackerBox.SuspendLayout()
+        CType(Me.MinAmmo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.LightBox.SuspendLayout()
+        Me.AutoStackerBox.SuspendLayout()
+        Me.AutoLooterBox.SuspendLayout()
+        CType(Me.MinCap, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ConfigManagerbox.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.AFKTabControl.SuspendLayout()
         Me.TabPage14.SuspendLayout()
@@ -339,6 +370,7 @@ Partial Class frmMain
         Me.HealingTabControl.SuspendLayout()
         Me.TabPage7.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.ComboBotBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'NotifyIcon
@@ -1291,9 +1323,128 @@ Partial Class frmMain
         '
         'TabPage8
         '
+        Me.TabPage8.Controls.Add(Me.ComboBotBox)
+        Me.TabPage8.Controls.Add(Me.AmmoRestackerBox)
+        Me.TabPage8.Controls.Add(Me.LightBox)
+        Me.TabPage8.Controls.Add(Me.AutoStackerBox)
+        Me.TabPage8.Controls.Add(Me.AutoLooterBox)
+        Me.TabPage8.Controls.Add(Me.ConfigManagerbox)
         resources.ApplyResources(Me.TabPage8, "TabPage8")
         Me.TabPage8.Name = "TabPage8"
         Me.TabPage8.UseVisualStyleBackColor = True
+        '
+        'AmmoRestackerBox
+        '
+        Me.AmmoRestackerBox.Controls.Add(Me.AmmoRestackerTrigger)
+        Me.AmmoRestackerBox.Controls.Add(Me.MinAmmolbl)
+        Me.AmmoRestackerBox.Controls.Add(Me.MinAmmo)
+        resources.ApplyResources(Me.AmmoRestackerBox, "AmmoRestackerBox")
+        Me.AmmoRestackerBox.Name = "AmmoRestackerBox"
+        Me.AmmoRestackerBox.TabStop = False
+        '
+        'MinAmmo
+        '
+        resources.ApplyResources(Me.MinAmmo, "MinAmmo")
+        Me.MinAmmo.Name = "MinAmmo"
+        '
+        'LightBox
+        '
+        Me.LightBox.Controls.Add(Me.LightEffectsTrigger)
+        Me.LightBox.Controls.Add(Me.LightEffect)
+        Me.LightBox.Controls.Add(Me.LELabel)
+        resources.ApplyResources(Me.LightBox, "LightBox")
+        Me.LightBox.Name = "LightBox"
+        Me.LightBox.TabStop = False
+        '
+        'LightEffectsTrigger
+        '
+        resources.ApplyResources(Me.LightEffectsTrigger, "LightEffectsTrigger")
+        Me.LightEffectsTrigger.Name = "LightEffectsTrigger"
+        Me.LightEffectsTrigger.UseVisualStyleBackColor = True
+        '
+        'LightEffect
+        '
+        Me.LightEffect.FormattingEnabled = True
+        Me.LightEffect.Items.AddRange(New Object() {resources.GetString("LightEffect.Items"), resources.GetString("LightEffect.Items1"), resources.GetString("LightEffect.Items2"), resources.GetString("LightEffect.Items3"), resources.GetString("LightEffect.Items4"), resources.GetString("LightEffect.Items5"), resources.GetString("LightEffect.Items6"), resources.GetString("LightEffect.Items7"), resources.GetString("LightEffect.Items8")})
+        resources.ApplyResources(Me.LightEffect, "LightEffect")
+        Me.LightEffect.Name = "LightEffect"
+        '
+        'LELabel
+        '
+        resources.ApplyResources(Me.LELabel, "LELabel")
+        Me.LELabel.Name = "LELabel"
+        '
+        'AutoStackerBox
+        '
+        Me.AutoStackerBox.Controls.Add(Me.AutoStackerTrigger)
+        resources.ApplyResources(Me.AutoStackerBox, "AutoStackerBox")
+        Me.AutoStackerBox.Name = "AutoStackerBox"
+        Me.AutoStackerBox.TabStop = False
+        '
+        'AutoStackerTrigger
+        '
+        resources.ApplyResources(Me.AutoStackerTrigger, "AutoStackerTrigger")
+        Me.AutoStackerTrigger.Name = "AutoStackerTrigger"
+        Me.AutoStackerTrigger.UseVisualStyleBackColor = True
+        '
+        'AutoLooterBox
+        '
+        Me.AutoLooterBox.Controls.Add(Me.MinCaplbl)
+        Me.AutoLooterBox.Controls.Add(Me.MinCap)
+        Me.AutoLooterBox.Controls.Add(Me.AutoEaterEdit)
+        Me.AutoLooterBox.Controls.Add(Me.AutoLooterTrigger)
+        resources.ApplyResources(Me.AutoLooterBox, "AutoLooterBox")
+        Me.AutoLooterBox.Name = "AutoLooterBox"
+        Me.AutoLooterBox.TabStop = False
+        '
+        'MinCaplbl
+        '
+        resources.ApplyResources(Me.MinCaplbl, "MinCaplbl")
+        Me.MinCaplbl.Name = "MinCaplbl"
+        '
+        'MinCap
+        '
+        resources.ApplyResources(Me.MinCap, "MinCap")
+        Me.MinCap.Name = "MinCap"
+        '
+        'AutoEaterEdit
+        '
+        resources.ApplyResources(Me.AutoEaterEdit, "AutoEaterEdit")
+        Me.AutoEaterEdit.Name = "AutoEaterEdit"
+        Me.AutoEaterEdit.UseVisualStyleBackColor = True
+        '
+        'AutoLooterTrigger
+        '
+        resources.ApplyResources(Me.AutoLooterTrigger, "AutoLooterTrigger")
+        Me.AutoLooterTrigger.Name = "AutoLooterTrigger"
+        Me.AutoLooterTrigger.UseVisualStyleBackColor = True
+        '
+        'ConfigManagerbox
+        '
+        Me.ConfigManagerbox.Controls.Add(Me.ClearConfig)
+        Me.ConfigManagerbox.Controls.Add(Me.EditConfig)
+        Me.ConfigManagerbox.Controls.Add(Me.ConfigLoad)
+        resources.ApplyResources(Me.ConfigManagerbox, "ConfigManagerbox")
+        Me.ConfigManagerbox.Name = "ConfigManagerbox"
+        Me.ConfigManagerbox.TabStop = False
+        '
+        'ClearConfig
+        '
+        resources.ApplyResources(Me.ClearConfig, "ClearConfig")
+        Me.ClearConfig.Name = "ClearConfig"
+        Me.ClearConfig.UseVisualStyleBackColor = True
+        '
+        'EditConfig
+        '
+        resources.ApplyResources(Me.EditConfig, "EditConfig")
+        Me.EditConfig.Name = "EditConfig"
+        Me.EditConfig.UseVisualStyleBackColor = True
+        '
+        'ConfigLoad
+        '
+        resources.ApplyResources(Me.ConfigLoad, "ConfigLoad")
+        Me.ConfigLoad.Name = "ConfigLoad"
+        Me.ConfigLoad.UseVisualStyleBackColor = True
         '
         'TabPage13
         '
@@ -1856,6 +2007,42 @@ Partial Class frmMain
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.UseVisualStyleBackColor = True
         '
+        'MinAmmolbl
+        '
+        resources.ApplyResources(Me.MinAmmolbl, "MinAmmolbl")
+        Me.MinAmmolbl.Name = "MinAmmolbl"
+        '
+        'AmmoRestackerTrigger
+        '
+        resources.ApplyResources(Me.AmmoRestackerTrigger, "AmmoRestackerTrigger")
+        Me.AmmoRestackerTrigger.Name = "AmmoRestackerTrigger"
+        Me.AmmoRestackerTrigger.UseVisualStyleBackColor = True
+        '
+        'ComboBotBox
+        '
+        Me.ComboBotBox.Controls.Add(Me.CombBotTrigger)
+        Me.ComboBotBox.Controls.Add(Me.Leader)
+        Me.ComboBotBox.Controls.Add(Me.Leaderlbl)
+        resources.ApplyResources(Me.ComboBotBox, "ComboBotBox")
+        Me.ComboBotBox.Name = "ComboBotBox"
+        Me.ComboBotBox.TabStop = False
+        '
+        'Leaderlbl
+        '
+        resources.ApplyResources(Me.Leaderlbl, "Leaderlbl")
+        Me.Leaderlbl.Name = "Leaderlbl"
+        '
+        'Leader
+        '
+        resources.ApplyResources(Me.Leader, "Leader")
+        Me.Leader.Name = "Leader"
+        '
+        'CombBotTrigger
+        '
+        resources.ApplyResources(Me.CombBotTrigger, "CombBotTrigger")
+        Me.CombBotTrigger.Name = "CombBotTrigger"
+        Me.CombBotTrigger.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -1880,6 +2067,17 @@ Partial Class frmMain
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage1.ResumeLayout(False)
         Me.GeneralTabControl.ResumeLayout(False)
+        Me.TabPage8.ResumeLayout(False)
+        Me.AmmoRestackerBox.ResumeLayout(False)
+        Me.AmmoRestackerBox.PerformLayout()
+        CType(Me.MinAmmo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.LightBox.ResumeLayout(False)
+        Me.LightBox.PerformLayout()
+        Me.AutoStackerBox.ResumeLayout(False)
+        Me.AutoLooterBox.ResumeLayout(False)
+        Me.AutoLooterBox.PerformLayout()
+        CType(Me.MinCap, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ConfigManagerbox.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.AFKTabControl.ResumeLayout(False)
         Me.TabPage14.ResumeLayout(False)
@@ -1921,6 +2119,8 @@ Partial Class frmMain
         Me.HealingTabControl.ResumeLayout(False)
         Me.TabPage7.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
+        Me.ComboBotBox.ResumeLayout(False)
+        Me.ComboBotBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2187,4 +2387,27 @@ Partial Class frmMain
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents TabPage10 As System.Windows.Forms.TabPage
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents ConfigManagerbox As System.Windows.Forms.GroupBox
+    Friend WithEvents ConfigLoad As System.Windows.Forms.Button
+    Friend WithEvents EditConfig As System.Windows.Forms.Button
+    Friend WithEvents ClearConfig As System.Windows.Forms.Button
+    Friend WithEvents AutoLooterBox As System.Windows.Forms.GroupBox
+    Friend WithEvents AutoLooterTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents AutoStackerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents AutoStackerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents AutoEaterEdit As System.Windows.Forms.Button
+    Friend WithEvents LightBox As System.Windows.Forms.GroupBox
+    Friend WithEvents LightEffectsTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents LightEffect As System.Windows.Forms.ComboBox
+    Friend WithEvents LELabel As System.Windows.Forms.Label
+    Friend WithEvents MinCaplbl As System.Windows.Forms.Label
+    Friend WithEvents MinCap As System.Windows.Forms.NumericUpDown
+    Friend WithEvents AmmoRestackerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents MinAmmo As System.Windows.Forms.NumericUpDown
+    Friend WithEvents ComboBotBox As System.Windows.Forms.GroupBox
+    Friend WithEvents AmmoRestackerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents MinAmmolbl As System.Windows.Forms.Label
+    Friend WithEvents CombBotTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents Leader As System.Windows.Forms.TextBox
+    Friend WithEvents Leaderlbl As System.Windows.Forms.Label
 End Class
