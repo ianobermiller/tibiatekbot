@@ -18,7 +18,7 @@
 '    Boston, MA 02111-1307, USA.
 
 Imports System.Windows, TibiaTekBot.PProxy2, System.Runtime.InteropServices, _
-    System.ComponentModel, System.IO, System.Xml
+    System.ComponentModel, System.IO, System.Xml, System.Text.RegularExpressions
 
 Public Class frmMain
 
@@ -67,6 +67,9 @@ Public Class frmMain
             AutoEaterInterval.Value = Consts.AutoEaterInterval
             AutoEaterEatFromFloor.Checked = Consts.EatFromFloor
             AutoEaterEatFromFloorFirst.Checked = Consts.EatFromFloorFirst
+            ' Auto Looter
+            AutoLooterMinCap.Value = Consts.CavebotLootMinCap
+
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -116,6 +119,7 @@ Public Class frmMain
             RefreshSpellCasterControls()
             RefreshRunemakerControls()
             RefreshAutoEaterControls()
+            RefreshAutoLooterControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -136,6 +140,23 @@ Public Class frmMain
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshAutoLooterControls()
+        Try
+            AutoLooterTrigger.Checked = Core.LooterTimerObj.State = ThreadTimerState.Running
+            If AutoLooterTrigger.Checked Then
+                AutoLooterMinCap.Value = Core.LooterMinimumCapacity
+                AutoLooterMinCap.Enabled = False
+                AutoLooterEdit.Enabled = False
+            Else
+                AutoLooterMinCap.Enabled = True
+                AutoLooterEdit.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -1200,5 +1221,71 @@ Public Class frmMain
 
     Private Sub AutoEaterEatFromFloorFirst_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterEatFromFloorFirst.CheckedChanged
         Consts.EatFromFloorFirst = AutoEaterEatFromFloorFirst.Checked
+    End Sub
+
+    Private Sub ConfigLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConfigLoad.Click
+        Try
+            Core.ConsoleWrite("Please wait...")
+            Dim Data As String = ""
+            Dim Reader As IO.StreamReader
+            Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
+            Data = Reader.ReadToEnd
+            Dim MCollection As MatchCollection
+            Dim GroupMatch As Match
+            MCollection = [Regex].Matches(Data, "&([^\n;]+)[;]?")
+            For Each GroupMatch In MCollection
+                CommandParser(GroupMatch.Groups(1).Value)
+            Next
+            MsgBox("Done loading your configuration.", MsgBoxStyle.OkOnly, "Done!")
+        Catch
+            MsgBox("Unable to load your configuration.", MsgBoxStyle.Critical, "Error!")
+        End Try
+    End Sub
+
+    Private Sub EditConfig_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditConfig.Click
+        Try
+            Dim ConfigWindow As New frmConfigEdit
+            ConfigWindow.Show()
+        Catch
+        End Try
+    End Sub
+
+    Private Sub ClearConfig_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearConfig.Click
+        Try
+            IO.File.Delete(Core.GetProfileDirectory() & "\config.txt")
+        Catch
+            MsgBox("Unable to clear your configuration.", MsgBoxStyle.Critical, "Error!")
+        Finally
+            MsgBox("Cleared.", MsgBoxStyle.OkOnly, "Done!")
+        End Try
+    End Sub
+
+    Private Sub AutoLooterTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterTrigger.CheckedChanged
+        'Static FirstTime As Boolean = True
+        Try
+            'If FirstTime Then
+            'FirstTime = False
+            'Exit Sub
+            'End If
+            If AutoLooterTrigger.Checked Then
+                If AutoLooterMinCap.Value < 0 Then
+                    MessageBox.Show("Minimum Capacity must be above zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.LooterMinimumCapacity = AutoLooterMinCap.Value
+                Core.LooterTimerObj.StartTimer()
+            Else
+                Core.LooterTimerObj.StopTimer()
+                Core.LooterMinimumCapacity = 0
+            End If
+            RefreshAutoLooterControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub AutoLooterEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterEdit.Click
+        CoreModule.LootItems.ShowLootCategories()
     End Sub
 End Class

@@ -162,6 +162,12 @@
     <Compile Include="frmCharacterStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmConfigEdit.Designer.vb">
+      <DependentUpon>frmConfigEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmConfigEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmConstantsEditor.Designer.vb">
       <DependentUpon>frmConstantsEditor.vb</DependentUpon>
     </Compile>
@@ -243,6 +249,10 @@
     <EmbeddedResource Include="frmCharacterStatistics.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmCharacterStatistics.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConfigEdit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmConfigEdit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConstantsEditor.resx">
       <SubType>Designer</SubType>
