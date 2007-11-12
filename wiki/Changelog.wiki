@@ -1,6 +1,7 @@
 #labels Phase-Implementation
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
+|| Nov 12, 2007 || Added a couple of features to the General Tab for the new Gui (Issue #14) || OsQu ||
 || Nov 10, 2007 || Added GNU GPL to XML files saved by TTB || Cameri2005 ||
 || Nov 10, 2007 || Added AutoEaterInterval and AutoEaterSmartInterval in Constants || Cameri2005 ||
 || Nov 10, 2007 || Added a couple of features to the AFK Tab for the new GUI (Issue #14) || Cameri2005 ||
