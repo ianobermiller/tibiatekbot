@@ -87,7 +87,7 @@ Next thing to do is select a Login Server. The Default Login Server (login01.tib
 
 *NOTE:* if you want to connect to an Open Tibia server, check the "Open Tibia Server" box and write the server and the port, separated by a colon (:). Like this: _myopentibiaserver.com:7171_.
 
-[http://www.tibiatek.com/images/manual/TTBManual_IV2.gif]
+[http://www.tibiatek.com/images/manual/TTBManual_V1.gif]
 
 When you click OK [TibiaTekBot TibiaTek Bot] will automatically open the Tibia client (from the path you choose) and you will be able to log in.
 
@@ -103,7 +103,7 @@ TibiaTek Bot is primarily based on an in-game channel used to send commands and 
 
 Example of the Console:
 
-[http://www.tibiatek.com/images/manual/TTBManual_VIA2.gif]
+[http://www.tibiatek.com/images/manual/TTBManual_VIA1.gif]
 
 To learn about about commands and their syntax go to [TibiaTekBotSyntax TibiaTek Bot Commands' Syntax].
 
