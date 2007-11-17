@@ -9,13 +9,18 @@ The Alarms feature lets you easily set the conditions at which the alarms will a
 
 All tabs contain an _Actions_ box. This box configures what actions to take if certain conditions are met. There are four available actions for each alarm type, these are:
 
-*Play Sound:* plays a certain sound depending on the alarm type.
+  * *Play Sound:* plays a certain sound depending on the alarm type.
+  * *Logout:* attempts to logout the player.
+  * *Messager Player:* checks whether a certain player has to be informed.
+  * *Player To Be Messaged:* sends a message informing of the activated alarm to the player whose name is written on this input.
 
-*Logout:* attempts to logout the player.
+== Colored Sound Notes ==
+By default, when an alarm is activated sound notes will appear on the character. The notes will vary in color depending on the alarm that was activated.
 
-*Messager Player:* checks whether a certain player has to be informed.
-
-*Player To Be Messaged:* sends a message informing of the activated alarm to the player whose name is written on this input.
+  * *Red:* battlelist alarm is activated.
+  * *White:* message alarm is activated.
+  * *Yellow:* status alarm is activated.
+  * *Green:* items alarm is activated.
 
 = Alarm Types =
 
@@ -26,13 +31,10 @@ The Alarms window is divided into four different tabs: Battlelist, Message, Stat
 == Battlelist Alarm ==
 
 === Activate Alarm if ===
-*Player:* a players comes into sight.
-
-*Monster/NPC:* a creature or a NPC comes into sight.
-
-*Player Killer:* a skulled player comes into sight.
-
-*Multi-Floor:* checks all other floors. Remember that if you're on the main floor, anything below cannot be detected. And if you are ONE floor below the main floor anything above cannot be detected.
+  * *Player:* a players comes into sight.
+  * *Monster/NPC:* a creature or a NPC comes into sight.
+  * *Player Killer:* a skulled player comes into sight.
+  * *Multi-Floor:* checks all other floors. Remember that if you're on the main floor, anything below cannot be detected. And if you are ONE floor below the main floor anything above cannot be detected.
 
 === Ignored Players ===
 
@@ -40,18 +42,16 @@ Add players to this list to exclude from activating this alarm. Write the names 
 
 === Multi-Floor Triggers ===
 
-*Below:* activates detection of anything on the floors below you.
-
-*Above:* activates detection of anything on the floors above you.
+  * *Below:* activates detection of anything on the floors below you.
+  * *Above:* activates detection of anything on the floors above you.
 
 [http://www.tibiatek.com/images/manual/TTBAlarms_Battlelist.gif]
 
 == Message Alarm ==
 
 === Activate Alarm if ===
-*Public Message:* a message received on the _Default_ channel.
-
-*Private Message:* a message received privately from another player.
+  * *Public Message:* a message received on the _Default_ channel.
+  * *Private Message:* a message received privately from another player.
 
 === Ignored Players ===
 
@@ -63,27 +63,19 @@ Add players to this list to exclude from activating this alarm. Write the names 
 
 === Activate Alarm If ===
 
-*Hit Points below:* self-explanatory.
-
-*Mana Points below:* self-explanatory.
-
-*Soul Points below:* self-explanatory.
-
-*Capacity below:* self-explanatory.
+  * *Hit Points below:* self-explanatory.
+  * *Mana Points below:* self-explanatory.
+  * *Soul Points below:* self-explanatory.
+  * *Capacity below:* self-explanatory.
 
 === If Conditioned ===
 
-*Combat Sign:* character is targeted (logout block).
-
-*Poisoned:* self-explanatory.
-
-*Paralyzed:* self-explanatory.
-
-*Burnt:* self-explanatory.
-
-*Drowning:* self-explanatory.
-
-*Electrified:* self-explanatory.
+  * *Combat Sign:* character is targeted (logout block).
+  * *Poisoned:* self-explanatory.
+  * *Paralyzed:* self-explanatory.
+  * *Burnt:* self-explanatory.
+  * *Drowning:* self-explanatory.
+  * *Electrified:* self-explanatory.
 
 [http://www.tibiatek.com/images/manual/TTBAlarms_Status.gif]
 
@@ -97,8 +89,7 @@ You can activate a condition by marking one of the list items at the left, and t
 
 Find also in...
 
-*Inventory:* mark to make the bot check if there are items on the inventory that match the selected list item.
-
-*Floor:* mark to make the bot check if there are items on the floor that match the selected list item.
+  * *Inventory:* mark to make the bot check if there are items on the inventory that match the selected list item.
+  * *Floor:* mark to make the bot check if there are items on the floor that match the selected list item.
 
 [http://www.tibiatek.com/images/manual/TTBAlarms_Items.gif]
