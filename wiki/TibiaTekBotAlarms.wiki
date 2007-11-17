@@ -14,13 +14,15 @@ All tabs contain an _Actions_ box. This box configures what actions to take if c
   * *Messager Player:* checks whether a certain player has to be informed.
   * *Player To Be Messaged:* sends a message informing of the activated alarm to the player whose name is written on this input.
 
-== Colored Sound Notes ==
-By default, when an alarm is activated sound notes will appear on the character. The notes will vary in color depending on the alarm that was activated.
+== Colored Musical Notes ==
+By default, when an alarm is activated musical notes will appear on the character. The notes will vary in color depending on the alarm that was activated.
 
-  * *Red:* battlelist alarm is activated.
-  * *White:* message alarm is activated.
-  * *Yellow:* status alarm is activated.
-  * *Green:* items alarm is activated.
+  * *Red notes:* battlelist alarm is activated.
+  * *White notes:* message alarm is activated.
+  * *Yellow notes:* status alarm is activated.
+  * *Green notes:* items alarm is activated.
+
+You can turn off the musical notes by setting as "_False_" the "_MusicaNotesOnAlarm_" constant via the [ConstantsEditor Constants Editor].
 
 = Alarm Types =
 
