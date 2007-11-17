@@ -28,4 +28,4 @@ In short time after logging in Bot will open TibiaTek channel where you type you
 [http://tibiatek.com/images/HowTo/TTBChannel.gif]
 
 = Usage =
-You may want to check CommandSyntax page for the info about how to use commands. Commands will take your ability to use TibiaTek Bot much higher. But you can use the Menu if you want too.
+You may want to check TibiaTekBotSyntax page for the info about how to use commands. Commands will take your ability to use TibiaTek Bot much higher. But you can use the Menu if you want too.
