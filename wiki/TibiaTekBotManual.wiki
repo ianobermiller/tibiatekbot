@@ -1,31 +1,181 @@
-#summary TibiaTek Bot User Manual.
 #labels Phase-Deploy,Phase-QA,Phase-Support
+= Table of Contents =
 
-= Installation =
-Not available yet.
+I. Requirements
 
-= Starting TibiaTek Bot =
-I've installed TibiaTek Bot what now?
-Execute TibiaTek bot and you'll be asked to choose Tibia client:
+II. Download
 
-[http://tibiatek.com/images/HowTo/1.gif]
+ A. Programmers
 
-Click OK and select the location of you Tibia.exe and submit it:
+III. Installation
 
-[http://tibiatek.com/images/HowTo/2.gif]
+IV. First Time Setup
 
-(The pictures with english text will be here soon. That's finnish if you wonder what langauge it is)
+V. Starting TibiaTek Bot
 
-Next thing to do is to select login server. The default should work in 99% of cases but in some cases that the login01.tibia.com server is down you are able to choose from different servers. _NOTE: If you are connecting to Open Tibia server, check the "Open Tibia Server" box and write the server and the port to the line. Like this: myopentibiaserver.com:7171 (server:port)_
-Here is the example of logging in normal Tibia server:
+VI. Usage
 
-[http://tibiatek.com/images/HowTo/3.gif]
+ A. Commands
 
-When you click OK the bot will open Tibia client (from the path you choose) and you will be able to log in. _NOTE: Tools and About menus are aviable after you've logged in._
+ B. Graphical User Interface
 
-In short time after logging in Bot will open TibiaTek channel where you type your commands:
+ C. Alarms
 
-[http://tibiatek.com/images/HowTo/TTBChannel.gif]
+ D. Constants Editor
 
-= Usage =
-You may want to check TibiaTekBotSyntax page for the info about how to use commands. Commands will take your ability to use TibiaTek Bot much higher. But you can use the Menu if you want too.
+VII. Help & Support
+
+ A. Forum
+
+ B. TibiaTek Bot IRC Channel
+
+ C. Feedback Command
+
+ D. Your Duty
+
+
+== I. Requirements ==
+
+Not available.
+
+== II. Download ==
+
+To download TibiaTek Bot go to TibiaTek's Official Website at 
+
+http://www.tibiatek.com. Then click on "Downloads" on the horizontal menu found 
+
+on the top. You will reach TibiaTek's downloads page on Google Code. On the list 
+
+of downloads, find the "Binary" or "Executable" version of TibiaTek Bot 2.1 and 
+
+click on it. Save it to your disk.
+
+*WARNING:* NEVER download TibiaTek Bot from ANY other page than the Official 
+
+Website, if you do so, you are risking your computer to intrussion.
+
+*WinRAR Compression:*
+TibiaTek Bot releases are compressed using WinRAR, you can download WinRAR from 
+
+www.rarlabs.com.
+
+=== A. Programmers === 
+
+If you want to download the latest sources of TibiaTek Bot there are two ways of 
+
+doing so:
+
+*1. SVN*
+You can connect to our SVN using the following command:
+svn checkout http://tibiatekbot.googlecode.com/svn/trunk/ tibiatekbot
+
+Remember that the latest sources are not always stable and are under work.
+
+*2. Sources Download*
+If you want the latest stable sources release go to the Downloads section of the 
+
+TibiaTek Bot project on Google Code:
+http://code.google.com/p/tibiatekbot/downloads/list
+
+== III. Installation ==
+
+Open the TibiaTekBot WinRAR Archive and then open "setup.exe".
+The installation wizard will guide you to successfully install TibiaTek Bot.
+
+*Caution:* We strongly recommend you don't change the installation files 
+
+location to avoid future confusion.
+
+== IV. First Time Setup ==
+
+The first time you open TibiaTek Bot you will have to locate and select the 
+
+"Tibia.exe" file. To do this follow these steps:
+
+1. Press OK on this window.
+
+[http://www.tibiatek.com/images/manual/TTBManual_IV1.gif]
+
+2. Then locate "Tibia.exe" on your hard disk. Remember it's usually found on 
+
+"_C:\Program Files\Tibia\_." (if your Window XP's language is english).
+
+[http://www.tibiatek.com/images/manual/TTBManual_IV2.gif]
+
+== V. Starting TibiaTek Bot
+
+Next thing to do is select a Login Server. The Default Login Server 
+
+(login01.tibia.com) should work, if it doesn't select any other from the list. 
+
+*NOTE:* if you want to connect to an Open Tibia server, check the "Open Tibia 
+
+Server" box and write the server and the port, separated by a colon (:). Like 
+
+this: _myopentibiaserver.com:7171_.
+
+[http://www.tibiatek.com/images/manual/TTBManual_IV2.gif]
+
+When you click OK TibiaTek Bot will automatically open the Tibia client (from 
+
+the path you choose) and you will be able to log in.
+
+*NOTE:* Tools and About menus are available after you've logged in.
+
+== VI. Usage ==
+	
+There are two ways of using TibiaTek Bot's features, the first one is via 
+
+commands or via a handy menu.
+
+=== A. Commands and Console ===
+
+TibiaTek Bot is primarily based on an in-game channel used to send commands and 
+
+receive text results.
+
+Example of the Console:
+
+[http://www.tibiatek.com/images/manual/TTBManual_VIA2.gif]
+
+To learn about about commands and their syntax go to [TibiaTekBotSyntax TibiaTek 
+
+Bot Commands' Syntax].
+
+=== B. Graphical User Interfase (GUI) ===
+
+Not yet available.
+
+=== C. Alarms ===
+
+Not yet available.
+
+=== D. Constants Editor ===
+
+For more information about this feature go to the [ConstantsEditor Constants 
+
+Editor] page.
+
+== VII. Help & Support ==
+
+If you need help or have any feedback, be it about bugs, suggestions or just to 
+
+express your gratitude we'll be always happy to hear it, so don't hesitate and 
+
+contact us. We have many different means of communication for Support.
+
+Remember that it's your duty to report any bugs so that we can make TibiaTek Bot 
+
+better for every new version.
+
+=== A. Forum ===
+
+Join the TibiaTek Community Forum at [http://www.tibiatek.com/forums/].
+
+=== B. TibiaTek Bot IRC Channel ===
+
+Chat with us by joining our IRC Channel #tibiatekbot at irc.quakenet.org.
+
+=== C. Feedback Command ===
+
+Use the &feedback command to quickly send us any feed back from inside Tibia.
