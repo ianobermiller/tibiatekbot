@@ -1,6 +1,31 @@
 #summary TibiaTek Bot User Manual.
 #labels Phase-Deploy,Phase-QA,Phase-Support
 
-= Introduction =
+= Installation =
+Not available yet.
 
-The manual is not yet available.
+= Starting TibiaTek Bot =
+I've installed TibiaTek Bot what now?
+Execute TibiaTek bot and you'll be asked to choose Tibia client:
+
+[http://tibiatek.com/images/HowTo/1.gif]
+
+Click OK and select the location of you Tibia.exe and submit it:
+
+[http://tibiatek.com/images/HowTo/2.gif]
+
+(The pictures with english text will be here soon. That's finnish if you wonder what langauge it is)
+
+Next thing to do is to select login server. The default should work in 99% of cases but in some cases that the login01.tibia.com server is down you are able to choose from different servers. _NOTE: If you are connecting to Open Tibia server, check the "Open Tibia Server" box and write the server and the port to the line. Like this: myopentibiaserver.com:7171 (server:port)_
+Here is the example of logging in normal Tibia server:
+
+[http://tibiatek.com/images/HowTo/3.gif]
+
+When you click OK the bot will open Tibia client (from the path you choose) and you will be able to log in. _NOTE: Tools and About menus are aviable after you've logged in._
+
+In short time after logging in Bot will open TibiaTek channel where you type your commands:
+
+[http://tibiatek.com/images/HowTo/TTBChannel.gif]
+
+= Usage =
+You may want to check CommandSyntax page for the info about how to use commands. Commands will take your ability to use TibiaTek Bot much higher. But you can use the Menu if you want too.
