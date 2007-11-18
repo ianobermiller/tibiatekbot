@@ -216,9 +216,10 @@ Public Class IrcClient
             Me.Client.SendTimeout = 2 * 60 * 1000
             Me.Client.Connect(Me._Server, Me._Port)
             WasConnected = True
-            Me.ConnectionStream = Me.Client.GetStream
-            Me.Reader = New StreamReader(Me.ConnectionStream)
-            Me.Writer = New StreamWriter(Me.ConnectionStream)
+            Me.ConnectionStream = Me.Client.GetStream()
+            Dim Encoding As System.Text.Encoding = System.Text.Encoding.GetEncoding("iso-8859-1")
+            Me.Reader = New StreamReader(Me.ConnectionStream, Encoding)
+            Me.Writer = New StreamWriter(Me.ConnectionStream, Encoding)
             RaiseEvent EventConnected()
             Return True
         Catch Ex As Exception
@@ -274,11 +275,15 @@ Public Class IrcClient
 #End Region
 
 #Region " Commands "
-    Public Sub Quit()
+    Public Sub Quit(Optional ByVal Reason As String = "Good bye! [" & IRCClientVersion & "]")
         Try
             If Not WasConnected Then Exit Sub
             CanReconnect = False
-            WriteLine("QUIT :Good bye! [" & IRCClientVersion & "]")
+            If String.IsNullOrEmpty(Reason) Then
+                WriteLine("QUIT")
+            Else
+                WriteLine("QUIT :" & Reason)
+            End If
             Disconnect()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -416,7 +421,7 @@ Public Class IrcClient
                     Try
                         Dim Message As String = ""
                         Dim SplitMessages() As String
-                        Message = Reader.ReadLine
+                        Message = Reader.ReadLine()
                         If Message Is Nothing Then Exit Sub
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
@@ -511,6 +516,7 @@ Public Class IrcClient
                                                         Channels.Remove(Arguments)
                                                     End If
                                                     Channels.Add(Arguments, CI)
+                                                    'MsgBox(Arguments)
                                                     RaiseEvent EventChannelSelfJoin(Arguments)
                                                 Else
                                                     Channels(Arguments).Users.Add(From, New UserInformation())
