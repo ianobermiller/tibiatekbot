@@ -139,9 +139,12 @@ Public Module CommandParserModule
     End Sub
 
 #Region " Irc Command "
-
     Private Sub CmdIrc(ByVal Arguments As GroupCollection)
         Try
+            If Not Core.IRCClient.IsConnected Then
+                Core.ConsoleError("You are not connected to IRC.")
+                Exit Sub
+            End If
             Dim Match As Match = Regex.Match(Arguments(2).Value, "(join|nick|users)\s(.+)", RegexOptions.IgnoreCase)
             If Match.Success Then
                 Select Case Match.Groups(1).Value.ToLower
@@ -174,7 +177,13 @@ Public Module CommandParserModule
                         End If
                 End Select
             Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                Select Case Arguments(2).Value.ToLower
+                    Case "quit"
+                        Core.IRCClient.Quit()
+                    Case Else
+                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                End Select
+
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

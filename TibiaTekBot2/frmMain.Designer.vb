@@ -215,29 +215,36 @@ Partial Class frmMain
         Me.TabPage10 = New System.Windows.Forms.TabPage
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.LightEffectsBox = New System.Windows.Forms.GroupBox
+        Me.LightEffectsTrigger = New System.Windows.Forms.CheckBox
+        Me.LightEffect = New System.Windows.Forms.ComboBox
+        Me.LightEffectslbl = New System.Windows.Forms.Label
+        Me.ConfigManagerbox = New System.Windows.Forms.GroupBox
+        Me.ConfigClear = New System.Windows.Forms.Button
+        Me.ConfigEdit = New System.Windows.Forms.Button
+        Me.ConfigLoad = New System.Windows.Forms.Button
         Me.ComboBotBox = New System.Windows.Forms.GroupBox
         Me.ComboBotTrigger = New System.Windows.Forms.CheckBox
         Me.ComboLeader = New System.Windows.Forms.TextBox
-        Me.Leaderlbl = New System.Windows.Forms.Label
-        Me.AmmoRestackerBox = New System.Windows.Forms.GroupBox
-        Me.AmmoRestackerTrigger = New System.Windows.Forms.CheckBox
-        Me.MinAmmolbl = New System.Windows.Forms.Label
-        Me.MinAmmo = New System.Windows.Forms.NumericUpDown
-        Me.LightBox = New System.Windows.Forms.GroupBox
-        Me.LightEffectsTrigger = New System.Windows.Forms.CheckBox
-        Me.LightEffect = New System.Windows.Forms.ComboBox
-        Me.LELabel = New System.Windows.Forms.Label
+        Me.ComboBotLeaderlbl = New System.Windows.Forms.Label
+        Me.AmmunitionRestackerBox = New System.Windows.Forms.GroupBox
+        Me.AmmunitionRestackerTrigger = New System.Windows.Forms.CheckBox
+        Me.AmmunitionRestackerlbl = New System.Windows.Forms.Label
+        Me.AmmunitionRestackerMinAmmo = New System.Windows.Forms.NumericUpDown
         Me.AutoStackerBox = New System.Windows.Forms.GroupBox
+        Me.AutoStackerlvl2 = New System.Windows.Forms.Label
+        Me.AutoStackerDelay = New System.Windows.Forms.NumericUpDown
+        Me.AutoStackerlbl = New System.Windows.Forms.Label
         Me.AutoStackerTrigger = New System.Windows.Forms.CheckBox
         Me.AutoLooterBox = New System.Windows.Forms.GroupBox
-        Me.MinCaplbl = New System.Windows.Forms.Label
+        Me.AutoLooterlvl3 = New System.Windows.Forms.Label
+        Me.AutoLooterEatFromCorpse = New System.Windows.Forms.CheckBox
+        Me.AutoLooterDelay = New System.Windows.Forms.NumericUpDown
+        Me.AutoLooterlbl2 = New System.Windows.Forms.Label
+        Me.AutoLooterlbl = New System.Windows.Forms.Label
         Me.AutoLooterMinCap = New System.Windows.Forms.NumericUpDown
-        Me.AutoLooterEdit = New System.Windows.Forms.Button
+        Me.AutoLooterConfigure = New System.Windows.Forms.Button
         Me.AutoLooterTrigger = New System.Windows.Forms.CheckBox
-        Me.ConfigManagerbox = New System.Windows.Forms.GroupBox
-        Me.ClearConfig = New System.Windows.Forms.Button
-        Me.EditConfig = New System.Windows.Forms.Button
-        Me.ConfigLoad = New System.Windows.Forms.Button
         Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.AFKTabControl = New System.Windows.Forms.TabControl
         Me.TabPage14 = New System.Windows.Forms.TabPage
@@ -271,6 +278,10 @@ Partial Class frmMain
         Me.SpellCasterSpell = New System.Windows.Forms.ComboBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.TabPage17 = New System.Windows.Forms.TabPage
+        Me.TradeChannelAdvertiserGroup = New System.Windows.Forms.GroupBox
+        Me.TradeChannelAdvertiserTrigger = New System.Windows.Forms.CheckBox
+        Me.TradeChannelAdvertiserAdvertisement = New System.Windows.Forms.TextBox
+        Me.TradeChannelAdvertiserLabel = New System.Windows.Forms.Label
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
         Me.FpsChangerTrigger = New System.Windows.Forms.CheckBox
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
@@ -291,10 +302,21 @@ Partial Class frmMain
         Me.TradeChannelWatcherExpression = New System.Windows.Forms.TextBox
         Me.Label9 = New System.Windows.Forms.Label
         Me.TabPage9 = New System.Windows.Forms.TabPage
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.TradeChannelAdvertiserTrigger = New System.Windows.Forms.CheckBox
-        Me.TradeChannelAdvertiserAdvertisement = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox
+        Me.StatsUploaderSaveToDisk = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel
+        Me.StatsUploaderPassword = New System.Windows.Forms.TextBox
+        Me.Label17 = New System.Windows.Forms.Label
+        Me.StatsUploaderUser = New System.Windows.Forms.TextBox
+        Me.Label19 = New System.Windows.Forms.Label
+        Me.StatsUploaderTrigger = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
+        Me.StatsUploaderPath = New System.Windows.Forms.TextBox
+        Me.StatsUploaderFilename = New System.Windows.Forms.TextBox
+        Me.Label14 = New System.Windows.Forms.Label
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.Label16 = New System.Windows.Forms.Label
+        Me.StatsUploaderUrl = New System.Windows.Forms.TextBox
         Me.TabPage3 = New System.Windows.Forms.TabPage
         Me.HealingTabControl = New System.Windows.Forms.TabControl
         Me.TabPage23 = New System.Windows.Forms.TabPage
@@ -325,36 +347,53 @@ Partial Class frmMain
         Me.Label24 = New System.Windows.Forms.Label
         Me.Label25 = New System.Windows.Forms.Label
         Me.TextBox5 = New System.Windows.Forms.TextBox
-        Me.GroupBox10 = New System.Windows.Forms.GroupBox
-        Me.StatsUploaderGetData = New System.Windows.Forms.Button
-        Me.StatsUploaderSaveToDisk = New System.Windows.Forms.CheckBox
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel
-        Me.StatsUploaderPassword = New System.Windows.Forms.TextBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.StatsUploaderUser = New System.Windows.Forms.TextBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.StatsUploaderTrigger = New System.Windows.Forms.CheckBox
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
-        Me.StatsUploaderPath = New System.Windows.Forms.TextBox
-        Me.StatsUploaderFilename = New System.Windows.Forms.TextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.StatsUploaderUrl = New System.Windows.Forms.TextBox
+        Me.Label8 = New System.Windows.Forms.Label
+        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox
+        Me.Label26 = New System.Windows.Forms.Label
+        Me.GroupBox12 = New System.Windows.Forms.GroupBox
+        Me.Button2 = New System.Windows.Forms.Button
+        Me.Button3 = New System.Windows.Forms.Button
+        Me.Button4 = New System.Windows.Forms.Button
+        Me.GroupBox13 = New System.Windows.Forms.GroupBox
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox
+        Me.TextBox6 = New System.Windows.Forms.TextBox
+        Me.Label27 = New System.Windows.Forms.Label
+        Me.GroupBox14 = New System.Windows.Forms.GroupBox
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox
+        Me.Label28 = New System.Windows.Forms.Label
+        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown
+        Me.GroupBox15 = New System.Windows.Forms.GroupBox
+        Me.Label29 = New System.Windows.Forms.Label
+        Me.CheckBox6 = New System.Windows.Forms.CheckBox
+        Me.GroupBox16 = New System.Windows.Forms.GroupBox
+        Me.CheckBox7 = New System.Windows.Forms.CheckBox
+        Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown
+        Me.Label30 = New System.Windows.Forms.Label
+        Me.Label31 = New System.Windows.Forms.Label
+        Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown
+        Me.Button5 = New System.Windows.Forms.Button
+        Me.CheckBox8 = New System.Windows.Forms.CheckBox
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
         Me.TabPage10.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage1.SuspendLayout()
-        Me.ComboBotBox.SuspendLayout()
-        Me.AmmoRestackerBox.SuspendLayout()
-        CType(Me.MinAmmo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.LightBox.SuspendLayout()
-        Me.AutoStackerBox.SuspendLayout()
-        Me.AutoLooterBox.SuspendLayout()
-        CType(Me.AutoLooterMinCap, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.LightEffectsBox.SuspendLayout()
         Me.ConfigManagerbox.SuspendLayout()
+        Me.ComboBotBox.SuspendLayout()
+        Me.AmmunitionRestackerBox.SuspendLayout()
+        CType(Me.AmmunitionRestackerMinAmmo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.AutoStackerBox.SuspendLayout()
+        CType(Me.AutoStackerDelay, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.AutoLooterBox.SuspendLayout()
+        CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.AutoLooterMinCap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         Me.AFKTabControl.SuspendLayout()
         Me.TabPage14.SuspendLayout()
@@ -369,6 +408,7 @@ Partial Class frmMain
         Me.GroupBox2.SuspendLayout()
         CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage17.SuspendLayout()
+        Me.TradeChannelAdvertiserGroup.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.FpsActive, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -378,7 +418,9 @@ Partial Class frmMain
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.TabPage9.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.HealingTabControl.SuspendLayout()
         Me.TabPage7.SuspendLayout()
@@ -386,9 +428,16 @@ Partial Class frmMain
         Me.GroupBox11.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
-        Me.GroupBox10.SuspendLayout()
-        Me.TableLayoutPanel3.SuspendLayout()
-        Me.TableLayoutPanel2.SuspendLayout()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox6.SuspendLayout()
+        Me.GroupBox12.SuspendLayout()
+        Me.GroupBox13.SuspendLayout()
+        Me.GroupBox14.SuspendLayout()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox15.SuspendLayout()
+        Me.GroupBox16.SuspendLayout()
+        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NotifyIcon
@@ -1312,6 +1361,7 @@ Partial Class frmMain
         '
         'TabPage10
         '
+        Me.TabPage10.Controls.Add(Me.LinkLabel1)
         Me.TabPage10.Controls.Add(Me.PictureBox1)
         resources.ApplyResources(Me.TabPage10, "TabPage10")
         Me.TabPage10.Name = "TabPage10"
@@ -1326,21 +1376,76 @@ Partial Class frmMain
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.LightEffectsBox)
+        Me.TabPage1.Controls.Add(Me.ConfigManagerbox)
         Me.TabPage1.Controls.Add(Me.ComboBotBox)
-        Me.TabPage1.Controls.Add(Me.AmmoRestackerBox)
-        Me.TabPage1.Controls.Add(Me.LightBox)
+        Me.TabPage1.Controls.Add(Me.AmmunitionRestackerBox)
         Me.TabPage1.Controls.Add(Me.AutoStackerBox)
         Me.TabPage1.Controls.Add(Me.AutoLooterBox)
-        Me.TabPage1.Controls.Add(Me.ConfigManagerbox)
         resources.ApplyResources(Me.TabPage1, "TabPage1")
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'LightEffectsBox
+        '
+        Me.LightEffectsBox.Controls.Add(Me.LightEffectsTrigger)
+        Me.LightEffectsBox.Controls.Add(Me.LightEffect)
+        Me.LightEffectsBox.Controls.Add(Me.LightEffectslbl)
+        resources.ApplyResources(Me.LightEffectsBox, "LightEffectsBox")
+        Me.LightEffectsBox.Name = "LightEffectsBox"
+        Me.LightEffectsBox.TabStop = False
+        '
+        'LightEffectsTrigger
+        '
+        resources.ApplyResources(Me.LightEffectsTrigger, "LightEffectsTrigger")
+        Me.LightEffectsTrigger.Name = "LightEffectsTrigger"
+        Me.LightEffectsTrigger.UseVisualStyleBackColor = True
+        '
+        'LightEffect
+        '
+        Me.LightEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.LightEffect.FormattingEnabled = True
+        Me.LightEffect.Items.AddRange(New Object() {resources.GetString("LightEffect.Items"), resources.GetString("LightEffect.Items1"), resources.GetString("LightEffect.Items2"), resources.GetString("LightEffect.Items3"), resources.GetString("LightEffect.Items4"), resources.GetString("LightEffect.Items5"), resources.GetString("LightEffect.Items6"), resources.GetString("LightEffect.Items7")})
+        resources.ApplyResources(Me.LightEffect, "LightEffect")
+        Me.LightEffect.Name = "LightEffect"
+        '
+        'LightEffectslbl
+        '
+        resources.ApplyResources(Me.LightEffectslbl, "LightEffectslbl")
+        Me.LightEffectslbl.Name = "LightEffectslbl"
+        '
+        'ConfigManagerbox
+        '
+        Me.ConfigManagerbox.Controls.Add(Me.ConfigClear)
+        Me.ConfigManagerbox.Controls.Add(Me.ConfigEdit)
+        Me.ConfigManagerbox.Controls.Add(Me.ConfigLoad)
+        resources.ApplyResources(Me.ConfigManagerbox, "ConfigManagerbox")
+        Me.ConfigManagerbox.Name = "ConfigManagerbox"
+        Me.ConfigManagerbox.TabStop = False
+        '
+        'ConfigClear
+        '
+        resources.ApplyResources(Me.ConfigClear, "ConfigClear")
+        Me.ConfigClear.Name = "ConfigClear"
+        Me.ConfigClear.UseVisualStyleBackColor = True
+        '
+        'ConfigEdit
+        '
+        resources.ApplyResources(Me.ConfigEdit, "ConfigEdit")
+        Me.ConfigEdit.Name = "ConfigEdit"
+        Me.ConfigEdit.UseVisualStyleBackColor = True
+        '
+        'ConfigLoad
+        '
+        resources.ApplyResources(Me.ConfigLoad, "ConfigLoad")
+        Me.ConfigLoad.Name = "ConfigLoad"
+        Me.ConfigLoad.UseVisualStyleBackColor = True
         '
         'ComboBotBox
         '
         Me.ComboBotBox.Controls.Add(Me.ComboBotTrigger)
         Me.ComboBotBox.Controls.Add(Me.ComboLeader)
-        Me.ComboBotBox.Controls.Add(Me.Leaderlbl)
+        Me.ComboBotBox.Controls.Add(Me.ComboBotLeaderlbl)
         resources.ApplyResources(Me.ComboBotBox, "ComboBotBox")
         Me.ComboBotBox.Name = "ComboBotBox"
         Me.ComboBotBox.TabStop = False
@@ -1356,69 +1461,61 @@ Partial Class frmMain
         resources.ApplyResources(Me.ComboLeader, "ComboLeader")
         Me.ComboLeader.Name = "ComboLeader"
         '
-        'Leaderlbl
+        'ComboBotLeaderlbl
         '
-        resources.ApplyResources(Me.Leaderlbl, "Leaderlbl")
-        Me.Leaderlbl.Name = "Leaderlbl"
+        resources.ApplyResources(Me.ComboBotLeaderlbl, "ComboBotLeaderlbl")
+        Me.ComboBotLeaderlbl.Name = "ComboBotLeaderlbl"
         '
-        'AmmoRestackerBox
+        'AmmunitionRestackerBox
         '
-        Me.AmmoRestackerBox.Controls.Add(Me.AmmoRestackerTrigger)
-        Me.AmmoRestackerBox.Controls.Add(Me.MinAmmolbl)
-        Me.AmmoRestackerBox.Controls.Add(Me.MinAmmo)
-        resources.ApplyResources(Me.AmmoRestackerBox, "AmmoRestackerBox")
-        Me.AmmoRestackerBox.Name = "AmmoRestackerBox"
-        Me.AmmoRestackerBox.TabStop = False
+        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerTrigger)
+        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerlbl)
+        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerMinAmmo)
+        resources.ApplyResources(Me.AmmunitionRestackerBox, "AmmunitionRestackerBox")
+        Me.AmmunitionRestackerBox.Name = "AmmunitionRestackerBox"
+        Me.AmmunitionRestackerBox.TabStop = False
         '
-        'AmmoRestackerTrigger
+        'AmmunitionRestackerTrigger
         '
-        resources.ApplyResources(Me.AmmoRestackerTrigger, "AmmoRestackerTrigger")
-        Me.AmmoRestackerTrigger.Name = "AmmoRestackerTrigger"
-        Me.AmmoRestackerTrigger.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.AmmunitionRestackerTrigger, "AmmunitionRestackerTrigger")
+        Me.AmmunitionRestackerTrigger.Name = "AmmunitionRestackerTrigger"
+        Me.AmmunitionRestackerTrigger.UseVisualStyleBackColor = True
         '
-        'MinAmmolbl
+        'AmmunitionRestackerlbl
         '
-        resources.ApplyResources(Me.MinAmmolbl, "MinAmmolbl")
-        Me.MinAmmolbl.Name = "MinAmmolbl"
+        resources.ApplyResources(Me.AmmunitionRestackerlbl, "AmmunitionRestackerlbl")
+        Me.AmmunitionRestackerlbl.Name = "AmmunitionRestackerlbl"
         '
-        'MinAmmo
+        'AmmunitionRestackerMinAmmo
         '
-        resources.ApplyResources(Me.MinAmmo, "MinAmmo")
-        Me.MinAmmo.Name = "MinAmmo"
-        '
-        'LightBox
-        '
-        Me.LightBox.Controls.Add(Me.LightEffectsTrigger)
-        Me.LightBox.Controls.Add(Me.LightEffect)
-        Me.LightBox.Controls.Add(Me.LELabel)
-        resources.ApplyResources(Me.LightBox, "LightBox")
-        Me.LightBox.Name = "LightBox"
-        Me.LightBox.TabStop = False
-        '
-        'LightEffectsTrigger
-        '
-        resources.ApplyResources(Me.LightEffectsTrigger, "LightEffectsTrigger")
-        Me.LightEffectsTrigger.Name = "LightEffectsTrigger"
-        Me.LightEffectsTrigger.UseVisualStyleBackColor = True
-        '
-        'LightEffect
-        '
-        Me.LightEffect.FormattingEnabled = True
-        Me.LightEffect.Items.AddRange(New Object() {resources.GetString("LightEffect.Items"), resources.GetString("LightEffect.Items1"), resources.GetString("LightEffect.Items2"), resources.GetString("LightEffect.Items3"), resources.GetString("LightEffect.Items4"), resources.GetString("LightEffect.Items5"), resources.GetString("LightEffect.Items6"), resources.GetString("LightEffect.Items7")})
-        resources.ApplyResources(Me.LightEffect, "LightEffect")
-        Me.LightEffect.Name = "LightEffect"
-        '
-        'LELabel
-        '
-        resources.ApplyResources(Me.LELabel, "LELabel")
-        Me.LELabel.Name = "LELabel"
+        resources.ApplyResources(Me.AmmunitionRestackerMinAmmo, "AmmunitionRestackerMinAmmo")
+        Me.AmmunitionRestackerMinAmmo.Name = "AmmunitionRestackerMinAmmo"
         '
         'AutoStackerBox
         '
+        Me.AutoStackerBox.Controls.Add(Me.AutoStackerlvl2)
+        Me.AutoStackerBox.Controls.Add(Me.AutoStackerDelay)
+        Me.AutoStackerBox.Controls.Add(Me.AutoStackerlbl)
         Me.AutoStackerBox.Controls.Add(Me.AutoStackerTrigger)
         resources.ApplyResources(Me.AutoStackerBox, "AutoStackerBox")
         Me.AutoStackerBox.Name = "AutoStackerBox"
         Me.AutoStackerBox.TabStop = False
+        '
+        'AutoStackerlvl2
+        '
+        resources.ApplyResources(Me.AutoStackerlvl2, "AutoStackerlvl2")
+        Me.AutoStackerlvl2.Name = "AutoStackerlvl2"
+        '
+        'AutoStackerDelay
+        '
+        resources.ApplyResources(Me.AutoStackerDelay, "AutoStackerDelay")
+        Me.AutoStackerDelay.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
+        Me.AutoStackerDelay.Name = "AutoStackerDelay"
+        '
+        'AutoStackerlbl
+        '
+        resources.ApplyResources(Me.AutoStackerlbl, "AutoStackerlbl")
+        Me.AutoStackerlbl.Name = "AutoStackerlbl"
         '
         'AutoStackerTrigger
         '
@@ -1428,62 +1525,62 @@ Partial Class frmMain
         '
         'AutoLooterBox
         '
-        Me.AutoLooterBox.Controls.Add(Me.MinCaplbl)
+        Me.AutoLooterBox.Controls.Add(Me.AutoLooterlvl3)
+        Me.AutoLooterBox.Controls.Add(Me.AutoLooterEatFromCorpse)
+        Me.AutoLooterBox.Controls.Add(Me.AutoLooterDelay)
+        Me.AutoLooterBox.Controls.Add(Me.AutoLooterlbl2)
+        Me.AutoLooterBox.Controls.Add(Me.AutoLooterlbl)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterMinCap)
-        Me.AutoLooterBox.Controls.Add(Me.AutoLooterEdit)
+        Me.AutoLooterBox.Controls.Add(Me.AutoLooterConfigure)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterTrigger)
         resources.ApplyResources(Me.AutoLooterBox, "AutoLooterBox")
         Me.AutoLooterBox.Name = "AutoLooterBox"
         Me.AutoLooterBox.TabStop = False
         '
-        'MinCaplbl
+        'AutoLooterlvl3
         '
-        resources.ApplyResources(Me.MinCaplbl, "MinCaplbl")
-        Me.MinCaplbl.Name = "MinCaplbl"
+        resources.ApplyResources(Me.AutoLooterlvl3, "AutoLooterlvl3")
+        Me.AutoLooterlvl3.Name = "AutoLooterlvl3"
+        '
+        'AutoLooterEatFromCorpse
+        '
+        resources.ApplyResources(Me.AutoLooterEatFromCorpse, "AutoLooterEatFromCorpse")
+        Me.AutoLooterEatFromCorpse.Name = "AutoLooterEatFromCorpse"
+        Me.AutoLooterEatFromCorpse.UseVisualStyleBackColor = True
+        '
+        'AutoLooterDelay
+        '
+        resources.ApplyResources(Me.AutoLooterDelay, "AutoLooterDelay")
+        Me.AutoLooterDelay.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
+        Me.AutoLooterDelay.Name = "AutoLooterDelay"
+        '
+        'AutoLooterlbl2
+        '
+        resources.ApplyResources(Me.AutoLooterlbl2, "AutoLooterlbl2")
+        Me.AutoLooterlbl2.Name = "AutoLooterlbl2"
+        '
+        'AutoLooterlbl
+        '
+        resources.ApplyResources(Me.AutoLooterlbl, "AutoLooterlbl")
+        Me.AutoLooterlbl.Name = "AutoLooterlbl"
         '
         'AutoLooterMinCap
         '
         resources.ApplyResources(Me.AutoLooterMinCap, "AutoLooterMinCap")
+        Me.AutoLooterMinCap.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
         Me.AutoLooterMinCap.Name = "AutoLooterMinCap"
         '
-        'AutoLooterEdit
+        'AutoLooterConfigure
         '
-        resources.ApplyResources(Me.AutoLooterEdit, "AutoLooterEdit")
-        Me.AutoLooterEdit.Name = "AutoLooterEdit"
-        Me.AutoLooterEdit.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.AutoLooterConfigure, "AutoLooterConfigure")
+        Me.AutoLooterConfigure.Name = "AutoLooterConfigure"
+        Me.AutoLooterConfigure.UseVisualStyleBackColor = True
         '
         'AutoLooterTrigger
         '
         resources.ApplyResources(Me.AutoLooterTrigger, "AutoLooterTrigger")
         Me.AutoLooterTrigger.Name = "AutoLooterTrigger"
         Me.AutoLooterTrigger.UseVisualStyleBackColor = True
-        '
-        'ConfigManagerbox
-        '
-        Me.ConfigManagerbox.Controls.Add(Me.ClearConfig)
-        Me.ConfigManagerbox.Controls.Add(Me.EditConfig)
-        Me.ConfigManagerbox.Controls.Add(Me.ConfigLoad)
-        resources.ApplyResources(Me.ConfigManagerbox, "ConfigManagerbox")
-        Me.ConfigManagerbox.Name = "ConfigManagerbox"
-        Me.ConfigManagerbox.TabStop = False
-        '
-        'ClearConfig
-        '
-        resources.ApplyResources(Me.ClearConfig, "ClearConfig")
-        Me.ClearConfig.Name = "ClearConfig"
-        Me.ClearConfig.UseVisualStyleBackColor = True
-        '
-        'EditConfig
-        '
-        resources.ApplyResources(Me.EditConfig, "EditConfig")
-        Me.EditConfig.Name = "EditConfig"
-        Me.EditConfig.UseVisualStyleBackColor = True
-        '
-        'ConfigLoad
-        '
-        resources.ApplyResources(Me.ConfigLoad, "ConfigLoad")
-        Me.ConfigLoad.Name = "ConfigLoad"
-        Me.ConfigLoad.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
@@ -1709,12 +1806,38 @@ Partial Class frmMain
         '
         'TabPage17
         '
+        Me.TabPage17.Controls.Add(Me.TradeChannelAdvertiserGroup)
         Me.TabPage17.Controls.Add(Me.GroupBox9)
         Me.TabPage17.Controls.Add(Me.GroupBox8)
         Me.TabPage17.Controls.Add(Me.GroupBox7)
         resources.ApplyResources(Me.TabPage17, "TabPage17")
         Me.TabPage17.Name = "TabPage17"
         Me.TabPage17.UseVisualStyleBackColor = True
+        '
+        'TradeChannelAdvertiserGroup
+        '
+        Me.TradeChannelAdvertiserGroup.Controls.Add(Me.TradeChannelAdvertiserTrigger)
+        Me.TradeChannelAdvertiserGroup.Controls.Add(Me.TradeChannelAdvertiserAdvertisement)
+        Me.TradeChannelAdvertiserGroup.Controls.Add(Me.TradeChannelAdvertiserLabel)
+        resources.ApplyResources(Me.TradeChannelAdvertiserGroup, "TradeChannelAdvertiserGroup")
+        Me.TradeChannelAdvertiserGroup.Name = "TradeChannelAdvertiserGroup"
+        Me.TradeChannelAdvertiserGroup.TabStop = False
+        '
+        'TradeChannelAdvertiserTrigger
+        '
+        resources.ApplyResources(Me.TradeChannelAdvertiserTrigger, "TradeChannelAdvertiserTrigger")
+        Me.TradeChannelAdvertiserTrigger.Name = "TradeChannelAdvertiserTrigger"
+        Me.TradeChannelAdvertiserTrigger.UseVisualStyleBackColor = True
+        '
+        'TradeChannelAdvertiserAdvertisement
+        '
+        resources.ApplyResources(Me.TradeChannelAdvertiserAdvertisement, "TradeChannelAdvertiserAdvertisement")
+        Me.TradeChannelAdvertiserAdvertisement.Name = "TradeChannelAdvertiserAdvertisement"
+        '
+        'TradeChannelAdvertiserLabel
+        '
+        resources.ApplyResources(Me.TradeChannelAdvertiserLabel, "TradeChannelAdvertiserLabel")
+        Me.TradeChannelAdvertiserLabel.Name = "TradeChannelAdvertiserLabel"
         '
         'GroupBox9
         '
@@ -1837,35 +1960,101 @@ Partial Class frmMain
         'TabPage9
         '
         Me.TabPage9.Controls.Add(Me.GroupBox10)
-        Me.TabPage9.Controls.Add(Me.GroupBox6)
         resources.ApplyResources(Me.TabPage9, "TabPage9")
         Me.TabPage9.Name = "TabPage9"
         Me.TabPage9.UseVisualStyleBackColor = True
         '
-        'GroupBox6
+        'GroupBox10
         '
-        Me.GroupBox6.Controls.Add(Me.TradeChannelAdvertiserTrigger)
-        Me.GroupBox6.Controls.Add(Me.TradeChannelAdvertiserAdvertisement)
-        Me.GroupBox6.Controls.Add(Me.Label8)
-        resources.ApplyResources(Me.GroupBox6, "GroupBox6")
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.TabStop = False
+        Me.GroupBox10.Controls.Add(Me.StatsUploaderSaveToDisk)
+        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel3)
+        Me.GroupBox10.Controls.Add(Me.StatsUploaderTrigger)
+        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel2)
+        resources.ApplyResources(Me.GroupBox10, "GroupBox10")
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.TabStop = False
         '
-        'TradeChannelAdvertiserTrigger
+        'StatsUploaderSaveToDisk
         '
-        resources.ApplyResources(Me.TradeChannelAdvertiserTrigger, "TradeChannelAdvertiserTrigger")
-        Me.TradeChannelAdvertiserTrigger.Name = "TradeChannelAdvertiserTrigger"
-        Me.TradeChannelAdvertiserTrigger.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.StatsUploaderSaveToDisk, "StatsUploaderSaveToDisk")
+        Me.StatsUploaderSaveToDisk.Name = "StatsUploaderSaveToDisk"
+        Me.StatsUploaderSaveToDisk.UseVisualStyleBackColor = True
         '
-        'TradeChannelAdvertiserAdvertisement
+        'TableLayoutPanel3
         '
-        resources.ApplyResources(Me.TradeChannelAdvertiserAdvertisement, "TradeChannelAdvertiserAdvertisement")
-        Me.TradeChannelAdvertiserAdvertisement.Name = "TradeChannelAdvertiserAdvertisement"
+        resources.ApplyResources(Me.TableLayoutPanel3, "TableLayoutPanel3")
+        Me.TableLayoutPanel3.Controls.Add(Me.StatsUploaderPassword, 1, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label17, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.StatsUploaderUser, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label19, 0, 1)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         '
-        'Label8
+        'StatsUploaderPassword
         '
-        resources.ApplyResources(Me.Label8, "Label8")
-        Me.Label8.Name = "Label8"
+        resources.ApplyResources(Me.StatsUploaderPassword, "StatsUploaderPassword")
+        Me.StatsUploaderPassword.Name = "StatsUploaderPassword"
+        '
+        'Label17
+        '
+        resources.ApplyResources(Me.Label17, "Label17")
+        Me.Label17.Name = "Label17"
+        '
+        'StatsUploaderUser
+        '
+        resources.ApplyResources(Me.StatsUploaderUser, "StatsUploaderUser")
+        Me.StatsUploaderUser.Name = "StatsUploaderUser"
+        '
+        'Label19
+        '
+        resources.ApplyResources(Me.Label19, "Label19")
+        Me.Label19.Name = "Label19"
+        '
+        'StatsUploaderTrigger
+        '
+        resources.ApplyResources(Me.StatsUploaderTrigger, "StatsUploaderTrigger")
+        Me.StatsUploaderTrigger.Name = "StatsUploaderTrigger"
+        Me.StatsUploaderTrigger.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel2
+        '
+        resources.ApplyResources(Me.TableLayoutPanel2, "TableLayoutPanel2")
+        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderPath, 1, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderFilename, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label14, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label15, 0, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label16, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderUrl, 1, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        '
+        'StatsUploaderPath
+        '
+        resources.ApplyResources(Me.StatsUploaderPath, "StatsUploaderPath")
+        Me.StatsUploaderPath.Name = "StatsUploaderPath"
+        '
+        'StatsUploaderFilename
+        '
+        resources.ApplyResources(Me.StatsUploaderFilename, "StatsUploaderFilename")
+        Me.StatsUploaderFilename.Name = "StatsUploaderFilename"
+        '
+        'Label14
+        '
+        resources.ApplyResources(Me.Label14, "Label14")
+        Me.Label14.Name = "Label14"
+        '
+        'Label15
+        '
+        resources.ApplyResources(Me.Label15, "Label15")
+        Me.Label15.Name = "Label15"
+        '
+        'Label16
+        '
+        resources.ApplyResources(Me.Label16, "Label16")
+        Me.Label16.Name = "Label16"
+        '
+        'StatsUploaderUrl
+        '
+        resources.ApplyResources(Me.StatsUploaderUrl, "StatsUploaderUrl")
+        Me.StatsUploaderUrl.Name = "StatsUploaderUrl"
         '
         'TabPage3
         '
@@ -2057,104 +2246,204 @@ Partial Class frmMain
         resources.ApplyResources(Me.TextBox5, "TextBox5")
         Me.TextBox5.Name = "TextBox5"
         '
-        'GroupBox10
+        'Label8
         '
-        Me.GroupBox10.Controls.Add(Me.StatsUploaderGetData)
-        Me.GroupBox10.Controls.Add(Me.StatsUploaderSaveToDisk)
-        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel3)
-        Me.GroupBox10.Controls.Add(Me.StatsUploaderTrigger)
-        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel2)
-        resources.ApplyResources(Me.GroupBox10, "GroupBox10")
-        Me.GroupBox10.Name = "GroupBox10"
-        Me.GroupBox10.TabStop = False
+        resources.ApplyResources(Me.Label8, "Label8")
+        Me.Label8.Name = "Label8"
         '
-        'StatsUploaderGetData
+        'NumericUpDown2
         '
-        resources.ApplyResources(Me.StatsUploaderGetData, "StatsUploaderGetData")
-        Me.StatsUploaderGetData.Name = "StatsUploaderGetData"
-        Me.StatsUploaderGetData.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.NumericUpDown2, "NumericUpDown2")
+        Me.NumericUpDown2.Maximum = New Decimal(New Integer() {99999, 0, 0, 0})
+        Me.NumericUpDown2.Name = "NumericUpDown2"
         '
-        'StatsUploaderSaveToDisk
+        'GroupBox6
         '
-        resources.ApplyResources(Me.StatsUploaderSaveToDisk, "StatsUploaderSaveToDisk")
-        Me.StatsUploaderSaveToDisk.Name = "StatsUploaderSaveToDisk"
-        Me.StatsUploaderSaveToDisk.UseVisualStyleBackColor = True
+        Me.GroupBox6.Controls.Add(Me.CheckBox3)
+        Me.GroupBox6.Controls.Add(Me.ComboBox1)
+        Me.GroupBox6.Controls.Add(Me.Label26)
+        resources.ApplyResources(Me.GroupBox6, "GroupBox6")
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.TabStop = False
         '
-        'TableLayoutPanel3
+        'CheckBox3
         '
-        resources.ApplyResources(Me.TableLayoutPanel3, "TableLayoutPanel3")
-        Me.TableLayoutPanel3.Controls.Add(Me.StatsUploaderPassword, 1, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label17, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.StatsUploaderUser, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label19, 0, 1)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        resources.ApplyResources(Me.CheckBox3, "CheckBox3")
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.UseVisualStyleBackColor = True
         '
-        'StatsUploaderPassword
+        'ComboBox1
         '
-        resources.ApplyResources(Me.StatsUploaderPassword, "StatsUploaderPassword")
-        Me.StatsUploaderPassword.Name = "StatsUploaderPassword"
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {resources.GetString("ComboBox1.Items"), resources.GetString("ComboBox1.Items1"), resources.GetString("ComboBox1.Items2"), resources.GetString("ComboBox1.Items3"), resources.GetString("ComboBox1.Items4"), resources.GetString("ComboBox1.Items5"), resources.GetString("ComboBox1.Items6"), resources.GetString("ComboBox1.Items7")})
+        resources.ApplyResources(Me.ComboBox1, "ComboBox1")
+        Me.ComboBox1.Name = "ComboBox1"
         '
-        'Label17
+        'Label26
         '
-        resources.ApplyResources(Me.Label17, "Label17")
-        Me.Label17.Name = "Label17"
+        resources.ApplyResources(Me.Label26, "Label26")
+        Me.Label26.Name = "Label26"
         '
-        'StatsUploaderUser
+        'GroupBox12
         '
-        resources.ApplyResources(Me.StatsUploaderUser, "StatsUploaderUser")
-        Me.StatsUploaderUser.Name = "StatsUploaderUser"
+        Me.GroupBox12.Controls.Add(Me.Button2)
+        Me.GroupBox12.Controls.Add(Me.Button3)
+        Me.GroupBox12.Controls.Add(Me.Button4)
+        resources.ApplyResources(Me.GroupBox12, "GroupBox12")
+        Me.GroupBox12.Name = "GroupBox12"
+        Me.GroupBox12.TabStop = False
         '
-        'Label19
+        'Button2
         '
-        resources.ApplyResources(Me.Label19, "Label19")
-        Me.Label19.Name = "Label19"
+        resources.ApplyResources(Me.Button2, "Button2")
+        Me.Button2.Name = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
         '
-        'StatsUploaderTrigger
+        'Button3
         '
-        resources.ApplyResources(Me.StatsUploaderTrigger, "StatsUploaderTrigger")
-        Me.StatsUploaderTrigger.Name = "StatsUploaderTrigger"
-        Me.StatsUploaderTrigger.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.Button3, "Button3")
+        Me.Button3.Name = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
         '
-        'TableLayoutPanel2
+        'Button4
         '
-        resources.ApplyResources(Me.TableLayoutPanel2, "TableLayoutPanel2")
-        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderPath, 1, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderFilename, 1, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label14, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label15, 0, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label16, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderUrl, 1, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        resources.ApplyResources(Me.Button4, "Button4")
+        Me.Button4.Name = "Button4"
+        Me.Button4.UseVisualStyleBackColor = True
         '
-        'StatsUploaderPath
+        'GroupBox13
         '
-        resources.ApplyResources(Me.StatsUploaderPath, "StatsUploaderPath")
-        Me.StatsUploaderPath.Name = "StatsUploaderPath"
+        Me.GroupBox13.Controls.Add(Me.CheckBox4)
+        Me.GroupBox13.Controls.Add(Me.TextBox6)
+        Me.GroupBox13.Controls.Add(Me.Label27)
+        resources.ApplyResources(Me.GroupBox13, "GroupBox13")
+        Me.GroupBox13.Name = "GroupBox13"
+        Me.GroupBox13.TabStop = False
         '
-        'StatsUploaderFilename
+        'CheckBox4
         '
-        resources.ApplyResources(Me.StatsUploaderFilename, "StatsUploaderFilename")
-        Me.StatsUploaderFilename.Name = "StatsUploaderFilename"
+        resources.ApplyResources(Me.CheckBox4, "CheckBox4")
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.UseVisualStyleBackColor = True
         '
-        'Label14
+        'TextBox6
         '
-        resources.ApplyResources(Me.Label14, "Label14")
-        Me.Label14.Name = "Label14"
+        resources.ApplyResources(Me.TextBox6, "TextBox6")
+        Me.TextBox6.Name = "TextBox6"
         '
-        'Label15
+        'Label27
         '
-        resources.ApplyResources(Me.Label15, "Label15")
-        Me.Label15.Name = "Label15"
+        resources.ApplyResources(Me.Label27, "Label27")
+        Me.Label27.Name = "Label27"
         '
-        'Label16
+        'GroupBox14
         '
-        resources.ApplyResources(Me.Label16, "Label16")
-        Me.Label16.Name = "Label16"
+        Me.GroupBox14.Controls.Add(Me.CheckBox5)
+        Me.GroupBox14.Controls.Add(Me.Label28)
+        Me.GroupBox14.Controls.Add(Me.NumericUpDown3)
+        resources.ApplyResources(Me.GroupBox14, "GroupBox14")
+        Me.GroupBox14.Name = "GroupBox14"
+        Me.GroupBox14.TabStop = False
         '
-        'StatsUploaderUrl
+        'CheckBox5
         '
-        resources.ApplyResources(Me.StatsUploaderUrl, "StatsUploaderUrl")
-        Me.StatsUploaderUrl.Name = "StatsUploaderUrl"
+        resources.ApplyResources(Me.CheckBox5, "CheckBox5")
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
+        'Label28
+        '
+        resources.ApplyResources(Me.Label28, "Label28")
+        Me.Label28.Name = "Label28"
+        '
+        'NumericUpDown3
+        '
+        resources.ApplyResources(Me.NumericUpDown3, "NumericUpDown3")
+        Me.NumericUpDown3.Name = "NumericUpDown3"
+        '
+        'GroupBox15
+        '
+        Me.GroupBox15.Controls.Add(Me.Label8)
+        Me.GroupBox15.Controls.Add(Me.NumericUpDown2)
+        Me.GroupBox15.Controls.Add(Me.Label29)
+        Me.GroupBox15.Controls.Add(Me.CheckBox6)
+        resources.ApplyResources(Me.GroupBox15, "GroupBox15")
+        Me.GroupBox15.Name = "GroupBox15"
+        Me.GroupBox15.TabStop = False
+        '
+        'Label29
+        '
+        resources.ApplyResources(Me.Label29, "Label29")
+        Me.Label29.Name = "Label29"
+        '
+        'CheckBox6
+        '
+        resources.ApplyResources(Me.CheckBox6, "CheckBox6")
+        Me.CheckBox6.Name = "CheckBox6"
+        Me.CheckBox6.UseVisualStyleBackColor = True
+        '
+        'GroupBox16
+        '
+        Me.GroupBox16.Controls.Add(Me.CheckBox7)
+        Me.GroupBox16.Controls.Add(Me.NumericUpDown4)
+        Me.GroupBox16.Controls.Add(Me.Label30)
+        Me.GroupBox16.Controls.Add(Me.Label31)
+        Me.GroupBox16.Controls.Add(Me.NumericUpDown5)
+        Me.GroupBox16.Controls.Add(Me.Button5)
+        Me.GroupBox16.Controls.Add(Me.CheckBox8)
+        resources.ApplyResources(Me.GroupBox16, "GroupBox16")
+        Me.GroupBox16.Name = "GroupBox16"
+        Me.GroupBox16.TabStop = False
+        '
+        'CheckBox7
+        '
+        resources.ApplyResources(Me.CheckBox7, "CheckBox7")
+        Me.CheckBox7.Name = "CheckBox7"
+        Me.CheckBox7.UseVisualStyleBackColor = True
+        '
+        'NumericUpDown4
+        '
+        resources.ApplyResources(Me.NumericUpDown4, "NumericUpDown4")
+        Me.NumericUpDown4.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
+        Me.NumericUpDown4.Name = "NumericUpDown4"
+        '
+        'Label30
+        '
+        resources.ApplyResources(Me.Label30, "Label30")
+        Me.Label30.Name = "Label30"
+        '
+        'Label31
+        '
+        resources.ApplyResources(Me.Label31, "Label31")
+        Me.Label31.Name = "Label31"
+        '
+        'NumericUpDown5
+        '
+        resources.ApplyResources(Me.NumericUpDown5, "NumericUpDown5")
+        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
+        Me.NumericUpDown5.Name = "NumericUpDown5"
+        '
+        'Button5
+        '
+        resources.ApplyResources(Me.Button5, "Button5")
+        Me.Button5.Name = "Button5"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'CheckBox8
+        '
+        resources.ApplyResources(Me.CheckBox8, "CheckBox8")
+        Me.CheckBox8.Name = "CheckBox8"
+        Me.CheckBox8.UseVisualStyleBackColor = True
+        '
+        'Timer1
+        '
+        '
+        'LinkLabel1
+        '
+        resources.ApplyResources(Me.LinkLabel1, "LinkLabel1")
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.TabStop = True
         '
         'frmMain
         '
@@ -2177,20 +2466,24 @@ Partial Class frmMain
         Me.MenuStrip1.PerformLayout()
         Me.MainTabControl.ResumeLayout(False)
         Me.TabPage10.ResumeLayout(False)
+        Me.TabPage10.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage1.ResumeLayout(False)
+        Me.LightEffectsBox.ResumeLayout(False)
+        Me.LightEffectsBox.PerformLayout()
+        Me.ConfigManagerbox.ResumeLayout(False)
         Me.ComboBotBox.ResumeLayout(False)
         Me.ComboBotBox.PerformLayout()
-        Me.AmmoRestackerBox.ResumeLayout(False)
-        Me.AmmoRestackerBox.PerformLayout()
-        CType(Me.MinAmmo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.LightBox.ResumeLayout(False)
-        Me.LightBox.PerformLayout()
+        Me.AmmunitionRestackerBox.ResumeLayout(False)
+        Me.AmmunitionRestackerBox.PerformLayout()
+        CType(Me.AmmunitionRestackerMinAmmo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AutoStackerBox.ResumeLayout(False)
+        Me.AutoStackerBox.PerformLayout()
+        CType(Me.AutoStackerDelay, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AutoLooterBox.ResumeLayout(False)
         Me.AutoLooterBox.PerformLayout()
+        CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AutoLooterMinCap, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ConfigManagerbox.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
         Me.AFKTabControl.ResumeLayout(False)
         Me.TabPage14.ResumeLayout(False)
@@ -2209,6 +2502,8 @@ Partial Class frmMain
         Me.GroupBox2.PerformLayout()
         CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage17.ResumeLayout(False)
+        Me.TradeChannelAdvertiserGroup.ResumeLayout(False)
+        Me.TradeChannelAdvertiserGroup.PerformLayout()
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -2221,8 +2516,12 @@ Partial Class frmMain
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
         Me.TabPage9.ResumeLayout(False)
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.HealingTabControl.ResumeLayout(False)
         Me.TabPage7.ResumeLayout(False)
@@ -2233,12 +2532,21 @@ Partial Class frmMain
         Me.TableLayoutPanel4.PerformLayout()
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.TableLayoutPanel5.PerformLayout()
-        Me.GroupBox10.ResumeLayout(False)
-        Me.GroupBox10.PerformLayout()
-        Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.TableLayoutPanel3.PerformLayout()
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        Me.GroupBox12.ResumeLayout(False)
+        Me.GroupBox13.ResumeLayout(False)
+        Me.GroupBox13.PerformLayout()
+        Me.GroupBox14.ResumeLayout(False)
+        Me.GroupBox14.PerformLayout()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox15.ResumeLayout(False)
+        Me.GroupBox15.PerformLayout()
+        Me.GroupBox16.ResumeLayout(False)
+        Me.GroupBox16.PerformLayout()
+        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2481,39 +2789,34 @@ Partial Class frmMain
     Friend WithEvents AutoEaterInterval As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents TabPage9 As System.Windows.Forms.TabPage
-    Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
-    Friend WithEvents TradeChannelAdvertiserTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents TradeChannelAdvertiserAdvertisement As System.Windows.Forms.TextBox
-    Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents TabPage10 As System.Windows.Forms.TabPage
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents ComboBotBox As System.Windows.Forms.GroupBox
     Friend WithEvents ComboBotTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents ComboLeader As System.Windows.Forms.TextBox
-    Friend WithEvents Leaderlbl As System.Windows.Forms.Label
-    Friend WithEvents AmmoRestackerBox As System.Windows.Forms.GroupBox
-    Friend WithEvents AmmoRestackerTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents MinAmmolbl As System.Windows.Forms.Label
-    Friend WithEvents MinAmmo As System.Windows.Forms.NumericUpDown
-    Friend WithEvents LightBox As System.Windows.Forms.GroupBox
+    Friend WithEvents ComboBotLeaderlbl As System.Windows.Forms.Label
+    Friend WithEvents AmmunitionRestackerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents AmmunitionRestackerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents AmmunitionRestackerlbl As System.Windows.Forms.Label
+    Friend WithEvents AmmunitionRestackerMinAmmo As System.Windows.Forms.NumericUpDown
+    Friend WithEvents LightEffectsBox As System.Windows.Forms.GroupBox
     Friend WithEvents LightEffectsTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents LightEffect As System.Windows.Forms.ComboBox
-    Friend WithEvents LELabel As System.Windows.Forms.Label
+    Friend WithEvents LightEffectslbl As System.Windows.Forms.Label
     Friend WithEvents AutoStackerBox As System.Windows.Forms.GroupBox
     Friend WithEvents AutoStackerTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents AutoLooterBox As System.Windows.Forms.GroupBox
-    Friend WithEvents MinCaplbl As System.Windows.Forms.Label
+    Friend WithEvents AutoLooterlbl As System.Windows.Forms.Label
     Friend WithEvents AutoLooterMinCap As System.Windows.Forms.NumericUpDown
-    Friend WithEvents AutoLooterEdit As System.Windows.Forms.Button
+    Friend WithEvents AutoLooterConfigure As System.Windows.Forms.Button
     Friend WithEvents AutoLooterTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents ConfigManagerbox As System.Windows.Forms.GroupBox
-    Friend WithEvents ClearConfig As System.Windows.Forms.Button
-    Friend WithEvents EditConfig As System.Windows.Forms.Button
+    Friend WithEvents ConfigClear As System.Windows.Forms.Button
+    Friend WithEvents ConfigEdit As System.Windows.Forms.Button
     Friend WithEvents ConfigLoad As System.Windows.Forms.Button
     Friend WithEvents FPSHiddenlbl As System.Windows.Forms.Label
     Friend WithEvents FPSHidden As System.Windows.Forms.NumericUpDown
     Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
-    Friend WithEvents StatsUploaderGetData As System.Windows.Forms.Button
     Friend WithEvents StatsUploaderSaveToDisk As System.Windows.Forms.CheckBox
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents StatsUploaderPassword As System.Windows.Forms.TextBox
@@ -2544,4 +2847,46 @@ Partial Class frmMain
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
+    Friend WithEvents AutoStackerDelay As System.Windows.Forms.NumericUpDown
+    Friend WithEvents AutoStackerlbl As System.Windows.Forms.Label
+    Friend WithEvents AutoStackerlvl2 As System.Windows.Forms.Label
+    Friend WithEvents TradeChannelAdvertiserGroup As System.Windows.Forms.GroupBox
+    Friend WithEvents TradeChannelAdvertiserTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents TradeChannelAdvertiserAdvertisement As System.Windows.Forms.TextBox
+    Friend WithEvents TradeChannelAdvertiserLabel As System.Windows.Forms.Label
+    Friend WithEvents AutoLooterDelay As System.Windows.Forms.NumericUpDown
+    Friend WithEvents AutoLooterlbl2 As System.Windows.Forms.Label
+    Friend WithEvents AutoLooterEatFromCorpse As System.Windows.Forms.CheckBox
+    Friend WithEvents AutoLooterlvl3 As System.Windows.Forms.Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
+    Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
+    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
+    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox12 As System.Windows.Forms.GroupBox
+    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents GroupBox13 As System.Windows.Forms.GroupBox
+    Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
+    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox14 As System.Windows.Forms.GroupBox
+    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
+    Friend WithEvents Label28 As System.Windows.Forms.Label
+    Friend WithEvents NumericUpDown3 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents GroupBox15 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label29 As System.Windows.Forms.Label
+    Friend WithEvents CheckBox6 As System.Windows.Forms.CheckBox
+    Friend WithEvents GroupBox16 As System.Windows.Forms.GroupBox
+    Friend WithEvents CheckBox7 As System.Windows.Forms.CheckBox
+    Friend WithEvents NumericUpDown4 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents NumericUpDown5 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents CheckBox8 As System.Windows.Forms.CheckBox
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
 End Class

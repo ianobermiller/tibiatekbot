@@ -2801,7 +2801,7 @@ Public Module CoreModule
             GreetingTimerObj.StopTimer()
             Try
                 ConsoleWrite("Welcome " & Proxy.CharacterName & "!" & Ret & _
-                "Don't forget to visit us at: www.tibiatekbot.com and www.tpforums.net." & Ret & _
+                "Don't forget to visit us at: www.tibiatek.com." & Ret & _
                 "Please report any bug you may found!" & Ret & _
                 "For a list of available commands type: &help.")
                 Try
@@ -2818,7 +2818,7 @@ Public Module CoreModule
                     CharacterStatisticsTime = Now
                     If Consts.AutoPublishLocation Then AutoPublishLocationTimerObj.StartTimer()
                     If Consts.ShowInvisibleCreatures Then ShowInvisibleCreaturesTimerObj.StartTimer()
-                    If Consts.IRCEnabled Then
+                    If Consts.IRCConnectOnStartUp Then
                         ConnectToIrc()
                     End If
                     If Not IO.File.Exists(GetProfileDirectory() & "\config.txt") Then
@@ -3222,6 +3222,9 @@ Public Module CoreModule
 
         Private Sub IrcClient_ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelKick
             'ConsoleWrite(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".")
+            If IrcChannelIsOpened(Channel) Then
+                IrcChannelSpeakOperator(Channel, NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
+            End If
         End Sub
 
         Private Sub IrcClient_TopicChange(ByVal ChannelInfo As ChannelInformation) Handles IRCClient.EventChannelTopicChange
@@ -3231,8 +3234,8 @@ Public Module CoreModule
                     IrcChannelSpeakOperator(ChannelInfo.TopicOwner, ChannelInfo.Topic, IrcChannelNameToID(ChannelInfo.Name))
                 End If
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
+                'MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'End
             End Try
         End Sub
 
@@ -3241,7 +3244,9 @@ Public Module CoreModule
         End Sub
 
         Private Sub IrcClient_NickChange(ByVal OldNick As String, ByVal NewNick As String) Handles IRCClient.EventNickChange
-            'ConsoleWrite(OldNick & " is now known as " & NewNick & ".")
+            'If IrcChannelIsOpened(Channel) Then
+            '    IrcChannelSpeakOperator(Channel, OldNick & " is now known as " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
+            'End If
         End Sub
 
         Private Sub IrcClient_Quit(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventQuit
@@ -3310,6 +3315,7 @@ Public Module CoreModule
         Private Sub IrcClient_Disconnected() Handles IRCClient.EventDisconnected
             Try
                 ConsoleWrite("Disconnected from IRC.")
+                IRCClient.Channels.Clear()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -3318,7 +3324,9 @@ Public Module CoreModule
 
         Private Sub IrcClient_EndMOTD() Handles IRCClient.EventEndMOTD
             Try
-                IRCClient.Join(IRCChannel)
+                If Consts.IRCJoinAfterConnected Then
+                    IRCClient.Join(IRCChannel)
+                End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
