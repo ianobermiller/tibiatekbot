@@ -209,7 +209,8 @@ Public Module ConstantsModule
         Public SpellCasterInterval As Integer = 0
         Public SpellCasterDelay As Integer = 0
 
-        Public IRCEnabled As Boolean = False
+        Public IRCConnectOnStartUp As Boolean = False
+        Public IRCJoinAfterConnected As Boolean = False
         Public IRCNickname As String = ""
         Public IRCPassword As String = ""
 
@@ -570,8 +571,10 @@ Public Module ConstantsModule
                                                     AutoEaterInterval = CInt(Value)
                                                 Case "AutoEaterSmartInterval"
                                                     AutoEaterSmartInterval = CInt(Value)
-                                                Case "IRCEnabled"
-                                                    IRCEnabled = System.Boolean.Parse(Value)
+                                                Case "IRCConnectOnStartUp"
+                                                    IRCConnectOnStartUp = System.Boolean.Parse(Value)
+                                                Case "IRCJoinAfterConnected"
+                                                    IRCJoinAfterConnected = System.Boolean.Parse(Value)
                                                 Case "IRCNickname"
                                                     IRCNickname = Value
                                                 Case "IRCPassword"
@@ -595,12 +598,12 @@ Public Module ConstantsModule
     End Class
 
     Public Const Ret As Char = Chr(&HA)
-    Public Const BotVersion As String = "2.1.1"
+    Public Const BotVersion As String = "2.2"
     Public Const TibiaVersion As String = "8.00"
     Public Const BotStage As String = "Final" 'Alpha,Beta,Final,etc
     Public Const BotName As String = "TibiaTek Bot"
     Public Const BotWebsite As String = "http://www.tibiatek.com"
-    Public Const BotMOTD As String = Ret & "Welcome to TibiaTek Bot." & Ret & _
+    Public Const BotMOTD As String = Ret & "Welcome to TibiaTek Bot " & BotVersion & Ret & _
         "Have a great day!" & Ret & _
         "Dont forget to visit us at:" & Ret & _
         "http://www.tibiatek.com/ and " & Ret & _
