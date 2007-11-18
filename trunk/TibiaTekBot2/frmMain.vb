@@ -1720,7 +1720,7 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub StatsUploaderGetData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatsUploaderGetData.Click
+    Private Sub StatsUploaderGetData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             'Stats Uploader
             StatsUploaderUrl.Text = Consts.StatsUploaderUrl
@@ -1735,7 +1735,7 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub StatsUploaderTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatsUploaderTrigger.CheckedChanged
+    Private Sub StatsUploaderTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             If StatsUploaderTrigger.Checked Then
                 If Core.StatsUploaderTimerObj.State = ThreadTimerState.Running Then Exit Sub
