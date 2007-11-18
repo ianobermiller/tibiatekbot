@@ -1,14 +1,15 @@
 #labels Phase-Implementation
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
+|| Nov 18, 2007 || Added General and AFK menus to the GUI (Issue #14) || Oskari.Virtanen ||
 || Nov 18, 2007 || Implemented Irc Client || Cameri2005 ||
-|| Nov 12, 2007 || Added a couple of features to the General Tab for the new Gui (Issue #14) || OsQu ||
+|| Nov 12, 2007 || Added a couple of features to the General Tab for the new Gui (Issue #14) || Oskari.Virtanen ||
 || Nov 10, 2007 || Added GNU GPL to XML files saved by TTB || Cameri2005 ||
 || Nov 10, 2007 || Added AutoEaterInterval and AutoEaterSmartInterval in Constants || Cameri2005 ||
 || Nov 10, 2007 || Added a couple of features to the AFK Tab for the new GUI (Issue #14) || Cameri2005 ||
 || Nov 10, 2007 || Fixed typos in the GNU General Public License statement for almost all files || Cameri2005 ||
 || Nov 10, 2007 || Updated Spells.xml and Spells.vb. || Cameri2005 ||
-|| Nov 9, 2007 || Fixed the bot crashing when deleting monster from attacklist at Cavebot Window (Issue #13) || OsQu ||
+|| Nov 9, 2007 || Fixed the bot crashing when deleting monster from attacklist at Cavebot Window (Issue #13) || Oskari.Virtanen ||
 || Nov 8, 2007 || 1.Added [ConstantsEditor SpellCasterDelay] and [ConstantsEditor SpellCasterInterval] to Constants.xml and updated the SpellTimerObj_Execute function (Issue #16). 2.Fixed bug when using amulets (Issue #17) 3.Started improving GUI (Issue #14) || Cameri2005 ||
 || Nov 7, 2007 || Added try..catch to all functions in Cavebot.vb || Cameri2005 ||
 || Nov 7, 2007 || Fixed bug in Items.xml, all rune names were stripped of the _" Rune"_ part || Genosonic ||
