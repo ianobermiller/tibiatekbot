@@ -3088,7 +3088,9 @@ Public Module CoreModule
             Try
                 If Not InGame() Then Exit Sub
                 'IrcGenerateNick()
-                IRCClient.Nick = "Cameri"
+                If Not String.IsNullOrEmpty(Consts.IRCNickname) Then
+                    IRCClient.Nick = Consts.IRCNickname
+                End If
                 IRCClient.RealName = Proxy.CharacterWorlds(Proxy.CharacterIndex) & " Level " & Level
                 IRCClient.User = Environment.MachineName
                 IRCClient.Invisible = True
@@ -3096,6 +3098,10 @@ Public Module CoreModule
                     Exit Sub
                 End If
                 IRCClient.Identify()
+                If Not String.IsNullOrEmpty(Consts.IRCPassword) Then
+                    IRCClient.Password = Consts.IRCPassword
+                    IRCClient.Speak(String.Format("AUTH {0} {1}", IRCClient.Nick, IRCClient.Password), "Q@CServe.quakenet.org")
+                End If
                 IRCClient.MainLoop()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3157,6 +3163,15 @@ Public Module CoreModule
             End Try
         End Function
 
+        Public Function IrcChannelIsOpened(ByVal ChannelID As Integer) As Boolean
+            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+                If ChannelID = ChannelKVP.Value.ID Then
+                    Return True
+                End If
+            Next
+            Return False
+        End Function
+
         Public Function IrcChannelIsOpened(ByVal ChannelName As String) As Boolean
             For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
                 If ChannelName.Equals(ChannelKVP.Key) AndAlso ChannelKVP.Value.ID > 0 Then
@@ -3202,7 +3217,6 @@ Public Module CoreModule
                 If IrcChannelIsOpened(ChannelInfo.Name) Then
                     IrcChannelSpeakOperator(ChannelInfo.TopicOwner, ChannelInfo.Topic, IrcChannelNameToID(ChannelInfo.Name))
                 End If
-                'ConsoleWrite(ChannelInfo.Topic & "> Topic: " & ChannelInfo.Topic & ". Set By: " & ChannelInfo.TopicOwner & ".")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -3210,7 +3224,7 @@ Public Module CoreModule
         End Sub
 
         Private Sub IrcClient_ChannelSelfPart(ByVal Channel As String) Handles IRCClient.EventChannelSelfPart
-            'ConsoleWrite("Left " & Channel & ".")
+            ConsoleWrite("You have left " & Channel & ".")
         End Sub
 
         Private Sub IrcClient_NickChange(ByVal OldNick As String, ByVal NewNick As String) Handles IRCClient.EventNickChange
@@ -3241,7 +3255,7 @@ Public Module CoreModule
                 Dim R As New Random(System.DateTime.Now.Millisecond)
                 Dim CI As ChannelInformation
                 Do
-                    ChannelID = R.Next(ChannelType.IRCChannel, ChannelType.IRCChannel + 41) '1..40
+                    ChannelID = R.Next(ChannelType.IRCChannel, ChannelType.IRCChannel + 40) '0..39
                     If Not UsedIDs.Contains(ChannelID) Then
                         For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
                             If ChannelKVP.Key = Channel Then
@@ -3401,6 +3415,7 @@ Public Module CoreModule
                 Dim BL As New BattleList
                 BL.JumpToEntity(SpecialEntity.Myself)
                 If Consts.DebugOnLog Then Log("FromClient", BytesToStr(bytBuffer))
+                'ConsoleWrite(BytesToStr(bytBuffer))
                 Dim ID As UShort = GetByte(bytBuffer, Pos)
                 Select Case ID
                     Case &H1E 'ping
@@ -3616,6 +3631,7 @@ Public Module CoreModule
                             Next
                             Send = False
                         ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannel AndAlso bytBuffer(4) < ChannelType.IRCChannel + 40) Then
+                            Send = False
                             Dim ChannelID As Int16 = bytBuffer(4)
                             Message = GetString(bytBuffer, 6)
                             Dim Channel As String = IrcChannelIDToName(ChannelID)
@@ -3627,7 +3643,6 @@ Public Module CoreModule
                                 IrcChannelSpeakNormal(IRCClient.Nick, Message, IrcChannelNameToID(Channel))
                             End If
                             IRCClient.Speak(Message, Channel)
-                            Send = False
                         Else
                             Dim ChatMessage As New ChatMessageDefinition
                             ChatMessage.MessageType = MessageType
@@ -3687,16 +3702,25 @@ Public Module CoreModule
                             Send = False
                             OpenChannel()
                         End If
+                    Case &H99 ' Closing channel
+                        If bytBuffer(3) > ChannelType.IRCChannel AndAlso bytBuffer(3) <= ChannelType.IRCChannel + 40 Then
+                            Dim ChannelID As Int16 = bytBuffer(3)
+                            Send = False
+                            If IrcChannelIsOpened(ChannelID) Then
+                                IRCClient.Part(IrcChannelIDToName(ChannelID))
+                                IRCClient.Channels.Remove(IrcChannelIDToName(ChannelID))
+                            End If
+                        End If
                     Case &H9A ' Requesting console given a string
                         Dim ChannelName As String = GetString(bytBuffer, 3)
                         If String.Compare(ChannelName, "console", True) = 0 Or String.Compare(ChannelName, ConsoleName, True) = 0 Then
                             Send = False
                             OpenChannel()
                         ElseIf ChannelName.StartsWith("#") AndAlso ChannelName.Length > 1 Then
+                            Send = False
                             IRCClient.Join(ChannelName)
+                            ConsoleWrite("Opening IRC Channel " & ChannelName & ".")
                         End If
-                        'Case Else
-                        'Trace.WriteLine("FromClient: " & Hex(ID) & vbCrLf & "->" & BytesToStr(bytBuffer))
                 End Select
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
