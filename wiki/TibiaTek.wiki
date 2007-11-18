@@ -19,6 +19,6 @@ And here's a list of projects on the way:
 = The Team =
 
  * [Cameri] (Programming and Support)
- * [OsQu] (Programming and Support)
+ * [OsQu] (Programming and Support) _(also known as Oskari.Virtanen)_
  * [Dump3r] (Programming)
  * [Genosonic] (Graphics)
