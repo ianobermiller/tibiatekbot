@@ -216,8 +216,8 @@ Partial Class frmMain
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.ComboBotBox = New System.Windows.Forms.GroupBox
-        Me.CombBotTrigger = New System.Windows.Forms.CheckBox
-        Me.Leader = New System.Windows.Forms.TextBox
+        Me.ComboBotTrigger = New System.Windows.Forms.CheckBox
+        Me.ComboLeader = New System.Windows.Forms.TextBox
         Me.Leaderlbl = New System.Windows.Forms.Label
         Me.AmmoRestackerBox = New System.Windows.Forms.GroupBox
         Me.AmmoRestackerTrigger = New System.Windows.Forms.CheckBox
@@ -271,31 +271,34 @@ Partial Class frmMain
         Me.SpellCasterSpell = New System.Windows.Forms.ComboBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.TabPage17 = New System.Windows.Forms.TabPage
-        Me.GroupBox10 = New System.Windows.Forms.GroupBox
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel
-        Me.TextBox5 = New System.Windows.Forms.TextBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.TextBox6 = New System.Windows.Forms.TextBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
-        Me.TextBox3 = New System.Windows.Forms.TextBox
-        Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox
+        Me.FpsChangerTrigger = New System.Windows.Forms.CheckBox
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
         Me.Label10 = New System.Windows.Forms.Label
         Me.Label11 = New System.Windows.Forms.Label
         Me.Label12 = New System.Windows.Forms.Label
         Me.Label13 = New System.Windows.Forms.Label
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown
-        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown
-        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown
+        Me.FpsActive = New System.Windows.Forms.NumericUpDown
+        Me.FpsInactive = New System.Windows.Forms.NumericUpDown
+        Me.FpsMinimized = New System.Windows.Forms.NumericUpDown
+        Me.FPSHiddenlbl = New System.Windows.Forms.Label
+        Me.FPSHidden = New System.Windows.Forms.NumericUpDown
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox
+        Me.StatsUploaderGetData = New System.Windows.Forms.Button
+        Me.StatsUploaderSaveToDisk = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel
+        Me.StatsUploaderPassword = New System.Windows.Forms.TextBox
+        Me.Label17 = New System.Windows.Forms.Label
+        Me.StatsUploaderUser = New System.Windows.Forms.TextBox
+        Me.Label19 = New System.Windows.Forms.Label
+        Me.StatsUploaderTrigger = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel
+        Me.StatsUploaderPath = New System.Windows.Forms.TextBox
+        Me.StatsUploaderFilename = New System.Windows.Forms.TextBox
+        Me.Label14 = New System.Windows.Forms.Label
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.Label16 = New System.Windows.Forms.Label
+        Me.StatsUploaderUrl = New System.Windows.Forms.TextBox
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
         Me.CavebotTrigger = New System.Windows.Forms.CheckBox
         Me.CavebotConfigure = New System.Windows.Forms.Button
@@ -350,14 +353,15 @@ Partial Class frmMain
         Me.GroupBox2.SuspendLayout()
         CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage17.SuspendLayout()
+        Me.GroupBox9.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        CType(Me.FpsActive, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FpsInactive, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FpsMinimized, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FPSHidden, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox10.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
-        Me.GroupBox9.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.TabPage9.SuspendLayout()
@@ -1315,23 +1319,23 @@ Partial Class frmMain
         '
         'ComboBotBox
         '
-        Me.ComboBotBox.Controls.Add(Me.CombBotTrigger)
-        Me.ComboBotBox.Controls.Add(Me.Leader)
+        Me.ComboBotBox.Controls.Add(Me.ComboBotTrigger)
+        Me.ComboBotBox.Controls.Add(Me.ComboLeader)
         Me.ComboBotBox.Controls.Add(Me.Leaderlbl)
         resources.ApplyResources(Me.ComboBotBox, "ComboBotBox")
         Me.ComboBotBox.Name = "ComboBotBox"
         Me.ComboBotBox.TabStop = False
         '
-        'CombBotTrigger
+        'ComboBotTrigger
         '
-        resources.ApplyResources(Me.CombBotTrigger, "CombBotTrigger")
-        Me.CombBotTrigger.Name = "CombBotTrigger"
-        Me.CombBotTrigger.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.ComboBotTrigger, "ComboBotTrigger")
+        Me.ComboBotTrigger.Name = "ComboBotTrigger"
+        Me.ComboBotTrigger.UseVisualStyleBackColor = True
         '
-        'Leader
+        'ComboLeader
         '
-        resources.ApplyResources(Me.Leader, "Leader")
-        Me.Leader.Name = "Leader"
+        resources.ApplyResources(Me.ComboLeader, "ComboLeader")
+        Me.ComboLeader.Name = "ComboLeader"
         '
         'Leaderlbl
         '
@@ -1381,7 +1385,7 @@ Partial Class frmMain
         'LightEffect
         '
         Me.LightEffect.FormattingEnabled = True
-        Me.LightEffect.Items.AddRange(New Object() {resources.GetString("LightEffect.Items"), resources.GetString("LightEffect.Items1"), resources.GetString("LightEffect.Items2"), resources.GetString("LightEffect.Items3"), resources.GetString("LightEffect.Items4"), resources.GetString("LightEffect.Items5"), resources.GetString("LightEffect.Items6"), resources.GetString("LightEffect.Items7"), resources.GetString("LightEffect.Items8")})
+        Me.LightEffect.Items.AddRange(New Object() {resources.GetString("LightEffect.Items"), resources.GetString("LightEffect.Items1"), resources.GetString("LightEffect.Items2"), resources.GetString("LightEffect.Items3"), resources.GetString("LightEffect.Items4"), resources.GetString("LightEffect.Items5"), resources.GetString("LightEffect.Items6"), resources.GetString("LightEffect.Items7")})
         resources.ApplyResources(Me.LightEffect, "LightEffect")
         Me.LightEffect.Name = "LightEffect"
         '
@@ -1686,119 +1690,27 @@ Partial Class frmMain
         '
         'TabPage17
         '
-        Me.TabPage17.Controls.Add(Me.GroupBox10)
         Me.TabPage17.Controls.Add(Me.GroupBox9)
+        Me.TabPage17.Controls.Add(Me.GroupBox10)
         Me.TabPage17.Controls.Add(Me.GroupBox8)
         Me.TabPage17.Controls.Add(Me.GroupBox7)
         resources.ApplyResources(Me.TabPage17, "TabPage17")
         Me.TabPage17.Name = "TabPage17"
         Me.TabPage17.UseVisualStyleBackColor = True
         '
-        'GroupBox10
-        '
-        Me.GroupBox10.Controls.Add(Me.CheckBox3)
-        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel3)
-        Me.GroupBox10.Controls.Add(Me.CheckBox2)
-        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel2)
-        resources.ApplyResources(Me.GroupBox10, "GroupBox10")
-        Me.GroupBox10.Name = "GroupBox10"
-        Me.GroupBox10.TabStop = False
-        '
-        'CheckBox3
-        '
-        resources.ApplyResources(Me.CheckBox3, "CheckBox3")
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.UseVisualStyleBackColor = True
-        '
-        'TableLayoutPanel3
-        '
-        resources.ApplyResources(Me.TableLayoutPanel3, "TableLayoutPanel3")
-        Me.TableLayoutPanel3.Controls.Add(Me.TextBox5, 1, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label17, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.TextBox6, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label19, 0, 1)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        '
-        'TextBox5
-        '
-        resources.ApplyResources(Me.TextBox5, "TextBox5")
-        Me.TextBox5.Name = "TextBox5"
-        '
-        'Label17
-        '
-        resources.ApplyResources(Me.Label17, "Label17")
-        Me.Label17.Name = "Label17"
-        '
-        'TextBox6
-        '
-        resources.ApplyResources(Me.TextBox6, "TextBox6")
-        Me.TextBox6.Name = "TextBox6"
-        '
-        'Label19
-        '
-        resources.ApplyResources(Me.Label19, "Label19")
-        Me.Label19.Name = "Label19"
-        '
-        'CheckBox2
-        '
-        resources.ApplyResources(Me.CheckBox2, "CheckBox2")
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
-        'TableLayoutPanel2
-        '
-        resources.ApplyResources(Me.TableLayoutPanel2, "TableLayoutPanel2")
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBox3, 1, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBox2, 1, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label14, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.TextBox1, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label15, 0, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label16, 0, 1)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        '
-        'TextBox3
-        '
-        resources.ApplyResources(Me.TextBox3, "TextBox3")
-        Me.TextBox3.Name = "TextBox3"
-        '
-        'TextBox2
-        '
-        resources.ApplyResources(Me.TextBox2, "TextBox2")
-        Me.TextBox2.Name = "TextBox2"
-        '
-        'Label14
-        '
-        resources.ApplyResources(Me.Label14, "Label14")
-        Me.Label14.Name = "Label14"
-        '
-        'TextBox1
-        '
-        resources.ApplyResources(Me.TextBox1, "TextBox1")
-        Me.TextBox1.Name = "TextBox1"
-        '
-        'Label15
-        '
-        resources.ApplyResources(Me.Label15, "Label15")
-        Me.Label15.Name = "Label15"
-        '
-        'Label16
-        '
-        resources.ApplyResources(Me.Label16, "Label16")
-        Me.Label16.Name = "Label16"
-        '
         'GroupBox9
         '
-        Me.GroupBox9.Controls.Add(Me.CheckBox1)
+        Me.GroupBox9.Controls.Add(Me.FpsChangerTrigger)
         Me.GroupBox9.Controls.Add(Me.TableLayoutPanel1)
         resources.ApplyResources(Me.GroupBox9, "GroupBox9")
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.TabStop = False
         '
-        'CheckBox1
+        'FpsChangerTrigger
         '
-        resources.ApplyResources(Me.CheckBox1, "CheckBox1")
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.FpsChangerTrigger, "FpsChangerTrigger")
+        Me.FpsChangerTrigger.Name = "FpsChangerTrigger"
+        Me.FpsChangerTrigger.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel1
         '
@@ -1807,9 +1719,11 @@ Partial Class frmMain
         Me.TableLayoutPanel1.Controls.Add(Me.Label11, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label12, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown1, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown2, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown3, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.FpsActive, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.FpsInactive, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.FpsMinimized, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.FPSHiddenlbl, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.FPSHidden, 1, 4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         '
         'Label10
@@ -1832,20 +1746,129 @@ Partial Class frmMain
         resources.ApplyResources(Me.Label13, "Label13")
         Me.Label13.Name = "Label13"
         '
-        'NumericUpDown1
+        'FpsActive
         '
-        resources.ApplyResources(Me.NumericUpDown1, "NumericUpDown1")
-        Me.NumericUpDown1.Name = "NumericUpDown1"
+        resources.ApplyResources(Me.FpsActive, "FpsActive")
+        Me.FpsActive.Name = "FpsActive"
         '
-        'NumericUpDown2
+        'FpsInactive
         '
-        resources.ApplyResources(Me.NumericUpDown2, "NumericUpDown2")
-        Me.NumericUpDown2.Name = "NumericUpDown2"
+        resources.ApplyResources(Me.FpsInactive, "FpsInactive")
+        Me.FpsInactive.Name = "FpsInactive"
         '
-        'NumericUpDown3
+        'FpsMinimized
         '
-        resources.ApplyResources(Me.NumericUpDown3, "NumericUpDown3")
-        Me.NumericUpDown3.Name = "NumericUpDown3"
+        resources.ApplyResources(Me.FpsMinimized, "FpsMinimized")
+        Me.FpsMinimized.Name = "FpsMinimized"
+        '
+        'FPSHiddenlbl
+        '
+        resources.ApplyResources(Me.FPSHiddenlbl, "FPSHiddenlbl")
+        Me.FPSHiddenlbl.Name = "FPSHiddenlbl"
+        '
+        'FPSHidden
+        '
+        resources.ApplyResources(Me.FPSHidden, "FPSHidden")
+        Me.FPSHidden.Name = "FPSHidden"
+        '
+        'GroupBox10
+        '
+        Me.GroupBox10.Controls.Add(Me.StatsUploaderGetData)
+        Me.GroupBox10.Controls.Add(Me.StatsUploaderSaveToDisk)
+        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel3)
+        Me.GroupBox10.Controls.Add(Me.StatsUploaderTrigger)
+        Me.GroupBox10.Controls.Add(Me.TableLayoutPanel2)
+        resources.ApplyResources(Me.GroupBox10, "GroupBox10")
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.TabStop = False
+        '
+        'StatsUploaderGetData
+        '
+        resources.ApplyResources(Me.StatsUploaderGetData, "StatsUploaderGetData")
+        Me.StatsUploaderGetData.Name = "StatsUploaderGetData"
+        Me.StatsUploaderGetData.UseVisualStyleBackColor = True
+        '
+        'StatsUploaderSaveToDisk
+        '
+        resources.ApplyResources(Me.StatsUploaderSaveToDisk, "StatsUploaderSaveToDisk")
+        Me.StatsUploaderSaveToDisk.Name = "StatsUploaderSaveToDisk"
+        Me.StatsUploaderSaveToDisk.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel3
+        '
+        resources.ApplyResources(Me.TableLayoutPanel3, "TableLayoutPanel3")
+        Me.TableLayoutPanel3.Controls.Add(Me.StatsUploaderPassword, 1, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label17, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.StatsUploaderUser, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label19, 0, 1)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        '
+        'StatsUploaderPassword
+        '
+        resources.ApplyResources(Me.StatsUploaderPassword, "StatsUploaderPassword")
+        Me.StatsUploaderPassword.Name = "StatsUploaderPassword"
+        '
+        'Label17
+        '
+        resources.ApplyResources(Me.Label17, "Label17")
+        Me.Label17.Name = "Label17"
+        '
+        'StatsUploaderUser
+        '
+        resources.ApplyResources(Me.StatsUploaderUser, "StatsUploaderUser")
+        Me.StatsUploaderUser.Name = "StatsUploaderUser"
+        '
+        'Label19
+        '
+        resources.ApplyResources(Me.Label19, "Label19")
+        Me.Label19.Name = "Label19"
+        '
+        'StatsUploaderTrigger
+        '
+        resources.ApplyResources(Me.StatsUploaderTrigger, "StatsUploaderTrigger")
+        Me.StatsUploaderTrigger.Name = "StatsUploaderTrigger"
+        Me.StatsUploaderTrigger.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel2
+        '
+        resources.ApplyResources(Me.TableLayoutPanel2, "TableLayoutPanel2")
+        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderPath, 1, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderFilename, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label14, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label15, 0, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label16, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.StatsUploaderUrl, 1, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        '
+        'StatsUploaderPath
+        '
+        resources.ApplyResources(Me.StatsUploaderPath, "StatsUploaderPath")
+        Me.StatsUploaderPath.Name = "StatsUploaderPath"
+        '
+        'StatsUploaderFilename
+        '
+        resources.ApplyResources(Me.StatsUploaderFilename, "StatsUploaderFilename")
+        Me.StatsUploaderFilename.Name = "StatsUploaderFilename"
+        '
+        'Label14
+        '
+        resources.ApplyResources(Me.Label14, "Label14")
+        Me.Label14.Name = "Label14"
+        '
+        'Label15
+        '
+        resources.ApplyResources(Me.Label15, "Label15")
+        Me.Label15.Name = "Label15"
+        '
+        'Label16
+        '
+        resources.ApplyResources(Me.Label16, "Label16")
+        Me.Label16.Name = "Label16"
+        '
+        'StatsUploaderUrl
+        '
+        resources.ApplyResources(Me.StatsUploaderUrl, "StatsUploaderUrl")
+        Me.StatsUploaderUrl.Name = "StatsUploaderUrl"
         '
         'GroupBox8
         '
@@ -2021,7 +2044,7 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange
+        Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Controls.Add(Me.MainTabControl)
         Me.Controls.Add(Me.MenuStrip1)
@@ -2070,19 +2093,20 @@ Partial Class frmMain
         Me.GroupBox2.PerformLayout()
         CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage17.ResumeLayout(False)
+        Me.GroupBox9.ResumeLayout(False)
+        Me.GroupBox9.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        CType(Me.FpsActive, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FpsInactive, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FpsMinimized, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FPSHidden, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.TableLayoutPanel3.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
-        Me.GroupBox9.ResumeLayout(False)
-        Me.GroupBox9.PerformLayout()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
@@ -2324,25 +2348,25 @@ Partial Class frmMain
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents FpsChangerTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
-    Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
-    Friend WithEvents NumericUpDown3 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents FpsActive As System.Windows.Forms.NumericUpDown
+    Friend WithEvents FpsInactive As System.Windows.Forms.NumericUpDown
+    Friend WithEvents FpsMinimized As System.Windows.Forms.NumericUpDown
     Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
-    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
+    Friend WithEvents StatsUploaderTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents StatsUploaderPath As System.Windows.Forms.TextBox
+    Friend WithEvents StatsUploaderFilename As System.Windows.Forms.TextBox
+    Friend WithEvents StatsUploaderUrl As System.Windows.Forms.TextBox
+    Friend WithEvents StatsUploaderSaveToDisk As System.Windows.Forms.CheckBox
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
+    Friend WithEvents StatsUploaderPassword As System.Windows.Forms.TextBox
     Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
+    Friend WithEvents StatsUploaderUser As System.Windows.Forms.TextBox
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents AutoEaterEatFromFloor As System.Windows.Forms.CheckBox
     Friend WithEvents AutoEaterEatFromFloorFirst As System.Windows.Forms.CheckBox
@@ -2357,8 +2381,8 @@ Partial Class frmMain
     Friend WithEvents TabPage10 As System.Windows.Forms.TabPage
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents ComboBotBox As System.Windows.Forms.GroupBox
-    Friend WithEvents CombBotTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents Leader As System.Windows.Forms.TextBox
+    Friend WithEvents ComboBotTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents ComboLeader As System.Windows.Forms.TextBox
     Friend WithEvents Leaderlbl As System.Windows.Forms.Label
     Friend WithEvents AmmoRestackerBox As System.Windows.Forms.GroupBox
     Friend WithEvents AmmoRestackerTrigger As System.Windows.Forms.CheckBox
@@ -2379,4 +2403,7 @@ Partial Class frmMain
     Friend WithEvents ClearConfig As System.Windows.Forms.Button
     Friend WithEvents EditConfig As System.Windows.Forms.Button
     Friend WithEvents ConfigLoad As System.Windows.Forms.Button
+    Friend WithEvents StatsUploaderGetData As System.Windows.Forms.Button
+    Friend WithEvents FPSHiddenlbl As System.Windows.Forms.Label
+    Friend WithEvents FPSHidden As System.Windows.Forms.NumericUpDown
 End Class
