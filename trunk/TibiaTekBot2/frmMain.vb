@@ -1288,4 +1288,15 @@ Public Class frmMain
     Private Sub AutoLooterEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterEdit.Click
         CoreModule.LootItems.ShowLootCategories()
     End Sub
+
+    Private Sub frmMain_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
+        If Not Core.IRCClient Is Nothing Then
+            If Not Core.IRCClient.DoMainLoopThread Is Nothing Then
+                Core.IRCClient.DoMainLoopThread.Abort()
+            End If
+            If Core.IRCClient.IsConnected Then
+                Core.IRCClient.Disconnect()
+            End If
+        End If
+    End Sub
 End Class

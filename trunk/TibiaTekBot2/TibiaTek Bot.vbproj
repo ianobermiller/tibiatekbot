@@ -203,6 +203,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HotkeySettings.vb" />
+    <Compile Include="IrcClient.vb" />
     <Compile Include="Items.vb" />
     <Compile Include="LootItems.vb" />
     <Compile Include="MapReader.vb" />

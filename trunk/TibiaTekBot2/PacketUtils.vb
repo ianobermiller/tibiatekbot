@@ -309,6 +309,14 @@ Module PacketUtils
         Core.Proxy.SendPacketToClient(bytBuffer)
     End Sub
 
+    Public Sub OpenIrcChannel(ByVal Channel As String, ByVal ChannelID As Short)
+        Dim bytBuffer(1) As Byte
+        AddByte(bytBuffer, &HAC)
+        AddWord(bytBuffer, ChannelID)
+        AddString(bytBuffer, Channel)
+        Core.Proxy.SendPacketToClient(bytBuffer)
+    End Sub
+
 #End Region
 
 #Region " MoveObject "

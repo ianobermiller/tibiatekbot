@@ -19,8 +19,9 @@
 
 Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, System.Math, _
   System, System.Net, System.Net.Sockets, System.Text, System.Globalization, _
-        System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, System.Drawing.Imaging, _
-        TibiaTekBot.PProxy2, TibiaTekBot.ThreadTimer, System.ComponentModel, System.Runtime.InteropServices
+        System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, _
+        System.Drawing.Imaging, TibiaTekBot.PProxy2, TibiaTekBot.ThreadTimer, _
+        System.ComponentModel, System.Runtime.InteropServices, TibiaTekBot.IrcClient
 
 #Region " To Do "
 
@@ -161,6 +162,7 @@ Public Module CoreModule
         Public WithEvents AutoAddTimerObj As ThreadTimer
         Public WithEvents AmuletChangerTimerObj As ThreadTimer
         Public WithEvents RingChangerTimerObj As ThreadTimer
+        Public WithEvents IRCClient As IrcClient
 #End Region
 
 #Region " Variables "
@@ -489,7 +491,7 @@ Public Module CoreModule
                 StatsTimerObj = New ThreadTimer(300)
                 LightTimerObj = New ThreadTimer(500)
                 ExpCheckerTimerObj = New ThreadTimer(1000)
-                GreetingTimerObj = New ThreadTimer()
+                GreetingTimerObj = New ThreadTimer(10000)
                 SpellTimerObj = New ThreadTimer(1000)
                 UHTimerObj = New ThreadTimer(1000)
                 AdvertiseTimerObj = New ThreadTimer(125000)
@@ -523,6 +525,7 @@ Public Module CoreModule
                 AutoAddTimerObj = New ThreadTimer(100)
                 AmuletChangerTimerObj = New ThreadTimer(300)
                 RingChangerTimerObj = New ThreadTimer(300)
+                IRCClient = New IrcClient(IRCServer, IRCPort)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -1023,6 +1026,10 @@ Public Module CoreModule
                 AmuletID = 0
                 RingChangerTimerObj.StopTimer()
                 RingID = 0
+                If Not IRCClient Is Nothing Then
+                    IRCClient.Disconnect()
+                    IRCClient.Channels.Clear()
+                End If
                 Log("Event", "All timers are now stopped.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2779,6 +2786,7 @@ Public Module CoreModule
 #Region " Greeting Timer "
 
         Private Sub GreetingTimer_Execute() Handles GreetingTimerObj.OnExecute
+            GreetingTimerObj.StopTimer()
             Try
                 ConsoleWrite("Welcome " & Proxy.CharacterName & "!" & Ret & _
                 "Don't forget to visit us at: www.tibiatekbot.com and www.tpforums.net." & Ret & _
@@ -2798,7 +2806,9 @@ Public Module CoreModule
                     CharacterStatisticsTime = Now
                     If Consts.AutoPublishLocation Then AutoPublishLocationTimerObj.StartTimer()
                     If Consts.ShowInvisibleCreatures Then ShowInvisibleCreaturesTimerObj.StartTimer()
-
+                    If Consts.IRCEnabled Then
+                        ConnectToIrc()
+                    End If
                     If Not IO.File.Exists(GetProfileDirectory() & "\config.txt") Then
                         ConsoleError("Unable to load your configuration.")
                         Exit Sub
@@ -2816,7 +2826,6 @@ Public Module CoreModule
                     ConsoleWrite("Configuration loaded.")
                 Catch ex As System.IO.IOException
                     ConsoleError("Unable to load your configuration.")
-
                 End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3071,6 +3080,245 @@ Public Module CoreModule
 
 #End Region
 
+#Region " IRC Client "
+
+#Region " Connection "
+
+        Public Sub ConnectToIrc()
+            Try
+                If Not InGame() Then Exit Sub
+                'IrcGenerateNick()
+                IRCClient.Nick = "Cameri"
+                IRCClient.RealName = Proxy.CharacterWorlds(Proxy.CharacterIndex) & " Level " & Level
+                IRCClient.User = Environment.MachineName
+                IRCClient.Invisible = True
+                If Not IRCClient.Connect Then
+                    Exit Sub
+                End If
+                IRCClient.Identify()
+                IRCClient.MainLoop()
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Public Sub IrcGenerateNick()
+            Dim Nicks() As String = {"TTBOwner", "TTBFan", "TTBKicker", "TTBKiller", "TTBPwner", "TTBRokr", _
+                "TTBKrzr", "TTBRazr", "TTBLord", "TTBUser", "TTBPKer", "TTBLurer", "TTBGamer", "TTBLoco", _
+                "TTBNeedy", "TTBBeast", "TTBCrzy", "TTBHunter", "TTBRot", "TTBSuper", "TTBLntc", "TTBTurbo", _
+                "TTBKilo", "TTBAlpha", "TTBBeta", "TTBOmega", "TTBPhi", "TTBPsych", "TTBMstr"}
+            Dim R As New Random(System.DateTime.Now.Millisecond)
+            IRCClient.Nick = Nicks(R.Next(Nicks.Length)) & R.Next(100, 1000).ToString
+        End Sub
+
+#End Region
+
+#Region " Methods "
+
+        Public Sub IrcChannelSpeakOperator(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
+            Try
+                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 3, Message, 0, 0, 0, ChannelID))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Public Sub IrcChannelSpeakVoiced(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
+            Try
+                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelTutor, 2, Message, 0, 0, 0, ChannelID))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Public Sub IrcChannelSpeakNormal(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
+            Try
+                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.Channel, 1, Message, 0, 0, 0, ChannelID))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Public Function IrcChannelIDToName(ByVal ChannelID As Integer) As String
+            Try
+                For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+                    If ChannelKVP.Value.ID = ChannelID Then
+                        Return ChannelKVP.Key
+                    End If
+                Next
+                Return ""
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Function
+
+        Public Function IrcChannelIsOpened(ByVal ChannelName As String) As Boolean
+            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+                If ChannelName.Equals(ChannelKVP.Key) AndAlso ChannelKVP.Value.ID > 0 Then
+                    Return True
+                End If
+            Next
+            Return False
+        End Function
+
+        Public Function IrcChannelNameToID(ByVal ChannelName As String) As Integer
+            Try
+                For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+                    If ChannelName.Equals(ChannelKVP.Key) Then
+                        Return ChannelKVP.Value.ID
+                    End If
+                Next
+                Return 0
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Function
+
+#End Region
+
+#Region " IRC Events "
+        'Public Event EventPrivateMessage As PrivateMessage
+        'Public Event EventChannelError As ChannelError
+        'Public Event EventChannelMode As ChannelMode
+        'Public Event EventChannelNamesList As ChannelNamesList
+
+        Private Sub IrcClient_ChannelJoin(ByVal Nick As String, ByVal Channel As String) Handles IRCClient.EventChannelJoin
+            'ConsoleWrite(Nick & " joined " & Channel & ".")
+        End Sub
+
+        Private Sub IrcClient_ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelKick
+            'ConsoleWrite(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".")
+        End Sub
+
+        Private Sub IrcClient_TopicChange(ByVal ChannelInfo As ChannelInformation) Handles IRCClient.EventChannelTopicChange
+            Try
+                Thread.Sleep(1000)
+                If IrcChannelIsOpened(ChannelInfo.Name) Then
+                    IrcChannelSpeakOperator(ChannelInfo.TopicOwner, ChannelInfo.Topic, IrcChannelNameToID(ChannelInfo.Name))
+                End If
+                'ConsoleWrite(ChannelInfo.Topic & "> Topic: " & ChannelInfo.Topic & ". Set By: " & ChannelInfo.TopicOwner & ".")
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Private Sub IrcClient_ChannelSelfPart(ByVal Channel As String) Handles IRCClient.EventChannelSelfPart
+            'ConsoleWrite("Left " & Channel & ".")
+        End Sub
+
+        Private Sub IrcClient_NickChange(ByVal OldNick As String, ByVal NewNick As String) Handles IRCClient.EventNickChange
+            'ConsoleWrite(OldNick & " is now known as " & NewNick & ".")
+        End Sub
+
+        Private Sub IrcClient_Quit(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventQuit
+            'ConsoleWrite(Nick & " quits. Reason: " & Message & ".")
+        End Sub
+
+        Private Sub IrcClient_ChannelPart(ByVal Nick As String, ByVal Channel As String) Handles IRCClient.EventChannelPart
+            'ConsoleWrite(Nick & " parts " & Channel & ".")
+        End Sub
+
+        Private Sub IrcClient_ChannelSelfJoin(ByVal Channel As String) Handles IRCClient.EventChannelSelfJoin
+            Try
+                'ConsoleWrite("Joined " & Channel & ".")
+                Dim UsedIDs As New List(Of Integer)
+                Dim ChannelID As Integer = 1
+                If IrcChannelIsOpened(Channel) Then
+                    ConsoleWrite("You have already joined that channel.")
+                End If
+                For Each ChannelInfo As ChannelInformation In IRCClient.Channels.Values
+                    If ChannelInfo.ID > 0 Then
+                        UsedIDs.Add(ChannelInfo.ID)
+                    End If
+                Next
+                Dim R As New Random(System.DateTime.Now.Millisecond)
+                Dim CI As ChannelInformation
+                Do
+                    ChannelID = R.Next(ChannelType.IRCChannel, ChannelType.IRCChannel + 41) '1..40
+                    If Not UsedIDs.Contains(ChannelID) Then
+                        For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+                            If ChannelKVP.Key = Channel Then
+                                CI = ChannelKVP.Value
+                                CI.ID = ChannelID
+                                IRCClient.Channels(Channel) = CI
+                                Exit For
+                            End If
+                        Next
+                        'IRCChannelIDs.Add(ChannelID, Channel)
+                        OpenIrcChannel(Channel, ChannelID)
+                        Exit Do
+                    End If
+                Loop While True
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Private Sub IrcClient_Connecting() Handles IRCClient.EventConnecting
+            Try
+                ConsoleWrite("Connecting to IRC. Please Wait...")
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Private Sub IrcClient_Connected() Handles IRCClient.EventConnected
+            Try
+                ConsoleWrite("Successfully connected to IRC. Opening channels, please wait...")
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Private Sub IrcClient_Disconnected() Handles IRCClient.EventDisconnected
+            Try
+                ConsoleWrite("Disconnected from IRC.")
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Private Sub IrcClient_EndMOTD() Handles IRCClient.EventEndMOTD
+            Try
+                IRCClient.Join(IRCChannel)
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+        Private Sub IrcClient_ChannelMessage(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.EventChannelMessage
+            Try
+                If IrcChannelIsOpened(Channel) Then
+                    If IRCClient.IsOperator(Nick, Channel) Then
+                        IrcChannelSpeakOperator(Nick, Message, IrcChannelNameToID(Channel))
+                    ElseIf IRCClient.IsVoiced(Nick, Channel) Then
+                        IrcChannelSpeakVoiced(Nick, Message, IrcChannelNameToID(Channel))
+                    Else
+                        IrcChannelSpeakNormal(Nick, Message, IrcChannelNameToID(Channel))
+                    End If
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+
+#End Region
+
+#End Region
+
 #Region " Proxy Events "
 
         Public Function InGame() As Boolean
@@ -3153,11 +3401,6 @@ Public Module CoreModule
                 Dim BL As New BattleList
                 BL.JumpToEntity(SpecialEntity.Myself)
                 If Consts.DebugOnLog Then Log("FromClient", BytesToStr(bytBuffer))
-                'If Debug Then ConsoleWrite(BytesToStr(bytBuffer))
-                'If TRACE Then
-                'Trace.WriteLine("FromClient: " & BytesToStr(bytBuffer))
-                'Core.ConsoleWrite(BytesToStr(bytBuffer))
-                'End If
                 Dim ID As UShort = GetByte(bytBuffer, Pos)
                 Select Case ID
                     Case &H1E 'ping
@@ -3362,7 +3605,6 @@ Public Module CoreModule
                                 End If
                                 Send = False
                         End Select
-
                     Case &H96 'message
                         Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
                         If MessageType = MessageType.Channel AndAlso bytBuffer(4) = ChannelType.Console Then
@@ -3372,6 +3614,19 @@ Public Module CoreModule
                             For Each GroupMatch In MCollection
                                 CommandParser(GroupMatch.Groups(1).ToString)
                             Next
+                            Send = False
+                        ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannel AndAlso bytBuffer(4) < ChannelType.IRCChannel + 40) Then
+                            Dim ChannelID As Int16 = bytBuffer(4)
+                            Message = GetString(bytBuffer, 6)
+                            Dim Channel As String = IrcChannelIDToName(ChannelID)
+                            If IRCClient.IsOperator(IRCClient.Nick, Channel) Then
+                                IrcChannelSpeakOperator(IRCClient.Nick, Message, IrcChannelNameToID(Channel))
+                            ElseIf IRCClient.IsVoiced(IRCClient.Nick, Channel) Then
+                                IrcChannelSpeakVoiced(IRCClient.Nick, Message, IrcChannelNameToID(Channel))
+                            Else
+                                IrcChannelSpeakNormal(IRCClient.Nick, Message, IrcChannelNameToID(Channel))
+                            End If
+                            IRCClient.Speak(Message, Channel)
                             Send = False
                         Else
                             Dim ChatMessage As New ChatMessageDefinition
@@ -3437,6 +3692,8 @@ Public Module CoreModule
                         If String.Compare(ChannelName, "console", True) = 0 Or String.Compare(ChannelName, ConsoleName, True) = 0 Then
                             Send = False
                             OpenChannel()
+                        ElseIf ChannelName.StartsWith("#") AndAlso ChannelName.Length > 1 Then
+                            IRCClient.Join(ChannelName)
                         End If
                         'Case Else
                         'Trace.WriteLine("FromClient: " & Hex(ID) & vbCrLf & "->" & BytesToStr(bytBuffer))
@@ -3447,7 +3704,6 @@ Public Module CoreModule
             End Try
         End Sub
 
-        'voting polls plx
         Private Sub Proxy_PacketFromServer(ByRef bytBuffer() As Byte, ByRef Block As Boolean) Handles Proxy.PacketFromServer
             Try
                 If Not IsGreetingSent Then
@@ -3455,7 +3711,7 @@ Public Module CoreModule
                     If GreetingSentTry > 2 Then
                         IsGreetingSent = True
                         OpenChannel()
-                        GreetingTimerObj.StartTimer(1000)
+                        GreetingTimerObj.StartTimer(1500)
                         Map.RefreshMapBeginning()
                         MapReaderTimerObj.StartTimer()
                     End If
