@@ -71,6 +71,7 @@ Public Class IrcClient
     Private Writer As StreamWriter
 
     Private _Nick As String
+    Private _Password As String
     Private _User As String
     Private _RealName As String
     Private _IsInvisible As Boolean
@@ -119,6 +120,14 @@ Public Class IrcClient
                 End
             End Try
         End Get
+    End Property
+    Public Property Password() As String
+        Get
+            Return Me._Password
+        End Get
+        Set(ByVal value As String)
+            Me._Password = value
+        End Set
     End Property
     Public Property User() As String
         Get
@@ -225,18 +234,22 @@ Public Class IrcClient
         'DoMainLoopThread.Abort()
     End Sub
     Public Function IsOperator(ByVal Nickname As String, ByVal Channel As String) As Boolean
-        For Each User As String In Channels(Channel).Users.Keys
-            If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
-                Return Channels(Channel).Users(User).ChannelOperator
-            End If
-        Next
+        If Channels.ContainsKey(Channel) Then
+            For Each User As String In Channels(Channel).Users.Keys
+                If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
+                    Return Channels(Channel).Users(User).ChannelOperator
+                End If
+            Next
+        End If
     End Function
-    Public Function IsVoiced(ByVal Nickname As String, ByVal channel As String) As Boolean
-        For Each User As String In Channels(channel).Users.Keys
-            If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
-                Return Channels(channel).Users(User).Voiced
-            End If
-        Next
+    Public Function IsVoiced(ByVal Nickname As String, ByVal Channel As String) As Boolean
+        If Channels.ContainsKey(Channel) Then
+            For Each User As String In Channels(Channel).Users.Keys
+                If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
+                    Return Channels(Channel).Users(User).Voiced
+                End If
+            Next
+        End If
     End Function
     Public Sub WriteLine(ByVal Command As String)
         Try
@@ -265,7 +278,7 @@ Public Class IrcClient
         Try
             If Not WasConnected Then Exit Sub
             CanReconnect = False
-            WriteLine("QUIT")
+            WriteLine("QUIT :Good bye! [" & IRCClientVersion & "]")
             Disconnect()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -280,7 +293,7 @@ Public Class IrcClient
         WriteLine(String.Format("USER {0} {1} * :{2}", Me._User, IIf(Me._IsInvisible, "8", "0"), Me.RealName))
         ChangeNick(Me._Nick)
     End Sub
-    Public Sub Part(ByVal Channel As String)
+    Public Sub Part(ByVal Channel As String, Optional ByVal Reason As String = "Good Bye! [" & IRCClientVersion & "]")
         Try
             If Not WasConnected Then Exit Sub
             If Not String.IsNullOrEmpty(Channel) Then
@@ -449,7 +462,7 @@ Public Class IrcClient
                                         Next
                                         RaiseEvent EventChannelNamesList()
                                     End If
-                                Case "433"
+                                Case "433", "432", "431", "436" 'nickname in use, erroneous nickname, no nickname, nick collision
                                     Core.IrcGenerateNick()
                                     ChangeNick(Me.Nick)
                                 Case "471", "472", "473", "474", "475", "482"
