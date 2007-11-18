@@ -1,6 +1,10 @@
 #summary Features of TibiaTek Bot v2
 #labels Featured,Phase-Design,Phase-Implementation
 
+= Since v2.2 (NOT RELEASED) =
+ * IRC Client, live support directly from Tibia (TibiaTek Bot connects to IRC, irc://uk.quakenet.org/#tibiatekbot)
+ * Improved Graphic User Interface
+
 = Since v2.1 =
 
  * Ammunition Restacker (bolts, arrows, etc)
@@ -22,6 +26,9 @@
  * Combobot
  * Configuration Manager (automatically load your last configuration)
  * Console and GUI
+ * Equip Ammunition just right-click and click Use or put in Hotkey
+ * Equip Amulets just right-click and click Use or put in Hotkey
+ * Equip Rings just right-click and click Use or put in Hotkey
  * Events Logging
  * Experience Checker (plus Creatures needed to kill)
  * Fake Tibia Title
