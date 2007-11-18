@@ -215,10 +215,14 @@ Public Module CommandParserModule
 #Region " FPS Changer Command "
 
     Private Sub CmdFpsChanger(ByVal Arguments As GroupCollection)
+        Core.FrameRateActive = Consts.FPSWhenActive
+        Core.FrameRateInactive = Consts.FPSWhenInactive
+        Core.FrameRateMinimized = Consts.FPSWhenMinimized
+        Core.FrameRateHidden = Consts.FPSWhenHidden
         Select Case StrToShort(Arguments(2).Value)
             Case 0
                 Core.FPSChangerTimerObj.StopTimer()
-                Core.WriteMemory(Core.FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenActive))
+                Core.WriteMemory(Core.FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Core.FrameRateActive))
                 Core.ConsoleWrite("FPS Changer is now Disabled.")
             Case 1
                 Core.FPSChangerTimerObj.StartTimer()
@@ -995,10 +999,17 @@ Public Module CommandParserModule
                         Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
                         Exit Sub
                     End If
+                    Core.UploaderUrl = Consts.StatsUploaderUrl
+                    Core.UploaderFilename = Consts.StatsUploaderFilename
+                    Core.UploaderPath = Consts.StatsUploaderPath
+                    Core.UploaderUserId = Consts.StatsUploaderUserID
+                    Core.UploaderPassword = Consts.StatsUploaderPassword
+                    Core.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
                     Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
                     Core.StatsUploaderTimerObj.StartTimer()
                     Core.ConsoleWrite("Stats Uploader is now Enabled.")
                 Else
+
                     If Consts.StatsUploaderUrl.Length = 0 _
                         OrElse Consts.StatsUploaderUserID.Length = 0 _
                         OrElse Consts.StatsUploaderPassword.Length = 0 _
@@ -1006,6 +1017,12 @@ Public Module CommandParserModule
                         Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
                         Exit Sub
                     End If
+                    Core.UploaderUrl = Consts.StatsUploaderUrl
+                    Core.UploaderFilename = Consts.StatsUploaderFilename
+                    Core.UploaderPath = Consts.StatsUploaderPath
+                    Core.UploaderUserId = Consts.StatsUploaderUserID
+                    Core.UploaderPassword = Consts.StatsUploaderPassword
+                    Core.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
                     Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
                     Core.StatsUploaderTimerObj.StartTimer()
                     Core.ConsoleWrite("Stats Uploader is now Enabled.")
@@ -1037,6 +1054,8 @@ Public Module CommandParserModule
         Core.ConsoleWrite("Begin Test")
         'OpenIrcChannel("#ההה", 106)
         Select Case Arguments(2).ToString.ToLower
+            Case "fisherspeed"
+                Core.ConsoleWrite(Core.FisherTimerObj.Interval.ToString)
             Case "bl"
                 Dim BL As New BattleList
                 BL.JumpToEntity(SpecialEntity.Myself)
@@ -1303,6 +1322,7 @@ Public Module CommandParserModule
             Case 0
                 Core.FisherMinimumCapacity = 0
                 Core.FisherSpeed = 0
+                Core.FisherTurbo = False
                 Core.FisherTimerObj.StopTimer()
                 Core.ConsoleWrite("Auto Fisher is now Disabled.")
             Case Else
@@ -1312,11 +1332,13 @@ Public Module CommandParserModule
                         Case "normal", "default", ""
                             Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
                             Core.FisherSpeed = 0
+                            Core.FisherTurbo = False
                             Core.FisherTimerObj.StartTimer()
                             Core.ConsoleWrite("Auto Fisher is now Enabled.")
                         Case "turbo", "nitro", "fast", "faster", "fastest"
                             Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
                             Core.FisherSpeed = 500
+                            Core.FisherTurbo = True
                             Core.FisherTimerObj.StartTimer()
                             Core.ConsoleWrite("Auto Fisher (Turbo Mode) is now Enabled.")
                         Case Else

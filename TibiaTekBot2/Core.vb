@@ -213,6 +213,7 @@ Public Module CoreModule
 
         Public FisherSpeed As UShort = 0
         Public FisherMinimumCapacity As Integer = 0
+        Public FisherTurbo As Boolean = False
 
         Public RunemakerSpell As SpellDefinition = Nothing
         Public RunemakerManaPoints As Integer = 0
@@ -238,6 +239,13 @@ Public Module CoreModule
 
         Public HealPartyMinimumHPPercentage As Integer = 0
         Public HealPartyHealType As HealTypes = HealTypes.None
+
+        Public UploaderUrl As String = ""
+        Public UploaderFilename As String = ""
+        Public UploaderPath As String = ""
+        Public UploaderUserId As String = ""
+        Public UploaderPassword As String = ""
+        Public UploaderSaveToDiskOnly As Boolean = False
 
         Public LoggingEnabled As Boolean = False
 
@@ -275,6 +283,10 @@ Public Module CoreModule
         Public TibiaClientIsVisible As Boolean = True
 
         Public FrameRateBegin As Integer = 0
+        Public FrameRateActive As Integer = 0
+        Public FrameRateInactive As Integer = 0
+        Public FrameRateMinimized As Integer = 0
+        Public FrameRateHidden As Integer = 0
 
         Public DrinkerManaRequired As Integer = 0
 
@@ -1142,16 +1154,16 @@ Public Module CoreModule
             Try
                 Select Case TibiaWindowState
                     Case WindowState.Active
-                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenActive))
+                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(FrameRateActive))
                         System.Threading.Thread.Sleep(1000)
                     Case WindowState.Inactive
-                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenInactive))
+                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(FrameRateInactive))
                         System.Threading.Thread.Sleep(1000)
                     Case WindowState.Minimized
-                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenMinimized))
+                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(FrameRateMinimized))
                         System.Threading.Thread.Sleep(1000)
                     Case WindowState.Hidden
-                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenHidden))
+                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(FrameRateHidden))
                         System.Threading.Thread.Sleep(1000)
                 End Select
             Catch Ex As Exception
@@ -1555,14 +1567,14 @@ Public Module CoreModule
 
                     xmlFile.AppendChild(xmlStats)
 
-                    If Consts.StatsUploaderSaveOnDiskOnly Then
-                        xmlFile.Save(Consts.StatsUploaderPath & Consts.StatsUploaderFilename)
+                    If UploaderSaveToDiskOnly Then
+                        xmlFile.Save(UploaderPath & UploaderFilename)
                     Else
                         xmlFile.Save("temp.xml")
                         'Dim CS As New CaptureScreen.CaptureScreen
                         'CS.CaptureScreenToFile("screenshot.jpg", ImageFormat.Jpeg)
                         If IO.File.Exists("temp.xml") Then  'AndAlso IO.File.Exists("screenshot.jpg") 
-                            Client.UploadFile("ftp://" & Consts.StatsUploaderUserID & ":" & Consts.StatsUploaderPassword & "@" & Consts.StatsUploaderUrl & Consts.StatsUploaderPath & Consts.StatsUploaderFilename, "Temp.xml")
+                            Client.UploadFile("ftp://" & UploaderUserId & ":" & UploaderPassword & "@" & UploaderUrl & UploaderPath & UploaderFilename, "Temp.xml")
                             'Client.UploadFile("ftp://" & Consts.StatsUploaderUserID & ":" & Consts.StatsUploaderPassword & "@" & Consts.StatsUploaderUrl & Consts.StatsUploaderPath & "screenshot.jpg", "screenshot.jpg")
                             IO.File.Delete("temp.xml")
                             'IO.File.Delete("screenshot.jpg")

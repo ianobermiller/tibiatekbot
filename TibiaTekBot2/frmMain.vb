@@ -73,7 +73,11 @@ Public Class frmMain
             AutoEaterEatFromFloorFirst.Checked = Consts.EatFromFloorFirst
             ' Auto Looter
             AutoLooterMinCap.Value = Consts.CavebotLootMinCap
-
+            ' FPS changer
+            FpsActive.Value = Consts.FPSWhenActive
+            FpsInactive.Value = Consts.FPSWhenInactive
+            FpsMinimized.Value = Consts.FPSWhenMinimized
+            FPSHidden.Value = Consts.FPSWhenHidden
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -124,8 +128,189 @@ Public Class frmMain
             RefreshRunemakerControls()
             RefreshAutoEaterControls()
             RefreshAutoLooterControls()
+            RefreshAutoStackerControls()
+            RefreshLightEffectsControls()
+            RefreshAmmoRestackerControls()
+            RefreshComboBotControls()
+            RefreshAutoFisherControls()
+            RefreshCavebotControls()
+            RefreshTradeChannelWatcherControls()
+            RefreshStatsUploaderControls()
+            RefreshFpsChangerControls()
+            RefreshAdvertiserControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshAdvertiserControls()
+        Try
+            TradeChannelAdvertiserTrigger.Checked = Core.AdvertiseTimerObj.State = ThreadTimerState.Running
+            If TradeChannelAdvertiserTrigger.Checked Then
+                TradeChannelAdvertiserAdvertisement.Text = Core.AdvertiseMsg
+                TradeChannelAdvertiserAdvertisement.Enabled = False
+            Else
+                TradeChannelAdvertiserAdvertisement.Enabled = True
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshFpsChangerControls()
+        Try
+            FpsChangerTrigger.Checked = Core.FPSChangerTimerObj.State = ThreadTimerState.Running
+            If FpsChangerTrigger.Checked Then
+                FpsActive.Value = Core.FrameRateActive
+                FpsInactive.Value = Core.FrameRateInactive
+                FpsMinimized.Value = Core.FrameRateMinimized
+                FPSHidden.Value = Core.FrameRateHidden
+                FpsActive.Enabled = False
+                FpsInactive.Enabled = False
+                FpsMinimized.Enabled = False
+                FPSHidden.Enabled = False
+            Else
+                FpsActive.Enabled = True
+                FpsInactive.Enabled = True
+                FpsMinimized.Enabled = True
+                FPSHidden.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshStatsUploaderControls()
+        Try
+            StatsUploaderTrigger.Checked = Core.StatsUploaderTimerObj.State = ThreadTimerState.Running
+            If StatsUploaderTrigger.Checked Then
+                StatsUploaderUrl.Enabled = False
+                StatsUploaderFilename.Enabled = False
+                StatsUploaderPath.Enabled = False
+                StatsUploaderUser.Enabled = False
+                StatsUploaderPassword.Enabled = False
+                StatsUploaderSaveToDisk.Enabled = False
+                StatsUploaderGetData.Enabled = False
+            Else
+                StatsUploaderUrl.Enabled = True
+                StatsUploaderFilename.Enabled = True
+                StatsUploaderPath.Enabled = True
+                StatsUploaderUser.Enabled = True
+                StatsUploaderPassword.Enabled = True
+                StatsUploaderSaveToDisk.Enabled = True
+                StatsUploaderGetData.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshTradeChannelWatcherControls()
+        Try
+            TradeChannelWatcherTrigger.Checked = Core.TradeWatcherActive = True
+            If TradeChannelWatcherTrigger.Checked Then
+                TradeChannelWatcherExpression.Text = Core.TradeWatcherRegex
+                TradeChannelWatcherExpression.Enabled = False
+            Else
+                TradeChannelWatcherExpression.Enabled = True
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshCavebotControls()
+        Try
+            CavebotTrigger.Checked = Core.CaveBotTimerObj.State = ThreadTimerState.Running
+            If CavebotTrigger.Checked Then
+                CavebotConfigure.Enabled = False
+            Else
+                CavebotConfigure.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshAutoFisherControls()
+        Try
+            AutoFisherTrigger.Checked = Core.FisherTimerObj.State = ThreadTimerState.Running
+            If AutoFisherTrigger.Checked Then
+                AutoFisherMinimumCapacity.Value = Core.FisherMinimumCapacity
+                If Core.FisherTurbo Then
+                    AutoFisherTurbo.Checked = True
+                Else
+                    AutoFisherTurbo.Checked = False
+                End If
+                AutoFisherTurbo.Enabled = False
+                AutoFisherMinimumCapacity.Enabled = False
+            Else
+                AutoFisherTurbo.Enabled = True
+                AutoFisherMinimumCapacity.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshComboBotControls()
+        Try
+            ComboBotTrigger.Checked = Core.ComboBotEnabled = True
+            If ComboBotTrigger.Checked Then
+                ComboLeader.Text = Core.ComboBotLeader
+                ComboLeader.Enabled = False
+            Else
+                ComboLeader.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshLightEffectsControls()
+        Try
+            LightEffectsTrigger.Checked = Core.LightTimerObj.State = ThreadTimerState.Running
+            If LightEffectsTrigger.Checked Then
+                Select Case Core.LightI
+                    Case LightIntensity.Huge
+                        LightEffect.SelectedItem = "Ultimate Torch"
+                    Case LightIntensity.Large
+                        If Core.LightC = LightColor.UtevoLux Then
+                            LightEffect.SelectedItem = "Utevo Gran Lux"
+                        Else
+                            LightEffect.SelectedItem = "Light Wand"
+                        End If
+                    Case LightIntensity.Medium
+                        If Core.LightC = LightColor.Torch Then
+                            LightEffect.SelectedItem = "Torch"
+                        Else
+                            LightEffect.SelectedItem = "Utevo Lux"
+                        End If
+                    Case LightIntensity.VeryLarge
+                        If Core.LightC = LightColor.Torch Then
+                            LightEffect.SelectedItem = "Great Torch"
+                        Else
+                            LightEffect.SelectedItem = "Utevo Vis Lux"
+                        End If
+                    Case LightIntensity.Huge + 2
+                        LightEffect.SelectedItem = "On"
+                    Case Else
+                        LightEffect.SelectedIndex = -1
+                End Select
+                LightEffect.Enabled = False
+            Else
+                LightEffect.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -159,6 +344,30 @@ Public Class frmMain
                 AutoLooterMinCap.Enabled = True
                 AutoLooterEdit.Enabled = True
             End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshAmmoRestackerControls()
+        Try
+            AmmoRestackerTrigger.Checked = Core.AmmoRestackerTimerObj.State = ThreadTimerState.Running
+            If AmmoRestackerTrigger.Checked Then
+                MinAmmo.Value = Core.AmmoRestackerMinimumItemCount
+                MinAmmo.Enabled = False
+            Else
+                MinAmmo.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshAutoStackerControls()
+        Try
+            AutoStackerTrigger.Checked = Core.StackerTimerObj.State = ThreadTimerState.Running
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -362,7 +571,7 @@ Public Class frmMain
             xmlAddresses.AppendChild(xmlAddress10)
             xmlAddresses.AppendChild(xmlAddress11)
             Document.AppendChild(xmlDeclaration)
-            xmlClient.AppendChild(XmlComment)
+            xmlClient.AppendChild(xmlComment)
             xmlClient.AppendChild(xmlFilename)
             xmlClient.AppendChild(xmlDirectory)
             xmlClient.AppendChild(xmlAddresses)
@@ -1292,6 +1501,285 @@ Public Class frmMain
     Private Sub AutoLooterEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterEdit.Click
         CoreModule.LootItems.ShowLootCategories()
     End Sub
+    Private Sub AutoStackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoStackerTrigger.CheckedChanged
+        Try
+            If AutoStackerTrigger.Checked Then
+                Core.StackerTimerObj.Interval = Consts.AutoStackerDelay
+                Core.StackerTimerObj.StartTimer()
+            Else
+                Core.StackerTimerObj.StopTimer()
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub LightEffectsTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LightEffectsTrigger.CheckedChanged
+        Try
+            If LightEffectsTrigger.Checked Then
+                If Core.LightTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If LightEffect.SelectedIndex = -1 Then
+                    MessageBox.Show("Invalid Light Effect. Please choose an other.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Select Case LightEffect.SelectedItem.ToString.ToLower
+                    Case "on"
+                        Core.LightC = LightColor.BrightSword
+                        Core.LightI = LightIntensity.Huge + 2
+                    Case "torch"
+                        Core.LightI = LightIntensity.Medium
+                        Core.LightC = LightColor.Torch
+                    Case "great torch"
+                        Core.LightI = LightIntensity.VeryLarge
+                        Core.LightC = LightColor.Torch
+                    Case "ultimate torch"
+                        Core.LightI = LightIntensity.Huge
+                        Core.LightC = LightColor.Torch
+                    Case "utevo lux"
+                        Core.LightI = LightIntensity.Medium
+                        Core.LightC = LightColor.UtevoLux
+                    Case "utevo gran lux"
+                        Core.LightI = LightIntensity.Large
+                        Core.LightC = LightColor.UtevoLux
+                    Case "utevo vis lux"
+                        Core.LightI = LightIntensity.VeryLarge
+                        Core.LightC = LightColor.UtevoLux
+                    Case "light wand"
+                        Core.LightI = LightIntensity.Large
+                        Core.LightC = LightColor.LightWand
+                    Case Else
+                        MessageBox.Show("Invalid Light Effect. Please choose an other.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        LightEffectsTrigger.Checked = False
+                        Exit Sub
+                End Select
+                Core.LightTimerObj.StartTimer()
+            Else
+                Core.SetLight(LightIntensity.Small, LightColor.UtevoLux)
+                Core.LightTimerObj.StopTimer()
+            End If
+            RefreshLightEffectsControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub AmmoRestackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmmoRestackerTrigger.CheckedChanged
+        Try
+            If AmmoRestackerTrigger.Checked Then
+                If Core.AmmoRestackerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                Dim ItemID As Integer
+                Dim ItemCount As Integer
+                If MinAmmo.Value < 1 Or MinAmmo.Value > 99 Then
+                    MessageBox.Show("You must specify the minimum ammunition count between 1 and 99, inclusive.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
+                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
+                If ItemID = 0 OrElse Not DatInfo.GetInfo(ItemID).IsStackable Then
+                    MessageBox.Show("You must place some of your ammunition on the Belt/Arrow Slot first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.AmmoRestackerItemID = ItemID
+                Core.AmmoRestackerOutOfAmmo = False
+                Core.AmmoRestackerMinimumItemCount = MinAmmo.Value
+                Core.AmmoRestackerTimerObj.StartTimer()
+            Else
+                Core.AmmoRestackerItemID = 0
+                Core.AmmoRestackerTimerObj.StopTimer()
+            End If
+            RefreshAmmoRestackerControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub ComboBotTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBotTrigger.CheckedChanged
+        Try
+            If ComboBotTrigger.Checked Then
+                If Core.ComboBotEnabled = True Then Exit Sub
+                Core.ComboBotLeader = ComboLeader.Text
+                Core.ComboBotEnabled = True
+            Else
+                Core.ComboBotEnabled = False
+            End If
+            RefreshComboBotControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub AutoFisherTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoFisherTrigger.CheckedChanged
+        Try
+            If AutoFisherTrigger.Checked Then
+                If Core.FisherTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If AutoFisherMinimumCapacity.Value = vbNull Then
+                    MessageBox.Show("Please give the minimium capacity for fisher.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    AutoFisherTrigger.Checked = False
+                    Exit Sub
+                End If
+                If AutoFisherTurbo.Checked Then
+                    Core.FisherMinimumCapacity = AutoFisherMinimumCapacity.Value
+                    Core.FisherTurbo = True
+                    Core.FisherSpeed = 500
+                    Core.FisherTimerObj.StartTimer()
+                Else
+                    Core.FisherMinimumCapacity = AutoFisherMinimumCapacity.Value
+                    Core.FisherSpeed = 0
+                    Core.FisherTurbo = False
+                    Core.FisherTimerObj.StartTimer()
+                End If
+            Else
+                Core.FisherMinimumCapacity = 0
+                Core.FisherSpeed = 0
+                Core.FisherTurbo = False
+                Core.FisherTimerObj.StopTimer()
+            End If
+            RefreshAutoFisherControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub CavebotTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CavebotTrigger.CheckedChanged
+        Try
+            If CavebotTrigger.Checked Then
+                Core.WaypointIndex = SelectNearestWaypoint(Core.Walker_Waypoints)
+                If Core.WaypointIndex = -1 Then
+                    MessageBox.Show("No waypoints found or they are not in current floor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                If Consts.LootWithCavebot Then
+                    Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
+                    Core.LooterTimerObj.StartTimer()
+                End If
+                Core.AutoAttackerTimerObj.StartTimer()
+                Core.CaveBotTimerObj.StartTimer()
+                Core.AutoEaterSmart = 0
+                Core.EaterTimerObj.Interval = 20000
+                Core.EaterTimerObj.StartTimer()
+                Core.IsOpeningReady = True
+                Core.CBCreatureDied = False
+                Core.WaypointIndex = 0
+                Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+                Core.CBState = CavebotState.Walking
+            Else
+                Core.LooterTimerObj.StopTimer()
+                Core.AutoAttackerTimerObj.StopTimer()
+                Core.CaveBotTimerObj.StopTimer()
+                Core.EaterTimerObj.StopTimer()
+                Core.EaterTimerObj.Interval = 0
+                Core.WaypointIndex = 0
+                Core.IsOpeningReady = True
+                Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(0))
+                Core.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
+            End If
+            RefreshCavebotControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub CavebotConfigure_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CavebotConfigure.Click
+        Dim FrmConfig As New frmCavebot
+        FrmConfig.Show()
+    End Sub
+
+    Private Sub TradeChannelWatcherTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChannelWatcherTrigger.CheckedChanged
+        Try
+            If TradeChannelWatcherTrigger.Checked Then
+                If Core.TradeWatcherActive = True Then Exit Sub
+                If String.IsNullOrEmpty(TradeChannelWatcherExpression.Text) Then
+                    MessageBox.Show("Please give Expression!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Dim RegExp As Regex
+                Try
+                    RegExp = New Regex(TradeChannelWatcherExpression.Text)
+                    Core.TradeWatcherRegex = TradeChannelWatcherExpression.Text
+                    Core.TradeWatcherActive = True
+                    Core.ConsoleWrite("Make sure you have the Trade-Channel opened.")
+                Catch exep As Exception
+                    Core.ConsoleError("Sorry, but this is not a valid regular expression." & Ret & _
+                    "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.")
+                End Try
+            Else
+                Core.TradeWatcherActive = False
+                Core.TradeWatcherRegex = ""
+            End If
+            RefreshTradeChannelWatcherControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub StatsUploaderGetData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatsUploaderGetData.Click
+        Try
+            'Stats Uploader
+            StatsUploaderUrl.Text = Consts.StatsUploaderUrl
+            StatsUploaderFilename.Text = Consts.StatsUploaderFilename
+            StatsUploaderPath.Text = Consts.StatsUploaderPath
+            StatsUploaderUser.Text = Consts.StatsUploaderUserID
+            StatsUploaderPassword.Text = Consts.StatsUploaderPassword
+            StatsUploaderSaveToDisk.Checked = Consts.StatsUploaderSaveOnDiskOnly
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub StatsUploaderTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatsUploaderTrigger.CheckedChanged
+        Try
+            If StatsUploaderTrigger.Checked Then
+                If Core.StatsUploaderTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If StatsUploaderSaveToDisk.Checked Then
+                    If StatsUploaderPath.Text.Length = 0 OrElse StatsUploaderFilename.Text.Length = 0 Then
+                        MessageBox.Show("Please don't leave empy values to text boxes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        RefreshStatsUploaderControls()
+                        Exit Sub
+                    End If
+                    Core.UploaderUrl = StatsUploaderUrl.Text
+                    Core.UploaderFilename = StatsUploaderFilename.Text
+                    Core.UploaderPath = StatsUploaderPath.Text
+                    Core.UploaderUserId = StatsUploaderUser.Text
+                    Core.UploaderPassword = StatsUploaderPassword.Text
+                    Core.UploaderSaveToDiskOnly = StatsUploaderSaveToDisk.Checked
+                    Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
+                    Core.StatsUploaderTimerObj.StartTimer()
+                Else
+                    If StatsUploaderUrl.Text.Length = 0 _
+                        OrElse StatsUploaderUser.Text.Length = 0 _
+                        OrElse StatsUploaderPassword.Text.Length = 0 _
+                        OrElse Consts.StatsUploaderFrequency = 0 Then
+                        MessageBox.Show("Please don't leave empy values to text boxes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        RefreshStatsUploaderControls()
+                        Exit Sub
+                    End If
+                    Core.UploaderUrl = StatsUploaderUrl.Text
+                    Core.UploaderFilename = StatsUploaderFilename.Text
+                    Core.UploaderPath = StatsUploaderPath.Text
+                    Core.UploaderUserId = StatsUploaderUser.Text
+                    Core.UploaderPassword = StatsUploaderPassword.Text
+                    Core.UploaderSaveToDiskOnly = StatsUploaderSaveToDisk.Checked
+                    Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
+                    Core.StatsUploaderTimerObj.StartTimer()
+                End If
+            Else
+                Core.StatsUploaderTimerObj.StopTimer()
+            End If
+            RefreshStatsUploaderControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 
     Private Sub frmMain_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
         If Not Core.IRCClient Is Nothing Then
@@ -1302,5 +1790,44 @@ Public Class frmMain
                 Core.IRCClient.Disconnect()
             End If
         End If
+    End Sub
+
+    Private Sub FpsChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FpsChangerTrigger.CheckedChanged
+        Try
+            If FpsChangerTrigger.Checked Then
+                If Core.FPSChangerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                Core.FrameRateActive = FpsActive.Value
+                Core.FrameRateInactive = FpsInactive.Value
+                Core.FrameRateMinimized = FpsMinimized.Value
+                Core.FrameRateHidden = FPSHidden.Value
+                Core.FPSChangerTimerObj.StartTimer()
+            Else
+                Core.FPSChangerTimerObj.StopTimer()
+                Core.WriteMemory(Core.FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Core.FrameRateActive))
+            End If
+            RefreshFpsChangerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub TradeChannelAdvertiserTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChannelAdvertiserTrigger.CheckedChanged
+        Try
+            If TradeChannelAdvertiserTrigger.Checked Then
+                If Core.AdvertiseTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If String.IsNullOrEmpty(TradeChannelAdvertiserAdvertisement.Text) Then Exit Sub
+                'OpenChannel("Trade", ChannelType.Trade)
+                Core.AdvertiseMsg = TradeChannelAdvertiserAdvertisement.Text
+                Core.AdvertiseTimerObj.StartTimer(1000)
+            Else
+                Core.AdvertiseMsg = ""
+                Core.AdvertiseTimerObj.StopTimer()
+            End If
+            RefreshAdvertiserControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 End Class
