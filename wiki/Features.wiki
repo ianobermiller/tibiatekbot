@@ -22,6 +22,7 @@
  * Combobot
  * Configuration Manager (automatically load your last configuration)
  * Console and GUI
+ * Events Logging
  * Experience Checker (plus Creatures needed to kill)
  * Fake Tibia Title
  * Floor Explorer (to see what's above, below or around you)
