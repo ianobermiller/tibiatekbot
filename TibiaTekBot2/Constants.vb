@@ -209,6 +209,10 @@ Public Module ConstantsModule
         Public SpellCasterInterval As Integer = 0
         Public SpellCasterDelay As Integer = 0
 
+        Public IRCEnabled As Boolean = False
+        Public IRCNickname As String = ""
+        Public IRCPassword As String = ""
+
         Public Sub New()
             LoadConstants()
         End Sub
@@ -566,6 +570,12 @@ Public Module ConstantsModule
                                                     AutoEaterInterval = CInt(Value)
                                                 Case "AutoEaterSmartInterval"
                                                     AutoEaterSmartInterval = CInt(Value)
+                                                Case "IRCEnabled"
+                                                    IRCEnabled = System.Boolean.Parse(Value)
+                                                Case "IRCNickname"
+                                                    IRCNickname = Value
+                                                Case "IRCPassword"
+                                                    IRCPassword = Value
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
@@ -595,6 +605,10 @@ Public Module ConstantsModule
         "Dont forget to visit us at:" & Ret & _
         "http://www.tibiatek.com/ and " & Ret & _
         "http://www.xcreations.net/~tpforums/forum/"
+    Public Const IRCServer As String = "uk.quakenet.org"
+    Public Const IRCPort As Integer = 6668
+    Public Const IRCChannel As String = "#TibiaTekBot"
+    Public Const IRCClientVersion As String = "TibiaTek Integrated IRC Client (http://www.tibiatek.com/)"
     Public Const ConsoleChannelID As Integer = &H64
     Public Const ConsoleLevel As Integer = &H65
     Public Const ConsoleName As String = BotName
@@ -712,7 +726,7 @@ Public Module ConstantsModule
         Leader
     End Enum
 
-    Public Enum ChannelType
+    Public Enum ChannelType As Integer
         Personal = &HFFFF
         GuildChat = 0
         GameChat = 4
@@ -720,6 +734,7 @@ Public Module ConstantsModule
         RLChat
         Help
         Console = ConsoleChannelID
+        IRCChannel
     End Enum
 
     <Flags()> Public Enum Conditions

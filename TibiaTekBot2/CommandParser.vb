@@ -127,6 +127,8 @@ Public Module CommandParserModule
                     CmdAmuletChanger(MatchObj.Groups)
                 Case "ringchanger"
                     CmdRingChanger(MatchObj.Groups)
+                Case "irc"
+                    CmdIrc(MatchObj.Groups)
                 Case Else
                     Core.ConsoleError("This command does not exist." & Ret & _
                         "  For a list of available commands type: &help.")
@@ -135,6 +137,40 @@ Public Module CommandParserModule
             Core.ConsoleError("Invalid command syntax.")
         End If
     End Sub
+
+#Region " Irc Command "
+
+    Private Sub CmdIrc(ByVal Arguments As GroupCollection)
+        Dim Match As Match = Regex.Match(Arguments(2).Value, "(join|part|nick)\s(.+)", RegexOptions.IgnoreCase)
+        If Match.Success Then
+            Select Case Match.Groups(1).Value.ToLower
+                Case "join"
+                    Core.IRCClient.Join(Match.Groups(2).Value)
+                Case "part"
+                    Core.IRCClient.Part(Match.Groups(2).Value)
+                Case "nick"
+                    Core.IRCClient.Nick = Match.Groups(2).Value
+                    Core.IRCClient.WriteLine("NICK " & Core.IRCClient.Nick)
+                Case "users"
+                    Dim Channel As String = Match.Groups(2).Value
+                    If Core.IRCClient.Channels.ContainsKey(Channel) Then
+                        Dim Nicks() As String = Core.IRCClient.Channels(Channel).Users.Keys
+                        Dim TempNick As String = ""
+                        For Each Nick As String In Nicks
+                            TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
+                            TempNick &= Nick
+                            Core.IrcChannelSpeakNormal(Channel, TempNick, Core.IrcChannelNameToID(Channel))
+                        Next
+                    End If
+            End Select
+        Else
+            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+        End If
+
+    End Sub
+
+#End Region
+
 
 #Region " Website Command "
 

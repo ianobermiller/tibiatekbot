@@ -20,6 +20,9 @@
     Boston, MA 02111-1307, USA.
 -->
 <Constants>
+  <Const Name="IRCEnabled" Value="True" />
+  <Const Name="IRCNickname" Value="" />
+  <Const Name="IRCPassword" Value="" />
   <Const Name="LatestVersionUrl" Value="http://www.tibiatek.com/version.php" />
   <Const Name="AutoPublishLocation" Value="False" />
   <Const Name="AutoPublishLocationInterval" Value="600000" />
