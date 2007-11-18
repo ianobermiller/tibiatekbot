@@ -95,3 +95,9 @@ Find also in...
   * *Floor:* mark to make the bot check if there are items on the floor that match the selected list item.
 
 [http://www.tibiatek.com/images/manual/TTBAlarms_Items.gif]
+
+= Saving and Loading =
+
+You can save your Alarms preferences by clicking on the "_Save_" button located at the bottom left corner of the Alarms window. Alarms are automatically loaded for each character. Each character has a different Alarms configuration.
+
+If you want to reload the Alarms.xml for the current character press the "_Load_" button. This is specially useful if you modify the Alarms.xml with an external editor.
