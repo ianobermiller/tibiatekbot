@@ -1027,7 +1027,7 @@ Public Module CoreModule
                 RingChangerTimerObj.StopTimer()
                 RingID = 0
                 If Not IRCClient Is Nothing Then
-                    IRCClient.Disconnect()
+                    IRCClient.Quit()
                     IRCClient.Channels.Clear()
                 End If
                 Log("Event", "All timers are now stopped.")
@@ -3172,9 +3172,10 @@ Public Module CoreModule
             Return False
         End Function
 
-        Public Function IrcChannelIsOpened(ByVal ChannelName As String) As Boolean
+        Public Function IrcChannelIsOpened(ByRef ChannelName As String) As Boolean
             For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
-                If ChannelName.Equals(ChannelKVP.Key) AndAlso ChannelKVP.Value.ID > 0 Then
+                If String.Equals(ChannelName, ChannelKVP.Key, StringComparison.CurrentCultureIgnoreCase) AndAlso ChannelKVP.Value.ID > 0 Then
+                    ChannelName = ChannelKVP.Key
                     Return True
                 End If
             Next
@@ -3184,7 +3185,7 @@ Public Module CoreModule
         Public Function IrcChannelNameToID(ByVal ChannelName As String) As Integer
             Try
                 For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
-                    If ChannelName.Equals(ChannelKVP.Key) Then
+                    If String.Equals(ChannelName, ChannelKVP.Key, StringComparison.CurrentCultureIgnoreCase) Then
                         Return ChannelKVP.Value.ID
                     End If
                 Next
@@ -3635,14 +3636,43 @@ Public Module CoreModule
                             Dim ChannelID As Int16 = bytBuffer(4)
                             Message = GetString(bytBuffer, 6)
                             Dim Channel As String = IrcChannelIDToName(ChannelID)
-                            If IRCClient.IsOperator(IRCClient.Nick, Channel) Then
-                                IrcChannelSpeakOperator(IRCClient.Nick, Message, IrcChannelNameToID(Channel))
-                            ElseIf IRCClient.IsVoiced(IRCClient.Nick, Channel) Then
-                                IrcChannelSpeakVoiced(IRCClient.Nick, Message, IrcChannelNameToID(Channel))
+                            If IRCClient.Channels.ContainsKey(Channel) Then
+                                If Message.StartsWith("&") Then
+                                    IrcChannelSpeakNormal(Channel, "You cannot send TibiaTek Bot commands on an IRC Channel", ChannelID)
+                                ElseIf Message.StartsWith("/") Then
+                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users)(?:\s(.+))?", RegexOptions.IgnoreCase)
+                                    If Match.Success Then
+                                        Select Case Match.Groups(1).Value.ToLower
+                                            Case "join"
+                                                IRCClient.Join(Match.Groups(2).Value)
+                                            Case "nick"
+                                                IRCClient.Nick = Match.Groups(2).Value
+                                                IRCClient.ChangeNick(IRCClient.Nick)
+                                            Case "users"
+                                                If Core.IRCClient.Channels.ContainsKey(Channel) Then
+                                                    Dim TempNick As String = ""
+                                                    For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
+                                                        TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
+                                                        TempNick &= Nick
+                                                        Core.IrcChannelSpeakNormal(Channel, TempNick, Core.IrcChannelNameToID(Channel))
+                                                    Next
+                                                End If
+                                        End Select
+
+                                    End If
+                                Else
+                                    If IRCClient.IsOperator(IRCClient.Nick, Channel) Then
+                                        IrcChannelSpeakOperator(IRCClient.Nick, Message, ChannelID)
+                                    ElseIf IRCClient.IsVoiced(IRCClient.Nick, Channel) Then
+                                        IrcChannelSpeakVoiced(IRCClient.Nick, Message, ChannelID)
+                                    Else
+                                        IrcChannelSpeakNormal(IRCClient.Nick, Message, ChannelID)
+                                    End If
+                                    IRCClient.Speak(Message, Channel)
+                                End If
                             Else
-                                IrcChannelSpeakNormal(IRCClient.Nick, Message, IrcChannelNameToID(Channel))
+                                ConsoleError("Unable to send message to the IRC Channel.")
                             End If
-                            IRCClient.Speak(Message, Channel)
                         Else
                             Dim ChatMessage As New ChatMessageDefinition
                             ChatMessage.MessageType = MessageType

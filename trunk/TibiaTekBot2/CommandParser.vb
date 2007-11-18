@@ -142,25 +142,35 @@ Public Module CommandParserModule
 
     Private Sub CmdIrc(ByVal Arguments As GroupCollection)
         Try
-            Dim Match As Match = Regex.Match(Arguments(2).Value, "(join|part|nick|users)\s(.+)", RegexOptions.IgnoreCase)
+            Dim Match As Match = Regex.Match(Arguments(2).Value, "(join|nick|users)\s(.+)", RegexOptions.IgnoreCase)
             If Match.Success Then
                 Select Case Match.Groups(1).Value.ToLower
                     Case "join"
-                        Core.IRCClient.Join(Match.Groups(2).Value)
-                    Case "part"
-                        Core.IRCClient.Part(Match.Groups(2).Value)
+                        If Core.IrcChannelIsOpened(Match.Groups(2).Value) Then
+                            OpenIrcChannel(Match.Groups(2).Value, Core.IrcChannelNameToID(Match.Groups(2).Value))
+                        Else
+                            Core.IRCClient.Join(Match.Groups(2).Value)
+                            Core.ConsoleWrite("You are now joining the channel " & Match.Groups(2).Value & ".")
+                        End If
                     Case "nick"
-                        Core.IRCClient.Nick = Match.Groups(2).Value
-                        Core.IRCClient.WriteLine("NICK " & Core.IRCClient.Nick)
+                        If Core.IRCClient.Nick.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) Then
+                            Core.ConsoleError("Your current nickname is the same.")
+                        Else
+                            Core.IRCClient.Nick = Match.Groups(2).Value
+                            Core.IRCClient.WriteLine("NICK " & Core.IRCClient.Nick)
+                            Core.ConsoleWrite("Trying to change your IRC nickname...")
+                        End If
                     Case "users"
                         Dim Channel As String = Match.Groups(2).Value
-                        If Core.IRCClient.Channels.ContainsKey(Channel) Then
+                        If Core.IrcChannelIsOpened(Channel) Then
                             Dim TempNick As String = ""
                             For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
                                 TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
                                 TempNick &= Nick
-                                Core.IrcChannelSpeakNormal(Channel, TempNick, Core.IrcChannelNameToID(Channel))
+                                Core.ConsoleWrite(TempNick)
                             Next
+                        Else
+                            Core.ConsoleError("You are not in this channel.")
                         End If
                 End Select
             Else
@@ -1023,7 +1033,9 @@ Public Module CommandParserModule
 #Region " Test Command "
 
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
+        Exit Sub
         Core.ConsoleWrite("Begin Test")
+        'OpenIrcChannel("#ההה", 106)
         Select Case Arguments(2).ToString.ToLower
             Case "bl"
                 Dim BL As New BattleList

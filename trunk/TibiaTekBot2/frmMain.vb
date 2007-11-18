@@ -38,6 +38,10 @@ Public Class frmMain
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+            'MsgBox(System.Text.Encoding.GetEncoding("iso-8859-1").EncodingName)
+            'For Each Encoding As System.Text.EncodingInfo In System.Text.Encoding.GetEncodings
+            'MsgBox(Encoding.Name)
+            'Next
             SC = New frmSplashScreen
             SC.ShowDialog()
             LoadTibiaEXE()
