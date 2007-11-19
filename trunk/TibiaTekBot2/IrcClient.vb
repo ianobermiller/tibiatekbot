@@ -227,7 +227,7 @@ Public Class IrcClient
         End Try
     End Function
     Public Sub Disconnect()
-        If WasConnected Then
+        If WasConnected AndAlso Client.Connected Then
             WasConnected = False
             RaiseEvent EventDisconnected()
             Client.Client.Disconnect(True)
@@ -284,7 +284,9 @@ Public Class IrcClient
             Else
                 WriteLine("QUIT :" & Reason)
             End If
-            Disconnect()
+            If Client.Connected Then
+                Disconnect()
+            End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End

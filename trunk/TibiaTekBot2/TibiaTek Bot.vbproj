@@ -367,7 +367,11 @@
     <None Include="Resources\Tibia.ico" />
     <None Include="Resources\TibiaMultiClientPatch.ico" />
     <Content Include="Resources\tibiatekbot.ico" />
-    <None Include="Resources\ttb splash.jpg" />
+    <None Include="Resources\ttb splash0.jpg" />
+    <None Include="Resources\ttb splash1.jpg" />
+    <None Include="Resources\ttb splash2.jpg" />
+    <None Include="Resources\ttb splash3.jpg" />
+    <None Include="Resources\ttb splash4.jpg" />
     <Content Include="Resources\ttb21.ico" />
     <Content Include="Resources\ttb21_16.ico" />
     <None Include="Resources\ttb2_16x161.ico" />

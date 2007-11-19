@@ -213,6 +213,7 @@ Partial Class frmMain
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
         Me.TabPage10 = New System.Windows.Forms.TabPage
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.LightEffectsBox = New System.Windows.Forms.GroupBox
@@ -377,7 +378,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -1367,9 +1367,14 @@ Partial Class frmMain
         Me.TabPage10.Name = "TabPage10"
         Me.TabPage10.UseVisualStyleBackColor = True
         '
+        'LinkLabel1
+        '
+        resources.ApplyResources(Me.LinkLabel1, "LinkLabel1")
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.TabStop = True
+        '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.TibiaTekBot.My.Resources.Resources.ttb_splash
         resources.ApplyResources(Me.PictureBox1, "PictureBox1")
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.TabStop = False
@@ -2438,12 +2443,6 @@ Partial Class frmMain
         '
         'Timer1
         '
-        '
-        'LinkLabel1
-        '
-        resources.ApplyResources(Me.LinkLabel1, "LinkLabel1")
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.TabStop = True
         '
         'frmMain
         '

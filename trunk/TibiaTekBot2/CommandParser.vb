@@ -1059,55 +1059,8 @@ Public Module CommandParserModule
 #Region " Test Command "
 
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
-        Exit Sub
         Core.ConsoleWrite("Begin Test")
-        'OpenIrcChannel("#ההה", 106)
-        Select Case Arguments(2).ToString.ToLower
-            Case "fisherspeed"
-                Core.ConsoleWrite(Core.FisherTimerObj.Interval.ToString)
-            Case "bl"
-                Dim BL As New BattleList
-                BL.JumpToEntity(SpecialEntity.Myself)
-                Core.ConsoleWrite("BL: " & BL.GetLocation.Z & " Core:" & Core.CharacterLoc.Z)
-            Case "attacker"
-                Dim BL As New BattleList
-                Dim MyBl As New BattleList
-                Dim AttackerMonsters As SortedList
-                MyBl.JumpToEntity(SpecialEntity.Myself)
-                BL.Reset()
-                AttackerMonsters = New SortedList
-                AttackerMonsters.Clear()
-                Do
-                    If BL.IsMyself Then Continue Do
-                    If BL.IsPlayer Then Continue Do
-                    If Not BL.IsOnScreen Then Continue Do
-                    If BL.GetLocation.Z = MyBl.GetLocation.Z Then
-                        If Not AttackerMonsters.ContainsKey(BL.GetDistance) Then
-                            AttackerMonsters.Add(BL.GetDistance, BL.GetEntityID)
-                            Core.ConsoleWrite(BL.GetName)
-                        End If
-                    End If
-                Loop While BL.NextEntity
-                If AttackerMonsters.Count > 0 Then
-                    Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(AttackerMonsters.GetByIndex(0)))
-                    Core.WriteMemory(Consts.ptrAttackedEntityID, AttackerMonsters.GetByIndex(0), 4)
-                End If
-            Case Else
-                Select Case Core.CBState
-                    Case CavebotState.Attacking
-                        Core.ConsoleWrite("Attaking")
-                    Case CavebotState.Looting
-                        Core.ConsoleWrite("Looting")
-                    Case CavebotState.None
-                        Core.ConsoleWrite("None")
-                    Case CavebotState.OpeningBody
-                        Core.ConsoleWrite("Open Body")
-                    Case CavebotState.Walking
-                        Core.ConsoleWrite("Walking")
-                End Select
-        End Select
         Core.ConsoleWrite("End Test")
-
     End Sub
 
 #End Region
