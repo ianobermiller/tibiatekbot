@@ -1853,14 +1853,14 @@ Public Module CoreModule
                 Dim BlankRuneID As UShort = Definitions.GetItemID("Blank")
                 Dim Found As Boolean = False
                 Dim Count As Integer = 0
-                If RunemakerManaPoints = 0 OrElse RunemakerSoulPoints = 0 Then Exit Sub
+                If RunemakerManaPoints = 0 OrElse RunemakerSoulPoints < 0 Then Exit Sub
 
                 'continue only if there enough mana
                 If ManaPoints < RunemakerManaPoints OrElse ManaPoints < RunemakerSpell.ManaPoints Then
                     Exit Sub
                 End If
                 'exit if not enough soulpoints
-                If SoulPoints < RunemakerSoulPoints OrElse SoulPoints < RunemakerSpell.SoulPoints Then
+                If RunemakerSoulPoints > 0 AndAlso (SoulPoints < RunemakerSoulPoints OrElse SoulPoints < RunemakerSpell.SoulPoints) Then
                     RunemakerManaPoints = 0
                     RunemakerSoulPoints = 0
                     RunemakerTimerObj.StopTimer()
