@@ -22,7 +22,7 @@ By default, when an alarm is activated musical notes will appear on the characte
   * *Yellow notes:* status alarm is activated.
   * *Green notes:* items alarm is activated.
 
-You can turn off the musical notes by setting as "_False_" the "_MusicaNotesOnAlarm_" constant via the [ConstantsEditor Constants Editor].
+You can turn off the musical notes by setting as "_False_" the "`MusicalNotesOnAlarm`" constant via the [ConstantsEditor Constants Editor].
 
 = Alarm Types =
 
