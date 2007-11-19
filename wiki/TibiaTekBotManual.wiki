@@ -31,8 +31,6 @@ VII. Help & Support
 
  C. Feedback Command
 
- D. Your Duty
-
 = Manual =
 
 ==I. Requirements==
@@ -49,7 +47,7 @@ To download [TibiaTekBot TibiaTek Bot] go to [TibiaTek]'s Official Website at ht
 
 === A. Programmers === 
 
-If you want to download the latest sources of [TibiaTekBot [TibiaTekBot TibiaTek Bot]] there are two ways of doing so:
+If you want to download the latest sources of [TibiaTekBot TibiaTek Bot] there are two ways of doing so:
 
 *1. SVN*
 You can connect to our SVN using the following command:
@@ -113,7 +111,7 @@ Not yet available.
 
 === C. Alarms ===
 
-Not yet available.
+For more information about this feature go to the [TibiaTekBotAlarms Alarms] page.
 
 === D. Constants Editor ===
 
