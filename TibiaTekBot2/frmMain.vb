@@ -39,6 +39,19 @@ Public Class frmMain
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+            Dim R As New Random(System.DateTime.Now.Millisecond)
+            Select Case R.Next(0, 5)
+                Case 0
+                    Me.PictureBox1.Image = My.Resources.ttb_splash0
+                Case 1
+                    Me.PictureBox1.Image = My.Resources.ttb_splash1
+                Case 2
+                    Me.PictureBox1.Image = My.Resources.ttb_splash2
+                Case 3
+                    Me.PictureBox1.Image = My.Resources.ttb_splash3
+                Case 4
+                    Me.PictureBox1.Image = My.Resources.ttb_splash4
+            End Select
             'MsgBox(System.Text.Encoding.GetEncoding("iso-8859-1").EncodingName)
             'For Each Encoding As System.Text.EncodingInfo In System.Text.Encoding.GetEncodings
             'MsgBox(Encoding.Name)
@@ -62,12 +75,18 @@ Public Class frmMain
                     SpellCasterSpell.Items.Add(Spell.Words)
                 End If
             Next
+            If SpellCasterSpell.Items.Count > 0 Then
+                SpellCasterSpell.SelectedIndex = 0
+            End If
             ' Runemaker
             For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
                 If Spell.Kind = SpellKind.Rune Then
                     RunemakerSpell.Items.Add(Spell.Name)
                 End If
             Next
+            If RunemakerSpell.Items.Count > 0 Then
+                RunemakerSpell.SelectedIndex = 0
+            End If
             ' Auto Stacker
             AutoStackerDelay.Value = Consts.AutoStackerDelay
             ' Auto Eater
@@ -1868,5 +1887,21 @@ Public Class frmMain
 
     Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
         System.Diagnostics.Process.Start(BotWebsite)
+    End Sub
+
+    Private Sub TabPage10_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TabPage10.Enter
+        Dim R As New Random(System.DateTime.Now.Millisecond)
+        Select Case R.Next(0, 5)
+            Case 0
+                Me.PictureBox1.Image = My.Resources.ttb_splash0
+            Case 1
+                Me.PictureBox1.Image = My.Resources.ttb_splash1
+            Case 2
+                Me.PictureBox1.Image = My.Resources.ttb_splash2
+            Case 3
+                Me.PictureBox1.Image = My.Resources.ttb_splash3
+            Case 4
+                Me.PictureBox1.Image = My.Resources.ttb_splash4
+        End Select
     End Sub
 End Class

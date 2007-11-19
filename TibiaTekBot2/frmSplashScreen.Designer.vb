@@ -50,7 +50,7 @@ Partial Class frmSplashScreen
         'Timer1
         '
         Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 2000
+        Me.Timer1.Interval = 3000
         '
         'Label1
         '
@@ -81,7 +81,6 @@ Partial Class frmSplashScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.ClientSize = New System.Drawing.Size(400, 240)
         Me.ControlBox = False
         Me.Controls.Add(Me.Label2)
