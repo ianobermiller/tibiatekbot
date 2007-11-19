@@ -1733,9 +1733,8 @@ Public Module CommandParserModule
 
     Private Sub CmdAbout()
         Core.ConsoleWrite(BotName & " v" & BotVersion & "." & Ret & _
-        "Developers: Cameri, OsQu." & Ret & _
-        "Graphics: Genosonic." & Ret & _
-        "Powered by PProxy v2.0, developed by CPargermer." & Ret & _
+        "It is written by the TibiaTek Development Team, " & Ret & _
+        "and held at http://tibiatekbot.googlecode.com/" & Ret & _
         "For versioning information, type: &version." & Ret & _
         "To go to our website, type: &website.")
     End Sub

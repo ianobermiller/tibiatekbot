@@ -541,9 +541,21 @@ Public Class frmMain
             If MessageBox.Show("Please find the location of your Tibia Client.", "Notice", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Forms.DialogResult.Cancel Then
                 End
             End If
-            If dlgOpen.ShowDialog() = Forms.DialogResult.Cancel Then
-                End
-            End If
+            Dim Found As Boolean = False
+            Do
+                If dlgOpen.ShowDialog() = Forms.DialogResult.Cancel Then
+                    End
+                End If
+                Dim FVI As FileVersionInfo = FileVersionInfo.GetVersionInfo(dlgOpen.FileName)
+                If Not FVI Is Nothing AndAlso Not FVI.FileVersion Is Nothing AndAlso Not FVI.ProductName Is Nothing Then
+                    Found = FVI.FileVersion.Equals(TibiaFileVersion) AndAlso FVI.ProductName.Equals(TibiaProductName)
+                End If
+                If Not Found Then
+                    If MessageBox.Show("You must select a valid Tibia.exe.", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) = Forms.DialogResult.Cancel Then
+                        End
+                    End If
+                End If
+            Loop While Not Found
             For I As Integer = dlgOpen.FileName.Length - 1 To 0 Step -1
                 If dlgOpen.FileName.Chars(I) = "\" Then
                     Directory = Strings.Left(dlgOpen.FileName, I)
@@ -789,7 +801,7 @@ Public Class frmMain
                     Core.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
                 End If
             Else
-                MessageBox.Show("You are currently in-game.")
+                MessageBox.Show("You must be logged out to change the login server.")
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

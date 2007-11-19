@@ -155,11 +155,9 @@ Public Class PProxy2
 
     Public Function Exists() As Boolean
         Try
-            'MsgBox(Hex(Client.Handle.ToInt32))
             Client.Refresh()
             Dim Result As Boolean = Client.WaitForInputIdle()
             Client.Refresh()
-            'ClientHandle = Client.Handle
             Return Result
         Catch
         End Try
