@@ -61,6 +61,7 @@
     <Item Name="Green Mushroom" Kind="Food" ID="He94"/>
     <Item Name="Roll" Kind="Food" ID="He11"/>
     <Item Name="Salmon" Kind="Food" ID="Hdfb"/>
+	<Item Name="Orange" Kind="Food" ID="HE02"/>
     <Item Name="Rope" Kind="Tool" ID="HBBB"/>
     <Item Name="Shovel" Kind="Tool" ID="HD81"/>
     <Item Name="Light Shovel" Kind="Tool" ID="H164E" />
