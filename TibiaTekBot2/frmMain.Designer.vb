@@ -378,6 +378,16 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.HealerBox = New System.Windows.Forms.GroupBox
+        Me.HealerTrigger = New System.Windows.Forms.CheckBox
+        Me.HealPercentHP = New System.Windows.Forms.NumericUpDown
+        Me.HealUsePercent = New System.Windows.Forms.RadioButton
+        Me.HealMinHP = New System.Windows.Forms.NumericUpDown
+        Me.HealUsePoints = New System.Windows.Forms.RadioButton
+        Me.HealSpell = New System.Windows.Forms.ComboBox
+        Me.HealSpelllbl = New System.Windows.Forms.Label
+        Me.HealType = New System.Windows.Forms.ComboBox
+        Me.HealWithlbl = New System.Windows.Forms.Label
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -423,6 +433,7 @@ Partial Class frmMain
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.HealingTabControl.SuspendLayout()
+        Me.TabPage23.SuspendLayout()
         Me.TabPage7.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
@@ -438,6 +449,9 @@ Partial Class frmMain
         Me.GroupBox16.SuspendLayout()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HealerBox.SuspendLayout()
+        CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NotifyIcon
@@ -2078,6 +2092,7 @@ Partial Class frmMain
         '
         'TabPage23
         '
+        Me.TabPage23.Controls.Add(Me.HealerBox)
         resources.ApplyResources(Me.TabPage23, "TabPage23")
         Me.TabPage23.Name = "TabPage23"
         Me.TabPage23.UseVisualStyleBackColor = True
@@ -2444,6 +2459,77 @@ Partial Class frmMain
         'Timer1
         '
         '
+        'HealerBox
+        '
+        Me.HealerBox.Controls.Add(Me.HealerTrigger)
+        Me.HealerBox.Controls.Add(Me.HealPercentHP)
+        Me.HealerBox.Controls.Add(Me.HealUsePercent)
+        Me.HealerBox.Controls.Add(Me.HealMinHP)
+        Me.HealerBox.Controls.Add(Me.HealUsePoints)
+        Me.HealerBox.Controls.Add(Me.HealSpell)
+        Me.HealerBox.Controls.Add(Me.HealSpelllbl)
+        Me.HealerBox.Controls.Add(Me.HealType)
+        Me.HealerBox.Controls.Add(Me.HealWithlbl)
+        resources.ApplyResources(Me.HealerBox, "HealerBox")
+        Me.HealerBox.Name = "HealerBox"
+        Me.HealerBox.TabStop = False
+        '
+        'HealerTrigger
+        '
+        resources.ApplyResources(Me.HealerTrigger, "HealerTrigger")
+        Me.HealerTrigger.Name = "HealerTrigger"
+        Me.HealerTrigger.UseVisualStyleBackColor = True
+        '
+        'HealPercentHP
+        '
+        resources.ApplyResources(Me.HealPercentHP, "HealPercentHP")
+        Me.HealPercentHP.Name = "HealPercentHP"
+        '
+        'HealUsePercent
+        '
+        resources.ApplyResources(Me.HealUsePercent, "HealUsePercent")
+        Me.HealUsePercent.Name = "HealUsePercent"
+        Me.HealUsePercent.TabStop = True
+        Me.HealUsePercent.UseVisualStyleBackColor = True
+        '
+        'HealMinHP
+        '
+        resources.ApplyResources(Me.HealMinHP, "HealMinHP")
+        Me.HealMinHP.Maximum = New Decimal(New Integer() {999999999, 0, 0, 0})
+        Me.HealMinHP.Name = "HealMinHP"
+        '
+        'HealUsePoints
+        '
+        resources.ApplyResources(Me.HealUsePoints, "HealUsePoints")
+        Me.HealUsePoints.Name = "HealUsePoints"
+        Me.HealUsePoints.TabStop = True
+        Me.HealUsePoints.UseVisualStyleBackColor = True
+        '
+        'HealSpell
+        '
+        Me.HealSpell.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.HealSpell.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        resources.ApplyResources(Me.HealSpell, "HealSpell")
+        Me.HealSpell.FormattingEnabled = True
+        Me.HealSpell.Name = "HealSpell"
+        '
+        'HealSpelllbl
+        '
+        resources.ApplyResources(Me.HealSpelllbl, "HealSpelllbl")
+        Me.HealSpelllbl.Name = "HealSpelllbl"
+        '
+        'HealType
+        '
+        Me.HealType.FormattingEnabled = True
+        Me.HealType.Items.AddRange(New Object() {resources.GetString("HealType.Items"), resources.GetString("HealType.Items1"), resources.GetString("HealType.Items2")})
+        resources.ApplyResources(Me.HealType, "HealType")
+        Me.HealType.Name = "HealType"
+        '
+        'HealWithlbl
+        '
+        resources.ApplyResources(Me.HealWithlbl, "HealWithlbl")
+        Me.HealWithlbl.Name = "HealWithlbl"
+        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -2523,6 +2609,7 @@ Partial Class frmMain
         Me.TableLayoutPanel2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.HealingTabControl.ResumeLayout(False)
+        Me.TabPage23.ResumeLayout(False)
         Me.TabPage7.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox11.ResumeLayout(False)
@@ -2546,6 +2633,10 @@ Partial Class frmMain
         Me.GroupBox16.PerformLayout()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HealerBox.ResumeLayout(False)
+        Me.HealerBox.PerformLayout()
+        CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2888,4 +2979,14 @@ Partial Class frmMain
     Friend WithEvents CheckBox8 As System.Windows.Forms.CheckBox
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
+    Friend WithEvents HealerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents HealerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents HealPercentHP As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealUsePercent As System.Windows.Forms.RadioButton
+    Friend WithEvents HealMinHP As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealUsePoints As System.Windows.Forms.RadioButton
+    Friend WithEvents HealSpell As System.Windows.Forms.ComboBox
+    Friend WithEvents HealSpelllbl As System.Windows.Forms.Label
+    Friend WithEvents HealType As System.Windows.Forms.ComboBox
+    Friend WithEvents HealWithlbl As System.Windows.Forms.Label
 End Class

@@ -188,6 +188,7 @@ Public Module CoreModule
         Public SpellMsg As String = ""
         Public SpellManaRequired As Integer = 0
         Public UHHPRequired As Integer = 0
+        Public UHId As Integer = 0
         Public AdvertiseMsg As String = ""
         Public AutoEaterSmart As Integer = 0
         Public SendLocationDestinatary As String = ""
@@ -1038,7 +1039,7 @@ Public Module CoreModule
                 AmuletID = 0
                 RingChangerTimerObj.StopTimer()
                 RingID = 0
-                If Not IRCClient Is Nothing Then
+                If Not IRCClient Is Nothing And Consts.IRCConnectOnStartUp Then
                     IRCClient.Quit()
                     IRCClient.Channels.Clear()
                 End If
@@ -2362,7 +2363,6 @@ Public Module CoreModule
         Private Sub UHTimerObj_Execute() Handles UHTimerObj.OnExecute
             Try
                 If Not InGame() Then Exit Sub
-                Dim UHID As UShort = Definitions.GetItemID("Ultimate Healing")
                 If UHTimerObj.Interval > Consts.HealersCheckInterval Then UHTimerObj.Interval = Consts.HealersCheckInterval
                 If UHHPRequired = 0 Then
                     UHTimerObj.StopTimer()
