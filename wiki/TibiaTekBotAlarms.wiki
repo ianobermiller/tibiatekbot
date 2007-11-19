@@ -11,7 +11,7 @@ All tabs contain an _Actions_ box. This box configures what actions to take if c
 
   * *Play Sound:* plays a certain sound depending on the alarm type.
   * *Logout:* attempts to logout the player.
-  * *Messager Player:* checks whether a certain player has to be informed.
+  * *Message Player:* checks whether a certain player has to be informed.
   * *Player To Be Messaged:* sends a message informing of the activated alarm to the player whose name is written on this input.
 
 == Colored Musical Notes ==
