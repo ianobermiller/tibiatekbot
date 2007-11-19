@@ -1,6 +1,7 @@
 #labels Phase-Implementation
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
+|| Nov 19, 2007 || Added Self-Healing to the GUI (Issue #14) || Oskari.Virtanen||
 || Nov 18, 2007 || Added General and AFK menus to the GUI (Issue #14) || Oskari.Virtanen ||
 || Nov 18, 2007 || Implemented Irc Client || Cameri2005 ||
 || Nov 12, 2007 || Added a couple of features to the General Tab for the new Gui (Issue #14) || Oskari.Virtanen ||
