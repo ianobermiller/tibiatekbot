@@ -111,6 +111,16 @@ Public Class frmMain
             StatsUploaderUser.Text = Consts.StatsUploaderUserID
             StatsUploaderPassword.Text = Consts.StatsUploaderPassword
             StatsUploaderSaveToDisk.Checked = Consts.StatsUploaderSaveOnDiskOnly
+            'Healer
+            HealType.Text = "Ultimate Healing Rune"
+            For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                If Spell.Kind <> SpellKind.Rune And Spell.Kind = SpellKind.Healing Then
+                    HealSpell.Items.Add(Spell.Words)
+                End If
+            Next
+            HealUsePoints.Checked = True
+            HealPercentHP.Enabled = False
+
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -171,6 +181,67 @@ Public Class frmMain
             RefreshStatsUploaderControls()
             RefreshFpsChangerControls()
             RefreshAdvertiserControls()
+            RefreshHealerControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshHealerControls()
+        Try
+            If Core.HealTimerObj.State = ThreadTimerState.Running Or Core.UHTimerObj.State = ThreadTimerState.Running Then
+                HealerTrigger.Checked = True
+            Else
+                HealerTrigger.Checked = False
+            End If
+
+            If HealerTrigger.Checked = True Then
+                If Core.HealTimerObj.State = ThreadTimerState.Running Then
+                    HealType.Text = "Spell"
+                End If
+                If HealUsePoints.Checked Then
+                    Select Case HealType.Text
+                        Case "Spell"
+                            HealSpell.Text = Core.HealSpell.Words
+                            HealMinHP.Value = Core.HealMinimumHP
+                        Case "Intense Healing Rune", "Ultimate Healing Rune"
+                            HealMinHP.Value = Core.UHHPRequired
+                    End Select
+                Else
+                    Dim MaxHitPoints As Integer = 0
+                    Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                    Select Case HealType.Text
+                        Case "Spell"
+                            HealSpell.Text = Core.HealSpell.Words
+                            HealPercentHP.Value = CInt((Core.HealMinimumHP / MaxHitPoints) * 100)
+                        Case "Intense Healing Rune", "Ultimate Healing Rune"
+                            HealPercentHP.Value = CInt((Core.UHHPRequired / MaxHitPoints) * 100)
+                    End Select
+                End If
+                HealType.Enabled = False
+                HealSpell.Enabled = False
+                HealUsePoints.Enabled = False
+                HealMinHP.Enabled = False
+                HealUsePercent.Enabled = False
+                HealPercentHP.Enabled = False
+            Else
+                HealType.Enabled = True
+                If HealType.Text = "Spell" Then
+                    HealSpell.Enabled = True
+                Else
+                    HealSpell.Enabled = False
+                End If
+                HealUsePoints.Enabled = True
+                HealUsePercent.Enabled = True
+                If HealUsePoints.Checked Then
+                    HealPercentHP.Enabled = False
+                    HealMinHP.Enabled = True
+                Else
+                    HealPercentHP.Enabled = True
+                    HealMinHP.Enabled = False
+                End If
+            End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1903,5 +1974,107 @@ Public Class frmMain
             Case 4
                 Me.PictureBox1.Image = My.Resources.ttb_splash4
         End Select
+    End Sub
+
+    Private Sub HealUsePoints_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealUsePoints.CheckedChanged
+        Try
+            If HealUsePoints.Checked Then
+                HealPercentHP.Enabled = False
+                HealMinHP.Enabled = True
+            Else
+                HealPercentHP.Enabled = True
+                HealMinHP.Enabled = False
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub HealType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealType.SelectedIndexChanged
+        Try
+            If HealType.Text = "Spell" Then
+                HealSpelllbl.Enabled = True
+                HealSpell.Enabled = True
+            Else
+                HealSpelllbl.Enabled = False
+                HealSpell.Enabled = False
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub HealerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealerTrigger.CheckedChanged
+        Try
+            If HealerTrigger.Checked = True Then
+                If Core.UHTimerObj.State = ThreadTimerState.Running Or Core.SpellTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If HealUsePoints.Checked AndAlso HealMinHP.Value = vbNull Then
+                    MessageBox.Show("The minimum Hit points must not be zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    RefreshHealerControls()
+                    Exit Sub
+                End If
+                If HealUsePercent.Checked AndAlso HealPercentHP.Value = vbNull Then
+                    MessageBox.Show("The percent of hit points must not be zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    RefreshHealerControls()
+                    Exit Sub
+                End If
+                Select Case HealType.Text
+                    Case "Spell"
+                        If String.IsNullOrEmpty(HealSpell.Text) Then
+                            MessageBox.Show("You must give the Spell words to use when healing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            RefreshHealerControls()
+                            Exit Sub
+                        End If
+                        If HealUsePoints.Checked Then
+                            Core.HealMinimumHP = HealMinHP.Value
+                        Else
+                            Dim MaxHitPoints As Integer = 0
+                            Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                            Core.HealMinimumHP = MaxHitPoints * (HealPercentHP.Value / 100)
+                        End If
+                        For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                            If Spell.Name.Equals(HealSpell.Text, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(HealSpell.Text, StringComparison.CurrentCultureIgnoreCase) Then
+                                If Spell.Kind = SpellKind.Healing Then
+                                    Core.HealSpell = Spell
+                                    Exit For
+                                Else
+                                    MessageBox.Show("You must enter healing spell.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                    RefreshHealerControls()
+                                    Exit Sub
+                                End If
+                            End If
+                        Next
+                        Core.HealComment = ""
+                        Core.HealTimerObj.StartTimer()
+                    Case "Ultimate Healing Rune", "Intense Healing Rune"
+                        If HealUsePoints.Checked Then
+                            Core.UHHPRequired = HealMinHP.Value
+                        Else
+                            Dim MaxHitPoints As Integer = 0
+                            Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                            Core.UHHPRequired = MaxHitPoints * (HealPercentHP.Value / 100)
+                        End If
+                        Select Case HealType.Text
+                            Case "Ultimate Healing Rune"
+                                Core.UHId = Definitions.GetItemID("Ultimate Healing")
+                            Case "Intense Healing Rune"
+                                Core.UHId = Definitions.GetItemID("Intense Healing")
+                        End Select
+                        Core.UHTimerObj.StartTimer()
+                End Select
+            Else
+                Core.UHTimerObj.StopTimer()
+                Core.UHHPRequired = 0
+                Core.HealTimerObj.StopTimer()
+                Core.HealMinimumHP = 0
+                Core.HealComment = ""
+            End If
+            RefreshHealerControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
     End Sub
 End Class

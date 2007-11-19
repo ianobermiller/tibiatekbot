@@ -1883,6 +1883,7 @@ Public Module CommandParserModule
                 Case Else
                     If IsNumeric(Value) AndAlso CInt(Value) > 0 Then
                         Core.UHHPRequired = CUInt(Value)
+                        Core.UHId = Definitions.GetItemID("Ultimate Healing")
                         Core.UHTimerObj.StartTimer()
                         Core.ConsoleWrite("Auto UHer will now 'UH' you if you are below " & Ret & _
                         Core.UHHPRequired & " hit points.")
