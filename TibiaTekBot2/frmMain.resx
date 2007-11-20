@@ -757,13 +757,13 @@
     <value>Auto &amp;UHer</value>
   </data>
   <data name="OnToolStripMenuItem15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="OnToolStripMenuItem15.Text" xml:space="preserve">
     <value>&amp;On</value>
   </data>
   <data name="OffToolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="OffToolStripMenuItem16.Text" xml:space="preserve">
     <value>O&amp;ff</value>
@@ -4234,6 +4234,30 @@
   <data name="HealingTabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="HealFriendBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 176</value>
+  </data>
+  <data name="HealFriendBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 119</value>
+  </data>
+  <data name="HealFriendBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="HealFriendBox.Text" xml:space="preserve">
+    <value>Friend Healer</value>
+  </data>
+  <data name="&gt;&gt;HealFriendBox.Name" xml:space="preserve">
+    <value>HealFriendBox</value>
+  </data>
+  <data name="&gt;&gt;HealFriendBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFriendBox.Parent" xml:space="preserve">
+    <value>TabPage23</value>
+  </data>
+  <data name="&gt;&gt;HealFriendBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="HealerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -4508,7 +4532,7 @@
     <value>TabPage23</value>
   </data>
   <data name="&gt;&gt;HealerBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="TabPage23.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
