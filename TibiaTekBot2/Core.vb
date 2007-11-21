@@ -3975,7 +3975,7 @@ Public Module CoreModule
                             'ConsoleWrite("Projectile type: " & Type.ToString & " (" & FromBL.GetName & "->" & ToBl.GetName & ") ")
                             If ComboBotEnabled Then
                                 If Type = 11 Then 'SD rune
-                                    If ComboBotLeader = FromBL.GetName Then
+                                    If ComboBotLeader.ToLower = FromBL.GetName.ToLower Then
                                         Proxy.SendPacketToServer(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), ToBl.GetEntityID))
                                     End If
                                 End If
