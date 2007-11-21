@@ -757,13 +757,13 @@
     <value>Auto &amp;UHer</value>
   </data>
   <data name="OnToolStripMenuItem15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>101, 22</value>
   </data>
   <data name="OnToolStripMenuItem15.Text" xml:space="preserve">
     <value>&amp;On</value>
   </data>
   <data name="OffToolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>101, 22</value>
   </data>
   <data name="OffToolStripMenuItem16.Text" xml:space="preserve">
     <value>O&amp;ff</value>
@@ -4636,6 +4636,54 @@
   <data name="&gt;&gt;TabPage3.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="MCPatcherButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 19</value>
+  </data>
+  <data name="MCPatcherButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="MCPatcherButton.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="MCPatcherButton.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherButton.Name" xml:space="preserve">
+    <value>MCPatcherButton</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherButton.Parent" xml:space="preserve">
+    <value>MCPatcherBox</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="MCPatcherBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 123</value>
+  </data>
+  <data name="MCPatcherBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 52</value>
+  </data>
+  <data name="MCPatcherBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="MCPatcherBox.Text" xml:space="preserve">
+    <value>Multi-Client Patcher</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.Name" xml:space="preserve">
+    <value>MCPatcherBox</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.Parent" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="MiscReloadTibiaDatButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -4790,7 +4838,7 @@
     <value>TabPage7</value>
   </data>
   <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="TabPage7.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

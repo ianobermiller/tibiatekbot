@@ -321,6 +321,7 @@ Partial Class frmMain
         Me.TabPage3 = New System.Windows.Forms.TabPage
         Me.HealingTabControl = New System.Windows.Forms.TabControl
         Me.TabPage23 = New System.Windows.Forms.TabPage
+        Me.HealFriendBox = New System.Windows.Forms.GroupBox
         Me.HealerBox = New System.Windows.Forms.GroupBox
         Me.HealerTrigger = New System.Windows.Forms.CheckBox
         Me.HealPercentHP = New System.Windows.Forms.NumericUpDown
@@ -333,6 +334,8 @@ Partial Class frmMain
         Me.HealWithlbl = New System.Windows.Forms.Label
         Me.TabPage24 = New System.Windows.Forms.TabPage
         Me.TabPage7 = New System.Windows.Forms.TabPage
+        Me.MCPatcherBox = New System.Windows.Forms.GroupBox
+        Me.MCPatcherButton = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.MiscReloadTibiaDatButton = New System.Windows.Forms.Button
         Me.MiscReloadOutfitsButton = New System.Windows.Forms.Button
@@ -388,7 +391,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.HealFriendBox = New System.Windows.Forms.GroupBox
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -439,6 +441,7 @@ Partial Class frmMain
         CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage7.SuspendLayout()
+        Me.MCPatcherBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
@@ -2099,6 +2102,12 @@ Partial Class frmMain
         Me.TabPage23.Name = "TabPage23"
         Me.TabPage23.UseVisualStyleBackColor = True
         '
+        'HealFriendBox
+        '
+        resources.ApplyResources(Me.HealFriendBox, "HealFriendBox")
+        Me.HealFriendBox.Name = "HealFriendBox"
+        Me.HealFriendBox.TabStop = False
+        '
         'HealerBox
         '
         Me.HealerBox.Controls.Add(Me.HealerTrigger)
@@ -2178,10 +2187,24 @@ Partial Class frmMain
         '
         'TabPage7
         '
+        Me.TabPage7.Controls.Add(Me.MCPatcherBox)
         Me.TabPage7.Controls.Add(Me.GroupBox1)
         resources.ApplyResources(Me.TabPage7, "TabPage7")
         Me.TabPage7.Name = "TabPage7"
         Me.TabPage7.UseVisualStyleBackColor = True
+        '
+        'MCPatcherBox
+        '
+        Me.MCPatcherBox.Controls.Add(Me.MCPatcherButton)
+        resources.ApplyResources(Me.MCPatcherBox, "MCPatcherBox")
+        Me.MCPatcherBox.Name = "MCPatcherBox"
+        Me.MCPatcherBox.TabStop = False
+        '
+        'MCPatcherButton
+        '
+        resources.ApplyResources(Me.MCPatcherButton, "MCPatcherButton")
+        Me.MCPatcherButton.Name = "MCPatcherButton"
+        Me.MCPatcherButton.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -2532,12 +2555,6 @@ Partial Class frmMain
         'Timer1
         '
         '
-        'HealFriendBox
-        '
-        resources.ApplyResources(Me.HealFriendBox, "HealFriendBox")
-        Me.HealFriendBox.Name = "HealFriendBox"
-        Me.HealFriendBox.TabStop = False
-        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -2623,6 +2640,7 @@ Partial Class frmMain
         CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage7.ResumeLayout(False)
+        Me.MCPatcherBox.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
@@ -2998,4 +3016,6 @@ Partial Class frmMain
     Friend WithEvents HealType As System.Windows.Forms.ComboBox
     Friend WithEvents HealWithlbl As System.Windows.Forms.Label
     Friend WithEvents HealFriendBox As System.Windows.Forms.GroupBox
+    Friend WithEvents MCPatcherBox As System.Windows.Forms.GroupBox
+    Friend WithEvents MCPatcherButton As System.Windows.Forms.Button
 End Class
