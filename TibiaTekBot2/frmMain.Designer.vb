@@ -322,6 +322,13 @@ Partial Class frmMain
         Me.HealingTabControl = New System.Windows.Forms.TabControl
         Me.TabPage23 = New System.Windows.Forms.TabPage
         Me.HealFriendBox = New System.Windows.Forms.GroupBox
+        Me.HealFriendTrigger = New System.Windows.Forms.CheckBox
+        Me.HealFHp = New System.Windows.Forms.NumericUpDown
+        Me.HealFHplbl = New System.Windows.Forms.Label
+        Me.HealFName = New System.Windows.Forms.TextBox
+        Me.HealFNamelbl = New System.Windows.Forms.Label
+        Me.HealFType = New System.Windows.Forms.ComboBox
+        Me.HealFTypelbl = New System.Windows.Forms.Label
         Me.HealerBox = New System.Windows.Forms.GroupBox
         Me.HealerTrigger = New System.Windows.Forms.CheckBox
         Me.HealPercentHP = New System.Windows.Forms.NumericUpDown
@@ -333,6 +340,16 @@ Partial Class frmMain
         Me.HealType = New System.Windows.Forms.ComboBox
         Me.HealWithlbl = New System.Windows.Forms.Label
         Me.TabPage24 = New System.Windows.Forms.TabPage
+        Me.DrinkerBox = New System.Windows.Forms.GroupBox
+        Me.DrinkerTrigger = New System.Windows.Forms.CheckBox
+        Me.DrinkerManaPoints = New System.Windows.Forms.NumericUpDown
+        Me.DrinkerManalbl = New System.Windows.Forms.Label
+        Me.HealPartyBox = New System.Windows.Forms.GroupBox
+        Me.HealPartyTrigger = New System.Windows.Forms.CheckBox
+        Me.HealPHp = New System.Windows.Forms.NumericUpDown
+        Me.HealP = New System.Windows.Forms.Label
+        Me.HealPType = New System.Windows.Forms.ComboBox
+        Me.HealPlbl = New System.Windows.Forms.Label
         Me.TabPage7 = New System.Windows.Forms.TabPage
         Me.MCPatcherBox = New System.Windows.Forms.GroupBox
         Me.MCPatcherButton = New System.Windows.Forms.Button
@@ -437,9 +454,16 @@ Partial Class frmMain
         Me.TabPage3.SuspendLayout()
         Me.HealingTabControl.SuspendLayout()
         Me.TabPage23.SuspendLayout()
+        Me.HealFriendBox.SuspendLayout()
+        CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.HealerBox.SuspendLayout()
         CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage24.SuspendLayout()
+        Me.DrinkerBox.SuspendLayout()
+        CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HealPartyBox.SuspendLayout()
+        CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage7.SuspendLayout()
         Me.MCPatcherBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -2104,9 +2128,55 @@ Partial Class frmMain
         '
         'HealFriendBox
         '
+        Me.HealFriendBox.Controls.Add(Me.HealFriendTrigger)
+        Me.HealFriendBox.Controls.Add(Me.HealFHp)
+        Me.HealFriendBox.Controls.Add(Me.HealFHplbl)
+        Me.HealFriendBox.Controls.Add(Me.HealFName)
+        Me.HealFriendBox.Controls.Add(Me.HealFNamelbl)
+        Me.HealFriendBox.Controls.Add(Me.HealFType)
+        Me.HealFriendBox.Controls.Add(Me.HealFTypelbl)
         resources.ApplyResources(Me.HealFriendBox, "HealFriendBox")
         Me.HealFriendBox.Name = "HealFriendBox"
         Me.HealFriendBox.TabStop = False
+        '
+        'HealFriendTrigger
+        '
+        resources.ApplyResources(Me.HealFriendTrigger, "HealFriendTrigger")
+        Me.HealFriendTrigger.Name = "HealFriendTrigger"
+        Me.HealFriendTrigger.UseVisualStyleBackColor = True
+        '
+        'HealFHp
+        '
+        resources.ApplyResources(Me.HealFHp, "HealFHp")
+        Me.HealFHp.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.HealFHp.Name = "HealFHp"
+        '
+        'HealFHplbl
+        '
+        resources.ApplyResources(Me.HealFHplbl, "HealFHplbl")
+        Me.HealFHplbl.Name = "HealFHplbl"
+        '
+        'HealFName
+        '
+        resources.ApplyResources(Me.HealFName, "HealFName")
+        Me.HealFName.Name = "HealFName"
+        '
+        'HealFNamelbl
+        '
+        resources.ApplyResources(Me.HealFNamelbl, "HealFNamelbl")
+        Me.HealFNamelbl.Name = "HealFNamelbl"
+        '
+        'HealFType
+        '
+        Me.HealFType.FormattingEnabled = True
+        Me.HealFType.Items.AddRange(New Object() {resources.GetString("HealFType.Items"), resources.GetString("HealFType.Items1"), resources.GetString("HealFType.Items2")})
+        resources.ApplyResources(Me.HealFType, "HealFType")
+        Me.HealFType.Name = "HealFType"
+        '
+        'HealFTypelbl
+        '
+        resources.ApplyResources(Me.HealFTypelbl, "HealFTypelbl")
+        Me.HealFTypelbl.Name = "HealFTypelbl"
         '
         'HealerBox
         '
@@ -2144,7 +2214,7 @@ Partial Class frmMain
         'HealMinHP
         '
         resources.ApplyResources(Me.HealMinHP, "HealMinHP")
-        Me.HealMinHP.Maximum = New Decimal(New Integer() {999999999, 0, 0, 0})
+        Me.HealMinHP.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
         Me.HealMinHP.Name = "HealMinHP"
         '
         'HealUsePoints
@@ -2181,9 +2251,77 @@ Partial Class frmMain
         '
         'TabPage24
         '
+        Me.TabPage24.Controls.Add(Me.DrinkerBox)
+        Me.TabPage24.Controls.Add(Me.HealPartyBox)
         resources.ApplyResources(Me.TabPage24, "TabPage24")
         Me.TabPage24.Name = "TabPage24"
         Me.TabPage24.UseVisualStyleBackColor = True
+        '
+        'DrinkerBox
+        '
+        Me.DrinkerBox.Controls.Add(Me.DrinkerTrigger)
+        Me.DrinkerBox.Controls.Add(Me.DrinkerManaPoints)
+        Me.DrinkerBox.Controls.Add(Me.DrinkerManalbl)
+        resources.ApplyResources(Me.DrinkerBox, "DrinkerBox")
+        Me.DrinkerBox.Name = "DrinkerBox"
+        Me.DrinkerBox.TabStop = False
+        '
+        'DrinkerTrigger
+        '
+        resources.ApplyResources(Me.DrinkerTrigger, "DrinkerTrigger")
+        Me.DrinkerTrigger.Name = "DrinkerTrigger"
+        Me.DrinkerTrigger.UseVisualStyleBackColor = True
+        '
+        'DrinkerManaPoints
+        '
+        resources.ApplyResources(Me.DrinkerManaPoints, "DrinkerManaPoints")
+        Me.DrinkerManaPoints.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.DrinkerManaPoints.Name = "DrinkerManaPoints"
+        '
+        'DrinkerManalbl
+        '
+        resources.ApplyResources(Me.DrinkerManalbl, "DrinkerManalbl")
+        Me.DrinkerManalbl.Name = "DrinkerManalbl"
+        '
+        'HealPartyBox
+        '
+        Me.HealPartyBox.Controls.Add(Me.HealPartyTrigger)
+        Me.HealPartyBox.Controls.Add(Me.HealPHp)
+        Me.HealPartyBox.Controls.Add(Me.HealP)
+        Me.HealPartyBox.Controls.Add(Me.HealPType)
+        Me.HealPartyBox.Controls.Add(Me.HealPlbl)
+        resources.ApplyResources(Me.HealPartyBox, "HealPartyBox")
+        Me.HealPartyBox.Name = "HealPartyBox"
+        Me.HealPartyBox.TabStop = False
+        '
+        'HealPartyTrigger
+        '
+        resources.ApplyResources(Me.HealPartyTrigger, "HealPartyTrigger")
+        Me.HealPartyTrigger.Name = "HealPartyTrigger"
+        Me.HealPartyTrigger.UseVisualStyleBackColor = True
+        '
+        'HealPHp
+        '
+        resources.ApplyResources(Me.HealPHp, "HealPHp")
+        Me.HealPHp.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.HealPHp.Name = "HealPHp"
+        '
+        'HealP
+        '
+        resources.ApplyResources(Me.HealP, "HealP")
+        Me.HealP.Name = "HealP"
+        '
+        'HealPType
+        '
+        Me.HealPType.FormattingEnabled = True
+        Me.HealPType.Items.AddRange(New Object() {resources.GetString("HealPType.Items"), resources.GetString("HealPType.Items1"), resources.GetString("HealPType.Items2")})
+        resources.ApplyResources(Me.HealPType, "HealPType")
+        Me.HealPType.Name = "HealPType"
+        '
+        'HealPlbl
+        '
+        resources.ApplyResources(Me.HealPlbl, "HealPlbl")
+        Me.HealPlbl.Name = "HealPlbl"
         '
         'TabPage7
         '
@@ -2635,10 +2773,20 @@ Partial Class frmMain
         Me.TabPage3.ResumeLayout(False)
         Me.HealingTabControl.ResumeLayout(False)
         Me.TabPage23.ResumeLayout(False)
+        Me.HealFriendBox.ResumeLayout(False)
+        Me.HealFriendBox.PerformLayout()
+        CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.HealerBox.ResumeLayout(False)
         Me.HealerBox.PerformLayout()
         CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage24.ResumeLayout(False)
+        Me.DrinkerBox.ResumeLayout(False)
+        Me.DrinkerBox.PerformLayout()
+        CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HealPartyBox.ResumeLayout(False)
+        Me.HealPartyBox.PerformLayout()
+        CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage7.ResumeLayout(False)
         Me.MCPatcherBox.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
@@ -3016,6 +3164,23 @@ Partial Class frmMain
     Friend WithEvents HealType As System.Windows.Forms.ComboBox
     Friend WithEvents HealWithlbl As System.Windows.Forms.Label
     Friend WithEvents HealFriendBox As System.Windows.Forms.GroupBox
+    Friend WithEvents HealFType As System.Windows.Forms.ComboBox
+    Friend WithEvents HealFTypelbl As System.Windows.Forms.Label
+    Friend WithEvents HealFName As System.Windows.Forms.TextBox
+    Friend WithEvents HealFNamelbl As System.Windows.Forms.Label
+    Friend WithEvents HealFHplbl As System.Windows.Forms.Label
+    Friend WithEvents HealFriendTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents HealFHp As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealPartyBox As System.Windows.Forms.GroupBox
+    Friend WithEvents HealPType As System.Windows.Forms.ComboBox
+    Friend WithEvents HealPlbl As System.Windows.Forms.Label
+    Friend WithEvents HealPartyTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents HealPHp As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealP As System.Windows.Forms.Label
+    Friend WithEvents DrinkerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents DrinkerManalbl As System.Windows.Forms.Label
+    Friend WithEvents DrinkerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents DrinkerManaPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents MCPatcherBox As System.Windows.Forms.GroupBox
     Friend WithEvents MCPatcherButton As System.Windows.Forms.Button
 End Class
