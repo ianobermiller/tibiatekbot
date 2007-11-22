@@ -163,6 +163,7 @@ Public Module CoreModule
         Public WithEvents AmuletChangerTimerObj As ThreadTimer
         Public WithEvents RingChangerTimerObj As ThreadTimer
         Public WithEvents IRCClient As IrcClient
+        Public WithEvents AntiLogoutObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -325,6 +326,8 @@ Public Module CoreModule
         Public AmuletID As Integer = 0
 
         Public RingID As Integer = 0
+
+        Public LastActivity As Date = Date.Now
 #End Region
 
 #Region " Memory Reading/Writing "
@@ -539,6 +542,7 @@ Public Module CoreModule
                 AmuletChangerTimerObj = New ThreadTimer(300)
                 RingChangerTimerObj = New ThreadTimer(300)
                 IRCClient = New IrcClient(IRCServer, IRCPort)
+                AntiLogoutObj = New ThreadTimer()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -1039,6 +1043,7 @@ Public Module CoreModule
                 AmuletID = 0
                 RingChangerTimerObj.StopTimer()
                 RingID = 0
+                AntiLogoutObj.StopTimer()
                 If Not IRCClient Is Nothing And Consts.IRCConnectOnStartUp Then
                     IRCClient.Quit()
                     IRCClient.Channels.Clear()
@@ -3090,6 +3095,38 @@ Public Module CoreModule
         End Sub
 #End Region
 
+#Region " Anti-Logout Timer "
+
+        Public Sub AntiLogoutObj_Execute() Handles AntiLogoutObj.OnExecute
+            Try
+                If Not InGame() Then Exit Sub
+                Dim IdleTime As TimeSpan = Date.Now.Subtract(LastActivity)
+                If IdleTime.TotalMinutes <= 14 Then Exit Sub
+                Dim BL As New BattleList
+                Dim MyLastDirection As Integer
+                Dim RandNum As New Random(Date.Now.Millisecond)
+                BL.JumpToEntity(SpecialEntity.Myself)
+                MyLastDirection = BL.GetDirection
+                Select Case BL.GetDirection
+                    Case Directions.Up
+                        Proxy.SendPacketToServer(CharacterTurn(Directions.Down))
+                    Case Directions.Down
+                        Proxy.SendPacketToServer(CharacterTurn(Directions.Up))
+                    Case Directions.Right
+                        Proxy.SendPacketToServer(CharacterTurn(Directions.Left))
+                    Case Directions.Left
+                        Proxy.SendPacketToServer(CharacterTurn(Directions.Right))
+                End Select
+                System.Threading.Thread.Sleep(RandNum.Next(2000, 5001))
+                Proxy.SendPacketToServer(CharacterTurn(MyLastDirection))
+                LastActivity = Date.Now
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Sub
+#End Region
+
 #End Region
 
 #Region " IRC Client "
@@ -3443,6 +3480,7 @@ Public Module CoreModule
                         'Case &H64 'Clicked Map or Ground, so Player Moving
                         'Case &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D 'Player Moving
                     Case &H88 'go to parent
+                        LastActivity = Date.Now
                         Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
                         Dim MyContainer As New Container
                         If ContainerIndex = &HF Then
@@ -3454,6 +3492,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H78 'move object
+                        LastActivity = Date.Now
                         Dim Source As LocationDefinition = GetLocation(bytBuffer, Pos)
                         Dim ItemID As UShort = GetWord(bytBuffer, Pos)
                         Dim Slot As Integer = GetByte(bytBuffer, Pos)
@@ -3505,6 +3544,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H82 'use item
+                        LastActivity = Date.Now
                         Dim Location As LocationDefinition = GetLocation(bytBuffer, Pos)
                         Dim ItemID As Integer = GetWord(bytBuffer, Pos)
                         Dim Slot As Integer = GetByte(bytBuffer, Pos)
@@ -3582,6 +3622,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H83 'Use Item With
+                        LastActivity = Date.Now
                         Pos += 2
                         Dim Cont As New ContainerItemDefinition
                         Cont.ContainerIndex = GetByte(bytBuffer, Pos)
@@ -3609,8 +3650,10 @@ Public Module CoreModule
                         End If
                     Case &H84 'Use hotkey
                         'Core.ConsoleWrite(BytesToStr(bytBuffer))
+                        LastActivity = Date.Now
                         Pos += 13
                     Case &H8A
+                        LastActivity = Date.Now
                         Dim SpellID As Integer = GetByte(bytBuffer, Pos)
                         GetDWord(bytBuffer, Pos)
                         Select Case SpellID
@@ -3642,6 +3685,7 @@ Public Module CoreModule
                                 Send = False
                         End Select
                     Case &H96 'message
+                        LastActivity = Date.Now
                         Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
                         If MessageType = MessageType.Channel AndAlso bytBuffer(4) = ChannelType.Console Then
                             Message = GetString(bytBuffer, 6)
@@ -3748,11 +3792,13 @@ Public Module CoreModule
                             Send = False
                         End If
                     Case &H98 ' Requesting console through Channel List
+                        LastActivity = Date.Now
                         If bytBuffer(3) = ConsoleChannelID Then
                             Send = False
                             OpenChannel()
                         End If
                     Case &H99 ' Closing channel
+                        LastActivity = Date.Now
                         If bytBuffer(3) > ChannelType.IRCChannel AndAlso bytBuffer(3) <= ChannelType.IRCChannel + 40 Then
                             Dim ChannelID As Int16 = bytBuffer(3)
                             Send = False
@@ -3762,6 +3808,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H9A ' Requesting console given a string
+                        LastActivity = Date.Now
                         Dim ChannelName As String = GetString(bytBuffer, 3)
                         If String.Compare(ChannelName, "console", True) = 0 Or String.Compare(ChannelName, ConsoleName, True) = 0 Then
                             Send = False
@@ -3771,6 +3818,8 @@ Public Module CoreModule
                             IRCClient.Join(ChannelName)
                             ConsoleWrite("Opening IRC Channel " & ChannelName & ".")
                         End If
+                    Case &H64, &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D, &H6F, &H70, &H71, &H72
+                        LastActivity = Date.Now
                 End Select
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

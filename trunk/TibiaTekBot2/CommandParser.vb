@@ -130,6 +130,8 @@ Public Module CommandParserModule
                         CmdRingChanger(MatchObj.Groups)
                     Case "irc"
                         CmdIrc(MatchObj.Groups)
+                    Case "antilogout"
+                        CmdAntiLogout(MatchObj.Groups)
                     Case Else
                         Core.ConsoleError("This command does not exist." & Ret & _
                             "  For a list of available commands type: &help.")
@@ -781,6 +783,12 @@ Public Module CommandParserModule
                     "  Times when you died because you didn't have time to change amulet are now over." & Ret & _
                     "Note: &amuletchanger on is using the amulet you have in your amulet-slot." & Ret & _
                     "Note: Names of amulets are case-sensitive (e.g stone skin amuet <> Stone Skin Amulet)")
+                Case "antilogout", "anti-logout"
+                    Core.ConsoleWrite("«Anti-Logout»" & Ret & _
+                    "Usage: &antilogout <on | off>." & Ret & _
+                    "Example: &antilogout on." & Ret & _
+                    "Comment: " & Ret & _
+                    "  Protect you from kicks.")
                 Case Else
                     Select Case Topic.ToLower
                         Case "general", "general tools", "a"
@@ -816,7 +824,8 @@ Public Module CommandParserModule
                             "  Events Logging -> &logger." & Ret & _
                             "  Cavebot -> &cavebot." & Ret & _
                             "  FPS Changer -> &fpschanger." & Ret & _
-                            "  Stats Uploader -> &statsuploader.") ' & Ret & _
+                            "  Stats Uploader -> &statsuploader." & Ret & _
+                            "  Anti-Logout -> &antilogout.") ' & Ret & _
                             '"  Remote Administration -> &admin.") ' & Ret & _
                         Case "info tools", "info", "d"
                             Core.ConsoleWrite("Info Tools:" & Ret & _
@@ -2746,4 +2755,24 @@ Public Module CommandParserModule
     End Sub
 #End Region
 
+#Region " Anti-Logout"
+    Private Sub CmdAntiLogout(ByVal Arguments As GroupCollection)
+        Try
+            Select Case StrToShort(Arguments(2).Value)
+                Case 0
+                    Core.AntiLogoutObj.StopTimer()
+                    Core.ConsoleWrite("Anti-Logout is now Disabled.")
+                Case 1
+                    Core.LastActivity = Date.Now
+                    Core.AntiLogoutObj.Interval = 30000
+                    Core.AntiLogoutObj.StartTimer()
+                    Core.ConsoleWrite("Anti-Logout is now Enabled.")
+                Case Else
+                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+            End Select
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+#End Region
 End Module
