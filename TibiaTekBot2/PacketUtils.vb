@@ -1012,4 +1012,25 @@ Module PacketUtils
     End Function
 #End Region
 
+#Region " Turn Character "
+    Public Function CharacterTurn(ByVal Direction As Directions) As Byte()
+        Try
+            Dim bytBuffer(1) As Byte
+            Select Case Direction
+                Case Directions.Up
+                    AddByte(bytBuffer, &H6F)
+                Case Directions.Down
+                    AddByte(bytBuffer, &H71)
+                Case Directions.Right
+                    AddByte(bytBuffer, &H70)
+                Case Directions.Left
+                    AddByte(bytBuffer, &H72)
+            End Select
+            Return bytBuffer
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
+#End Region
 End Module
