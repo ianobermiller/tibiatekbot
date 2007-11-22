@@ -120,6 +120,15 @@ Public Class frmMain
             Next
             HealUsePoints.Checked = True
             HealPercentHP.Enabled = False
+            'Friend-Healer
+            If HealFType.SelectedIndex = Nothing Then
+                HealFType.SelectedIndex = 0
+            End If
+            'Party Healer
+            If HealPType.SelectedIndex = Nothing Then
+                HealPType.SelectedIndex = 0
+            End If
+
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -181,6 +190,77 @@ Public Class frmMain
             RefreshFpsChangerControls()
             RefreshAdvertiserControls()
             RefreshHealerControls()
+            RefreshHealFriendControls()
+            RefreshHealPartyControls()
+            RefreshDrinkerControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshDrinkerControls()
+        Try
+            DrinkerTrigger.Checked = Core.AutoDrinkerTimerObj.State = ThreadTimerState.Running
+            If DrinkerTrigger.Checked Then
+                DrinkerManaPoints.Value = Core.DrinkerManaRequired
+                DrinkerManaPoints.Enabled = False
+            Else
+                DrinkerManaPoints.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshHealPartyControls()
+        Try
+            HealPartyTrigger.Checked = Core.HealPartyTimerObj.State = ThreadTimerState.Running
+            If HealPartyTrigger.Checked Then
+                Select Case Core.HealPartyHealType
+                    Case HealTypes.UltimateHealingRune
+                        HealPType.Text = "Ultimate Healing Rune"
+                    Case HealTypes.ExuraSio
+                        HealPType.Text = "Exura Sio - Spell"
+                    Case HealTypes.Both
+                        HealPType.Text = "Both"
+                End Select
+                HealPHp.Value = Core.HealPartyMinimumHPPercentage
+                HealPType.Enabled = False
+                HealPHp.Enabled = False
+            Else
+                HealPType.Enabled = True
+                HealPHp.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshHealFriendControls()
+        Try
+            HealFriendTrigger.Checked = Core.HealFriendTimerObj.State = ThreadTimerState.Running
+            If HealFriendTrigger.Checked Then
+                HealFName.Text = Core.HealFriendCharacterName
+                Select Case Core.HealFriendHealType
+                    Case HealTypes.UltimateHealingRune
+                        HealFType.Text = "Ultimate Healing Rune"
+                    Case HealTypes.ExuraSio
+                        HealFType.Text = "Exura Sio - Spell"
+                    Case HealTypes.Both
+                        HealFType.Text = "Both"
+                End Select
+                HealFHp.Value = Core.HealFriendHealthPercentage
+                HealFName.Enabled = False
+                HealFType.Enabled = False
+                HealFHp.Enabled = False
+            Else
+                HealFName.Enabled = True
+                HealFType.Enabled = True
+                HealFHp.Enabled = True
+            End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -2079,6 +2159,94 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
+    End Sub
+
+    Private Sub HealFriendTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealFriendTrigger.CheckedChanged
+        Try
+            If HealFriendTrigger.Checked Then
+                If Core.HealFriendTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If String.IsNullOrEmpty(HealFName.Text) Then
+                    MessageBox.Show("You must enter the friend's name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.HealFriendHealthPercentage = HealFHp.Value
+                Select Case HealFType.Text
+                    Case "Ultimate Healing Rune"
+                        Core.HealFriendHealType = HealTypes.UltimateHealingRune
+                    Case "Exura Sio - Spell"
+                        Core.HealFriendHealType = HealTypes.ExuraSio
+                    Case "Both"
+                        Core.HealFriendHealType = HealTypes.Both
+                    Case Else
+                        MessageBox.Show("You must select the type for healer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                End Select
+                Core.HealFriendCharacterName = HealFName.Text
+                Core.HealFriendTimerObj.StartTimer()
+            Else
+                Core.HealFriendCharacterName = ""
+                Core.HealFriendHealthPercentage = 0
+                Core.HealFriendTimerObj.StopTimer()
+            End If
+            RefreshHealFriendControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub HealPartyTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealPartyTrigger.CheckedChanged
+        Try
+            If HealPartyTrigger.Checked Then
+                If Core.HealPartyTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                Core.HealPartyMinimumHPPercentage = HealPHp.Value
+                Select Case HealPType.Text
+                    Case "Ultimate Healing Rune"
+                        Core.HealPartyHealType = HealTypes.UltimateHealingRune
+                    Case "Exura Sio - Spell"
+                        Core.HealPartyHealType = HealTypes.ExuraSio
+                    Case "Both"
+                        Core.HealPartyHealType = HealTypes.Both
+                    Case Else
+                        MessageBox.Show("You must select the type for healer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                End Select
+                Core.HealPartyTimerObj.StartTimer()
+            Else
+                Core.HealPartyMinimumHPPercentage = 0
+                Core.HealPartyTimerObj.StopTimer()
+            End If
+            RefreshHealPartyControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub DrinkerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DrinkerTrigger.CheckedChanged
+        Try
+            If DrinkerTrigger.Checked Then
+                If Core.AutoDrinkerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If DrinkerManaPoints.Value = Nothing Then
+                    MessageBox.Show("You must enter value to Minimum Mana Points.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.DrinkerManaRequired = DrinkerManaPoints.Value
+                Core.AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
+                Core.AutoDrinkerTimerObj.StartTimer()
+            Else
+                Core.AutoDrinkerTimerObj.StopTimer()
+                Core.DrinkerManaRequired = 0
+            End If
+            RefreshDrinkerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub DrinkerManaPoints_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DrinkerManaPoints.ValueChanged
+
     End Sub
 
     Private Sub MiscReloadSpellsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadSpellsButton.Click

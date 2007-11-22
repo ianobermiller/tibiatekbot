@@ -4234,11 +4234,197 @@
   <data name="HealingTabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="HealFriendTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="HealFriendTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealFriendTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>120, 100</value>
+  </data>
+  <data name="HealFriendTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="HealFriendTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="HealFriendTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="HealFriendTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Name" xml:space="preserve">
+    <value>HealFriendTrigger</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Parent" xml:space="preserve">
+    <value>HealFriendBox</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="HealFHp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 74</value>
+  </data>
+  <data name="HealFHp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 20</value>
+  </data>
+  <data name="HealFHp.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Name" xml:space="preserve">
+    <value>HealFHp</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Parent" xml:space="preserve">
+    <value>HealFriendBox</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealFHplbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealFHplbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 76</value>
+  </data>
+  <data name="HealFHplbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 13</value>
+  </data>
+  <data name="HealFHplbl.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="HealFHplbl.Text" xml:space="preserve">
+    <value>Percent of Hit Points:</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Name" xml:space="preserve">
+    <value>HealFHplbl</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Parent" xml:space="preserve">
+    <value>HealFriendBox</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="HealFName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>95, 13</value>
+  </data>
+  <data name="HealFName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 20</value>
+  </data>
+  <data name="HealFName.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Name" xml:space="preserve">
+    <value>HealFName</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Parent" xml:space="preserve">
+    <value>HealFriendBox</value>
+  </data>
+  <data name="&gt;&gt;HealFName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="HealFNamelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealFNamelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 16</value>
+  </data>
+  <data name="HealFNamelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="HealFNamelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="HealFNamelbl.Text" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Name" xml:space="preserve">
+    <value>HealFNamelbl</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Parent" xml:space="preserve">
+    <value>HealFriendBox</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="HealFType.Items" xml:space="preserve">
+    <value>Ultimate Healing Rune</value>
+  </data>
+  <data name="HealFType.Items1" xml:space="preserve">
+    <value>Exura Sio - Spell</value>
+  </data>
+  <data name="HealFType.Items2" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="HealFType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>95, 39</value>
+  </data>
+  <data name="HealFType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 21</value>
+  </data>
+  <data name="HealFType.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Name" xml:space="preserve">
+    <value>HealFType</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Parent" xml:space="preserve">
+    <value>HealFriendBox</value>
+  </data>
+  <data name="&gt;&gt;HealFType.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="HealFTypelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealFTypelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 42</value>
+  </data>
+  <data name="HealFTypelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="HealFTypelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="HealFTypelbl.Text" xml:space="preserve">
+    <value>Heal with:</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Name" xml:space="preserve">
+    <value>HealFTypelbl</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Parent" xml:space="preserve">
+    <value>HealFriendBox</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="HealFriendBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 176</value>
+    <value>38, 165</value>
   </data>
   <data name="HealFriendBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 119</value>
+    <value>312, 130</value>
   </data>
   <data name="HealFriendBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -4265,7 +4451,7 @@
     <value>NoControl</value>
   </data>
   <data name="HealerTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 130</value>
+    <value>120, 122</value>
   </data>
   <data name="HealerTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -4292,10 +4478,10 @@
     <value>0</value>
   </data>
   <data name="HealPercentHP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>142, 104</value>
+    <value>171, 96</value>
   </data>
   <data name="HealPercentHP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 20</value>
+    <value>79, 20</value>
   </data>
   <data name="HealPercentHP.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -4319,7 +4505,7 @@
     <value>NoControl</value>
   </data>
   <data name="HealUsePercent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 107</value>
+    <value>38, 99</value>
   </data>
   <data name="HealUsePercent.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 17</value>
@@ -4343,10 +4529,10 @@
     <value>2</value>
   </data>
   <data name="HealMinHP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>142, 82</value>
+    <value>171, 74</value>
   </data>
   <data name="HealMinHP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 20</value>
+    <value>79, 20</value>
   </data>
   <data name="HealMinHP.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -4370,7 +4556,7 @@
     <value>NoControl</value>
   </data>
   <data name="HealUsePoints.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 84</value>
+    <value>38, 76</value>
   </data>
   <data name="HealUsePoints.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 17</value>
@@ -4397,7 +4583,7 @@
     <value>False</value>
   </data>
   <data name="HealSpell.Location" type="System.Drawing.Point, System.Drawing">
-    <value>73, 46</value>
+    <value>139, 45</value>
   </data>
   <data name="HealSpell.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 21</value>
@@ -4427,7 +4613,7 @@
     <value>NoControl</value>
   </data>
   <data name="HealSpelllbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 49</value>
+    <value>100, 48</value>
   </data>
   <data name="HealSpelllbl.Size" type="System.Drawing.Size, System.Drawing">
     <value>33, 13</value>
@@ -4460,10 +4646,10 @@
     <value>Intense Healing Rune</value>
   </data>
   <data name="HealType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 13</value>
+    <value>95, 18</value>
   </data>
   <data name="HealType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 21</value>
+    <value>172, 21</value>
   </data>
   <data name="HealType.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -4487,7 +4673,7 @@
     <value>NoControl</value>
   </data>
   <data name="HealWithlbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 16</value>
+    <value>35, 21</value>
   </data>
   <data name="HealWithlbl.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 13</value>
@@ -4511,10 +4697,10 @@
     <value>8</value>
   </data>
   <data name="HealerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+    <value>38, 6</value>
   </data>
   <data name="HealerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 164</value>
+    <value>312, 153</value>
   </data>
   <data name="HealerBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -4560,6 +4746,279 @@
   </data>
   <data name="&gt;&gt;TabPage23.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="DrinkerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="DrinkerTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DrinkerTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 58</value>
+  </data>
+  <data name="DrinkerTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="DrinkerTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="DrinkerTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="DrinkerTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;DrinkerTrigger.Name" xml:space="preserve">
+    <value>DrinkerTrigger</value>
+  </data>
+  <data name="&gt;&gt;DrinkerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DrinkerTrigger.Parent" xml:space="preserve">
+    <value>DrinkerBox</value>
+  </data>
+  <data name="&gt;&gt;DrinkerTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DrinkerManaPoints.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 21</value>
+  </data>
+  <data name="DrinkerManaPoints.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 20</value>
+  </data>
+  <data name="DrinkerManaPoints.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;DrinkerManaPoints.Name" xml:space="preserve">
+    <value>DrinkerManaPoints</value>
+  </data>
+  <data name="&gt;&gt;DrinkerManaPoints.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DrinkerManaPoints.Parent" xml:space="preserve">
+    <value>DrinkerBox</value>
+  </data>
+  <data name="&gt;&gt;DrinkerManaPoints.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="DrinkerManalbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DrinkerManalbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 23</value>
+  </data>
+  <data name="DrinkerManalbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 13</value>
+  </data>
+  <data name="DrinkerManalbl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="DrinkerManalbl.Text" xml:space="preserve">
+    <value>Minimum Mana Points:</value>
+  </data>
+  <data name="&gt;&gt;DrinkerManalbl.Name" xml:space="preserve">
+    <value>DrinkerManalbl</value>
+  </data>
+  <data name="&gt;&gt;DrinkerManalbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DrinkerManalbl.Parent" xml:space="preserve">
+    <value>DrinkerBox</value>
+  </data>
+  <data name="&gt;&gt;DrinkerManalbl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DrinkerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 134</value>
+  </data>
+  <data name="DrinkerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>311, 88</value>
+  </data>
+  <data name="DrinkerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="DrinkerBox.Text" xml:space="preserve">
+    <value>Mana Fluid Drinker</value>
+  </data>
+  <data name="&gt;&gt;DrinkerBox.Name" xml:space="preserve">
+    <value>DrinkerBox</value>
+  </data>
+  <data name="&gt;&gt;DrinkerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DrinkerBox.Parent" xml:space="preserve">
+    <value>TabPage24</value>
+  </data>
+  <data name="&gt;&gt;DrinkerBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="HealPartyTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="HealPartyTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealPartyTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 78</value>
+  </data>
+  <data name="HealPartyTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="HealPartyTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="HealPartyTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="HealPartyTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Name" xml:space="preserve">
+    <value>HealPartyTrigger</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Parent" xml:space="preserve">
+    <value>HealPartyBox</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="HealPHp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 52</value>
+  </data>
+  <data name="HealPHp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 20</value>
+  </data>
+  <data name="HealPHp.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Name" xml:space="preserve">
+    <value>HealPHp</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Parent" xml:space="preserve">
+    <value>HealPartyBox</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealP.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealP.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 54</value>
+  </data>
+  <data name="HealP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 13</value>
+  </data>
+  <data name="HealP.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="HealP.Text" xml:space="preserve">
+    <value>Percent of Hit Points:</value>
+  </data>
+  <data name="&gt;&gt;HealP.Name" xml:space="preserve">
+    <value>HealP</value>
+  </data>
+  <data name="&gt;&gt;HealP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealP.Parent" xml:space="preserve">
+    <value>HealPartyBox</value>
+  </data>
+  <data name="&gt;&gt;HealP.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="HealPType.Items" xml:space="preserve">
+    <value>Ultimate Healing Rune</value>
+  </data>
+  <data name="HealPType.Items1" xml:space="preserve">
+    <value>Exura Sio - Spell</value>
+  </data>
+  <data name="HealPType.Items2" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="HealPType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>91, 19</value>
+  </data>
+  <data name="HealPType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 21</value>
+  </data>
+  <data name="HealPType.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Name" xml:space="preserve">
+    <value>HealPType</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Parent" xml:space="preserve">
+    <value>HealPartyBox</value>
+  </data>
+  <data name="&gt;&gt;HealPType.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="HealPlbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealPlbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealPlbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 22</value>
+  </data>
+  <data name="HealPlbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="HealPlbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="HealPlbl.Text" xml:space="preserve">
+    <value>Heal with:</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Name" xml:space="preserve">
+    <value>HealPlbl</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Parent" xml:space="preserve">
+    <value>HealPartyBox</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="HealPartyBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 6</value>
+  </data>
+  <data name="HealPartyBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>312, 114</value>
+  </data>
+  <data name="HealPartyBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="HealPartyBox.Text" xml:space="preserve">
+    <value>Party Healer</value>
+  </data>
+  <data name="&gt;&gt;HealPartyBox.Name" xml:space="preserve">
+    <value>HealPartyBox</value>
+  </data>
+  <data name="&gt;&gt;HealPartyBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPartyBox.Parent" xml:space="preserve">
+    <value>TabPage24</value>
+  </data>
+  <data name="&gt;&gt;HealPartyBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="TabPage24.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
