@@ -73,6 +73,7 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
 ||StatsUploaderUserID||userid||Username used to connect to the FTP server.||
 ||StatsUploaderPassword||password||Password used to connect to the FTP server.||
 ||StatsUploaderFrequency||30000||Time interval for the Stats Uploader to upload yourstats.||
+||AntiLogoutInterval||30000||Time interval for the Anti Logout feature to check how long you have been idle.||
 
 ==Memory Addresses And Offsets for Tibia 8.00==
 _Do not change these unless you know what you are doing_
