@@ -7,7 +7,7 @@
 
 = Since v2.1 =
 
- * Ammunition Restacker (bolts, arrows, etc)
+ * Ammunition Re-stacker (bolts, arrows, etc)
  * Amulet Changer
  * Auto Attacker (allows you to train with slimes)
  * Auto Eater (even eat from the floor, smart option allows you to eat only when needed)
