@@ -1,6 +1,9 @@
 #labels Phase-Implementation
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
+|| Nov 24, 2007 || Fixed bug when getting Character Name (Issue #37) || Cameri2005 ||
+|| Nov 24, 2007 || Added new feature: AutoOpenBackpack (Issue #35) || Cameri2005 || 
+|| Nov 24, 2007 || Fixed auto looter not looting correctly (Issue #30) || Cameri2005 ||
 || Nov 19, 2007 || Added Self-Healing to the GUI (Issue #14) || Oskari.Virtanen||
 || Nov 18, 2007 || Added General and AFK menus to the GUI (Issue #14) || Oskari.Virtanen ||
 || Nov 18, 2007 || Implemented Irc Client || Cameri2005 ||
