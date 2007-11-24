@@ -1,4 +1,4 @@
-#labels Phase-Deploy,Phase-QA,Phase-Support
+#labels Phase-Deploy,Phase-QA,Phase-Support,Featured
 = Table of Contents =
 
 I. Requirements
