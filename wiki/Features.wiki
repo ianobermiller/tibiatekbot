@@ -16,6 +16,7 @@
  * Auto Heal Friend
  * Auto Heal Party
  * Auto Looter
+ * Auto Open Backpack (at character login)
  * Auto Pickup (any throwable item)
  * Auto Stacker (keeps your containers organized)
  * Auto Trainer (train with monks, ghouls, or even other players)
