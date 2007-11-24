@@ -542,7 +542,7 @@ Public Module CoreModule
                 AmuletChangerTimerObj = New ThreadTimer(300)
                 RingChangerTimerObj = New ThreadTimer(300)
                 IRCClient = New IrcClient(IRCServer, IRCPort)
-                AntiLogoutObj = New ThreadTimer()
+                AntiLogoutObj = New ThreadTimer(Consts.AntiLogoutInterval)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -578,7 +578,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -644,7 +643,6 @@ Public Module CoreModule
                 MapViewerForm.ShowDialog()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -813,7 +811,6 @@ Public Module CoreModule
                 End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -826,7 +823,6 @@ Public Module CoreModule
                 System.Diagnostics.Process.Start(OpenCommand)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -906,7 +902,6 @@ Public Module CoreModule
                 End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -915,15 +910,9 @@ Public Module CoreModule
 #Region " Update Checker BG Worker "
 
         Private Sub BGWUpdateChecker_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BGWUpdateChecker.DoWork
-
-            'Dim Outputs() As String = {}
-
             Try
-                'Dim Client As New System.Net.WebClient
-                'Dim Result() As Integer = Client.DownloadData(Consts.LatestVersionUrl)
                 Dim Reader As New System.Xml.XmlTextReader(Consts.LatestVersionUrl)
                 Reader.WhitespaceHandling = WhitespaceHandling.None
-                'ConsoleWrite("update\version:" & Reader.ReadElementString("Update\Version"))
                 Dim Version As String = ""
                 Dim Website As String = ""
                 Dim DownloadSize As Integer = 0
@@ -1106,7 +1095,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1148,7 +1136,6 @@ Public Module CoreModule
                 End Select
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1174,7 +1161,6 @@ Public Module CoreModule
                 End Select
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1202,7 +1188,6 @@ Public Module CoreModule
                 Loop While BL.NextEntity(True)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1218,7 +1203,7 @@ Public Module CoreModule
                     Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "&x=" & CharacterLoc.X & "&y=" & CharacterLoc.Y & "&z=" & CharacterLoc.Z)
                     Dim Client As New WebClient
                     Client.Headers.Add("Content-Type", "application/x-www-form-urlencoded")
-                    Client.UploadDataAsync(New System.Uri("http://www.tibiatekbot.com/updatemaploc.php"), "POST", Content)
+                    Client.UploadDataAsync(New System.Uri(BotWebsite & "/updatemaploc.php"), "POST", Content)
                 Catch
                 End Try
             End SyncLock
@@ -1257,7 +1242,6 @@ Public Module CoreModule
                 Loop While MyContainer.NextContainer
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1335,9 +1319,17 @@ Public Module CoreModule
                                                 If Item2.ID = Item.ID Then
                                                     Found = True
                                                     Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, Item.Count)))
-                                                    System.Threading.Thread.Sleep(Consts.LootDelay)
+                                                    System.Threading.Thread.Sleep(Consts.LootDelay / 2)
                                                     If (100 - Item2.Count) < Item.Count Then
-                                                        Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), Item.Count - (100 - Item2.Count)))
+                                                        If Container2.GetItemCount = Container2.GetContainerSize Then
+                                                            Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), Item.Count - (100 - Item2.Count)))
+                                                        Else
+                                                            Dim Loc As LocationDefinition
+                                                            Loc = Item2.Location
+                                                            Loc.Z = 0
+                                                            Proxy.SendPacketToServer(MoveObject(Item, Loc, Item.Count - (100 - Item2.Count)))
+                                                        End If
+                                                        'Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Item.Count - (100 - Item2.Count)))
                                                     End If
                                                     Exit Do
                                                 End If
@@ -1352,7 +1344,6 @@ Public Module CoreModule
                 Loop While Container.NextContainer()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1592,7 +1583,6 @@ Public Module CoreModule
                 End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1637,7 +1627,6 @@ Public Module CoreModule
                 Loop While BL.NextEntity(True)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1662,7 +1651,6 @@ Public Module CoreModule
                 Proxy.SendPacketToServer(Speak(Output, MessageType.Normal))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1743,7 +1731,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1797,7 +1784,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1837,7 +1823,6 @@ Public Module CoreModule
                 Next
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2013,7 +1998,6 @@ Public Module CoreModule
                 System.Threading.Thread.Sleep(5000)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2074,7 +2058,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2100,7 +2083,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2166,13 +2148,10 @@ Public Module CoreModule
                             End Select
                             Log("You", "Said in """ & Channel & """: " & ChatMessage.Message)
                     End Select
-                    'AppObjs.ConsoleRead(CStr(ChatMessage.SentByUser))
                     Proxy.SendPacketToServer(bytBuffer)
-                    'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, ChatMessage.Message))
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2196,7 +2175,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2221,7 +2199,6 @@ Public Module CoreModule
                 Return False
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Function
 
@@ -2251,7 +2228,6 @@ Public Module CoreModule
                 Return Found
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Function
 
@@ -2278,9 +2254,7 @@ Public Module CoreModule
                 Core.ReadMemory(Consts.ptrCapacity, Capacity, 4)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
-
         End Sub
 
 #End Region
@@ -2293,7 +2267,6 @@ Public Module CoreModule
                 SetLight(LightI, LightC)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2307,7 +2280,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2336,7 +2308,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2357,7 +2328,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2380,7 +2350,6 @@ Public Module CoreModule
                 Log("Auto UHer", "Used UH on yourself.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2417,7 +2386,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2426,7 +2394,6 @@ Public Module CoreModule
                 Proxy.SendPacketToServer(Speak(Spells.GetSpellWords("Heal Friend") & " """ & Name & """"))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2437,7 +2404,6 @@ Public Module CoreModule
                 'Proxy.SendPacketToClient(CreatureSpeak(Proxy.CharacterName, MessageType.MonsterSay, 0, "UHed player!", CharacterLoc.X, CharacterLoc.Y, CharacterLoc.Z))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2456,7 +2422,6 @@ Public Module CoreModule
                 Core.ChatMessageQueueList.Add(ChatMessage)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2476,7 +2441,6 @@ Public Module CoreModule
                 Proxy.SendPacketToServer(ChangeOutfit(BL.OutfitID, RainbowOutfitHead, RainbowOutfitBody, RainbowOutfitLegs, RainbowOutfitFeet, BL.Addons))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 #End Region
@@ -2502,7 +2466,6 @@ Public Module CoreModule
 
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2545,7 +2508,6 @@ Public Module CoreModule
                 Return True
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Function
 
@@ -2580,7 +2542,6 @@ Public Module CoreModule
                 Return True
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Function
 
@@ -2676,7 +2637,6 @@ Public Module CoreModule
 
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 #End Region
@@ -2767,9 +2727,7 @@ Public Module CoreModule
 
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
-
         End Sub
 
         Public Function CheckRadius(ByVal EntityId As Integer) As Boolean
@@ -2795,7 +2753,6 @@ Public Module CoreModule
                 Return True
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Function
 #End Region
@@ -2846,7 +2803,6 @@ Public Module CoreModule
                 End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -2881,7 +2837,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 #End Region
@@ -2985,12 +2940,11 @@ Public Module CoreModule
                 Return ReturnLocation
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Function
 
         Public Sub AutoAddTimerObj_Execute() Handles AutoAddTimerObj.OnExecute
-            SyncLock AutoAddTimerObj
+            Try
                 If Not InGame() Then Exit Sub
                 Dim BL As New BattleList
                 Dim TD As New TileData
@@ -3049,7 +3003,9 @@ Public Module CoreModule
                     End If
                     AutoAddTime = Now.AddSeconds(10)
                 End If
-            End SyncLock
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End Sub
 #End Region
 
@@ -3069,7 +3025,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 #End Region
@@ -3090,7 +3045,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 #End Region
@@ -3122,7 +3076,6 @@ Public Module CoreModule
                 LastActivity = Date.Now
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 #End Region
@@ -3140,7 +3093,7 @@ Public Module CoreModule
                 If Not String.IsNullOrEmpty(Consts.IRCNickname) Then
                     IRCClient.Nick = Consts.IRCNickname
                 End If
-                IRCClient.RealName = Proxy.CharacterWorlds(Proxy.CharacterIndex) & " Level " & Level
+                IRCClient.RealName = Proxy.CharacterWorld & " Level " & Level
                 IRCClient.User = Environment.MachineName
                 IRCClient.Invisible = True
                 If Not IRCClient.Connect Then
@@ -3409,7 +3362,7 @@ Public Module CoreModule
         Public Function GetProfileDirectory() As String
             Try
                 'If Not InGame() Then Throw New Exception("You must be logged in.")
-                Dim Path As String = ExecutablePath & "\Profiles\" & Proxy.CharacterWorlds(Proxy.CharacterIndex) & "\" & Proxy.CharacterName
+                Dim Path As String = ExecutablePath & "\Profiles\" & Proxy.CharacterWorld & "\" & Proxy.CharacterName
                 If Not IO.Directory.Exists(Path) Then
                     IO.Directory.CreateDirectory(Path)
                 End If
@@ -3477,8 +3430,12 @@ Public Module CoreModule
                 Dim ID As UShort = GetByte(bytBuffer, Pos)
                 Select Case ID
                     Case &H1E 'ping
-                        'Case &H64 'Clicked Map or Ground, so Player Moving
-                        'Case &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D 'Player Moving
+                    Case &H64 'Clicked Map or Ground, so Player Moving
+                        LastActivity = Date.Now
+                        Exit Sub
+                    Case &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D 'Player Moving
+                        LastActivity = Date.Now
+                        Exit Sub
                     Case &H88 'go to parent
                         LastActivity = Date.Now
                         Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
@@ -3649,11 +3606,9 @@ Public Module CoreModule
                             Walker_Waypoints.Add(WalkerChar)
                         End If
                     Case &H84 'Use hotkey
-                        'Core.ConsoleWrite(BytesToStr(bytBuffer))
                         LastActivity = Date.Now
                         Pos += 13
                     Case &H8A
-                        LastActivity = Date.Now
                         Dim SpellID As Integer = GetByte(bytBuffer, Pos)
                         GetDWord(bytBuffer, Pos)
                         Select Case SpellID
@@ -3669,7 +3624,7 @@ Public Module CoreModule
                                 Send = False
                             Case &HFE
                                 Dim Data As String = GetString(bytBuffer, Pos)
-                                Data &= vbLf & vbLf & "Sent by: " & Proxy.CharacterName & " (" & Proxy.CharacterWorlds(Proxy.CharacterIndex) & ") "
+                                Data &= vbLf & vbLf & "Sent by: " & Proxy.CharacterName & " (" & Proxy.CharacterWorld & ") "
                                 If Data.Length > 0 Then
                                     Try
                                         Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("feedback=" & System.Web.HttpUtility.UrlEncode(Data))
@@ -3689,12 +3644,16 @@ Public Module CoreModule
                         Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
                         If MessageType = MessageType.Channel AndAlso bytBuffer(4) = ChannelType.Console Then
                             Message = GetString(bytBuffer, 6)
-                            ConsoleRead(Message)
-                            MCollection = RegExp.Matches(Message)
-                            For Each GroupMatch In MCollection
-                                CommandParser(GroupMatch.Groups(1).ToString)
-                            Next
+                            If Message.StartsWith("&") Then
+                                'ConsoleRead(Message)
+                                ConsoleRead(Message)
+                                MCollection = RegExp.Matches(Message)
+                                For Each GroupMatch In MCollection
+                                    CommandParser(GroupMatch.Groups(1).ToString)
+                                Next
+                            End If
                             Send = False
+
                         ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannel AndAlso bytBuffer(4) < ChannelType.IRCChannel + 40) Then
                             Send = False
                             Dim ChannelID As Int16 = bytBuffer(4)
@@ -3747,39 +3706,45 @@ Public Module CoreModule
                                 Case MessageType.PM
                                     ChatMessage.Destinatary = GetString(bytBuffer, Pos)
                                     ChatMessage.Message = GetString(bytBuffer, Pos)
-                                    MCollection = RegExp.Matches(ChatMessage.Message)
-                                    For Each GroupMatch In MCollection
-                                        ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                        CommandParser(GroupMatch.Groups(1).Value)
-                                    Next
-                                    If MCollection.Count > 0 Then
-                                        Send = False
-                                        Exit Sub
+                                    If ChatMessage.Message.StartsWith("&") Then
+                                        MCollection = RegExp.Matches(ChatMessage.Message)
+                                        For Each GroupMatch In MCollection
+                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                            CommandParser(GroupMatch.Groups(1).Value)
+                                        Next
+                                        If MCollection.Count > 0 Then
+                                            Send = False
+                                            Exit Sub
+                                        End If
                                     End If
                                     bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
                                 Case MessageType.Channel
                                     ChatMessage.Channel = GetWord(bytBuffer, Pos)
                                     ChatMessage.Message = GetString(bytBuffer, Pos)
-                                    MCollection = RegExp.Matches(ChatMessage.Message)
-                                    For Each GroupMatch In MCollection
-                                        ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                        CommandParser(GroupMatch.Groups(1).ToString)
-                                    Next
-                                    If MCollection.Count > 0 Then
-                                        Send = False
-                                        Exit Sub
+                                    If ChatMessage.Message.StartsWith("&") Then
+                                        MCollection = RegExp.Matches(ChatMessage.Message)
+                                        For Each GroupMatch In MCollection
+                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                            CommandParser(GroupMatch.Groups(1).ToString)
+                                        Next
+                                        If MCollection.Count > 0 Then
+                                            Send = False
+                                            Exit Sub
+                                        End If
                                     End If
                                     bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
                                 Case Else
                                     ChatMessage.Message = GetString(bytBuffer, Pos)
-                                    MCollection = RegExp.Matches(ChatMessage.Message)
-                                    For Each GroupMatch In MCollection
-                                        ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                        CommandParser(GroupMatch.Groups(1).ToString)
-                                    Next
-                                    If MCollection.Count > 0 Then
-                                        Send = False
-                                        Exit Sub
+                                    If ChatMessage.Message.StartsWith("&") Then
+                                        MCollection = RegExp.Matches(ChatMessage.Message)
+                                        For Each GroupMatch In MCollection
+                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                            CommandParser(GroupMatch.Groups(1).ToString)
+                                        Next
+                                        If MCollection.Count > 0 Then
+                                            Send = False
+                                            Exit Sub
+                                        End If
                                     End If
                                     bytNewBuffer = Speak(ChatMessage.Message, MessageType)
                             End Select
@@ -3831,12 +3796,19 @@ Public Module CoreModule
             Try
                 If Not IsGreetingSent Then
                     GreetingSentTry += 1
-                    If GreetingSentTry > 2 Then
+                    If GreetingSentTry >= 2 Then
                         IsGreetingSent = True
                         OpenChannel()
                         GreetingTimerObj.StartTimer(1500)
                         Map.RefreshMapBeginning()
                         MapReaderTimerObj.StartTimer()
+                        If Consts.AutoOpenBackpack Then
+                            Dim ItemID As Integer = 0
+                            Core.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (InventorySlots.Backpack - 1)), ItemID, 2)
+                            If DatInfo.GetInfo(ItemID).IsContainer Then
+                                Proxy.SendPacketToServer(UseObject(InventorySlots.Backpack, 0))
+                            End If
+                        End If
                     End If
                 Else
                     If LastUpdateCheck <> Date.MinValue Then
@@ -4166,7 +4138,7 @@ Public Module CoreModule
 #If TRACE Then
                             'Trace.WriteLine("FromServer: " & Hex(PacketID) & " @ Pos " & (Pos - 1) & vbCrLf & "->" & BytesToStr(bytBuffer, Pos - 1))
 #End If
-                            Exit While
+                            Exit Sub
                     End Select
 
                 End While
@@ -4249,10 +4221,9 @@ Public Module CoreModule
         Public Sub ConsoleRead(ByVal strString As String)
             Try
                 Log("ConsoleRead", strString)
-                Proxy.SendPacketToClient(CreatureSpeak(Core.Proxy.CharacterNames(Core.Proxy.CharacterIndex), MessageType.ChannelTutor, Level, strString, 0, 0, 0, ChannelType.Console))
+                Proxy.SendPacketToClient(CreatureSpeak(Core.Proxy.CharacterName, MessageType.ChannelTutor, Level, strString, 0, 0, 0, ChannelType.Console))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -4263,7 +4234,6 @@ Public Module CoreModule
                 Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, strString))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -4274,7 +4244,6 @@ Public Module CoreModule
                 Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, strString))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 

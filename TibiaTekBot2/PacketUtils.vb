@@ -447,6 +447,25 @@ Module PacketUtils
 
 #Region " UseObject "
 
+    Public Function UseObject(ByVal InventorySlot As InventorySlots, ByVal ContainerIndex As Byte) As Byte()
+        Try
+            Dim bytBuffer(1) As Byte
+            Dim ID As Integer = 0
+            Core.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (InventorySlot - 1)), ID, 2)
+            AddByte(bytBuffer, &H82)
+            AddWord(bytBuffer, &HFFFF)
+            AddWord(bytBuffer, InventorySlot)
+            AddByte(bytBuffer, 0)
+            AddWord(bytBuffer, ID)
+            AddByte(bytBuffer, 0)
+            AddByte(bytBuffer, ContainerIndex)
+            Return bytBuffer
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
+
     Public Function UseObject(ByVal Item As ContainerItemDefinition) As Byte()
         Try
             Dim bytBuffer(1) As Byte
@@ -456,7 +475,7 @@ Module PacketUtils
             AddByte(bytBuffer, Item.Slot)
             AddWord(bytBuffer, Item.ID)
             AddByte(bytBuffer, Item.Slot)
-            AddByte(bytBuffer, Item.ContainerIndex)
+            AddByte(bytBuffer, &HF)
             Return bytBuffer
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

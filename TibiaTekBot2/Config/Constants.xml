@@ -40,6 +40,7 @@
   <Const Name="LootInBagDelay" Value="500" />
   <Const Name="LootEatFromCorpse" Value="True" />
   <Const Name="LootMaxDistance" Value="2.9" />
+  <Const Name="AutoOpenBackpack" Value="True" />
   <Const Name="EatFromFloor" Value="True" />
   <Const Name="EatFromFloorFirst" Value="True" />
   <Const Name="EatFromFloorMaxDistance" Value="1.5" />
@@ -128,7 +129,7 @@
   <Const Name="ptrStatusMessageTimer" Value="H768454" />
   <Const Name="ptrCharacterListBegin" Value="H766DBC" />
   <Const Name="CharacterListDist" Value="H54" />
-  <Const Name="CharacterListWorldOffset" Value="H30" />
+  <Const Name="CharacterListWorldOffset" Value="H1E" />
   <Const Name="HotkeyMax" Value="H24" />
   <Const Name="HotkeyItemDataOffset" Value="H90" />
   <Const Name="HotkeyItemOffset" Value="H120" />
@@ -189,4 +190,5 @@
   <Const Name="MCPatchOffset" Value="HF6224" />
   <Const Name="MCPatchReplacement" Value="HEB" />
   <Const Name="MCPatchOriginal" Value="H75" />
+  <Const Name="AntiLogoutInterval" Value="30000" />
 </Constants>
