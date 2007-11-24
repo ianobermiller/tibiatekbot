@@ -30,7 +30,7 @@ Public Module CommandParserModule
             Dim MatchObj As Match = Regex.Match(Message, "^([a-zA-Z]+)\s*([^;]*)$")
             If MatchObj.Success Then
                 Select Case MatchObj.Groups(1).Value.ToLower
-                    Case "help", "h", "?", "halp", "f1", "sos", "ayuda", "ajuda"
+                    Case "help", "h", "?", "halp", "f1", "sos", "ayuda", "ajuda", "sos"
                         CmdHelp(MatchObj.Groups)
                     Case "light"
                         CmdLight(MatchObj.Groups)
@@ -60,7 +60,7 @@ Public Module CommandParserModule
                         CmdFakeTitle(MatchObj.Groups)
                     Case "loot", "looter"
                         CmdLoot(MatchObj.Groups)
-                    Case "advertise"
+                    Case "advertise", "advertiser"
                         CmdAdvertise(MatchObj.Groups)
                     Case "getitemid"
                         CmdGetItemId()
@@ -72,7 +72,7 @@ Public Module CommandParserModule
                         CmdChar(MatchObj.Groups)
                     Case "open"
                         CmdOpen(MatchObj.Groups)
-                    Case "guild", "guildmembers"
+                    Case "guild", "guildmembers", "guilds"
                         CmdGuild(MatchObj.Groups)
                     Case "runemaker"
                         CmdRunemaker(MatchObj.Groups)
@@ -96,7 +96,7 @@ Public Module CommandParserModule
                         CmdConfig(MatchObj.Groups)
                     Case "hotkeys", "hotkey"
                         CmdHotkeys(MatchObj.Groups)
-                    Case "feedback", "comment", "bugreport", "report"
+                    Case "feedback", "comment", "bugreport", "report", "bug"
                         CmdFeedback(MatchObj.Groups)
                     Case "chameleon", "outfit"
                         CmdChameleon(MatchObj.Groups)
@@ -106,15 +106,15 @@ Public Module CommandParserModule
                         CmdTrainer(MatchObj.Groups)
                     Case "commands", "command", "list", "listing", "cmd", "cmds"
                         CmdCommands()
-                    Case "sendlocation"
+                    Case "sendlocation", "sendloc"
                         CmdSendLocation(MatchObj.Groups)
                     Case "fpschanger", "fps"
                         CmdFpsChanger(MatchObj.Groups)
                     Case "rainbow", "rainbowoutfit"
                         CmdRainbow(MatchObj.Groups)
-                    Case "namespy"
+                    Case "namespy", "xray"
                         CmdNameSpy(MatchObj.Groups)
-                    Case "website", "web", "homepage"
+                    Case "website", "web", "homepage", "webpage"
                         CmdWebsite()
                     Case "drinker", "drink", "manadrink", "manadrinker", "mf", "manafluid"
                         CmdDrinker(MatchObj.Groups)
@@ -197,7 +197,6 @@ Public Module CommandParserModule
     End Sub
 
 #End Region
-
 
 #Region " Website Command "
 
@@ -1136,6 +1135,7 @@ Public Module CommandParserModule
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Core.ConsoleWrite("Begin Test")
+            Core.ConsoleWrite(Core.Proxy.CharacterWorld)
             Core.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1343,7 +1343,7 @@ Public Module CommandParserModule
                     Core.RunemakerTimerObj.StopTimer()
                     Core.ConsoleWrite("Runemaker is now Disabled.")
                 Case Else
-                    Dim RegExp As New Regex("([1-9][0-9]{1,4})\s+([1-9][0-9]{0,2})\s+""([^""]+)""?")
+                    Dim RegExp As New Regex("([1-9][0-9]{1,4})\s+([0-9]{0,3})\s+""([^""]+)""?")
                     Dim Match As Match = RegExp.Match(Value)
                     If Match.Success Then
                         Dim Found As Boolean = False
@@ -1359,7 +1359,7 @@ Public Module CommandParserModule
                         Next
                         If Found Then
                             Core.RunemakerSpell = S
-                            Core.RunemakerManaPoints = CShort(Match.Groups(1).Value)
+                            Core.RunemakerManaPoints = CInt(Match.Groups(1).Value)
                             Core.RunemakerSoulPoints = CInt(Match.Groups(2).Value)
                             Core.RunemakerTimerObj.StartTimer()
                             Core.ConsoleWrite("Runemaker will now make " & S.Name & " when you have more than " & _
@@ -2764,7 +2764,7 @@ Public Module CommandParserModule
                     Core.ConsoleWrite("Anti-Logout is now Disabled.")
                 Case 1
                     Core.LastActivity = Date.Now
-                    Core.AntiLogoutObj.Interval = 30000
+                    Core.AntiLogoutObj.Interval = Consts.AntiLogoutInterval
                     Core.AntiLogoutObj.StartTimer()
                     Core.ConsoleWrite("Anti-Logout is now Enabled.")
                 Case Else

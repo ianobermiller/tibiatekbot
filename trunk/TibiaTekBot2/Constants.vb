@@ -53,8 +53,11 @@ Public Module ConstantsModule
         Public LootMaxDistance As Double = 2.9
         Public WaypointMaxDistance As Integer = 100
         Public CreatureExpMultiplier As Double = 1.0
+        Public AutoOpenBackpack As Boolean = True
 
         Public ptrCharacterListBegin As Integer = &H766DBC
+        Public CharacterListDist As Integer = &H54
+        Public CharacterListWorldOffset As Integer = 30
         Public ptrInGame As Integer = &H766DF8
         Public ptrFrameRateBegin As Integer = &H76793C
         Public ptrEnterOneNamePerLine As Integer = &H594670
@@ -213,6 +216,8 @@ Public Module ConstantsModule
         Public IRCJoinAfterConnected As Boolean = True
         Public IRCNickname As String = String.Empty
         Public IRCPassword As String = String.Empty
+
+        Public AntiLogoutInterval As Integer = 30000
 
         Public Sub New()
             LoadConstants()
@@ -579,6 +584,15 @@ Public Module ConstantsModule
                                                     IRCNickname = Value
                                                 Case "IRCPassword"
                                                     IRCPassword = Value
+
+                                                Case "AntiLogoutInterval"
+                                                    AntiLogoutInterval = CInt(Value)
+                                                Case "AutoOpenBackpack"
+                                                    AutoOpenBackpack = System.Boolean.Parse(Value)
+                                                Case "CharacterListDist"
+                                                    CharacterListDist = CInt(Value)
+                                                Case "CharacterListWorldOffset"
+                                                    CharacterListWorldOffset = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then

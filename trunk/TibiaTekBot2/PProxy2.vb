@@ -44,11 +44,11 @@ Public Class PProxy2
 
     'Public ClientHandle As IntPtr = 0
 
-    Public CharacterNames() As String
-    Public CharacterWorlds() As String
-    Public CharacterIPs() As UInteger
-    Public CharacterPorts() As UShort
-    Public CharacterIndex As Byte = 0
+    Private CharacterNames() As String
+    Private CharacterWorlds() As String
+    Private CharacterIPs() As UInteger
+    Private CharacterPorts() As UShort
+    Private CharacterIndex As Integer = 0
 
     Public Event PacketFromClient(ByRef bytArray() As Byte, ByRef Block As Boolean)
     Public Event PacketFromServer(ByRef bytArray() As Byte, ByRef Block As Boolean)
@@ -58,10 +58,30 @@ Public Class PProxy2
 
 
 #Region "Properties"
+    Public ReadOnly Property CharacterWorld() As String
+        Get
+            Try
+                Dim CharacterListBegin As Integer = 0
+                Dim _CharacterWorld As String = String.Empty
+                Core.ReadMemory(Consts.ptrCharacterSelectionIndex, CharacterIndex, 1)
+                Core.ReadMemory(Consts.ptrCharacterListBegin, CharacterListBegin, 4)
+                Core.ReadMemory(CharacterListBegin + (CharacterIndex * Consts.CharacterListDist) + Consts.CharacterListWorldOffset, _CharacterWorld)
+                Return _CharacterWorld
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Get
+    End Property
     Public ReadOnly Property CharacterName() As String
         Get
             Try
-                Return CharacterNames(CharacterIndex)
+                Dim CharacterListBegin As Integer = 0
+                Dim _CharacterName As String = String.Empty
+                Core.ReadMemory(Consts.ptrCharacterSelectionIndex, CharacterIndex, 1)
+                Core.ReadMemory(Consts.ptrCharacterListBegin, CharacterListBegin, 4)
+                Core.ReadMemory(CharacterListBegin + (CharacterIndex * Consts.CharacterListDist), _CharacterName)
+                Return _CharacterName
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
