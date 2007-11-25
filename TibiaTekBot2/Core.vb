@@ -3281,7 +3281,7 @@ Public Module CoreModule
 
         Private Sub IrcClient_ChannelSelfJoin(ByVal Channel As String) Handles IRCClient.EventChannelSelfJoin
             Try
-                'ConsoleWrite("Joined " & Channel & ".")
+                ConsoleWrite("Joined channel " & Channel & ".")
                 Dim UsedIDs As New List(Of Integer)
                 Dim ChannelID As Integer = 1
                 If IrcChannelIsOpened(Channel) Then
