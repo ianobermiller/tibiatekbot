@@ -256,12 +256,11 @@ Public Class IrcClient
     End Function
     Public Sub WriteLine(ByVal Command As String)
         Try
-            If Writer Is Nothing Then Exit Sub
+            If Writer Is Nothing OrElse Client Is Nothing OrElse Not Client.Connected Then Exit Sub
             Writer.WriteLine(Command)
             Writer.Flush()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
     Public Sub MainLoop()
