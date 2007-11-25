@@ -1669,7 +1669,7 @@ Public Module CommandParserModule
                 Case Else
                     Dim ItemID As Integer
                     Dim ItemCount As Integer
-                    Dim RegExp As New Regex("\d{1,2}")
+                    Dim RegExp As New Regex("(\d{1,2})")
                     Dim Match As Match = RegExp.Match(Value)
                     If Not Match.Success Then
                         Core.ConsoleError("You must specify the minimum ammunition count between 0 and 99, inclusive.")

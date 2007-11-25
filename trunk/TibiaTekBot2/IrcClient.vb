@@ -427,7 +427,7 @@ Public Class IrcClient
                         Dim SplitMessages() As String
                         Message = Reader.ReadLine()
                         If Message Is Nothing Then Exit Sub
-                        Core.ConsoleWrite(Message)
+                        'Core.ConsoleWrite(Message)
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
                         Dim Temp() As String
@@ -589,13 +589,11 @@ Public Class IrcClient
                                                 End If
                                             Case "QUIT"
                                                 For Each Channel As String In Channels.Keys
-                                                    For Each Nick As String In Channels(Channel).Users.Keys
-                                                        If Nick.Equals(From) Then
-                                                            Channels(Channel).Users.Remove(Nick)
-                                                            RaiseEvent EventQuit(Nick, Arguments.Substring(1))
-                                                        End If
-                                                    Next
+                                                    If Channels(Channel).Users.ContainsKey(Nick) Then
+                                                        Channels(Channel).Users.Remove(Nick)
+                                                    End If
                                                 Next
+                                                RaiseEvent EventQuit(Nick, Arguments.Substring(1))
                                         End Select
                                     End If
                             End Select
