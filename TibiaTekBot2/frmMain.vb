@@ -2865,4 +2865,9 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    Private Sub TrainerInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerInfo.Click
+        MessageBox.Show("Train with as many monsters as you want. To add monsters, put them on follow and click Add Creature button." & Environment.NewLine & _
+                        "To start training define max hp% and min hp% and press Activate, and you will hurt the creatures until <min hp%> and continue attacking after <max hp%>.", "How to use Trainer", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class
