@@ -74,6 +74,9 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
 ||StatsUploaderPassword||password||Password used to connect to the FTP server.||
 ||StatsUploaderFrequency||30000||Time interval for the Stats Uploader to upload yourstats.||
 ||AntiLogoutInterval||30000||Time interval for the Anti Logout feature to check how long you have been idle.||
+||TTMessagesEnabled||True||Allow TTB to poll the TibiaTek database for any feedback responses from the TibiaTek Development Team.||
+||TTMessagesInterval||3600000||Interval at which the bot polls for feedback responses.||
+||AutoOpenBackpack||True||Automatically open your backpack after logging in.||
 
 ==Memory Addresses And Offsets for Tibia 8.00==
 _Do not change these unless you know what you are doing_
@@ -92,6 +95,7 @@ _Do not change these unless you know what you are doing_
 ||ptrInGame||H766DF8||
 ||ptrFrameRateBegin||H76793C||
 ||ptrEnterOneNamePerLine||H594670||
+||ptrForYourInformation||H595968||
 ||ptrCharacterSelectionIndex||H766DB8||
 ||ptrEncryptionKey||H7637AC||
 ||ptrRSAKey||H593610||
