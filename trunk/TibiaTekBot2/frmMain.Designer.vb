@@ -337,16 +337,16 @@ Partial Class frmMain
         Me.HealSpelllbl = New System.Windows.Forms.Label
         Me.HealType = New System.Windows.Forms.ComboBox
         Me.HealWithlbl = New System.Windows.Forms.Label
-        Me.DrinkerBox = New System.Windows.Forms.GroupBox
-        Me.DrinkerTrigger = New System.Windows.Forms.CheckBox
-        Me.DrinkerManaPoints = New System.Windows.Forms.NumericUpDown
-        Me.DrinkerManalbl = New System.Windows.Forms.Label
         Me.HealPartyBox = New System.Windows.Forms.GroupBox
         Me.HealPartyTrigger = New System.Windows.Forms.CheckBox
         Me.HealPHp = New System.Windows.Forms.NumericUpDown
         Me.HealP = New System.Windows.Forms.Label
         Me.HealPType = New System.Windows.Forms.ComboBox
         Me.HealPlbl = New System.Windows.Forms.Label
+        Me.DrinkerBox = New System.Windows.Forms.GroupBox
+        Me.DrinkerTrigger = New System.Windows.Forms.CheckBox
+        Me.DrinkerManaPoints = New System.Windows.Forms.NumericUpDown
+        Me.DrinkerManalbl = New System.Windows.Forms.Label
         Me.TabPage7 = New System.Windows.Forms.TabPage
         Me.MCPatcherBox = New System.Windows.Forms.GroupBox
         Me.MCPatcherButton = New System.Windows.Forms.Button
@@ -508,10 +508,10 @@ Partial Class frmMain
         Me.HealerBox.SuspendLayout()
         CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.DrinkerBox.SuspendLayout()
-        CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.HealPartyBox.SuspendLayout()
         CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.DrinkerBox.SuspendLayout()
+        CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage7.SuspendLayout()
         Me.MCPatcherBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -2307,32 +2307,6 @@ Partial Class frmMain
         resources.ApplyResources(Me.HealWithlbl, "HealWithlbl")
         Me.HealWithlbl.Name = "HealWithlbl"
         '
-        'DrinkerBox
-        '
-        Me.DrinkerBox.Controls.Add(Me.DrinkerTrigger)
-        Me.DrinkerBox.Controls.Add(Me.DrinkerManaPoints)
-        Me.DrinkerBox.Controls.Add(Me.DrinkerManalbl)
-        resources.ApplyResources(Me.DrinkerBox, "DrinkerBox")
-        Me.DrinkerBox.Name = "DrinkerBox"
-        Me.DrinkerBox.TabStop = False
-        '
-        'DrinkerTrigger
-        '
-        resources.ApplyResources(Me.DrinkerTrigger, "DrinkerTrigger")
-        Me.DrinkerTrigger.Name = "DrinkerTrigger"
-        Me.DrinkerTrigger.UseVisualStyleBackColor = True
-        '
-        'DrinkerManaPoints
-        '
-        resources.ApplyResources(Me.DrinkerManaPoints, "DrinkerManaPoints")
-        Me.DrinkerManaPoints.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
-        Me.DrinkerManaPoints.Name = "DrinkerManaPoints"
-        '
-        'DrinkerManalbl
-        '
-        resources.ApplyResources(Me.DrinkerManalbl, "DrinkerManalbl")
-        Me.DrinkerManalbl.Name = "DrinkerManalbl"
-        '
         'HealPartyBox
         '
         Me.HealPartyBox.Controls.Add(Me.HealPartyTrigger)
@@ -2374,6 +2348,32 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.HealPlbl, "HealPlbl")
         Me.HealPlbl.Name = "HealPlbl"
+        '
+        'DrinkerBox
+        '
+        Me.DrinkerBox.Controls.Add(Me.DrinkerTrigger)
+        Me.DrinkerBox.Controls.Add(Me.DrinkerManaPoints)
+        Me.DrinkerBox.Controls.Add(Me.DrinkerManalbl)
+        resources.ApplyResources(Me.DrinkerBox, "DrinkerBox")
+        Me.DrinkerBox.Name = "DrinkerBox"
+        Me.DrinkerBox.TabStop = False
+        '
+        'DrinkerTrigger
+        '
+        resources.ApplyResources(Me.DrinkerTrigger, "DrinkerTrigger")
+        Me.DrinkerTrigger.Name = "DrinkerTrigger"
+        Me.DrinkerTrigger.UseVisualStyleBackColor = True
+        '
+        'DrinkerManaPoints
+        '
+        resources.ApplyResources(Me.DrinkerManaPoints, "DrinkerManaPoints")
+        Me.DrinkerManaPoints.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.DrinkerManaPoints.Name = "DrinkerManaPoints"
+        '
+        'DrinkerManalbl
+        '
+        resources.ApplyResources(Me.DrinkerManalbl, "DrinkerManalbl")
+        Me.DrinkerManalbl.Name = "DrinkerManalbl"
         '
         'TabPage7
         '
@@ -3120,17 +3120,17 @@ Partial Class frmMain
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
-        Me.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BackColor = System.Drawing.SystemColors.Control
         Me.Controls.Add(Me.MainTabControl)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
-        Me.TransparencyKey = System.Drawing.SystemColors.ActiveBorder
+        Me.TransparencyKey = System.Drawing.SystemColors.Info
         Me.PopupMenu.ResumeLayout(False)
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -3200,12 +3200,12 @@ Partial Class frmMain
         Me.HealerBox.PerformLayout()
         CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.DrinkerBox.ResumeLayout(False)
-        Me.DrinkerBox.PerformLayout()
-        CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
         Me.HealPartyBox.ResumeLayout(False)
         Me.HealPartyBox.PerformLayout()
         CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.DrinkerBox.ResumeLayout(False)
+        Me.DrinkerBox.PerformLayout()
+        CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage7.ResumeLayout(False)
         Me.MCPatcherBox.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)

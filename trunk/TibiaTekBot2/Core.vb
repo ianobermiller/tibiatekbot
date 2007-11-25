@@ -3276,6 +3276,7 @@ Public Module CoreModule
 
         Private Sub IrcClient_ChannelPart(ByVal Nick As String, ByVal Channel As String) Handles IRCClient.EventChannelPart
             'ConsoleWrite(Nick & " parts " & Channel & ".")
+
         End Sub
 
         Private Sub IrcClient_ChannelSelfJoin(ByVal Channel As String) Handles IRCClient.EventChannelSelfJoin
