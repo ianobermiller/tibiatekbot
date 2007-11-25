@@ -328,6 +328,8 @@ Public Module CoreModule
         Public RingID As Integer = 0
 
         Public LastActivity As Date = Date.Now
+
+        Public NameSpyActivated As Boolean = False
 #End Region
 
 #Region " Memory Reading/Writing "
@@ -2290,21 +2292,26 @@ Public Module CoreModule
         Public Sub ExpCheckerTimerObj_Execute() Handles ExpCheckerTimerObj.OnExecute
             Try
                 If Not InGame() Then Exit Sub
-                If Experience < 0 Then Exit Sub
+                Dim NextLevelExpL As Long = 0
+                Dim CurrentLevelExpL As Long = 0
+                Dim ExperienceL As Long = Experience
+                Dim LastExperienceL As Long = LastExperience
+                Dim NextLevelPercentageL As Long = NextLevelPercentage
+                If ExperienceL < 0 Then Exit Sub
                 If ExpCheckerActivated Then
-                    If LastExperience > 0 AndAlso Experience = LastExperience Then
+                    If LastExperienceL > 0 AndAlso ExperienceL = LastExperience Then
                         Exit Sub
                     End If
                 End If
-                NextLevelExp = CInt(Floor(((16 + (2 / 3)) * Pow(Level + 1, 3)) - (100 * Pow(Level + 1, 2)) + (((283 + (1 / 3)) * (Level + 1)) - 200)))
-                CurrentLevelExp = CInt(Floor(((16 + (2 / 3)) * Pow(Level, 3)) - (100 * Pow(Level, 2)) + (((283 + (1 / 3)) * (Level)) - 200)))
+                NextLevelExpL = CLng(Floor(((16 + (2 / 3)) * Pow(Level + 1, 3)) - (100 * Pow(Level + 1, 2)) + (((283 + (1 / 3)) * (Level + 1)) - 200)))
+                CurrentLevelExpL = CLng(Floor(((16 + (2 / 3)) * Pow(Level, 3)) - (100 * Pow(Level, 2)) + (((283 + (1 / 3)) * (Level)) - 200)))
                 If (Level = 0) Or (Experience = 0) Then Exit Sub
-                NextLevelPercentage = CInt(Floor((Experience - CurrentLevelExp) * 100 / (NextLevelExp - CurrentLevelExp)))
+                NextLevelPercentageL = CLng(Floor((ExperienceL - CurrentLevelExpL) * 100 / (NextLevelExpL - CurrentLevelExpL)))
                 If ExpCheckerActivated Then
                     If Not Proxy.Client.MainWindowTitle.Equals(BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
-                        ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)")
+                        ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExpL - ExperienceL) & " (" & NextLevelPercentageL & "% completed)")
                     End If
-                    LastExperience = Experience
+                    LastExperienceL = ExperienceL
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

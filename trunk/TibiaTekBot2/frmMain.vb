@@ -128,6 +128,10 @@ Public Class frmMain
             If HealPType.SelectedIndex = Nothing Then
                 HealPType.SelectedIndex = 0
             End If
+            'Open Website
+            If WebsiteName.SelectedIndex = Nothing Then
+                WebsiteName.SelectedIndex = 0
+            End If
 
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -193,8 +197,45 @@ Public Class frmMain
             RefreshHealFriendControls()
             RefreshHealPartyControls()
             RefreshDrinkerControls()
+            RefreshExpCheckerControls()
+            RefreshNameSpyControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshNameSpyControls()
+        Try
+            If Core.NameSpyActivated Then
+                NameSpyTrigger.Checked = True
+            Else
+                NameSpyTrigger.Checked = False
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub RefreshExpCheckerControls()
+        Try
+            If Core.ExpCheckerActivated Or Core.ShowCreaturesUntilNextLevel Then
+                ExpCheckerTrigger.Checked = True
+            Else
+                ExpCheckerTrigger.Checked = False
+            End If
+            If ExpCheckerTrigger.Checked Then
+                ExpShowNext.Checked = Core.ExpCheckerActivated = True
+                ExpShowCreatures.Checked = Core.ShowCreaturesUntilNextLevel = True
+
+                ExpShowNext.Enabled = False
+                ExpShowCreatures.Enabled = False
+            Else
+                ExpShowNext.Enabled = True
+                ExpShowCreatures.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -2297,5 +2338,188 @@ Public Class frmMain
 
     Private Sub MCPatcherButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MCPatcherButton.Click
         MCPatcher()
+    End Sub
+
+    Private Sub ExpCheckerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExpCheckerTrigger.CheckedChanged
+        Try
+            If ExpCheckerTrigger.Checked Then
+                If ExpShowNext.Checked Then
+                    If Core.FakingTitle Then
+                        Core.FakingTitle = False
+                        MessageBox.Show("Fake Title is now Disabled.")
+                    End If
+                    Core.LastExperience = 0
+                    Core.ExpCheckerActivated = True
+                End If
+                If ExpShowCreatures.Checked Then
+                    Core.ShowCreaturesUntilNextLevel = True
+                End If
+            Else
+                Core.ShowCreaturesUntilNextLevel = False
+                Core.ExpCheckerActivated = False
+                Core.LastExperience = 0
+                Core.ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName)
+            End If
+            RefreshExpCheckerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub FloorExplorerLook(ByVal Direction As String)
+        Try
+            Dim Floor As Short = 0
+            Dim EntityCount As Integer = 0
+            Dim EntityList As New List(Of String)
+            Dim EntityListCount As New List(Of Integer)
+            Dim EntityListIndex As Integer
+            Dim EntityName As String = ""
+            Dim Output As String = ""
+            Dim I As Integer
+            Dim BL As BattleList = New BattleList
+            Dim Found As Boolean = False
+            Select Case Direction.ToLower
+                Case "down", "below", "downstairs", "v", "\/"
+                    Floor = 1
+                Case "up", "above", "upstairs", "/\", "^"
+                    Floor = -1
+                Case "around"
+                    Floor = 0
+            End Select
+            BL.Reset(True)
+            Do
+                If BL.IsMyself OrElse BL.GetFloor <> Core.CharacterLoc.Z + Floor Then Continue Do
+                EntityName = BL.GetName
+                EntityListIndex = EntityList.IndexOf(EntityName)
+                If EntityListIndex > -1 Then
+                    EntityListCount(EntityListIndex) += 1
+                Else
+                    EntityList.Add(EntityName)
+                    EntityListCount.Add(1)
+                    EntityCount += 1
+                End If
+            Loop While BL.NextEntity(True)
+            If EntityCount = 0 Then
+                Output = "Nothing"
+            Else
+                For I = 0 To EntityCount - 1
+                    If (I > 0) And (I <= EntityCount - 1) Then Output = Output & ", "
+                    If EntityListCount(I) = 1 Then
+                        Output &= EntityList(I)
+                    Else
+                        Output &= EntityList(I) & "(" & EntityListCount(I) & "x)"
+                    End If
+                Next
+            End If
+            MessageBox.Show(Output & ".", "Entities Found:")
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub FloorUp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FloorUp.Click
+        FloorExplorerLook("up")
+    End Sub
+
+    Private Sub FloorAround_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FloorAround.Click
+        FloorExplorerLook("around")
+    End Sub
+
+    Private Sub FloorDown_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FloorDown.Click
+        FloorExplorerLook("down")
+    End Sub
+
+    Private Sub NameSpyTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NameSpyTrigger.CheckedChanged
+        Try
+            If NameSpyTrigger.Checked Then
+                Core.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
+                Core.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
+                Core.NameSpyActivated = True
+            Else
+                Core.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
+                Core.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
+                Core.NameSpyActivated = False
+            End If
+            RefreshNameSpyControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub OpenWebsite_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OpenWebsite.Click
+        Try
+            If WebsiteName.Text = vbNullString Then
+                MessageBox.Show("Please enter the Url", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+            Dim Prepend As String = ""
+            Select Case WebsiteName.Text.ToLower
+                Case "tibia wiki"
+                    If String.IsNullOrEmpty(SearchFor.Text) Then
+                        MessageBox.Show("Please enter search criteria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
+                    Prepend = "http://tibia.erig.net/Special:Search?search="
+                Case "tibia.com character"
+                    If String.IsNullOrEmpty(SearchFor.Text) Then
+                        MessageBox.Show("Please enter search criteria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub                        
+                    End If
+                    Prepend = "http://www.tibia.com/community/?subtopic=character&name="
+                Case "tibia.com guild"
+                    If String.IsNullOrEmpty(SearchFor.Text) Then
+                        MessageBox.Show("Please enter search criteria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
+                    Prepend = "http://www.tibia.com/community/?subtopic=guilds&page=view&GuildName="
+                Case "erig.net highscore"
+                    If String.IsNullOrEmpty(SearchFor.Text) Then
+                        MessageBox.Show("Please enter search criteria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
+                    Prepend = "http://www.erig.net/xphist.php?player="
+                Case "google"
+                    If String.IsNullOrEmpty(SearchFor.Text) Then
+                        MessageBox.Show("Please enter search criteria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
+                    Prepend = "http://www.google.com/search?q="
+                Case Else
+                    Core.OpenCommand = WebsiteName.Text
+                    If Not String.IsNullOrEmpty(SearchFor.Text) Then MessageBox.Show("Note: Search criteria work only with pre-defined urls.")
+                    If Not Core.BGWOpenCommand.IsBusy Then
+                        Core.BGWOpenCommand.RunWorkerAsync()
+                        Exit Sub
+                    Else
+                        MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
+            End Select
+            Core.OpenCommand = Prepend & SearchFor.Text
+            If Not Core.BGWOpenCommand.IsBusy Then
+                Core.BGWOpenCommand.RunWorkerAsync()
+            Else
+                MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub SendLocation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SendLocation.Click
+        Try
+            If String.IsNullOrEmpty(SendLocationTo.Text) Then
+                MessageBox.Show("Please enter the name of the player.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+            If Not Core.BGWSendLocation.IsBusy Then
+                Core.SendLocationDestinatary = SendLocationTo.Text
+                Core.BGWSendLocation.RunWorkerAsync()
+            Else
+                MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class

@@ -360,6 +360,26 @@ Partial Class frmMain
         Me.MiscReloadItemsButton = New System.Windows.Forms.Button
         Me.MiscReloadSpellsButton = New System.Windows.Forms.Button
         Me.TabPage4 = New System.Windows.Forms.TabPage
+        Me.SendLocationBox = New System.Windows.Forms.GroupBox
+        Me.SendLocationTo = New System.Windows.Forms.TextBox
+        Me.SendLocationToWhomlbl = New System.Windows.Forms.Label
+        Me.SendLocation = New System.Windows.Forms.Button
+        Me.OpenWebsiteBox = New System.Windows.Forms.GroupBox
+        Me.OpenWebsite = New System.Windows.Forms.Button
+        Me.SearchFor = New System.Windows.Forms.TextBox
+        Me.SearchForlbl = New System.Windows.Forms.Label
+        Me.WebsiteName = New System.Windows.Forms.ComboBox
+        Me.Websitelbl = New System.Windows.Forms.Label
+        Me.NameSpyBox = New System.Windows.Forms.GroupBox
+        Me.NameSpyTrigger = New System.Windows.Forms.CheckBox
+        Me.FloorLookBox = New System.Windows.Forms.GroupBox
+        Me.FloorDown = New System.Windows.Forms.Button
+        Me.FloorAround = New System.Windows.Forms.Button
+        Me.FloorUp = New System.Windows.Forms.Button
+        Me.ExpCheckerBox = New System.Windows.Forms.GroupBox
+        Me.ExpCheckerTrigger = New System.Windows.Forms.CheckBox
+        Me.ExpShowCreatures = New System.Windows.Forms.CheckBox
+        Me.ExpShowNext = New System.Windows.Forms.CheckBox
         Me.TabPage5 = New System.Windows.Forms.TabPage
         Me.TabPage6 = New System.Windows.Forms.TabPage
         Me.GroupBox11 = New System.Windows.Forms.GroupBox
@@ -467,6 +487,12 @@ Partial Class frmMain
         Me.TabPage7.SuspendLayout()
         Me.MCPatcherBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
+        Me.SendLocationBox.SuspendLayout()
+        Me.OpenWebsiteBox.SuspendLayout()
+        Me.NameSpyBox.SuspendLayout()
+        Me.FloorLookBox.SuspendLayout()
+        Me.ExpCheckerBox.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
@@ -2387,9 +2413,145 @@ Partial Class frmMain
         '
         'TabPage4
         '
+        Me.TabPage4.Controls.Add(Me.SendLocationBox)
+        Me.TabPage4.Controls.Add(Me.OpenWebsiteBox)
+        Me.TabPage4.Controls.Add(Me.NameSpyBox)
+        Me.TabPage4.Controls.Add(Me.FloorLookBox)
+        Me.TabPage4.Controls.Add(Me.ExpCheckerBox)
         resources.ApplyResources(Me.TabPage4, "TabPage4")
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'SendLocationBox
+        '
+        Me.SendLocationBox.Controls.Add(Me.SendLocationTo)
+        Me.SendLocationBox.Controls.Add(Me.SendLocationToWhomlbl)
+        Me.SendLocationBox.Controls.Add(Me.SendLocation)
+        resources.ApplyResources(Me.SendLocationBox, "SendLocationBox")
+        Me.SendLocationBox.Name = "SendLocationBox"
+        Me.SendLocationBox.TabStop = False
+        '
+        'SendLocationTo
+        '
+        resources.ApplyResources(Me.SendLocationTo, "SendLocationTo")
+        Me.SendLocationTo.Name = "SendLocationTo"
+        '
+        'SendLocationToWhomlbl
+        '
+        resources.ApplyResources(Me.SendLocationToWhomlbl, "SendLocationToWhomlbl")
+        Me.SendLocationToWhomlbl.Name = "SendLocationToWhomlbl"
+        '
+        'SendLocation
+        '
+        resources.ApplyResources(Me.SendLocation, "SendLocation")
+        Me.SendLocation.Name = "SendLocation"
+        Me.SendLocation.UseVisualStyleBackColor = True
+        '
+        'OpenWebsiteBox
+        '
+        Me.OpenWebsiteBox.Controls.Add(Me.OpenWebsite)
+        Me.OpenWebsiteBox.Controls.Add(Me.SearchFor)
+        Me.OpenWebsiteBox.Controls.Add(Me.SearchForlbl)
+        Me.OpenWebsiteBox.Controls.Add(Me.WebsiteName)
+        Me.OpenWebsiteBox.Controls.Add(Me.Websitelbl)
+        resources.ApplyResources(Me.OpenWebsiteBox, "OpenWebsiteBox")
+        Me.OpenWebsiteBox.Name = "OpenWebsiteBox"
+        Me.OpenWebsiteBox.TabStop = False
+        '
+        'OpenWebsite
+        '
+        resources.ApplyResources(Me.OpenWebsite, "OpenWebsite")
+        Me.OpenWebsite.Name = "OpenWebsite"
+        Me.OpenWebsite.UseVisualStyleBackColor = True
+        '
+        'SearchFor
+        '
+        resources.ApplyResources(Me.SearchFor, "SearchFor")
+        Me.SearchFor.Name = "SearchFor"
+        '
+        'SearchForlbl
+        '
+        resources.ApplyResources(Me.SearchForlbl, "SearchForlbl")
+        Me.SearchForlbl.Name = "SearchForlbl"
+        '
+        'WebsiteName
+        '
+        Me.WebsiteName.FormattingEnabled = True
+        Me.WebsiteName.Items.AddRange(New Object() {resources.GetString("WebsiteName.Items"), resources.GetString("WebsiteName.Items1"), resources.GetString("WebsiteName.Items2"), resources.GetString("WebsiteName.Items3"), resources.GetString("WebsiteName.Items4")})
+        resources.ApplyResources(Me.WebsiteName, "WebsiteName")
+        Me.WebsiteName.Name = "WebsiteName"
+        '
+        'Websitelbl
+        '
+        resources.ApplyResources(Me.Websitelbl, "Websitelbl")
+        Me.Websitelbl.Name = "Websitelbl"
+        '
+        'NameSpyBox
+        '
+        Me.NameSpyBox.Controls.Add(Me.NameSpyTrigger)
+        resources.ApplyResources(Me.NameSpyBox, "NameSpyBox")
+        Me.NameSpyBox.Name = "NameSpyBox"
+        Me.NameSpyBox.TabStop = False
+        '
+        'NameSpyTrigger
+        '
+        resources.ApplyResources(Me.NameSpyTrigger, "NameSpyTrigger")
+        Me.NameSpyTrigger.Name = "NameSpyTrigger"
+        Me.NameSpyTrigger.UseVisualStyleBackColor = True
+        '
+        'FloorLookBox
+        '
+        Me.FloorLookBox.Controls.Add(Me.FloorDown)
+        Me.FloorLookBox.Controls.Add(Me.FloorAround)
+        Me.FloorLookBox.Controls.Add(Me.FloorUp)
+        resources.ApplyResources(Me.FloorLookBox, "FloorLookBox")
+        Me.FloorLookBox.Name = "FloorLookBox"
+        Me.FloorLookBox.TabStop = False
+        '
+        'FloorDown
+        '
+        resources.ApplyResources(Me.FloorDown, "FloorDown")
+        Me.FloorDown.Name = "FloorDown"
+        Me.FloorDown.UseVisualStyleBackColor = True
+        '
+        'FloorAround
+        '
+        resources.ApplyResources(Me.FloorAround, "FloorAround")
+        Me.FloorAround.Name = "FloorAround"
+        Me.FloorAround.UseVisualStyleBackColor = True
+        '
+        'FloorUp
+        '
+        resources.ApplyResources(Me.FloorUp, "FloorUp")
+        Me.FloorUp.Name = "FloorUp"
+        Me.FloorUp.UseVisualStyleBackColor = True
+        '
+        'ExpCheckerBox
+        '
+        Me.ExpCheckerBox.Controls.Add(Me.ExpCheckerTrigger)
+        Me.ExpCheckerBox.Controls.Add(Me.ExpShowCreatures)
+        Me.ExpCheckerBox.Controls.Add(Me.ExpShowNext)
+        resources.ApplyResources(Me.ExpCheckerBox, "ExpCheckerBox")
+        Me.ExpCheckerBox.Name = "ExpCheckerBox"
+        Me.ExpCheckerBox.TabStop = False
+        '
+        'ExpCheckerTrigger
+        '
+        resources.ApplyResources(Me.ExpCheckerTrigger, "ExpCheckerTrigger")
+        Me.ExpCheckerTrigger.Name = "ExpCheckerTrigger"
+        Me.ExpCheckerTrigger.UseVisualStyleBackColor = True
+        '
+        'ExpShowCreatures
+        '
+        resources.ApplyResources(Me.ExpShowCreatures, "ExpShowCreatures")
+        Me.ExpShowCreatures.Name = "ExpShowCreatures"
+        Me.ExpShowCreatures.UseVisualStyleBackColor = True
+        '
+        'ExpShowNext
+        '
+        resources.ApplyResources(Me.ExpShowNext, "ExpShowNext")
+        Me.ExpShowNext.Name = "ExpShowNext"
+        Me.ExpShowNext.UseVisualStyleBackColor = True
         '
         'TabPage5
         '
@@ -2790,6 +2952,15 @@ Partial Class frmMain
         Me.TabPage7.ResumeLayout(False)
         Me.MCPatcherBox.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
+        Me.TabPage4.ResumeLayout(False)
+        Me.SendLocationBox.ResumeLayout(False)
+        Me.SendLocationBox.PerformLayout()
+        Me.OpenWebsiteBox.ResumeLayout(False)
+        Me.OpenWebsiteBox.PerformLayout()
+        Me.NameSpyBox.ResumeLayout(False)
+        Me.FloorLookBox.ResumeLayout(False)
+        Me.ExpCheckerBox.ResumeLayout(False)
+        Me.ExpCheckerBox.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
@@ -3183,4 +3354,24 @@ Partial Class frmMain
     Friend WithEvents DrinkerManaPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents MCPatcherBox As System.Windows.Forms.GroupBox
     Friend WithEvents MCPatcherButton As System.Windows.Forms.Button
+    Friend WithEvents ExpCheckerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents ExpShowCreatures As System.Windows.Forms.CheckBox
+    Friend WithEvents ExpShowNext As System.Windows.Forms.CheckBox
+    Friend WithEvents ExpCheckerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents FloorLookBox As System.Windows.Forms.GroupBox
+    Friend WithEvents FloorUp As System.Windows.Forms.Button
+    Friend WithEvents FloorAround As System.Windows.Forms.Button
+    Friend WithEvents FloorDown As System.Windows.Forms.Button
+    Friend WithEvents NameSpyBox As System.Windows.Forms.GroupBox
+    Friend WithEvents NameSpyTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents OpenWebsiteBox As System.Windows.Forms.GroupBox
+    Friend WithEvents WebsiteName As System.Windows.Forms.ComboBox
+    Friend WithEvents Websitelbl As System.Windows.Forms.Label
+    Friend WithEvents SendLocationBox As System.Windows.Forms.GroupBox
+    Friend WithEvents SearchFor As System.Windows.Forms.TextBox
+    Friend WithEvents SearchForlbl As System.Windows.Forms.Label
+    Friend WithEvents SendLocation As System.Windows.Forms.Button
+    Friend WithEvents SendLocationToWhomlbl As System.Windows.Forms.Label
+    Friend WithEvents SendLocationTo As System.Windows.Forms.TextBox
+    Friend WithEvents OpenWebsite As System.Windows.Forms.Button
 End Class

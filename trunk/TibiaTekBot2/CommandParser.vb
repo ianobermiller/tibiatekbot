@@ -218,11 +218,12 @@ Public Module CommandParserModule
                 Case 0
                     Core.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
                     Core.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
+                    Core.NameSpyActivated = False
                     Core.ConsoleWrite("Name Spy is now Disabled.")
                 Case 1
                     Core.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
                     Core.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
-
+                    Core.NameSpyActivated = True
                     Core.ConsoleWrite("Name Spy is now Enabled.")
                 Case Else
                     Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
