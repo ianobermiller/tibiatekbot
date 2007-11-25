@@ -381,6 +381,25 @@ Partial Class frmMain
         Me.ExpShowCreatures = New System.Windows.Forms.CheckBox
         Me.ExpShowNext = New System.Windows.Forms.CheckBox
         Me.TabPage5 = New System.Windows.Forms.TabPage
+        Me.PickuperBox = New System.Windows.Forms.GroupBox
+        Me.PickuperTrigger = New System.Windows.Forms.CheckBox
+        Me.TrainerBox = New System.Windows.Forms.GroupBox
+        Me.TrainerInfo = New System.Windows.Forms.Button
+        Me.TrainerClear = New System.Windows.Forms.Button
+        Me.TrainerRemove = New System.Windows.Forms.Button
+        Me.TrainerTrigger = New System.Windows.Forms.CheckBox
+        Me.MaxPercentageHP = New System.Windows.Forms.NumericUpDown
+        Me.MaxPercentageHPlbl = New System.Windows.Forms.Label
+        Me.MinPercentageHP = New System.Windows.Forms.NumericUpDown
+        Me.MinPercentageHplbl = New System.Windows.Forms.Label
+        Me.TrainerAdd = New System.Windows.Forms.Button
+        Me.AutoAttackerBox = New System.Windows.Forms.GroupBox
+        Me.AutoAttackerTrigger = New System.Windows.Forms.CheckBox
+        Me.AttackAutomatically = New System.Windows.Forms.CheckBox
+        Me.AttackChasingMode = New System.Windows.Forms.ComboBox
+        Me.ChasingModelbl = New System.Windows.Forms.Label
+        Me.AttackerFightingMode = New System.Windows.Forms.ComboBox
+        Me.FightingModelbl = New System.Windows.Forms.Label
         Me.TabPage6 = New System.Windows.Forms.TabPage
         Me.ChameleonBox = New System.Windows.Forms.GroupBox
         Me.ChameleonPlayer = New System.Windows.Forms.TextBox
@@ -511,6 +530,12 @@ Partial Class frmMain
         Me.NameSpyBox.SuspendLayout()
         Me.FloorLookBox.SuspendLayout()
         Me.ExpCheckerBox.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
+        Me.PickuperBox.SuspendLayout()
+        Me.TrainerBox.SuspendLayout()
+        CType(Me.MaxPercentageHP, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MinPercentageHP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.AutoAttackerBox.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
@@ -2579,9 +2604,140 @@ Partial Class frmMain
         '
         'TabPage5
         '
+        Me.TabPage5.Controls.Add(Me.PickuperBox)
+        Me.TabPage5.Controls.Add(Me.TrainerBox)
+        Me.TabPage5.Controls.Add(Me.AutoAttackerBox)
         resources.ApplyResources(Me.TabPage5, "TabPage5")
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'PickuperBox
+        '
+        Me.PickuperBox.Controls.Add(Me.PickuperTrigger)
+        resources.ApplyResources(Me.PickuperBox, "PickuperBox")
+        Me.PickuperBox.Name = "PickuperBox"
+        Me.PickuperBox.TabStop = False
+        '
+        'PickuperTrigger
+        '
+        resources.ApplyResources(Me.PickuperTrigger, "PickuperTrigger")
+        Me.PickuperTrigger.Name = "PickuperTrigger"
+        Me.PickuperTrigger.UseVisualStyleBackColor = True
+        '
+        'TrainerBox
+        '
+        Me.TrainerBox.Controls.Add(Me.TrainerInfo)
+        Me.TrainerBox.Controls.Add(Me.TrainerClear)
+        Me.TrainerBox.Controls.Add(Me.TrainerRemove)
+        Me.TrainerBox.Controls.Add(Me.TrainerTrigger)
+        Me.TrainerBox.Controls.Add(Me.MaxPercentageHP)
+        Me.TrainerBox.Controls.Add(Me.MaxPercentageHPlbl)
+        Me.TrainerBox.Controls.Add(Me.MinPercentageHP)
+        Me.TrainerBox.Controls.Add(Me.MinPercentageHplbl)
+        Me.TrainerBox.Controls.Add(Me.TrainerAdd)
+        resources.ApplyResources(Me.TrainerBox, "TrainerBox")
+        Me.TrainerBox.Name = "TrainerBox"
+        Me.TrainerBox.TabStop = False
+        '
+        'TrainerInfo
+        '
+        resources.ApplyResources(Me.TrainerInfo, "TrainerInfo")
+        Me.TrainerInfo.Name = "TrainerInfo"
+        Me.TrainerInfo.UseVisualStyleBackColor = True
+        '
+        'TrainerClear
+        '
+        resources.ApplyResources(Me.TrainerClear, "TrainerClear")
+        Me.TrainerClear.Name = "TrainerClear"
+        Me.TrainerClear.UseVisualStyleBackColor = True
+        '
+        'TrainerRemove
+        '
+        resources.ApplyResources(Me.TrainerRemove, "TrainerRemove")
+        Me.TrainerRemove.Name = "TrainerRemove"
+        Me.TrainerRemove.UseVisualStyleBackColor = True
+        '
+        'TrainerTrigger
+        '
+        resources.ApplyResources(Me.TrainerTrigger, "TrainerTrigger")
+        Me.TrainerTrigger.Name = "TrainerTrigger"
+        Me.TrainerTrigger.UseVisualStyleBackColor = True
+        '
+        'MaxPercentageHP
+        '
+        resources.ApplyResources(Me.MaxPercentageHP, "MaxPercentageHP")
+        Me.MaxPercentageHP.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.MaxPercentageHP.Name = "MaxPercentageHP"
+        '
+        'MaxPercentageHPlbl
+        '
+        resources.ApplyResources(Me.MaxPercentageHPlbl, "MaxPercentageHPlbl")
+        Me.MaxPercentageHPlbl.Name = "MaxPercentageHPlbl"
+        '
+        'MinPercentageHP
+        '
+        resources.ApplyResources(Me.MinPercentageHP, "MinPercentageHP")
+        Me.MinPercentageHP.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.MinPercentageHP.Name = "MinPercentageHP"
+        '
+        'MinPercentageHplbl
+        '
+        resources.ApplyResources(Me.MinPercentageHplbl, "MinPercentageHplbl")
+        Me.MinPercentageHplbl.Name = "MinPercentageHplbl"
+        '
+        'TrainerAdd
+        '
+        resources.ApplyResources(Me.TrainerAdd, "TrainerAdd")
+        Me.TrainerAdd.Name = "TrainerAdd"
+        Me.TrainerAdd.UseVisualStyleBackColor = True
+        '
+        'AutoAttackerBox
+        '
+        Me.AutoAttackerBox.Controls.Add(Me.AutoAttackerTrigger)
+        Me.AutoAttackerBox.Controls.Add(Me.AttackAutomatically)
+        Me.AutoAttackerBox.Controls.Add(Me.AttackChasingMode)
+        Me.AutoAttackerBox.Controls.Add(Me.ChasingModelbl)
+        Me.AutoAttackerBox.Controls.Add(Me.AttackerFightingMode)
+        Me.AutoAttackerBox.Controls.Add(Me.FightingModelbl)
+        resources.ApplyResources(Me.AutoAttackerBox, "AutoAttackerBox")
+        Me.AutoAttackerBox.Name = "AutoAttackerBox"
+        Me.AutoAttackerBox.TabStop = False
+        '
+        'AutoAttackerTrigger
+        '
+        resources.ApplyResources(Me.AutoAttackerTrigger, "AutoAttackerTrigger")
+        Me.AutoAttackerTrigger.Name = "AutoAttackerTrigger"
+        Me.AutoAttackerTrigger.UseVisualStyleBackColor = True
+        '
+        'AttackAutomatically
+        '
+        resources.ApplyResources(Me.AttackAutomatically, "AttackAutomatically")
+        Me.AttackAutomatically.Name = "AttackAutomatically"
+        Me.AttackAutomatically.UseVisualStyleBackColor = True
+        '
+        'AttackChasingMode
+        '
+        Me.AttackChasingMode.FormattingEnabled = True
+        Me.AttackChasingMode.Items.AddRange(New Object() {resources.GetString("AttackChasingMode.Items"), resources.GetString("AttackChasingMode.Items1"), resources.GetString("AttackChasingMode.Items2")})
+        resources.ApplyResources(Me.AttackChasingMode, "AttackChasingMode")
+        Me.AttackChasingMode.Name = "AttackChasingMode"
+        '
+        'ChasingModelbl
+        '
+        resources.ApplyResources(Me.ChasingModelbl, "ChasingModelbl")
+        Me.ChasingModelbl.Name = "ChasingModelbl"
+        '
+        'AttackerFightingMode
+        '
+        Me.AttackerFightingMode.FormattingEnabled = True
+        Me.AttackerFightingMode.Items.AddRange(New Object() {resources.GetString("AttackerFightingMode.Items"), resources.GetString("AttackerFightingMode.Items1"), resources.GetString("AttackerFightingMode.Items2"), resources.GetString("AttackerFightingMode.Items3")})
+        resources.ApplyResources(Me.AttackerFightingMode, "AttackerFightingMode")
+        Me.AttackerFightingMode.Name = "AttackerFightingMode"
+        '
+        'FightingModelbl
+        '
+        resources.ApplyResources(Me.FightingModelbl, "FightingModelbl")
+        Me.FightingModelbl.Name = "FightingModelbl"
         '
         'TabPage6
         '
@@ -3092,6 +3248,14 @@ Partial Class frmMain
         Me.FloorLookBox.ResumeLayout(False)
         Me.ExpCheckerBox.ResumeLayout(False)
         Me.ExpCheckerBox.PerformLayout()
+        Me.TabPage5.ResumeLayout(False)
+        Me.PickuperBox.ResumeLayout(False)
+        Me.TrainerBox.ResumeLayout(False)
+        Me.TrainerBox.PerformLayout()
+        CType(Me.MaxPercentageHP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MinPercentageHP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.AutoAttackerBox.ResumeLayout(False)
+        Me.AutoAttackerBox.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
@@ -3520,4 +3684,23 @@ Partial Class frmMain
     Friend WithEvents SendLocationToWhomlbl As System.Windows.Forms.Label
     Friend WithEvents SendLocationTo As System.Windows.Forms.TextBox
     Friend WithEvents OpenWebsite As System.Windows.Forms.Button
+    Friend WithEvents AutoAttackerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents AutoAttackerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents AttackAutomatically As System.Windows.Forms.CheckBox
+    Friend WithEvents AttackChasingMode As System.Windows.Forms.ComboBox
+    Friend WithEvents ChasingModelbl As System.Windows.Forms.Label
+    Friend WithEvents AttackerFightingMode As System.Windows.Forms.ComboBox
+    Friend WithEvents FightingModelbl As System.Windows.Forms.Label
+    Friend WithEvents TrainerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents TrainerAdd As System.Windows.Forms.Button
+    Friend WithEvents MinPercentageHP As System.Windows.Forms.NumericUpDown
+    Friend WithEvents MinPercentageHplbl As System.Windows.Forms.Label
+    Friend WithEvents TrainerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents MaxPercentageHP As System.Windows.Forms.NumericUpDown
+    Friend WithEvents MaxPercentageHPlbl As System.Windows.Forms.Label
+    Friend WithEvents TrainerRemove As System.Windows.Forms.Button
+    Friend WithEvents TrainerInfo As System.Windows.Forms.Button
+    Friend WithEvents TrainerClear As System.Windows.Forms.Button
+    Friend WithEvents PickuperBox As System.Windows.Forms.GroupBox
+    Friend WithEvents PickuperTrigger As System.Windows.Forms.CheckBox
 End Class

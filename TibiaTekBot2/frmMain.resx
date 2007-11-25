@@ -1765,90 +1765,6 @@
   <data name="&gt;&gt;TabPage7.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="SendLocationTo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 19</value>
-  </data>
-  <data name="SendLocationTo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 20</value>
-  </data>
-  <data name="SendLocationTo.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;SendLocationTo.Name" xml:space="preserve">
-    <value>SendLocationTo</value>
-  </data>
-  <data name="&gt;&gt;SendLocationTo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SendLocationTo.Parent" xml:space="preserve">
-    <value>SendLocationBox</value>
-  </data>
-  <data name="&gt;&gt;SendLocationTo.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="SendLocationToWhomlbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="SendLocationToWhomlbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
-  </data>
-  <data name="SendLocationToWhomlbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 13</value>
-  </data>
-  <data name="SendLocationToWhomlbl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="SendLocationToWhomlbl.Text" xml:space="preserve">
-    <value>Name:</value>
-  </data>
-  <data name="&gt;&gt;SendLocationToWhomlbl.Name" xml:space="preserve">
-    <value>SendLocationToWhomlbl</value>
-  </data>
-  <data name="&gt;&gt;SendLocationToWhomlbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SendLocationToWhomlbl.Parent" xml:space="preserve">
-    <value>SendLocationBox</value>
-  </data>
-  <data name="&gt;&gt;SendLocationToWhomlbl.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="SendLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 54</value>
-  </data>
-  <data name="SendLocation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 24</value>
-  </data>
-  <data name="SendLocation.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="SendLocation.Text" xml:space="preserve">
-    <value>Send Location</value>
-  </data>
-  <data name="&gt;&gt;SendLocation.Name" xml:space="preserve">
-    <value>SendLocation</value>
-  </data>
-  <data name="&gt;&gt;SendLocation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SendLocation.Parent" xml:space="preserve">
-    <value>SendLocationBox</value>
-  </data>
-  <data name="&gt;&gt;SendLocation.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="SendLocationBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 133</value>
-  </data>
-  <data name="SendLocationBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 92</value>
-  </data>
-  <data name="SendLocationBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="SendLocationBox.Text" xml:space="preserve">
-    <value>Send Location</value>
-  </data>
   <data name="&gt;&gt;SendLocationBox.Name" xml:space="preserve">
     <value>SendLocationBox</value>
   </data>
@@ -1860,156 +1776,6 @@
   </data>
   <data name="&gt;&gt;SendLocationBox.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="OpenWebsite.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="OpenWebsite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 82</value>
-  </data>
-  <data name="OpenWebsite.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 24</value>
-  </data>
-  <data name="OpenWebsite.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="OpenWebsite.Text" xml:space="preserve">
-    <value>Open Website</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsite.Name" xml:space="preserve">
-    <value>OpenWebsite</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsite.Parent" xml:space="preserve">
-    <value>OpenWebsiteBox</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsite.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="SearchFor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 56</value>
-  </data>
-  <data name="SearchFor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 20</value>
-  </data>
-  <data name="SearchFor.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;SearchFor.Name" xml:space="preserve">
-    <value>SearchFor</value>
-  </data>
-  <data name="&gt;&gt;SearchFor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SearchFor.Parent" xml:space="preserve">
-    <value>OpenWebsiteBox</value>
-  </data>
-  <data name="&gt;&gt;SearchFor.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="SearchForlbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="SearchForlbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 40</value>
-  </data>
-  <data name="SearchForlbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 13</value>
-  </data>
-  <data name="SearchForlbl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="SearchForlbl.Text" xml:space="preserve">
-    <value>Search For:</value>
-  </data>
-  <data name="&gt;&gt;SearchForlbl.Name" xml:space="preserve">
-    <value>SearchForlbl</value>
-  </data>
-  <data name="&gt;&gt;SearchForlbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SearchForlbl.Parent" xml:space="preserve">
-    <value>OpenWebsiteBox</value>
-  </data>
-  <data name="&gt;&gt;SearchForlbl.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="WebsiteName.Items" xml:space="preserve">
-    <value>Tibia Wiki</value>
-  </data>
-  <data name="WebsiteName.Items1" xml:space="preserve">
-    <value>Tibia.com Character</value>
-  </data>
-  <data name="WebsiteName.Items2" xml:space="preserve">
-    <value>Tibia.com Guild</value>
-  </data>
-  <data name="WebsiteName.Items3" xml:space="preserve">
-    <value>Erig.Net Highscore</value>
-  </data>
-  <data name="WebsiteName.Items4" xml:space="preserve">
-    <value>Google</value>
-  </data>
-  <data name="WebsiteName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 13</value>
-  </data>
-  <data name="WebsiteName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 21</value>
-  </data>
-  <data name="WebsiteName.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;WebsiteName.Name" xml:space="preserve">
-    <value>WebsiteName</value>
-  </data>
-  <data name="&gt;&gt;WebsiteName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;WebsiteName.Parent" xml:space="preserve">
-    <value>OpenWebsiteBox</value>
-  </data>
-  <data name="&gt;&gt;WebsiteName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="Websitelbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Websitelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 16</value>
-  </data>
-  <data name="Websitelbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 13</value>
-  </data>
-  <data name="Websitelbl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="Websitelbl.Text" xml:space="preserve">
-    <value>Webiste:</value>
-  </data>
-  <data name="&gt;&gt;Websitelbl.Name" xml:space="preserve">
-    <value>Websitelbl</value>
-  </data>
-  <data name="&gt;&gt;Websitelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Websitelbl.Parent" xml:space="preserve">
-    <value>OpenWebsiteBox</value>
-  </data>
-  <data name="&gt;&gt;Websitelbl.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="OpenWebsiteBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 6</value>
-  </data>
-  <data name="OpenWebsiteBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 117</value>
-  </data>
-  <data name="OpenWebsiteBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="OpenWebsiteBox.Text" xml:space="preserve">
-    <value>Open Website</value>
   </data>
   <data name="&gt;&gt;OpenWebsiteBox.Name" xml:space="preserve">
     <value>OpenWebsiteBox</value>
@@ -2023,30 +1789,6 @@
   <data name="&gt;&gt;OpenWebsiteBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;NameSpyTrigger.Name" xml:space="preserve">
-    <value>NameSpyTrigger</value>
-  </data>
-  <data name="&gt;&gt;NameSpyTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NameSpyTrigger.Parent" xml:space="preserve">
-    <value>NameSpyBox</value>
-  </data>
-  <data name="&gt;&gt;NameSpyTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="NameSpyBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 231</value>
-  </data>
-  <data name="NameSpyBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 66</value>
-  </data>
-  <data name="NameSpyBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="NameSpyBox.Text" xml:space="preserve">
-    <value>Name Spy</value>
-  </data>
   <data name="&gt;&gt;NameSpyBox.Name" xml:space="preserve">
     <value>NameSpyBox</value>
   </data>
@@ -2059,54 +1801,6 @@
   <data name="&gt;&gt;NameSpyBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;FloorDown.Name" xml:space="preserve">
-    <value>FloorDown</value>
-  </data>
-  <data name="&gt;&gt;FloorDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FloorDown.Parent" xml:space="preserve">
-    <value>FloorLookBox</value>
-  </data>
-  <data name="&gt;&gt;FloorDown.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;FloorAround.Name" xml:space="preserve">
-    <value>FloorAround</value>
-  </data>
-  <data name="&gt;&gt;FloorAround.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FloorAround.Parent" xml:space="preserve">
-    <value>FloorLookBox</value>
-  </data>
-  <data name="&gt;&gt;FloorAround.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;FloorUp.Name" xml:space="preserve">
-    <value>FloorUp</value>
-  </data>
-  <data name="&gt;&gt;FloorUp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FloorUp.Parent" xml:space="preserve">
-    <value>FloorLookBox</value>
-  </data>
-  <data name="&gt;&gt;FloorUp.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="FloorLookBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 114</value>
-  </data>
-  <data name="FloorLookBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 111</value>
-  </data>
-  <data name="FloorLookBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="FloorLookBox.Text" xml:space="preserve">
-    <value>Floor Explorer</value>
-  </data>
   <data name="&gt;&gt;FloorLookBox.Name" xml:space="preserve">
     <value>FloorLookBox</value>
   </data>
@@ -2118,54 +1812,6 @@
   </data>
   <data name="&gt;&gt;FloorLookBox.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerTrigger.Name" xml:space="preserve">
-    <value>ExpCheckerTrigger</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerTrigger.Parent" xml:space="preserve">
-    <value>ExpCheckerBox</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;ExpShowCreatures.Name" xml:space="preserve">
-    <value>ExpShowCreatures</value>
-  </data>
-  <data name="&gt;&gt;ExpShowCreatures.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ExpShowCreatures.Parent" xml:space="preserve">
-    <value>ExpCheckerBox</value>
-  </data>
-  <data name="&gt;&gt;ExpShowCreatures.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ExpShowNext.Name" xml:space="preserve">
-    <value>ExpShowNext</value>
-  </data>
-  <data name="&gt;&gt;ExpShowNext.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ExpShowNext.Parent" xml:space="preserve">
-    <value>ExpCheckerBox</value>
-  </data>
-  <data name="&gt;&gt;ExpShowNext.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ExpCheckerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="ExpCheckerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 102</value>
-  </data>
-  <data name="ExpCheckerBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ExpCheckerBox.Text" xml:space="preserve">
-    <value>Show Creatures To Next Level</value>
   </data>
   <data name="&gt;&gt;ExpCheckerBox.Name" xml:space="preserve">
     <value>ExpCheckerBox</value>
@@ -2205,6 +1851,291 @@
   </data>
   <data name="&gt;&gt;TabPage4.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="PickuperTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="PickuperTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="PickuperTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 18</value>
+  </data>
+  <data name="PickuperTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="PickuperTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="PickuperTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="PickuperTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;PickuperTrigger.Name" xml:space="preserve">
+    <value>PickuperTrigger</value>
+  </data>
+  <data name="&gt;&gt;PickuperTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PickuperTrigger.Parent" xml:space="preserve">
+    <value>PickuperBox</value>
+  </data>
+  <data name="&gt;&gt;PickuperTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PickuperBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 6</value>
+  </data>
+  <data name="PickuperBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 60</value>
+  </data>
+  <data name="PickuperBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="PickuperBox.Text" xml:space="preserve">
+    <value>Auto Pickuper</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Name" xml:space="preserve">
+    <value>PickuperBox</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.Name" xml:space="preserve">
+    <value>TrainerInfo</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Name" xml:space="preserve">
+    <value>TrainerClear</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Name" xml:space="preserve">
+    <value>TrainerRemove</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Name" xml:space="preserve">
+    <value>TrainerTrigger</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Name" xml:space="preserve">
+    <value>MaxPercentageHP</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Name" xml:space="preserve">
+    <value>MaxPercentageHPlbl</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Name" xml:space="preserve">
+    <value>MinPercentageHP</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Name" xml:space="preserve">
+    <value>MinPercentageHplbl</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Name" xml:space="preserve">
+    <value>TrainerAdd</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="TrainerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 146</value>
+  </data>
+  <data name="TrainerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 170</value>
+  </data>
+  <data name="TrainerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="TrainerBox.Text" xml:space="preserve">
+    <value>Auto Trainer</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Name" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Name" xml:space="preserve">
+    <value>AutoAttackerTrigger</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Name" xml:space="preserve">
+    <value>AttackAutomatically</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Name" xml:space="preserve">
+    <value>AttackChasingMode</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Name" xml:space="preserve">
+    <value>ChasingModelbl</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Name" xml:space="preserve">
+    <value>AttackerFightingMode</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Name" xml:space="preserve">
+    <value>FightingModelbl</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="AutoAttackerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="AutoAttackerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 134</value>
+  </data>
+  <data name="AutoAttackerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="AutoAttackerBox.Text" xml:space="preserve">
+    <value>Auto Attacker</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Name" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="TabPage5.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -8469,6 +8400,396 @@
   <data name="&gt;&gt;MiscReloadSpellsButton.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="&gt;&gt;SendLocationTo.Name" xml:space="preserve">
+    <value>SendLocationTo</value>
+  </data>
+  <data name="&gt;&gt;SendLocationTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocationTo.Parent" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocationTo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SendLocationToWhomlbl.Name" xml:space="preserve">
+    <value>SendLocationToWhomlbl</value>
+  </data>
+  <data name="&gt;&gt;SendLocationToWhomlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocationToWhomlbl.Parent" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocationToWhomlbl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;SendLocation.Name" xml:space="preserve">
+    <value>SendLocation</value>
+  </data>
+  <data name="&gt;&gt;SendLocation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocation.Parent" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocation.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="SendLocationBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>191, 133</value>
+  </data>
+  <data name="SendLocationBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 92</value>
+  </data>
+  <data name="SendLocationBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="SendLocationBox.Text" xml:space="preserve">
+    <value>Send Location</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Name" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="SendLocationTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 19</value>
+  </data>
+  <data name="SendLocationTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 20</value>
+  </data>
+  <data name="SendLocationTo.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;SendLocationTo.Name" xml:space="preserve">
+    <value>SendLocationTo</value>
+  </data>
+  <data name="&gt;&gt;SendLocationTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocationTo.Parent" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocationTo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="SendLocationToWhomlbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SendLocationToWhomlbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
+  </data>
+  <data name="SendLocationToWhomlbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="SendLocationToWhomlbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="SendLocationToWhomlbl.Text" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="&gt;&gt;SendLocationToWhomlbl.Name" xml:space="preserve">
+    <value>SendLocationToWhomlbl</value>
+  </data>
+  <data name="&gt;&gt;SendLocationToWhomlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocationToWhomlbl.Parent" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocationToWhomlbl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="SendLocation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 54</value>
+  </data>
+  <data name="SendLocation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 24</value>
+  </data>
+  <data name="SendLocation.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="SendLocation.Text" xml:space="preserve">
+    <value>Send Location</value>
+  </data>
+  <data name="&gt;&gt;SendLocation.Name" xml:space="preserve">
+    <value>SendLocation</value>
+  </data>
+  <data name="&gt;&gt;SendLocation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocation.Parent" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocation.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsite.Name" xml:space="preserve">
+    <value>OpenWebsite</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsite.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsite.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SearchFor.Name" xml:space="preserve">
+    <value>SearchFor</value>
+  </data>
+  <data name="&gt;&gt;SearchFor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SearchFor.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;SearchFor.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;SearchForlbl.Name" xml:space="preserve">
+    <value>SearchForlbl</value>
+  </data>
+  <data name="&gt;&gt;SearchForlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SearchForlbl.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;SearchForlbl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;WebsiteName.Name" xml:space="preserve">
+    <value>WebsiteName</value>
+  </data>
+  <data name="&gt;&gt;WebsiteName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WebsiteName.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;WebsiteName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;Websitelbl.Name" xml:space="preserve">
+    <value>Websitelbl</value>
+  </data>
+  <data name="&gt;&gt;Websitelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Websitelbl.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;Websitelbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="OpenWebsiteBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>191, 6</value>
+  </data>
+  <data name="OpenWebsiteBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 117</value>
+  </data>
+  <data name="OpenWebsiteBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="OpenWebsiteBox.Text" xml:space="preserve">
+    <value>Open Website</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Name" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="OpenWebsite.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="OpenWebsite.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 82</value>
+  </data>
+  <data name="OpenWebsite.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 24</value>
+  </data>
+  <data name="OpenWebsite.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="OpenWebsite.Text" xml:space="preserve">
+    <value>Open Website</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsite.Name" xml:space="preserve">
+    <value>OpenWebsite</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsite.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsite.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="SearchFor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 56</value>
+  </data>
+  <data name="SearchFor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 20</value>
+  </data>
+  <data name="SearchFor.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;SearchFor.Name" xml:space="preserve">
+    <value>SearchFor</value>
+  </data>
+  <data name="&gt;&gt;SearchFor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SearchFor.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;SearchFor.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="SearchForlbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SearchForlbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 40</value>
+  </data>
+  <data name="SearchForlbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 13</value>
+  </data>
+  <data name="SearchForlbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="SearchForlbl.Text" xml:space="preserve">
+    <value>Search For:</value>
+  </data>
+  <data name="&gt;&gt;SearchForlbl.Name" xml:space="preserve">
+    <value>SearchForlbl</value>
+  </data>
+  <data name="&gt;&gt;SearchForlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SearchForlbl.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;SearchForlbl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="WebsiteName.Items" xml:space="preserve">
+    <value>Tibia Wiki</value>
+  </data>
+  <data name="WebsiteName.Items1" xml:space="preserve">
+    <value>Tibia.com Character</value>
+  </data>
+  <data name="WebsiteName.Items2" xml:space="preserve">
+    <value>Tibia.com Guild</value>
+  </data>
+  <data name="WebsiteName.Items3" xml:space="preserve">
+    <value>Erig.Net Highscore</value>
+  </data>
+  <data name="WebsiteName.Items4" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="WebsiteName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 13</value>
+  </data>
+  <data name="WebsiteName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 21</value>
+  </data>
+  <data name="WebsiteName.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;WebsiteName.Name" xml:space="preserve">
+    <value>WebsiteName</value>
+  </data>
+  <data name="&gt;&gt;WebsiteName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WebsiteName.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;WebsiteName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Websitelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Websitelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="Websitelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 13</value>
+  </data>
+  <data name="Websitelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="Websitelbl.Text" xml:space="preserve">
+    <value>Webiste:</value>
+  </data>
+  <data name="&gt;&gt;Websitelbl.Name" xml:space="preserve">
+    <value>Websitelbl</value>
+  </data>
+  <data name="&gt;&gt;Websitelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Websitelbl.Parent" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;Websitelbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;NameSpyTrigger.Name" xml:space="preserve">
+    <value>NameSpyTrigger</value>
+  </data>
+  <data name="&gt;&gt;NameSpyTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NameSpyTrigger.Parent" xml:space="preserve">
+    <value>NameSpyBox</value>
+  </data>
+  <data name="&gt;&gt;NameSpyTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="NameSpyBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 231</value>
+  </data>
+  <data name="NameSpyBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 66</value>
+  </data>
+  <data name="NameSpyBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="NameSpyBox.Text" xml:space="preserve">
+    <value>Name Spy</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Name" xml:space="preserve">
+    <value>NameSpyBox</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="NameSpyTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -8501,6 +8822,66 @@
   </data>
   <data name="&gt;&gt;NameSpyTrigger.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="&gt;&gt;FloorDown.Name" xml:space="preserve">
+    <value>FloorDown</value>
+  </data>
+  <data name="&gt;&gt;FloorDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FloorDown.Parent" xml:space="preserve">
+    <value>FloorLookBox</value>
+  </data>
+  <data name="&gt;&gt;FloorDown.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;FloorAround.Name" xml:space="preserve">
+    <value>FloorAround</value>
+  </data>
+  <data name="&gt;&gt;FloorAround.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FloorAround.Parent" xml:space="preserve">
+    <value>FloorLookBox</value>
+  </data>
+  <data name="&gt;&gt;FloorAround.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;FloorUp.Name" xml:space="preserve">
+    <value>FloorUp</value>
+  </data>
+  <data name="&gt;&gt;FloorUp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FloorUp.Parent" xml:space="preserve">
+    <value>FloorLookBox</value>
+  </data>
+  <data name="&gt;&gt;FloorUp.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="FloorLookBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 114</value>
+  </data>
+  <data name="FloorLookBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 111</value>
+  </data>
+  <data name="FloorLookBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="FloorLookBox.Text" xml:space="preserve">
+    <value>Floor Explorer</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Name" xml:space="preserve">
+    <value>FloorLookBox</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="FloorDown.Location" type="System.Drawing.Point, System.Drawing">
     <value>52, 79</value>
@@ -8573,6 +8954,66 @@
   </data>
   <data name="&gt;&gt;FloorUp.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerTrigger.Name" xml:space="preserve">
+    <value>ExpCheckerTrigger</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerTrigger.Parent" xml:space="preserve">
+    <value>ExpCheckerBox</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ExpShowCreatures.Name" xml:space="preserve">
+    <value>ExpShowCreatures</value>
+  </data>
+  <data name="&gt;&gt;ExpShowCreatures.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExpShowCreatures.Parent" xml:space="preserve">
+    <value>ExpCheckerBox</value>
+  </data>
+  <data name="&gt;&gt;ExpShowCreatures.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ExpShowNext.Name" xml:space="preserve">
+    <value>ExpShowNext</value>
+  </data>
+  <data name="&gt;&gt;ExpShowNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExpShowNext.Parent" xml:space="preserve">
+    <value>ExpCheckerBox</value>
+  </data>
+  <data name="&gt;&gt;ExpShowNext.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ExpCheckerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="ExpCheckerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 102</value>
+  </data>
+  <data name="ExpCheckerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ExpCheckerBox.Text" xml:space="preserve">
+    <value>Show Creatures To Next Level</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Name" xml:space="preserve">
+    <value>ExpCheckerBox</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="ExpCheckerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -8723,6 +9164,420 @@
   </data>
   <data name="&gt;&gt;ExpShowNext.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="TrainerInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>120, 49</value>
+  </data>
+  <data name="TrainerInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 24</value>
+  </data>
+  <data name="TrainerInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="TrainerInfo.Text" xml:space="preserve">
+    <value>Help!</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.Name" xml:space="preserve">
+    <value>TrainerInfo</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TrainerClear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>120, 19</value>
+  </data>
+  <data name="TrainerClear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 24</value>
+  </data>
+  <data name="TrainerClear.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="TrainerClear.Text" xml:space="preserve">
+    <value>Clear List</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Name" xml:space="preserve">
+    <value>TrainerClear</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TrainerRemove.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 49</value>
+  </data>
+  <data name="TrainerRemove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 24</value>
+  </data>
+  <data name="TrainerRemove.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="TrainerRemove.Text" xml:space="preserve">
+    <value>Remove Creature</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Name" xml:space="preserve">
+    <value>TrainerRemove</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TrainerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="TrainerTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="TrainerTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 138</value>
+  </data>
+  <data name="TrainerTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="TrainerTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="TrainerTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="TrainerTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Name" xml:space="preserve">
+    <value>TrainerTrigger</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="MaxPercentageHP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 107</value>
+  </data>
+  <data name="MaxPercentageHP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="MaxPercentageHP.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Name" xml:space="preserve">
+    <value>MaxPercentageHP</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="MaxPercentageHPlbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MaxPercentageHPlbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 109</value>
+  </data>
+  <data name="MaxPercentageHPlbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 13</value>
+  </data>
+  <data name="MaxPercentageHPlbl.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="MaxPercentageHPlbl.Text" xml:space="preserve">
+    <value>Man Percentage of Hit Points:</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Name" xml:space="preserve">
+    <value>MaxPercentageHPlbl</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="MinPercentageHP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 85</value>
+  </data>
+  <data name="MinPercentageHP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="MinPercentageHP.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Name" xml:space="preserve">
+    <value>MinPercentageHP</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="MinPercentageHplbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MinPercentageHplbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 87</value>
+  </data>
+  <data name="MinPercentageHplbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 13</value>
+  </data>
+  <data name="MinPercentageHplbl.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="MinPercentageHplbl.Text" xml:space="preserve">
+    <value>Min Percentage of Hit Points:</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Name" xml:space="preserve">
+    <value>MinPercentageHplbl</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="TrainerAdd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="TrainerAdd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 19</value>
+  </data>
+  <data name="TrainerAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 24</value>
+  </data>
+  <data name="TrainerAdd.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TrainerAdd.Text" xml:space="preserve">
+    <value>Add Creature</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Name" xml:space="preserve">
+    <value>TrainerAdd</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="AutoAttackerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="AutoAttackerTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="AutoAttackerTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 100</value>
+  </data>
+  <data name="AutoAttackerTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="AutoAttackerTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="AutoAttackerTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="AutoAttackerTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Name" xml:space="preserve">
+    <value>AutoAttackerTrigger</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AttackAutomatically.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AttackAutomatically.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="AttackAutomatically.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 77</value>
+  </data>
+  <data name="AttackAutomatically.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 17</value>
+  </data>
+  <data name="AttackAutomatically.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="AttackAutomatically.Text" xml:space="preserve">
+    <value>Attack Automatically</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Name" xml:space="preserve">
+    <value>AttackAutomatically</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="AttackChasingMode.Items" xml:space="preserve">
+    <value>Don't Change</value>
+  </data>
+  <data name="AttackChasingMode.Items1" xml:space="preserve">
+    <value>Chase</value>
+  </data>
+  <data name="AttackChasingMode.Items2" xml:space="preserve">
+    <value>Stand</value>
+  </data>
+  <data name="AttackChasingMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 47</value>
+  </data>
+  <data name="AttackChasingMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 21</value>
+  </data>
+  <data name="AttackChasingMode.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Name" xml:space="preserve">
+    <value>AttackChasingMode</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ChasingModelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ChasingModelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ChasingModelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 47</value>
+  </data>
+  <data name="ChasingModelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 13</value>
+  </data>
+  <data name="ChasingModelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="ChasingModelbl.Text" xml:space="preserve">
+    <value>Chasing Mode:</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Name" xml:space="preserve">
+    <value>ChasingModelbl</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="AttackerFightingMode.Items" xml:space="preserve">
+    <value>Don't Change</value>
+  </data>
+  <data name="AttackerFightingMode.Items1" xml:space="preserve">
+    <value>Offensive</value>
+  </data>
+  <data name="AttackerFightingMode.Items2" xml:space="preserve">
+    <value>Balanced</value>
+  </data>
+  <data name="AttackerFightingMode.Items3" xml:space="preserve">
+    <value>Defensive</value>
+  </data>
+  <data name="AttackerFightingMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 16</value>
+  </data>
+  <data name="AttackerFightingMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 21</value>
+  </data>
+  <data name="AttackerFightingMode.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Name" xml:space="preserve">
+    <value>AttackerFightingMode</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="FightingModelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FightingModelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="FightingModelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="FightingModelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 13</value>
+  </data>
+  <data name="FightingModelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="FightingModelbl.Text" xml:space="preserve">
+    <value>Fighting Mode:</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Name" xml:space="preserve">
+    <value>FightingModelbl</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="&gt;&gt;ChameleonSecond.Name" xml:space="preserve">
     <value>ChameleonSecond</value>
