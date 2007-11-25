@@ -121,13 +121,9 @@ Public Class frmMain
             HealUsePoints.Checked = True
             HealPercentHP.Enabled = False
             'Friend-Healer
-            If HealFType.SelectedIndex = Nothing Then
-                HealFType.SelectedIndex = 0
-            End If
+            If HealFType.SelectedIndex = Nothing Then HealFType.SelectedIndex = 0
             'Party Healer
-            If HealPType.SelectedIndex = Nothing Then
-                HealPType.SelectedIndex = 0
-            End If
+            If HealPType.SelectedIndex = Nothing Then HealPType.SelectedIndex = 0
             'Chameleon
             Dim Outfits() As OutfitDefinition = CoreModule.Outfits.GetOutfits
             For Each Outfit As OutfitDefinition In Outfits
@@ -139,9 +135,10 @@ Public Class frmMain
                 ChameleonOutfit.SelectedIndex = 0
             End If
             'Open Website
-            If WebsiteName.SelectedIndex = Nothing Then
-                WebsiteName.SelectedIndex = 0
-            End If
+            If WebsiteName.SelectedIndex = Nothing Then WebsiteName.SelectedIndex = 0
+            'Auto Attacker
+            If AttackerFightingMode.SelectedIndex = Nothing Then AttackerFightingMode.SelectedIndex = 0
+            If AttackChasingMode.SelectedIndex = Nothing Then AttackChasingMode.SelectedIndex = 0
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -210,12 +207,71 @@ Public Class frmMain
             RefreshChameleonControls()
             RefreshExpCheckerControls()
             RefreshNameSpyControls()
+            RefreshTrainerControls()
+            RefreshAutoAttackerControls()
+            RefreshPickuperControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
 
+    Private Sub RefreshPickuperControls()
+        Try
+            PickuperTrigger.Checked = Core.PickUpTimerObj.State = ThreadTimerState.Running
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    Private Sub RefreshAutoAttackerControls()
+        Try
+            If Core.AutoAttackerTimerObj.State = ThreadTimerState.Running Or Core.AutoAttackerActivated Then
+                AutoAttackerTrigger.Checked = True
+            Else
+                AutoAttackerTrigger.Checked = False
+            End If
+            If AutoAttackerTrigger.Checked Then
+                If Core.AutoAttackerTimerObj.State = ThreadTimerState.Running Then
+                    AttackAutomatically.Checked = True
+                Else
+                    AttackAutomatically.Checked = False
+                End If
+                AttackerFightingMode.Enabled = False
+                AttackChasingMode.Enabled = False
+                AttackAutomatically.Enabled = False
+            Else
+                AttackerFightingMode.Enabled = True
+                AttackChasingMode.Enabled = True
+                AttackAutomatically.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub RefreshTrainerControls()
+        Try
+            TrainerTrigger.Checked = Core.AutoTrainerTimerObj.State = ThreadTimerState.Running
+
+            If TrainerTrigger.Checked Then
+                MinPercentageHP.Value = Core.AutoTrainerMinHPPercent
+                MaxPercentageHP.Value = Core.AutoTrainerMaxHPPercent
+                TrainerAdd.Enabled = False
+                TrainerRemove.Enabled = False
+                TrainerClear.Enabled = False
+                MinPercentageHP.Enabled = False
+                MaxPercentageHP.Enabled = False
+            Else
+                TrainerAdd.Enabled = True
+                TrainerRemove.Enabled = True
+                TrainerClear.Enabled = True
+                MinPercentageHP.Enabled = True
+                MaxPercentageHP.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
     Private Sub RefreshChameleonControls()
         Try
             Dim BL As New BattleList
@@ -1955,7 +2011,7 @@ Public Class frmMain
                 Core.CBCreatureDied = False
                 Core.WaypointIndex = 0
                 Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
-                Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+                Core.Proxy.SendPacketToServer(ChangeChasingMode(PacketUtils.ChasingMode.Chasing))
                 Core.CBState = CavebotState.Walking
             Else
                 Core.LooterTimerObj.StopTimer()
@@ -2613,7 +2669,7 @@ Public Class frmMain
                 Case "tibia.com character"
                     If String.IsNullOrEmpty(SearchFor.Text) Then
                         MessageBox.Show("Please enter search criteria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        Exit Sub                        
+                        Exit Sub
                     End If
                     Prepend = "http://www.tibia.com/community/?subtopic=character&name="
                 Case "tibia.com guild"
@@ -2668,6 +2724,143 @@ Public Class frmMain
             Else
                 MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub TrainerAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerAdd.Click
+        Try
+            Dim BL As New BattleList
+            If Not BL.JumpToEntity(SpecialEntity.Attacked) Then
+                If Not BL.JumpToEntity(SpecialEntity.Followed) Then
+                    MessageBox.Show("You must be attacking or following something.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+            End If
+            If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
+                MessageBox.Show("This entity is already in your list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Else
+                Core.AutoTrainerEntities.Add(BL.GetEntityID)
+                MessageBox.Show("This entity has been added to your list.")
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub TrainerRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerRemove.Click
+        Try
+            Dim BL As New BattleList
+            If Not BL.JumpToEntity(SpecialEntity.Attacked) Then
+                If Not BL.JumpToEntity(SpecialEntity.Followed) Then
+                    MessageBox.Show("You must be attacking or following something.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+            End If
+            If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
+                Core.AutoTrainerEntities.Remove(BL.GetEntityID)
+                MessageBox.Show("This entity has been removed from your list.")
+            Else
+                MessageBox.Show("This entity is not on your list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub TrainerClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerClear.Click
+        Try
+            Core.AutoTrainerEntities.Clear()
+            MessageBox.Show("Auto Trainer entities list cleared.")
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub TrainerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerTrigger.CheckedChanged
+        Try
+            If TrainerTrigger.Checked Then
+                If MinPercentageHP.Value >= MaxPercentageHP.Value Then
+                    MessageBox.Show("Maximum Health Percent has to be higher than Minimum Health Percent.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                If Core.AutoTrainerEntities.Count = 0 Then
+                    MessageBox.Show("You have to add entities to the training list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                Core.AutoTrainerMinHPPercent = MinPercentageHP.Value
+                Core.AutoTrainerMaxHPPercent = MaxPercentageHP.Value
+                Core.AutoTrainerTimerObj.StartTimer()
+            Else
+                Core.AutoTrainerMinHPPercent = 0
+                Core.AutoTrainerMaxHPPercent = 0
+                Core.AutoTrainerTimerObj.StopTimer()
+            End If
+            RefreshTrainerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub AutoAttackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoAttackerTrigger.CheckedChanged
+        Try
+            If AutoAttackerTrigger.Checked Then
+                Select Case AttackerFightingMode.Text.ToLower
+                    Case "offensive"
+                        Core.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Offensive, 1)
+                        Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Offensive))
+                    Case "balanced"
+                        Core.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Balanced, 1)
+                        Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Balanced))
+                    Case "defensive"
+                        Core.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Defensive, 1)
+                        Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Defensive))
+                End Select
+                Select Case AttackChasingMode.Text.ToLower
+                    Case "chase"
+                        Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                        Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+                    Case "stand"
+                        Core.WriteMemory(Consts.ptrChasingMode, 0, 1)
+                        Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Standing))
+                End Select
+                If AttackAutomatically.Checked Then
+                    Core.AutoAttackerTimerObj.StartTimer()
+                End If
+                Core.AutoAttackerActivated = True
+            Else
+                Core.AutoAttackerActivated = False
+                Core.AutoAttackerIgnoredID = 0
+                Core.AutoAttackerTimerObj.StopTimer()
+            End If
+            RefreshAutoAttackerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub PickuperTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PickuperTrigger.CheckedChanged
+        Try
+            If PickuperTrigger.Checked Then
+                Dim RightHandItemID As Integer
+                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                If RightHandItemID = 0 OrElse Not Definitions.IsThrowable(RightHandItemID) Then
+                    MessageBox.Show("You must have a throwable item in your right hand, like a spear, throwing knife, etc.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+                With Core
+                    .PickUpItemID = CUShort(RightHandItemID)
+                    .PickUpTimerObj.Interval = Consts.AutoPickUpDelay
+                    .PickUpTimerObj.StartTimer()
+                End With
+            Else
+                With Core
+                    .PickUpItemID = 0
+                    .PickUpTimerObj.StopTimer()
+                End With
+            End If
+            RefreshPickuperControls()
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
