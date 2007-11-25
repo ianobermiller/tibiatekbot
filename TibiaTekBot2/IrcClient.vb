@@ -483,7 +483,7 @@ Public Class IrcClient
                             Select Case SplitMessages(0)
                                 Case "PING"
                                     WriteLine(String.Format("PONG {0}", SplitMessages(1)))
-                                    MsgBox(String.Format("PONG {0}", SplitMessages(1)))
+                                    'MsgBox(String.Format("PONG {0}", SplitMessages(1)))
                                 Case "ERROR"
                                     Disconnect()
                                 Case Else
@@ -601,21 +601,19 @@ Public Class IrcClient
                             End Select
                         End If
                     Catch Ex As SocketException
-                        MsgBox("socket exception")
+                        'MsgBox("socket exception")
                     Catch Ex As IOException
-                        MsgBox("io exception")
+                        '    MsgBox("io exception")
                     End Try
                 Loop
             Catch Ex As ThreadAbortException
-                MsgBox("threadabortexception")
+                'MsgBox("threadabortexception")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         Loop While IsConnected
         Disconnect()
     End Sub
-
-
 
 
 End Class
