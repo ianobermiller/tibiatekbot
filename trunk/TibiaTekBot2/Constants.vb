@@ -219,6 +219,11 @@ Public Module ConstantsModule
 
         Public AntiLogoutInterval As Integer = 30000
 
+        Public TTMessagesEnabled As Boolean = True
+        Public TTMessagesInterval As Integer = 3600000
+
+        Public ptrForYourInformation As Integer = &H595968
+
         Public Sub New()
             LoadConstants()
         End Sub
@@ -593,6 +598,13 @@ Public Module ConstantsModule
                                                     CharacterListDist = CInt(Value)
                                                 Case "CharacterListWorldOffset"
                                                     CharacterListWorldOffset = CInt(Value)
+
+                                                Case "TTMessagesEnabled"
+                                                    TTMessagesEnabled = System.Boolean.Parse(Value)
+                                                Case "TTMessagesInterval"
+                                                    TTMessagesInterval = CInt(Value)
+                                                Case "ptrForYourInformation"
+                                                    ptrForYourInformation = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then

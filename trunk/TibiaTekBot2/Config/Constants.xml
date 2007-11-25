@@ -22,6 +22,8 @@
 <Constants>
   <Const Name="IRCConnectOnStartUp" Value="True" />
   <Const Name="IRCJoinAfterConnected" Value="True" />
+  <Const Name="TTMessagesEnabled" Value="True" />
+  <Const Name="TTMessagesInterval" Value="3600000" />
   <Const Name="IRCNickname" Value="" />
   <Const Name="IRCPassword" Value="" />
   <Const Name="LatestVersionUrl" Value="http://www.tibiatek.com/version.php" />
@@ -83,6 +85,7 @@
   <Const Name="ptrInGame" Value="H766DF8" />
   <Const Name="ptrFrameRateBegin" Value="H76793C" />
   <Const Name="ptrEnterOneNamePerLine" Value="H594670" />
+  <Const Name="ptrForYourInformation" Value="H595968" />
   <Const Name="ptrCharacterSelectionIndex" Value="H766DB8" />
   <Const Name="ptrEncryptionKey" Value="H7637AC" />
   <Const Name="ptrRSAKey" Value="H593610" />

@@ -20,7 +20,8 @@
 Imports System.Text.RegularExpressions, TibiaTekBot.frmMain, _
     TibiaTekBot.Constants, _
     TibiaTekBot.CoreModule, System.Diagnostics, System.Runtime.InteropServices, _
-    System.ComponentModel, TibiaTekBot.MiscUtils, TibiaTekBot.DatReader, System.Net.mail
+    System.ComponentModel, TibiaTekBot.MiscUtils, TibiaTekBot.DatReader, System.Net, _
+    System.Xml
 
 Public Module CommandParserModule
 
@@ -132,6 +133,8 @@ Public Module CommandParserModule
                         CmdIrc(MatchObj.Groups)
                     Case "antilogout"
                         CmdAntiLogout(MatchObj.Groups)
+                    Case "viewmsg"
+                        CmdViewMessage()
                     Case Else
                         Core.ConsoleError("This command does not exist." & Ret & _
                             "  For a list of available commands type: &help.")
@@ -144,6 +147,37 @@ Public Module CommandParserModule
         End Try
     End Sub
 
+#Region " View Message "
+
+    Private Sub CmdViewMessage()
+
+        If Core.TTMessages = 0 Then
+            Core.ConsoleError("You have no messages from the TibiaTek Development Team.")
+        Else
+            Try
+                Dim Temp As Integer = 0
+                Win32API.VirtualProtectEx(Core.Proxy.Client.Handle, CType(Consts.ptrForYourInformation, System.IntPtr), CType(20, UIntPtr), &H40, Temp)
+                Core.WriteMemory(Consts.ptrForYourInformation, "Viewing Message")
+                Dim Client As New WebClient
+                Client.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded")
+                Dim XMLResponse As String = Client.UploadString(BotWebsite & "/viewmessages.php", "POST", "name=" & Web.HttpUtility.UrlEncode(Core.Proxy.CharacterName) & "&world=" & Web.HttpUtility.UrlEncode(Core.Proxy.CharacterWorld))
+                Dim Document As New XmlDocument()
+                Document.LoadXml(XMLResponse)
+                Dim Messages As XmlElement = Document.Item("Messages")
+                For Each Message As XmlElement In Messages
+                    If Not String.IsNullOrEmpty(Message.InnerText) Then
+                        Core.Proxy.SendPacketToClient(FYIBox(Message.InnerText))
+                    End If
+                Next
+                Core.ConsoleWrite("Successfully fetched all messages.")
+            Catch Ex As Exception
+                Core.ConsoleError("Unable to fetch the messages.")
+            End Try
+        End If
+    End Sub
+
+#End Region
+
 #Region " Irc Command "
     Private Sub CmdIrc(ByVal Arguments As GroupCollection)
         Try
@@ -151,7 +185,7 @@ Public Module CommandParserModule
                 Core.ConsoleError("You are not connected to IRC.")
                 Exit Sub
             End If
-            Dim Match As Match = Regex.Match(Arguments(2).Value, "(join|nick|users)\s(.+)", RegexOptions.IgnoreCase)
+            Dim Match As Match = Regex.Match(Arguments(2).Value, "(join|nick|users)\s""?([^""]+)""?", RegexOptions.IgnoreCase)
             If Match.Success Then
                 Select Case Match.Groups(1).Value.ToLower
                     Case "join"
@@ -788,7 +822,20 @@ Public Module CommandParserModule
                     "Usage: &antilogout <on | off>." & Ret & _
                     "Example: &antilogout on." & Ret & _
                     "Comment: " & Ret & _
-                    "  Protect you from kicks.")
+                    "  Protects yourself from getting kicked because of inactivity.")
+                Case "irc"
+                    Core.ConsoleWrite("«IRC»" & Ret & _
+                    "Usage: &irc <<users | join> ""<channel>"" | nick ""new nick"" | quit>." & Ret & _
+                    "Example: &irc join ""#TibiaTekBot""." & Ret & _
+                    "Example: &irc quit." & Ret & _
+                    "Comment: " & Ret & _
+                    "  Allows you to execute some of the common IRC commands.")
+                Case "viewmsg"
+                    Core.ConsoleWrite("«View Message»" & Ret & _
+                    "Usage: &viewmsg." & Ret & _
+                    "Example: &viewmsg." & Ret & _
+                    "Comment: " & Ret & _
+                    "  Let's you read any messages sent to you by the TibiaTek Development Team.")
                 Case Else
                     Select Case Topic.ToLower
                         Case "general", "general tools", "a"
@@ -803,6 +850,7 @@ Public Module CommandParserModule
                             "  Commands Lister -> &list" & Ret & _
                             "  Walker -> &walker" & Ret & _
                             "  Amulet Changer -> &amuletchanger" & Ret & _
+                            "  Ring Changer -> &ringchanger" & Ret & _
                             "  Combobot -> &combobot")
                         Case "healing", "healing tools", "b"
                             Core.ConsoleWrite("Healing Tools:" & Ret & _
@@ -857,6 +905,7 @@ Public Module CommandParserModule
                             "  Feedback -> &feedback." & Ret & _
                             "  Reload Data -> &reload." & Ret & _
                             "  About Us -> &about." & Ret & _
+                            "  View Message -> &viewmsg." & Ret & _
                             "  Website -> &website." & Ret & _
                             "  Version -> &version.")
                         Case Else
@@ -1136,7 +1185,8 @@ Public Module CommandParserModule
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Core.ConsoleWrite("Begin Test")
-            Core.ConsoleWrite(Core.Proxy.CharacterWorld)
+
+            'Core.Proxy.SendPacketToClient(FYIBox("Thanks for sending us a message!"))
             Core.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1619,15 +1669,15 @@ Public Module CommandParserModule
                 Case Else
                     Dim ItemID As Integer
                     Dim ItemCount As Integer
-                    Dim RegExp As New Regex("([1-9]\d)")
+                    Dim RegExp As New Regex("\d{1,2}")
                     Dim Match As Match = RegExp.Match(Value)
                     If Not Match.Success Then
-                        Core.ConsoleError("You must specify the minimum ammunition count between 1 and 99, inclusive.")
+                        Core.ConsoleError("You must specify the minimum ammunition count between 0 and 99, inclusive.")
                         Exit Sub
                     End If
                     Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
                     Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
-                    If ItemID = 0 OrElse Not DatInfo.GetInfo(ItemID).IsStackable Then
+                    If ItemID = 0 OrElse Not DatInfo.GetInfo(ItemID).IsStackable OrElse Not Definitions.IsAmmunition(ItemID) Then
                         Core.ConsoleError("You must place some of your ammunition on the Belt/Arrow Slot first.")
                         Exit Sub
                     End If
@@ -2124,9 +2174,10 @@ Public Module CommandParserModule
     Private Sub CmdCommands()
         Try
             Core.ConsoleWrite("Listing all commands. Type &help <command> for help. Example: &help attack." & Ret & _
-                "&amuletchanger <on | off | ""Name Of The Amulet"">" & Ret & _
+                "&amuletchanger <on | off | ""Amulet Name"">" & Ret & _
                 "&advertise ""<advertisement>""" & Ret & _
                 "&ammorestacker <minimum ammunition | off>" & Ret & _
+                "&antilogout <interval>" & Ret & _
                 "&attack <on | off | auto | stand | follow | offensive | balanced | " & _
                 "defensive | ""Player Name"" >" & Ret & _
                 "&cavebot <on | off | add <walk | rope | ladder | sewer> <hole | stairs | shovel <up | down | left | right>>" & Ret & _
@@ -2149,6 +2200,7 @@ Public Module CommandParserModule
             Core.ConsoleWrite(" " & Ret & _
                 "&healparty <minimum hit points percent>% ""<sio | uh | both>""" & Ret & _
                 "&hotkeys <save | load>" & Ret & _
+                "&irc" & Ret & _
                 "&light <on | off | torch | great torch | ultimate tor" & _
                 "ch | utevo lux | utevo gran lux | utevo vis lux | light wand>" & Ret & _
                 "&log <on | off>" & Ret & _
@@ -2161,12 +2213,14 @@ Public Module CommandParserModule
             Core.ConsoleWrite(" " & Ret & _
                 "&rainbow <on | off | fast | slow>" & Ret & _
                 "&reload <spells | outfits | items | constants | dat>" & Ret & _
+                "&ringchanger <on | off | ""Ring Name"">" & Ret & _
                 "&runemaker <minimum mana points> <minimum soul points> ""<spell words or spell name>""" & Ret & _
                 "&spell <off | <minimum mana points> <spell words>>" & Ret & _
                 "&stacker <on | off>" & Ret & _
                 "&statsuploader <on | off>" & Ret & _
                 "&trainer <add | remove | clear | stop |<minimum hp %> <maximum hp %>>>" & Ret & _
                 "&uh <hit points | off>" & Ret & _
+                "&viewmsg" & Ret & _
                 "&walker <on | off | continue>" & Ret & _
                 "&watch <regular expression pattern | off>" & Ret & _
                 "&website")

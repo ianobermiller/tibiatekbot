@@ -34,7 +34,7 @@ Public Module OutfitsModule
         Public ReadOnly Property GetOutfits() As OutfitDefinition()
             Get
                 Try
-                    Dim OutfitsArray(OutfitsList.Count) As OutfitDefinition
+                    Dim OutfitsArray(OutfitsList.Count - 1) As OutfitDefinition
                     OutfitsList.CopyTo(OutfitsArray)
                     Return OutfitsArray
                 Catch Ex As Exception

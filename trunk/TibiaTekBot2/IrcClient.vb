@@ -235,6 +235,7 @@ Public Class IrcClient
         'DoMainLoopThread.Abort()
     End Sub
     Public Function IsOperator(ByVal Nickname As String, ByVal Channel As String) As Boolean
+        If Channels Is Nothing Then Return False
         If Channels.ContainsKey(Channel) Then
             For Each User As String In Channels(Channel).Users.Keys
                 If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
@@ -244,6 +245,7 @@ Public Class IrcClient
         End If
     End Function
     Public Function IsVoiced(ByVal Nickname As String, ByVal Channel As String) As Boolean
+        If Channels Is Nothing Then Return False
         If Channels.ContainsKey(Channel) Then
             For Each User As String In Channels(Channel).Users.Keys
                 If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
@@ -254,6 +256,7 @@ Public Class IrcClient
     End Function
     Public Sub WriteLine(ByVal Command As String)
         Try
+            If Writer Is Nothing Then Exit Sub
             Writer.WriteLine(Command)
             Writer.Flush()
         Catch Ex As Exception
@@ -284,7 +287,7 @@ Public Class IrcClient
             Else
                 WriteLine("QUIT :" & Reason)
             End If
-            If Client.Connected Then
+            If Not Client Is Nothing AndAlso Client.Connected Then
                 Disconnect()
             End If
         Catch Ex As Exception
