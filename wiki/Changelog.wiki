@@ -1,6 +1,16 @@
 #labels Phase-Implementation
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
+|| Noc 25, 2007 || Removed msgboxes || Cameri2005 ||
+|| Noc 25, 2007 || Fixed bug in ircclient again (Issue N/A) || Cameri2005 ||
+|| Noc 25, 2007 || Fixed colors of the main window looking transparent (Issue N/A) || Cameri2005 ||
+|| Noc 25, 2007 || Fixed MainLoop of ircclient closing when QUIT was receive (Issue N/A) || Cameri2005 ||
+|| Noc 25, 2007 || Updated GUI (beautified Healing) (Issue #14) || Cameri2005 ||
+|| Noc 25, 2007 || Added TTMessages, &viewmsg and other stuff so that the developers can send messages to specific players. (Issue Not Listed) || Cameri2005 ||
+|| Noc 25, 2007 || Fixed bug in irc client (Issue N/A) || Cameri2005 ||
+|| Noc 25, 2007 || Finished the Fun part of the GUI (Issue #14) || Cameri2005 ||
+|| Noc 25, 2007 || Updated &commands and &help (Issue N/A) || Cameri2005 ||
+|| Noc 25, 2007 || Fixed bug in Outfits.vb, calling GetOutfits returned an array with an invalid element at the end (Issue N/A) || Cameri2005 ||
 || Noc 25, 2007 || Added Trainer and Information Category to the GUI (Issue #14) || Oskari.Virtanen||
 || Nov 24, 2007 || Fixed bug when getting Character Name (Issue #37) || Cameri2005 ||
 || Nov 24, 2007 || Added new feature: AutoOpenBackpack (Issue #35) || Cameri2005 || 
