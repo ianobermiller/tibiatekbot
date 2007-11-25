@@ -382,6 +382,21 @@ Partial Class frmMain
         Me.ExpShowNext = New System.Windows.Forms.CheckBox
         Me.TabPage5 = New System.Windows.Forms.TabPage
         Me.TabPage6 = New System.Windows.Forms.TabPage
+        Me.ChameleonBox = New System.Windows.Forms.GroupBox
+        Me.ChameleonPlayer = New System.Windows.Forms.TextBox
+        Me.Label32 = New System.Windows.Forms.Label
+        Me.ChameleonCopy = New System.Windows.Forms.Button
+        Me.ChameleonSecond = New System.Windows.Forms.RadioButton
+        Me.ChameleonBoth = New System.Windows.Forms.RadioButton
+        Me.ChameleonFirst = New System.Windows.Forms.RadioButton
+        Me.Chameleonlbl2 = New System.Windows.Forms.Label
+        Me.ChameleonNone = New System.Windows.Forms.RadioButton
+        Me.Chameleonlbl = New System.Windows.Forms.Label
+        Me.ChameleonOutfit = New System.Windows.Forms.ComboBox
+        Me.FakeTitleBox = New System.Windows.Forms.GroupBox
+        Me.FakeTitleTrigger = New System.Windows.Forms.CheckBox
+        Me.FakeTitle = New System.Windows.Forms.TextBox
+        Me.FakeTitlelbl = New System.Windows.Forms.Label
         Me.GroupBox11 = New System.Windows.Forms.GroupBox
         Me.Button1 = New System.Windows.Forms.Button
         Me.CheckBox1 = New System.Windows.Forms.CheckBox
@@ -487,6 +502,9 @@ Partial Class frmMain
         Me.TabPage7.SuspendLayout()
         Me.MCPatcherBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.TabPage6.SuspendLayout()
+        Me.ChameleonBox.SuspendLayout()
+        Me.FakeTitleBox.SuspendLayout()
         Me.TabPage4.SuspendLayout()
         Me.SendLocationBox.SuspendLayout()
         Me.OpenWebsiteBox.SuspendLayout()
@@ -1562,6 +1580,7 @@ Partial Class frmMain
         'AmmunitionRestackerMinAmmo
         '
         resources.ApplyResources(Me.AmmunitionRestackerMinAmmo, "AmmunitionRestackerMinAmmo")
+        Me.AmmunitionRestackerMinAmmo.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
         Me.AmmunitionRestackerMinAmmo.Name = "AmmunitionRestackerMinAmmo"
         '
         'AutoStackerBox
@@ -2228,7 +2247,10 @@ Partial Class frmMain
         'HealPercentHP
         '
         resources.ApplyResources(Me.HealPercentHP, "HealPercentHP")
+        Me.HealPercentHP.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.HealPercentHP.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.HealPercentHP.Name = "HealPercentHP"
+        Me.HealPercentHP.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'HealUsePercent
         '
@@ -2241,7 +2263,9 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.HealMinHP, "HealMinHP")
         Me.HealMinHP.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.HealMinHP.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.HealMinHP.Name = "HealMinHP"
+        Me.HealMinHP.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'HealUsePoints
         '
@@ -2561,9 +2585,111 @@ Partial Class frmMain
         '
         'TabPage6
         '
+        Me.TabPage6.Controls.Add(Me.ChameleonBox)
+        Me.TabPage6.Controls.Add(Me.FakeTitleBox)
         resources.ApplyResources(Me.TabPage6, "TabPage6")
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.UseVisualStyleBackColor = True
+        '
+        'ChameleonBox
+        '
+        Me.ChameleonBox.Controls.Add(Me.ChameleonPlayer)
+        Me.ChameleonBox.Controls.Add(Me.Label32)
+        Me.ChameleonBox.Controls.Add(Me.ChameleonCopy)
+        Me.ChameleonBox.Controls.Add(Me.ChameleonSecond)
+        Me.ChameleonBox.Controls.Add(Me.ChameleonBoth)
+        Me.ChameleonBox.Controls.Add(Me.ChameleonFirst)
+        Me.ChameleonBox.Controls.Add(Me.Chameleonlbl2)
+        Me.ChameleonBox.Controls.Add(Me.ChameleonNone)
+        Me.ChameleonBox.Controls.Add(Me.Chameleonlbl)
+        Me.ChameleonBox.Controls.Add(Me.ChameleonOutfit)
+        resources.ApplyResources(Me.ChameleonBox, "ChameleonBox")
+        Me.ChameleonBox.Name = "ChameleonBox"
+        Me.ChameleonBox.TabStop = False
+        '
+        'ChameleonPlayer
+        '
+        resources.ApplyResources(Me.ChameleonPlayer, "ChameleonPlayer")
+        Me.ChameleonPlayer.Name = "ChameleonPlayer"
+        '
+        'Label32
+        '
+        resources.ApplyResources(Me.Label32, "Label32")
+        Me.Label32.Name = "Label32"
+        '
+        'ChameleonCopy
+        '
+        resources.ApplyResources(Me.ChameleonCopy, "ChameleonCopy")
+        Me.ChameleonCopy.Name = "ChameleonCopy"
+        Me.ChameleonCopy.UseVisualStyleBackColor = True
+        '
+        'ChameleonSecond
+        '
+        resources.ApplyResources(Me.ChameleonSecond, "ChameleonSecond")
+        Me.ChameleonSecond.Name = "ChameleonSecond"
+        Me.ChameleonSecond.UseVisualStyleBackColor = True
+        '
+        'ChameleonBoth
+        '
+        resources.ApplyResources(Me.ChameleonBoth, "ChameleonBoth")
+        Me.ChameleonBoth.Name = "ChameleonBoth"
+        Me.ChameleonBoth.UseVisualStyleBackColor = True
+        '
+        'ChameleonFirst
+        '
+        resources.ApplyResources(Me.ChameleonFirst, "ChameleonFirst")
+        Me.ChameleonFirst.Name = "ChameleonFirst"
+        Me.ChameleonFirst.UseVisualStyleBackColor = True
+        '
+        'Chameleonlbl2
+        '
+        resources.ApplyResources(Me.Chameleonlbl2, "Chameleonlbl2")
+        Me.Chameleonlbl2.Name = "Chameleonlbl2"
+        '
+        'ChameleonNone
+        '
+        resources.ApplyResources(Me.ChameleonNone, "ChameleonNone")
+        Me.ChameleonNone.Checked = True
+        Me.ChameleonNone.Name = "ChameleonNone"
+        Me.ChameleonNone.TabStop = True
+        Me.ChameleonNone.UseVisualStyleBackColor = True
+        '
+        'Chameleonlbl
+        '
+        resources.ApplyResources(Me.Chameleonlbl, "Chameleonlbl")
+        Me.Chameleonlbl.Name = "Chameleonlbl"
+        '
+        'ChameleonOutfit
+        '
+        Me.ChameleonOutfit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ChameleonOutfit.FormattingEnabled = True
+        resources.ApplyResources(Me.ChameleonOutfit, "ChameleonOutfit")
+        Me.ChameleonOutfit.Name = "ChameleonOutfit"
+        '
+        'FakeTitleBox
+        '
+        Me.FakeTitleBox.Controls.Add(Me.FakeTitleTrigger)
+        Me.FakeTitleBox.Controls.Add(Me.FakeTitle)
+        Me.FakeTitleBox.Controls.Add(Me.FakeTitlelbl)
+        resources.ApplyResources(Me.FakeTitleBox, "FakeTitleBox")
+        Me.FakeTitleBox.Name = "FakeTitleBox"
+        Me.FakeTitleBox.TabStop = False
+        '
+        'FakeTitleTrigger
+        '
+        resources.ApplyResources(Me.FakeTitleTrigger, "FakeTitleTrigger")
+        Me.FakeTitleTrigger.Name = "FakeTitleTrigger"
+        Me.FakeTitleTrigger.UseVisualStyleBackColor = True
+        '
+        'FakeTitle
+        '
+        resources.ApplyResources(Me.FakeTitle, "FakeTitle")
+        Me.FakeTitle.Name = "FakeTitle"
+        '
+        'FakeTitlelbl
+        '
+        resources.ApplyResources(Me.FakeTitlelbl, "FakeTitlelbl")
+        Me.FakeTitlelbl.Name = "FakeTitlelbl"
         '
         'GroupBox11
         '
@@ -2952,6 +3078,11 @@ Partial Class frmMain
         Me.TabPage7.ResumeLayout(False)
         Me.MCPatcherBox.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
+        Me.TabPage6.ResumeLayout(False)
+        Me.ChameleonBox.ResumeLayout(False)
+        Me.ChameleonBox.PerformLayout()
+        Me.FakeTitleBox.ResumeLayout(False)
+        Me.FakeTitleBox.PerformLayout()
         Me.TabPage4.ResumeLayout(False)
         Me.SendLocationBox.ResumeLayout(False)
         Me.SendLocationBox.PerformLayout()
@@ -3354,6 +3485,21 @@ Partial Class frmMain
     Friend WithEvents DrinkerManaPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents MCPatcherBox As System.Windows.Forms.GroupBox
     Friend WithEvents MCPatcherButton As System.Windows.Forms.Button
+    Friend WithEvents FakeTitleBox As System.Windows.Forms.GroupBox
+    Friend WithEvents ChameleonBox As System.Windows.Forms.GroupBox
+    Friend WithEvents FakeTitleTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents FakeTitle As System.Windows.Forms.TextBox
+    Friend WithEvents FakeTitlelbl As System.Windows.Forms.Label
+    Friend WithEvents ChameleonBoth As System.Windows.Forms.RadioButton
+    Friend WithEvents ChameleonFirst As System.Windows.Forms.RadioButton
+    Friend WithEvents Chameleonlbl2 As System.Windows.Forms.Label
+    Friend WithEvents ChameleonNone As System.Windows.Forms.RadioButton
+    Friend WithEvents Chameleonlbl As System.Windows.Forms.Label
+    Friend WithEvents ChameleonOutfit As System.Windows.Forms.ComboBox
+    Friend WithEvents ChameleonSecond As System.Windows.Forms.RadioButton
+    Friend WithEvents ChameleonPlayer As System.Windows.Forms.TextBox
+    Friend WithEvents Label32 As System.Windows.Forms.Label
+    Friend WithEvents ChameleonCopy As System.Windows.Forms.Button
     Friend WithEvents ExpCheckerBox As System.Windows.Forms.GroupBox
     Friend WithEvents ExpShowCreatures As System.Windows.Forms.CheckBox
     Friend WithEvents ExpShowNext As System.Windows.Forms.CheckBox

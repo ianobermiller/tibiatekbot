@@ -128,11 +128,20 @@ Public Class frmMain
             If HealPType.SelectedIndex = Nothing Then
                 HealPType.SelectedIndex = 0
             End If
+            'Chameleon
+            Dim Outfits() As OutfitDefinition = CoreModule.Outfits.GetOutfits
+            For Each Outfit As OutfitDefinition In Outfits
+                If Not String.IsNullOrEmpty(Outfit.Name) Then
+                    ChameleonOutfit.Items.Add(Outfit.Name)
+                End If
+            Next
+            If ChameleonOutfit.Items.Count > 0 Then
+                ChameleonOutfit.SelectedIndex = 0
+            End If
             'Open Website
             If WebsiteName.SelectedIndex = Nothing Then
                 WebsiteName.SelectedIndex = 0
             End If
-
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -197,10 +206,51 @@ Public Class frmMain
             RefreshHealFriendControls()
             RefreshHealPartyControls()
             RefreshDrinkerControls()
+            RefreshFakeTitleControls()
+            RefreshChameleonControls()
             RefreshExpCheckerControls()
             RefreshNameSpyControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshChameleonControls()
+        Try
+            Dim BL As New BattleList
+            BL.JumpToEntity(SpecialEntity.Myself)
+            Dim OD As New OutfitDefinition
+            Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
+            If ODFound Then
+                ChameleonOutfit.SelectedIndex = ChameleonOutfit.Items.IndexOf(OD.Name)
+            End If
+            Select Case BL.Addons
+                Case Addons.First
+                    ChameleonFirst.Checked = True
+                Case Addons.Second
+                    ChameleonSecond.Checked = True
+                Case Addons.Both
+                    ChameleonBoth.Checked = True
+                Case Else
+                    ChameleonNone.Checked = True
+            End Select
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub RefreshFakeTitleControls()
+        Try
+            FakeTitleTrigger.Checked = Core.FakingTitle
+            If FakeTitleTrigger.Checked Then
+                FakeTitle.Enabled = False
+            Else
+                FakeTitle.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -1745,6 +1795,7 @@ Public Class frmMain
     Private Sub AutoLooterEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterConfigure.Click
         CoreModule.LootItems.ShowLootCategories()
     End Sub
+
     Private Sub AutoStackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoStackerTrigger.CheckedChanged
         Try
             If AutoStackerTrigger.Checked Then
@@ -1812,10 +1863,6 @@ Public Class frmMain
                 If Core.AmmoRestackerTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 Dim ItemID As Integer
                 Dim ItemCount As Integer
-                If AmmunitionRestackerMinAmmo.Value < 1 Or AmmunitionRestackerMinAmmo.Value > 99 Then
-                    MessageBox.Show("You must specify the minimum ammunition count between 1 and 99, inclusive.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Exit Sub
-                End If
                 Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
                 Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
                 If ItemID = 0 OrElse Not DatInfo.GetInfo(ItemID).IsStackable Then
@@ -1961,7 +2008,6 @@ Public Class frmMain
         End Try
     End Sub
 
-
     Private Sub StatsUploaderTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatsUploaderTrigger.CheckedChanged
         Try
             If StatsUploaderTrigger.Checked Then
@@ -2015,6 +2061,9 @@ Public Class frmMain
             End If
             If Not Core.IRCClient.DoMainLoopThread Is Nothing Then
                 Core.IRCClient.DoMainLoopThread.Abort()
+            End If
+            If Not Core.Proxy Is Nothing AndAlso Not Core.Proxy.Client Is Nothing Then
+                Core.Proxy.Client.Kill()
             End If
         End If
     End Sub
@@ -2286,10 +2335,6 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub DrinkerManaPoints_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DrinkerManaPoints.ValueChanged
-
-    End Sub
-
     Private Sub MiscReloadSpellsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadSpellsButton.Click
         Try
             CoreModule.Spells.LoadSpells()
@@ -2338,6 +2383,111 @@ Public Class frmMain
 
     Private Sub MCPatcherButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MCPatcherButton.Click
         MCPatcher()
+    End Sub
+
+    Private Sub FakeTitleTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FakeTitleTrigger.CheckedChanged
+        Try
+            If FakeTitleTrigger.Checked Then
+                If String.IsNullOrEmpty(FakeTitle.Text) Then
+                    Beep()
+                    FakeTitleTrigger.Checked = False
+                    Exit Sub
+                End If
+                Core.LastExperience = 0
+                If Core.ExpCheckerActivated Then
+                    Core.ExpCheckerActivated = False
+                End If
+                Core.FakingTitle = True
+                Core.ChangeClientTitle(FakeTitle.Text)
+            Else
+                Core.FakingTitle = False
+                Core.ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName)
+            End If
+
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+
+    Private Sub ChameleonCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChameleonCopy.Click
+        Try
+            Dim BL As New BattleList
+            BL.Reset()
+            Dim Found As Boolean = False
+            Do
+                If BL.GetName.Equals(ChameleonPlayer.Text, StringComparison.CurrentCultureIgnoreCase) Then
+                    Found = True
+                    Exit Do
+                End If
+            Loop While BL.NextEntity()
+            If Found Then
+                Dim OD As New OutfitDefinition
+                Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
+                If ODFound Then
+                    ChameleonOutfit.SelectedIndex = ChameleonOutfit.Items.IndexOf(OD.Name)
+                    Select Case BL.Addons
+                        Case Addons.First
+                            ChameleonFirst.Checked = True
+                        Case Addons.Second
+                            ChameleonSecond.Checked = True
+                        Case Addons.Both
+                            ChameleonBoth.Checked = True
+                        Case Else
+                            ChameleonNone.Checked = True
+                    End Select
+                    ChameleonPlayer.Text = String.Empty
+                Else
+                    MessageBox.Show("The player has an unknown outfit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            Else
+                MessageBox.Show("Unable to copy outfit, the player was not found.", "Sorry", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub ChameleonOutfit_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChameleonOutfit.SelectedIndexChanged
+        Static FirstTime As Boolean = True
+        If FirstTime Then
+            FirstTime = False
+            Exit Sub
+        End If
+        Try
+            Dim OD As New OutfitDefinition
+            Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByName(ChameleonOutfit.Text, OD)
+            If ODFound Then
+                Dim BL As New BattleList
+                BL.JumpToEntity(SpecialEntity.Myself)
+                BL.OutfitID = OD.ID
+            Else
+                MessageBox.Show("Unknown outfit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub ChameleonNone_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChameleonNone.CheckedChanged, ChameleonSecond.CheckedChanged, ChameleonFirst.CheckedChanged, ChameleonBoth.CheckedChanged
+        If Not Core.InGame Then Exit Sub
+        Dim BL As New BattleList
+        BL.JumpToEntity(SpecialEntity.Myself)
+        If ChameleonFirst.Checked Then
+            BL.Addons = Addons.First
+        ElseIf ChameleonSecond.Checked Then
+            BL.Addons = Addons.Second
+        ElseIf ChameleonBoth.Checked Then
+            BL.Addons = Addons.Both
+        Else
+            BL.Addons = Addons.None
+        End If
+    End Sub
+
+    Private Sub frmMain_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Enter
+        Beep()
     End Sub
 
     Private Sub ExpCheckerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExpCheckerTrigger.CheckedChanged

@@ -164,6 +164,7 @@ Public Module CoreModule
         Public WithEvents RingChangerTimerObj As ThreadTimer
         Public WithEvents IRCClient As IrcClient
         Public WithEvents AntiLogoutObj As ThreadTimer
+        Public WithEvents TTMessagesTimerObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -328,6 +329,8 @@ Public Module CoreModule
         Public RingID As Integer = 0
 
         Public LastActivity As Date = Date.Now
+
+        Public TTMessages As Integer = 0
 
         Public NameSpyActivated As Boolean = False
 #End Region
@@ -545,6 +548,7 @@ Public Module CoreModule
                 RingChangerTimerObj = New ThreadTimer(300)
                 IRCClient = New IrcClient(IRCServer, IRCPort)
                 AntiLogoutObj = New ThreadTimer(Consts.AntiLogoutInterval)
+                TTMessagesTimerObj = New ThreadTimer(Consts.TTMessagesInterval)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -1010,8 +1014,6 @@ Public Module CoreModule
                     AlarmsForm.ItemsAlarmTimer.Stop()
                     AlarmsForm.StatusAlarmTimer.Stop()
                 End If
-                FPSChangerTimerObj.StopTimer()
-                WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenActive))
                 StackerTimerObj.StopTimer()
                 AutoPublishLocationTimerObj.StopTimer()
                 ShowInvisibleCreaturesTimerObj.StopTimer()
@@ -1039,6 +1041,10 @@ Public Module CoreModule
                     IRCClient.Quit()
                     IRCClient.Channels.Clear()
                 End If
+                TTMessagesTimerObj.StopTimer()
+                FPSChangerTimerObj.StopTimer()
+                Thread.Sleep(500)
+                WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenActive))
                 Log("Event", "All timers are now stopped.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3087,6 +3093,24 @@ Public Module CoreModule
         End Sub
 #End Region
 
+#Region " TibiaTek Messages Timer "
+
+        Private Sub TTMessagesTimerObj_OnExecute() Handles TTMessagesTimerObj.OnExecute
+            Try
+                Dim Client As New WebClient
+                Client.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded")
+                Dim Response As String = Client.UploadString(BotWebsite & "/messages.php", "POST", "name=" & Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "&world=" & Web.HttpUtility.UrlEncode(Proxy.CharacterWorld))
+                If Not String.IsNullOrEmpty(Response) Then
+                    If System.Int32.TryParse(Response, TTMessages) AndAlso TTMessages > 0 Then
+                        Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusWarning, "You have received a message from the TibiaTek Development team. Type &viewmsg to read it."))
+                    End If
+                End If
+            Catch
+            End Try
+        End Sub
+
+#End Region
+
 #End Region
 
 #Region " IRC Client "
@@ -3631,7 +3655,13 @@ Public Module CoreModule
                                 Send = False
                             Case &HFE
                                 Dim Data As String = GetString(bytBuffer, Pos)
-                                Data &= vbLf & vbLf & "Sent by: " & Proxy.CharacterName & " (" & Proxy.CharacterWorld & ") "
+                                Send = False
+                                If Data.Trim(Chr(&HA)).Length = 0 Then
+                                    ConsoleError("Unable to send empty feedback message.")
+                                    Exit Sub
+                                End If
+
+                                Data &= vbLf & "-" & Proxy.CharacterName & " (" & Proxy.CharacterWorld & ")"
                                 If Data.Length > 0 Then
                                     Try
                                         Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("feedback=" & System.Web.HttpUtility.UrlEncode(Data))
@@ -3644,7 +3674,7 @@ Public Module CoreModule
                                         ConsoleError("Sorry, the feedback was not sent properly.")
                                     End Try
                                 End If
-                                Send = False
+
                         End Select
                     Case &H96 'message
                         LastActivity = Date.Now
@@ -3809,6 +3839,9 @@ Public Module CoreModule
                         GreetingTimerObj.StartTimer(1500)
                         Map.RefreshMapBeginning()
                         MapReaderTimerObj.StartTimer()
+                        If Consts.TTMessagesEnabled Then
+                            TTMessagesTimerObj.StartTimer(2000)
+                        End If
                         If Consts.AutoOpenBackpack Then
                             Dim ItemID As Integer = 0
                             Core.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (InventorySlots.Backpack - 1)), ItemID, 2)

@@ -518,7 +518,7 @@ Public Module BattleListModule
             End Set
         End Property
 
-        Public Property OutfitID() As UShort
+        Public Property OutfitID() As Integer
             Get
                 Try
                     Dim Result As Integer = 0
@@ -529,7 +529,7 @@ Public Module BattleListModule
                     End
                 End Try
             End Get
-            Set(ByVal NewOutfit As UShort)
+            Set(ByVal NewOutfit As Integer)
                 Try
                     Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOutfitOffset, NewOutfit, 2)
                 Catch Ex As Exception
