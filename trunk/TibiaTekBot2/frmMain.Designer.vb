@@ -2502,6 +2502,7 @@ Partial Class frmMain
         '
         'WebsiteName
         '
+        Me.WebsiteName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.WebsiteName.FormattingEnabled = True
         Me.WebsiteName.Items.AddRange(New Object() {resources.GetString("WebsiteName.Items"), resources.GetString("WebsiteName.Items1"), resources.GetString("WebsiteName.Items2"), resources.GetString("WebsiteName.Items3"), resources.GetString("WebsiteName.Items4")})
         resources.ApplyResources(Me.WebsiteName, "WebsiteName")
