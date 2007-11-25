@@ -212,8 +212,8 @@ Public Class IrcClient
             RaiseEvent EventConnecting()
             Me.Client = Nothing
             Me.Client = New TcpClient()
-            Me.Client.ReceiveTimeout = 2 * 60 * 1000 ' 2 mins
-            Me.Client.SendTimeout = 2 * 60 * 1000
+            Me.Client.ReceiveTimeout = 24 * 60 * 60 * 1000 ' 2 mins
+            Me.Client.SendTimeout = 24 * 60 * 60 * 1000
             Me.Client.Connect(Me._Server, Me._Port)
             WasConnected = True
             Me.ConnectionStream = Me.Client.GetStream()
@@ -428,6 +428,7 @@ Public Class IrcClient
                         Dim SplitMessages() As String
                         Message = Reader.ReadLine()
                         If Message Is Nothing Then Exit Sub
+                        Core.ConsoleWrite(Message)
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
                         Dim Temp() As String
@@ -483,6 +484,7 @@ Public Class IrcClient
                             Select Case SplitMessages(0)
                                 Case "PING"
                                     WriteLine(String.Format("PONG {0}", SplitMessages(1)))
+                                    MsgBox(String.Format("PONG {0}", SplitMessages(1)))
                                 Case "ERROR"
                                     Disconnect()
                                 Case Else
@@ -592,7 +594,6 @@ Public Class IrcClient
                                                         If Nick.Equals(From) Then
                                                             Channels(Channel).Users.Remove(Nick)
                                                             RaiseEvent EventQuit(Nick, Arguments.Substring(1))
-                                                            Exit Sub
                                                         End If
                                                     Next
                                                 Next
@@ -601,12 +602,13 @@ Public Class IrcClient
                             End Select
                         End If
                     Catch Ex As SocketException
-                        'MsgBox("socket exception")
+                        MsgBox("socket exception")
                     Catch Ex As IOException
-                        'MsgBox("io exception")
+                        MsgBox("io exception")
                     End Try
                 Loop
             Catch Ex As ThreadAbortException
+                MsgBox("threadabortexception")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
