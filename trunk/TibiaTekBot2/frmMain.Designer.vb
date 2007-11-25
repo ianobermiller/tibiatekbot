@@ -319,8 +319,6 @@ Partial Class frmMain
         Me.Label16 = New System.Windows.Forms.Label
         Me.StatsUploaderUrl = New System.Windows.Forms.TextBox
         Me.TabPage3 = New System.Windows.Forms.TabPage
-        Me.HealingTabControl = New System.Windows.Forms.TabControl
-        Me.TabPage23 = New System.Windows.Forms.TabPage
         Me.HealFriendBox = New System.Windows.Forms.GroupBox
         Me.HealFriendTrigger = New System.Windows.Forms.CheckBox
         Me.HealFHp = New System.Windows.Forms.NumericUpDown
@@ -339,7 +337,6 @@ Partial Class frmMain
         Me.HealSpelllbl = New System.Windows.Forms.Label
         Me.HealType = New System.Windows.Forms.ComboBox
         Me.HealWithlbl = New System.Windows.Forms.Label
-        Me.TabPage24 = New System.Windows.Forms.TabPage
         Me.DrinkerBox = New System.Windows.Forms.GroupBox
         Me.DrinkerTrigger = New System.Windows.Forms.CheckBox
         Me.DrinkerManaPoints = New System.Windows.Forms.NumericUpDown
@@ -506,14 +503,11 @@ Partial Class frmMain
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        Me.HealingTabControl.SuspendLayout()
-        Me.TabPage23.SuspendLayout()
         Me.HealFriendBox.SuspendLayout()
         CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.HealerBox.SuspendLayout()
         CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage24.SuspendLayout()
         Me.DrinkerBox.SuspendLayout()
         CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.HealPartyBox.SuspendLayout()
@@ -521,9 +515,6 @@ Partial Class frmMain
         Me.TabPage7.SuspendLayout()
         Me.MCPatcherBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.TabPage6.SuspendLayout()
-        Me.ChameleonBox.SuspendLayout()
-        Me.FakeTitleBox.SuspendLayout()
         Me.TabPage4.SuspendLayout()
         Me.SendLocationBox.SuspendLayout()
         Me.OpenWebsiteBox.SuspendLayout()
@@ -536,6 +527,9 @@ Partial Class frmMain
         CType(Me.MaxPercentageHP, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MinPercentageHP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AutoAttackerBox.SuspendLayout()
+        Me.TabPage6.SuspendLayout()
+        Me.ChameleonBox.SuspendLayout()
+        Me.FakeTitleBox.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
@@ -2175,26 +2169,13 @@ Partial Class frmMain
         '
         'TabPage3
         '
-        Me.TabPage3.Controls.Add(Me.HealingTabControl)
+        Me.TabPage3.Controls.Add(Me.HealFriendBox)
+        Me.TabPage3.Controls.Add(Me.HealerBox)
+        Me.TabPage3.Controls.Add(Me.HealPartyBox)
+        Me.TabPage3.Controls.Add(Me.DrinkerBox)
         resources.ApplyResources(Me.TabPage3, "TabPage3")
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.UseVisualStyleBackColor = True
-        '
-        'HealingTabControl
-        '
-        resources.ApplyResources(Me.HealingTabControl, "HealingTabControl")
-        Me.HealingTabControl.Controls.Add(Me.TabPage23)
-        Me.HealingTabControl.Controls.Add(Me.TabPage24)
-        Me.HealingTabControl.Name = "HealingTabControl"
-        Me.HealingTabControl.SelectedIndex = 0
-        '
-        'TabPage23
-        '
-        Me.TabPage23.Controls.Add(Me.HealFriendBox)
-        Me.TabPage23.Controls.Add(Me.HealerBox)
-        resources.ApplyResources(Me.TabPage23, "TabPage23")
-        Me.TabPage23.Name = "TabPage23"
-        Me.TabPage23.UseVisualStyleBackColor = True
         '
         'HealFriendBox
         '
@@ -2219,7 +2200,9 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.HealFHp, "HealFHp")
         Me.HealFHp.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.HealFHp.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.HealFHp.Name = "HealFHp"
+        Me.HealFHp.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'HealFHplbl
         '
@@ -2324,14 +2307,6 @@ Partial Class frmMain
         resources.ApplyResources(Me.HealWithlbl, "HealWithlbl")
         Me.HealWithlbl.Name = "HealWithlbl"
         '
-        'TabPage24
-        '
-        Me.TabPage24.Controls.Add(Me.DrinkerBox)
-        Me.TabPage24.Controls.Add(Me.HealPartyBox)
-        resources.ApplyResources(Me.TabPage24, "TabPage24")
-        Me.TabPage24.Name = "TabPage24"
-        Me.TabPage24.UseVisualStyleBackColor = True
-        '
         'DrinkerBox
         '
         Me.DrinkerBox.Controls.Add(Me.DrinkerTrigger)
@@ -2379,7 +2354,9 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.HealPHp, "HealPHp")
         Me.HealPHp.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.HealPHp.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.HealPHp.Name = "HealPHp"
+        Me.HealPHp.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'HealP
         '
@@ -3215,8 +3192,6 @@ Partial Class frmMain
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
-        Me.HealingTabControl.ResumeLayout(False)
-        Me.TabPage23.ResumeLayout(False)
         Me.HealFriendBox.ResumeLayout(False)
         Me.HealFriendBox.PerformLayout()
         CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3224,7 +3199,6 @@ Partial Class frmMain
         Me.HealerBox.PerformLayout()
         CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage24.ResumeLayout(False)
         Me.DrinkerBox.ResumeLayout(False)
         Me.DrinkerBox.PerformLayout()
         CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3234,11 +3208,6 @@ Partial Class frmMain
         Me.TabPage7.ResumeLayout(False)
         Me.MCPatcherBox.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
-        Me.TabPage6.ResumeLayout(False)
-        Me.ChameleonBox.ResumeLayout(False)
-        Me.ChameleonBox.PerformLayout()
-        Me.FakeTitleBox.ResumeLayout(False)
-        Me.FakeTitleBox.PerformLayout()
         Me.TabPage4.ResumeLayout(False)
         Me.SendLocationBox.ResumeLayout(False)
         Me.SendLocationBox.PerformLayout()
@@ -3256,6 +3225,11 @@ Partial Class frmMain
         CType(Me.MinPercentageHP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AutoAttackerBox.ResumeLayout(False)
         Me.AutoAttackerBox.PerformLayout()
+        Me.TabPage6.ResumeLayout(False)
+        Me.ChameleonBox.ResumeLayout(False)
+        Me.ChameleonBox.PerformLayout()
+        Me.FakeTitleBox.ResumeLayout(False)
+        Me.FakeTitleBox.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
@@ -3460,9 +3434,6 @@ Partial Class frmMain
     Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage6 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage7 As System.Windows.Forms.TabPage
-    Friend WithEvents HealingTabControl As System.Windows.Forms.TabControl
-    Friend WithEvents TabPage23 As System.Windows.Forms.TabPage
-    Friend WithEvents TabPage24 As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents MiscReloadOutfitsButton As System.Windows.Forms.Button
     Friend WithEvents MiscReloadConstantsButton As System.Windows.Forms.Button
