@@ -216,27 +216,39 @@ Partial Class frmMain
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.LightEffectsBox = New System.Windows.Forms.GroupBox
-        Me.LightEffectsTrigger = New System.Windows.Forms.CheckBox
-        Me.LightEffect = New System.Windows.Forms.ComboBox
-        Me.LightEffectslbl = New System.Windows.Forms.Label
-        Me.ConfigManagerbox = New System.Windows.Forms.GroupBox
-        Me.ConfigClear = New System.Windows.Forms.Button
-        Me.ConfigEdit = New System.Windows.Forms.Button
-        Me.ConfigLoad = New System.Windows.Forms.Button
+        Me.GeneralTabControl = New System.Windows.Forms.TabControl
+        Me.GeneralTab1 = New System.Windows.Forms.TabPage
         Me.ComboBotBox = New System.Windows.Forms.GroupBox
         Me.ComboBotTrigger = New System.Windows.Forms.CheckBox
         Me.ComboLeader = New System.Windows.Forms.TextBox
         Me.ComboBotLeaderlbl = New System.Windows.Forms.Label
-        Me.AmmunitionRestackerBox = New System.Windows.Forms.GroupBox
-        Me.AmmunitionRestackerTrigger = New System.Windows.Forms.CheckBox
-        Me.AmmunitionRestackerlbl = New System.Windows.Forms.Label
-        Me.AmmunitionRestackerMinAmmo = New System.Windows.Forms.NumericUpDown
         Me.AutoStackerBox = New System.Windows.Forms.GroupBox
         Me.AutoStackerlvl2 = New System.Windows.Forms.Label
         Me.AutoStackerDelay = New System.Windows.Forms.NumericUpDown
         Me.AutoStackerlbl = New System.Windows.Forms.Label
         Me.AutoStackerTrigger = New System.Windows.Forms.CheckBox
+        Me.LightEffectsBox = New System.Windows.Forms.GroupBox
+        Me.LightEffectsTrigger = New System.Windows.Forms.CheckBox
+        Me.LightEffect = New System.Windows.Forms.ComboBox
+        Me.LightEffectslbl = New System.Windows.Forms.Label
+        Me.AmmunitionRestackerBox = New System.Windows.Forms.GroupBox
+        Me.AmmunitionRestackerTrigger = New System.Windows.Forms.CheckBox
+        Me.AmmunitionRestackerlbl = New System.Windows.Forms.Label
+        Me.AmmunitionRestackerMinAmmo = New System.Windows.Forms.NumericUpDown
+        Me.ConfigManagerbox = New System.Windows.Forms.GroupBox
+        Me.ConfigClear = New System.Windows.Forms.Button
+        Me.ConfigEdit = New System.Windows.Forms.Button
+        Me.ConfigLoad = New System.Windows.Forms.Button
+        Me.AntiLogoutBox = New System.Windows.Forms.GroupBox
+        Me.AntiIdlerTrigger = New System.Windows.Forms.CheckBox
+        Me.GeneralTab2 = New System.Windows.Forms.TabPage
+        Me.ChangersBox = New System.Windows.Forms.GroupBox
+        Me.ChangerAmuletType = New System.Windows.Forms.ComboBox
+        Me.AmuletChangerTypelbl = New System.Windows.Forms.Label
+        Me.AmuletChangerTrigger = New System.Windows.Forms.CheckBox
+        Me.ChangerRingType = New System.Windows.Forms.ComboBox
+        Me.RingTypelbl = New System.Windows.Forms.Label
+        Me.RingChangerTrigger = New System.Windows.Forms.CheckBox
         Me.AutoLooterBox = New System.Windows.Forms.GroupBox
         Me.AutoLooterlvl3 = New System.Windows.Forms.Label
         Me.AutoLooterEatFromCorpse = New System.Windows.Forms.CheckBox
@@ -328,15 +340,20 @@ Partial Class frmMain
         Me.HealFType = New System.Windows.Forms.ComboBox
         Me.HealFTypelbl = New System.Windows.Forms.Label
         Me.HealerBox = New System.Windows.Forms.GroupBox
-        Me.HealerTrigger = New System.Windows.Forms.CheckBox
-        Me.HealPercentHP = New System.Windows.Forms.NumericUpDown
-        Me.HealUsePercent = New System.Windows.Forms.RadioButton
-        Me.HealMinHP = New System.Windows.Forms.NumericUpDown
-        Me.HealUsePoints = New System.Windows.Forms.RadioButton
-        Me.HealSpell = New System.Windows.Forms.ComboBox
-        Me.HealSpelllbl = New System.Windows.Forms.Label
-        Me.HealType = New System.Windows.Forms.ComboBox
-        Me.HealWithlbl = New System.Windows.Forms.Label
+        Me.HealSpellPanel = New System.Windows.Forms.Panel
+        Me.HealSpellPercent = New System.Windows.Forms.NumericUpDown
+        Me.HealSpellUsePercent = New System.Windows.Forms.RadioButton
+        Me.HealSpellHp = New System.Windows.Forms.NumericUpDown
+        Me.HealSpellUseHp = New System.Windows.Forms.RadioButton
+        Me.HealSpellName = New System.Windows.Forms.ComboBox
+        Me.HealWithSpell = New System.Windows.Forms.CheckBox
+        Me.HealRuneHpPanel = New System.Windows.Forms.Panel
+        Me.HealRunePercent = New System.Windows.Forms.NumericUpDown
+        Me.HealRuneHP = New System.Windows.Forms.NumericUpDown
+        Me.HealRuneUsePercent = New System.Windows.Forms.RadioButton
+        Me.HealRuneUseHp = New System.Windows.Forms.RadioButton
+        Me.HealRuneType = New System.Windows.Forms.ComboBox
+        Me.HealWithRune = New System.Windows.Forms.CheckBox
         Me.HealPartyBox = New System.Windows.Forms.GroupBox
         Me.HealPartyTrigger = New System.Windows.Forms.CheckBox
         Me.HealPHp = New System.Windows.Forms.NumericUpDown
@@ -465,13 +482,18 @@ Partial Class frmMain
         Me.TabPage10.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage1.SuspendLayout()
-        Me.LightEffectsBox.SuspendLayout()
-        Me.ConfigManagerbox.SuspendLayout()
+        Me.GeneralTabControl.SuspendLayout()
+        Me.GeneralTab1.SuspendLayout()
         Me.ComboBotBox.SuspendLayout()
-        Me.AmmunitionRestackerBox.SuspendLayout()
-        CType(Me.AmmunitionRestackerMinAmmo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AutoStackerBox.SuspendLayout()
         CType(Me.AutoStackerDelay, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.LightEffectsBox.SuspendLayout()
+        Me.AmmunitionRestackerBox.SuspendLayout()
+        CType(Me.AmmunitionRestackerMinAmmo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ConfigManagerbox.SuspendLayout()
+        Me.AntiLogoutBox.SuspendLayout()
+        Me.GeneralTab2.SuspendLayout()
+        Me.ChangersBox.SuspendLayout()
         Me.AutoLooterBox.SuspendLayout()
         CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AutoLooterMinCap, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -506,8 +528,12 @@ Partial Class frmMain
         Me.HealFriendBox.SuspendLayout()
         CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.HealerBox.SuspendLayout()
-        CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HealSpellPanel.SuspendLayout()
+        CType(Me.HealSpellPercent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HealSpellHp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HealRuneHpPanel.SuspendLayout()
+        CType(Me.HealRunePercent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HealRuneHP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.HealPartyBox.SuspendLayout()
         CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DrinkerBox.SuspendLayout()
@@ -1486,70 +1512,30 @@ Partial Class frmMain
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.LightEffectsBox)
-        Me.TabPage1.Controls.Add(Me.ConfigManagerbox)
-        Me.TabPage1.Controls.Add(Me.ComboBotBox)
-        Me.TabPage1.Controls.Add(Me.AmmunitionRestackerBox)
-        Me.TabPage1.Controls.Add(Me.AutoStackerBox)
-        Me.TabPage1.Controls.Add(Me.AutoLooterBox)
+        Me.TabPage1.Controls.Add(Me.GeneralTabControl)
         resources.ApplyResources(Me.TabPage1, "TabPage1")
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'LightEffectsBox
+        'GeneralTabControl
         '
-        Me.LightEffectsBox.Controls.Add(Me.LightEffectsTrigger)
-        Me.LightEffectsBox.Controls.Add(Me.LightEffect)
-        Me.LightEffectsBox.Controls.Add(Me.LightEffectslbl)
-        resources.ApplyResources(Me.LightEffectsBox, "LightEffectsBox")
-        Me.LightEffectsBox.Name = "LightEffectsBox"
-        Me.LightEffectsBox.TabStop = False
+        Me.GeneralTabControl.Controls.Add(Me.GeneralTab1)
+        Me.GeneralTabControl.Controls.Add(Me.GeneralTab2)
+        resources.ApplyResources(Me.GeneralTabControl, "GeneralTabControl")
+        Me.GeneralTabControl.Name = "GeneralTabControl"
+        Me.GeneralTabControl.SelectedIndex = 0
         '
-        'LightEffectsTrigger
+        'GeneralTab1
         '
-        resources.ApplyResources(Me.LightEffectsTrigger, "LightEffectsTrigger")
-        Me.LightEffectsTrigger.Name = "LightEffectsTrigger"
-        Me.LightEffectsTrigger.UseVisualStyleBackColor = True
-        '
-        'LightEffect
-        '
-        Me.LightEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.LightEffect.FormattingEnabled = True
-        Me.LightEffect.Items.AddRange(New Object() {resources.GetString("LightEffect.Items"), resources.GetString("LightEffect.Items1"), resources.GetString("LightEffect.Items2"), resources.GetString("LightEffect.Items3"), resources.GetString("LightEffect.Items4"), resources.GetString("LightEffect.Items5"), resources.GetString("LightEffect.Items6"), resources.GetString("LightEffect.Items7")})
-        resources.ApplyResources(Me.LightEffect, "LightEffect")
-        Me.LightEffect.Name = "LightEffect"
-        '
-        'LightEffectslbl
-        '
-        resources.ApplyResources(Me.LightEffectslbl, "LightEffectslbl")
-        Me.LightEffectslbl.Name = "LightEffectslbl"
-        '
-        'ConfigManagerbox
-        '
-        Me.ConfigManagerbox.Controls.Add(Me.ConfigClear)
-        Me.ConfigManagerbox.Controls.Add(Me.ConfigEdit)
-        Me.ConfigManagerbox.Controls.Add(Me.ConfigLoad)
-        resources.ApplyResources(Me.ConfigManagerbox, "ConfigManagerbox")
-        Me.ConfigManagerbox.Name = "ConfigManagerbox"
-        Me.ConfigManagerbox.TabStop = False
-        '
-        'ConfigClear
-        '
-        resources.ApplyResources(Me.ConfigClear, "ConfigClear")
-        Me.ConfigClear.Name = "ConfigClear"
-        Me.ConfigClear.UseVisualStyleBackColor = True
-        '
-        'ConfigEdit
-        '
-        resources.ApplyResources(Me.ConfigEdit, "ConfigEdit")
-        Me.ConfigEdit.Name = "ConfigEdit"
-        Me.ConfigEdit.UseVisualStyleBackColor = True
-        '
-        'ConfigLoad
-        '
-        resources.ApplyResources(Me.ConfigLoad, "ConfigLoad")
-        Me.ConfigLoad.Name = "ConfigLoad"
-        Me.ConfigLoad.UseVisualStyleBackColor = True
+        Me.GeneralTab1.Controls.Add(Me.ComboBotBox)
+        Me.GeneralTab1.Controls.Add(Me.AutoStackerBox)
+        Me.GeneralTab1.Controls.Add(Me.LightEffectsBox)
+        Me.GeneralTab1.Controls.Add(Me.AmmunitionRestackerBox)
+        Me.GeneralTab1.Controls.Add(Me.ConfigManagerbox)
+        Me.GeneralTab1.Controls.Add(Me.AntiLogoutBox)
+        resources.ApplyResources(Me.GeneralTab1, "GeneralTab1")
+        Me.GeneralTab1.Name = "GeneralTab1"
+        Me.GeneralTab1.UseVisualStyleBackColor = True
         '
         'ComboBotBox
         '
@@ -1575,32 +1561,6 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.ComboBotLeaderlbl, "ComboBotLeaderlbl")
         Me.ComboBotLeaderlbl.Name = "ComboBotLeaderlbl"
-        '
-        'AmmunitionRestackerBox
-        '
-        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerTrigger)
-        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerlbl)
-        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerMinAmmo)
-        resources.ApplyResources(Me.AmmunitionRestackerBox, "AmmunitionRestackerBox")
-        Me.AmmunitionRestackerBox.Name = "AmmunitionRestackerBox"
-        Me.AmmunitionRestackerBox.TabStop = False
-        '
-        'AmmunitionRestackerTrigger
-        '
-        resources.ApplyResources(Me.AmmunitionRestackerTrigger, "AmmunitionRestackerTrigger")
-        Me.AmmunitionRestackerTrigger.Name = "AmmunitionRestackerTrigger"
-        Me.AmmunitionRestackerTrigger.UseVisualStyleBackColor = True
-        '
-        'AmmunitionRestackerlbl
-        '
-        resources.ApplyResources(Me.AmmunitionRestackerlbl, "AmmunitionRestackerlbl")
-        Me.AmmunitionRestackerlbl.Name = "AmmunitionRestackerlbl"
-        '
-        'AmmunitionRestackerMinAmmo
-        '
-        resources.ApplyResources(Me.AmmunitionRestackerMinAmmo, "AmmunitionRestackerMinAmmo")
-        Me.AmmunitionRestackerMinAmmo.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
-        Me.AmmunitionRestackerMinAmmo.Name = "AmmunitionRestackerMinAmmo"
         '
         'AutoStackerBox
         '
@@ -1633,6 +1593,156 @@ Partial Class frmMain
         resources.ApplyResources(Me.AutoStackerTrigger, "AutoStackerTrigger")
         Me.AutoStackerTrigger.Name = "AutoStackerTrigger"
         Me.AutoStackerTrigger.UseVisualStyleBackColor = True
+        '
+        'LightEffectsBox
+        '
+        Me.LightEffectsBox.Controls.Add(Me.LightEffectsTrigger)
+        Me.LightEffectsBox.Controls.Add(Me.LightEffect)
+        Me.LightEffectsBox.Controls.Add(Me.LightEffectslbl)
+        resources.ApplyResources(Me.LightEffectsBox, "LightEffectsBox")
+        Me.LightEffectsBox.Name = "LightEffectsBox"
+        Me.LightEffectsBox.TabStop = False
+        '
+        'LightEffectsTrigger
+        '
+        resources.ApplyResources(Me.LightEffectsTrigger, "LightEffectsTrigger")
+        Me.LightEffectsTrigger.Name = "LightEffectsTrigger"
+        Me.LightEffectsTrigger.UseVisualStyleBackColor = True
+        '
+        'LightEffect
+        '
+        Me.LightEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.LightEffect.FormattingEnabled = True
+        Me.LightEffect.Items.AddRange(New Object() {resources.GetString("LightEffect.Items"), resources.GetString("LightEffect.Items1"), resources.GetString("LightEffect.Items2"), resources.GetString("LightEffect.Items3"), resources.GetString("LightEffect.Items4"), resources.GetString("LightEffect.Items5"), resources.GetString("LightEffect.Items6"), resources.GetString("LightEffect.Items7")})
+        resources.ApplyResources(Me.LightEffect, "LightEffect")
+        Me.LightEffect.Name = "LightEffect"
+        '
+        'LightEffectslbl
+        '
+        resources.ApplyResources(Me.LightEffectslbl, "LightEffectslbl")
+        Me.LightEffectslbl.Name = "LightEffectslbl"
+        '
+        'AmmunitionRestackerBox
+        '
+        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerTrigger)
+        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerlbl)
+        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerMinAmmo)
+        resources.ApplyResources(Me.AmmunitionRestackerBox, "AmmunitionRestackerBox")
+        Me.AmmunitionRestackerBox.Name = "AmmunitionRestackerBox"
+        Me.AmmunitionRestackerBox.TabStop = False
+        '
+        'AmmunitionRestackerTrigger
+        '
+        resources.ApplyResources(Me.AmmunitionRestackerTrigger, "AmmunitionRestackerTrigger")
+        Me.AmmunitionRestackerTrigger.Name = "AmmunitionRestackerTrigger"
+        Me.AmmunitionRestackerTrigger.UseVisualStyleBackColor = True
+        '
+        'AmmunitionRestackerlbl
+        '
+        resources.ApplyResources(Me.AmmunitionRestackerlbl, "AmmunitionRestackerlbl")
+        Me.AmmunitionRestackerlbl.Name = "AmmunitionRestackerlbl"
+        '
+        'AmmunitionRestackerMinAmmo
+        '
+        resources.ApplyResources(Me.AmmunitionRestackerMinAmmo, "AmmunitionRestackerMinAmmo")
+        Me.AmmunitionRestackerMinAmmo.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.AmmunitionRestackerMinAmmo.Name = "AmmunitionRestackerMinAmmo"
+        '
+        'ConfigManagerbox
+        '
+        Me.ConfigManagerbox.Controls.Add(Me.ConfigClear)
+        Me.ConfigManagerbox.Controls.Add(Me.ConfigEdit)
+        Me.ConfigManagerbox.Controls.Add(Me.ConfigLoad)
+        resources.ApplyResources(Me.ConfigManagerbox, "ConfigManagerbox")
+        Me.ConfigManagerbox.Name = "ConfigManagerbox"
+        Me.ConfigManagerbox.TabStop = False
+        '
+        'ConfigClear
+        '
+        resources.ApplyResources(Me.ConfigClear, "ConfigClear")
+        Me.ConfigClear.Name = "ConfigClear"
+        Me.ConfigClear.UseVisualStyleBackColor = True
+        '
+        'ConfigEdit
+        '
+        resources.ApplyResources(Me.ConfigEdit, "ConfigEdit")
+        Me.ConfigEdit.Name = "ConfigEdit"
+        Me.ConfigEdit.UseVisualStyleBackColor = True
+        '
+        'ConfigLoad
+        '
+        resources.ApplyResources(Me.ConfigLoad, "ConfigLoad")
+        Me.ConfigLoad.Name = "ConfigLoad"
+        Me.ConfigLoad.UseVisualStyleBackColor = True
+        '
+        'AntiLogoutBox
+        '
+        Me.AntiLogoutBox.Controls.Add(Me.AntiIdlerTrigger)
+        resources.ApplyResources(Me.AntiLogoutBox, "AntiLogoutBox")
+        Me.AntiLogoutBox.Name = "AntiLogoutBox"
+        Me.AntiLogoutBox.TabStop = False
+        '
+        'AntiIdlerTrigger
+        '
+        resources.ApplyResources(Me.AntiIdlerTrigger, "AntiIdlerTrigger")
+        Me.AntiIdlerTrigger.Name = "AntiIdlerTrigger"
+        Me.AntiIdlerTrigger.UseVisualStyleBackColor = True
+        '
+        'GeneralTab2
+        '
+        Me.GeneralTab2.Controls.Add(Me.ChangersBox)
+        Me.GeneralTab2.Controls.Add(Me.AutoLooterBox)
+        resources.ApplyResources(Me.GeneralTab2, "GeneralTab2")
+        Me.GeneralTab2.Name = "GeneralTab2"
+        Me.GeneralTab2.UseVisualStyleBackColor = True
+        '
+        'ChangersBox
+        '
+        Me.ChangersBox.Controls.Add(Me.ChangerAmuletType)
+        Me.ChangersBox.Controls.Add(Me.AmuletChangerTypelbl)
+        Me.ChangersBox.Controls.Add(Me.AmuletChangerTrigger)
+        Me.ChangersBox.Controls.Add(Me.ChangerRingType)
+        Me.ChangersBox.Controls.Add(Me.RingTypelbl)
+        Me.ChangersBox.Controls.Add(Me.RingChangerTrigger)
+        resources.ApplyResources(Me.ChangersBox, "ChangersBox")
+        Me.ChangersBox.Name = "ChangersBox"
+        Me.ChangersBox.TabStop = False
+        '
+        'ChangerAmuletType
+        '
+        Me.ChangerAmuletType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ChangerAmuletType.FormattingEnabled = True
+        resources.ApplyResources(Me.ChangerAmuletType, "ChangerAmuletType")
+        Me.ChangerAmuletType.Name = "ChangerAmuletType"
+        '
+        'AmuletChangerTypelbl
+        '
+        resources.ApplyResources(Me.AmuletChangerTypelbl, "AmuletChangerTypelbl")
+        Me.AmuletChangerTypelbl.Name = "AmuletChangerTypelbl"
+        '
+        'AmuletChangerTrigger
+        '
+        resources.ApplyResources(Me.AmuletChangerTrigger, "AmuletChangerTrigger")
+        Me.AmuletChangerTrigger.Name = "AmuletChangerTrigger"
+        Me.AmuletChangerTrigger.UseVisualStyleBackColor = True
+        '
+        'ChangerRingType
+        '
+        Me.ChangerRingType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ChangerRingType.FormattingEnabled = True
+        resources.ApplyResources(Me.ChangerRingType, "ChangerRingType")
+        Me.ChangerRingType.Name = "ChangerRingType"
+        '
+        'RingTypelbl
+        '
+        resources.ApplyResources(Me.RingTypelbl, "RingTypelbl")
+        Me.RingTypelbl.Name = "RingTypelbl"
+        '
+        'RingChangerTrigger
+        '
+        resources.ApplyResources(Me.RingChangerTrigger, "RingChangerTrigger")
+        Me.RingChangerTrigger.Name = "RingChangerTrigger"
+        Me.RingChangerTrigger.UseVisualStyleBackColor = True
         '
         'AutoLooterBox
         '
@@ -2233,79 +2343,114 @@ Partial Class frmMain
         '
         'HealerBox
         '
-        Me.HealerBox.Controls.Add(Me.HealerTrigger)
-        Me.HealerBox.Controls.Add(Me.HealPercentHP)
-        Me.HealerBox.Controls.Add(Me.HealUsePercent)
-        Me.HealerBox.Controls.Add(Me.HealMinHP)
-        Me.HealerBox.Controls.Add(Me.HealUsePoints)
-        Me.HealerBox.Controls.Add(Me.HealSpell)
-        Me.HealerBox.Controls.Add(Me.HealSpelllbl)
-        Me.HealerBox.Controls.Add(Me.HealType)
-        Me.HealerBox.Controls.Add(Me.HealWithlbl)
+        Me.HealerBox.Controls.Add(Me.HealSpellPanel)
+        Me.HealerBox.Controls.Add(Me.HealSpellName)
+        Me.HealerBox.Controls.Add(Me.HealWithSpell)
+        Me.HealerBox.Controls.Add(Me.HealRuneHpPanel)
+        Me.HealerBox.Controls.Add(Me.HealRuneType)
+        Me.HealerBox.Controls.Add(Me.HealWithRune)
         resources.ApplyResources(Me.HealerBox, "HealerBox")
         Me.HealerBox.Name = "HealerBox"
         Me.HealerBox.TabStop = False
         '
-        'HealerTrigger
+        'HealSpellPanel
         '
-        resources.ApplyResources(Me.HealerTrigger, "HealerTrigger")
-        Me.HealerTrigger.Name = "HealerTrigger"
-        Me.HealerTrigger.UseVisualStyleBackColor = True
+        Me.HealSpellPanel.Controls.Add(Me.HealSpellPercent)
+        Me.HealSpellPanel.Controls.Add(Me.HealSpellUsePercent)
+        Me.HealSpellPanel.Controls.Add(Me.HealSpellHp)
+        Me.HealSpellPanel.Controls.Add(Me.HealSpellUseHp)
+        resources.ApplyResources(Me.HealSpellPanel, "HealSpellPanel")
+        Me.HealSpellPanel.Name = "HealSpellPanel"
         '
-        'HealPercentHP
+        'HealSpellPercent
         '
-        resources.ApplyResources(Me.HealPercentHP, "HealPercentHP")
-        Me.HealPercentHP.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
-        Me.HealPercentHP.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.HealPercentHP.Name = "HealPercentHP"
-        Me.HealPercentHP.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        resources.ApplyResources(Me.HealSpellPercent, "HealSpellPercent")
+        Me.HealSpellPercent.Name = "HealSpellPercent"
+        Me.HealSpellPercent.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'HealUsePercent
+        'HealSpellUsePercent
         '
-        resources.ApplyResources(Me.HealUsePercent, "HealUsePercent")
-        Me.HealUsePercent.Name = "HealUsePercent"
-        Me.HealUsePercent.TabStop = True
-        Me.HealUsePercent.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.HealSpellUsePercent, "HealSpellUsePercent")
+        Me.HealSpellUsePercent.Name = "HealSpellUsePercent"
+        Me.HealSpellUsePercent.TabStop = True
+        Me.HealSpellUsePercent.UseVisualStyleBackColor = True
         '
-        'HealMinHP
+        'HealSpellHp
         '
-        resources.ApplyResources(Me.HealMinHP, "HealMinHP")
-        Me.HealMinHP.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
-        Me.HealMinHP.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.HealMinHP.Name = "HealMinHP"
-        Me.HealMinHP.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        resources.ApplyResources(Me.HealSpellHp, "HealSpellHp")
+        Me.HealSpellHp.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.HealSpellHp.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.HealSpellHp.Name = "HealSpellHp"
+        Me.HealSpellHp.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'HealUsePoints
+        'HealSpellUseHp
         '
-        resources.ApplyResources(Me.HealUsePoints, "HealUsePoints")
-        Me.HealUsePoints.Name = "HealUsePoints"
-        Me.HealUsePoints.TabStop = True
-        Me.HealUsePoints.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.HealSpellUseHp, "HealSpellUseHp")
+        Me.HealSpellUseHp.Name = "HealSpellUseHp"
+        Me.HealSpellUseHp.TabStop = True
+        Me.HealSpellUseHp.UseVisualStyleBackColor = True
         '
-        'HealSpell
+        'HealSpellName
         '
-        Me.HealSpell.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.HealSpell.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        resources.ApplyResources(Me.HealSpell, "HealSpell")
-        Me.HealSpell.FormattingEnabled = True
-        Me.HealSpell.Name = "HealSpell"
+        Me.HealSpellName.FormattingEnabled = True
+        resources.ApplyResources(Me.HealSpellName, "HealSpellName")
+        Me.HealSpellName.Name = "HealSpellName"
         '
-        'HealSpelllbl
+        'HealWithSpell
         '
-        resources.ApplyResources(Me.HealSpelllbl, "HealSpelllbl")
-        Me.HealSpelllbl.Name = "HealSpelllbl"
+        resources.ApplyResources(Me.HealWithSpell, "HealWithSpell")
+        Me.HealWithSpell.Name = "HealWithSpell"
+        Me.HealWithSpell.UseVisualStyleBackColor = True
         '
-        'HealType
+        'HealRuneHpPanel
         '
-        Me.HealType.FormattingEnabled = True
-        Me.HealType.Items.AddRange(New Object() {resources.GetString("HealType.Items"), resources.GetString("HealType.Items1"), resources.GetString("HealType.Items2")})
-        resources.ApplyResources(Me.HealType, "HealType")
-        Me.HealType.Name = "HealType"
+        Me.HealRuneHpPanel.Controls.Add(Me.HealRunePercent)
+        Me.HealRuneHpPanel.Controls.Add(Me.HealRuneHP)
+        Me.HealRuneHpPanel.Controls.Add(Me.HealRuneUsePercent)
+        Me.HealRuneHpPanel.Controls.Add(Me.HealRuneUseHp)
+        resources.ApplyResources(Me.HealRuneHpPanel, "HealRuneHpPanel")
+        Me.HealRuneHpPanel.Name = "HealRuneHpPanel"
         '
-        'HealWithlbl
+        'HealRunePercent
         '
-        resources.ApplyResources(Me.HealWithlbl, "HealWithlbl")
-        Me.HealWithlbl.Name = "HealWithlbl"
+        resources.ApplyResources(Me.HealRunePercent, "HealRunePercent")
+        Me.HealRunePercent.Name = "HealRunePercent"
+        Me.HealRunePercent.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'HealRuneHP
+        '
+        resources.ApplyResources(Me.HealRuneHP, "HealRuneHP")
+        Me.HealRuneHP.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.HealRuneHP.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.HealRuneHP.Name = "HealRuneHP"
+        Me.HealRuneHP.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'HealRuneUsePercent
+        '
+        resources.ApplyResources(Me.HealRuneUsePercent, "HealRuneUsePercent")
+        Me.HealRuneUsePercent.Name = "HealRuneUsePercent"
+        Me.HealRuneUsePercent.TabStop = True
+        Me.HealRuneUsePercent.UseVisualStyleBackColor = True
+        '
+        'HealRuneUseHp
+        '
+        resources.ApplyResources(Me.HealRuneUseHp, "HealRuneUseHp")
+        Me.HealRuneUseHp.Name = "HealRuneUseHp"
+        Me.HealRuneUseHp.TabStop = True
+        Me.HealRuneUseHp.UseVisualStyleBackColor = True
+        '
+        'HealRuneType
+        '
+        Me.HealRuneType.FormattingEnabled = True
+        Me.HealRuneType.Items.AddRange(New Object() {resources.GetString("HealRuneType.Items"), resources.GetString("HealRuneType.Items1")})
+        resources.ApplyResources(Me.HealRuneType, "HealRuneType")
+        Me.HealRuneType.Name = "HealRuneType"
+        '
+        'HealWithRune
+        '
+        resources.ApplyResources(Me.HealWithRune, "HealWithRune")
+        Me.HealWithRune.Name = "HealWithRune"
+        Me.HealWithRune.UseVisualStyleBackColor = True
         '
         'HealPartyBox
         '
@@ -3139,17 +3284,23 @@ Partial Class frmMain
         Me.TabPage10.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage1.ResumeLayout(False)
-        Me.LightEffectsBox.ResumeLayout(False)
-        Me.LightEffectsBox.PerformLayout()
-        Me.ConfigManagerbox.ResumeLayout(False)
+        Me.GeneralTabControl.ResumeLayout(False)
+        Me.GeneralTab1.ResumeLayout(False)
         Me.ComboBotBox.ResumeLayout(False)
         Me.ComboBotBox.PerformLayout()
-        Me.AmmunitionRestackerBox.ResumeLayout(False)
-        Me.AmmunitionRestackerBox.PerformLayout()
-        CType(Me.AmmunitionRestackerMinAmmo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AutoStackerBox.ResumeLayout(False)
         Me.AutoStackerBox.PerformLayout()
         CType(Me.AutoStackerDelay, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.LightEffectsBox.ResumeLayout(False)
+        Me.LightEffectsBox.PerformLayout()
+        Me.AmmunitionRestackerBox.ResumeLayout(False)
+        Me.AmmunitionRestackerBox.PerformLayout()
+        CType(Me.AmmunitionRestackerMinAmmo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ConfigManagerbox.ResumeLayout(False)
+        Me.AntiLogoutBox.ResumeLayout(False)
+        Me.GeneralTab2.ResumeLayout(False)
+        Me.ChangersBox.ResumeLayout(False)
+        Me.ChangersBox.PerformLayout()
         Me.AutoLooterBox.ResumeLayout(False)
         Me.AutoLooterBox.PerformLayout()
         CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3198,8 +3349,14 @@ Partial Class frmMain
         CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.HealerBox.ResumeLayout(False)
         Me.HealerBox.PerformLayout()
-        CType(Me.HealPercentHP, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.HealMinHP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HealSpellPanel.ResumeLayout(False)
+        Me.HealSpellPanel.PerformLayout()
+        CType(Me.HealSpellPercent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HealSpellHp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HealRuneHpPanel.ResumeLayout(False)
+        Me.HealRuneHpPanel.PerformLayout()
+        CType(Me.HealRunePercent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HealRuneHP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.HealPartyBox.ResumeLayout(False)
         Me.HealPartyBox.PerformLayout()
         CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3592,15 +3749,6 @@ Partial Class frmMain
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
     Friend WithEvents HealerBox As System.Windows.Forms.GroupBox
-    Friend WithEvents HealerTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents HealPercentHP As System.Windows.Forms.NumericUpDown
-    Friend WithEvents HealUsePercent As System.Windows.Forms.RadioButton
-    Friend WithEvents HealMinHP As System.Windows.Forms.NumericUpDown
-    Friend WithEvents HealUsePoints As System.Windows.Forms.RadioButton
-    Friend WithEvents HealSpell As System.Windows.Forms.ComboBox
-    Friend WithEvents HealSpelllbl As System.Windows.Forms.Label
-    Friend WithEvents HealType As System.Windows.Forms.ComboBox
-    Friend WithEvents HealWithlbl As System.Windows.Forms.Label
     Friend WithEvents HealFriendBox As System.Windows.Forms.GroupBox
     Friend WithEvents HealFType As System.Windows.Forms.ComboBox
     Friend WithEvents HealFTypelbl As System.Windows.Forms.Label
@@ -3675,4 +3823,30 @@ Partial Class frmMain
     Friend WithEvents TrainerClear As System.Windows.Forms.Button
     Friend WithEvents PickuperBox As System.Windows.Forms.GroupBox
     Friend WithEvents PickuperTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents HealRuneType As System.Windows.Forms.ComboBox
+    Friend WithEvents HealWithRune As System.Windows.Forms.CheckBox
+    Friend WithEvents HealRuneHpPanel As System.Windows.Forms.Panel
+    Friend WithEvents HealRuneUsePercent As System.Windows.Forms.RadioButton
+    Friend WithEvents HealRuneUseHp As System.Windows.Forms.RadioButton
+    Friend WithEvents HealRuneHP As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealWithSpell As System.Windows.Forms.CheckBox
+    Friend WithEvents HealRunePercent As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealSpellPanel As System.Windows.Forms.Panel
+    Friend WithEvents HealSpellUseHp As System.Windows.Forms.RadioButton
+    Friend WithEvents HealSpellName As System.Windows.Forms.ComboBox
+    Friend WithEvents HealSpellHp As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealSpellPercent As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealSpellUsePercent As System.Windows.Forms.RadioButton
+    Friend WithEvents AntiLogoutBox As System.Windows.Forms.GroupBox
+    Friend WithEvents AntiIdlerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents GeneralTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents GeneralTab1 As System.Windows.Forms.TabPage
+    Friend WithEvents GeneralTab2 As System.Windows.Forms.TabPage
+    Friend WithEvents ChangersBox As System.Windows.Forms.GroupBox
+    Friend WithEvents RingTypelbl As System.Windows.Forms.Label
+    Friend WithEvents RingChangerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents ChangerAmuletType As System.Windows.Forms.ComboBox
+    Friend WithEvents AmuletChangerTypelbl As System.Windows.Forms.Label
+    Friend WithEvents AmuletChangerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents ChangerRingType As System.Windows.Forms.ComboBox
 End Class
