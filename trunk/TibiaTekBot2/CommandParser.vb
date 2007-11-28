@@ -131,7 +131,7 @@ Public Module CommandParserModule
                         CmdRingChanger(MatchObj.Groups)
                     Case "irc"
                         CmdIrc(MatchObj.Groups)
-                    Case "antilogout"
+                    Case "antilogout", "autoidler", "antiidler", "idler"
                         CmdAntiLogout(MatchObj.Groups)
                     Case "viewmsg"
                         CmdViewMessage()
