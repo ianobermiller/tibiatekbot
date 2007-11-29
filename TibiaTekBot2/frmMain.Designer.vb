@@ -476,6 +476,7 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.TradeChannelWatcherHelp = New System.Windows.Forms.Button
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -2155,6 +2156,7 @@ Partial Class frmMain
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherHelp)
         Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherTrigger)
         Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherExpression)
         Me.GroupBox7.Controls.Add(Me.Label9)
@@ -2392,6 +2394,7 @@ Partial Class frmMain
         '
         'HealSpellName
         '
+        Me.HealSpellName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.HealSpellName.FormattingEnabled = True
         resources.ApplyResources(Me.HealSpellName, "HealSpellName")
         Me.HealSpellName.Name = "HealSpellName"
@@ -2441,6 +2444,7 @@ Partial Class frmMain
         '
         'HealRuneType
         '
+        Me.HealRuneType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.HealRuneType.FormattingEnabled = True
         Me.HealRuneType.Items.AddRange(New Object() {resources.GetString("HealRuneType.Items"), resources.GetString("HealRuneType.Items1")})
         resources.ApplyResources(Me.HealRuneType, "HealRuneType")
@@ -2840,6 +2844,7 @@ Partial Class frmMain
         '
         'AttackChasingMode
         '
+        Me.AttackChasingMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.AttackChasingMode.FormattingEnabled = True
         Me.AttackChasingMode.Items.AddRange(New Object() {resources.GetString("AttackChasingMode.Items"), resources.GetString("AttackChasingMode.Items1"), resources.GetString("AttackChasingMode.Items2")})
         resources.ApplyResources(Me.AttackChasingMode, "AttackChasingMode")
@@ -2852,6 +2857,7 @@ Partial Class frmMain
         '
         'AttackerFightingMode
         '
+        Me.AttackerFightingMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.AttackerFightingMode.FormattingEnabled = True
         Me.AttackerFightingMode.Items.AddRange(New Object() {resources.GetString("AttackerFightingMode.Items"), resources.GetString("AttackerFightingMode.Items1"), resources.GetString("AttackerFightingMode.Items2"), resources.GetString("AttackerFightingMode.Items3")})
         resources.ApplyResources(Me.AttackerFightingMode, "AttackerFightingMode")
@@ -3259,6 +3265,12 @@ Partial Class frmMain
         '
         'Timer1
         '
+        '
+        'TradeChannelWatcherHelp
+        '
+        resources.ApplyResources(Me.TradeChannelWatcherHelp, "TradeChannelWatcherHelp")
+        Me.TradeChannelWatcherHelp.Name = "TradeChannelWatcherHelp"
+        Me.TradeChannelWatcherHelp.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -3849,4 +3861,5 @@ Partial Class frmMain
     Friend WithEvents AmuletChangerTypelbl As System.Windows.Forms.Label
     Friend WithEvents AmuletChangerTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents ChangerRingType As System.Windows.Forms.ComboBox
+    Friend WithEvents TradeChannelWatcherHelp As System.Windows.Forms.Button
 End Class

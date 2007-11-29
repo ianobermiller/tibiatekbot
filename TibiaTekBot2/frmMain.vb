@@ -222,7 +222,6 @@ Public Class frmMain
             RefreshChangerControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
 
@@ -455,7 +454,7 @@ Public Class frmMain
             HealWithRune.Checked = Core.UHTimerObj.State = ThreadTimerState.Running
             HealWithSpell.Checked = Core.HealTimerObj.State = ThreadTimerState.Running
             Dim MaxHitPoints As Integer = 0
-            Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+            Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
             If HealWithRune.Checked Then
                 Select Case Definitions.GetItemName(Core.UHId)
                     Case "Ultimate Healing"
@@ -464,7 +463,12 @@ Public Class frmMain
                         HealRuneType.Text = "IH Rune"
                 End Select
                 HealRuneHP.Value = Core.UHHPRequired
-                HealRunePercent.Value = CInt((Core.UHHPRequired / MaxHitPoints) * 100)
+                If Core.UHHPRequired <= MaxHitPoints Then
+                    HealRunePercent.Value = CInt((Core.UHHPRequired / MaxHitPoints) * 100)
+                Else
+                    HealRunePercent.Value = 100
+                End If
+
 
                 HealRuneType.Enabled = False
                 HealRuneUseHp.Enabled = False
@@ -484,10 +488,16 @@ Public Class frmMain
                 End If
             End If
             If HealWithSpell.Checked Then
-                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
                 HealSpellName.Text = Core.HealSpell.Words
                 HealSpellHp.Value = Core.HealMinimumHP
-                HealSpellPercent.Value = CInt((Core.HealMinimumHP / MaxHitPoints) * 100)
+                If (Core.HealMinimumHP <= MaxHitPoints) Then
+                    HealSpellPercent.Value = CInt((Core.HealMinimumHP / MaxHitPoints) * 100)
+                Else
+                    HealSpellPercent.Value = 100
+                End If
+
+
 
                 HealSpellName.Enabled = False
                 HealSpellUseHp.Enabled = False
@@ -569,6 +579,9 @@ Public Class frmMain
                 StatsUploaderPassword.Enabled = True
                 StatsUploaderSaveToDisk.Enabled = True
             End If
+            StatsUploaderUrl.Enabled = Not StatsUploaderSaveToDisk.Checked
+            StatsUploaderUser.Enabled = Not StatsUploaderSaveToDisk.Checked
+            StatsUploaderPassword.Enabled = Not StatsUploaderSaveToDisk.Checked
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1636,14 +1649,6 @@ Public Class frmMain
         CommandParser("reload dat")
     End Sub
 
-    Private Sub AboutUsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AboutUsToolStripMenuItem.Click
-        CommandParser("about")
-    End Sub
-
-    Private Sub VersionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VersionToolStripMenuItem.Click
-        CommandParser("version")
-    End Sub
-
     Private Sub HideToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HideToolStripMenuItem.Click
         Me.NotifyIcon.Visible = True
         IsVisible = False
@@ -1726,11 +1731,6 @@ Public Class frmMain
                 If RunemakerMinimumManaPoints.Value = 0 Then
                     RunemakerTrigger.Checked = False
                     MessageBox.Show("The runemaker minimum mana points must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Exit Sub
-                End If
-                If RunemakerMinimumSoulPoints.Value = 0 Then
-                    RunemakerTrigger.Checked = False
-                    MessageBox.Show("The runemaker minimum soul points must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
                 Dim Found As Boolean = False
@@ -2108,7 +2108,7 @@ Public Class frmMain
                 If Core.StatsUploaderTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 If StatsUploaderSaveToDisk.Checked Then
                     If StatsUploaderPath.Text.Length = 0 OrElse StatsUploaderFilename.Text.Length = 0 Then
-                        MessageBox.Show("Please don't leave empy values to text boxes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        MessageBox.Show("Please don't leave empty values to text boxes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshStatsUploaderControls()
                         Exit Sub
                     End If
@@ -2125,7 +2125,7 @@ Public Class frmMain
                         OrElse StatsUploaderUser.Text.Length = 0 _
                         OrElse StatsUploaderPassword.Text.Length = 0 _
                         OrElse Consts.StatsUploaderFrequency = 0 Then
-                        MessageBox.Show("Please don't leave empy values to text boxes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        MessageBox.Show("Don't leave empty values on text boxes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshStatsUploaderControls()
                         Exit Sub
                     End If
@@ -2223,10 +2223,6 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
-        System.Diagnostics.Process.Start(BotWebsite)
-    End Sub
-
     Private Sub TabPage10_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TabPage10.Enter
         Dim R As New Random(System.DateTime.Now.Millisecond)
         Select Case R.Next(0, 5)
@@ -2258,6 +2254,7 @@ Public Class frmMain
                 If Core.HealFriendTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 If String.IsNullOrEmpty(HealFName.Text) Then
                     MessageBox.Show("You must enter the friend's name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    RefreshHealFriendControls()
                     Exit Sub
                 End If
                 Core.HealFriendHealthPercentage = HealFHp.Value
@@ -2959,5 +2956,15 @@ Public Class frmMain
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
+
+    Private Sub StatsUploaderSaveToDisk_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatsUploaderSaveToDisk.CheckedChanged
+        StatsUploaderPassword.Enabled = Not StatsUploaderSaveToDisk.Checked
+        StatsUploaderUser.Enabled = Not StatsUploaderSaveToDisk.Checked
+        StatsUploaderUrl.Enabled = Not StatsUploaderSaveToDisk.Checked
+    End Sub
+
+    Private Sub TradeChannelWatcherHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChannelWatcherHelp.Click
+        System.Diagnostics.Process.Start("http://www.regular-expressions.info/quickstart.html")
     End Sub
 End Class
