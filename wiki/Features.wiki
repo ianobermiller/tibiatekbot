@@ -1,7 +1,7 @@
 #summary Features of TibiaTek Bot v2
 #labels Featured,Phase-Design,Phase-Implementation
 
-= Since v2.2 (NOT RELEASED) =
+= Since v2.2 =
  * Auto Open Backpack (at character login)
  * IRC Client, live support directly from Tibia (TibiaTek Bot connects to IRC, irc://uk.quakenet.org/#tibiatekbot)
  * Improved Graphic User Interface
