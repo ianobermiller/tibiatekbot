@@ -26,7 +26,14 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
 *If you aren't 100% sure of what you are doing make a backup copy of the Constants.xml file first!*
 
 = Constants and Explanations  =
+
 ||*Name*||*Default Value*||*Description*||
+||IRCConnectOnStartUp||True||Enables automatic connection to the IRC server irc.quakenet.org after character login. ||
+||IRCJoinAfterConnected||True||Enables automatic joining to the IRC channel #tibiatekbot at irc.quakenet.org after connecting to this server. ||
+||TTMessagesEnabled||True||Allow TTB to poll the TibiaTek database for any feedback responses from the TibiaTek Development Team.||
+||TTMessagesInterval||3600000||Interval at which the bot polls for feedback responses.||
+||IRCNickname||||Sets the default nickname for the IRC Channel.||
+||IRCPassword||||Sets the default password for the IRC Nickname.||
 ||LatestVersionUrl||http://www.tibiatek.com/version.php||Location where TibiaTek bot checks if it's up to date, do not change this.||
 ||AutoPublishLocation||False||Option for &sendlocation command, enables automatic publishing of the character's location. ||
 ||AutoPublishLocationInterval||600000||Option for &sendlocation command, time interval between publishing of the character's location.||
@@ -45,6 +52,7 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
 ||LootInBagDelay||500||Option for &loot command. Delay at which the Auto Looter will start gathering items from the bags. The value is in milliseconds.||
 ||LootEatFromCorpse||True||Option for &loot command. Determines if the Auto Looter eats the food inside corpses.||
 ||LootMaxDistance||2.9||Option for &loot command. Determines the max distance for the Auto Looter to walk and open the corpse. If you want it too loot just the tiles around you, use the value 1.5.||
+||AutoOpenBackpack||True||Automatically open your backpack after logging in.||
 ||EatFromFloor||True||Option for &eat command. Determines if Auto Eater eats from floor too.||
 ||EatFromFloorFirst||True|| Option for &eat command. Determines if the Auto Eater eats first from the floor, and then from backpack.||
 ||EatFromFloorMaxDistance||1.5||Option for &eat command. Determines the maximum distance for eating the food from the floor.||
@@ -74,9 +82,6 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
 ||StatsUploaderPassword||password||Password used to connect to the FTP server.||
 ||StatsUploaderFrequency||30000||Time interval for the Stats Uploader to upload yourstats.||
 ||AntiLogoutInterval||30000||Time interval for the Anti Logout feature to check how long you have been idle.||
-||TTMessagesEnabled||True||Allow TTB to poll the TibiaTek database for any feedback responses from the TibiaTek Development Team.||
-||TTMessagesInterval||3600000||Interval at which the bot polls for feedback responses.||
-||AutoOpenBackpack||True||Automatically open your backpack after logging in.||
 
 ==Memory Addresses And Offsets for Tibia 8.00==
 _Do not change these unless you know what you are doing_
