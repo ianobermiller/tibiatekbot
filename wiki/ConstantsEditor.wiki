@@ -32,8 +32,8 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
 ||IRCJoinAfterConnected||True||Enables automatic joining to the IRC channel #tibiatekbot at irc.quakenet.org after connecting to this server. ||
 ||TTMessagesEnabled||True||Allow TTB to poll the TibiaTek database for any feedback responses from the TibiaTek Development Team.||
 ||TTMessagesInterval||3600000||Interval at which the bot polls for feedback responses.||
-||IRCNickname||||Sets the default nickname for the IRC Channel.||
-||IRCPassword||||Sets the default password for the IRC Nickname.||
+||IRCNickname|| ||Sets the default nickname for the IRC Channel.||
+||IRCPassword|| ||Sets the default password for the IRC Nickname.||
 ||LatestVersionUrl||http://www.tibiatek.com/version.php||Location where TibiaTek bot checks if it's up to date, do not change this.||
 ||AutoPublishLocation||False||Option for &sendlocation command, enables automatic publishing of the character's location. ||
 ||AutoPublishLocationInterval||600000||Option for &sendlocation command, time interval between publishing of the character's location.||
