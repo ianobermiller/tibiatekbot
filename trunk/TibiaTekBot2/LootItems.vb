@@ -118,13 +118,14 @@ Public Module LootItemsModule
         End Sub
 
         Protected Overrides Sub Finalize()
-            Save()
+            'Save()
         End Sub
 
         Public Function Remove(ByVal ID As Integer) As Boolean
             Try
                 If Items.ContainsKey(ID) Then
                     Items.Remove(ID)
+                    Save()
                     Return True
                 End If
                 Return False
@@ -139,6 +140,7 @@ Public Module LootItemsModule
             Try
                 If Not Items.ContainsKey(NewLootItem.GetID) Then
                     Items.Add(NewLootItem.GetID, NewLootItem)
+                    Save()
                     Return True
                 End If
                 Return False

@@ -1048,7 +1048,6 @@ Public Module CoreModule
                 Log("Event", "All timers are now stopped.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -1393,6 +1392,17 @@ Public Module CoreModule
                     Dim xmlExpForNextLevel As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "ExpForNextLevel", "")
                     xmlExpForNextLevel.InnerText = CStr(NextLevelExp - Experience)
 
+                    Dim xmlMagicLevel As XmlElement = xmlFile.CreateElement("MagicLevel")
+                    Dim MagicLevel As Integer = 0
+                    Core.ReadMemory(Consts.ptrMagicLevel, MagicLevel, 4)
+                    xmlMagicLevel.InnerText = MagicLevel.ToString
+
+                    Dim xmlMagicLevelP As XmlAttribute = xmlFile.CreateAttribute("MagicLevel")
+                    Dim MagicLevelP As Integer = 0
+                    Core.ReadMemory(Consts.ptrMagicLevelPercent, MagicLevelP, 1)
+                    xmlMagicLevelP.InnerText = MagicLevelP.ToString
+                    xmlMagicLevel.Attributes.Append(xmlMagicLevelP)
+
                     Dim xmlHitPoints As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "HitPoints", "")
                     xmlHitPoints.InnerText = CStr(HitPoints)
 
@@ -1559,6 +1569,7 @@ Public Module CoreModule
                     xmlStats.AppendChild(xmlCurrentLevelExperience)
                     xmlStats.AppendChild(xmlNextLevelExperience)
                     xmlStats.AppendChild(xmlExpForNextLevel)
+                    xmlStats.AppendChild(xmlMagicLevel)
                     xmlStats.AppendChild(xmlHitPoints)
                     xmlStats.AppendChild(xmlManaPoints)
                     xmlStats.AppendChild(xmlSoulPoints)
@@ -1852,7 +1863,7 @@ Public Module CoreModule
                 Dim BlankRuneID As UShort = Definitions.GetItemID("Blank")
                 Dim Found As Boolean = False
                 Dim Count As Integer = 0
-                If RunemakerManaPoints = 0 OrElse RunemakerSoulPoints < 0 Then Exit Sub
+                If RunemakerManaPoints = 0 Then Exit Sub
 
                 'continue only if there enough mana
                 If ManaPoints < RunemakerManaPoints OrElse ManaPoints < RunemakerSpell.ManaPoints Then
@@ -3138,7 +3149,6 @@ Public Module CoreModule
                 IRCClient.MainLoop()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3160,7 +3170,6 @@ Public Module CoreModule
                 Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 3, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3169,7 +3178,6 @@ Public Module CoreModule
                 Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelTutor, 2, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3178,7 +3186,6 @@ Public Module CoreModule
                 Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.Channel, 1, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3189,11 +3196,10 @@ Public Module CoreModule
                         Return ChannelKVP.Key
                     End If
                 Next
-                Return ""
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
+            Return ""
         End Function
 
         Public Function IrcChannelIsOpened(ByVal ChannelID As Integer) As Boolean
@@ -3225,7 +3231,6 @@ Public Module CoreModule
                 Return 0
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Function
 
@@ -3312,7 +3317,6 @@ Public Module CoreModule
                 Loop While True
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3321,7 +3325,6 @@ Public Module CoreModule
                 ConsoleWrite("Connecting to IRC. Please Wait...")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3330,7 +3333,6 @@ Public Module CoreModule
                 ConsoleWrite("Successfully connected to IRC. Opening channels, please wait...")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3340,7 +3342,6 @@ Public Module CoreModule
                 IRCClient.Channels.Clear()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3351,7 +3352,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3368,7 +3368,6 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 

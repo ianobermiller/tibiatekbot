@@ -271,7 +271,6 @@ Public Class IrcClient
             DoMainLoopThread.Start()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
 #End Region
@@ -291,7 +290,6 @@ Public Class IrcClient
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
     Public Sub ChangeNick(ByVal NewNick As String)
@@ -310,7 +308,6 @@ Public Class IrcClient
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
     Public Sub Notice(ByVal Destinatary As String, ByVal Message As String)
@@ -319,7 +316,6 @@ Public Class IrcClient
             WriteLine(String.Format("NOTICE {0} :{1}", Destinatary, Message))
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
 
@@ -329,7 +325,6 @@ Public Class IrcClient
             WriteLine(String.Format("PRIVMSG {0} :{1}", Destinatary, Message))
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
 
@@ -342,7 +337,6 @@ Public Class IrcClient
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
 
@@ -354,7 +348,6 @@ Public Class IrcClient
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
 
@@ -392,8 +385,8 @@ Public Class IrcClient
             Return System.Text.ASCIIEncoding.ASCII.GetString(ResultByteArray)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
+        Return String.Empty
     End Function
     Private Function IsSpecial(ByVal C As Char) As Boolean
         Try
@@ -401,8 +394,8 @@ Public Class IrcClient
                  OrElse (Asc(C) >= &H7B AndAlso Asc(C) <= &H7D)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
+        Return False
     End Function
     Protected Overrides Sub Finalize()
         If Not Me.Client Is Nothing AndAlso Not Me.Client.Client Is Nothing Then
@@ -439,16 +432,23 @@ Public Class IrcClient
                                 Case "332" ' Topic
                                     Temp = Command(1).Split(New Char() {" "c}, 3)
                                     Dim Channel As String = Temp(1)
-                                    Dim CI As ChannelInformation = Channels(Channel)
-                                    CI.Topic = Temp(2).Substring(1)
-                                    Channels(Channel) = CI
+
+                                    If Channels.ContainsKey(Channel) Then
+                                        Dim CI As ChannelInformation = Channels(Channel)
+                                        CI.Topic = Temp(2).Substring(1)
+                                        Channels(Channel) = CI
+                                    End If
+
+                               
                                 Case "333"
                                     Temp = Command(1).Split(New Char() {" "c}) 'nick, channel, topic
                                     Dim Channel As String = Temp(1)
-                                    Dim CI As ChannelInformation = Channels(Channel)
-                                    CI.TopicOwner = Temp(2)
-                                    Channels(Channel) = CI
-                                    RaiseEvent EventChannelTopicChange(CI)
+                                    If Channels.ContainsKey(Channel) Then
+                                        Dim CI As ChannelInformation = Channels(Channel)
+                                        CI.TopicOwner = Temp(2)
+                                        Channels(Channel) = CI
+                                        RaiseEvent EventChannelTopicChange(CI)
+                                    End If
                                 Case "353" ' Names list
                                     Dim Match As Match = Regex.Match(Command(1), "[^#]+(#[^\s]+)\s:([^\n]+)")
                                     If Match.Success Then
@@ -589,11 +589,11 @@ Public Class IrcClient
                                                 End If
                                             Case "QUIT"
                                                 For Each Channel As String In Channels.Keys
-                                                    If Channels(Channel).Users.ContainsKey(Nick) Then
-                                                        Channels(Channel).Users.Remove(Nick)
+                                                    If Channels(Channel).Users.ContainsKey(From) Then
+                                                        Channels(Channel).Users.Remove(From)
                                                     End If
                                                 Next
-                                                RaiseEvent EventQuit(Nick, Arguments.Substring(1))
+                                                RaiseEvent EventQuit(From, Arguments.Substring(1))
                                         End Select
                                     End If
                             End Select
