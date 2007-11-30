@@ -22,3 +22,4 @@ And here's a list of projects on the way:
  * [OsQu] (Programming and Support) _(also known as Oskari.Virtanen)_
  * [Dump3r] (Programming)
  * [Genosonic] (Graphics)
+ * [Bizugo] (Programming and Support)
