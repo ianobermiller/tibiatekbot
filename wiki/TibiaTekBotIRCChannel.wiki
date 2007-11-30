@@ -11,7 +11,7 @@ Before asking a question, read below under the title "Before You Ask".
 
 = Connecting to the TibiaTek Bot IRC Channel =
 
-You can connect to the TibiaTek Bot IRC Channel via TibiaTek Bot's built-in IRC client. By default, it connects and joins the channel automatically. You can disable automatic connecting and joining via changing the variables ^IRCConnectOnStartUp^ and ^IRCJoinAfterConnected^ respectively.
+You can connect to the TibiaTek Bot IRC Channel via TibiaTek Bot's built-in IRC client. By default, it connects and joins the channel automatically. You can disable automatic connecting and joining via changing the variables _IRCConnectOnStartUp_ and _IRCJoinAfterConnected_ respectively.
 
 To join from another client connect to the Quakenet IRC server at uk.quakenet.org, channel #tibiatekbot. Here's a list of other [http://en.wikipedia.org/wiki/List_of_IRC_clients IRC Clients].
 
@@ -60,7 +60,7 @@ Type _/join #<nameofthechannel>_
 
 = Guidelines in full =
 
-  * The people who assist you in the #tibiatkbot IRC channel are unpaid, unthanked volunteers who give up much of their time just to help you. Please be patient and courteous with them.
+  * The people who assist you in the #tibiatekbot IRC channel are unpaid, unthanked volunteers who give up much of their time just to help you. Please be patient and courteous with them.
   * The language of the channel is *ENGLISH*. Other language channels exist though. (see above)
   * Be patient. Sometimes no one will see your question for quite a while if they are away from the computer or busy elsewhere. Sometimes people are chatting but no one answers your question. Just ask your question and hang out in the channel until you see some activity or find someone willing to assist you. *Do not ask every second* or every 2 minutes. If no-one answers we suggest you ask again 15 to 20 minutes later.
   * Insults, name-calling, harassment of any form, vulgarity, profanity, obscenity, etc. are not allowed. See below for more information.
