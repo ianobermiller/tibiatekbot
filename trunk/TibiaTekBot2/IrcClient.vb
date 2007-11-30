@@ -22,7 +22,7 @@ Public Class IrcClient
     Public Event EventChannelJoin As ChannelJoin
     Public Event EventChannelSelfJoin As ChannelSelfJoin
     Public Event EventChannelKick As ChannelKick
-    'Public Event EventChannelSelfKick As ChannelSelfKick
+	Public Event EventChannelSelfKick As ChannelSelfKick
     Public Event EventNickChange As NickChange
     Public Event EventChannelPart As ChannelPart
     Public Event EventChannelSelfPart As ChannelSelfPart
@@ -42,7 +42,7 @@ Public Class IrcClient
     Public Delegate Sub ChannelJoin(ByVal Nick As String, ByVal Channel As String)
     Public Delegate Sub ChannelSelfJoin(ByVal Channel As String)
     Public Delegate Sub ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal KickMessage As String, ByVal Channel As String)
-    'Public Delegate Sub ChannelSelfKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal KickMessage As String)
+	Public Delegate Sub ChannelSelfKick(ByVal NickKicker As String, ByVal KickMessage As String)
     Public Delegate Sub ChannelMode(ByVal Nick As String, ByVal UserMode As String, ByVal Channel As String)
     Public Delegate Sub NickChange(ByVal UserOldNick As String, ByVal UserNewNick As String)
     Public Delegate Sub ChannelPart(ByVal Nick As String, ByVal Channel As String)
@@ -227,12 +227,14 @@ Public Class IrcClient
         End Try
     End Function
     Public Sub Disconnect()
-        If WasConnected AndAlso Client.Connected Then
-            WasConnected = False
-            RaiseEvent EventDisconnected()
-            Client.Client.Disconnect(True)
-        End If
-        'DoMainLoopThread.Abort()
+		If WasConnected AndAlso Not Client Is Nothing AndAlso Client.Connected Then
+			WasConnected = False
+			If Not Client.Client Is Nothing Then
+				Client.Client.Disconnect(True)
+			End If
+		End If
+		RaiseEvent EventDisconnected()
+		'DoMainLoopThread.Abort()
     End Sub
     Public Function IsOperator(ByVal Nickname As String, ByVal Channel As String) As Boolean
         If Channels Is Nothing Then Return False
@@ -420,7 +422,7 @@ Public Class IrcClient
                         Dim SplitMessages() As String
                         Message = Reader.ReadLine()
                         If Message Is Nothing Then Exit Sub
-                        'Core.ConsoleWrite(Message)
+						'Core.ConsoleWrite(Message)
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
                         Dim Temp() As String
@@ -438,17 +440,15 @@ Public Class IrcClient
                                         CI.Topic = Temp(2).Substring(1)
                                         Channels(Channel) = CI
                                     End If
-
-                               
-                                Case "333"
-                                    Temp = Command(1).Split(New Char() {" "c}) 'nick, channel, topic
-                                    Dim Channel As String = Temp(1)
-                                    If Channels.ContainsKey(Channel) Then
-                                        Dim CI As ChannelInformation = Channels(Channel)
-                                        CI.TopicOwner = Temp(2)
-                                        Channels(Channel) = CI
-                                        RaiseEvent EventChannelTopicChange(CI)
-                                    End If
+								Case "333"
+									Temp = Command(1).Split(New Char() {" "c}) 'nick, channel, topic
+									Dim Channel As String = Temp(1)
+									If Channels.ContainsKey(Channel) Then
+										Dim CI As ChannelInformation = Channels(Channel)
+										CI.TopicOwner = Temp(2)
+										Channels(Channel) = CI
+										RaiseEvent EventChannelTopicChange(CI)
+									End If
                                 Case "353" ' Names list
                                     Dim Match As Match = Regex.Match(Command(1), "[^#]+(#[^\s]+)\s:([^\n]+)")
                                     If Match.Success Then
@@ -524,77 +524,99 @@ Public Class IrcClient
                                                     Channels.Add(Arguments, CI)
                                                     'MsgBox(Arguments)
                                                     RaiseEvent EventChannelSelfJoin(Arguments)
-                                                Else
-                                                    Channels(Arguments).Users.Add(From, New UserInformation())
-                                                    RaiseEvent EventChannelJoin(From, Arguments)
-                                                End If
-                                            Case "PART"
-                                                If String.Equals(From, Me.Nick) AndAlso Channels.ContainsKey(Arguments) Then
-                                                    Channels.Remove(Arguments)
-                                                    RaiseEvent EventChannelSelfPart(Arguments)
-                                                ElseIf Channels.ContainsKey(Arguments) Then
-                                                    Channels(Arguments).Users.Remove(From)
-                                                    RaiseEvent EventChannelPart(From, Arguments)
-                                                End If
-                                            Case "NICK"
-                                                Dim NewNick As String = Arguments.Substring(1)
-                                                If From = Me.Nick Then
-                                                    Me.Nick = NewNick
-                                                End If
-                                                For Each Channel As String In Channels.Keys
-                                                    For Each Nick As String In Channels(Channel).Users.Keys
-                                                        If Nick.Equals(From) Then
-                                                            Dim UI As UserInformation = Channels(Channel).Users(Nick)
-                                                            Channels(Channel).Users.Remove(Nick)
-                                                            Channels(Channel).Users.Add(NewNick, UI)
-                                                            Exit For
-                                                        End If
-                                                    Next
-                                                Next
-                                                RaiseEvent EventNickChange(From, NewNick)
-                                            Case "MODE"
-                                                'this only matches modes to ppl
-                                                Match2 = Regex.Match(Arguments, "([^\s]+)\s([^\s]+)\s([^\s]+)")
-                                                If Match2.Success Then
-                                                    Dim Channel As String = Match2.Groups(1).Value
-                                                    Dim Modes As String = Match2.Groups(2).Value
-                                                    Dim Nick As String = Match2.Groups(3).Value
-                                                    Match2 = Regex.Match(Modes, "([\+-][ov])")
-                                                    If Match2.Success Then
-                                                        Dim UI As UserInformation = Channels(Channel).Users(Nick)
-                                                        Select Case Match2.Groups(1).Value
-                                                            Case "+o"
-                                                                UI.ChannelOperator = True
-                                                            Case "+v"
-                                                                UI.Voiced = True
-                                                            Case "-o"
-                                                                UI.ChannelOperator = False
-                                                            Case "-v"
-                                                                UI.Voiced = False
-                                                        End Select
-                                                        Channels(Channel).Users(Nick) = UI
-                                                        RaiseEvent EventChannelMode(Nick, Match2.Groups(1).Value, Channel)
-                                                    End If
-                                                End If
+												Else
+													If Not Channels(Arguments).Users.ContainsKey(From) Then
+														Channels(Arguments).Users.Add(From, New UserInformation())
+														RaiseEvent EventChannelJoin(From, Arguments)
+													End If
+												End If
+											Case "PART"
+												If String.Equals(From, Me.Nick) AndAlso Channels.ContainsKey(Arguments) Then
+													Channels.Remove(Arguments)
+													RaiseEvent EventChannelSelfPart(Arguments)
+												ElseIf Channels.ContainsKey(Arguments) Then
+													Channels(Arguments).Users.Remove(From)
+													RaiseEvent EventChannelPart(From, Arguments)
+												End If
+											Case "NICK"
+												Dim NewNick As String = Arguments.Substring(1)
+												If From = Me.Nick Then
+													Me.Nick = NewNick
+												End If
+												For Each Channel As String In Channels.Keys
+													For Each Nick As String In Channels(Channel).Users.Keys
+														If Nick.Equals(From) Then
+															Dim UI As UserInformation = Channels(Channel).Users(Nick)
+															Channels(Channel).Users.Remove(Nick)
+															Channels(Channel).Users.Add(NewNick, UI)
+															Exit For
+														End If
+													Next
+												Next
+												RaiseEvent EventNickChange(From, NewNick)
+											Case "MODE"
+												'this only matches modes to ppl
+												Match2 = Regex.Match(Arguments, "([^\s]+)\s([^\s]+)\s([^\s]+)")
+												If Match2.Success Then
+													Dim Channel As String = Match2.Groups(1).Value
+													Dim Modes As String = Match2.Groups(2).Value
+													Dim Nick As String = Match2.Groups(3).Value
+													Match2 = Regex.Match(Modes, "([\+-][ov])")
+													If Match2.Success Then
+														Dim UI As UserInformation = Channels(Channel).Users(Nick)
+														Select Case Match2.Groups(1).Value
+															Case "+o"
+																UI.ChannelOperator = True
+															Case "+v"
+																UI.Voiced = True
+															Case "-o"
+																UI.ChannelOperator = False
+															Case "-v"
+																UI.Voiced = False
+														End Select
+														Channels(Channel).Users(Nick) = UI
+														RaiseEvent EventChannelMode(Nick, Match2.Groups(1).Value, Channel)
+													End If
+												End If
 
-                                            Case "TOPIC"
-                                                Match2 = Regex.Match(Arguments, "([^\s]+)\s:(.*)")
-                                                If Match2.Success Then
-                                                    Dim Channel As String = Match2.Groups(1).Value
-                                                    Dim CI As ChannelInformation = Channels(Channel)
-                                                    CI.Topic = Match2.Groups(2).Value
-                                                    CI.TopicOwner = From
-                                                    Channels(Channel) = CI
-                                                    RaiseEvent EventChannelTopicChange(CI)
-                                                End If
-                                            Case "QUIT"
-                                                For Each Channel As String In Channels.Keys
-                                                    If Channels(Channel).Users.ContainsKey(From) Then
-                                                        Channels(Channel).Users.Remove(From)
-                                                    End If
-                                                Next
-                                                RaiseEvent EventQuit(From, Arguments.Substring(1))
-                                        End Select
+											Case "TOPIC"
+												Match2 = Regex.Match(Arguments, "([^\s]+)\s:(.*)")
+												If Match2.Success Then
+													Dim Channel As String = Match2.Groups(1).Value
+													Dim CI As ChannelInformation = Channels(Channel)
+													CI.Topic = Match2.Groups(2).Value
+													CI.TopicOwner = From
+													Channels(Channel) = CI
+													RaiseEvent EventChannelTopicChange(CI)
+												End If
+											Case "KICK"
+												':OsQu!OsQu@lagaakympil.org KICK #TibiaTekBot Cameri:Cameri
+												Match2 = Regex.Match(Arguments, "([^\s]+)\s([^\s]+)\s:([^\n]*)")
+												If Match2.Success Then
+													Dim Nick As String = Match2.Groups(2).Value
+													Dim Channel As String = Match2.Groups(1).Value
+													Dim KickMessage As String = Match2.Groups(3).Value
+													'MsgBox(From & " kicked " & Nick & ". reason: " & KickMessage)
+													If Channels.ContainsKey(Channel) Then
+														If Channels(Channel).Users.ContainsKey(Nick) Then
+															If Nick = Me.Nick Then
+																Channels.Remove(Channel)
+																RaiseEvent EventChannelSelfKick(From, KickMessage)
+															Else
+																Channels(Channel).Users.Remove(Nick)
+																RaiseEvent EventChannelKick(From, Nick, KickMessage, Channel)
+															End If
+														End If
+													End If
+												End If
+											Case "QUIT"
+												For Each Channel As String In Channels.Keys
+													If Channels(Channel).Users.ContainsKey(From) Then
+														Channels(Channel).Users.Remove(From)
+													End If
+												Next
+												RaiseEvent EventQuit(From, Arguments.Substring(1))
+										End Select
                                     End If
                             End Select
                         End If
