@@ -2,6 +2,7 @@
 #labels Featured,Phase-Design,Phase-Implementation
 
 = Since v2.2 =
+ * Anti-Logout
  * Auto Open Backpack (at character login)
  * IRC Client, live support directly from Tibia (TibiaTek Bot connects to IRC, irc://uk.quakenet.org/#tibiatekbot)
  * Improved Graphic User Interface
