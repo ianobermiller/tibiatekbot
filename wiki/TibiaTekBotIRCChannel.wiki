@@ -36,12 +36,15 @@ This is a reference table of the 3 different user types in the IRC Channel.
 This is a list of all the available commands.
 
 === Change Nickname ===
+The TibiaTek Bot Built-In IRC Client automatically generates a generic nickname for you. Because of this you might want to change your auto-generated nickname to a more personal one.
 
 Type _/nick <nicknamehere>_
 
 *Example:* _/nick Master_Of_All
 
 *Note:* nicknames cannot contain spaces, use underscores or dashes (-) instead.
+
+You can also set a default nickname via the Constants Editor by modifying the _IRCNickname_ variable. Refer to the [ConstantsEditor Constants Editor] wiki page for reference on how to use it.
 
 === Quit the IRC Connection ===
 
