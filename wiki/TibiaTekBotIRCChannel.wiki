@@ -20,7 +20,7 @@ To join from another client connect to the Quakenet IRC server at uk.quakenet.or
 This is a reference table of the 3 different user types in the IRC Channel.
 ||User Type||Marks||Text Color (Built-In Client)||
 ||Channel Operator||@/Level 3||Red||
-||Voiced User||+/Level 2||Green||
+||Voiced User||+/Level 2||Orange||
 ||Normal User||Level 1||Yellow||
 
 == Language Channels ==
