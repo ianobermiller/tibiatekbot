@@ -41,7 +41,7 @@ Type _/nick <nicknamehere>_
 
 *Example:* _/nick Master_Of_All
 
-*Note:* nicknames cannot contain spaces, use underscores (_) or dashes (-) instead.
+*Note:* nicknames cannot contain spaces, use underscores or dashes (-) instead.
 
 === Quit the IRC Connection ===
 
@@ -55,8 +55,6 @@ Type _/join #<nameofthechannel>_
 
 *Note:* you can only join a maximum of 3 channels via the TibiaTek Bot Built-in IRC Client.
 
-== Notes on Freedom of Speech ==
-
 = Guidelines in full =
 
   * The people who assist you in the #tibiatkbot IRC channel are unpaid, unthanked volunteers who give up much of their time just to help you. Please be patient and courteous with them.
@@ -67,7 +65,7 @@ Type _/join #<nameofthechannel>_
   * Read the topic when you join the channel.
   * No name calling
   * No insulting remarks
-  * No denigration is permitted of other peoples:
+  * No denigration is permitted of other people:
     * Nationality
     * Race
     * Creed
