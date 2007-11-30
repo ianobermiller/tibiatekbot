@@ -123,7 +123,7 @@ These actions will be taken at the sole discretion of the Channel Operators. You
 
 == Appeals ==
 
-Appeals to action taken by Channel Operators may be made by Private Message only to any of the Channel Operators.
+Appeals to action taken by Channel Operators may be made by Private Message only to any of the Channel Operators. Take into account that the Built-In IRC Client of TTB v2.2 doesn't allow private messaging. This feature will be available in future versions.
 
 If you feel a Channel Operator has kicked and/or banned you for a real reason contact Cameri, SonicTTB or OsQu expressing your concern.
 
