@@ -23,7 +23,7 @@ This is a reference table of the 3 different user types in the IRC Channel.
 ||Voiced User||+/Level 2||Orange||
 ||Normal User||Level 1||Yellow||
 
-== Language Channels ==
+= Language Channels =
 
   * *Español (Spanish):* #ttbespanol
   * *Suomi (Finnish):* N/A
@@ -31,11 +31,11 @@ This is a reference table of the 3 different user types in the IRC Channel.
   * *Polski (Polish):* N/A (there are no Customer Support members for Polish speakers)
   * *Portugués (Portuguese):* N/A
   
-== How To's ==
+= How To's =
 
 This is a list of all the available commands.
 
-=== Change Nickname ===
+== Change Nickname ==
 The TibiaTek Bot Built-In IRC Client automatically generates a generic nickname for you. Because of this you might want to change your auto-generated nickname to a more personal one.
 
 Type _/nick <nicknamehere>_
@@ -46,11 +46,11 @@ Type _/nick <nicknamehere>_
 
 You can also set a default nickname via the Constants Editor by modifying the _IRCNickname_ variable. Refer to the [ConstantsEditor Constants Editor] wiki page for reference on how to use it.
 
-=== Quit the IRC Connection ===
+== Quit the IRC Connection ==
 
 Type _/quit_
 
-=== Join Another Channel ===
+== Join Another Channel ==
 
 Type _/join #<nameofthechannel>_
 
@@ -147,16 +147,15 @@ By agreeing to these rules, you warrant that you will not post any messages that
 
 == Courtesy ==
 
-Be courteous. Use ?Please? and ?Thanks for your attention? or ?Thanks for your consideration?. Make it clear you appreciate the time people spend helping you for free.
+Be courteous. Use "Please" and "Thanks for your attention" or "Thanks for your consideration". Make it clear you appreciate the time people spend helping you for free.
 
 == Before You Ask ==
 
 Before asking a technical question do the following:
 
-  # Try to find an answer by reading the TibiaTek Manual.
+  # Try to find an answer by reading the [TibiaTekBotManual TibiaTek Manual].
   # Try to find an answer by searching the archives of the forum.
   # Try to find an answer by searching the Web.
-  # Try to find an answer by reading a FAQ.
   # Try to find an answer by inspection or experimentation.
   # If you're a programmer, try to find an answer by reading the source code.
 
