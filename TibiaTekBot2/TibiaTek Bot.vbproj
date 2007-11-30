@@ -31,7 +31,7 @@
     <RootNamespace>TibiaTekBot</RootNamespace>
     <AssemblyName>TibiaTekBot</AssemblyName>
     <MyType>WindowsForms</MyType>
-    <ApplicationIcon>Resources\ttb21.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ttb.ico</ApplicationIcon>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ManifestCertificateThumbprint>4574873EA1E78AE58A732A9F8A584CA883CB970A</ManifestCertificateThumbprint>
     <ManifestKeyFile>TibiaTek Bot_TemporaryKey.pfx</ManifestKeyFile>

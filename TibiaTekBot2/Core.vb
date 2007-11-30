@@ -3676,123 +3676,144 @@ Public Module CoreModule
                                 End If
 
                         End Select
-                    Case &H96 'message
-                        LastActivity = Date.Now
-                        Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
-                        If MessageType = MessageType.Channel AndAlso bytBuffer(4) = ChannelType.Console Then
-                            Message = GetString(bytBuffer, 6)
-                            If Message.StartsWith("&") Then
-                                'ConsoleRead(Message)
-                                ConsoleRead(Message)
-                                MCollection = RegExp.Matches(Message)
-                                For Each GroupMatch In MCollection
-                                    CommandParser(GroupMatch.Groups(1).ToString)
-                                Next
-                            End If
-                            Send = False
-
-                        ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannel AndAlso bytBuffer(4) < ChannelType.IRCChannel + 40) Then
-                            Send = False
-                            Dim ChannelID As Int16 = bytBuffer(4)
-                            Message = GetString(bytBuffer, 6)
-                            Dim Channel As String = IrcChannelIDToName(ChannelID)
-                            If IRCClient.Channels.ContainsKey(Channel) Then
-                                If Message.StartsWith("&") Then
-                                    IrcChannelSpeakNormal(Channel, "You cannot send TibiaTek Bot commands on an IRC Channel", ChannelID)
-                                ElseIf Message.StartsWith("/") Then
-                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users)(?:\s(.+))?", RegexOptions.IgnoreCase)
-                                    If Match.Success Then
-                                        Select Case Match.Groups(1).Value.ToLower
-                                            Case "join"
-                                                IRCClient.Join(Match.Groups(2).Value)
-                                            Case "nick"
-                                                IRCClient.Nick = Match.Groups(2).Value
-                                                IRCClient.ChangeNick(IRCClient.Nick)
-                                            Case "users"
-                                                If Core.IRCClient.Channels.ContainsKey(Channel) Then
-                                                    Dim TempNick As String = ""
-                                                    For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
-                                                        TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
-                                                        TempNick &= Nick
-                                                        Core.IrcChannelSpeakNormal(Channel, TempNick, Core.IrcChannelNameToID(Channel))
-                                                    Next
-                                                End If
-                                        End Select
-
-                                    End If
-                                Else
-                                    If IRCClient.IsOperator(IRCClient.Nick, Channel) Then
-                                        IrcChannelSpeakOperator(IRCClient.Nick, Message, ChannelID)
-                                    ElseIf IRCClient.IsVoiced(IRCClient.Nick, Channel) Then
-                                        IrcChannelSpeakVoiced(IRCClient.Nick, Message, ChannelID)
-                                    Else
-                                        IrcChannelSpeakNormal(IRCClient.Nick, Message, ChannelID)
-                                    End If
-                                    IRCClient.Speak(Message, Channel)
-                                End If
-                            Else
-                                ConsoleError("Unable to send message to the IRC Channel.")
-                            End If
-                        Else
-                            Dim ChatMessage As New ChatMessageDefinition
-                            ChatMessage.MessageType = MessageType
-                            ChatMessage.Prioritize = True
-                            Dim bytNewBuffer(1) As Byte
-                            AddByte(bytNewBuffer, &H96)
-                            Select Case MessageType
-                                Case MessageType.PM
-                                    ChatMessage.Destinatary = GetString(bytBuffer, Pos)
-                                    ChatMessage.Message = GetString(bytBuffer, Pos)
-                                    If ChatMessage.Message.StartsWith("&") Then
-                                        MCollection = RegExp.Matches(ChatMessage.Message)
-                                        For Each GroupMatch In MCollection
-                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                            CommandParser(GroupMatch.Groups(1).Value)
-                                        Next
-                                        If MCollection.Count > 0 Then
-                                            Send = False
-                                            Exit Sub
-                                        End If
-                                    End If
-                                    bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
-                                Case MessageType.Channel
-                                    ChatMessage.Channel = GetWord(bytBuffer, Pos)
-                                    ChatMessage.Message = GetString(bytBuffer, Pos)
-                                    If ChatMessage.Message.StartsWith("&") Then
-                                        MCollection = RegExp.Matches(ChatMessage.Message)
-                                        For Each GroupMatch In MCollection
-                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                            CommandParser(GroupMatch.Groups(1).ToString)
-                                        Next
-                                        If MCollection.Count > 0 Then
-                                            Send = False
-                                            Exit Sub
-                                        End If
-                                    End If
-                                    bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
-                                Case Else
-                                    ChatMessage.Message = GetString(bytBuffer, Pos)
-                                    If ChatMessage.Message.StartsWith("&") Then
-                                        MCollection = RegExp.Matches(ChatMessage.Message)
-                                        For Each GroupMatch In MCollection
-                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                            CommandParser(GroupMatch.Groups(1).ToString)
-                                        Next
-                                        If MCollection.Count > 0 Then
-                                            Send = False
-                                            Exit Sub
-                                        End If
-                                    End If
-                                    bytNewBuffer = Speak(ChatMessage.Message, MessageType)
-                            End Select
-                            Dim TimeElapsed As TimeSpan = Date.Now.Subtract(ChatMessageLastSent)
-                            If ChatMessageLastSent = Date.MinValue OrElse TimeElapsed.TotalSeconds >= 3 Then
-                                Proxy.SendPacketToServer(bytNewBuffer)
-                            Else
-                                ChatMessageQueueList.Add(ChatMessage)
-                            End If
-                            Send = False
-                        End If
+					Case &H96 'message
+						Dim Group1() As String = {"ad", "al", "ex", "ut"}
+						Dim Group2() As String = {"amo", "ana", "ani", "eta", "evo", "ito", "iva", "ori", "ura"}
+						LastActivity = Date.Now
+						Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
+						If MessageType = MessageType.Channel AndAlso bytBuffer(4) = ChannelType.Console Then
+							Message = GetString(bytBuffer, 6)
+							Send = False
+							If Message.StartsWith("&") Then
+								'ConsoleRead(Message)
+								ConsoleRead(Message)
+								MCollection = RegExp.Matches(Message)
+								For Each GroupMatch In MCollection
+									CommandParser(GroupMatch.Groups(1).ToString)
+								Next
+							Else
+								For Each Gr1 As String In Group1
+									For Each Gr2 As String In Group2
+										If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2) Then
+											Proxy.SendPacketToServer(Speak(Message))
+											Exit Sub
+										End If
+									Next
+								Next
+							End If
+						ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannel AndAlso bytBuffer(4) < ChannelType.IRCChannel + 40) Then
+							Send = False
+							Dim ChannelID As Int16 = bytBuffer(4)
+							Message = GetString(bytBuffer, 6)
+							Dim Channel As String = IrcChannelIDToName(ChannelID)
+							If IRCClient.Channels.ContainsKey(Channel) Then
+								If Message.StartsWith("&") Then
+									ConsoleRead(Message)
+									MCollection = RegExp.Matches(Message)
+									For Each GroupMatch In MCollection
+										CommandParser(GroupMatch.Groups(1).ToString)
+									Next
+								ElseIf Message.StartsWith("/") Then
+									Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users)(?:\s(.+))?", RegexOptions.IgnoreCase)
+									If Match.Success Then
+										Select Case Match.Groups(1).Value.ToLower
+											Case "join", "j"
+												IRCClient.Join(Match.Groups(2).Value)
+											Case "nick", "n"
+												IRCClient.Nick = Match.Groups(2).Value
+												IRCClient.ChangeNick(IRCClient.Nick)
+											Case "users", "u"
+												If Core.IRCClient.Channels.ContainsKey(Channel) Then
+													Dim TempNick As String = ""
+													For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
+														TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
+														TempNick &= Nick
+														Core.IrcChannelSpeakNormal(Channel, TempNick, Core.IrcChannelNameToID(Channel))
+													Next
+												End If
+										End Select
+									End If
+								Else
+									For Each Gr1 As String In Group1
+										For Each Gr2 As String In Group2
+											If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2) Then
+												Proxy.SendPacketToServer(Speak(Message))
+												Exit Sub
+											End If
+										Next
+									Next
+									If IRCClient.IsOperator(IRCClient.Nick, Channel) Then
+										IrcChannelSpeakOperator(IRCClient.Nick, Message, ChannelID)
+									ElseIf IRCClient.IsVoiced(IRCClient.Nick, Channel) Then
+										IrcChannelSpeakVoiced(IRCClient.Nick, Message, ChannelID)
+									Else
+										IrcChannelSpeakNormal(IRCClient.Nick, Message, ChannelID)
+									End If
+									IRCClient.Speak(Message, Channel)
+								End If
+							Else
+								ConsoleError("Unable to send message to the IRC Channel.")
+							End If
+						Else
+							Dim ChatMessage As New ChatMessageDefinition
+							ChatMessage.MessageType = MessageType
+							ChatMessage.Prioritize = True
+							Dim bytNewBuffer(1) As Byte
+							AddByte(bytNewBuffer, &H96)
+							Select Case MessageType
+								Case MessageType.PM
+									ChatMessage.Destinatary = GetString(bytBuffer, Pos)
+									ChatMessage.Message = GetString(bytBuffer, Pos)
+									If ChatMessage.Message.StartsWith("&") Then
+										MCollection = RegExp.Matches(ChatMessage.Message)
+										For Each GroupMatch In MCollection
+											ConsoleRead("&" & GroupMatch.Groups(1).Value)
+											CommandParser(GroupMatch.Groups(1).Value)
+										Next
+										If MCollection.Count > 0 Then
+											Send = False
+											Exit Sub
+										End If
+									End If
+									bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
+								Case MessageType.Channel
+									ChatMessage.Channel = GetWord(bytBuffer, Pos)
+									ChatMessage.Message = GetString(bytBuffer, Pos)
+									If ChatMessage.Message.StartsWith("&") Then
+										MCollection = RegExp.Matches(ChatMessage.Message)
+										For Each GroupMatch In MCollection
+											ConsoleRead("&" & GroupMatch.Groups(1).Value)
+											CommandParser(GroupMatch.Groups(1).ToString)
+										Next
+										If MCollection.Count > 0 Then
+											Send = False
+											Exit Sub
+										End If
+									End If
+									bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
+								Case Else
+									ChatMessage.Message = GetString(bytBuffer, Pos)
+									If ChatMessage.Message.StartsWith("&") Then
+										MCollection = RegExp.Matches(ChatMessage.Message)
+										For Each GroupMatch In MCollection
+											ConsoleRead("&" & GroupMatch.Groups(1).Value)
+											CommandParser(GroupMatch.Groups(1).ToString)
+										Next
+										If MCollection.Count > 0 Then
+											Send = False
+											Exit Sub
+										End If
+									End If
+									bytNewBuffer = Speak(ChatMessage.Message, MessageType)
+							End Select
+							Dim TimeElapsed As TimeSpan = Date.Now.Subtract(ChatMessageLastSent)
+							If ChatMessageLastSent = Date.MinValue OrElse TimeElapsed.TotalSeconds >= 3 Then
+								Proxy.SendPacketToServer(bytNewBuffer)
+							Else
+								ChatMessageQueueList.Add(ChatMessage)
+							End If
+							Send = False
+						End If
                     Case &H98 ' Requesting console through Channel List
                         LastActivity = Date.Now
                         If bytBuffer(3) = ConsoleChannelID Then
