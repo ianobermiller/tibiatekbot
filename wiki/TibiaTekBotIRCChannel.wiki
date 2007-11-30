@@ -1,13 +1,13 @@
 #summary TibiaTek Bot IRC Channel Use and Rules and Guidelines
-#labels Featured,Phase-Implementation
+#labels Featured,Phase-Support,Phase-QA
 
-The purpose of the channel is to find help about TibiaTek Bot, as in how to properly download, install, configure, use and update it. You may chat about anything else on this channel following certain guidelines, read further for more information. 
+The main purpose of the channel is to find help about TibiaTek Bot, as in how to properly download, install, configure, use and update it.
 
 One of our objectives for the #tibiatekbot IRC channel is to create a fun, lively, friendly, safe community for everyone to enjoy. To that end, we have unfortunately found it necessary to enforce certain rules.
 
 Remember, anyone capable and willing to help is of course welcome.
 
-Before asking a question, please review the [TibiaTekBotManual TibiaTek Bot Manual], you may find what you're looking for there.
+Before asking a question, read below under the title "Before You Ask".
 
 = Connecting to the TibiaTek Bot IRC Channel =
 
@@ -15,13 +15,21 @@ You can connect to the TibiaTek Bot IRC Channel via TibiaTek Bot's built-in IRC 
 
 To join from another client connect to the Quakenet IRC server at uk.quakenet.org, channel #tibiatekbot. Here's a list of other [http://en.wikipedia.org/wiki/List_of_IRC_clients IRC Clients].
 
+= IRC User Types =
+
+This is a reference table of the 3 different user types in the IRC Channel.
+||User Type||Marks||Text Color (Built-In Client)||
+||Channel Operator||@/Level 3||Red||
+||Voiced User||+/Level 2||Green||
+||Normal User||Level 1||Yellow||
+
 == Language Channels ==
 
-  * *Español (Spanish):* #ttbespanol
+  * *EspaÃ±ol (Spanish):* #ttbespanol
   * *Suomi (Finnish):* N/A
   * *Svenska (Swedish):* N/A
   * *Polski (Polish):* N/A (there are no Customer Support members for Polish speakers)
-  * *Portugués (Portuguese):* N/A
+  * *PortuguÃ©s (Portuguese):* N/A
   
 == How To's ==
 
@@ -29,21 +37,21 @@ This is a list of all the available commands.
 
 === Change Nickname ===
 
-Type ^/nick <nicknamehere> ^.
+Type _/nick <nicknamehere>_
 
-*Example:* ^/nick Master_Of_All^
+*Example:* _/nick Master_Of_All
 
 *Note:* nicknames cannot contain spaces, use underscores (_) or dashes (-) instead.
 
 === Quit the IRC Connection ===
 
-Type ^/quit^.
+Type _/quit_
 
 === Join Another Channel ===
 
-Type ^/join #<nameofthechannel>^.
+Type _/join #<nameofthechannel>_
 
-*Example:* ^/join #ttbespanol^
+*Example:* _/join #ttbespanol_
 
 *Note:* you can only join a maximum of 3 channels via the TibiaTek Bot Built-in IRC Client.
 
@@ -53,7 +61,7 @@ Type ^/join #<nameofthechannel>^.
 
   * The people who assist you in the #tibiatkbot IRC channel are unpaid, unthanked volunteers who give up much of their time just to help you. Please be patient and courteous with them.
   * The language of the channel is *ENGLISH*. Other language channels exist though. (see above)
-  * Be patient. Sometimes no one will see your question for quite a while if they are away from the computer or busy elsewhere. Sometimes people are chatting but no one answers your question. Just ask your question and hang out in the channel until you see some activity or find someone willing to assist you. *Do not ask every second* or every 2 minutes. If no-one answers we suggest you ask again 15 to 20 minutes later. It's OK to be ignorant; it's not OK to play stupid.
+  * Be patient. Sometimes no one will see your question for quite a while if they are away from the computer or busy elsewhere. Sometimes people are chatting but no one answers your question. Just ask your question and hang out in the channel until you see some activity or find someone willing to assist you. *Do not ask every second* or every 2 minutes. If no-one answers we suggest you ask again 15 to 20 minutes later.
   * Insults, name-calling, harassment of any form, vulgarity, profanity, obscenity, etc. are not allowed. See below for more information.
   * Strictly *NO ADVERTISING*. You may NOT advertise Open Tibia Servers or Official Servers or any other type of service that isn't related/or in alliance with the TibiaTek Projects.
   * Read the topic when you join the channel.
@@ -77,7 +85,7 @@ Type ^/join #<nameofthechannel>^.
     * Hobbies
     * Pets
     * Sexual Orientation
-  ...or any other personal feature.
+    * ...or any other personal feature.
   * Just to be clear, you may disagree with anything or anyone you like, but you may not insult anyone (this means nobody may insult you either).
   * No harassment
   * No threats
@@ -98,7 +106,7 @@ Type ^/join #<nameofthechannel>^.
 == General ==
 
   * We encourage individuals to share a limited amount of personal information, just enough to help us feel that you are a real person.
-  * We advise individuals not to share too much personal information, as this is the internet after all, and there are some dangerous people out there.
+  * We advise individuals not to share too much personal information, as this is the internet after all, and there are some dangerous people out there. Please be careful NOT to share your Tibian account information on this channel.
   * Disrespect and intolerance towards other people is NOT acceptable, and will result in measures being taken against any offenders. 
 
 = Rule Enforcement =
@@ -115,6 +123,8 @@ These actions will be taken at the sole discretion of the Channel Operators. You
 == Appeals ==
 
 Appeals to action taken by Channel Operators may be made by Private Message only to any of the Channel Operators.
+
+If you feel a Channel Operator has kicked and/or banned you for a real reason contact Cameri, SonicTTB or OsQu expressing your concern.
 
 == Spam ==
 
@@ -136,21 +146,21 @@ By agreeing to these rules, you warrant that you will not post any messages that
 
 == Courtesy ==
 
-Be courteous. Use “Please” and “Thanks for your attention” or “Thanks for your consideration”. Make it clear you appreciate the time people spend helping you for free.
+Be courteous. Use ?Please? and ?Thanks for your attention? or ?Thanks for your consideration?. Make it clear you appreciate the time people spend helping you for free.
 
 == Before You Ask ==
 
 Before asking a technical question do the following:
 
+  # Try to find an answer by reading the TibiaTek Manual.
   # Try to find an answer by searching the archives of the forum.
   # Try to find an answer by searching the Web.
-  # Try to find an answer by reading the manual.
   # Try to find an answer by reading a FAQ.
   # Try to find an answer by inspection or experimentation.
   # If you're a programmer, try to find an answer by reading the source code.
 
-  * Prepare your question. Think it through. Hasty-sounding questions get hasty answers, or none at all. The more you do to demonstrate that having put thought and effort into solving your problem before seeking help, the more likely you are to actually get help.
-  * Never assume you are entitled to an answer. You are not; you aren't, after all, paying for the service. You will earn an answer, if you earn it, by asking a substantial question — one that implicitly contributes to the experience of the community rather than merely passively demanding knowledge from others.
+  * Prepare your question. Think it through. Hasty-sounding questions get hasty answers, or none at all. The more you do to demonstrate that having put thought and effort into solving your problem before seeking help, the more likely you are to actually get help. It's OK to be ignorant; it's not OK to play stupid.
+  * Never assume you are entitled to an answer. You are not; you aren't, after all, paying for the service. You will earn an answer, if you earn it, by asking a substantial question ? one that implicitly contributes to the experience of the community rather than merely passively demanding knowledge from others.
   * Describe the symptoms of your problem or bug carefully and clearly.
   * Describe the environment in which it occurs (machine, OS, application, whatever).
   * Describe the research you did to try and understand the problem before you asked the question.
