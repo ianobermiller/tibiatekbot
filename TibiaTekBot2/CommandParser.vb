@@ -1185,7 +1185,8 @@ Public Module CommandParserModule
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Core.ConsoleWrite("Begin Test")
-
+            Core.CBState = CavebotState.Attacking
+            Core.ConsoleWrite("Changed CBState to Attacking")
             'Core.Proxy.SendPacketToClient(FYIBox("Thanks for sending us a message!"))
             Core.ConsoleWrite("End Test")
         Catch Ex As Exception

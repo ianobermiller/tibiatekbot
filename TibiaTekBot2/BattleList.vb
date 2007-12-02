@@ -738,7 +738,9 @@ Public Module BattleListModule
                 Do
                     If Not BL.IsPlayer Then
                         If BL.IsOnScreen Then
-                            Return True
+                            If BL.GetLocation.Z = Core.CharacterLoc.Z Then
+                                Return True
+                            End If
                         End If
                     End If
                 Loop While BL.NextEntity = True

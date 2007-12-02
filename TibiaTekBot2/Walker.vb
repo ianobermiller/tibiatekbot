@@ -97,14 +97,21 @@ Public Module WalkerModule
                         If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
                             'TD.JumpToTile(TileData.SpecialTile.Myself)
                             TD.Get_TileInfo()
-                            For i As Integer = 0 To TD.Count
+                            If TD.Count = 0 Then
+                                Core.ConsoleError("Theres no objects in the tile you're standing.")
+                                IsReady = False
+                                Return False
+                            End If
+                            For i As Integer = 0 To TD.Count - 1 'CHECK THIS
                                 If Definitions.GetItemKind(TD.ObjectId(i)) = ItemKind.UsableTeleport Then
                                     Core.Proxy.SendPacketToServer(UseObjectOnGround(TD.ObjectId(i), Coordinates))
                                     IsReady = False
                                     Return False
                                 End If
                             Next
-
+                            Core.ConsoleWrite("Couldn't find Ladders from the tile you are standing.")
+                            IsReady = False
+                            Return False
                         Else
                             If BL.IsWalking = False Then
                                 Core.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
