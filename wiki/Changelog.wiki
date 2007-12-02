@@ -1,6 +1,7 @@
 #labels Phase-Implementation
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
+|| Dec 2, 2007 || Fixed bug in walker class and fixed cavebot-stopping problem || Oskari.Virtanen || 
 || Nov 29, 2007 || Fixed bug in GUI Healer, when the minimum hp was set higher than the maximum hp of the character, the bot crashed, because it was trying to set a number higher than 100 to the percent numericupdown  || Cameri2005 ||
 || Nov 29, 2007 || Removed all ENDs in ircclient so that if it crashes, it doesnt take the bot down with him || Cameri2005 ||
 || Nov 29, 2007 || Fixed some typos in frmMain || Cameri2005 ||
