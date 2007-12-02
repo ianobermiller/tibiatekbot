@@ -1683,13 +1683,9 @@ Public Class frmMain
     End Sub
 
     Private Sub SpellCasterTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SpellCasterTrigger.CheckedChanged
-        Static FirstTime As Boolean = True
         Try
-            If FirstTime Then
-                FirstTime = False
-                Exit Sub
-            End If
             If SpellCasterTrigger.Checked Then
+                If Core.SpellTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 If String.IsNullOrEmpty(SpellCasterSpell.Text) Then
                     SpellCasterTrigger.Checked = False
                     MessageBox.Show("The spell must not be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1716,13 +1712,9 @@ Public Class frmMain
     End Sub
 
     Private Sub RunemakerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RunemakerTrigger.CheckedChanged
-        Static FirstTime As Boolean = True
         Try
-            If FirstTime Then
-                FirstTime = False
-                Exit Sub
-            End If
             If RunemakerTrigger.Checked Then
+                If Core.RunemakerTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 If String.IsNullOrEmpty(RunemakerSpell.Text) Then
                     RunemakerTrigger.Checked = False
                     MessageBox.Show("The spell must not be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1772,13 +1764,9 @@ Public Class frmMain
     End Sub
 
     Private Sub AutoEaterTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterTrigger.CheckedChanged
-        Static FirstTime As Boolean = True
         Try
-            If FirstTime Then
-                FirstTime = False
-                Exit Sub
-            End If
             If AutoEaterTrigger.Checked Then
+                If Core.EaterTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 If AutoEaterSmart.Checked Then
                     If AutoEaterMinimumHitPoints.Value = 0 Then
                         AutoEaterTrigger.Checked = False
