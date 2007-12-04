@@ -81,6 +81,12 @@ Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, S
 Public Module CoreModule
 
 #Region " Structures "
+    Public Structure tMagicWall
+        Dim Enabled As Boolean
+        Dim LastMagicWallDate As Date
+        Dim Stage As UShort
+        Dim Position As LocationDefinition
+    End Structure
 
     Public Structure ChatMessageDefinition
         Dim Prioritize As Boolean
@@ -165,6 +171,7 @@ Public Module CoreModule
         Public WithEvents IRCClient As IrcClient
         Public WithEvents AntiLogoutObj As ThreadTimer
         Public WithEvents TTMessagesTimerObj As ThreadTimer
+        Public WithEvents MagicWallTimerObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -333,6 +340,8 @@ Public Module CoreModule
         Public TTMessages As Integer = 0
 
         Public NameSpyActivated As Boolean = False
+
+        Public MagicWall() As tMagicWall
 #End Region
 
 #Region " Memory Reading/Writing "
@@ -549,6 +558,8 @@ Public Module CoreModule
                 IRCClient = New IrcClient(IRCServer, IRCPort)
                 AntiLogoutObj = New ThreadTimer(Consts.AntiLogoutInterval)
                 TTMessagesTimerObj = New ThreadTimer(Consts.TTMessagesInterval)
+                MagicWallTimerObj = New ThreadTimer(300)
+                ReDim MagicWall(100)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -2792,6 +2803,10 @@ Public Module CoreModule
                 "For a list of available commands type: &help.")
                 Try
                     Dim Reader As IO.StreamReader
+                    Dim ResetMagicWalls As Integer
+                    For ResetMagicWalls = LBound(MagicWall) To UBound(MagicWall)
+                        MagicWall(ResetMagicWalls).Enabled = False
+                    Next
                     ConsoleWrite("Loading your hotkeys, please wait...")
                     If HotkeySettings.Load() Then
                         ConsoleWrite("Hotkeys loaded.")
@@ -3120,6 +3135,73 @@ Public Module CoreModule
             End Try
         End Sub
 
+#End Region
+
+#Region " MagicWall Timer "
+        Private Sub MagicWallTimerObj_OnExecute() Handles MagicWallTimerObj.OnExecute
+            Try
+                Dim AllMWOff As Boolean = True
+                Dim NowMagicWall As Short
+                Dim TimePassed As TimeSpan
+                If Not InGame() Then MagicWallTimerObj.StopTimer()
+                For NowMagicWall = 0 To 100
+                    If MagicWall(NowMagicWall).Enabled Then
+                        AllMWOff = False
+                        TimePassed = Date.Now.Subtract(MagicWall(NowMagicWall).LastMagicWallDate)
+                        If TimePassed.TotalSeconds > 25 Then MagicWall(NowMagicWall).Enabled = False
+                        If MagicWall(NowMagicWall).Stage = 0 Then
+                            If Int(TimePassed.TotalSeconds) >= 20 Then
+                                MagicWallPrint(NowMagicWall, "Puff")
+                                MagicWall(NowMagicWall).Enabled = False
+                            End If
+                        Else
+                            If Int(TimePassed.TotalSeconds) = (20 - MagicWall(NowMagicWall).Stage) Then
+                                MagicWallPrint(NowMagicWall, MagicWall(NowMagicWall).Stage)
+                                MagicWall(NowMagicWall).Stage = MagicWall(NowMagicWall).Stage - 1
+                            End If
+                        End If
+                    End If
+                Next
+                If AllMWOff Then MagicWallTimerObj.StopTimer()
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+        Private Sub MagicWallPrint(ByVal MagicWallID As Short, ByVal MWStr As String)
+            Dim PrintColor As Byte
+            Dim BL As New BattleList
+            BL.JumpToEntity(SpecialEntity.Myself)
+            If BL.GetDistanceFromLocation(MagicWall(MagicWallID).Position, False) >= 9 Then Exit Sub
+            Select Case MagicWall(MagicWallID).Stage
+                Case 0
+                    PrintColor = &HD2 'Gold
+                Case 1 To 5
+                    PrintColor = &HB4 'Red
+                Case 6 To 10
+                    PrintColor = &HC6 'Orage
+                Case 11 To 20
+                    PrintColor = &H1E 'Green
+                Case Else
+                    PrintColor = &H11 'Bug :p
+            End Select
+            Proxy.SendPacketToClient(AnimatedText(PrintColor, MagicWall(MagicWallID).Position, MWStr))
+        End Sub
+        Private Sub MagicWallAdd(ByVal Position As LocationDefinition)
+            Dim MagicWallNow As Short
+            For MagicWallNow = 0 To 100
+                If Not MagicWall(MagicWallNow).Enabled Then
+                    MagicWall(MagicWallNow).Position = Position
+                    MagicWall(MagicWallNow).Stage = 19
+                    MagicWall(MagicWallNow).LastMagicWallDate = Date.Now
+                    MagicWall(MagicWallNow).Enabled = True
+                    MagicWallPrint(MagicWallNow, "20")
+                    If MagicWallTimerObj.State = ThreadTimerState.Stopped Then
+                        MagicWallTimerObj.StartTimer()
+                    End If
+                    Exit Sub
+                End If
+            Next
+        End Sub
 #End Region
 
 #End Region
@@ -3676,144 +3758,144 @@ Public Module CoreModule
                                 End If
 
                         End Select
-					Case &H96 'message
-						Dim Group1() As String = {"ad", "al", "ex", "ut"}
-						Dim Group2() As String = {"amo", "ana", "ani", "eta", "evo", "ito", "iva", "ori", "ura"}
-						LastActivity = Date.Now
-						Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
-						If MessageType = MessageType.Channel AndAlso bytBuffer(4) = ChannelType.Console Then
-							Message = GetString(bytBuffer, 6)
-							Send = False
-							If Message.StartsWith("&") Then
-								'ConsoleRead(Message)
-								ConsoleRead(Message)
-								MCollection = RegExp.Matches(Message)
-								For Each GroupMatch In MCollection
-									CommandParser(GroupMatch.Groups(1).ToString)
-								Next
-							Else
-								For Each Gr1 As String In Group1
-									For Each Gr2 As String In Group2
-										If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2) Then
-											Proxy.SendPacketToServer(Speak(Message))
-											Exit Sub
-										End If
-									Next
-								Next
-							End If
-						ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannel AndAlso bytBuffer(4) < ChannelType.IRCChannel + 40) Then
-							Send = False
-							Dim ChannelID As Int16 = bytBuffer(4)
-							Message = GetString(bytBuffer, 6)
-							Dim Channel As String = IrcChannelIDToName(ChannelID)
-							If IRCClient.Channels.ContainsKey(Channel) Then
-								If Message.StartsWith("&") Then
-									ConsoleRead(Message)
-									MCollection = RegExp.Matches(Message)
-									For Each GroupMatch In MCollection
-										CommandParser(GroupMatch.Groups(1).ToString)
-									Next
-								ElseIf Message.StartsWith("/") Then
-									Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users)(?:\s(.+))?", RegexOptions.IgnoreCase)
-									If Match.Success Then
-										Select Case Match.Groups(1).Value.ToLower
-											Case "join", "j"
-												IRCClient.Join(Match.Groups(2).Value)
-											Case "nick", "n"
-												IRCClient.Nick = Match.Groups(2).Value
-												IRCClient.ChangeNick(IRCClient.Nick)
-											Case "users", "u"
-												If Core.IRCClient.Channels.ContainsKey(Channel) Then
-													Dim TempNick As String = ""
-													For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
-														TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
-														TempNick &= Nick
-														Core.IrcChannelSpeakNormal(Channel, TempNick, Core.IrcChannelNameToID(Channel))
-													Next
-												End If
-										End Select
-									End If
-								Else
-									For Each Gr1 As String In Group1
-										For Each Gr2 As String In Group2
-											If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2) Then
-												Proxy.SendPacketToServer(Speak(Message))
-												Exit Sub
-											End If
-										Next
-									Next
-									If IRCClient.IsOperator(IRCClient.Nick, Channel) Then
-										IrcChannelSpeakOperator(IRCClient.Nick, Message, ChannelID)
-									ElseIf IRCClient.IsVoiced(IRCClient.Nick, Channel) Then
-										IrcChannelSpeakVoiced(IRCClient.Nick, Message, ChannelID)
-									Else
-										IrcChannelSpeakNormal(IRCClient.Nick, Message, ChannelID)
-									End If
-									IRCClient.Speak(Message, Channel)
-								End If
-							Else
-								ConsoleError("Unable to send message to the IRC Channel.")
-							End If
-						Else
-							Dim ChatMessage As New ChatMessageDefinition
-							ChatMessage.MessageType = MessageType
-							ChatMessage.Prioritize = True
-							Dim bytNewBuffer(1) As Byte
-							AddByte(bytNewBuffer, &H96)
-							Select Case MessageType
-								Case MessageType.PM
-									ChatMessage.Destinatary = GetString(bytBuffer, Pos)
-									ChatMessage.Message = GetString(bytBuffer, Pos)
-									If ChatMessage.Message.StartsWith("&") Then
-										MCollection = RegExp.Matches(ChatMessage.Message)
-										For Each GroupMatch In MCollection
-											ConsoleRead("&" & GroupMatch.Groups(1).Value)
-											CommandParser(GroupMatch.Groups(1).Value)
-										Next
-										If MCollection.Count > 0 Then
-											Send = False
-											Exit Sub
-										End If
-									End If
-									bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
-								Case MessageType.Channel
-									ChatMessage.Channel = GetWord(bytBuffer, Pos)
-									ChatMessage.Message = GetString(bytBuffer, Pos)
-									If ChatMessage.Message.StartsWith("&") Then
-										MCollection = RegExp.Matches(ChatMessage.Message)
-										For Each GroupMatch In MCollection
-											ConsoleRead("&" & GroupMatch.Groups(1).Value)
-											CommandParser(GroupMatch.Groups(1).ToString)
-										Next
-										If MCollection.Count > 0 Then
-											Send = False
-											Exit Sub
-										End If
-									End If
-									bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
-								Case Else
-									ChatMessage.Message = GetString(bytBuffer, Pos)
-									If ChatMessage.Message.StartsWith("&") Then
-										MCollection = RegExp.Matches(ChatMessage.Message)
-										For Each GroupMatch In MCollection
-											ConsoleRead("&" & GroupMatch.Groups(1).Value)
-											CommandParser(GroupMatch.Groups(1).ToString)
-										Next
-										If MCollection.Count > 0 Then
-											Send = False
-											Exit Sub
-										End If
-									End If
-									bytNewBuffer = Speak(ChatMessage.Message, MessageType)
-							End Select
-							Dim TimeElapsed As TimeSpan = Date.Now.Subtract(ChatMessageLastSent)
-							If ChatMessageLastSent = Date.MinValue OrElse TimeElapsed.TotalSeconds >= 3 Then
-								Proxy.SendPacketToServer(bytNewBuffer)
-							Else
-								ChatMessageQueueList.Add(ChatMessage)
-							End If
-							Send = False
-						End If
+                    Case &H96 'message
+                        Dim Group1() As String = {"ad", "al", "ex", "ut"}
+                        Dim Group2() As String = {"amo", "ana", "ani", "eta", "evo", "ito", "iva", "ori", "ura"}
+                        LastActivity = Date.Now
+                        Dim MessageType As MessageType = GetByte(bytBuffer, Pos)
+                        If MessageType = MessageType.Channel AndAlso bytBuffer(4) = ChannelType.Console Then
+                            Message = GetString(bytBuffer, 6)
+                            Send = False
+                            If Message.StartsWith("&") Then
+                                'ConsoleRead(Message)
+                                ConsoleRead(Message)
+                                MCollection = RegExp.Matches(Message)
+                                For Each GroupMatch In MCollection
+                                    CommandParser(GroupMatch.Groups(1).ToString)
+                                Next
+                            Else
+                                For Each Gr1 As String In Group1
+                                    For Each Gr2 As String In Group2
+                                        If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2) Then
+                                            Proxy.SendPacketToServer(Speak(Message))
+                                            Exit Sub
+                                        End If
+                                    Next
+                                Next
+                            End If
+                        ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannel AndAlso bytBuffer(4) < ChannelType.IRCChannel + 40) Then
+                            Send = False
+                            Dim ChannelID As Int16 = bytBuffer(4)
+                            Message = GetString(bytBuffer, 6)
+                            Dim Channel As String = IrcChannelIDToName(ChannelID)
+                            If IRCClient.Channels.ContainsKey(Channel) Then
+                                If Message.StartsWith("&") Then
+                                    ConsoleRead(Message)
+                                    MCollection = RegExp.Matches(Message)
+                                    For Each GroupMatch In MCollection
+                                        CommandParser(GroupMatch.Groups(1).ToString)
+                                    Next
+                                ElseIf Message.StartsWith("/") Then
+                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users)(?:\s(.+))?", RegexOptions.IgnoreCase)
+                                    If Match.Success Then
+                                        Select Case Match.Groups(1).Value.ToLower
+                                            Case "join", "j"
+                                                IRCClient.Join(Match.Groups(2).Value)
+                                            Case "nick", "n"
+                                                IRCClient.Nick = Match.Groups(2).Value
+                                                IRCClient.ChangeNick(IRCClient.Nick)
+                                            Case "users", "u"
+                                                If Core.IRCClient.Channels.ContainsKey(Channel) Then
+                                                    Dim TempNick As String = ""
+                                                    For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
+                                                        TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
+                                                        TempNick &= Nick
+                                                        Core.IrcChannelSpeakNormal(Channel, TempNick, Core.IrcChannelNameToID(Channel))
+                                                    Next
+                                                End If
+                                        End Select
+                                    End If
+                                Else
+                                    For Each Gr1 As String In Group1
+                                        For Each Gr2 As String In Group2
+                                            If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2) Then
+                                                Proxy.SendPacketToServer(Speak(Message))
+                                                Exit Sub
+                                            End If
+                                        Next
+                                    Next
+                                    If IRCClient.IsOperator(IRCClient.Nick, Channel) Then
+                                        IrcChannelSpeakOperator(IRCClient.Nick, Message, ChannelID)
+                                    ElseIf IRCClient.IsVoiced(IRCClient.Nick, Channel) Then
+                                        IrcChannelSpeakVoiced(IRCClient.Nick, Message, ChannelID)
+                                    Else
+                                        IrcChannelSpeakNormal(IRCClient.Nick, Message, ChannelID)
+                                    End If
+                                    IRCClient.Speak(Message, Channel)
+                                End If
+                            Else
+                                ConsoleError("Unable to send message to the IRC Channel.")
+                            End If
+                        Else
+                            Dim ChatMessage As New ChatMessageDefinition
+                            ChatMessage.MessageType = MessageType
+                            ChatMessage.Prioritize = True
+                            Dim bytNewBuffer(1) As Byte
+                            AddByte(bytNewBuffer, &H96)
+                            Select Case MessageType
+                                Case MessageType.PM
+                                    ChatMessage.Destinatary = GetString(bytBuffer, Pos)
+                                    ChatMessage.Message = GetString(bytBuffer, Pos)
+                                    If ChatMessage.Message.StartsWith("&") Then
+                                        MCollection = RegExp.Matches(ChatMessage.Message)
+                                        For Each GroupMatch In MCollection
+                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                            CommandParser(GroupMatch.Groups(1).Value)
+                                        Next
+                                        If MCollection.Count > 0 Then
+                                            Send = False
+                                            Exit Sub
+                                        End If
+                                    End If
+                                    bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
+                                Case MessageType.Channel
+                                    ChatMessage.Channel = GetWord(bytBuffer, Pos)
+                                    ChatMessage.Message = GetString(bytBuffer, Pos)
+                                    If ChatMessage.Message.StartsWith("&") Then
+                                        MCollection = RegExp.Matches(ChatMessage.Message)
+                                        For Each GroupMatch In MCollection
+                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                            CommandParser(GroupMatch.Groups(1).ToString)
+                                        Next
+                                        If MCollection.Count > 0 Then
+                                            Send = False
+                                            Exit Sub
+                                        End If
+                                    End If
+                                    bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
+                                Case Else
+                                    ChatMessage.Message = GetString(bytBuffer, Pos)
+                                    If ChatMessage.Message.StartsWith("&") Then
+                                        MCollection = RegExp.Matches(ChatMessage.Message)
+                                        For Each GroupMatch In MCollection
+                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                            CommandParser(GroupMatch.Groups(1).ToString)
+                                        Next
+                                        If MCollection.Count > 0 Then
+                                            Send = False
+                                            Exit Sub
+                                        End If
+                                    End If
+                                    bytNewBuffer = Speak(ChatMessage.Message, MessageType)
+                            End Select
+                            Dim TimeElapsed As TimeSpan = Date.Now.Subtract(ChatMessageLastSent)
+                            If ChatMessageLastSent = Date.MinValue OrElse TimeElapsed.TotalSeconds >= 3 Then
+                                Proxy.SendPacketToServer(bytNewBuffer)
+                            Else
+                                ChatMessageQueueList.Add(ChatMessage)
+                            End If
+                            Send = False
+                        End If
                     Case &H98 ' Requesting console through Channel List
                         LastActivity = Date.Now
                         If bytBuffer(3) = ConsoleChannelID Then
@@ -3906,6 +3988,9 @@ Public Module CoreModule
                         Case &H6A 'add object to map
                             Loc = GetLocation(bytBuffer, Pos)
                             ID = GetWord(bytBuffer, Pos)
+                            If ID = &H851 Then
+                                MagicWallAdd(Loc)
+                            End If
                             If ID = &H62 Then 'known creature, skip this
                                 Pos += 6
                                 Word = GetWord(bytBuffer, Pos)
