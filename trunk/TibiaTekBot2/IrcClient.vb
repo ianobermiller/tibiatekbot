@@ -290,10 +290,9 @@ Public Class IrcClient
             If Not Client Is Nothing AndAlso Client.Connected Then
                 Disconnect()
             End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+		Catch
+		End Try
+	End Sub
     Public Sub ChangeNick(ByVal NewNick As String)
         WriteLine(String.Format("NICK {0}", NewNick))
     End Sub

@@ -168,29 +168,29 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub frmMain_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
-        Try
-            If Core.InGame Then
-                Me.Text = "TibiaTek Bot - " & Core.Proxy.CharacterName
-                FunctionsToolStripMenuItem.Enabled = True
-                AboutToolStripMenuItem.Enabled = True
-                RefreshControls()
-                MainTabControl.Enabled = True
-            Else
-                If Not (Core.Proxy Is Nothing OrElse Core.Proxy.Client Is Nothing) Then
-                    Me.Text = "TibiaTek Bot - " & Hex(Core.Proxy.Client.Handle.ToString)
-                Else
-                    Me.Text = "TibiaTek Bot"
-                End If
-                FunctionsToolStripMenuItem.Enabled = False
-                AboutToolStripMenuItem.Enabled = False
-                MainTabControl.Enabled = False
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+	Private Sub frmMain_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
+		Try
+			If Core.InGame Then
+				Me.Text = "TibiaTek Bot - " & Core.Proxy.CharacterName
+				FunctionsToolStripMenuItem.Enabled = True
+				AboutToolStripMenuItem.Enabled = True
+				RefreshControls()
+				MainTabControl.Enabled = True
+			Else
+				If Not (Core.Proxy Is Nothing OrElse Core.Proxy.Client Is Nothing) Then
+					Me.Text = "TibiaTek Bot - " & Hex(Core.Proxy.Client.Handle.ToString)
+				Else
+					Me.Text = "TibiaTek Bot"
+				End If
+				FunctionsToolStripMenuItem.Enabled = False
+				AboutToolStripMenuItem.Enabled = False
+				MainTabControl.Enabled = False
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
     Private Sub RefreshControls()
         Try
