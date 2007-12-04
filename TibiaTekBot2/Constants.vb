@@ -790,7 +790,22 @@ Public Module ConstantsModule
         StatusSmall
         StatusConsoleBlue
         StatusConsoleRed
-    End Enum
+	End Enum
+
+	Public Enum TextColors
+		Blue = 5
+		Green = &H1E
+		LightBlue = 35
+		LightGreen = 30
+		Crystal = 65
+		Platinum = 89
+		LightGrey = 129
+		Red = 180
+		Orange = 198
+		Gold = 210
+		White = 215
+		None = 255
+	End Enum
 
     Public Enum MagicEffects
         BloodHit = 1

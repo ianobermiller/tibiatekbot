@@ -81,12 +81,12 @@ Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, S
 Public Module CoreModule
 
 #Region " Structures "
-    Public Structure tMagicWall
-        Dim Enabled As Boolean
-        Dim LastMagicWallDate As Date
-        Dim Stage As UShort
-        Dim Position As LocationDefinition
-    End Structure
+	Public Structure MagicWallDefinition
+		Dim Enabled As Boolean
+		Dim LastMagicWallDate As Date
+		Dim Stage As UShort
+		Dim Position As LocationDefinition
+	End Structure
 
     Public Structure ChatMessageDefinition
         Dim Prioritize As Boolean
@@ -341,7 +341,7 @@ Public Module CoreModule
 
         Public NameSpyActivated As Boolean = False
 
-        Public MagicWall() As tMagicWall
+		Public MagicWalls As List(Of MagicWallDefinition)
 #End Region
 
 #Region " Memory Reading/Writing "
@@ -559,10 +559,10 @@ Public Module CoreModule
                 AntiLogoutObj = New ThreadTimer(Consts.AntiLogoutInterval)
                 TTMessagesTimerObj = New ThreadTimer(Consts.TTMessagesInterval)
                 MagicWallTimerObj = New ThreadTimer(300)
-                ReDim MagicWall(100)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
+				MagicWalls = New List(Of MagicWallDefinition)
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
             End Try
         End Sub
 
@@ -1054,7 +1054,8 @@ Public Module CoreModule
                 End If
                 TTMessagesTimerObj.StopTimer()
                 FPSChangerTimerObj.StopTimer()
-                Thread.Sleep(500)
+				Thread.Sleep(500)
+				MagicWalls.Clear()
                 WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenActive))
                 Log("Event", "All timers are now stopped.")
             Catch Ex As Exception
@@ -2676,6 +2677,7 @@ Public Module CoreModule
         End Sub
 #End Region
 
+
 #Region " Auto Attack Timer "
         Public Sub AutoAttackerTimerObj_Execute() Handles AutoAttackerTimerObj.OnExecute
             Try
@@ -2803,43 +2805,43 @@ Public Module CoreModule
                 "For a list of available commands type: &help.")
                 Try
                     Dim Reader As IO.StreamReader
-                    Dim ResetMagicWalls As Integer
-                    For ResetMagicWalls = LBound(MagicWall) To UBound(MagicWall)
-                        MagicWall(ResetMagicWalls).Enabled = False
-                    Next
-                    ConsoleWrite("Loading your hotkeys, please wait...")
-                    If HotkeySettings.Load() Then
-                        ConsoleWrite("Hotkeys loaded.")
-                    Else
-                        ConsoleError("Unable to load your hotkeys.")
-                    End If
-                    CharacterStatisticsForm.FirstTime = True
-                    ConsoleWrite("Loading your configuration, please wait...")
-                    MagicShieldActivated = False
-                    CharacterStatisticsTime = Now
-                    If Consts.AutoPublishLocation Then AutoPublishLocationTimerObj.StartTimer()
-                    If Consts.ShowInvisibleCreatures Then ShowInvisibleCreaturesTimerObj.StartTimer()
-                    If Consts.IRCConnectOnStartUp Then
-                        ConnectToIrc()
-                    End If
-                    If Not IO.File.Exists(GetProfileDirectory() & "\config.txt") Then
-                        ConsoleError("Unable to load your configuration.")
-                        Exit Sub
-                    End If
-                    Reader = IO.File.OpenText(GetProfileDirectory() & "\config.txt")
-                    Dim Data As String = Reader.ReadToEnd
-                    Dim MCollection As MatchCollection
-                    Dim GroupMatch As Match
-                    MCollection = [Regex].Matches(Data, "&([^\n;]+)")
-                    For Each GroupMatch In MCollection
-                        ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                        CommandParser(GroupMatch.Groups(1).Value)
-                    Next
-                    Reader.Close()
-                    ConsoleWrite("Configuration loaded.")
-                Catch ex As System.IO.IOException
-                    ConsoleError("Unable to load your configuration.")
-                End Try
+					'Dim ResetMagicWalls As Integer
+					'For ResetMagicWalls = LBound(MagicWall) To UBound(MagicWall)
+					'    MagicWall(ResetMagicWalls).Enabled = False
+					'Next
+					ConsoleWrite("Loading your hotkeys, please wait...")
+					If HotkeySettings.Load() Then
+						ConsoleWrite("Hotkeys loaded.")
+					Else
+						ConsoleError("Unable to load your hotkeys.")
+					End If
+					CharacterStatisticsForm.FirstTime = True
+					ConsoleWrite("Loading your configuration, please wait...")
+					MagicShieldActivated = False
+					CharacterStatisticsTime = Now
+					If Consts.AutoPublishLocation Then AutoPublishLocationTimerObj.StartTimer()
+					If Consts.ShowInvisibleCreatures Then ShowInvisibleCreaturesTimerObj.StartTimer()
+					If Consts.IRCConnectOnStartUp Then
+						ConnectToIrc()
+					End If
+					If Not IO.File.Exists(GetProfileDirectory() & "\config.txt") Then
+						ConsoleError("Unable to load your configuration.")
+						Exit Sub
+					End If
+					Reader = IO.File.OpenText(GetProfileDirectory() & "\config.txt")
+					Dim Data As String = Reader.ReadToEnd
+					Dim MCollection As MatchCollection
+					Dim GroupMatch As Match
+					MCollection = [Regex].Matches(Data, "&([^\n;]+)")
+					For Each GroupMatch In MCollection
+						ConsoleRead("&" & GroupMatch.Groups(1).Value)
+						CommandParser(GroupMatch.Groups(1).Value)
+					Next
+					Reader.Close()
+					ConsoleWrite("Configuration loaded.")
+				Catch ex As System.IO.IOException
+					ConsoleError("Unable to load your configuration.")
+				End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3138,70 +3140,82 @@ Public Module CoreModule
 #End Region
 
 #Region " MagicWall Timer "
-        Private Sub MagicWallTimerObj_OnExecute() Handles MagicWallTimerObj.OnExecute
-            Try
-                Dim AllMWOff As Boolean = True
-                Dim NowMagicWall As Short
-                Dim TimePassed As TimeSpan
-                If Not InGame() Then MagicWallTimerObj.StopTimer()
-                For NowMagicWall = 0 To 100
-                    If MagicWall(NowMagicWall).Enabled Then
-                        AllMWOff = False
-                        TimePassed = Date.Now.Subtract(MagicWall(NowMagicWall).LastMagicWallDate)
-                        If TimePassed.TotalSeconds > 25 Then MagicWall(NowMagicWall).Enabled = False
-                        If MagicWall(NowMagicWall).Stage = 0 Then
-                            If Int(TimePassed.TotalSeconds) >= 20 Then
-                                MagicWallPrint(NowMagicWall, "Puff")
-                                MagicWall(NowMagicWall).Enabled = False
-                            End If
-                        Else
-                            If Int(TimePassed.TotalSeconds) = (20 - MagicWall(NowMagicWall).Stage) Then
-                                MagicWallPrint(NowMagicWall, MagicWall(NowMagicWall).Stage)
-                                MagicWall(NowMagicWall).Stage = MagicWall(NowMagicWall).Stage - 1
-                            End If
-                        End If
-                    End If
-                Next
-                If AllMWOff Then MagicWallTimerObj.StopTimer()
-            Catch ex As Exception
-                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Sub
-        Private Sub MagicWallPrint(ByVal MagicWallID As Short, ByVal MWStr As String)
-            Dim PrintColor As Byte
-            Dim BL As New BattleList
-            BL.JumpToEntity(SpecialEntity.Myself)
-            If BL.GetDistanceFromLocation(MagicWall(MagicWallID).Position, False) >= 9 Then Exit Sub
-            Select Case MagicWall(MagicWallID).Stage
-                Case 0
-                    PrintColor = &HD2 'Gold
-                Case 1 To 5
-                    PrintColor = &HB4 'Red
-                Case 6 To 10
-                    PrintColor = &HC6 'Orage
-                Case 11 To 20
-                    PrintColor = &H1E 'Green
-                Case Else
-                    PrintColor = &H11 'Bug :p
-            End Select
-            Proxy.SendPacketToClient(AnimatedText(PrintColor, MagicWall(MagicWallID).Position, MWStr))
-        End Sub
-        Private Sub MagicWallAdd(ByVal Position As LocationDefinition)
-            Dim MagicWallNow As Short
-            For MagicWallNow = 0 To 100
-                If Not MagicWall(MagicWallNow).Enabled Then
-                    MagicWall(MagicWallNow).Position = Position
-                    MagicWall(MagicWallNow).Stage = 19
-                    MagicWall(MagicWallNow).LastMagicWallDate = Date.Now
-                    MagicWall(MagicWallNow).Enabled = True
-                    MagicWallPrint(MagicWallNow, "20")
-                    If MagicWallTimerObj.State = ThreadTimerState.Stopped Then
-                        MagicWallTimerObj.StartTimer()
-                    End If
-                    Exit Sub
-                End If
-            Next
-        End Sub
+		Private Sub MagicWallTimerObj_OnExecute() Handles MagicWallTimerObj.OnExecute
+			Try
+				Static TimePassed As TimeSpan
+				If Not InGame() Then MagicWallTimerObj.StopTimer()
+				Dim Count As Integer = MagicWalls.Count
+				For I As Integer = 0 To Count - 1
+					TimePassed = Date.Now.Subtract(MagicWalls(I).LastMagicWallDate)
+					If TimePassed.TotalSeconds > 25 Then
+						Dim NewMW As New MagicWallDefinition
+						NewMW = MagicWalls(I)
+						NewMW.Enabled = False
+						MagicWalls(I) = NewMW
+						Continue For
+					End If
+					If MagicWalls(I).Stage = 0 Then
+						If Int(TimePassed.TotalSeconds) >= 20 Then
+							Proxy.SendPacketToClient(AnimatedText(&HD2, MagicWalls(I).Position, "Puff!"))
+							Dim NewMW As New MagicWallDefinition
+							NewMW = MagicWalls(I)
+							NewMW.Enabled = False
+							MagicWalls(I) = NewMW
+							Continue For
+						End If
+					Else
+						If Int(TimePassed.TotalSeconds) = (20 - MagicWalls(I).Stage) Then
+							Static PrintColor As TextColors = TextColors.Gold
+							Static BL As New BattleList
+							If BL.GetDistanceFromLocation(MagicWalls(I).Position, False) >= 9 Then Exit Sub
+							Select Case MagicWalls(I).Stage
+								Case 0
+									PrintColor = TextColors.Gold 'Gold
+								Case 1 To 5
+									PrintColor = TextColors.Red	'Red
+								Case 6 To 10
+									PrintColor = TextColors.Orange 'Orage
+								Case 11 To 20
+									PrintColor = TextColors.LightGreen 'Green
+							End Select
+							Proxy.SendPacketToClient(AnimatedText(PrintColor, MagicWalls(I).Position, MagicWalls(I).Stage & "s"))
+							Dim NewMW As New MagicWallDefinition
+							NewMW = MagicWalls(I)
+							NewMW.Stage -= 1
+							MagicWalls(I) = NewMW
+						End If
+					End If
+				Next
+				Static Repeat As Boolean = False
+				Do
+					Repeat = False
+					For Each MagicWall As MagicWallDefinition In MagicWalls
+						If Not MagicWall.Enabled Then
+							MagicWalls.Remove(MagicWall)
+							Repeat = True
+							Exit For
+						End If
+					Next
+				Loop While Repeat
+				If MagicWalls.Count = 0 Then MagicWallTimerObj.StopTimer()
+			Catch ex As Exception
+				MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End Try
+		End Sub
+
+
+		Private Sub MagicWallAdd(ByVal Position As LocationDefinition)
+			Dim NewMW As MagicWallDefinition
+			NewMW.LastMagicWallDate = Date.Now
+			NewMW.Position = Position
+			NewMW.Stage = 19
+			NewMW.Enabled = True
+			MagicWalls.Add(NewMW)
+			Proxy.SendPacketToClient(AnimatedText(TextColors.Green, Position, "20s"))
+			If MagicWallTimerObj.State = ThreadTimerState.Stopped Then
+				MagicWallTimerObj.StartTimer()
+			End If
+		End Sub
 #End Region
 
 #End Region
@@ -3776,10 +3790,10 @@ Public Module CoreModule
                             Else
                                 For Each Gr1 As String In Group1
                                     For Each Gr2 As String In Group2
-                                        If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2) Then
-                                            Proxy.SendPacketToServer(Speak(Message))
-                                            Exit Sub
-                                        End If
+										If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2, RegexOptions.IgnoreCase) Then
+											Proxy.SendPacketToServer(Speak(Message))
+											Exit Sub
+										End If
                                     Next
                                 Next
                             End If
