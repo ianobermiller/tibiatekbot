@@ -1,35 +1,20 @@
 #labels Phase-Deploy,Phase-QA,Phase-Support,Featured
 = Table of Contents =
-
-I. Requirements
-
-II. Download
-
- A. Programmers
-
-III. Installation
-
-IV. First Time Setup
-
-V. Starting [TibiaTekBot TibiaTek Bot]
-
-VI. Usage
-
- A. Commands
-
- B. Graphical User Interface
-
- C. Alarms
-
- D. Constants Editor
-
-VII. Help & Support
-
- A. Forum
-
- B. [TibiaTekBot TibiaTek Bot] IRC Channel
-
- C. Feedback Command
+  * Requirements
+  * Download
+    * Programmers
+  * Installation
+  * First Time Setup
+  * Starting [TibiaTekBot TibiaTek Bot]
+  * Usage
+    * Commands
+    * Graphical User Interface
+    * Alarms
+    * Constants Editor
+  * Help & Support
+    * Forum
+    * [TibiaTekBot TibiaTek Bot] IRC Channel
+    * Feedback Command
 
 = Manual =
 
