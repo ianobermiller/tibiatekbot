@@ -1318,7 +1318,8 @@ Public Module CoreModule
                                 Exit Sub
                             End If
                             If LootItems.IsLootable(Item.ID) Then
-                                Found = False
+                                Dim remainingCount As Integer
+                                remainingCount = Max(Item.Count, 1)
                                 If DatInfo.GetInfo(Item.ID).IsStackable Then
                                     Container2.Reset()
                                     Do
@@ -1334,29 +1335,39 @@ Public Module CoreModule
                                             ContainerItemCount2 = Container2.GetItemCount
                                             For E As Integer = 0 To ContainerItemCount2 - 1
                                                 Item2 = Container2.Items(E)
-                                                If Item2.Count = &H64 Then Continue For 'already fully stacked, next please..
+                                                If Item2.Count = 100 Then Continue For 'already fully stacked, next please..
                                                 If Item2.ID = Item.ID Then
-                                                    Found = True
-                                                    Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, Item.Count)))
+                                                    Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, remainingCount)))
+                                                    remainingCount = remainingCount - Min(100 - Item2.Count, remainingCount)
                                                     System.Threading.Thread.Sleep(Consts.LootDelay / 2)
-                                                    If (100 - Item2.Count) < Item.Count Then
-                                                        If Container2.GetItemCount = Container2.GetContainerSize Then
-                                                            Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), Item.Count - (100 - Item2.Count)))
-                                                        Else
-                                                            Dim Loc As LocationDefinition
-                                                            Loc = Item2.Location
-                                                            Loc.Z = 0
-                                                            Proxy.SendPacketToServer(MoveObject(Item, Loc, Item.Count - (100 - Item2.Count)))
-                                                        End If
-                                                        'Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Item.Count - (100 - Item2.Count)))
-                                                    End If
-                                                    Exit Do
                                                 End If
                                             Next
                                         End If
-                                    Loop While Container2.NextContainer
+                                    Loop While Container2.NextContainer And remainingCount > 0
                                 End If
-                                If Not Found Then Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack)))
+                                If remainingCount > 0 Then
+                                    Container2.Reset()
+                                    Do
+                                        If Container2.GetName.StartsWith("Dead") _
+                                            OrElse Container2.GetName.StartsWith("Slain") _
+                                            OrElse Container.GetName.StartsWith("Remains") _
+                                            OrElse (Container2.GetName.StartsWith("Bag") _
+                                            AndAlso Container2.HasParent _
+                                            AndAlso Container2.GetContainerID = BrownBagID) Then Continue Do
+                                        If Container2.IsOpened Then
+                                            If Container2.GetItemCount < Container2.GetContainerSize Then
+                                                Dim Loc As LocationDefinition
+                                                Loc.X = &HFFFF
+                                                Loc.Y = &H40 + Container2.GetContainerIndex()
+                                                Loc.Z = Container2.GetContainerSize - 1
+                                                Proxy.SendPacketToServer(MoveObject(Item, Loc, remainingCount))
+                                                remainingCount = 0
+                                            End If
+                                        End If
+                                    Loop While Container2.NextContainer And remainingCount > 0
+                                End If
+
+                                If remainingCount > 0 Then Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack)))
                             End If
                         Next
                     End If
