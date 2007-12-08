@@ -45,7 +45,7 @@ When the value is a Boolean: True or False (On or Off respectively). Don't put a
 ||LootWithCavebot||True||Option for &cavebot command. You can determine if you want to  loot with the cavebot. You can also define this value from the Cavebot window.||
 ||CavebotLootMinCap||0||Option for &cavebot command. Tells the Cavebot when it's time to stop looting. You can also define it from the Cavebot window.||
 ||CavebotAttackerRadius||5.0||Option for &cavebot and &attacker commands. Determines the distance to attack between the cavebot/attacker and the creature. You may want to change this if you are hunting in open areas or a narrow cave.||
-||CavebotAttackerShrinkRadius||1.0||Cavebot adds this to other player's distance when calculating can cavebot attack to creature. Normally you don't attack the creature if the player is nearer than you. With this you won't attack the monster if player + CavebotAttackerShrinkRadius is nearer than you.||
+||CavebotAttackerShrinkRadius||1.0||Used by the cavebot to calculate other players' distance from creatures. Makes the cavebot ignore any monsters found within other players' specific radii. This is because players usually avoid attacking a creature if another player closer to it than you are.||
 ||WaypointMaxDistance||100||Option to set the waypoints max distance||
 ||LootDelay||500||Option for &loot command. Delay at which the Auto Looter will start gathering items. The value is in milliseconds.||
 ||LootInBag||True||Option for &loot command. Determines if the Auto Looter opens bags inside monsters to loot them.||
