@@ -172,6 +172,7 @@ Public Module CoreModule
         Public WithEvents AntiLogoutObj As ThreadTimer
         Public WithEvents TTMessagesTimerObj As ThreadTimer
         Public WithEvents MagicWallTimerObj As ThreadTimer
+        Public WithEvents DancerTimerObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -559,7 +560,8 @@ Public Module CoreModule
                 AntiLogoutObj = New ThreadTimer(Consts.AntiLogoutInterval)
                 TTMessagesTimerObj = New ThreadTimer(Consts.TTMessagesInterval)
                 MagicWallTimerObj = New ThreadTimer(300)
-				MagicWalls = New List(Of MagicWallDefinition)
+                MagicWalls = New List(Of MagicWallDefinition)
+                DancerTimerObj = New ThreadTimer()
 			Catch Ex As Exception
 				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 				End
@@ -1304,7 +1306,7 @@ Public Module CoreModule
                                 Else
                                     Exit Sub
                                 End If
-                            ElseIf CaveBotTimerObj.State = ThreadTimerState.Running Then
+                            ElseIf CaveBotTimerObj.State = ThreadTimerState.Stopped Then
                                 If Consts.LootEatFromCorpse AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
                                 End If
@@ -2688,7 +2690,6 @@ Public Module CoreModule
         End Sub
 #End Region
 
-
 #Region " Auto Attack Timer "
         Public Sub AutoAttackerTimerObj_Execute() Handles AutoAttackerTimerObj.OnExecute
             Try
@@ -2708,9 +2709,11 @@ Public Module CoreModule
                             If BL.GetDistance < Consts.CavebotAttackerRadius Then
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
-                                        If Not Core.AutoAttackerList.Contains(BL.GetName) Then
-                                            Exit Sub
-                                        End If
+                                        For Each CreatureName As String In Core.AutoAttackerList
+                                            If Not String.Equals(CreatureName.ToLower, BL.GetName.ToLower) Then
+                                                Exit Sub
+                                            End If
+                                        Next
                                     End If
                                     If Not AttackerMonsters.ContainsKey(BL.GetDistance) Then 'If list doesn't contain Distance add it
                                         AttackerMonsters.Add(BL.GetDistance, BL.GetEntityID) 'Add distance
@@ -3152,66 +3155,67 @@ Public Module CoreModule
 
 #Region " MagicWall Timer "
 		Private Sub MagicWallTimerObj_OnExecute() Handles MagicWallTimerObj.OnExecute
-			Try
-				Static TimePassed As TimeSpan
-				If Not InGame() Then MagicWallTimerObj.StopTimer()
-				Dim Count As Integer = MagicWalls.Count
-				For I As Integer = 0 To Count - 1
-					TimePassed = Date.Now.Subtract(MagicWalls(I).LastMagicWallDate)
-					If TimePassed.TotalSeconds > 25 Then
-						Dim NewMW As New MagicWallDefinition
-						NewMW = MagicWalls(I)
-						NewMW.Enabled = False
-						MagicWalls(I) = NewMW
-						Continue For
-					End If
-					If MagicWalls(I).Stage = 0 Then
-						If Int(TimePassed.TotalSeconds) >= 20 Then
-							Proxy.SendPacketToClient(AnimatedText(&HD2, MagicWalls(I).Position, "Puff!"))
-							Dim NewMW As New MagicWallDefinition
-							NewMW = MagicWalls(I)
-							NewMW.Enabled = False
-							MagicWalls(I) = NewMW
-							Continue For
-						End If
-					Else
-						If Int(TimePassed.TotalSeconds) = (20 - MagicWalls(I).Stage) Then
-							Static PrintColor As TextColors = TextColors.Gold
-							Static BL As New BattleList
-							If BL.GetDistanceFromLocation(MagicWalls(I).Position, False) >= 9 Then Exit Sub
-							Select Case MagicWalls(I).Stage
-								Case 0
-									PrintColor = TextColors.Gold 'Gold
-								Case 1 To 5
-									PrintColor = TextColors.Red	'Red
-								Case 6 To 10
-									PrintColor = TextColors.Orange 'Orage
-								Case 11 To 20
-									PrintColor = TextColors.LightGreen 'Green
-							End Select
-							Proxy.SendPacketToClient(AnimatedText(PrintColor, MagicWalls(I).Position, MagicWalls(I).Stage & "s"))
-							Dim NewMW As New MagicWallDefinition
-							NewMW = MagicWalls(I)
-							NewMW.Stage -= 1
-							MagicWalls(I) = NewMW
-						End If
-					End If
-				Next
-				Static Repeat As Boolean = False
-				Do
-					Repeat = False
-					For Each MagicWall As MagicWallDefinition In MagicWalls
-						If Not MagicWall.Enabled Then
-							MagicWalls.Remove(MagicWall)
-							Repeat = True
-							Exit For
-						End If
-					Next
-				Loop While Repeat
-				If MagicWalls.Count = 0 Then MagicWallTimerObj.StopTimer()
-			Catch ex As Exception
-				MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End Try
+            Try
+                MagicWallTimerObj.StartTimer()
+                Static TimePassed As TimeSpan
+                If Not InGame() Then MagicWallTimerObj.StopTimer()
+                Dim Count As Integer = MagicWalls.Count
+                For I As Integer = 0 To Count - 1
+                    TimePassed = Date.Now.Subtract(MagicWalls(I).LastMagicWallDate)
+                    If TimePassed.TotalSeconds > 25 Then
+                        Dim NewMW As New MagicWallDefinition
+                        NewMW = MagicWalls(I)
+                        NewMW.Enabled = False
+                        MagicWalls(I) = NewMW
+                        Continue For
+                    End If
+                    If MagicWalls(I).Stage = 0 Then
+                        If Int(TimePassed.TotalSeconds) >= 20 Then
+                            Proxy.SendPacketToClient(AnimatedText(&HD2, MagicWalls(I).Position, "Puff!"))
+                            Dim NewMW As New MagicWallDefinition
+                            NewMW = MagicWalls(I)
+                            NewMW.Enabled = False
+                            MagicWalls(I) = NewMW
+                            Continue For
+                        End If
+                    Else
+                        If Int(TimePassed.TotalSeconds) = (20 - MagicWalls(I).Stage) Then
+                            Static PrintColor As TextColors = TextColors.Gold
+                            Static BL As New BattleList
+                            If BL.GetDistanceFromLocation(MagicWalls(I).Position, False) >= 9 Then Exit Sub
+                            Select Case MagicWalls(I).Stage
+                                Case 0
+                                    PrintColor = TextColors.Gold 'Gold
+                                Case 1 To 5
+                                    PrintColor = TextColors.Red 'Red
+                                Case 6 To 10
+                                    PrintColor = TextColors.Orange 'Orage
+                                Case 11 To 20
+                                    PrintColor = TextColors.LightGreen 'Green
+                            End Select
+                            Proxy.SendPacketToClient(AnimatedText(PrintColor, MagicWalls(I).Position, MagicWalls(I).Stage & "s"))
+                            Dim NewMW As New MagicWallDefinition
+                            NewMW = MagicWalls(I)
+                            NewMW.Stage -= 1
+                            MagicWalls(I) = NewMW
+                        End If
+                    End If
+                Next
+                Static Repeat As Boolean = False
+                Do
+                    Repeat = False
+                    For Each MagicWall As MagicWallDefinition In MagicWalls
+                        If Not MagicWall.Enabled Then
+                            MagicWalls.Remove(MagicWall)
+                            Repeat = True
+                            Exit For
+                        End If
+                    Next
+                Loop While Repeat
+                If MagicWalls.Count = 0 Then MagicWallTimerObj.StopTimer()
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
 		End Sub
 
 
@@ -3227,6 +3231,25 @@ Public Module CoreModule
 				MagicWallTimerObj.StartTimer()
 			End If
 		End Sub
+#End Region
+
+#Region " Dancer Timer "
+        Private Sub DancerTimerObj_OnExecute() Handles DancerTimerObj.OnExecute
+            Try
+                Dim RandomNumber As New Random(Date.Now.Second)
+                Dim BL As New BattleList(SpecialEntity.Myself)
+                Dim Direction As New Directions
+                Direction = RandomNumber.Next(3)
+                While Direction = BL.GetDirection
+                    Direction = RandomNumber.Next(3)
+                End While
+                Core.Proxy.SendPacketToServer(CharacterTurn(Direction))
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Core.ConsoleError("Unkown Error occured during Dancer feature. Dancer is now disabled.")
+                DancerTimerObj.StopTimer()
+            End Try
+        End Sub
 #End Region
 
 #End Region

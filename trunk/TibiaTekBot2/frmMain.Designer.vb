@@ -311,6 +311,7 @@ Partial Class frmMain
         Me.CavebotTrigger = New System.Windows.Forms.CheckBox
         Me.CavebotConfigure = New System.Windows.Forms.Button
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
+        Me.TradeChannelWatcherHelp = New System.Windows.Forms.Button
         Me.TradeChannelWatcherTrigger = New System.Windows.Forms.CheckBox
         Me.TradeChannelWatcherExpression = New System.Windows.Forms.TextBox
         Me.Label9 = New System.Windows.Forms.Label
@@ -476,7 +477,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.TradeChannelWatcherHelp = New System.Windows.Forms.Button
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -2164,6 +2164,12 @@ Partial Class frmMain
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.TabStop = False
         '
+        'TradeChannelWatcherHelp
+        '
+        resources.ApplyResources(Me.TradeChannelWatcherHelp, "TradeChannelWatcherHelp")
+        Me.TradeChannelWatcherHelp.Name = "TradeChannelWatcherHelp"
+        Me.TradeChannelWatcherHelp.UseVisualStyleBackColor = True
+        '
         'TradeChannelWatcherTrigger
         '
         resources.ApplyResources(Me.TradeChannelWatcherTrigger, "TradeChannelWatcherTrigger")
@@ -3265,12 +3271,6 @@ Partial Class frmMain
         '
         'Timer1
         '
-        '
-        'TradeChannelWatcherHelp
-        '
-        resources.ApplyResources(Me.TradeChannelWatcherHelp, "TradeChannelWatcherHelp")
-        Me.TradeChannelWatcherHelp.Name = "TradeChannelWatcherHelp"
-        Me.TradeChannelWatcherHelp.UseVisualStyleBackColor = True
         '
         'frmMain
         '

@@ -135,6 +135,8 @@ Public Module CommandParserModule
                         CmdAntiLogout(MatchObj.Groups)
                     Case "viewmsg"
                         CmdViewMessage()
+                    Case "dancer"
+                        CmdDancer(MatchObj.Groups)
                     Case Else
                         Core.ConsoleError("This command does not exist." & Ret & _
                             "  For a list of available commands type: &help.")
@@ -836,6 +838,12 @@ Public Module CommandParserModule
                     "Example: &viewmsg." & Ret & _
                     "Comment: " & Ret & _
                     "  Let's you read any messages sent to you by the TibiaTek Development Team.")
+                Case "dancer"
+                    Core.ConsoleWrite("«Dancer»" & Ret & _
+                    "Usage: &dancer slow|fast|turbo|on|off." & Ret & _
+                    "example: &dancer on." & Ret & _
+                    "Comment " & Ret & _
+                    "  Now you can proof that you are not using Multi Client.. Even if you really are.")
                 Case Else
                     Select Case Topic.ToLower
                         Case "general", "general tools", "a"
@@ -851,7 +859,8 @@ Public Module CommandParserModule
                             "  Walker -> &walker" & Ret & _
                             "  Amulet Changer -> &amuletchanger" & Ret & _
                             "  Ring Changer -> &ringchanger" & Ret & _
-                            "  Combobot -> &combobot")
+                            "  Combobot -> &combobot" & Ret & _
+                            "  Dancer -> &dancer")
                         Case "healing", "healing tools", "b"
                             Core.ConsoleWrite("Healing Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
@@ -2831,4 +2840,43 @@ Public Module CommandParserModule
         End Try
     End Sub
 #End Region
+
+#Region " Dancer "
+    Private Sub CmdDancer(ByVal Arguments As GroupCollection)
+        Try
+            Select Case StrToShort(Arguments(2).Value)
+                Case 0
+                    Core.DancerTimerObj.StopTimer()
+                    Core.ConsoleWrite("Dancer is now Disabled.")
+                Case 1
+                    Core.DancerTimerObj.Interval = 10
+                    Core.DancerTimerObj.StartTimer()
+                    Core.ConsoleWrite("Dancer is now Enabled.")
+                Case Else
+                    Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "(\w+)")
+                    If MatchObj.Success Then
+                        Select Case MatchObj.Groups(1).ToString.ToLower
+                            Case "slow"
+                                Core.DancerTimerObj.Interval = 500
+                                Core.DancerTimerObj.StartTimer()
+                                Core.ConsoleWrite("Dancer is now Enabled with Slow Speed")
+                            Case "fast"
+                                Core.DancerTimerObj.Interval = 100
+                                Core.DancerTimerObj.StartTimer()
+                                Core.ConsoleWrite("Dancer is now Enabled with Fast Speed.")
+                            Case "turbo"
+                                Core.DancerTimerObj.Interval = 10
+                                Core.DancerTimerObj.StartTimer()
+                                Core.ConsoleWrite("Dancer is now Enabled with Turbo Mode")
+                            Case Else
+                                Core.ConsoleWrite("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        End Select
+                    End If
+            End Select
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+#End Region
+
 End Module
