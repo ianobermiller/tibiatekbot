@@ -2065,6 +2065,120 @@
   <data name="&gt;&gt;GeneralTab1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="DancerSpeed.Items" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="DancerSpeed.Items1" xml:space="preserve">
+    <value>Fast</value>
+  </data>
+  <data name="DancerSpeed.Items2" xml:space="preserve">
+    <value>Turbo</value>
+  </data>
+  <data name="DancerSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>53, 13</value>
+  </data>
+  <data name="DancerSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 21</value>
+  </data>
+  <data name="DancerSpeed.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;DancerSpeed.Name" xml:space="preserve">
+    <value>DancerSpeed</value>
+  </data>
+  <data name="&gt;&gt;DancerSpeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DancerSpeed.Parent" xml:space="preserve">
+    <value>DancerBox</value>
+  </data>
+  <data name="&gt;&gt;DancerSpeed.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DancerSpeedlbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DancerSpeedlbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="DancerSpeedlbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 13</value>
+  </data>
+  <data name="DancerSpeedlbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="DancerSpeedlbl.Text" xml:space="preserve">
+    <value>Speed:</value>
+  </data>
+  <data name="&gt;&gt;DancerSpeedlbl.Name" xml:space="preserve">
+    <value>DancerSpeedlbl</value>
+  </data>
+  <data name="&gt;&gt;DancerSpeedlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DancerSpeedlbl.Parent" xml:space="preserve">
+    <value>DancerBox</value>
+  </data>
+  <data name="&gt;&gt;DancerSpeedlbl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="DancerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="DancerTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DancerTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>53, 40</value>
+  </data>
+  <data name="DancerTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="DancerTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="DancerTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="DancerTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;DancerTrigger.Name" xml:space="preserve">
+    <value>DancerTrigger</value>
+  </data>
+  <data name="&gt;&gt;DancerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DancerTrigger.Parent" xml:space="preserve">
+    <value>DancerBox</value>
+  </data>
+  <data name="&gt;&gt;DancerTrigger.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DancerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>218, 6</value>
+  </data>
+  <data name="DancerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>168, 81</value>
+  </data>
+  <data name="DancerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="DancerBox.Text" xml:space="preserve">
+    <value>Dancer</value>
+  </data>
+  <data name="&gt;&gt;DancerBox.Name" xml:space="preserve">
+    <value>DancerBox</value>
+  </data>
+  <data name="&gt;&gt;DancerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DancerBox.Parent" xml:space="preserve">
+    <value>GeneralTab2</value>
+  </data>
+  <data name="&gt;&gt;DancerBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ChangerAmuletType.Location" type="System.Drawing.Point, System.Drawing">
     <value>75, 102</value>
   </data>
@@ -2237,7 +2351,7 @@
     <value>GeneralTab2</value>
   </data>
   <data name="&gt;&gt;ChangersBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="AutoLooterlvl3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2495,7 +2609,7 @@
     <value>GeneralTab2</value>
   </data>
   <data name="&gt;&gt;AutoLooterBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="GeneralTab2.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
