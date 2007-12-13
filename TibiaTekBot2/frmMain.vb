@@ -148,6 +148,8 @@ Public Class frmMain
             'Auto Attacker
             If AttackerFightingMode.Items.Count > 0 Then AttackerFightingMode.SelectedIndex = 0
             If AttackChasingMode.Items.Count > 0 Then AttackChasingMode.SelectedIndex = 0
+            'Dancer
+            If DancerSpeed.Items.Count > 0 Then DancerSpeed.SelectedIndex = 0
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End

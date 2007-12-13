@@ -477,6 +477,10 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.DancerBox = New System.Windows.Forms.GroupBox
+        Me.DancerTrigger = New System.Windows.Forms.CheckBox
+        Me.DancerSpeedlbl = New System.Windows.Forms.Label
+        Me.DancerSpeed = New System.Windows.Forms.ComboBox
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -570,6 +574,7 @@ Partial Class frmMain
         Me.GroupBox16.SuspendLayout()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.DancerBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'NotifyIcon
@@ -1691,6 +1696,7 @@ Partial Class frmMain
         '
         'GeneralTab2
         '
+        Me.GeneralTab2.Controls.Add(Me.DancerBox)
         Me.GeneralTab2.Controls.Add(Me.ChangersBox)
         Me.GeneralTab2.Controls.Add(Me.AutoLooterBox)
         resources.ApplyResources(Me.GeneralTab2, "GeneralTab2")
@@ -3272,6 +3278,33 @@ Partial Class frmMain
         'Timer1
         '
         '
+        'DancerBox
+        '
+        Me.DancerBox.Controls.Add(Me.DancerSpeed)
+        Me.DancerBox.Controls.Add(Me.DancerSpeedlbl)
+        Me.DancerBox.Controls.Add(Me.DancerTrigger)
+        resources.ApplyResources(Me.DancerBox, "DancerBox")
+        Me.DancerBox.Name = "DancerBox"
+        Me.DancerBox.TabStop = False
+        '
+        'DancerTrigger
+        '
+        resources.ApplyResources(Me.DancerTrigger, "DancerTrigger")
+        Me.DancerTrigger.Name = "DancerTrigger"
+        Me.DancerTrigger.UseVisualStyleBackColor = True
+        '
+        'DancerSpeedlbl
+        '
+        resources.ApplyResources(Me.DancerSpeedlbl, "DancerSpeedlbl")
+        Me.DancerSpeedlbl.Name = "DancerSpeedlbl"
+        '
+        'DancerSpeed
+        '
+        Me.DancerSpeed.FormattingEnabled = True
+        Me.DancerSpeed.Items.AddRange(New Object() {resources.GetString("DancerSpeed.Items"), resources.GetString("DancerSpeed.Items1"), resources.GetString("DancerSpeed.Items2")})
+        resources.ApplyResources(Me.DancerSpeed, "DancerSpeed")
+        Me.DancerSpeed.Name = "DancerSpeed"
+        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -3421,6 +3454,8 @@ Partial Class frmMain
         Me.GroupBox16.PerformLayout()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.DancerBox.ResumeLayout(False)
+        Me.DancerBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3862,4 +3897,8 @@ Partial Class frmMain
     Friend WithEvents AmuletChangerTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents ChangerRingType As System.Windows.Forms.ComboBox
     Friend WithEvents TradeChannelWatcherHelp As System.Windows.Forms.Button
+    Friend WithEvents DancerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents DancerSpeed As System.Windows.Forms.ComboBox
+    Friend WithEvents DancerSpeedlbl As System.Windows.Forms.Label
+    Friend WithEvents DancerTrigger As System.Windows.Forms.CheckBox
 End Class
