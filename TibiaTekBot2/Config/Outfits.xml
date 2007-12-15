@@ -92,7 +92,6 @@
 	<Outfit ID="72" Name="Quara Mantassin"/>
 	<Outfit ID="73" Name="Hero"/>
 	<Outfit ID="74" Name="Rabbit"/>
-	<Outfit ID="75" Name="GM"/>
     <Outfit ID="75" Name="Game Master"/>
 	<Outfit ID="76" Name="Swamp Troll"/>
 	<Outfit ID="77" Name="Quara Pincher"/>
@@ -219,4 +218,40 @@
 	<Outfit ID="245" Name="Nightmare"/>
 	<Outfit ID="246" Name="Blightwalker"/>
 	<Outfit ID="247" Name="Plaguesmith"/>
+	<Outfit ID="248" Name="Chakoya Tribewarden"/>
+	<Outfit ID="249" Name="Pinguin"/>
+	<Outfit ID="250" Name="Frost Dragon"/>
+	<Outfit ID="251" Name="Male Norseman"/>
+	<Outfit ID="252" Name="Female Norseman"/>
+	<Outfit ID="253" Name="Barbarian Headsplitter"/>
+	<Outfit ID="254" Name="Barbarian Skullhunter"/>
+	<Outfit ID="255" Name="Barbarian Bloodwalker"/>
+	<Outfit ID="256" Name="Braindeath"/>
+	<Outfit ID="257" Name="Frost Giant"/>
+	<Outfit ID="258" Name="Husky"/>
+	<Outfit ID="259" Name="Chakoya Toolshaper"/>
+	<Outfit ID="260" Name="Chakoya Windcaller"/>
+	<Outfit ID="261" Name="Ice Golem"/>
+	<Outfit ID="262" Name="Silver Rabbit"/>
+	<Outfit ID="263" Name="Crystal Spider"/>
+	<Outfit ID="264" Name="Barbarian Brutetamer"/>
+	<Outfit ID="265" Name="Frost Giantess"/>
+	<Outfit ID="266" Name="Community Manager"/>
+	<Outfit ID="267" Name="Swimsuit"/>
+	<Outfit ID="268" Name="Male Nightmare Knight"/>
+	<Outfit ID="269" Name="Female Nightmare Knight"/>
+	<Outfit ID="270" Name="Female Jester"/>
+	<Outfit ID="271" Name="Dragon Hatchling"/>
+	<Outfit ID="272" Name="Dragon Lord Hatchling"/>
+	<Outfit ID="273" Name="Male Jester"/>
+	<Outfit ID="274" Name="Squirrel"/>
+	<Outfit ID="275" Name="Seamonster"/>
+	<Outfit ID="276" Name="Cat"/>
+	<Outfit ID="277" Name="Cyclops Smith"/>
+	<Outfit ID="278" Name="Male Brotherhood of Bones"/>
+	<Outfit ID="279" Name="Female Brotherhood of Bones"/>
+	<Outfit ID="280" Name="Cyclops Drone"/>
+	<Outfit ID="281" Name="Troll Champion"/>
+	<Outfit ID="282" Name="Island Troll"/>
+	<Outfit ID="283" Name="Frost Dragon Hatchling"/>
 </Outfits>
