@@ -1,24 +1,4 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<!--
-    Copyright (C) 2007 TibiaTek Development Team
-
-    This file is part of TibiaTek Bot.
-
-    TibiaTek Bot is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    TibiaTek Bot is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
-    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.Imports System.Math
--->
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
@@ -34,12 +14,6 @@
     <Setting Name="ProductName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Tibia Player</Value>
     </Setting>
-    <Setting Name="ProductVersion" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">8.00</Value>
-    </Setting>
-    <Setting Name="PatchOffset" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">1008164</Value>
-    </Setting>
     <Setting Name="PatchReplacement" Type="System.Byte" Scope="Application">
       <Value Profile="(Default)">235</Value>
     </Setting>
@@ -47,7 +21,7 @@
       <Value Profile="(Default)">Error: The selected application is not the Tibia client.</Value>
     </Setting>
     <Setting Name="ErrorMsg2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Error: The version of the Tibia client must be: </Value>
+      <Value Profile="(Default)">Error: The version of the Tibia client is not supported.</Value>
     </Setting>
     <Setting Name="BackupExecutable" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Tibia.Backup.exe</Value>

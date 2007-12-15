@@ -24,18 +24,22 @@ Public Class MainForm
     Dim Filename As String = ""
     Dim OutputFilename As String = ""
     Dim Directory As String = ""
+    Dim SupportedVersions() As String = {"8.00", "8.10"}
+    Dim PatchOffsets() As String = {"1008164", "1018180"}
+    Dim VersionIndex As Integer = -1
 
     Private Sub BrowseButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BrowseButton.Click
         Try
             PatchButton.Enabled = False
             If Not OpenDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then Exit Sub
             Dim FVI As FileVersionInfo = FileVersionInfo.GetVersionInfo(OpenDialog.FileName)
+            VersionIndex = Array.IndexOf(SupportedVersions, FVI.ProductVersion)
             If Not FVI.ProductName.Equals(MySettings.Default.ProductName) Then
                 MessageBox.Show(MySettings.Default.ErrorMsg1, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
-            If Not FVI.ProductVersion.Equals(MySettings.Default.ProductVersion) Then
-                MessageBox.Show(MySettings.Default.ErrorMsg2 & MySettings.Default.ProductVersion, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            If VersionIndex < 0 Then
+                MessageBox.Show(MySettings.Default.ErrorMsg2, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
             Filename = OpenDialog.FileName
@@ -47,7 +51,7 @@ Public Class MainForm
             Next
 
             Dim FSR As New FileStream(Filename, FileMode.Open, FileAccess.Read)
-            FSR.Seek(MySettings.Default.PatchOffset, SeekOrigin.Begin)
+            FSR.Seek(PatchOffsets(VersionIndex), SeekOrigin.Begin)
             If FSR.ReadByte = MySettings.Default.PatchReplacement Then
                 MessageBox.Show(MySettings.Default.ErrorMsg3, MySettings.Default.ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 FSR.Close()
@@ -67,7 +71,7 @@ Public Class MainForm
     End Sub
 
     Private Sub PatchButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PatchButton.Click
-        
+
         Try
             If MessageBox.Show(MySettings.Default.PatchMsg1, MySettings.Default.QuestionCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
                 File.Copy(Filename, Directory & "\" & MySettings.Default.BackupExecutable, True)
@@ -105,12 +109,13 @@ Public Class MainForm
             Dim Reader As New BinaryReader(FSR)
             Dim Writer As New BinaryWriter(FSW)
 
+
             ' Write executable
             Dim CurrentByte As Byte = 0
             Try
                 Do
                     CurrentByte = Reader.ReadByte()
-                    If FSW.Position = MySettings.Default.PatchOffset Then
+                    If FSW.Position = PatchOffsets(VersionIndex) Then
                         CurrentByte = MySettings.Default.PatchReplacement
                     End If
                     Writer.Write(CurrentByte)
@@ -143,5 +148,4 @@ Public Class MainForm
     Private Sub LinkLabel2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
         System.Diagnostics.Process.Start(MySettings.Default.CreditsTSUrl)
     End Sub
-
 End Class
