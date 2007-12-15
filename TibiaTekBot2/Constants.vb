@@ -232,7 +232,7 @@ Public Module ConstantsModule
             Dim Reader As System.Xml.XmlTextReader
             Dim CI As CultureInfo = New CultureInfo("en-US", False)
             Try
-                Reader = New System.Xml.XmlTextReader(GetConfigurationDirectory() + "\Constants8.1.xml")
+                Reader = New System.Xml.XmlTextReader(GetConfigurationDirectory() + "\Constants.xml")
                 Reader.WhitespaceHandling = WhitespaceHandling.None
                 Dim Value As String = ""
                 Dim Name As String = ""
