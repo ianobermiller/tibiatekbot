@@ -1,6 +1,8 @@
 #summary Changelog of November 2007.
 #labels Phase-Implementation
 
+*Notice:* To see the latest archive go to the [Changelog] page.
+
 || Nov 29, 2007 || Fixed bug in GUI Healer, when the minimum hp was set higher than the maximum hp of the character, the bot crashed, because it was trying to set a number higher than 100 to the percent numericupdown  || Cameri2005 ||
 || Nov 29, 2007 || Removed all ENDs in ircclient so that if it crashes, it doesnt take the bot down with him || Cameri2005 ||
 || Nov 29, 2007 || Fixed some typos in frmMain || Cameri2005 ||
@@ -41,3 +43,5 @@
 
 ==TibiaTek Statistics==
 || *Date* || *Description* || *Author* ||
+
+*Notice:* To see the latest archive go to the [Changelog] page.
