@@ -81,12 +81,12 @@ Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, S
 Public Module CoreModule
 
 #Region " Structures "
-	Public Structure MagicWallDefinition
-		Dim Enabled As Boolean
-		Dim LastMagicWallDate As Date
-		Dim Stage As UShort
-		Dim Position As LocationDefinition
-	End Structure
+    Public Structure MagicWallDefinition
+        Dim Enabled As Boolean
+        Dim LastMagicWallDate As Date
+        Dim Stage As UShort
+        Dim Position As LocationDefinition
+    End Structure
 
     Public Structure ChatMessageDefinition
         Dim Prioritize As Boolean
@@ -342,7 +342,7 @@ Public Module CoreModule
 
         Public NameSpyActivated As Boolean = False
 
-		Public MagicWalls As List(Of MagicWallDefinition)
+        Public MagicWalls As List(Of MagicWallDefinition)
 #End Region
 
 #Region " Memory Reading/Writing "
@@ -564,7 +564,6 @@ Public Module CoreModule
                 DancerTimerObj = New ThreadTimer()
 			Catch Ex As Exception
 				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-				End
             End Try
         End Sub
 
@@ -1059,6 +1058,7 @@ Public Module CoreModule
 				Thread.Sleep(500)
 				MagicWalls.Clear()
                 WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenActive))
+                MagicWalls.Clear()
                 Log("Event", "All timers are now stopped.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2813,49 +2813,49 @@ Public Module CoreModule
         Private Sub GreetingTimer_Execute() Handles GreetingTimerObj.OnExecute
             GreetingTimerObj.StopTimer()
             Try
+
                 ConsoleWrite("Welcome " & Proxy.CharacterName & "!" & Ret & _
                 "Don't forget to visit us at: www.tibiatek.com." & Ret & _
                 "Please report any bug you may found!" & Ret & _
                 "For a list of available commands type: &help.")
-                Try
-                    Dim Reader As IO.StreamReader
-					'Dim ResetMagicWalls As Integer
-					'For ResetMagicWalls = LBound(MagicWall) To UBound(MagicWall)
-					'    MagicWall(ResetMagicWalls).Enabled = False
-					'Next
-					ConsoleWrite("Loading your hotkeys, please wait...")
-					If HotkeySettings.Load() Then
-						ConsoleWrite("Hotkeys loaded.")
-					Else
-						ConsoleError("Unable to load your hotkeys.")
-					End If
-					CharacterStatisticsForm.FirstTime = True
-					ConsoleWrite("Loading your configuration, please wait...")
-					MagicShieldActivated = False
-					CharacterStatisticsTime = Now
-					If Consts.AutoPublishLocation Then AutoPublishLocationTimerObj.StartTimer()
-					If Consts.ShowInvisibleCreatures Then ShowInvisibleCreaturesTimerObj.StartTimer()
-					If Consts.IRCConnectOnStartUp Then
-						ConnectToIrc()
-					End If
-					If Not IO.File.Exists(GetProfileDirectory() & "\config.txt") Then
-						ConsoleError("Unable to load your configuration.")
-						Exit Sub
-					End If
-					Reader = IO.File.OpenText(GetProfileDirectory() & "\config.txt")
-					Dim Data As String = Reader.ReadToEnd
-					Dim MCollection As MatchCollection
-					Dim GroupMatch As Match
-					MCollection = [Regex].Matches(Data, "&([^\n;]+)")
-					For Each GroupMatch In MCollection
-						ConsoleRead("&" & GroupMatch.Groups(1).Value)
-						CommandParser(GroupMatch.Groups(1).Value)
-					Next
-					Reader.Close()
-					ConsoleWrite("Configuration loaded.")
-				Catch ex As System.IO.IOException
-					ConsoleError("Unable to load your configuration.")
-				End Try
+
+                Dim Reader As IO.StreamReader
+                'Dim ResetMagicWalls As Integer
+                'For ResetMagicWalls = LBound(MagicWall) To UBound(MagicWall)
+                '    MagicWall(ResetMagicWalls).Enabled = False
+                'Next
+                ConsoleWrite("Loading your hotkeys, please wait...")
+                If HotkeySettings.Load() Then
+                    ConsoleWrite("Hotkeys loaded.")
+                Else
+                    ConsoleError("Unable to load your hotkeys.")
+                End If
+                CharacterStatisticsForm.FirstTime = True
+                ConsoleWrite("Loading your configuration, please wait...")
+                MagicShieldActivated = False
+                CharacterStatisticsTime = Now
+                If Consts.AutoPublishLocation Then AutoPublishLocationTimerObj.StartTimer()
+                If Consts.ShowInvisibleCreatures Then ShowInvisibleCreaturesTimerObj.StartTimer()
+                If Consts.IRCConnectOnStartUp Then
+                    ConnectToIrc()
+                End If
+                If Not IO.File.Exists(GetProfileDirectory() & "\config.txt") Then
+                    ConsoleError("Unable to load your configuration.")
+                    Exit Sub
+                End If
+                Reader = IO.File.OpenText(GetProfileDirectory() & "\config.txt")
+                Dim Data As String = Reader.ReadToEnd
+                Dim MCollection As MatchCollection
+                Dim GroupMatch As Match
+                MCollection = [Regex].Matches(Data, "&([^\n;]+)")
+                For Each GroupMatch In MCollection
+                    ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                    CommandParser(GroupMatch.Groups(1).Value)
+                Next
+                Reader.Close()
+                ConsoleWrite("Configuration loaded.")
+            Catch ex As System.IO.IOException
+                ConsoleError("Unable to load your configuration.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3250,6 +3250,7 @@ Public Module CoreModule
                 DancerTimerObj.StopTimer()
             End Try
         End Sub
+
 #End Region
 
 #End Region
