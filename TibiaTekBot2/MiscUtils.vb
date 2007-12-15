@@ -199,13 +199,13 @@ Module MiscUtils
             'Offset 450DC3 . The place where Tibia puts attacked Id to the memory (adr: 60EA9C)
             Core.WriteMemory(&H451803, &H145432E9, 5) ' JMP 596c3a
             Core.WriteMemory(&H451808, &H90, 1) 'NOP
-            'Offset 592040 . Our codecave
+            'Offset 592040 . Our codecaves
             Core.WriteMemory(CodeCave, &HFE83, 3) : CodeCave += 3 'CMP ESI,0
             Core.WriteMemory(CodeCave, &H674, 2) : CodeCave += 2 'JE 59204B
             Core.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [0076DA10],ESI
             Core.WriteMemory(CodeCave, &H76DA10, 4) : CodeCave += 4 '---------"--------
-            Core.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [60599C],ESI
-            Core.WriteMemory(CodeCave, &H60EA9C, 4) : CodeCave += 4 '------"---------
+            Core.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [613B3C],ESI
+            Core.WriteMemory(CodeCave, &H613B3C, 4) : CodeCave += 4 '------"---------
             Core.WriteMemory(CodeCave, &HE9, 1) : CodeCave += 1 'JMP 450DC9
             Core.WriteMemory(CodeCave, &HFFEBABB9, 4) ' ---"----
         Catch Ex As Exception
