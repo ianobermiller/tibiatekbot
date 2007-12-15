@@ -4,8 +4,9 @@ Imports System, System.Net, System.Net.Sockets, System.IO, System.Math, _
 Public Class IrcClient
 
     Public Structure UserInformation
-        Public ChannelOperator As Boolean
-        Public Voiced As Boolean
+        'Public ChannelOperator As Boolean
+        'Public Voiced As Boolean
+        Public UserLevel As Integer
     End Structure
 
     Public Structure ChannelInformation
@@ -38,11 +39,12 @@ Public Class IrcClient
     Public Event EventChannelError As ChannelError
     Public Event EventChannelMode As ChannelMode
     Public Event EventChannelNamesList As ChannelNamesList
+    Public Event EventChannelAction As ChannelAction
 
     Public Delegate Sub ChannelJoin(ByVal Nick As String, ByVal Channel As String)
     Public Delegate Sub ChannelSelfJoin(ByVal Channel As String)
     Public Delegate Sub ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal KickMessage As String, ByVal Channel As String)
-	Public Delegate Sub ChannelSelfKick(ByVal NickKicker As String, ByVal KickMessage As String)
+    Public Delegate Sub ChannelSelfKick(ByVal NickKicker As String, ByVal KickMessage As String, ByVal Channel As String)
     Public Delegate Sub ChannelMode(ByVal Nick As String, ByVal UserMode As String, ByVal Channel As String)
     Public Delegate Sub NickChange(ByVal UserOldNick As String, ByVal UserNewNick As String)
     Public Delegate Sub ChannelPart(ByVal Nick As String, ByVal Channel As String)
@@ -54,6 +56,7 @@ Public Class IrcClient
     Public Delegate Sub PrivateMessage(ByVal Nick As String, ByVal Message As String)
     Public Delegate Sub ChannelError(ByVal Channel As String, ByVal Message As String)
     Public Delegate Sub RawMessage(ByVal RawMessage As String)
+    Public Delegate Sub ChannelAction(ByVal Nick As String, ByVal Action As String, ByVal Channel As String)
     Public Delegate Sub Connecting()
     Public Delegate Sub Connected()
     Public Delegate Sub Disconnected()
@@ -234,28 +237,19 @@ Public Class IrcClient
 			End If
 		End If
 		RaiseEvent EventDisconnected()
-		'DoMainLoopThread.Abort()
+        'DoMainLoopThread.Abort()
     End Sub
-    Public Function IsOperator(ByVal Nickname As String, ByVal Channel As String) As Boolean
+    Public Function GetUserLevel(ByVal Nickname As String, ByVal Channel As String) As Integer
         If Channels Is Nothing Then Return False
         If Channels.ContainsKey(Channel) Then
             For Each User As String In Channels(Channel).Users.Keys
                 If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
-                    Return Channels(Channel).Users(User).ChannelOperator
+                    Return Channels(Channel).Users(User).UserLevel
                 End If
             Next
         End If
     End Function
-    Public Function IsVoiced(ByVal Nickname As String, ByVal Channel As String) As Boolean
-        If Channels Is Nothing Then Return False
-        If Channels.ContainsKey(Channel) Then
-            For Each User As String In Channels(Channel).Users.Keys
-                If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
-                    Return Channels(Channel).Users(User).Voiced
-                End If
-            Next
-        End If
-    End Function
+
     Public Sub WriteLine(ByVal Command As String)
         Try
             If Writer Is Nothing OrElse Client Is Nothing OrElse Not Client.Connected Then Exit Sub
@@ -410,6 +404,7 @@ Public Class IrcClient
 #End Region
 
     Public Sub DoMainLoop()
+        Dim FirstTime As Boolean = True
         Do
             Try
                 Do While IsConnected
@@ -419,12 +414,20 @@ Public Class IrcClient
                     Try
                         Dim Message As String = ""
                         Dim SplitMessages() As String
-                        Message = Reader.ReadLine()
-                        If Message Is Nothing Then Exit Sub
-						'Core.ConsoleWrite(Message)
+                        Try
+                            Message = Reader.ReadLine()
+                        Catch Ex As System.Text.DecoderFallbackException
+                        End Try
+                        If Message Is Nothing OrElse String.IsNullOrEmpty(Message) Then Exit Do
+                        'Core.ConsoleWrite(Message)
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
                         Dim Temp() As String
+                        If FirstTime Then
+                            FirstTime = False
+                            Me._Server = SplitMessages(0).Substring(1)
+                            'Core.ConsoleWrite("""" & Me._Server & """")
+                        End If
                         If SplitMessages(0).Contains(Me._Server) Then
                             Dim Command() As String = SplitMessages(1).Split(New Char() {" "c}, 2)
                             Select Case Command(0)
@@ -439,29 +442,39 @@ Public Class IrcClient
                                         CI.Topic = Temp(2).Substring(1)
                                         Channels(Channel) = CI
                                     End If
-								Case "333"
-									Temp = Command(1).Split(New Char() {" "c}) 'nick, channel, topic
-									Dim Channel As String = Temp(1)
-									If Channels.ContainsKey(Channel) Then
-										Dim CI As ChannelInformation = Channels(Channel)
-										CI.TopicOwner = Temp(2)
-										Channels(Channel) = CI
-										RaiseEvent EventChannelTopicChange(CI)
-									End If
+                                Case "333"
+                                    Temp = Command(1).Split(New Char() {" "c}) 'nick, channel, topic
+                                    Dim Channel As String = Temp(1)
+                                    If Channels.ContainsKey(Channel) Then
+                                        Dim CI As ChannelInformation = Channels(Channel)
+                                        CI.TopicOwner = Temp(2)
+                                        Channels(Channel) = CI
+                                        RaiseEvent EventChannelTopicChange(CI)
+                                    End If
                                 Case "353" ' Names list
                                     Dim Match As Match = Regex.Match(Command(1), "[^#]+(#[^\s]+)\s:([^\n]+)")
                                     If Match.Success Then
                                         Dim Channel As String = Match.Groups(1).Value
                                         Dim Users() As String = Match.Groups(2).Value.Split(New Char() {" "c})
                                         For Each User As String In Users
+                                            If String.IsNullOrEmpty(User) Then Continue For
                                             Dim UserInfo As New UserInformation
                                             Dim Nick As String = User
-                                            Select Case User(0)
+                                            Select Case User(0) 'none, v, h, @, ~
+                                                Case "~"c
+                                                    UserInfo.UserLevel = 5
+                                                    Nick = Nick.Remove(0, 1)
+                                                Case "&"c
+                                                    UserInfo.UserLevel = 4
+                                                    Nick = Nick.Remove(0, 1)
                                                 Case "@"c
-                                                    UserInfo.ChannelOperator = True
+                                                    UserInfo.UserLevel = 3
+                                                    Nick = Nick.Remove(0, 1)
+                                                Case "%"c
+                                                    UserInfo.UserLevel = 2
                                                     Nick = Nick.Remove(0, 1)
                                                 Case "+"c
-                                                    UserInfo.Voiced = True
+                                                    UserInfo.UserLevel = 1
                                                     Nick = Nick.Remove(0, 1)
                                             End Select
                                             If Channels(Channel).Users.ContainsKey(Nick) Then
@@ -499,7 +512,11 @@ Public Class IrcClient
                                                     Dim Destinatary As String = Match2.Groups(1).Value
                                                     Dim Msg As String = Match2.Groups(2).Value
                                                     If Channels.ContainsKey(Destinatary) Then
-                                                        RaiseEvent EventChannelMessage(From, Msg, Destinatary)
+                                                        If Msg.StartsWith(Chr(1) & "ACTION") Then
+                                                            RaiseEvent EventChannelAction(From, Msg.Substring(8, Msg.Length - 9), Destinatary)
+                                                        Else
+                                                            RaiseEvent EventChannelMessage(From, Msg, Destinatary)
+                                                        End If
                                                     ElseIf String.Equals(Destinatary, Me.Nick) Then
                                                         Select Case Msg
                                                             Case One & "VERSION" & One
@@ -510,23 +527,26 @@ Public Class IrcClient
                                                                 End If
                                                         End Select
                                                     End If
-                                                End If
-                                            Case "JOIN"
-                                                If String.Equals(From, Me.Nick) Then
-                                                    Dim CI As New ChannelInformation
-                                                    CI.Name = Arguments
-                                                    CI.ID = 0
-                                                    CI.Users = New SortedList(Of String, UserInformation)
-                                                    If Channels.ContainsKey(Arguments) Then
-                                                        Channels.Remove(Arguments)
                                                     End If
-                                                    Channels.Add(Arguments, CI)
-                                                    'MsgBox(Arguments)
-                                                    RaiseEvent EventChannelSelfJoin(Arguments)
-                                                Else
-                                                    If Not Channels(Arguments).Users.ContainsKey(From) Then
-                                                        Channels(Arguments).Users.Add(From, New UserInformation())
-                                                        RaiseEvent EventChannelJoin(From, Arguments)
+                                            Case "JOIN"
+                                                Match2 = Regex.Match(Arguments, ":?(.+)")
+                                                If Match2.Success Then
+                                                    Dim Channel As String = Match2.Groups(1).Value
+                                                    If String.Equals(From, Me.Nick) Then
+                                                        Dim CI As New ChannelInformation
+                                                        CI.Name = Channel
+                                                        CI.ID = 0
+                                                        CI.Users = New SortedList(Of String, UserInformation)
+                                                        If Channels.ContainsKey(Channel) Then
+                                                            Channels.Remove(Channel)
+                                                        End If
+                                                        Channels.Add(Channel, CI)
+                                                        RaiseEvent EventChannelSelfJoin(Channel)
+                                                    Else
+                                                        If Not Channels(Channel).Users.ContainsKey(From) Then
+                                                            Channels(Channel).Users.Add(From, New UserInformation())
+                                                            RaiseEvent EventChannelJoin(From, Channel)
+                                                        End If
                                                     End If
                                                 End If
                                             Case "PART"
@@ -562,18 +582,20 @@ Public Class IrcClient
                                                     Dim Channel As String = Match2.Groups(1).Value
                                                     Dim Modes As String = Match2.Groups(2).Value
                                                     Dim Nick As String = Match2.Groups(3).Value
-                                                    Match2 = Regex.Match(Modes, "([\+-][ov])")
+                                                    Match2 = Regex.Match(Modes, "([\+-][aqhov][aqhov]?)")
                                                     If Match2.Success Then
                                                         Dim UI As UserInformation = Channels(Channel).Users(Nick)
                                                         Select Case Match2.Groups(1).Value
+                                                            Case "+q", "+qo", "+a"
+                                                                UI.UserLevel = 4
                                                             Case "+o"
-                                                                UI.ChannelOperator = True
+                                                                UI.UserLevel = 3
+                                                            Case "+h"
+                                                                UI.UserLevel = 2
                                                             Case "+v"
-                                                                UI.Voiced = True
-                                                            Case "-o"
-                                                                UI.ChannelOperator = False
-                                                            Case "-v"
-                                                                UI.Voiced = False
+                                                                UI.UserLevel = 1
+                                                            Case "-o", "-qo", "-q", "-h", "-v", "-a"
+                                                                UI.UserLevel = 0
                                                         End Select
                                                         Channels(Channel).Users(Nick) = UI
                                                         RaiseEvent EventChannelMode(Nick, Match2.Groups(1).Value, Channel)
@@ -589,33 +611,33 @@ Public Class IrcClient
                                                     Channels(Channel) = CI
                                                     RaiseEvent EventChannelTopicChange(CI)
                                                 End If
-											Case "KICK"
+                                            Case "KICK"
                                                 Match2 = Regex.Match(Arguments, "([^\s]+)\s([^\s]+)\s:([^\n]*)")
-												If Match2.Success Then
-													Dim Nick As String = Match2.Groups(2).Value
-													Dim Channel As String = Match2.Groups(1).Value
-													Dim KickMessage As String = Match2.Groups(3).Value
-													'MsgBox(From & " kicked " & Nick & ". reason: " & KickMessage)
-													If Channels.ContainsKey(Channel) Then
-														If Channels(Channel).Users.ContainsKey(Nick) Then
-															If Nick = Me.Nick Then
-																Channels.Remove(Channel)
-																RaiseEvent EventChannelSelfKick(From, KickMessage)
-															Else
-																Channels(Channel).Users.Remove(Nick)
-																RaiseEvent EventChannelKick(From, Nick, KickMessage, Channel)
-															End If
-														End If
-													End If
-												End If
-											Case "QUIT"
-												For Each Channel As String In Channels.Keys
-													If Channels(Channel).Users.ContainsKey(From) Then
-														Channels(Channel).Users.Remove(From)
-													End If
-												Next
-												RaiseEvent EventQuit(From, Arguments.Substring(1))
-										End Select
+                                                If Match2.Success Then
+                                                    Dim Nick As String = Match2.Groups(2).Value
+                                                    Dim Channel As String = Match2.Groups(1).Value
+                                                    Dim KickMessage As String = Match2.Groups(3).Value
+                                                    'MsgBox(From & " kicked " & Nick & ". reason: " & KickMessage)
+                                                    If Channels.ContainsKey(Channel) Then
+                                                        If Channels(Channel).Users.ContainsKey(Nick) Then
+                                                            If Nick = Me.Nick Then
+                                                                RaiseEvent EventChannelSelfKick(From, KickMessage, Channel)
+                                                                Channels.Remove(Channel)
+                                                            Else
+                                                                RaiseEvent EventChannelKick(From, Nick, KickMessage, Channel)
+                                                                Channels(Channel).Users.Remove(Nick)
+                                                            End If
+                                                        End If
+                                                    End If
+                                                End If
+                                            Case "QUIT"
+                                                For Each Channel As String In Channels.Keys
+                                                    If Channels(Channel).Users.ContainsKey(From) Then
+                                                        Channels(Channel).Users.Remove(From)
+                                                    End If
+                                                Next
+                                                RaiseEvent EventQuit(From, Arguments.Substring(1))
+                                        End Select
                                     End If
                             End Select
                         End If

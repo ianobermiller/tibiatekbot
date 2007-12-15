@@ -638,8 +638,8 @@ Public Module ConstantsModule
         "Dont forget to visit us at:" & Ret & _
         "http://www.tibiatek.com/ and " & Ret & _
         "http://www.xcreations.net/~tpforums/forum/"
-    Public Const IRCServer As String = "uk.quakenet.org"
-    Public Const IRCPort As Integer = 6668
+    Public Const IRCServer As String = "pacifica.dairc.us"
+    Public Const IRCPort As Integer = 6669
     Public Const IRCChannel As String = "#TibiaTekBot"
     Public Const IRCClientVersion As String = "TibiaTek Integrated IRC Client (http://www.tibiatek.com/)"
     Public Const ConsoleChannelID As Integer = &H64
