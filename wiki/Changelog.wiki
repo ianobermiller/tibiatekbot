@@ -1,11 +1,14 @@
 #summary Latest changelog.
 #labels Phase-Implementation
 
-==TibiaTek Bot==
+== TibiaTek Bot ==
 || *Date* || *Description* || *Author* ||
 || Dec, 15, 2007 || Added Winter Update 2007 Outfits || Sonic.TTB ||
 || Dec, 10, 2007 || Added Dancer (Issue #41) and fixed minor bug in looter. Now looter eats from corpse even if the cavebot is off || Oskari.Virtanen ||
 || Dec 2, 2007 || Fixed bug in walker class and fixed cavebot-stopping problem || Oskari.Virtanen || 
+
+=== Archives ===
+  * [ChangelogNov07 November 2007]
 
 ==TibiaTek Multi-Client Patcher==
 || *Date* || *Description* || *Author* ||
