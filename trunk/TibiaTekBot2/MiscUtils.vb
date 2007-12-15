@@ -187,7 +187,7 @@ Module MiscUtils
 
     Public Sub InjectLastAttackedId()
         Try
-            Dim CodeCave As Integer = &H5920B3
+            Dim CodeCave As Integer = &H596C3A
             'I'd like to tell about this function first. Because we can't surely find any address
             'where is the last attacked Id we need to create one. So I find the place where attacked
             'Id is writed to the memory, and made code cave where I write that value in another place of
@@ -197,8 +197,8 @@ Module MiscUtils
             '                CodeCave: 5920B3
             '                Continue Old Code: 450DC9
             'Offset 450DC3 . The place where Tibia puts attacked Id to the memory (adr: 60EA9C)
-            Core.WriteMemory(&H450DC3, &H1412EBE9, 5) ' JMP 592040
-            Core.WriteMemory(&H450DC8, &H90, 1) 'NOP
+            Core.WriteMemory(&H451803, &H145432E9, 5) ' JMP 596c3a
+            Core.WriteMemory(&H451808, &H90, 1) 'NOP
             'Offset 592040 . Our codecave
             Core.WriteMemory(CodeCave, &HFE83, 3) : CodeCave += 3 'CMP ESI,0
             Core.WriteMemory(CodeCave, &H674, 2) : CodeCave += 2 'JE 59204B
@@ -207,7 +207,7 @@ Module MiscUtils
             Core.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [60599C],ESI
             Core.WriteMemory(CodeCave, &H60EA9C, 4) : CodeCave += 4 '------"---------
             Core.WriteMemory(CodeCave, &HE9, 1) : CodeCave += 1 'JMP 450DC9
-            Core.WriteMemory(CodeCave, &HFFEBED00, 4) ' ---"----
+            Core.WriteMemory(CodeCave, &HFFEBABB9, 4) ' ---"----
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
