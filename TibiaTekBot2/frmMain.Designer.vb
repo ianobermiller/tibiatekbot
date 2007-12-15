@@ -3314,7 +3314,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.MainTabControl)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False

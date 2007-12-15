@@ -434,7 +434,7 @@ Partial Class frmCavebot
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.AddWp)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmCavebot"

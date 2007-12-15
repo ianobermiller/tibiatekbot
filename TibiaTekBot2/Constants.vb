@@ -298,6 +298,8 @@ Public Module ConstantsModule
                                                     LootMaxDistance = System.Double.Parse(Value, NumberStyles.Number, CI)
                                                 Case "CavebotAttackerShrinkRadius"
                                                     CavebotAttackerShrinkRadius = System.Double.Parse(Value, NumberStyles.Number, CI)
+                                                Case "ptrCharacterListBegin"
+                                                    ptrCharacterListBegin = CInt(Value)
                                                 Case "CreatureExpMultiplier"
                                                     CreatureExpMultiplier = System.Double.Parse(Value, NumberStyles.Number, CI)
                                                 Case "ptrLastAttackedEntityID"
@@ -334,6 +336,7 @@ Public Module ConstantsModule
                                                     ptrCharacterID = CInt(Value)
                                                 Case "ptrBattleListBegin"
                                                     ptrBattleListBegin = CInt(Value)
+
                                                 Case "ptrFirstContainer"
                                                     ptrFirstContainer = CInt(Value)
                                                 Case "ptrInventoryBegin"
@@ -624,8 +627,8 @@ Public Module ConstantsModule
     End Class
 
     Public Const Ret As Char = Chr(&HA)
-    Public Const BotVersion As String = "2.2"
-    Public Const TibiaFileVersion As String = "8.00"
+    Public Const BotVersion As String = "2.2.2"
+    Public Const TibiaFileVersion As String = "8.10"
     Public Const TibiaProductName As String = "Tibia Player"
     Public Const BotStage As String = "Final" 'Alpha,Beta,Final,etc
     Public Const BotName As String = "TibiaTek Bot"

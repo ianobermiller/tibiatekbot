@@ -228,6 +228,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property ttb() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ttb", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
         Friend ReadOnly Property ttb_splash0() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ttb_splash0", resourceCulture)
@@ -260,13 +267,6 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("ttb_splash4", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        Friend ReadOnly Property ttb21() As System.Drawing.Icon
-            Get
-                Dim obj As Object = ResourceManager.GetObject("ttb21", resourceCulture)
-                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
