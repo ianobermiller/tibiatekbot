@@ -1,0 +1,43 @@
+#summary Changelog of November 2007.
+#labels Phase-Implementation
+
+|| Nov 29, 2007 || Fixed bug in GUI Healer, when the minimum hp was set higher than the maximum hp of the character, the bot crashed, because it was trying to set a number higher than 100 to the percent numericupdown  || Cameri2005 ||
+|| Nov 29, 2007 || Removed all ENDs in ircclient so that if it crashes, it doesnt take the bot down with him || Cameri2005 ||
+|| Nov 29, 2007 || Fixed some typos in frmMain || Cameri2005 ||
+|| Nov 29, 2007 || LootItems.vb now saves when adding/removing items, not when closing the bot, so that if the bot crashes, u dont lose your lootitems.xml || Cameri2005 ||
+|| Nov 29, 2007 || Added magic level and ml % to stats uploader || Cameri2005 ||
+|| Nov 29, 2007 || Finished GUI (Issue #14) || Oskari.Virtanen ||
+|| Nov 25, 2007 || Removed msgboxes || Cameri2005 ||
+|| Nov 25, 2007 || Fixed bug in ircclient again (Issue N/A) || Cameri2005 ||
+|| Nov 25, 2007 || Fixed colors of the main window looking transparent (Issue N/A) || Cameri2005 ||
+|| Nov 25, 2007 || Fixed MainLoop of ircclient closing when QUIT was receive (Issue N/A) || Cameri2005 ||
+|| Nov 25, 2007 || Updated GUI (beautified Healing) (Issue #14) || Cameri2005 ||
+|| Nov 25, 2007 || Added TTMessages, &viewmsg and other stuff so that the developers can send messages to specific players. (Issue Not Listed) || Cameri2005 ||
+|| Nov 25, 2007 || Fixed bug in irc client (Issue N/A) || Cameri2005 ||
+|| Nov 25, 2007 || Finished the Fun part of the GUI (Issue #14) || Cameri2005 ||
+|| Nov 25, 2007 || Updated &commands and &help (Issue N/A) || Cameri2005 ||
+|| Nov 25, 2007 || Fixed bug in Outfits.vb, calling GetOutfits returned an array with an invalid element at the end (Issue N/A) || Cameri2005 ||
+|| Nov 25, 2007 || Added Trainer and Information Category to the GUI (Issue #14) || Oskari.Virtanen||
+|| Nov 24, 2007 || Fixed bug when getting Character Name (Issue #37) || Cameri2005 ||
+|| Nov 24, 2007 || Added new feature: AutoOpenBackpack (Issue #35) || Cameri2005 || 
+|| Nov 24, 2007 || Fixed auto looter not looting correctly (Issue #30) || Cameri2005 ||
+|| Nov 22, 2007 || Did Cavebot non-sensitive (Issue #26) || kingbizugo ||
+|| Nov 19, 2007 || Added Self-Healing to the GUI (Issue #14) || Oskari.Virtanen||
+|| Nov 18, 2007 || Added General and AFK menus to the GUI (Issue #14) || Oskari.Virtanen ||
+|| Nov 18, 2007 || Implemented Irc Client || Cameri2005 ||
+|| Nov 12, 2007 || Added a couple of features to the General Tab for the new Gui (Issue #14) || Oskari.Virtanen ||
+|| Nov 10, 2007 || Added GNU GPL to XML files saved by TTB || Cameri2005 ||
+|| Nov 10, 2007 || Added AutoEaterInterval and AutoEaterSmartInterval in Constants || Cameri2005 ||
+|| Nov 10, 2007 || Added a couple of features to the AFK Tab for the new GUI (Issue #14) || Cameri2005 ||
+|| Nov 10, 2007 || Fixed typos in the GNU General Public License statement for almost all files || Cameri2005 ||
+|| Nov 10, 2007 || Updated Spells.xml and Spells.vb. || Cameri2005 ||
+|| Nov 9, 2007 || Fixed the bot crashing when deleting monster from attacklist at Cavebot Window (Issue #13) || Oskari.Virtanen ||
+|| Nov 8, 2007 || 1.Added [ConstantsEditor SpellCasterDelay] and [ConstantsEditor SpellCasterInterval] to Constants.xml and updated the SpellTimerObj_Execute function (Issue #16). 2.Fixed bug when using amulets (Issue #17) 3.Started improving GUI (Issue #14) || Cameri2005 ||
+|| Nov 7, 2007 || Added try..catch to all functions in Cavebot.vb || Cameri2005 ||
+|| Nov 7, 2007 || Fixed bug in Items.xml, all rune names were stripped of the _" Rune"_ part || Genosonic ||
+
+==TibiaTek Multi-Client Patcher==
+|| *Date* || *Description* || *Author* ||
+
+==TibiaTek Statistics==
+|| *Date* || *Description* || *Author* ||
