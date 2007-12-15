@@ -2346,14 +2346,18 @@ Public Module CoreModule
                     End If
                 End If
                 NextLevelExpL = CLng(Floor(((16 + (2 / 3)) * Pow(Level + 1, 3)) - (100 * Pow(Level + 1, 2)) + (((283 + (1 / 3)) * (Level + 1)) - 200)))
+                NextLevelExp = CInt(NextLevelExpL)
                 CurrentLevelExpL = CLng(Floor(((16 + (2 / 3)) * Pow(Level, 3)) - (100 * Pow(Level, 2)) + (((283 + (1 / 3)) * (Level)) - 200)))
+                CurrentLevelExp = CInt(CurrentLevelExpL)
                 If (Level = 0) Or (Experience = 0) Then Exit Sub
                 NextLevelPercentageL = CLng(Floor((ExperienceL - CurrentLevelExpL) * 100 / (NextLevelExpL - CurrentLevelExpL)))
+                NextLevelPercentage = CInt(NextLevelPercentageL)
                 If ExpCheckerActivated Then
                     If Not Proxy.Client.MainWindowTitle.Equals(BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
                         ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExpL - ExperienceL) & " (" & NextLevelPercentageL & "% completed)")
                     End If
                     LastExperienceL = ExperienceL
+                    LastExperience = Experience
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3296,9 +3300,33 @@ Public Module CoreModule
 
 #Region " Methods "
 
+        Public Sub IrcChannelSpeakOwner(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
+            Try
+                Proxy.SendPacketToClient(CreatureSpeak("~" & Nick, MessageType.ChannelGM, 5, Message, 0, 0, 0, ChannelID))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+
+        Public Sub IrcChannelSpeakUnknown(ByVal Message As String, ByVal ChannelID As Integer)
+            Try
+                Proxy.SendPacketToClient(CreatureSpeak("TibiaTekBot", MessageType.ChannelCounsellor, 1, Message, 0, 0, 0, ChannelID))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+
         Public Sub IrcChannelSpeakOperator(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
-                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 3, Message, 0, 0, 0, ChannelID))
+                Proxy.SendPacketToClient(CreatureSpeak("@" & Nick, MessageType.ChannelGM, 4, Message, 0, 0, 0, ChannelID))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+
+        Public Sub IrcChannelSpeakHalfOperator(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
+            Try
+                Proxy.SendPacketToClient(CreatureSpeak("%" & Nick, MessageType.ChannelTutor, 3, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3306,7 +3334,7 @@ Public Module CoreModule
 
         Public Sub IrcChannelSpeakVoiced(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
-                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelTutor, 2, Message, 0, 0, 0, ChannelID))
+                Proxy.SendPacketToClient(CreatureSpeak("+" & Nick, MessageType.ChannelTutor, 2, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3380,8 +3408,17 @@ Public Module CoreModule
         Private Sub IrcClient_ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelKick
             'ConsoleWrite(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".")
             If IrcChannelIsOpened(Channel) Then
-                IrcChannelSpeakOperator(Channel, NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
+                IrcChannelSpeakUnknown(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
             End If
+        End Sub
+
+        Private Sub IrcClient_ChannelAction(ByVal Nick As String, ByVal Action As String, ByVal Channel As String) Handles IRCClient.EventChannelAction
+            IrcChannelSpeakUnknown(Nick & " " & Action, IrcChannelNameToID(Channel))
+        End Sub
+
+        Private Sub IrcClient_ChannelSelfKick(ByVal nickkicker As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelSelfKick
+            IrcChannelSpeakUnknown("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
+            ConsoleError("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".")
         End Sub
 
         Private Sub IrcClient_TopicChange(ByVal ChannelInfo As ChannelInformation) Handles IRCClient.EventChannelTopicChange
@@ -3489,13 +3526,18 @@ Public Module CoreModule
         Private Sub IrcClient_ChannelMessage(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.EventChannelMessage
             Try
                 If IrcChannelIsOpened(Channel) Then
-                    If IRCClient.IsOperator(Nick, Channel) Then
-                        IrcChannelSpeakOperator(Nick, Message, IrcChannelNameToID(Channel))
-                    ElseIf IRCClient.IsVoiced(Nick, Channel) Then
-                        IrcChannelSpeakVoiced(Nick, Message, IrcChannelNameToID(Channel))
-                    Else
-                        IrcChannelSpeakNormal(Nick, Message, IrcChannelNameToID(Channel))
-                    End If
+                    Select Case IRCClient.GetUserLevel(Nick, Channel)
+                        Case 0
+                            IrcChannelSpeakNormal(Nick, Message, IrcChannelNameToID(Channel))
+                        Case 1
+                            IrcChannelSpeakVoiced(Nick, Message, IrcChannelNameToID(Channel))
+                        Case 2
+                            IrcChannelSpeakHalfOperator(Nick, Message, IrcChannelNameToID(Channel))
+                        Case 3
+                            IrcChannelSpeakOperator(Nick, Message, IrcChannelNameToID(Channel))
+                        Case 4
+                            IrcChannelSpeakOwner(Nick, Message, IrcChannelNameToID(Channel))
+                    End Select
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3825,10 +3867,10 @@ Public Module CoreModule
                             Else
                                 For Each Gr1 As String In Group1
                                     For Each Gr2 As String In Group2
-										If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2, RegexOptions.IgnoreCase) Then
-											Proxy.SendPacketToServer(Speak(Message))
-											Exit Sub
-										End If
+                                        If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2, RegexOptions.IgnoreCase) Then
+                                            Proxy.SendPacketToServer(Speak(Message))
+                                            Exit Sub
+                                        End If
                                     Next
                                 Next
                             End If
@@ -3845,7 +3887,7 @@ Public Module CoreModule
                                         CommandParser(GroupMatch.Groups(1).ToString)
                                     Next
                                 ElseIf Message.StartsWith("/") Then
-                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users)(?:\s(.+))?", RegexOptions.IgnoreCase)
+                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users|me)(?:\s(.+))?", RegexOptions.IgnoreCase)
                                     If Match.Success Then
                                         Select Case Match.Groups(1).Value.ToLower
                                             Case "join", "j"
@@ -3853,13 +3895,28 @@ Public Module CoreModule
                                             Case "nick", "n"
                                                 IRCClient.Nick = Match.Groups(2).Value
                                                 IRCClient.ChangeNick(IRCClient.Nick)
+                                            Case "me"
+                                                If Match.Groups(2).Value.Length > 0 Then
+                                                    IRCClient.Speak(Chr(1) & "ACTION " & Match.Groups(2).Value & Chr(1), Channel)
+                                                End If
+                                                IrcChannelSpeakUnknown(IRCClient.Nick & " " & Match.Groups(2).Value, IrcChannelNameToID(Channel))
                                             Case "users", "u"
                                                 If Core.IRCClient.Channels.ContainsKey(Channel) Then
                                                     Dim TempNick As String = ""
                                                     For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
-                                                        TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
-                                                        TempNick &= Nick
-                                                        Core.IrcChannelSpeakNormal(Channel, TempNick, Core.IrcChannelNameToID(Channel))
+                                                        Select Case IRCClient.GetUserLevel(Nick, Channel)
+                                                            Case 4
+                                                                TempNick = "~" & Nick
+                                                            Case 3
+                                                                TempNick = "@" & Nick
+                                                            Case 2
+                                                                TempNick = "%" & Nick
+                                                            Case 1
+                                                                TempNick = "+" & Nick
+                                                            Case Else
+                                                                TempNick = Nick
+                                                        End Select
+                                                        Core.IrcChannelSpeakNormal(Channel, TempNick, IrcChannelNameToID(Channel))
                                                     Next
                                                 End If
                                         End Select
@@ -3867,19 +3924,24 @@ Public Module CoreModule
                                 Else
                                     For Each Gr1 As String In Group1
                                         For Each Gr2 As String In Group2
-                                            If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2) Then
+                                            If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2, RegexOptions.IgnoreCase) Then
                                                 Proxy.SendPacketToServer(Speak(Message))
                                                 Exit Sub
                                             End If
                                         Next
                                     Next
-                                    If IRCClient.IsOperator(IRCClient.Nick, Channel) Then
-                                        IrcChannelSpeakOperator(IRCClient.Nick, Message, ChannelID)
-                                    ElseIf IRCClient.IsVoiced(IRCClient.Nick, Channel) Then
-                                        IrcChannelSpeakVoiced(IRCClient.Nick, Message, ChannelID)
-                                    Else
-                                        IrcChannelSpeakNormal(IRCClient.Nick, Message, ChannelID)
-                                    End If
+                                    Select Case IRCClient.GetUserLevel(IRCClient.Nick, Channel)
+                                        Case 0
+                                            IrcChannelSpeakNormal(IRCClient.Nick, Message, ChannelID)
+                                        Case 1
+                                            IrcChannelSpeakVoiced(IRCClient.Nick, Message, ChannelID)
+                                        Case 2
+                                            IrcChannelSpeakHalfOperator(IRCClient.Nick, Message, ChannelID)
+                                        Case 3
+                                            IrcChannelSpeakOperator(IRCClient.Nick, Message, ChannelID)
+                                        Case 4
+                                            IrcChannelSpeakOwner(IRCClient.Nick, Message, ChannelID)
+                                    End Select
                                     IRCClient.Speak(Message, Channel)
                                 End If
                             Else
@@ -4224,7 +4286,8 @@ Public Module CoreModule
                                     If Not BL.Find(ID) Then Continue While
                                     Name = BL.GetName()
                                     If Creatures.Creatures.ContainsKey(Name) Then
-                                        Dim N As Integer = (NextLevelExp - Experience) / Creatures.Creatures(Name).Experience
+                                        'MsgBox("nextlevelexp: " & NextLevelExp & ". Experience: " & Experience & ". ")
+                                        Dim N As Integer = (NextLevelExp - Experience) / (Creatures.Creatures(Name).Experience * Consts.CreatureExpMultiplier)
                                         Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up."))
                                     End If
                                 End If

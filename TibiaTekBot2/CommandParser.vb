@@ -210,8 +210,18 @@ Public Module CommandParserModule
                         If Core.IrcChannelIsOpened(Channel) Then
                             Dim TempNick As String = ""
                             For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
-                                TempNick = IIf(Core.IRCClient.IsOperator(Nick, Channel), "@", IIf(Core.IRCClient.IsVoiced(Nick, Channel), "+", String.Empty))
-                                TempNick &= Nick
+                                Select Case Core.IRCClient.GetUserLevel(Nick, Channel)
+                                    Case 4
+                                        TempNick = "~" & Nick
+                                    Case 3
+                                        TempNick = "@" & Nick
+                                    Case 2
+                                        TempNick = "%" & Nick
+                                    Case 1
+                                        TempNick = "+" & Nick
+                                    Case Else
+                                        TempNick = Nick
+                                End Select
                                 Core.ConsoleWrite(TempNick)
                             Next
                         Else
@@ -1194,9 +1204,7 @@ Public Module CommandParserModule
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Core.ConsoleWrite("Begin Test")
-            Core.CBState = CavebotState.Attacking
-            Core.ConsoleWrite("Changed CBState to Attacking")
-            'Core.Proxy.SendPacketToClient(FYIBox("Thanks for sending us a message!"))
+            Core.Proxy.SendPacketToClient(CreatureSpeak("Cameri", MessageType.ChannelCounsellor, 1, "Banned forever.", 0, 0, 0, ChannelType.Console))
             Core.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

@@ -71,66 +71,66 @@
   <Const Name="StatsUploaderUserID" Value="userid" />
   <Const Name="StatsUploaderPassword" Value="password" />
   <Const Name="StatsUploaderFrequency" Value="30000" />
-  <Const Name="ptrWindowBegin" Value="H61E984" /><!-- DONE -->
-  <Const Name="WindowLeftOffset" Value="H14" /><!-- DONE -->
-  <Const Name="WindowTopOffset" Value="H18" /><!-- DONE -->
-  <Const Name="WindowWidthOffset" Value="H1C" /><!-- DONE -->
-  <Const Name="WindowHeightOffset" Value="H20" /><!-- DONE -->
-  <Const Name="WindowCaptionOffset" Value="H50" /><!-- DONE -->
-  <Const Name="WindowButtonPressedOffset" Value="H28" /><!-- DONE -->
-  <Const Name="WindowButton1Offset" Value="H2C" /><!-- DONE -->
-  <Const Name="WindowButton2Offset" Value="H30" /><!-- DONE -->
-  <Const Name="WindowButton3Offset" Value="H34" /><!-- DONE -->
-  <Const Name="WindowButton4Offset" Value="H38" /><!-- DONE -->
-  <Const Name="ptrInGame" Value="H76c2c8" /> <!-- DONE -->
+  <Const Name="ptrWindowBegin" Value="H61E984" />
+  <Const Name="WindowLeftOffset" Value="H14" />
+  <Const Name="WindowTopOffset" Value="H18" />
+  <Const Name="WindowWidthOffset" Value="H1C" />
+  <Const Name="WindowHeightOffset" Value="H20" />
+  <Const Name="WindowCaptionOffset" Value="H50" />
+  <Const Name="WindowButtonPressedOffset" Value="H28" />
+  <Const Name="WindowButton1Offset" Value="H2C" />
+  <Const Name="WindowButton2Offset" Value="H30" />
+  <Const Name="WindowButton3Offset" Value="H34" />
+  <Const Name="WindowButton4Offset" Value="H38" />
+  <Const Name="ptrInGame" Value="H76c2c8" /> 
   <Const Name="ptrFrameRateBegin" Value="H76793C" />
-  <Const Name="ptrEnterOneNamePerLine" Value="H598670" /><!-- DONE -->
-  <Const Name="ptrForYourInformation" Value="H599990" /><!-- DONE -->
-  <Const Name="ptrCharacterSelectionIndex" Value="H76C288" /><!-- DONE -->
-  <Const Name="ptrEncryptionKey" Value="H768C7C" /><!-- not tested -->
-  <Const Name="ptrRSAKey" Value="H597610" /><!-- DONE -->
+  <Const Name="ptrEnterOneNamePerLine" Value="H598670" />
+  <Const Name="ptrForYourInformation" Value="H599990" />
+  <Const Name="ptrCharacterSelectionIndex" Value="H76C288" />
+  <Const Name="ptrEncryptionKey" Value="H768C7C" />
+  <Const Name="ptrRSAKey" Value="H597610" />
   <Const Name="RSAKeyOpenTibia" Value="109120132967399429278860960508995541528237502902798129123468757937266291492576446330739696001110603907230888610072655818825358503429057592827629436413108566029093628212635953836686562675849720620786279431090218017681061521755056710823876476444260558147179707119674283982419152118103759076030616683978566631413" />
-  <Const Name="ptrServerAddressBegin" Value="H763BB8" /> <!-- DONE -->
-  <Const Name="ptrServerPortBegin" Value="H763C1C" /> <!-- Done -->
-  <Const Name="ServerAddressDist" Value="H70" /> <!-- Not changed -->
-  <Const Name="ServerAddressCount" Value="HA" /> <!-- Not changed -->
-  <Const Name="ptrCharacterID" Value="H613b70" /> <!-- DONE -->
-  <Const Name="ptrBattleListBegin" Value="H613bd0" /> <!-- DONE -->
-  <Const Name="ptrFirstContainer" Value="H61C0D0" /><!-- DONE -->
-  <Const Name="ptrInventoryBegin" Value="H61c058" /><!-- DONE -->
-  <Const Name="ptrLevel" Value="H613b60" /> <!-- DONE -->
-  <Const Name="ptrLevelPercent" Value="H613b58" />  <!-- DONE -->
-  <Const Name="ptrMagicLevel" Value="H613b5c" /> <!-- DONE -->
-  <Const Name="ptrMagicLevelPercent" Value="H613b54" /> <!-- DONE -->
-  <Const Name="ptrExperience" Value="H613b64" /> <!-- DONE -->
-  <Const Name="ptrFollowedEntityID" Value="H613B38" /> <!-- DONE -->
-  <Const Name="ptrAttackedEntityID" Value="H613B3C" /> <!-- DONE -->
-  <Const Name="ptrLastAttackedEntityID" Value="H76DA10" /> <!-- Not changed.. REMEMBER TO CHECK THE CODE! -->
-  <Const Name="ptrMaxHitPoints" Value="H613b68" /> <!-- DONE -->
-  <Const Name="ptrHitPoints" Value="H613b6c" /> <!-- DONE -->
-  <Const Name="ptrMaxManaPoints" Value="H613b4c" /> <!-- DONE -->
-  <Const Name="ptrManaPoints" Value="H613b50" /> <!-- DONE -->
-  <Const Name="ptrSoulPoints" Value="H613b48" /> <!-- SOUL -->
-  <Const Name="ptrCapacity" Value="H613b40" /> <!-- DONE -->
-  <Const Name="ptrCoordX" Value="H61e9c8" /> <!-- DONE -->
-  <Const Name="ptrCoordY" Value="H61e9c4" /> <!-- DONE -->
-  <Const Name="ptrCoordZ" Value="H61e9c0" /> <!-- DONE -->
-  <Const Name="ptrSecureMode" Value="H76909C" /> <!-- DONE -->
-  <Const Name="ptrFightingMode" Value="H7690A4" /> <!-- DONE -->
-  <Const Name="ptrChasingMode" Value="H7690A0" /> <!-- DONE -->
-  <Const Name="ptrMapPointer" Value="H6234D8" /> <!-- NOT TESTED -->
-  <Const Name="ptrConditions" Value="H613AF8" /> <!-- DONE -->
-  <Const Name="ptrVipListBegin" Value="H611894" /> <!-- NOT TESTED, MIGHT BE DIFFERENT (STARTING WITH 7..) -->
-  <Const Name="ptrSkillsBegin" Value="H613b18" /> <!-- NOT TESTED -->
-  <Const Name="ptrSkillsPercentBegin" Value="H613afc" /> <!-- NOT TESTED -->
-  <Const Name="ptrStamina" Value="H613b44" /> <!-- DONE -->
-  <Const Name="ptrGoToX" Value="H613BB4" /> <!-- DONE -->
-  <Const Name="ptrGoToY" Value="H613BB0" /> <!-- DONE -->
-  <Const Name="ptrGoToZ" Value="H613BAC" /> <!-- DONE -->
-  <Const Name="ptrHotkeyBegin" Value="H7690E8" /><!-- DONE -->
-  <Const Name="ptrStatusMessage" Value="H768458" /> <!-- DONE -->
-  <Const Name="ptrStatusMessageTimer" Value="H76d924" /> <!-- DONE -->
-  <Const Name="ptrCharacterListBegin" Value="H76C28C" /><!-- DONE -->
+  <Const Name="ptrServerAddressBegin" Value="H763BB8" /> 
+  <Const Name="ptrServerPortBegin" Value="H763C1C" /> 
+  <Const Name="ServerAddressDist" Value="H70" /> 
+  <Const Name="ServerAddressCount" Value="HA" /> 
+  <Const Name="ptrCharacterID" Value="H613b70" /> 
+  <Const Name="ptrBattleListBegin" Value="H613bd0" /> 
+  <Const Name="ptrFirstContainer" Value="H61C0D0" />
+  <Const Name="ptrInventoryBegin" Value="H61c058" />
+  <Const Name="ptrLevel" Value="H613b60" /> 
+  <Const Name="ptrLevelPercent" Value="H613b58" />  
+  <Const Name="ptrMagicLevel" Value="H613b5c" /> 
+  <Const Name="ptrMagicLevelPercent" Value="H613b54" /> 
+  <Const Name="ptrExperience" Value="H613b64" /> 
+  <Const Name="ptrFollowedEntityID" Value="H613B38" /> 
+  <Const Name="ptrAttackedEntityID" Value="H613B3C" /> 
+  <Const Name="ptrLastAttackedEntityID" Value="H76DA10" /> 
+  <Const Name="ptrMaxHitPoints" Value="H613b68" /> 
+  <Const Name="ptrHitPoints" Value="H613b6c" /> 
+  <Const Name="ptrMaxManaPoints" Value="H613b4c" /> 
+  <Const Name="ptrManaPoints" Value="H613b50" /> 
+  <Const Name="ptrSoulPoints" Value="H613b48" /> 
+  <Const Name="ptrCapacity" Value="H613b40" /> 
+  <Const Name="ptrCoordX" Value="H61e9c8" /> 
+  <Const Name="ptrCoordY" Value="H61e9c4" /> 
+  <Const Name="ptrCoordZ" Value="H61e9c0" /> 
+  <Const Name="ptrSecureMode" Value="H76909C" /> 
+  <Const Name="ptrFightingMode" Value="H7690A4" /> 
+  <Const Name="ptrChasingMode" Value="H7690A0" /> 
+  <Const Name="ptrMapPointer" Value="H6234D8" /> 
+  <Const Name="ptrConditions" Value="H613AF8" /> 
+  <Const Name="ptrVipListBegin" Value="H611894" /> 
+  <Const Name="ptrSkillsBegin" Value="H613b18" /> 
+  <Const Name="ptrSkillsPercentBegin" Value="H613afc" /> 
+  <Const Name="ptrStamina" Value="H613b44" /> 
+  <Const Name="ptrGoToX" Value="H613BB4" /> 
+  <Const Name="ptrGoToY" Value="H613BB0" /> 
+  <Const Name="ptrGoToZ" Value="H613BAC" /> 
+  <Const Name="ptrHotkeyBegin" Value="H7690E8" />
+  <Const Name="ptrStatusMessage" Value="H768458" /> 
+  <Const Name="ptrStatusMessageTimer" Value="H76d924" /> 
+  <Const Name="ptrCharacterListBegin" Value="H76C28C" />
   <Const Name="CharacterListDist" Value="H54" />
   <Const Name="CharacterListWorldOffset" Value="H1E" />
   <Const Name="HotkeyMax" Value="H24" />
@@ -184,10 +184,10 @@
   <Const Name="SkillsDist" Value="4" />
   <Const Name="FrameRateCurrentOffset" Value="H60" />
   <Const Name="FrameRateLimitOffset" Value="H58" />
-  <Const Name="ptrNameSpy" Value="H4DF469" /> <!-- DONE -->
-  <Const Name="ptrNameSpy2" Value="H4DF473" /> <!-- DONE -->
-  <Const Name="NameSpyDefault" Value="H4A75" /> <!-- NOT TESTED -->
-  <Const Name="NameSpy2Default" Value="H4075" /><!-- NOT TESTED -->
+  <Const Name="ptrNameSpy" Value="H4DF469" /> 
+  <Const Name="ptrNameSpy2" Value="H4DF473" /> 
+  <Const Name="NameSpyDefault" Value="H4A75" /> 
+  <Const Name="NameSpy2Default" Value="H4075" />
   <Const Name="CavebotAttackerShrinkRadius" Value="1.0" />
   <Const Name="WaypointMaxDistance" Value="100" />
   <Const Name="MCPatchOffset" Value="1018180" />
