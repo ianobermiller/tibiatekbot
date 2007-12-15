@@ -1,4 +1,6 @@
+#summary Latest changelog.
 #labels Phase-Implementation
+
 ==TibiaTek Bot==
 || *Date* || *Description* || *Author* ||
 || Dec, 15, 2007 || Added Winter Update 2007 Outfits || Sonic.TTB ||
