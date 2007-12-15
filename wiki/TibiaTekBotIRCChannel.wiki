@@ -29,8 +29,13 @@ This is a reference table of the 3 different user types in the IRC Channel.
   * *Suomi (Finnish):* N/A
   * *Svenska (Swedish):* N/A
   * *Polski (Polish):* N/A (there are no Customer Support members for Polish speakers)
-  * *Portugués (Portuguese):* N/A
-  
+  * *Portugués (Portuguese):* #ttbportuguese
+
+= Other Supported Channels =
+  * *TibiaTek Portable:* #TTP (currently managed by _dragonmaster_)^1^
+
+*Note 1:* TibiaTek Portable is a separate project founded by _dragonmaster_ to allow Tibia and TibiaTek Bot fans to install both applications on portable devices such as USB Flash drives. TibiaTek Portable is powered by TibiaTek.
+
 = How To's =
 
 This is a list of all the available commands.
