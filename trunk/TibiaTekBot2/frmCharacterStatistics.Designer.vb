@@ -858,7 +858,7 @@ Partial Class frmCharacterStatistics
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb
         Me.MaximizeBox = False
         Me.Name = "frmCharacterStatistics"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide

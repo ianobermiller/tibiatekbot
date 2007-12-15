@@ -75,11 +75,12 @@
     <Item Name="Magic Light Wand" Kind="Tool,LightSource" ID="HBE6"/>
     <Item Name="Light Shovel" Kind="Tool" ID="H164E"/>
     <Item Name="Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCCD"/>
+	<Item Name="Royal Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CD2"/>
     <Item Name="Small Stone" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H6F5"/>
     <Item Name="Throwing Star" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCD7"/>
     <Item Name="Throwing Knife" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCE2"/>
     <Item Name="Snowball" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HBB0"/>        
-    
+    <Item Name="Fur Backpack" Kind="Equipment,Container" ID="H1CAE"/>
     <Item Name="Gray Backpack" Kind="Equipment,Container" ID="2870"/>
     <Item Name="Purple Backpack" Kind="Equipment,Container" ID="2868"/>
     <Item Name="Golden Backpack" Kind="Equipment,Container" ID="2871"/>
@@ -306,6 +307,7 @@
     <Item Name="Life Ring" Kind="Equipment,Ring" ID="HBEC"/>
     <Item Name="Dwarven Ring" Kind="Equipment,Ring" ID="HC19"/>
     <Item Name="Wedding Ring" Kind="Equipment,Ring" ID="HBBC"/>
+	<Item Name="Might Ring" Kind="Equipment,Ring" ID="HBE8"/>
     <Item Name="Club Ring" Kind="Equipment,Ring" ID="HC15"/>
     <Item Name="Power Ring" Kind="Equipment,Ring" ID="HBEA"/>
     <Item Name="Sword Ring" Kind="Equipment,Ring" ID="HC13"/>
@@ -320,4 +322,14 @@
     <Item Name="Wolf Paw" Kind="Valuable" ID="H1709"/>
     <Item Name="Gold Coin" Kind="Valuable" ID="HBD7"/>
     <Item Name="Honeycomb" Kind="Valuable" ID="H170E"/>
+	<Item Name="Ape Fur" Kind="Valuable" ID="H16FB"/>
+	<Item Name="Green Dragon Scale" Kind="Valuable" ID="H1720"/>
+	<Item Name="Bat Wing" Kind="Valuable" ID="H1706"/>
+	<Item Name="Minotaur Leather" Kind="Valuable" ID="H16F6"/>
+	<Item Name="Chicken Feather" Kind="Valuable" ID="H1702"/>
+	<Item Name="Scarab Coin" Kind="Valuable" ID="HBE2"/>
+	<Item Name="Small Sapphire" Kind="Valuable" ID="HBD5"/>
+	<Item Name="Black Pearl" Kind="Valuable" ID="HBD3"/>
+	<Item Name="Small Amethyst" Kind="Valuable" ID="HBD9"/>
+	<Item Name="Red Gem" Kind="Valuable" ID="HBDF"/>
 </Items>

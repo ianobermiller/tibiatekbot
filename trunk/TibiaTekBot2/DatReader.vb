@@ -61,7 +61,7 @@ Public Module DatReaderModule
     End Structure
 
     Public Class DatReader
-        Private DatTiles(7900) As DatTile
+        Private DatTiles(7921) As DatTile
 
         Public ReadOnly Property Length() As Integer
             Get
@@ -82,7 +82,7 @@ Public Module DatReaderModule
 
             Dim I As Integer
             Dim B1 As Byte
-            For I = 0 To 7900
+            For I = 0 To 7921
                 DatTiles(I).IsContainer = False
                 DatTiles(I).ReadWriteInfo = 0
                 DatTiles(I).IsFluidContainer = False
@@ -204,6 +204,13 @@ Public Module DatReaderModule
                                 Reader.ReadUInt16() '215 for items, 208 for non items
                             Case &H12
                                 ' can see what is under (ladder holes, stairs holes etc)
+                            Case &H13
+                                'unknown
+                            Case &H14
+                                'unknown
+                            Case &H15 'can be rotated?
+                                'unknown
+                                'MsgBox(15 & " " & I)
                             Case &H1F
                                 ' ground tiles that don't cause level change
                                 'DatTiles(I).noFloorChange = True
@@ -213,6 +220,8 @@ Public Module DatReaderModule
                                 Reader.ReadByte() 'always 8
                                 Reader.ReadByte() 'always 0
                             Case &H15
+                                'unknown
+                            Case &H18
                                 'unknown
                             Case &H1D
                                 ' for minimap drawing
@@ -224,6 +233,8 @@ Public Module DatReaderModule
                                 'unknown
                                 Reader.ReadUInt16() '?
                                 Reader.ReadUInt16() '?
+                            Case &H1C
+                                'MsgBox(I & "->" & &H1C)
                             Case &H1E
                                 ' line spot ...
                                 'Get fn, , optbyte2 '86 -> openable holes, 77-> can be used to go down, 76 can be used to go up, 82 -> stairs up, 79 switch,
@@ -262,9 +273,9 @@ Public Module DatReaderModule
                                         'debugByte = optByte
                                         ' ignore
                                 End Select 'optbyte2
-
                                 Reader.ReadByte() 'always 4 o_o
                             Case Else
+                                MsgBox(Opt)
                                 ' ignore
                         End Select 'optbyte
                         Opt = Reader.ReadByte
@@ -297,13 +308,15 @@ Public Module DatReaderModule
                     'skip the required bytes
                     Reader.ReadBytes(Width * Height * BlendFrames * Xdiv * Ydiv * AnimCount * Rare * 2)
                     I += 1
-                    If I > 7900 Then
+                    If I > 7921 Then
                         MessageBox.Show("Tibia.dat file is too big.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
                         End
                     End If
                 Loop Until False
+
             Catch Ex As EndOfStreamException
                 'ignored
+                'MsgBox(I)
             Catch Ex As Exception
                 MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End

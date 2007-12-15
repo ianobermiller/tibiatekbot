@@ -222,7 +222,7 @@ Partial Class frmMapViewer
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Map)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb
         Me.MaximizeBox = False
         Me.Name = "frmMapViewer"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide

@@ -117,7 +117,7 @@ Partial Class frmConstantsEditor
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb
         Me.Name = "frmConstantsEditor"
         Me.Text = "Constants Editor"
         CType(Me.DataGrid, System.ComponentModel.ISupportInitialize).EndInit()

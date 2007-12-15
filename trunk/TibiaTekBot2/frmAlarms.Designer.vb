@@ -1039,7 +1039,7 @@ Partial Class frmAlarms
         Me.Controls.Add(Me.AlarmsSave)
         Me.Controls.Add(Me.Tabs)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb21
+        Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb
         Me.Name = "frmAlarms"
         Me.Text = "Alarms"
         tablalala.ResumeLayout(False)

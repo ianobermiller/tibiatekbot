@@ -859,7 +859,7 @@ Module PacketUtils
 
 #Region " AnimatedText "
 
-    Public Function AnimatedText(ByRef Color As Byte, ByRef Loc As LocationDefinition, ByRef ShortText As String) As Byte()
+    Public Function AnimatedText(ByRef Color As TextColors, ByRef Loc As LocationDefinition, ByRef ShortText As String) As Byte()
         Try
             Dim bytBuffer(1) As Byte
             AddByte(bytBuffer, &H84)
