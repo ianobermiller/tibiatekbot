@@ -7,7 +7,7 @@
  * Anti-Logout (Anti-Idle)
  * Magic walls now appear with a timer that let's you know when they end
  * Auto Open Backpack (at character login)
- * IRC Client, live support directly from Tibia (TibiaTek Bot connects to IRC, irc://uk.quakenet.org/#tibiatekbot)
+ * IRC Client, live support directly from Tibia (TibiaTek Bot connects to IRC, irc://irc.deltaanime.net/tibiatekbot)
  * Improved Graphic User Interface
 
 = Since v2.1 =
