@@ -392,7 +392,7 @@ Public Class frmMain
             ' DrinkerTrigger.Checked = Core.AutoDrinkerTimerObj.State = ThreadTimerState.Running
             '  If DrinkerTrigger.Checked Then
             DrinkerManaPoints.Value = Core.DrinkerManaRequired
-            DrinkerManaPoints.Enabled = False
+            'DrinkerManaPoints.Enabled = True
             '  Else
             '  DrinkerManaPoints.Enabled = True
             '  End If
@@ -3002,7 +3002,7 @@ Public Class frmMain
                 For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
                     If Spell.Name.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) Then
                         Select Case Spell.Name.ToLower
-                            Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing"
+                            Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing", "devine healing", "wound cleansing"
                                 Core.HealSpell = Spell
                                 Exit For
                             Case Else
