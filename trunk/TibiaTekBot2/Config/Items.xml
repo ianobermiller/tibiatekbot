@@ -332,4 +332,14 @@
 	<Item Name="Black Pearl" Kind="Valuable" ID="HBD3"/>
 	<Item Name="Small Amethyst" Kind="Valuable" ID="HBD9"/>
 	<Item Name="Red Gem" Kind="Valuable" ID="HBDF"/>
+	
+	<Item Name="Empty Potion Flask" Kind="FluidContainer" ID="H11D"/>
+	<Item Name="Health Potion" Kind="Tool" ID="H10A"/>
+	<Item Name="Strong Health Potion" Kind="Tool" ID="HEC"/>
+	<Item Name="Great Health Potion" Kind="Tool" ID="HEF"/>
+	<Item Name="Mana Potion" Kind="Tool" ID="H10C"/>
+	<Item Name="Strong Mana Potion" Kind="Tool" ID="HED"/>
+	<Item Name="Great Mana Potion" Kind="Tool" ID="HEE"/>
+	
+	
 </Items>
