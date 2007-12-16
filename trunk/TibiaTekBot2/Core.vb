@@ -129,6 +129,8 @@ Public Module CoreModule
         Public WithEvents StatsTimerObj As ThreadTimer
         Public WithEvents SpellTimerObj As ThreadTimer
         Public WithEvents UHTimerObj As ThreadTimer
+        Public WithEvents PotionTimerObj As ThreadTimer
+        Public WithEvents ManaPotionTimerObj As ThreadTimer
         Public WithEvents AdvertiseTimerObj As ThreadTimer
         Public WithEvents EaterTimerObj As ThreadTimer
         Public WithEvents HealFriendTimerObj As ThreadTimer
@@ -199,6 +201,9 @@ Public Module CoreModule
         Public SpellManaRequired As Integer = 0
         Public UHHPRequired As Integer = 0
         Public UHId As Integer = 0
+        Public PotionHPRequired As Integer = 0
+        Public PotionId As Integer = 0
+        Public ManaPotionId As Integer = 0
         Public AdvertiseMsg As String = ""
         Public AutoEaterSmart As Integer = 0
         Public SendLocationDestinatary As String = ""
@@ -525,6 +530,8 @@ Public Module CoreModule
                 GreetingTimerObj = New ThreadTimer(10000)
                 SpellTimerObj = New ThreadTimer(1000)
                 UHTimerObj = New ThreadTimer(1000)
+                PotionTimerObj = New ThreadTimer(1000)
+                ManaPotionTimerObj = New ThreadTimer(1000)
                 AdvertiseTimerObj = New ThreadTimer(125000)
                 EaterTimerObj = New ThreadTimer(0)
                 HealFriendTimerObj = New ThreadTimer(300)
@@ -985,6 +992,7 @@ Public Module CoreModule
                 SpellTimerObj.StopTimer()
                 UHHPRequired = 0
                 UHTimerObj.StopTimer()
+                PotionTimerObj.StopTimer()
                 AdvertiseMsg = ""
                 AdvertiseTimerObj.StopTimer()
                 AutoEaterSmart = 0
@@ -2498,32 +2506,30 @@ Public Module CoreModule
         End Sub
 #End Region
 
+
+
 #Region " Auto Drinker Timer "
 
-        Public Sub AutoDrinkerTimerObj_Execute() Handles AutoDrinkerTimerObj.OnExecute
+        Private Sub ManaPotionTimerObj_Execute() Handles ManaPotionTimerObj.OnExecute
             Try
                 If Not InGame() Then Exit Sub
-                If AutoDrinkerTimerObj.Interval > Consts.HealersCheckInterval Then AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
-                If DrinkerManaRequired = 0 Then Exit Sub
+                If ManaPotionTimerObj.Interval > Consts.HealersCheckInterval Then ManaPotionTimerObj.Interval = Consts.HealersCheckInterval
                 If ManaPoints = 0 Then
+                    ManaPotionTimerObj.StopTimer()
                     Exit Sub
-                ElseIf ManaPoints <= DrinkerManaRequired Then
-                    Dim ItemID As Integer = 0
-                    If Core.IsPrivateServer Then
-                        Proxy.SendPacketToServer(UseHotkey(Definitions.GetItemID("Vial"), CInt(Fluids.ManaOpenTibia)))
-                    Else
-                        Proxy.SendPacketToServer(UseHotkey(Definitions.GetItemID("Vial"), CInt(Fluids.Mana)))
-                    End If
-                    AutoDrinkerTimerObj.Interval = Consts.HealersAfterHealDelay
                 End If
-
+                If DrinkerManaRequired = 0 Then Exit Sub
+                If ManaPoints < DrinkerManaRequired Then
+                    ManaPotionTimerObj.Interval = Consts.HealersAfterHealDelay
+                    Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(ManaPotionId, CharacterLoc))
+                End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
 
-
 #End Region
+
 
 #Region " CaveBot Timer "
         Public Function IsLooterReady() As Boolean
@@ -2700,7 +2706,6 @@ Public Module CoreModule
                 Dim BL As New BattleList 'Variables
                 Dim AttackerMonsters As New SortedList
                 Dim AttackBL As New BattleList
-                Dim FoundCreature As Boolean = False
                 'MyBL.JumpToEntity(SpecialEntity.Myself)
                 If CaveBotTimerObj.State = ThreadTimerState.Running Then
                     If CBState <> CavebotState.Walking OrElse Walker_Waypoints(WaypointIndex).Type = Walker.WaypointType.Wait Then Exit Sub
@@ -2715,13 +2720,10 @@ Public Module CoreModule
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
                                         For Each CreatureName As String In Core.AutoAttackerList
-                                            If String.Equals(CreatureName.ToLower, BL.GetName.ToLower) Then
-                                                FoundCreature = True
+                                            If Not String.Equals(CreatureName.ToLower, BL.GetName.ToLower) Then
+                                                Exit Sub
                                             End If
                                         Next
-                                        If Not FoundCreature Then
-                                            Exit Sub
-                                        End If
                                     End If
                                     If Not AttackerMonsters.ContainsKey(BL.GetDistance) Then 'If list doesn't contain Distance add it
                                         AttackerMonsters.Add(BL.GetDistance, BL.GetEntityID) 'Add distance
@@ -2760,12 +2762,7 @@ Public Module CoreModule
                             If BL.GetDistance < Consts.CavebotAttackerRadius Then
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
-                                        For Each CreatureName As String In Core.AutoAttackerList
-                                            If String.Equals(CreatureName.ToLower, BL.GetName.ToLower) Then
-                                                FoundCreature = True
-                                            End If
-                                        Next
-                                        If Not FoundCreature Then
+                                        If Not Core.AutoAttackerList.Contains(BL.GetName) Then
                                             Exit Sub
                                         End If
                                     End If
@@ -3261,6 +3258,28 @@ Public Module CoreModule
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Core.ConsoleError("Unkown Error occured during Dancer feature. Dancer is now disabled.")
                 DancerTimerObj.StopTimer()
+            End Try
+        End Sub
+
+#End Region
+
+#Region " Auto HealPotion Timer "
+
+        Private Sub PotionTimerObj_Execute() Handles PotionTimerObj.OnExecute
+            Try
+                If Not InGame() Then Exit Sub
+                If PotionTimerObj.Interval > Consts.HealersCheckInterval Then PotionTimerObj.Interval = Consts.HealersCheckInterval
+                If PotionHPRequired = 0 Then
+                    PotionTimerObj.StopTimer()
+                    Exit Sub
+                End If
+                If HitPoints > PotionHPRequired Then Exit Sub
+                PotionTimerObj.Interval = Consts.HealersAfterHealDelay
+                Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(PotionId, CharacterLoc))
+                'Proxy.SendPacketToClient(CreatureSpeak(Proxy.CharacterName, MessageType.MonsterSay, 0, "Uh!", CharacterLoc.X, CharacterLoc.Y, CharacterLoc.Z))
+                Log("Auto Potioner", "Used Potion on yourself.")
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
 
@@ -4112,7 +4131,7 @@ Public Module CoreModule
                         Case &H6A 'add object to map
                             Loc = GetLocation(bytBuffer, Pos)
                             ID = GetWord(bytBuffer, Pos)
-                            If ID + 1 = &H851 Then
+                            If ID = &H851 Or ID = &H850 Then
                                 MagicWallAdd(Loc)
                             End If
                             If ID = &H62 Then 'known creature, skip this
