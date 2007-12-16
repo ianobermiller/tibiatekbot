@@ -2,7 +2,10 @@
 #labels Featured,Phase-Design,Phase-Implementation
 
 = Since v2.2 =
- * Anti-Logout
+ * Spells and commands through any chat window (channel)
+ * Improved Auto Looter
+ * Anti-Logout (Anti-Idle)
+ * Magic walls now appear with a timer that let's you know when they end
  * Auto Open Backpack (at character login)
  * IRC Client, live support directly from Tibia (TibiaTek Bot connects to IRC, irc://uk.quakenet.org/#tibiatekbot)
  * Improved Graphic User Interface
