@@ -2700,6 +2700,7 @@ Public Module CoreModule
                 Dim BL As New BattleList 'Variables
                 Dim AttackerMonsters As New SortedList
                 Dim AttackBL As New BattleList
+                Dim FoundCreature As Boolean = False
                 'MyBL.JumpToEntity(SpecialEntity.Myself)
                 If CaveBotTimerObj.State = ThreadTimerState.Running Then
                     If CBState <> CavebotState.Walking OrElse Walker_Waypoints(WaypointIndex).Type = Walker.WaypointType.Wait Then Exit Sub
@@ -2714,10 +2715,13 @@ Public Module CoreModule
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
                                         For Each CreatureName As String In Core.AutoAttackerList
-                                            If Not String.Equals(CreatureName.ToLower, BL.GetName.ToLower) Then
-                                                Exit Sub
+                                            If String.Equals(CreatureName.ToLower, BL.GetName.ToLower) Then
+                                                FoundCreature = True
                                             End If
                                         Next
+                                        If Not FoundCreature Then
+                                            Exit Sub
+                                        End If
                                     End If
                                     If Not AttackerMonsters.ContainsKey(BL.GetDistance) Then 'If list doesn't contain Distance add it
                                         AttackerMonsters.Add(BL.GetDistance, BL.GetEntityID) 'Add distance
@@ -2756,7 +2760,12 @@ Public Module CoreModule
                             If BL.GetDistance < Consts.CavebotAttackerRadius Then
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
-                                        If Not Core.AutoAttackerList.Contains(BL.GetName) Then
+                                        For Each CreatureName As String In Core.AutoAttackerList
+                                            If String.Equals(CreatureName.ToLower, BL.GetName.ToLower) Then
+                                                FoundCreature = True
+                                            End If
+                                        Next
+                                        If Not FoundCreature Then
                                             Exit Sub
                                         End If
                                     End If
