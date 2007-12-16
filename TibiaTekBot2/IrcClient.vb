@@ -421,7 +421,7 @@ Public Class IrcClient
                         Catch Ex As System.Text.DecoderFallbackException
                         End Try
                         If Message Is Nothing OrElse String.IsNullOrEmpty(Message) Then Exit Do
-                        Core.ConsoleWrite(Message)
+                        'Core.ConsoleWrite(Message)
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
                         Dim Temp() As String
