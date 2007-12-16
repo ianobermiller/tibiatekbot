@@ -128,7 +128,7 @@
   <Const Name="ptrGoToY" Value="H613BB0" /> <!-- DONE -->
   <Const Name="ptrGoToZ" Value="H613BAC" /> <!-- DONE -->
   <Const Name="ptrHotkeyBegin" Value="H7690E8" /><!-- DONE -->
-  <Const Name="ptrStatusMessage" Value="H768458" /> <!-- DONE -->
+  <Const Name="ptrStatusMessage" Value="H76d928" /> <!-- DONE -->
   <Const Name="ptrStatusMessageTimer" Value="H76d924" /> <!-- DONE -->
   <Const Name="ptrCharacterListBegin" Value="H76C28C" /><!-- DONE -->
   <Const Name="CharacterListDist" Value="H54" />

@@ -1204,7 +1204,11 @@ Public Module CommandParserModule
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Core.ConsoleWrite("Begin Test")
-            Core.Proxy.SendPacketToClient(CreatureSpeak("Cameri", MessageType.ChannelCounsellor, 1, "Banned forever.", 0, 0, 0, ChannelType.Console))
+            'Core.Proxy.SendPacketToClient(CreatureSpeak("Cameri", MessageType.ChannelCounsellor, 1, "Banned forever.", 0, 0, 0, ChannelType.Console))
+            'InjectLastAttackedId()
+            Dim Message As String = ""
+            Core.ReadMemory(Consts.ptrStatusMessage, Message)
+            Core.ConsoleWrite(Message)
             Core.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
