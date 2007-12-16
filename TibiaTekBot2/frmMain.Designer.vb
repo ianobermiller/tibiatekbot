@@ -242,6 +242,10 @@ Partial Class frmMain
         Me.AntiLogoutBox = New System.Windows.Forms.GroupBox
         Me.AntiIdlerTrigger = New System.Windows.Forms.CheckBox
         Me.GeneralTab2 = New System.Windows.Forms.TabPage
+        Me.DancerBox = New System.Windows.Forms.GroupBox
+        Me.DancerSpeed = New System.Windows.Forms.ComboBox
+        Me.DancerSpeedlbl = New System.Windows.Forms.Label
+        Me.DancerTrigger = New System.Windows.Forms.CheckBox
         Me.ChangersBox = New System.Windows.Forms.GroupBox
         Me.ChangerAmuletType = New System.Windows.Forms.ComboBox
         Me.AmuletChangerTypelbl = New System.Windows.Forms.Label
@@ -332,7 +336,37 @@ Partial Class frmMain
         Me.Label16 = New System.Windows.Forms.Label
         Me.StatsUploaderUrl = New System.Windows.Forms.TextBox
         Me.TabPage3 = New System.Windows.Forms.TabPage
-        Me.HealFriendBox = New System.Windows.Forms.GroupBox
+        Me.HealingTabControl = New System.Windows.Forms.TabControl
+        Me.HealingTab1 = New System.Windows.Forms.TabPage
+        Me.HealerBox = New System.Windows.Forms.GroupBox
+        Me.HealPotionHpPanel = New System.Windows.Forms.Panel
+        Me.HealPotionPercent = New System.Windows.Forms.NumericUpDown
+        Me.HealPotionHp = New System.Windows.Forms.NumericUpDown
+        Me.HealPotionUsePercent = New System.Windows.Forms.RadioButton
+        Me.HealPotionUseHp = New System.Windows.Forms.RadioButton
+        Me.HealRuneHpPanel = New System.Windows.Forms.Panel
+        Me.HealRunePercent = New System.Windows.Forms.NumericUpDown
+        Me.HealRuneHP = New System.Windows.Forms.NumericUpDown
+        Me.HealRuneUsePercent = New System.Windows.Forms.RadioButton
+        Me.HealRuneUseHp = New System.Windows.Forms.RadioButton
+        Me.HealSpellHPPanel = New System.Windows.Forms.Panel
+        Me.HealSpellPercent = New System.Windows.Forms.NumericUpDown
+        Me.HealSpellUsePercent = New System.Windows.Forms.RadioButton
+        Me.HealSpellHp = New System.Windows.Forms.NumericUpDown
+        Me.HealSpellUseHP = New System.Windows.Forms.RadioButton
+        Me.HealWithPotion = New System.Windows.Forms.CheckBox
+        Me.HealPotionName = New System.Windows.Forms.ComboBox
+        Me.HealSpellName = New System.Windows.Forms.ComboBox
+        Me.HealWithSpell = New System.Windows.Forms.CheckBox
+        Me.HealRuneType = New System.Windows.Forms.ComboBox
+        Me.HealWithRune = New System.Windows.Forms.CheckBox
+        Me.DrinkerBox = New System.Windows.Forms.GroupBox
+        Me.ManaPotionName = New System.Windows.Forms.ComboBox
+        Me.RestoreManaWith = New System.Windows.Forms.CheckBox
+        Me.DrinkerManaPoints = New System.Windows.Forms.NumericUpDown
+        Me.DrinkerManalbl = New System.Windows.Forms.Label
+        Me.HealingTab2 = New System.Windows.Forms.TabPage
+        Me.GroupBox17 = New System.Windows.Forms.GroupBox
         Me.HealFriendTrigger = New System.Windows.Forms.CheckBox
         Me.HealFHp = New System.Windows.Forms.NumericUpDown
         Me.HealFHplbl = New System.Windows.Forms.Label
@@ -340,31 +374,12 @@ Partial Class frmMain
         Me.HealFNamelbl = New System.Windows.Forms.Label
         Me.HealFType = New System.Windows.Forms.ComboBox
         Me.HealFTypelbl = New System.Windows.Forms.Label
-        Me.HealerBox = New System.Windows.Forms.GroupBox
-        Me.HealSpellPanel = New System.Windows.Forms.Panel
-        Me.HealSpellPercent = New System.Windows.Forms.NumericUpDown
-        Me.HealSpellUsePercent = New System.Windows.Forms.RadioButton
-        Me.HealSpellHp = New System.Windows.Forms.NumericUpDown
-        Me.HealSpellUseHp = New System.Windows.Forms.RadioButton
-        Me.HealSpellName = New System.Windows.Forms.ComboBox
-        Me.HealWithSpell = New System.Windows.Forms.CheckBox
-        Me.HealRuneHpPanel = New System.Windows.Forms.Panel
-        Me.HealRunePercent = New System.Windows.Forms.NumericUpDown
-        Me.HealRuneHP = New System.Windows.Forms.NumericUpDown
-        Me.HealRuneUsePercent = New System.Windows.Forms.RadioButton
-        Me.HealRuneUseHp = New System.Windows.Forms.RadioButton
-        Me.HealRuneType = New System.Windows.Forms.ComboBox
-        Me.HealWithRune = New System.Windows.Forms.CheckBox
-        Me.HealPartyBox = New System.Windows.Forms.GroupBox
+        Me.GroupBox19 = New System.Windows.Forms.GroupBox
         Me.HealPartyTrigger = New System.Windows.Forms.CheckBox
         Me.HealPHp = New System.Windows.Forms.NumericUpDown
         Me.HealP = New System.Windows.Forms.Label
         Me.HealPType = New System.Windows.Forms.ComboBox
         Me.HealPlbl = New System.Windows.Forms.Label
-        Me.DrinkerBox = New System.Windows.Forms.GroupBox
-        Me.DrinkerTrigger = New System.Windows.Forms.CheckBox
-        Me.DrinkerManaPoints = New System.Windows.Forms.NumericUpDown
-        Me.DrinkerManalbl = New System.Windows.Forms.Label
         Me.TabPage7 = New System.Windows.Forms.TabPage
         Me.MCPatcherBox = New System.Windows.Forms.GroupBox
         Me.MCPatcherButton = New System.Windows.Forms.Button
@@ -477,10 +492,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.DancerBox = New System.Windows.Forms.GroupBox
-        Me.DancerTrigger = New System.Windows.Forms.CheckBox
-        Me.DancerSpeedlbl = New System.Windows.Forms.Label
-        Me.DancerSpeed = New System.Windows.Forms.ComboBox
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -498,6 +509,7 @@ Partial Class frmMain
         Me.ConfigManagerbox.SuspendLayout()
         Me.AntiLogoutBox.SuspendLayout()
         Me.GeneralTab2.SuspendLayout()
+        Me.DancerBox.SuspendLayout()
         Me.ChangersBox.SuspendLayout()
         Me.AutoLooterBox.SuspendLayout()
         CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -530,19 +542,25 @@ Partial Class frmMain
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        Me.HealFriendBox.SuspendLayout()
-        CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HealingTabControl.SuspendLayout()
+        Me.HealingTab1.SuspendLayout()
         Me.HealerBox.SuspendLayout()
-        Me.HealSpellPanel.SuspendLayout()
-        CType(Me.HealSpellPercent, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.HealSpellHp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HealPotionHpPanel.SuspendLayout()
+        CType(Me.HealPotionPercent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HealPotionHp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.HealRuneHpPanel.SuspendLayout()
         CType(Me.HealRunePercent, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HealRuneHP, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.HealPartyBox.SuspendLayout()
-        CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HealSpellHPPanel.SuspendLayout()
+        CType(Me.HealSpellPercent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.HealSpellHp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DrinkerBox.SuspendLayout()
         CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HealingTab2.SuspendLayout()
+        Me.GroupBox17.SuspendLayout()
+        CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox19.SuspendLayout()
+        CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage7.SuspendLayout()
         Me.MCPatcherBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -574,7 +592,6 @@ Partial Class frmMain
         Me.GroupBox16.SuspendLayout()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.DancerBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'NotifyIcon
@@ -1703,6 +1720,33 @@ Partial Class frmMain
         Me.GeneralTab2.Name = "GeneralTab2"
         Me.GeneralTab2.UseVisualStyleBackColor = True
         '
+        'DancerBox
+        '
+        Me.DancerBox.Controls.Add(Me.DancerSpeed)
+        Me.DancerBox.Controls.Add(Me.DancerSpeedlbl)
+        Me.DancerBox.Controls.Add(Me.DancerTrigger)
+        resources.ApplyResources(Me.DancerBox, "DancerBox")
+        Me.DancerBox.Name = "DancerBox"
+        Me.DancerBox.TabStop = False
+        '
+        'DancerSpeed
+        '
+        Me.DancerSpeed.FormattingEnabled = True
+        Me.DancerSpeed.Items.AddRange(New Object() {resources.GetString("DancerSpeed.Items"), resources.GetString("DancerSpeed.Items1"), resources.GetString("DancerSpeed.Items2")})
+        resources.ApplyResources(Me.DancerSpeed, "DancerSpeed")
+        Me.DancerSpeed.Name = "DancerSpeed"
+        '
+        'DancerSpeedlbl
+        '
+        resources.ApplyResources(Me.DancerSpeedlbl, "DancerSpeedlbl")
+        Me.DancerSpeedlbl.Name = "DancerSpeedlbl"
+        '
+        'DancerTrigger
+        '
+        resources.ApplyResources(Me.DancerTrigger, "DancerTrigger")
+        Me.DancerTrigger.Name = "DancerTrigger"
+        Me.DancerTrigger.UseVisualStyleBackColor = True
+        '
         'ChangersBox
         '
         Me.ChangersBox.Controls.Add(Me.ChangerAmuletType)
@@ -2293,129 +2337,78 @@ Partial Class frmMain
         '
         'TabPage3
         '
-        Me.TabPage3.Controls.Add(Me.HealFriendBox)
-        Me.TabPage3.Controls.Add(Me.HealerBox)
-        Me.TabPage3.Controls.Add(Me.HealPartyBox)
-        Me.TabPage3.Controls.Add(Me.DrinkerBox)
+        Me.TabPage3.Controls.Add(Me.HealingTabControl)
         resources.ApplyResources(Me.TabPage3, "TabPage3")
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
-        'HealFriendBox
+        'HealingTabControl
         '
-        Me.HealFriendBox.Controls.Add(Me.HealFriendTrigger)
-        Me.HealFriendBox.Controls.Add(Me.HealFHp)
-        Me.HealFriendBox.Controls.Add(Me.HealFHplbl)
-        Me.HealFriendBox.Controls.Add(Me.HealFName)
-        Me.HealFriendBox.Controls.Add(Me.HealFNamelbl)
-        Me.HealFriendBox.Controls.Add(Me.HealFType)
-        Me.HealFriendBox.Controls.Add(Me.HealFTypelbl)
-        resources.ApplyResources(Me.HealFriendBox, "HealFriendBox")
-        Me.HealFriendBox.Name = "HealFriendBox"
-        Me.HealFriendBox.TabStop = False
+        Me.HealingTabControl.Controls.Add(Me.HealingTab1)
+        Me.HealingTabControl.Controls.Add(Me.HealingTab2)
+        resources.ApplyResources(Me.HealingTabControl, "HealingTabControl")
+        Me.HealingTabControl.Name = "HealingTabControl"
+        Me.HealingTabControl.SelectedIndex = 0
         '
-        'HealFriendTrigger
+        'HealingTab1
         '
-        resources.ApplyResources(Me.HealFriendTrigger, "HealFriendTrigger")
-        Me.HealFriendTrigger.Name = "HealFriendTrigger"
-        Me.HealFriendTrigger.UseVisualStyleBackColor = True
-        '
-        'HealFHp
-        '
-        resources.ApplyResources(Me.HealFHp, "HealFHp")
-        Me.HealFHp.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
-        Me.HealFHp.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.HealFHp.Name = "HealFHp"
-        Me.HealFHp.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'HealFHplbl
-        '
-        resources.ApplyResources(Me.HealFHplbl, "HealFHplbl")
-        Me.HealFHplbl.Name = "HealFHplbl"
-        '
-        'HealFName
-        '
-        resources.ApplyResources(Me.HealFName, "HealFName")
-        Me.HealFName.Name = "HealFName"
-        '
-        'HealFNamelbl
-        '
-        resources.ApplyResources(Me.HealFNamelbl, "HealFNamelbl")
-        Me.HealFNamelbl.Name = "HealFNamelbl"
-        '
-        'HealFType
-        '
-        Me.HealFType.FormattingEnabled = True
-        Me.HealFType.Items.AddRange(New Object() {resources.GetString("HealFType.Items"), resources.GetString("HealFType.Items1"), resources.GetString("HealFType.Items2")})
-        resources.ApplyResources(Me.HealFType, "HealFType")
-        Me.HealFType.Name = "HealFType"
-        '
-        'HealFTypelbl
-        '
-        resources.ApplyResources(Me.HealFTypelbl, "HealFTypelbl")
-        Me.HealFTypelbl.Name = "HealFTypelbl"
+        Me.HealingTab1.Controls.Add(Me.HealerBox)
+        Me.HealingTab1.Controls.Add(Me.DrinkerBox)
+        resources.ApplyResources(Me.HealingTab1, "HealingTab1")
+        Me.HealingTab1.Name = "HealingTab1"
+        Me.HealingTab1.UseVisualStyleBackColor = True
         '
         'HealerBox
         '
-        Me.HealerBox.Controls.Add(Me.HealSpellPanel)
+        Me.HealerBox.Controls.Add(Me.HealPotionHpPanel)
+        Me.HealerBox.Controls.Add(Me.HealRuneHpPanel)
+        Me.HealerBox.Controls.Add(Me.HealSpellHPPanel)
+        Me.HealerBox.Controls.Add(Me.HealWithPotion)
+        Me.HealerBox.Controls.Add(Me.HealPotionName)
         Me.HealerBox.Controls.Add(Me.HealSpellName)
         Me.HealerBox.Controls.Add(Me.HealWithSpell)
-        Me.HealerBox.Controls.Add(Me.HealRuneHpPanel)
         Me.HealerBox.Controls.Add(Me.HealRuneType)
         Me.HealerBox.Controls.Add(Me.HealWithRune)
         resources.ApplyResources(Me.HealerBox, "HealerBox")
         Me.HealerBox.Name = "HealerBox"
         Me.HealerBox.TabStop = False
         '
-        'HealSpellPanel
+        'HealPotionHpPanel
         '
-        Me.HealSpellPanel.Controls.Add(Me.HealSpellPercent)
-        Me.HealSpellPanel.Controls.Add(Me.HealSpellUsePercent)
-        Me.HealSpellPanel.Controls.Add(Me.HealSpellHp)
-        Me.HealSpellPanel.Controls.Add(Me.HealSpellUseHp)
-        resources.ApplyResources(Me.HealSpellPanel, "HealSpellPanel")
-        Me.HealSpellPanel.Name = "HealSpellPanel"
+        Me.HealPotionHpPanel.Controls.Add(Me.HealPotionPercent)
+        Me.HealPotionHpPanel.Controls.Add(Me.HealPotionHp)
+        Me.HealPotionHpPanel.Controls.Add(Me.HealPotionUsePercent)
+        Me.HealPotionHpPanel.Controls.Add(Me.HealPotionUseHp)
+        resources.ApplyResources(Me.HealPotionHpPanel, "HealPotionHpPanel")
+        Me.HealPotionHpPanel.Name = "HealPotionHpPanel"
         '
-        'HealSpellPercent
+        'HealPotionPercent
         '
-        resources.ApplyResources(Me.HealSpellPercent, "HealSpellPercent")
-        Me.HealSpellPercent.Name = "HealSpellPercent"
-        Me.HealSpellPercent.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        resources.ApplyResources(Me.HealPotionPercent, "HealPotionPercent")
+        Me.HealPotionPercent.Name = "HealPotionPercent"
+        Me.HealPotionPercent.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'HealSpellUsePercent
+        'HealPotionHp
         '
-        resources.ApplyResources(Me.HealSpellUsePercent, "HealSpellUsePercent")
-        Me.HealSpellUsePercent.Name = "HealSpellUsePercent"
-        Me.HealSpellUsePercent.TabStop = True
-        Me.HealSpellUsePercent.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.HealPotionHp, "HealPotionHp")
+        Me.HealPotionHp.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.HealPotionHp.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.HealPotionHp.Name = "HealPotionHp"
+        Me.HealPotionHp.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'HealSpellHp
+        'HealPotionUsePercent
         '
-        resources.ApplyResources(Me.HealSpellHp, "HealSpellHp")
-        Me.HealSpellHp.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
-        Me.HealSpellHp.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.HealSpellHp.Name = "HealSpellHp"
-        Me.HealSpellHp.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        resources.ApplyResources(Me.HealPotionUsePercent, "HealPotionUsePercent")
+        Me.HealPotionUsePercent.Name = "HealPotionUsePercent"
+        Me.HealPotionUsePercent.TabStop = True
+        Me.HealPotionUsePercent.UseVisualStyleBackColor = True
         '
-        'HealSpellUseHp
+        'HealPotionUseHp
         '
-        resources.ApplyResources(Me.HealSpellUseHp, "HealSpellUseHp")
-        Me.HealSpellUseHp.Name = "HealSpellUseHp"
-        Me.HealSpellUseHp.TabStop = True
-        Me.HealSpellUseHp.UseVisualStyleBackColor = True
-        '
-        'HealSpellName
-        '
-        Me.HealSpellName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.HealSpellName.FormattingEnabled = True
-        resources.ApplyResources(Me.HealSpellName, "HealSpellName")
-        Me.HealSpellName.Name = "HealSpellName"
-        '
-        'HealWithSpell
-        '
-        resources.ApplyResources(Me.HealWithSpell, "HealWithSpell")
-        Me.HealWithSpell.Name = "HealWithSpell"
-        Me.HealWithSpell.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.HealPotionUseHp, "HealPotionUseHp")
+        Me.HealPotionUseHp.Name = "HealPotionUseHp"
+        Me.HealPotionUseHp.TabStop = True
+        Me.HealPotionUseHp.UseVisualStyleBackColor = True
         '
         'HealRuneHpPanel
         '
@@ -2454,6 +2447,70 @@ Partial Class frmMain
         Me.HealRuneUseHp.TabStop = True
         Me.HealRuneUseHp.UseVisualStyleBackColor = True
         '
+        'HealSpellHPPanel
+        '
+        Me.HealSpellHPPanel.Controls.Add(Me.HealSpellPercent)
+        Me.HealSpellHPPanel.Controls.Add(Me.HealSpellUsePercent)
+        Me.HealSpellHPPanel.Controls.Add(Me.HealSpellHp)
+        Me.HealSpellHPPanel.Controls.Add(Me.HealSpellUseHP)
+        resources.ApplyResources(Me.HealSpellHPPanel, "HealSpellHPPanel")
+        Me.HealSpellHPPanel.Name = "HealSpellHPPanel"
+        '
+        'HealSpellPercent
+        '
+        resources.ApplyResources(Me.HealSpellPercent, "HealSpellPercent")
+        Me.HealSpellPercent.Name = "HealSpellPercent"
+        Me.HealSpellPercent.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'HealSpellUsePercent
+        '
+        resources.ApplyResources(Me.HealSpellUsePercent, "HealSpellUsePercent")
+        Me.HealSpellUsePercent.Name = "HealSpellUsePercent"
+        Me.HealSpellUsePercent.TabStop = True
+        Me.HealSpellUsePercent.UseVisualStyleBackColor = True
+        '
+        'HealSpellHp
+        '
+        resources.ApplyResources(Me.HealSpellHp, "HealSpellHp")
+        Me.HealSpellHp.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.HealSpellHp.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.HealSpellHp.Name = "HealSpellHp"
+        Me.HealSpellHp.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'HealSpellUseHP
+        '
+        resources.ApplyResources(Me.HealSpellUseHP, "HealSpellUseHP")
+        Me.HealSpellUseHP.Name = "HealSpellUseHP"
+        Me.HealSpellUseHP.TabStop = True
+        Me.HealSpellUseHP.UseVisualStyleBackColor = True
+        '
+        'HealWithPotion
+        '
+        resources.ApplyResources(Me.HealWithPotion, "HealWithPotion")
+        Me.HealWithPotion.Name = "HealWithPotion"
+        Me.HealWithPotion.UseVisualStyleBackColor = True
+        '
+        'HealPotionName
+        '
+        Me.HealPotionName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.HealPotionName.FormattingEnabled = True
+        Me.HealPotionName.Items.AddRange(New Object() {resources.GetString("HealPotionName.Items"), resources.GetString("HealPotionName.Items1"), resources.GetString("HealPotionName.Items2")})
+        resources.ApplyResources(Me.HealPotionName, "HealPotionName")
+        Me.HealPotionName.Name = "HealPotionName"
+        '
+        'HealSpellName
+        '
+        Me.HealSpellName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.HealSpellName.FormattingEnabled = True
+        resources.ApplyResources(Me.HealSpellName, "HealSpellName")
+        Me.HealSpellName.Name = "HealSpellName"
+        '
+        'HealWithSpell
+        '
+        resources.ApplyResources(Me.HealWithSpell, "HealWithSpell")
+        Me.HealWithSpell.Name = "HealWithSpell"
+        Me.HealWithSpell.UseVisualStyleBackColor = True
+        '
         'HealRuneType
         '
         Me.HealRuneType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -2468,16 +2525,112 @@ Partial Class frmMain
         Me.HealWithRune.Name = "HealWithRune"
         Me.HealWithRune.UseVisualStyleBackColor = True
         '
-        'HealPartyBox
+        'DrinkerBox
         '
-        Me.HealPartyBox.Controls.Add(Me.HealPartyTrigger)
-        Me.HealPartyBox.Controls.Add(Me.HealPHp)
-        Me.HealPartyBox.Controls.Add(Me.HealP)
-        Me.HealPartyBox.Controls.Add(Me.HealPType)
-        Me.HealPartyBox.Controls.Add(Me.HealPlbl)
-        resources.ApplyResources(Me.HealPartyBox, "HealPartyBox")
-        Me.HealPartyBox.Name = "HealPartyBox"
-        Me.HealPartyBox.TabStop = False
+        Me.DrinkerBox.Controls.Add(Me.ManaPotionName)
+        Me.DrinkerBox.Controls.Add(Me.RestoreManaWith)
+        Me.DrinkerBox.Controls.Add(Me.DrinkerManaPoints)
+        Me.DrinkerBox.Controls.Add(Me.DrinkerManalbl)
+        resources.ApplyResources(Me.DrinkerBox, "DrinkerBox")
+        Me.DrinkerBox.Name = "DrinkerBox"
+        Me.DrinkerBox.TabStop = False
+        '
+        'ManaPotionName
+        '
+        Me.ManaPotionName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ManaPotionName.FormattingEnabled = True
+        Me.ManaPotionName.Items.AddRange(New Object() {resources.GetString("ManaPotionName.Items"), resources.GetString("ManaPotionName.Items1"), resources.GetString("ManaPotionName.Items2")})
+        resources.ApplyResources(Me.ManaPotionName, "ManaPotionName")
+        Me.ManaPotionName.Name = "ManaPotionName"
+        '
+        'RestoreManaWith
+        '
+        resources.ApplyResources(Me.RestoreManaWith, "RestoreManaWith")
+        Me.RestoreManaWith.Name = "RestoreManaWith"
+        Me.RestoreManaWith.UseVisualStyleBackColor = True
+        '
+        'DrinkerManaPoints
+        '
+        resources.ApplyResources(Me.DrinkerManaPoints, "DrinkerManaPoints")
+        Me.DrinkerManaPoints.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.DrinkerManaPoints.Name = "DrinkerManaPoints"
+        '
+        'DrinkerManalbl
+        '
+        resources.ApplyResources(Me.DrinkerManalbl, "DrinkerManalbl")
+        Me.DrinkerManalbl.Name = "DrinkerManalbl"
+        '
+        'HealingTab2
+        '
+        Me.HealingTab2.Controls.Add(Me.GroupBox17)
+        Me.HealingTab2.Controls.Add(Me.GroupBox19)
+        resources.ApplyResources(Me.HealingTab2, "HealingTab2")
+        Me.HealingTab2.Name = "HealingTab2"
+        Me.HealingTab2.UseVisualStyleBackColor = True
+        '
+        'GroupBox17
+        '
+        Me.GroupBox17.Controls.Add(Me.HealFriendTrigger)
+        Me.GroupBox17.Controls.Add(Me.HealFHp)
+        Me.GroupBox17.Controls.Add(Me.HealFHplbl)
+        Me.GroupBox17.Controls.Add(Me.HealFName)
+        Me.GroupBox17.Controls.Add(Me.HealFNamelbl)
+        Me.GroupBox17.Controls.Add(Me.HealFType)
+        Me.GroupBox17.Controls.Add(Me.HealFTypelbl)
+        resources.ApplyResources(Me.GroupBox17, "GroupBox17")
+        Me.GroupBox17.Name = "GroupBox17"
+        Me.GroupBox17.TabStop = False
+        '
+        'HealFriendTrigger
+        '
+        resources.ApplyResources(Me.HealFriendTrigger, "HealFriendTrigger")
+        Me.HealFriendTrigger.Name = "HealFriendTrigger"
+        Me.HealFriendTrigger.UseVisualStyleBackColor = True
+        '
+        'HealFHp
+        '
+        resources.ApplyResources(Me.HealFHp, "HealFHp")
+        Me.HealFHp.Maximum = New Decimal(New Integer() {99, 0, 0, 0})
+        Me.HealFHp.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.HealFHp.Name = "HealFHp"
+        Me.HealFHp.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'HealFHplbl
+        '
+        resources.ApplyResources(Me.HealFHplbl, "HealFHplbl")
+        Me.HealFHplbl.Name = "HealFHplbl"
+        '
+        'HealFName
+        '
+        resources.ApplyResources(Me.HealFName, "HealFName")
+        Me.HealFName.Name = "HealFName"
+        '
+        'HealFNamelbl
+        '
+        resources.ApplyResources(Me.HealFNamelbl, "HealFNamelbl")
+        Me.HealFNamelbl.Name = "HealFNamelbl"
+        '
+        'HealFType
+        '
+        Me.HealFType.FormattingEnabled = True
+        resources.ApplyResources(Me.HealFType, "HealFType")
+        Me.HealFType.Name = "HealFType"
+        '
+        'HealFTypelbl
+        '
+        resources.ApplyResources(Me.HealFTypelbl, "HealFTypelbl")
+        Me.HealFTypelbl.Name = "HealFTypelbl"
+        '
+        'GroupBox19
+        '
+        Me.GroupBox19.Controls.Add(Me.HealPartyTrigger)
+        Me.GroupBox19.Controls.Add(Me.HealPHp)
+        Me.GroupBox19.Controls.Add(Me.HealP)
+        Me.GroupBox19.Controls.Add(Me.HealPType)
+        Me.GroupBox19.Controls.Add(Me.HealPlbl)
+        resources.ApplyResources(Me.GroupBox19, "GroupBox19")
+        Me.GroupBox19.Name = "GroupBox19"
+        Me.GroupBox19.TabStop = False
         '
         'HealPartyTrigger
         '
@@ -2501,7 +2654,6 @@ Partial Class frmMain
         'HealPType
         '
         Me.HealPType.FormattingEnabled = True
-        Me.HealPType.Items.AddRange(New Object() {resources.GetString("HealPType.Items"), resources.GetString("HealPType.Items1"), resources.GetString("HealPType.Items2")})
         resources.ApplyResources(Me.HealPType, "HealPType")
         Me.HealPType.Name = "HealPType"
         '
@@ -2509,32 +2661,6 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.HealPlbl, "HealPlbl")
         Me.HealPlbl.Name = "HealPlbl"
-        '
-        'DrinkerBox
-        '
-        Me.DrinkerBox.Controls.Add(Me.DrinkerTrigger)
-        Me.DrinkerBox.Controls.Add(Me.DrinkerManaPoints)
-        Me.DrinkerBox.Controls.Add(Me.DrinkerManalbl)
-        resources.ApplyResources(Me.DrinkerBox, "DrinkerBox")
-        Me.DrinkerBox.Name = "DrinkerBox"
-        Me.DrinkerBox.TabStop = False
-        '
-        'DrinkerTrigger
-        '
-        resources.ApplyResources(Me.DrinkerTrigger, "DrinkerTrigger")
-        Me.DrinkerTrigger.Name = "DrinkerTrigger"
-        Me.DrinkerTrigger.UseVisualStyleBackColor = True
-        '
-        'DrinkerManaPoints
-        '
-        resources.ApplyResources(Me.DrinkerManaPoints, "DrinkerManaPoints")
-        Me.DrinkerManaPoints.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
-        Me.DrinkerManaPoints.Name = "DrinkerManaPoints"
-        '
-        'DrinkerManalbl
-        '
-        resources.ApplyResources(Me.DrinkerManalbl, "DrinkerManalbl")
-        Me.DrinkerManalbl.Name = "DrinkerManalbl"
         '
         'TabPage7
         '
@@ -3278,33 +3404,6 @@ Partial Class frmMain
         'Timer1
         '
         '
-        'DancerBox
-        '
-        Me.DancerBox.Controls.Add(Me.DancerSpeed)
-        Me.DancerBox.Controls.Add(Me.DancerSpeedlbl)
-        Me.DancerBox.Controls.Add(Me.DancerTrigger)
-        resources.ApplyResources(Me.DancerBox, "DancerBox")
-        Me.DancerBox.Name = "DancerBox"
-        Me.DancerBox.TabStop = False
-        '
-        'DancerTrigger
-        '
-        resources.ApplyResources(Me.DancerTrigger, "DancerTrigger")
-        Me.DancerTrigger.Name = "DancerTrigger"
-        Me.DancerTrigger.UseVisualStyleBackColor = True
-        '
-        'DancerSpeedlbl
-        '
-        resources.ApplyResources(Me.DancerSpeedlbl, "DancerSpeedlbl")
-        Me.DancerSpeedlbl.Name = "DancerSpeedlbl"
-        '
-        'DancerSpeed
-        '
-        Me.DancerSpeed.FormattingEnabled = True
-        Me.DancerSpeed.Items.AddRange(New Object() {resources.GetString("DancerSpeed.Items"), resources.GetString("DancerSpeed.Items1"), resources.GetString("DancerSpeed.Items2")})
-        resources.ApplyResources(Me.DancerSpeed, "DancerSpeed")
-        Me.DancerSpeed.Name = "DancerSpeed"
-        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -3344,6 +3443,8 @@ Partial Class frmMain
         Me.ConfigManagerbox.ResumeLayout(False)
         Me.AntiLogoutBox.ResumeLayout(False)
         Me.GeneralTab2.ResumeLayout(False)
+        Me.DancerBox.ResumeLayout(False)
+        Me.DancerBox.PerformLayout()
         Me.ChangersBox.ResumeLayout(False)
         Me.ChangersBox.PerformLayout()
         Me.AutoLooterBox.ResumeLayout(False)
@@ -3389,25 +3490,32 @@ Partial Class frmMain
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
-        Me.HealFriendBox.ResumeLayout(False)
-        Me.HealFriendBox.PerformLayout()
-        CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HealingTabControl.ResumeLayout(False)
+        Me.HealingTab1.ResumeLayout(False)
         Me.HealerBox.ResumeLayout(False)
         Me.HealerBox.PerformLayout()
-        Me.HealSpellPanel.ResumeLayout(False)
-        Me.HealSpellPanel.PerformLayout()
-        CType(Me.HealSpellPercent, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.HealSpellHp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HealPotionHpPanel.ResumeLayout(False)
+        Me.HealPotionHpPanel.PerformLayout()
+        CType(Me.HealPotionPercent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HealPotionHp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.HealRuneHpPanel.ResumeLayout(False)
         Me.HealRuneHpPanel.PerformLayout()
         CType(Me.HealRunePercent, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HealRuneHP, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.HealPartyBox.ResumeLayout(False)
-        Me.HealPartyBox.PerformLayout()
-        CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HealSpellHPPanel.ResumeLayout(False)
+        Me.HealSpellHPPanel.PerformLayout()
+        CType(Me.HealSpellPercent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.HealSpellHp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DrinkerBox.ResumeLayout(False)
         Me.DrinkerBox.PerformLayout()
         CType(Me.DrinkerManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HealingTab2.ResumeLayout(False)
+        Me.GroupBox17.ResumeLayout(False)
+        Me.GroupBox17.PerformLayout()
+        CType(Me.HealFHp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox19.ResumeLayout(False)
+        Me.GroupBox19.PerformLayout()
+        CType(Me.HealPHp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage7.ResumeLayout(False)
         Me.MCPatcherBox.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
@@ -3454,8 +3562,6 @@ Partial Class frmMain
         Me.GroupBox16.PerformLayout()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.DancerBox.ResumeLayout(False)
-        Me.DancerBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3795,25 +3901,6 @@ Partial Class frmMain
     Friend WithEvents CheckBox8 As System.Windows.Forms.CheckBox
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
-    Friend WithEvents HealerBox As System.Windows.Forms.GroupBox
-    Friend WithEvents HealFriendBox As System.Windows.Forms.GroupBox
-    Friend WithEvents HealFType As System.Windows.Forms.ComboBox
-    Friend WithEvents HealFTypelbl As System.Windows.Forms.Label
-    Friend WithEvents HealFName As System.Windows.Forms.TextBox
-    Friend WithEvents HealFNamelbl As System.Windows.Forms.Label
-    Friend WithEvents HealFHplbl As System.Windows.Forms.Label
-    Friend WithEvents HealFriendTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents HealFHp As System.Windows.Forms.NumericUpDown
-    Friend WithEvents HealPartyBox As System.Windows.Forms.GroupBox
-    Friend WithEvents HealPType As System.Windows.Forms.ComboBox
-    Friend WithEvents HealPlbl As System.Windows.Forms.Label
-    Friend WithEvents HealPartyTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents HealPHp As System.Windows.Forms.NumericUpDown
-    Friend WithEvents HealP As System.Windows.Forms.Label
-    Friend WithEvents DrinkerBox As System.Windows.Forms.GroupBox
-    Friend WithEvents DrinkerManalbl As System.Windows.Forms.Label
-    Friend WithEvents DrinkerTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents DrinkerManaPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents MCPatcherBox As System.Windows.Forms.GroupBox
     Friend WithEvents MCPatcherButton As System.Windows.Forms.Button
     Friend WithEvents FakeTitleBox As System.Windows.Forms.GroupBox
@@ -3870,20 +3957,6 @@ Partial Class frmMain
     Friend WithEvents TrainerClear As System.Windows.Forms.Button
     Friend WithEvents PickuperBox As System.Windows.Forms.GroupBox
     Friend WithEvents PickuperTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents HealRuneType As System.Windows.Forms.ComboBox
-    Friend WithEvents HealWithRune As System.Windows.Forms.CheckBox
-    Friend WithEvents HealRuneHpPanel As System.Windows.Forms.Panel
-    Friend WithEvents HealRuneUsePercent As System.Windows.Forms.RadioButton
-    Friend WithEvents HealRuneUseHp As System.Windows.Forms.RadioButton
-    Friend WithEvents HealRuneHP As System.Windows.Forms.NumericUpDown
-    Friend WithEvents HealWithSpell As System.Windows.Forms.CheckBox
-    Friend WithEvents HealRunePercent As System.Windows.Forms.NumericUpDown
-    Friend WithEvents HealSpellPanel As System.Windows.Forms.Panel
-    Friend WithEvents HealSpellUseHp As System.Windows.Forms.RadioButton
-    Friend WithEvents HealSpellName As System.Windows.Forms.ComboBox
-    Friend WithEvents HealSpellHp As System.Windows.Forms.NumericUpDown
-    Friend WithEvents HealSpellPercent As System.Windows.Forms.NumericUpDown
-    Friend WithEvents HealSpellUsePercent As System.Windows.Forms.RadioButton
     Friend WithEvents AntiLogoutBox As System.Windows.Forms.GroupBox
     Friend WithEvents AntiIdlerTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents GeneralTabControl As System.Windows.Forms.TabControl
@@ -3901,4 +3974,48 @@ Partial Class frmMain
     Friend WithEvents DancerSpeed As System.Windows.Forms.ComboBox
     Friend WithEvents DancerSpeedlbl As System.Windows.Forms.Label
     Friend WithEvents DancerTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents HealingTabControl As System.Windows.Forms.TabControl
+    Friend WithEvents HealingTab1 As System.Windows.Forms.TabPage
+    Friend WithEvents HealerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents HealWithPotion As System.Windows.Forms.CheckBox
+    Friend WithEvents HealPotionName As System.Windows.Forms.ComboBox
+    Friend WithEvents HealSpellName As System.Windows.Forms.ComboBox
+    Friend WithEvents HealWithSpell As System.Windows.Forms.CheckBox
+    Friend WithEvents HealRuneType As System.Windows.Forms.ComboBox
+    Friend WithEvents HealWithRune As System.Windows.Forms.CheckBox
+    Friend WithEvents DrinkerBox As System.Windows.Forms.GroupBox
+    Friend WithEvents DrinkerManaPoints As System.Windows.Forms.NumericUpDown
+    Friend WithEvents DrinkerManalbl As System.Windows.Forms.Label
+    Friend WithEvents HealingTab2 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox17 As System.Windows.Forms.GroupBox
+    Friend WithEvents HealFriendTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents HealFHp As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealFHplbl As System.Windows.Forms.Label
+    Friend WithEvents HealFName As System.Windows.Forms.TextBox
+    Friend WithEvents HealFNamelbl As System.Windows.Forms.Label
+    Friend WithEvents HealFType As System.Windows.Forms.ComboBox
+    Friend WithEvents HealFTypelbl As System.Windows.Forms.Label
+    Friend WithEvents GroupBox19 As System.Windows.Forms.GroupBox
+    Friend WithEvents HealPartyTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents HealPHp As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealP As System.Windows.Forms.Label
+    Friend WithEvents HealPType As System.Windows.Forms.ComboBox
+    Friend WithEvents HealPlbl As System.Windows.Forms.Label
+    Friend WithEvents HealPotionHpPanel As System.Windows.Forms.Panel
+    Friend WithEvents HealPotionPercent As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealPotionHp As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealPotionUsePercent As System.Windows.Forms.RadioButton
+    Friend WithEvents HealPotionUseHp As System.Windows.Forms.RadioButton
+    Friend WithEvents HealRuneHpPanel As System.Windows.Forms.Panel
+    Friend WithEvents HealRunePercent As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealRuneHP As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealRuneUsePercent As System.Windows.Forms.RadioButton
+    Friend WithEvents HealRuneUseHp As System.Windows.Forms.RadioButton
+    Friend WithEvents HealSpellHPPanel As System.Windows.Forms.Panel
+    Friend WithEvents HealSpellPercent As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealSpellUsePercent As System.Windows.Forms.RadioButton
+    Friend WithEvents HealSpellHp As System.Windows.Forms.NumericUpDown
+    Friend WithEvents HealSpellUseHP As System.Windows.Forms.RadioButton
+    Friend WithEvents ManaPotionName As System.Windows.Forms.ComboBox
+    Friend WithEvents RestoreManaWith As System.Windows.Forms.CheckBox
 End Class

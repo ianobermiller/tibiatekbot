@@ -95,6 +95,7 @@ Public Class frmMain
             If RunemakerSpell.Items.Count > 0 Then
                 RunemakerSpell.SelectedIndex = 0
             End If
+
             ' Auto Stacker
             AutoStackerDelay.Value = Consts.AutoStackerDelay
             ' Auto Eater
@@ -127,7 +128,10 @@ Public Class frmMain
             Next
             If HealRuneType.Items.Count > 0 Then HealRuneType.SelectedIndex = 0
             If HealSpellName.Items.Count > 0 Then HealSpellName.SelectedIndex = 0
+            If HealPotionName.Items.Count > 0 Then HealPotionName.SelectedIndex = 0
+            If ManaPotionName.Items.Count > 0 Then ManaPotionName.SelectedIndex = 0
             HealRuneUseHp.Checked = True
+            HealPotionUseHp.Checked = True
             HealSpellUseHp.Checked = True
             'Friend-Healer
             If HealFType.Items.Count > 0 Then HealFType.SelectedIndex = 0
@@ -385,13 +389,13 @@ Public Class frmMain
 
     Private Sub RefreshDrinkerControls()
         Try
-            DrinkerTrigger.Checked = Core.AutoDrinkerTimerObj.State = ThreadTimerState.Running
-            If DrinkerTrigger.Checked Then
-                DrinkerManaPoints.Value = Core.DrinkerManaRequired
-                DrinkerManaPoints.Enabled = False
-            Else
-                DrinkerManaPoints.Enabled = True
-            End If
+            ' DrinkerTrigger.Checked = Core.AutoDrinkerTimerObj.State = ThreadTimerState.Running
+            '  If DrinkerTrigger.Checked Then
+            DrinkerManaPoints.Value = Core.DrinkerManaRequired
+            DrinkerManaPoints.Enabled = False
+            '  Else
+            '  DrinkerManaPoints.Enabled = True
+            '  End If
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -472,15 +476,18 @@ Public Class frmMain
                 End If
 
 
+
                 HealRuneType.Enabled = False
                 HealRuneUseHp.Enabled = False
                 HealRuneUsePercent.Enabled = False
                 HealRuneHP.Enabled = False
                 HealRunePercent.Enabled = False
             Else
+
                 HealRuneType.Enabled = True
                 HealRuneUseHp.Enabled = True
                 HealRuneUsePercent.Enabled = True
+                HealRunePercent.Enabled = True
                 If HealRuneUseHp.Checked Then
                     HealRuneHP.Enabled = True
                     HealRunePercent.Enabled = False
@@ -493,29 +500,75 @@ Public Class frmMain
                 Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
                 HealSpellName.Text = Core.HealSpell.Words
                 HealSpellHp.Value = Core.HealMinimumHP
+
                 If (Core.HealMinimumHP <= MaxHitPoints) Then
                     HealSpellPercent.Value = CInt((Core.HealMinimumHP / MaxHitPoints) * 100)
                 Else
                     HealSpellPercent.Value = 100
                 End If
 
-
-
                 HealSpellName.Enabled = False
-                HealSpellUseHp.Enabled = False
+                HealSpellUseHP.Enabled = False
                 HealSpellUsePercent.Enabled = False
                 HealSpellHp.Enabled = False
                 HealSpellPercent.Enabled = False
             Else
                 HealSpellName.Enabled = True
-                HealSpellUseHp.Enabled = True
+                HealSpellUseHP.Enabled = True
                 HealSpellUsePercent.Enabled = True
-                If HealSpellUseHp.Checked Then
+                HealSpellPercent.Enabled = True
+                If HealSpellUseHP.Checked Then
                     HealSpellHp.Enabled = True
                     HealSpellPercent.Enabled = False
                 Else
                     HealSpellHp.Enabled = False
                     HealSpellPercent.Enabled = True
+                End If
+            End If
+
+            If RestoreManaWith.Checked Then
+
+                ManaPotionName.Enabled = False
+                DrinkerManaPoints.Enabled = False
+            Else
+                ManaPotionName.Enabled = True
+                DrinkerManaPoints.Enabled = True
+
+            End If
+
+            If HealWithPotion.Checked Then
+                Select Case Definitions.GetItemName(Core.PotionId)
+                    Case "Health Potion"
+                        HealPotionName.Text = "Health Potion"
+                    Case "Strong Health Potion"
+                        HealPotionName.Text = "Strong Health Potion"
+                    Case "Great Health Potion"
+                        HealPotionName.Text = "Great Health Potion"
+                End Select
+                HealRuneHP.Value = Core.PotionHPRequired
+                If Core.PotionHPRequired <= MaxHitPoints Then
+                    HealPotionPercent.Value = CInt((Core.PotionHPRequired / MaxHitPoints) * 100)
+                Else
+                    HealPotionPercent.Value = 100
+                End If
+
+                HealPotionName.Enabled = False
+                HealPotionUseHp.Enabled = False
+                HealPotionUsePercent.Enabled = False
+                HealPotionHp.Enabled = False
+                HealPotionPercent.Enabled = False
+            Else
+                HealPotionName.Enabled = True
+                HealPotionUseHp.Enabled = True
+                HealPotionUsePercent.Enabled = True
+                HealPotionPercent.Enabled = True
+
+                If HealPotionUseHp.Checked Then
+                    HealPotionHp.Enabled = True
+                    HealPotionPercent.Enabled = False
+                Else
+                    HealPotionHp.Enabled = False
+                    HealPotionPercent.Enabled = True
                 End If
             End If
         Catch Ex As Exception
@@ -2238,7 +2291,7 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub HealFriendTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealFriendTrigger.CheckedChanged
+    Private Sub HealFriendTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             If HealFriendTrigger.Checked Then
                 If Core.HealFriendTimerObj.State = ThreadTimerState.Running Then Exit Sub
@@ -2273,7 +2326,7 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub HealPartyTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealPartyTrigger.CheckedChanged
+    Private Sub HealPartyTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             If HealPartyTrigger.Checked Then
                 If Core.HealPartyTimerObj.State = ThreadTimerState.Running Then Exit Sub
@@ -2297,28 +2350,6 @@ Public Class frmMain
             RefreshHealPartyControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
-
-    Private Sub DrinkerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DrinkerTrigger.CheckedChanged
-        Try
-            If DrinkerTrigger.Checked Then
-                If Core.AutoDrinkerTimerObj.State = ThreadTimerState.Running Then Exit Sub
-                If DrinkerManaPoints.Value = Nothing Then
-                    MessageBox.Show("You must enter value to Minimum Mana Points.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Exit Sub
-                End If
-                Core.DrinkerManaRequired = DrinkerManaPoints.Value
-                Core.AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
-                Core.AutoDrinkerTimerObj.StartTimer()
-            Else
-                Core.AutoDrinkerTimerObj.StopTimer()
-                Core.DrinkerManaRequired = 0
-            End If
-            RefreshDrinkerControls()
-        Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
     End Sub
@@ -2397,7 +2428,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
 
     Private Sub ChameleonCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChameleonCopy.Click
         Try
@@ -2803,95 +2833,6 @@ Public Class frmMain
                         "To start training define max hp% and min hp% and press Activate, and you will hurt the creatures until <min hp%> and continue attacking after <max hp%>.", "How to use Trainer", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
-    Private Sub HealWithRune_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithRune.CheckedChanged
-        Try
-            If HealWithRune.Checked Then
-                If Core.UHTimerObj.State = ThreadTimerState.Running Then
-                    RefreshHealerControls()
-                    Exit Sub
-                End If
-                Dim MaxHitPoints As Integer = 0
-                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
-                If HealRuneUseHp.Checked Then
-                    Core.UHHPRequired = HealRuneHP.Value
-                Else
-                    Core.UHHPRequired = MaxHitPoints * (HealRunePercent.Value / 100)
-                End If
-                Select Case HealRuneType.Text
-                    Case "UH Rune"
-                        Core.UHId = Definitions.GetItemID("Ultimate Healing")
-                    Case "IH Rune"
-                        Core.UHId = Definitions.GetItemID("Intense Healing")
-                    Case Else
-                        MessageBox.Show("You must select the Rune.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        RefreshHealerControls()
-                        Exit Sub
-                End Select
-                If Core.UHId = 0 Then
-                    MessageBox.Show("Unknown error occured selecting Rune Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    RefreshHealerControls()
-                    Exit Sub
-                Else
-                    Core.UHTimerObj.StartTimer()
-                End If
-            Else
-                Core.UHTimerObj.StopTimer()
-                Core.UHHPRequired = 0
-                Core.UHId = 0
-            End If
-            RefreshHealerControls()
-        Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
-    Private Sub HealRuneUseHp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealRuneUseHp.CheckedChanged
-        RefreshHealerControls()
-    End Sub
-
-    Private Sub HealSpellUseHp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealSpellUseHp.CheckedChanged
-        RefreshHealerControls()
-    End Sub
-
-    Private Sub HealWithSpell_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithSpell.CheckedChanged
-        Try
-            If HealWithSpell.Checked Then
-                If Core.HealTimerObj.State = ThreadTimerState.Running Then
-                    RefreshHealerControls()
-                    Exit Sub
-                End If
-                Dim MaxHitPoints As Integer = 0
-                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
-                If HealSpellUseHp.Checked Then
-                    Core.HealMinimumHP = HealSpellHp.Value
-                Else
-                    Core.HealMinimumHP = MaxHitPoints * (HealSpellHp.Value / 100)
-                End If
-                For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
-                    If Spell.Name.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) Then
-                        Select Case Spell.Name.ToLower
-                            Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing"
-                                Core.HealSpell = Spell
-                                Exit For
-                            Case Else
-                                MessageBox.Show("Please select a healing spell.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                                RefreshHealerControls()
-                                Exit Sub
-                        End Select
-                    End If
-                Next
-                Core.HealComment = ""
-                Core.HealTimerObj.StartTimer()
-            Else
-                Core.HealTimerObj.StopTimer()
-                Core.HealMinimumHP = 0
-            End If
-            RefreshHealerControls()
-        Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
     Private Sub AntiIdlerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AntiIdlerTrigger.CheckedChanged
         Try
             If AntiIdlerTrigger.Checked Then
@@ -2956,5 +2897,190 @@ Public Class frmMain
 
     Private Sub TradeChannelWatcherHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChannelWatcherHelp.Click
         System.Diagnostics.Process.Start("http://www.regular-expressions.info/quickstart.html")
+    End Sub
+
+    Private Sub HealWithPotion_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithPotion.CheckedChanged
+        Try
+            If HealWithPotion.Checked Then
+                If Core.PotionTimerObj.State = ThreadTimerState.Running Then
+                    RefreshHealerControls()
+                    Exit Sub
+                End If
+                Dim MaxHitPoints As Integer = 0
+                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                If HealPotionUseHp.Checked Then
+                    Core.PotionHPRequired = HealPotionHp.Value
+                Else
+                    Core.PotionHPRequired = MaxHitPoints * (HealRunePercent.Value / 100)
+                End If
+                Select Case HealPotionName.Text
+                    Case "Health Potion"
+                        Core.PotionId = Definitions.GetItemID("Health Potion")
+                    Case "Strong Health Potion"
+                        Core.PotionId = Definitions.GetItemID("Strong Health Potion")
+                    Case "Great Health Potion"
+                        Core.PotionId = Definitions.GetItemID("Great Health Potion")
+                    Case Else
+                        MessageBox.Show("You must select the Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        RefreshHealerControls()
+                        Exit Sub
+                End Select
+                If Core.PotionId = 0 Then
+                    MessageBox.Show("Unknown error occured selecting Potion Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    RefreshHealerControls()
+                    Exit Sub
+                Else
+                    Core.PotionTimerObj.StartTimer()
+                End If
+            Else
+                Core.PotionTimerObj.StopTimer()
+                Core.PotionHPRequired = 0
+                Core.PotionId = 0
+            End If
+            RefreshHealerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub HealWithRune_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithRune.CheckedChanged
+        Try
+            If HealWithRune.Checked Then
+                If Core.UHTimerObj.State = ThreadTimerState.Running Then
+                    RefreshHealerControls()
+                    Exit Sub
+                End If
+                Dim MaxHitPoints As Integer = 0
+                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                If HealRuneUseHp.Checked Then
+                    Core.UHHPRequired = HealRuneHP.Value
+                Else
+                    Core.UHHPRequired = MaxHitPoints * (HealRunePercent.Value / 100)
+                End If
+                Select Case HealRuneType.Text
+                    Case "UH Rune"
+                        Core.UHId = Definitions.GetItemID("Ultimate Healing")
+                    Case "IH Rune"
+                        Core.UHId = Definitions.GetItemID("Intense Healing")
+                    Case Else
+                        MessageBox.Show("You must select the Rune.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        RefreshHealerControls()
+                        Exit Sub
+                End Select
+                If Core.UHId = 0 Then
+                    MessageBox.Show("Unknown error occured selecting Rune Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    RefreshHealerControls()
+                    Exit Sub
+                Else
+                    Core.UHTimerObj.StartTimer()
+                End If
+            Else
+                Core.UHTimerObj.StopTimer()
+                Core.UHHPRequired = 0
+                Core.UHId = 0
+            End If
+            RefreshHealerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub HealWithSpell_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithSpell.CheckedChanged
+        Try
+            If HealWithSpell.Checked Then
+                If Core.HealTimerObj.State = ThreadTimerState.Running Then
+                    RefreshHealerControls()
+                    Exit Sub
+                End If
+                Dim MaxHitPoints As Integer = 0
+                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                If HealSpellUseHP.Checked Then
+                    Core.HealMinimumHP = HealSpellHp.Value
+                Else
+                    Core.HealMinimumHP = MaxHitPoints * (HealSpellHp.Value / 100)
+                End If
+                For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                    If Spell.Name.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) Then
+                        Select Case Spell.Name.ToLower
+                            Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing"
+                                Core.HealSpell = Spell
+                                Exit For
+                            Case Else
+                                MessageBox.Show("Please select a healing spell.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                RefreshHealerControls()
+                                Exit Sub
+                        End Select
+                    End If
+                Next
+                Core.HealComment = ""
+                Core.HealTimerObj.StartTimer()
+            Else
+                Core.HealTimerObj.StopTimer()
+                Core.HealMinimumHP = 0
+            End If
+            RefreshHealerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub DrinkerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    End Sub
+
+    Private Sub RestoreManaWith_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RestoreManaWith.CheckedChanged
+        Try
+            If RestoreManaWith.Checked Then
+                If Core.ManaPotionTimerObj.State = ThreadTimerState.Running Then
+                    RefreshHealerControls()
+                    Exit Sub
+                End If
+                Dim MaxHitPoints As Integer = 0
+                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                If RestoreManaWith.Checked Then
+                    Core.DrinkerManaRequired = DrinkerManaPoints.Value
+                Else
+                    Core.DrinkerManaRequired = MaxHitPoints * (HealRunePercent.Value / 100)
+                End If
+                Select Case ManaPotionName.Text
+                    Case "Mana Potion"
+                        Core.ManaPotionId = Definitions.GetItemID("Mana Potion")
+                    Case "Mana Health Potion"
+                        Core.ManaPotionId = Definitions.GetItemID("Strong Mana Potion")
+                    Case "Mana Health Potion"
+                        Core.ManaPotionId = Definitions.GetItemID("Great Mana Potion")
+                    Case Else
+                        MessageBox.Show("You must select the Mana Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        RefreshHealerControls()
+                        Exit Sub
+                End Select
+                If Core.ManaPotionId = 0 Then
+                    MessageBox.Show("Unknown error occured selecting Potion Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    RefreshHealerControls()
+                    Exit Sub
+                Else
+                    Core.ManaPotionTimerObj.StartTimer()
+                End If
+            Else
+                Core.ManaPotionTimerObj.StopTimer()
+                Core.DrinkerManaRequired = 0
+                Core.ManaPotionId = 0
+            End If
+            RefreshHealerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+    Private Sub HealRuneUseHp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealRuneUseHp.CheckedChanged
+        RefreshHealerControls()
+    End Sub
+
+    Private Sub HealSpellUseHP_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealSpellUseHP.CheckedChanged
+        RefreshHealerControls()
+    End Sub
+
+    Private Sub HealPotionUseHp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealPotionUseHp.CheckedChanged
+        RefreshHealerControls()
     End Sub
 End Class

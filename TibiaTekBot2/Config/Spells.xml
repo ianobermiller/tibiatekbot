@@ -34,7 +34,7 @@
 	<Spell Name="Great Fireball"		Words="adori gran flam"		ManaPoints="480"	SoulPoints="3"	Kind="Rune"/>
 	<Spell Name="Ultimate Healing"		Words="adura vita"			ManaPoints="400"	SoulPoints="3"	Kind="Rune"/>
 	<Spell Name="Poison Bomb"			Words="adevo mas pox"		ManaPoints="520"	SoulPoints="2"	Kind="Rune"/>
-	<Spell Name="Heavy Magic Missile"	Words="adori gran"			ManaPoints="280"	SoulPoints="2"	Kind="Rune"/>
+	<Spell Name="Heavy Magic Missile"	Words="adori vis"			ManaPoints="280"	SoulPoints="2"	Kind="Rune"/>
 	<Spell Name="Soul Fire"				Words="adevo res flam"		ManaPoints="600"	SoulPoints="3"	Kind="Rune"/>
 	<Spell Name="Chameleon"				Words="adevo ina"			ManaPoints="600"	SoulPoints="2"	Kind="Rune"/>
 	<Spell Name="Fire Bomb"				Words="adevo mas flam"		ManaPoints="600"	SoulPoints="4"	Kind="Rune"/>
@@ -43,9 +43,14 @@
 	<Spell Name="Magic Wall"			Words="adevo grav tera"		ManaPoints="750"	SoulPoints="5"	Kind="Rune"/>
 	<Spell Name="Fire Wall"				Words="adevo mas grav flam"	ManaPoints="780"	SoulPoints="4"	Kind="Rune"/>
 	<Spell Name="Energy Bomb"			Words="adevo mas vis"		ManaPoints="880"	SoulPoints="5"	Kind="Rune"/>
-	<Spell Name="Energy Wall"			Words="adevo mas grav vis"	ManaPoints="1000"	SoulPoints="5"	Kind="Rune"/>
+	<Spell Name="adevo mas grav vis"	Words="adevo mas grav vis"	ManaPoints="1000"	SoulPoints="5"	Kind="Rune"/>
 	<Spell Name="Sudden Death"			Words="adori vita vis"		ManaPoints="880"	SoulPoints="5"	Kind="Rune"/>
 	<Spell Name="Paralyze"				Words="adana ani"			ManaPoints="1400"	SoulPoints="3"	Kind="Rune"/>
+	<Spell Name="Avalance"				Words="adori mas frigo"		ManaPoints="530"	SoulPoints="3"	Kind="Rune"/>
+	<Spell Name="Icicle"				Words="adori frigo"			ManaPoints="460"	SoulPoints="3"	Kind="Rune"/>
+	<Spell Name="Stalagmite"			Words="adori tera"			ManaPoints="350"	SoulPoints="2"	Kind="Rune"/>
+	<Spell Name="Stone Shower"			Words="adori mas tera"		ManaPoints="430"	SoulPoints="3"	Kind="Rune"/>
+	<Spell Name="Thunderstorm"			Words="adori mas vis"		ManaPoints="430"	SoulPoints="3"	Kind="Rune"/>	
 	<Spell Name="Create Food"			Words="exevo pan"			ManaPoints="120"	SoulPoints="1"	Kind="Food"/>
 	<Spell Name="Arrow"					Words="exevo con"			ManaPoints="100"	SoulPoints="1"	Kind="Ammunition"/>
 	<Spell Name="Poisoned Arrow"		Words="exevo con pox"		ManaPoints="130"	SoulPoints="2"	Kind="Ammunition"/>
@@ -54,42 +59,54 @@
 	<Spell Name="Bolt"					Words="exevo con mort"		ManaPoints="140"	SoulPoints="2"	Kind="Ammunition"/>
 	<Spell Name="Power Bolt"			Words="exevo con vis"		ManaPoints="800"	SoulPoints="3"	Kind="Ammunition"/>
 	<Spell Name="Piercing Bolt"			Words="exevo con grav"		ManaPoints="180"	SoulPoints="3"	Kind="Ammunition"/>
-	<Spell Name="Enchant Staff"			Words="exeta vis"			ManaPoints="80"	SoulPoints="0"	Kind="Incantation"/>
+	<Spell Name="Enchant Staff"			Words="exeta vis"			ManaPoints="80"		SoulPoints="0"	Kind="Incantation"/>
 	<Spell Name="Enchant Spear"			Words="exeta con"			ManaPoints="350"	SoulPoints="3"	Kind="Incantation"/>
-	<Spell Name="Summon Creature"		Words="utevo res"			ManaPoints="0"	SoulPoints="0"	Kind="Incantation"/>
+	<Spell Name="Summon Creature"		Words="utevo res"			ManaPoints="0"		SoulPoints="0"	Kind="Incantation"/>
 	<Spell Name="Undead Legion"			Words="exana mas mort"		ManaPoints="500"	SoulPoints="0"	Kind="Incantation"/>
-	<Spell Name="Light Healing"			Words="exura"				ManaPoints="25"	SoulPoints="0"	Kind="Healing"/>
-	<Spell Name="Intense Healing"		Words="exura gran"			ManaPoints="40"	SoulPoints="0"	Kind="Healing"/>
-	<Spell Name="Heal Friend"			Words="exura sio"			ManaPoints="70"	SoulPoints="0"	Kind="Healing"/>
+	<Spell Name="Light Healing"			Words="exura"				ManaPoints="20"		SoulPoints="0"	Kind="Healing"/>
+	<Spell Name="Intense Healing"		Words="exura gran"			ManaPoints="70"		SoulPoints="0"	Kind="Healing"/>
+	<Spell Name="Heal Friend"			Words="exura sio"			ManaPoints="70"		SoulPoints="0"	Kind="Healing"/>
 	<Spell Name="Ultimate Healing"		Words="exura vita"			ManaPoints="160"	SoulPoints="0"	Kind="Healing"/>
 	<Spell Name="Mass Healing"			Words="exura gran mas res"	ManaPoints="150"	SoulPoints="0"	Kind="Healing"/>
-	<Spell Name="Antidote"				Words="exana pox"			ManaPoints="30"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Magic Shield"			Words="utamo vita"			ManaPoints="50"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Haste"					Words="utani hur"			ManaPoints="60"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Challenge"				Words="exeta res"			ManaPoints="30"	SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Devine Healing"		Words="exura san"			ManaPoints="210"	SoulPoints="0"	Kind="Healing"/>
+	<Spell Name="Wound Cleansing"		Words="exana mort"			ManaPoints="65"		SoulPoints="0"	Kind="Healing"/>
+	<Spell Name="Antidote"				Words="exana pox"			ManaPoints="30"		SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Magic Shield"			Words="utamo vita"			ManaPoints="50"		SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Haste"					Words="utani hur"			ManaPoints="60"		SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Challenge"				Words="exeta res"			ManaPoints="30"		SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Strong Haste"			Words="utani gran hur"		ManaPoints="100"	SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Creature Illusion"		Words="utevo res ina"		ManaPoints="100"	SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Ultimate Light"		Words="utevo vis lux"		ManaPoints="140"	SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Cancel Invisibility"	Words="exana ina"			ManaPoints="200"	SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Wild Growth"			Words="exevo grav vita"		ManaPoints="220"	SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Invisible"				Words="utana vid"			ManaPoints="440"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Great Light"			Words="utevo gran lux"		ManaPoints="60"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Levitate Up"			Words="exani hur up"		ManaPoints="50"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Levitate Down"			Words="exani hur down"		ManaPoints="50"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Find Person"			Words="exiva"				ManaPoints="20"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Magic Rope"			Words="exani tera"			ManaPoints="20"	SoulPoints="0"	Kind="Support"/>
-	<Spell Name="Force Strike"			Words="exori mort"			ManaPoints="20"	SoulPoints="0"	Kind="Offensive" />
-	<Spell Name="Energy Strike"			Words="exori vis"			ManaPoints="20"	SoulPoints="0"	Kind="Offensive" />
-	<Spell Name="Flame Strike"			Words="exori flam"			ManaPoints="20"	SoulPoints="0"	Kind="Offensive" />
-	<Spell Name="Whirlwind Throw"		Words="exori hur"			ManaPoints="40"	SoulPoints="0"	Kind="Offensive" />
-	<Spell Name="Fire Wave"				Words="exevo flam hur"		ManaPoints="80"	SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Great Light"			Words="utevo gran lux"		ManaPoints="60"		SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Levitate Up"			Words="exani hur up"		ManaPoints="50"		SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Levitate Down"			Words="exani hur down"		ManaPoints="50"		SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Find Person"			Words="exiva"				ManaPoints="20"		SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Magic Rope"			Words="exani tera"			ManaPoints="20"		SoulPoints="0"	Kind="Support"/>
+	<Spell Name="Force Strike"			Words="exori mort"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Energy Strike"			Words="exori vis"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Flame Strike"			Words="exori flam"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Whirlwind Throw"		Words="exori hur"			ManaPoints="40"		SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Fire Wave"				Words="exevo flam hur"		ManaPoints="80"		SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Energy Beam"			Words="exevo vis lux"		ManaPoints="100"	SoulPoints="0"	Kind="Offensive" />
-	<Spell Name="Ethereal Spear"		Words="exori con"			ManaPoints="35"	SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Ethereal Spear"		Words="exori con"			ManaPoints="35"		SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Great Energy Beam"		Words="exevo gran vis lux"	ManaPoints="200"	SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Groundshaker"			Words="exori mas"			ManaPoints="160"	SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Berserk"				Words="exori"				ManaPoints="120"	SoulPoints="0"	Kind="Offensive" />
-	<Spell Name="Energy Wave"			Words="exevo mort hur"		ManaPoints="250"	SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Energy Wave"			Words="exevo vis hur"		ManaPoints="170"	SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Poison Storm"			Words="exevo gran mas pox"	ManaPoints="600"	SoulPoints="0"	Kind="Offensive" />
-	<Spell Name="Ultimate Explosion"	Words="exevo gran mas vis"	ManaPoints="1200"	SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Rage of the Skies"		Words="exevo gran mas vis"	ManaPoints="650"	SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Fierce Berserk"		Words="exori gran"			ManaPoints="340"	SoulPoints="0"	Kind="Offensive" />
+	<Spell Name="Wrath of Nature"		Words="exevo gran mas tera"	ManaPoints="770"	SoulPoints="0"	Kind="Offensive"/>
+	<Spell Name="Eternal Winter"		Words="exevo gran mas frigo" ManaPoints="1200"	SoulPoints="0"	Kind="Offensive"/>
+	<Spell Name="Hell's Core"			Words="exevo gran mas flam"	ManaPoints="1200"	SoulPoints="0"	Kind="Offensive"/>
+	<Spell Name="Ice Strike"			Words="exori frigo"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive"/>
+	<Spell Name="Ice Wave"				Words="exevo frigo hur"		ManaPoints="25"		SoulPoints="0"	Kind="Offensive"/>
+	<Spell Name="Terra Strike"			Words="exori tera"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive"/>
+	<Spell Name="Terra Wave"			Words="exevo tera hur"		ManaPoints="210"	SoulPoints="0"	Kind="Offensive"/>	
+	<Spell Name="Devine Missle"			Words="exori san"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive"/>
+	<Spell Name="Divine Caldera"		Words="exevo mas san"		ManaPoints="160"	SoulPoints="0"	Kind="Offensive"/>
+	
 </Spells>
