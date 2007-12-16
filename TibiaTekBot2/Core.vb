@@ -3416,6 +3416,10 @@ Public Module CoreModule
             IrcChannelSpeakUnknown(Nick & " " & Action, IrcChannelNameToID(Channel))
         End Sub
 
+        Private Sub IrcClient_ChannelBroadcast(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.EventChannelBroadcast
+            Proxy.SendPacketToClient(CreatureSpeak("Broadcast from " & Nick, MessageType.Broadcast, 4, Message, 0, 0, 0, IrcChannelNameToID(Channel)))
+        End Sub
+
         Private Sub IrcClient_ChannelSelfKick(ByVal nickkicker As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelSelfKick
             IrcChannelSpeakUnknown("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
             ConsoleError("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".")
@@ -3506,7 +3510,7 @@ Public Module CoreModule
 
         Private Sub IrcClient_Disconnected() Handles IRCClient.EventDisconnected
             Try
-                ConsoleWrite("Disconnected from IRC.")
+                ConsoleError("Disconnected from IRC.")
                 IRCClient.Channels.Clear()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3527,8 +3531,6 @@ Public Module CoreModule
             Try
                 If IrcChannelIsOpened(Channel) Then
                     Select Case IRCClient.GetUserLevel(Nick, Channel)
-                        Case 0
-                            IrcChannelSpeakNormal(Nick, Message, IrcChannelNameToID(Channel))
                         Case 1
                             IrcChannelSpeakVoiced(Nick, Message, IrcChannelNameToID(Channel))
                         Case 2
@@ -3537,6 +3539,8 @@ Public Module CoreModule
                             IrcChannelSpeakOperator(Nick, Message, IrcChannelNameToID(Channel))
                         Case 4
                             IrcChannelSpeakOwner(Nick, Message, IrcChannelNameToID(Channel))
+                        Case Else
+                            IrcChannelSpeakNormal(Nick, Message, IrcChannelNameToID(Channel))
                     End Select
                 End If
             Catch Ex As Exception

@@ -40,6 +40,7 @@ Public Class IrcClient
     Public Event EventChannelMode As ChannelMode
     Public Event EventChannelNamesList As ChannelNamesList
     Public Event EventChannelAction As ChannelAction
+    Public Event EventChannelBroadcast As ChannelBroadcast
 
     Public Delegate Sub ChannelJoin(ByVal Nick As String, ByVal Channel As String)
     Public Delegate Sub ChannelSelfJoin(ByVal Channel As String)
@@ -57,6 +58,7 @@ Public Class IrcClient
     Public Delegate Sub ChannelError(ByVal Channel As String, ByVal Message As String)
     Public Delegate Sub RawMessage(ByVal RawMessage As String)
     Public Delegate Sub ChannelAction(ByVal Nick As String, ByVal Action As String, ByVal Channel As String)
+    Public Delegate Sub ChannelBroadcast(ByVal Nick As String, ByVal Message As String, ByVal Channel As String)
     Public Delegate Sub Connecting()
     Public Delegate Sub Connected()
     Public Delegate Sub Disconnected()
@@ -419,7 +421,7 @@ Public Class IrcClient
                         Catch Ex As System.Text.DecoderFallbackException
                         End Try
                         If Message Is Nothing OrElse String.IsNullOrEmpty(Message) Then Exit Do
-                        'Core.ConsoleWrite(Message)
+                        Core.ConsoleWrite(Message)
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
                         Dim Temp() As String
@@ -462,7 +464,7 @@ Public Class IrcClient
                                             Dim Nick As String = User
                                             Select Case User(0) 'none, v, h, @, ~
                                                 Case "~"c
-                                                    UserInfo.UserLevel = 5
+                                                    UserInfo.UserLevel = 4
                                                     Nick = Nick.Remove(0, 1)
                                                 Case "&"c
                                                     UserInfo.UserLevel = 4
@@ -637,6 +639,19 @@ Public Class IrcClient
                                                     End If
                                                 Next
                                                 RaiseEvent EventQuit(From, Arguments.Substring(1))
+                                            Case "NOTICE"
+                                                Match2 = Regex.Match(Arguments, "([^\s]+)\s:([^\s]+)")
+                                                If Match2.Success Then
+                                                    Dim Channel As String = Match2.Groups(1).Value
+                                                    Dim Msg As String = Match2.Groups(2).Value
+                                                    If Channels.ContainsKey(Channel) Then
+                                                        If Channels(Channel).Users.ContainsKey(From) Then
+                                                            If Channels(Channel).Users(From).UserLevel >= 3 Then
+                                                                RaiseEvent EventChannelBroadcast(From, Msg, Channel)
+                                                            End If
+                                                        End If
+                                                    End If
+                                                End If
                                         End Select
                                     End If
                             End Select
