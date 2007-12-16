@@ -13,28 +13,33 @@ Before asking a question, read below under the title "Before You Ask".
 
 You can connect to the TibiaTek Bot IRC Channel via TibiaTek Bot's built-in IRC client. By default, it connects and joins the channel automatically. You can disable automatic connecting and joining via changing the variables _IRCConnectOnStartUp_ and _IRCJoinAfterConnected_ respectively.
 
-To join from another client connect to the Quakenet IRC server at uk.quakenet.org, channel #tibiatekbot. Here's a list of other [http://en.wikipedia.org/wiki/List_of_IRC_clients IRC Clients].
+To join from another client connect to the DeltaAnime IRC server at irc.deltaanime.net, channel #tibiatekbot. Here's a list of other [http://en.wikipedia.org/wiki/List_of_IRC_clients IRC Clients].
 
 = IRC User Types =
 
 This is a reference table of the 3 different user types in the IRC Channel.
 ||User Type||Marks||Text Color (Built-In Client)||
-||Channel Operator||@/Level 3||Red||
+||Channel Founder||~/Level 5||Red||
+||Channel Operator||@/Level 4||Red||
+||Channel Half Operator||%/Level 3||Red||
 ||Voiced User||+/Level 2||Orange||
 ||Normal User||Level 1||Yellow||
 
-= Language Channels =
+= Channels =
+  * *Main (English):* #tibiatekbot
 
+== Language Channels ==
   * *Español (Spanish):* #ttbespanol
   * *Suomi (Finnish):* N/A
   * *Svenska (Swedish):* N/A
-  * *Polski (Polish):* N/A (there are no Customer Support members for Polish speakers)
-  * *Portugués (Portuguese):* #ttbportuguese
+  * *Polski (Polish):* N/A
+  * *Portugués (Portuguese):* #ttbportugues
 
-= Other Supported Channels =
-  * *TibiaTek Portable:* #TTP (currently managed by _dragonmaster_)^1^
+== Other Channels ==
+  * *Development:* #ttbdev (you cannot chat in this channel unless you request to be voiced)
+  * *TibiaTek Bot Portable^1^:* #ttbp
 
-*Note 1:* TibiaTek Portable is a separate project founded by _dragonmaster_ to allow Tibia and TibiaTek Bot fans to install both applications on portable devices such as USB Flash drives. TibiaTek Portable is powered by TibiaTek.
+*Note 1*: TibiaTek Bot Portable is a separate project (not official) managed by _dragonmaster_. For more information about this project contact him via IRC.
 
 = How To's =
 
@@ -62,6 +67,38 @@ Type _/join #<nameofthechannel>_
 *Example:* _/join #ttbespanol_
 
 *Note:* you can only join a maximum of 3 channels via the TibiaTek Bot Built-in IRC Client.
+
+== Say an action ==
+
+Type _/me <action>_
+
+*Example:* _TTBHunter150 [1]: /me slaps Cameri around with a large trout_
+
+*Result:* _TTBHunter150 slaps Cameri around with a large trout_
+
+== Request Info from the TibiaTekBot IRC BOT ==
+
+The TibiaTekBot IRC Bot is currently managed and developed by _angelbroz_. This IRC Bot is powered by TibiaTek.
+
+=== Character Information Lookup Command ===
+
+If you're not using the TibiaTek Bot Built-In IRC Client and need to check a Character's Information use this command.
+
+Type _!char <Character Name>_
+
+*Example:* _!char Eternal Oblivion_
+
+*Result:* _TibiaTekBot: Eternal Oblivion / Lvl: 300 / Profession: Elite Knight / World: Amera / Sex: male / Residence: Liberty Bay / Guild membership: Bane of the Enshrined / Premium Account_
+
+=== Server Status Lookup Command ===
+
+Type _!server <Server Name>_
+
+*Example:* _!server Amera_
+
+*Result:* _TibiaTekBot: Amera is online with 763 players._
+
+*Note:* Only works for official servers.
 
 = Guidelines in full =
 
