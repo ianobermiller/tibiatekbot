@@ -4112,7 +4112,7 @@ Public Module CoreModule
                         Case &H6A 'add object to map
                             Loc = GetLocation(bytBuffer, Pos)
                             ID = GetWord(bytBuffer, Pos)
-                            If ID = &H851 Then
+                            If ID + 1 = &H851 Then
                                 MagicWallAdd(Loc)
                             End If
                             If ID = &H62 Then 'known creature, skip this
