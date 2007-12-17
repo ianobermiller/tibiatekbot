@@ -4345,7 +4345,7 @@ Public Module CoreModule
                             If Not (FromFound And ToFound) Then Continue While
                             'ConsoleWrite("Projectile type: " & Type.ToString & " (" & FromBL.GetName & "->" & ToBl.GetName & ") ")
                             If ComboBotEnabled Then
-                                If Type = 11 Then 'SD rune
+                                If Type = 37 Then 'SD rune
                                     If ComboBotLeader.ToLower = FromBL.GetName.ToLower Then
                                         Proxy.SendPacketToServer(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), ToBl.GetEntityID))
                                     End If
