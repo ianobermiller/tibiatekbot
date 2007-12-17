@@ -41,6 +41,7 @@ Public Class IrcClient
     Public Event EventChannelNamesList As ChannelNamesList
     Public Event EventChannelAction As ChannelAction
     Public Event EventChannelBroadcast As ChannelBroadcast
+    Public Event EventNotice As Notice
 
     Public Delegate Sub ChannelJoin(ByVal Nick As String, ByVal Channel As String)
     Public Delegate Sub ChannelSelfJoin(ByVal Channel As String)
@@ -59,6 +60,7 @@ Public Class IrcClient
     Public Delegate Sub RawMessage(ByVal RawMessage As String)
     Public Delegate Sub ChannelAction(ByVal Nick As String, ByVal Action As String, ByVal Channel As String)
     Public Delegate Sub ChannelBroadcast(ByVal Nick As String, ByVal Message As String, ByVal Channel As String)
+    Public Delegate Sub Notice(ByVal Nick As String, ByVal Message As String)
     Public Delegate Sub Connecting()
     Public Delegate Sub Connected()
     Public Delegate Sub Disconnected()
@@ -307,7 +309,7 @@ Public Class IrcClient
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-    Public Sub Notice(ByVal Destinatary As String, ByVal Message As String)
+    Public Sub SendNotice(ByVal Destinatary As String, ByVal Message As String)
         Try
             If Not WasConnected Then Exit Sub
             WriteLine(String.Format("NOTICE {0} :{1}", Destinatary, Message))
@@ -320,6 +322,15 @@ Public Class IrcClient
         Try
             If Not WasConnected Then Exit Sub
             WriteLine(String.Format("PRIVMSG {0} :{1}", Destinatary, Message))
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Public Sub SpeakToServer(ByVal Message As String, ByVal Server As String)
+        Try
+            If Not WasConnected Then Exit Sub
+            WriteLine(String.Format("{0} :{1}", Server, Message))
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -522,10 +533,14 @@ Public Class IrcClient
                                                     ElseIf String.Equals(Destinatary, Me.Nick) Then
                                                         Select Case Msg
                                                             Case One & "VERSION" & One
-                                                                Notice(From, One & "VERSION " & IRCClientVersion & One)
+                                                                SendNotice(From, One & "VERSION " & IRCClientVersion & One)
                                                             Case Else
                                                                 If Msg.StartsWith(Chr(1) & "PING") Then
-                                                                    Notice(From, Msg)
+                                                                    SendNotice(From, Msg)
+                                                                ElseIf Msg.StartsWith(Chr(1)) Then
+                                                                    'dont do anything
+                                                                Else
+                                                                    RaiseEvent EventPrivateMessage(Destinatary, Msg)
                                                                 End If
                                                         End Select
                                                     End If
@@ -640,7 +655,7 @@ Public Class IrcClient
                                                 Next
                                                 RaiseEvent EventQuit(From, Arguments.Substring(1))
                                             Case "NOTICE"
-                                                Match2 = Regex.Match(Arguments, "([^\s]+)\s:([^\s]+)")
+                                                Match2 = Regex.Match(Arguments, "([^\s]+)\s:([^\n]+)")
                                                 If Match2.Success Then
                                                     Dim Channel As String = Match2.Groups(1).Value
                                                     Dim Msg As String = Match2.Groups(2).Value
@@ -649,6 +664,10 @@ Public Class IrcClient
                                                             If Channels(Channel).Users(From).UserLevel >= 3 Then
                                                                 RaiseEvent EventChannelBroadcast(From, Msg, Channel)
                                                             End If
+                                                        End If
+                                                    Else
+                                                        If Channel.Equals(Me.Nick, StringComparison.CurrentCultureIgnoreCase) Then
+                                                            RaiseEvent EventNotice(From, Msg)
                                                         End If
                                                     End If
                                                 End If

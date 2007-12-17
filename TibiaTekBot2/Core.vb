@@ -3311,11 +3311,6 @@ Public Module CoreModule
                 If Not IRCClient.Connect Then
                     Exit Sub
                 End If
-                IRCClient.Identify()
-                If Not String.IsNullOrEmpty(Consts.IRCPassword) Then
-                    IRCClient.Password = Consts.IRCPassword
-                    IRCClient.Speak(String.Format("AUTH {0} {1}", IRCClient.Nick, IRCClient.Password), "Q@CServe.quakenet.org")
-                End If
                 IRCClient.MainLoop()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3441,23 +3436,39 @@ Public Module CoreModule
         End Sub
 
         Private Sub IrcClient_ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelKick
-            'ConsoleWrite(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".")
-            If IrcChannelIsOpened(Channel) Then
-                IrcChannelSpeakUnknown(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
-            End If
+            Try
+                'ConsoleWrite(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".")
+                If IrcChannelIsOpened(Channel) Then
+                    IrcChannelSpeakUnknown(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End Sub
 
         Private Sub IrcClient_ChannelAction(ByVal Nick As String, ByVal Action As String, ByVal Channel As String) Handles IRCClient.EventChannelAction
-            IrcChannelSpeakUnknown(Nick & " " & Action, IrcChannelNameToID(Channel))
+            Try
+                IrcChannelSpeakUnknown(Nick & " " & Action, IrcChannelNameToID(Channel))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End Sub
 
         Private Sub IrcClient_ChannelBroadcast(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.EventChannelBroadcast
-            Proxy.SendPacketToClient(CreatureSpeak("Broadcast from " & Nick, MessageType.Broadcast, 4, Message, 0, 0, 0, IrcChannelNameToID(Channel)))
+            Try
+                Proxy.SendPacketToClient(CreatureSpeak("Broadcast from " & Nick, MessageType.Broadcast, 4, Message, 0, 0, 0, IrcChannelNameToID(Channel)))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End Sub
 
         Private Sub IrcClient_ChannelSelfKick(ByVal nickkicker As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelSelfKick
-            IrcChannelSpeakUnknown("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
-            ConsoleError("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".")
+            Try
+                IrcChannelSpeakUnknown("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
+                ConsoleError("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".")
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End Sub
 
         Private Sub IrcClient_TopicChange(ByVal ChannelInfo As ChannelInformation) Handles IRCClient.EventChannelTopicChange
@@ -3467,13 +3478,16 @@ Public Module CoreModule
                     IrcChannelSpeakOperator(ChannelInfo.TopicOwner, ChannelInfo.Topic, IrcChannelNameToID(ChannelInfo.Name))
                 End If
             Catch Ex As Exception
-                'MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                'End
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
 
         Private Sub IrcClient_ChannelSelfPart(ByVal Channel As String) Handles IRCClient.EventChannelSelfPart
-            ConsoleWrite("You have left " & Channel & ".")
+            Try
+                ConsoleWrite("You have left " & Channel & ".")
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End Sub
 
         Private Sub IrcClient_NickChange(ByVal OldNick As String, ByVal NewNick As String) Handles IRCClient.EventNickChange
@@ -3488,7 +3502,6 @@ Public Module CoreModule
 
         Private Sub IrcClient_ChannelPart(ByVal Nick As String, ByVal Channel As String) Handles IRCClient.EventChannelPart
             'ConsoleWrite(Nick & " parts " & Channel & ".")
-
         End Sub
 
         Private Sub IrcClient_ChannelSelfJoin(ByVal Channel As String) Handles IRCClient.EventChannelSelfJoin
@@ -3538,9 +3551,30 @@ Public Module CoreModule
         Private Sub IrcClient_Connected() Handles IRCClient.EventConnected
             Try
                 ConsoleWrite("Successfully connected to IRC. Opening channels, please wait...")
+                If Not String.IsNullOrEmpty(IRCClient.Nick) AndAlso Not String.IsNullOrEmpty(Consts.IRCPassword) Then
+                    IRCClient.Password = Consts.IRCPassword
+                    IRCClient.SpeakToServer(String.Format("GHOST {0} {1}", IRCClient.Nick, IRCClient.Password), "NICKSERV")
+                End If
+                IRCClient.Identify()
+                If Not String.IsNullOrEmpty(IRCClient.Password) Then
+                    IRCClient.SpeakToServer(String.Format("IDENTIFY {0}", IRCClient.Password), "NICKSERV")
+                End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
+        End Sub
+
+        Private Sub IrcClient_Notice(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventNotice
+            Try
+                If Nick.Equals("dairc-bot", StringComparison.CurrentCultureIgnoreCase) Then Exit Sub
+                Core.Proxy.SendPacketToClient(CreatureSpeak(Nick & "@IRC", MessageType.PM, 5, Message, 0, 0, 0, ChannelType.Console))
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+
+        Private Sub IrcClient_PrivateMessage(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventPrivateMessage
+            Core.Proxy.SendPacketToClient(PacketUtils.Speak(Message, Nick & "@IRC"))
         End Sub
 
         Private Sub IrcClient_Disconnected() Handles IRCClient.EventDisconnected
@@ -3926,7 +3960,7 @@ Public Module CoreModule
                                         CommandParser(GroupMatch.Groups(1).ToString)
                                     Next
                                 ElseIf Message.StartsWith("/") Then
-                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users|me)(?:\s(.+))?", RegexOptions.IgnoreCase)
+                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "/(join|nick|users|me|nickserv|msg)(?:\s(.+))?", RegexOptions.IgnoreCase)
                                     If Match.Success Then
                                         Select Case Match.Groups(1).Value.ToLower
                                             Case "join", "j"
@@ -3939,6 +3973,21 @@ Public Module CoreModule
                                                     IRCClient.Speak(Chr(1) & "ACTION " & Match.Groups(2).Value & Chr(1), Channel)
                                                 End If
                                                 IrcChannelSpeakUnknown(IRCClient.Nick & " " & Match.Groups(2).Value, IrcChannelNameToID(Channel))
+                                            Case "nickserv"
+                                                Dim Match2 As Match = Regex.Match(Match.Groups(2).Value, "(?:(identify)\s([^\s]+)|(register)\s([^\s]+)\s([^\s]+))",RegexOptions.IgnoreCase)
+                                                If Match2.Success Then
+                                                    Select Case Match2.Groups(1).Value.ToLower
+                                                        Case "identify"
+                                                            IRCClient.SpeakToServer(String.Format("IDENTIFY {0}", Match2.Groups(2).Value), "NICKSERV")
+                                                        Case "register"
+                                                            IRCClient.SpeakToServer(String.Format("REGISTER {0} {1}", Match2.Groups(2).Value, Match2.Groups(3).Value), "NICKSERV")
+                                                    End Select
+                                                End If
+                                            Case "msg"
+                                                Dim Match2 As Match = Regex.Match(Match.Groups(2).Value, "([^\s]+)\s([^\n]+)", RegexOptions.IgnoreCase)
+                                                If Match2.Success Then
+                                                    IRCClient.Speak(Match2.Groups(3).Value, Match2.Groups(2).Value)
+                                                End If
                                             Case "users", "u"
                                                 If Core.IRCClient.Channels.ContainsKey(Channel) Then
                                                     Dim TempNick As String = ""
@@ -4006,6 +4055,9 @@ Public Module CoreModule
                                             Send = False
                                             Exit Sub
                                         End If
+                                    ElseIf Regex.IsMatch(ChatMessage.Destinatary, "^(.*)@irc$", RegexOptions.IgnoreCase) Then
+                                        IRCClient.Speak(ChatMessage.Message, ChatMessage.Destinatary.Substring(0, ChatMessage.Destinatary.Length - 4))
+                                        Exit Sub
                                     End If
                                     bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
                                 Case MessageType.Channel
@@ -4075,6 +4127,8 @@ Public Module CoreModule
                         End If
                     Case &H64, &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D, &H6F, &H70, &H71, &H72
                         LastActivity = Date.Now
+                    Case Else
+                        'ConsoleWrite(BytesToStr(bytBuffer))
                 End Select
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -4419,6 +4473,11 @@ Public Module CoreModule
                             Word = GetWord(bytBuffer, Pos)
                             Pos += Word 'channel name
                         Case &HAD 'open private
+                            'ConsoleWrite(BytesToStr(bytBuffer))
+                            'Dim Nick As String = GetString(bytBuffer, Pos)
+                            'If Regex.IsMatch(Nick, "") Then
+                            'skip = False
+                            'End If
                             Word = GetWord(bytBuffer, Pos)
                             Pos += Word
                         Case &HB3 'close private
@@ -4432,6 +4491,7 @@ Public Module CoreModule
                         Case &HD4 'viplogout
                             Pos += 4
                         Case Else
+
 #If TRACE Then
                             'Trace.WriteLine("FromServer: " & Hex(PacketID) & " @ Pos " & (Pos - 1) & vbCrLf & "->" & BytesToStr(bytBuffer, Pos - 1))
 #End If
