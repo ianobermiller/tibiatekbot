@@ -1297,6 +1297,7 @@ Public Module CoreModule
                 Do
                     If Container.IsOpened Then
                         If Not Container.GetName.StartsWith("Dead") AndAlso Not Container.GetName.StartsWith("Slain") AndAlso Not Container.GetName.StartsWith("Bag") AndAlso Not Container.GetName.StartsWith("Remains") Then Continue Do
+                        System.Threading.Thread.Sleep(Consts.LootDelay)
                         If Container.GetName.StartsWith("Bag") AndAlso Container.GetContainerIndex < &HF Then Continue Do
                         ContainerItemCount = Container.GetItemCount
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1
@@ -1304,6 +1305,7 @@ Public Module CoreModule
                             If CaveBotTimerObj.State = ThreadTimerState.Running Then
                                 If CavebotForm.EatFromCorpses.Checked AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
+                                    System.Threading.Thread.Sleep(Consts.LootDelay)
                                 End If
                                 If CavebotForm.LootFromCorpses.Checked Then
                                     If Not Consts.UnlimitedCapacity Then
@@ -1317,6 +1319,7 @@ Public Module CoreModule
                             ElseIf CaveBotTimerObj.State = ThreadTimerState.Stopped Then
                                 If Consts.LootEatFromCorpse AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
+                                    System.Threading.Thread.Sleep(Consts.LootDelay)
                                 End If
                             End If
                             Item = Container.Items(I)
@@ -1348,12 +1351,12 @@ Public Module CoreModule
                                                 If Item2.Count = 100 Then Continue For 'already fully stacked, next please..
                                                 If Item2.ID = Item.ID Then
                                                     Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, remainingCount)))
+                                                    System.Threading.Thread.Sleep(Consts.LootDelay)
                                                     remainingCount = remainingCount - Min(100 - Item2.Count, remainingCount)
-                                                    System.Threading.Thread.Sleep(Consts.LootDelay / 2)
                                                 End If
                                             Next
                                         End If
-                                    Loop While Container2.NextContainer And remainingCount > 0
+                                    Loop While Container2.NextContainer() And remainingCount > 0
                                 End If
                                 If remainingCount > 0 Then
                                     Container2.Reset()
@@ -1371,13 +1374,17 @@ Public Module CoreModule
                                                 Loc.Y = &H40 + Container2.GetContainerIndex()
                                                 Loc.Z = Container2.GetContainerSize - 1
                                                 Proxy.SendPacketToServer(MoveObject(Item, Loc, remainingCount))
+                                                System.Threading.Thread.Sleep(Consts.LootDelay)
                                                 remainingCount = 0
                                             End If
                                         End If
-                                    Loop While Container2.NextContainer And remainingCount > 0
+                                    Loop While Container2.NextContainer() And remainingCount > 0
                                 End If
 
-                                If remainingCount > 0 Then Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack)))
+                                If remainingCount > 0 Then
+                                    Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack)))
+                                    System.Threading.Thread.Sleep(Consts.LootDelay)
+                                End If
                             End If
                         Next
                     End If
