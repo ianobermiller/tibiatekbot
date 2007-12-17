@@ -50,7 +50,7 @@
   <Const Name="AutoEaterSmartInterval" Value="60000" />
   <Const Name="AutoPickUpDelay" Value="2000" />
   <Const Name="HealersCheckInterval" Value="300" />
-  <Const Name="HealersAfterHealDelay" Value="300" />
+  <Const Name="HealersAfterHealDelay" Value="2000" />
   <Const Name="HotkeysCanEquipItems" Value="True" />
   <Const Name="SpellCasterInterval" Value="1000" />
   <Const Name="SpellCasterDelay" Value="4000" />
