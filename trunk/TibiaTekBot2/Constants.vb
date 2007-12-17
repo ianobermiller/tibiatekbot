@@ -781,7 +781,13 @@ Public Module ConstantsModule
         Haste = 64
         CombatSign = 128
         Drowning = 256
-        All = Poison Or Burnt Or Electrified Or Beer Or MagicShield Or Paralized Or Haste Or CombatSign Or Drowning
+        Freezing = 512
+        Dazzled = 1024
+        Cursed = 2048
+        All = Poison Or Burnt Or Electrified _
+            Or Beer Or MagicShield Or Paralized _
+            Or Haste Or CombatSign Or Drowning _
+            Or Freezing Or Dazzled Or Cursed
     End Enum
 
     Public Enum SysMessageType

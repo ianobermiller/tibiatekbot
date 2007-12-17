@@ -301,6 +301,13 @@ Module PacketUtils
         End Try
     End Sub
 
+    Public Function OpenPrivate(ByVal PlayerName As String) As Byte()
+        Dim bytbuffer(1) As Byte
+        AddByte(bytbuffer, &HAD)
+        AddString(bytbuffer, PlayerName)
+        Return bytbuffer
+    End Function
+
     Public Sub OpenChannel()
         Dim bytBuffer(1) As Byte
         AddByte(bytBuffer, &HAC)
