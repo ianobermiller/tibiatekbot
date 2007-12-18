@@ -1297,7 +1297,6 @@ Public Module CoreModule
                 Do
                     If Container.IsOpened Then
                         If Not Container.GetName.StartsWith("Dead") AndAlso Not Container.GetName.StartsWith("Slain") AndAlso Not Container.GetName.StartsWith("Bag") AndAlso Not Container.GetName.StartsWith("Remains") Then Continue Do
-                        System.Threading.Thread.Sleep(Consts.LootDelay)
                         If Container.GetName.StartsWith("Bag") AndAlso Container.GetContainerIndex < &HF Then Continue Do
                         ContainerItemCount = Container.GetItemCount
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1
@@ -1305,7 +1304,7 @@ Public Module CoreModule
                             If CaveBotTimerObj.State = ThreadTimerState.Running Then
                                 If CavebotForm.EatFromCorpses.Checked AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
-                                    System.Threading.Thread.Sleep(Consts.LootDelay / 2)
+                                    System.Threading.Thread.Sleep(110)
                                 End If
                                 If CavebotForm.LootFromCorpses.Checked Then
                                     If Not Consts.UnlimitedCapacity Then
@@ -1319,7 +1318,7 @@ Public Module CoreModule
                             ElseIf CaveBotTimerObj.State = ThreadTimerState.Stopped Then
                                 If Consts.LootEatFromCorpse AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
-                                    System.Threading.Thread.Sleep(Consts.LootDelay / 2)
+                                    System.Threading.Thread.Sleep(110)
                                 End If
                             End If
                             Item = Container.Items(I)
@@ -1350,12 +1349,12 @@ Public Module CoreModule
                                                 Item2 = Container2.Items(E)
                                                 If Item2.Count = 100 Then Continue For 'already fully stacked, next please..
                                                 If Item2.ID = Item.ID Then
-                                                    If (100 - Item2.Count) < remainingCount And Container2.GetItemCount < Container2.GetContainerSize Then
+                                                    If (100 - Item2.Count) < remainingCount AndAlso Container2.GetItemCount < Container2.GetContainerSize Then
                                                         Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, remainingCount))
                                                         System.Threading.Thread.Sleep(Consts.LootDelay)
                                                     Else
                                                         Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, remainingCount)))
-                                                        System.Threading.Thread.Sleep(Consts.LootDelay / 2)
+                                                        System.Threading.Thread.Sleep(110)
                                                         remainingCount = remainingCount - Min(100 - Item2.Count, remainingCount)
                                                     End If
                                                 End If
