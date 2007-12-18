@@ -1304,7 +1304,7 @@ Public Module CoreModule
                             If CaveBotTimerObj.State = ThreadTimerState.Running Then
                                 If CavebotForm.EatFromCorpses.Checked AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
-                                    System.Threading.Thread.Sleep(110)
+                                    System.Threading.Thread.Sleep(150)
                                 End If
                                 If CavebotForm.LootFromCorpses.Checked Then
                                     If Not Consts.UnlimitedCapacity Then
@@ -1318,7 +1318,7 @@ Public Module CoreModule
                             ElseIf CaveBotTimerObj.State = ThreadTimerState.Stopped Then
                                 If Consts.LootEatFromCorpse AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
-                                    System.Threading.Thread.Sleep(110)
+                                    System.Threading.Thread.Sleep(150)
                                 End If
                             End If
                             Item = Container.Items(I)
@@ -1354,7 +1354,7 @@ Public Module CoreModule
                                                         System.Threading.Thread.Sleep(Consts.LootDelay)
                                                     Else
                                                         Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, remainingCount)))
-                                                        System.Threading.Thread.Sleep(110)
+                                                        System.Threading.Thread.Sleep(150)
                                                         remainingCount = remainingCount - Min(100 - Item2.Count, remainingCount)
                                                     End If
                                                 End If
