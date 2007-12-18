@@ -540,7 +540,7 @@ Public Class IrcClient
                                                                 ElseIf Msg.StartsWith(Chr(1)) Then
                                                                     'dont do anything
                                                                 Else
-                                                                    RaiseEvent EventPrivateMessage(Destinatary, Msg)
+                                                                    RaiseEvent EventPrivateMessage(From, Msg)
                                                                 End If
                                                         End Select
                                                     End If
