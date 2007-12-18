@@ -333,6 +333,8 @@
 	<Item Name="Small Amethyst" Kind="Valuable" ID="HBD9"/>
 	<Item Name="Red Gem" Kind="Valuable" ID="HBDF"/>
 	<Item Name="Empty Potion Flask" Kind="FluidContainer" ID="H11D"/>
+	<Item Name="Strong Empty Potion Flask" Kind="FluidContainer" ID="H11B"/>
+	<Item Name="Great Empty Potion Flask" Kind="FluidContainer" ID="H11C"/>
 	<Item Name="Health Potion" Kind="Tool" ID="H10A"/>
 	<Item Name="Strong Health Potion" Kind="Tool" ID="HEC"/>
 	<Item Name="Great Health Potion" Kind="Tool" ID="HEF"/>
