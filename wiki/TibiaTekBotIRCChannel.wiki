@@ -58,7 +58,7 @@ You can also set a default nickname via the Constants Editor by modifying the _I
 
 == Quit the IRC Connection ==
 
-Type _/quit_
+Type _&irc quit_
 
 == Join Another Channel ==
 
@@ -76,29 +76,21 @@ Type _/me <action>_
 
 *Result:* _TTBHunter150 slaps Cameri around with a large trout_
 
-== Request Info from the TibiaTekBot IRC BOT ==
+== TibiaTekBot IRC BOT ==
 
 The TibiaTekBot IRC Bot is currently managed and developed by _angelbroz_. This IRC Bot is powered by TibiaTek.
 
-=== Character Information Lookup Command ===
+=== Information Request Commands ===
 
-If you're not using the TibiaTek Bot Built-In IRC Client and need to check a Character's Information use this command.
-
-Type _!char <Character Name>_
-
-*Example:* _!char Eternal Oblivion_
-
-*Result:* _TibiaTekBot: Eternal Oblivion / Lvl: 300 / Profession: Elite Knight / World: Amera / Sex: male / Residence: Liberty Bay / Guild membership: Bane of the Enshrined / Premium Account_
-
-=== Server Status Lookup Command ===
-
-Type _!server <Server Name>_
-
-*Example:* _!server Amera_
-
-*Result:* _TibiaTekBot: Amera is online with 763 players._
-
-*Note:* Only works for official servers.
+  * Character Information:  _!char <Character Name>_
+  * Server Status: _!server <ServerName>_
+  * Spell Information: _!server <Spell Name>_
+  * TibiaTek Team Members: _!team_
+  * Current TibiaTek Bot Version: _!version_
+  * TibiaTek Official Website: _!website_
+  * TibiaTek Community Forums: _!forums_
+  * Wiki Pages List Link: _!wiki_
+  * Issues List Link: _!issues_
 
 = Guidelines in full =
 
