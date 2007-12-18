@@ -3069,9 +3069,9 @@ Public Class frmMain
                 Select Case ManaPotionName.Text
                     Case "Mana Potion"
                         Core.ManaPotionId = Definitions.GetItemID("Mana Potion")
-                    Case "Mana Health Potion"
+                    Case "Strong Mana Potion"
                         Core.ManaPotionId = Definitions.GetItemID("Strong Mana Potion")
-                    Case "Mana Health Potion"
+                    Case "Great Mana Potion"
                         Core.ManaPotionId = Definitions.GetItemID("Great Mana Potion")
                     Case Else
                         MessageBox.Show("You must select the Mana Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
