@@ -226,8 +226,33 @@ Public Class frmMain
             RefreshAutoAttackerControls()
             RefreshPickuperControls()
             RefreshChangerControls()
+            RefreshDancerControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub RefreshDancerControls()
+        Try
+            DancerTrigger.Checked = Core.DancerTimerObj.State = ThreadTimerState.Running
+
+            If DancerTrigger.Checked Then
+                Select Case Core.DancerTimerObj.Interval
+                    Case 500
+                        DancerSpeed.Text = "Slow"
+                    Case 100
+                        DancerSpeed.Text = "Fast"
+                    Case 10
+                        DancerSpeed.Text = "Turbo"
+                    Case Else
+                        DancerSpeed.Text = "Unknown"
+                End Select
+                DancerSpeed.Enabled = False
+            Else
+                DancerSpeed.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -3082,5 +3107,27 @@ Public Class frmMain
 
     Private Sub HealPotionUseHp_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealPotionUseHp.CheckedChanged
         RefreshHealerControls()
+    End Sub
+
+    Private Sub DancerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DancerTrigger.CheckedChanged
+        Try
+            If DancerTrigger.Checked Then
+                If Core.DancerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                Select Case DancerSpeed.Text
+                    Case "Slow"
+                        Core.DancerTimerObj.Interval = 500
+                    Case "Fast"
+                        Core.DancerTimerObj.Interval = 100
+                    Case "Turbo"
+                        Core.DancerTimerObj.Interval = 10
+                End Select
+                Core.DancerTimerObj.StartTimer()
+            Else
+                Core.DancerTimerObj.StopTimer()
+            End If
+            RefreshDancerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class
