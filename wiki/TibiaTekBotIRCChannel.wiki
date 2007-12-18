@@ -84,7 +84,7 @@ The TibiaTekBot IRC Bot is currently managed and developed by _angelbroz_. This 
 
   * Character Information:  _!char <Character Name>_
   * Server Status: _!server <ServerName>_
-  * Spell Information: _!server <Spell Name>_
+  * Spell Information: _!spell <Spell Name>_
   * TibiaTek Team Members: _!team_
   * Current TibiaTek Bot Version: _!version_
   * TibiaTek Official Website: _!website_
