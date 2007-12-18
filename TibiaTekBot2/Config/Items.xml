@@ -20,6 +20,7 @@
     Boston, MA 02111-1307, USA.
 -->
 <Items>
+	<Item Name="Icicle" Kind="Tool" ID="HC56" />
     <Item Name="Blank" Kind="Tool" ID="HC4B"/>
 	<Item Name="Ultimate Healing" Kind="Rune" ID="HC58"/>
     <Item Name="Intense Healing" Kind="Rune" ID="HC50"/>

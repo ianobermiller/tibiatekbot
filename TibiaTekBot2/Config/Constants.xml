@@ -37,9 +37,9 @@
   <Const Name="LootWithCavebot" Value="True" />
   <Const Name="CavebotLootMinCap" Value="0" />
   <Const Name="CavebotAttackerRadius" Value="5.0" />
-  <Const Name="LootDelay" Value="500" />
+  <Const Name="LootDelay" Value="200" />
   <Const Name="LootInBag" Value="True" />
-  <Const Name="LootInBagDelay" Value="500" />
+  <Const Name="LootInBagDelay" Value="200" />
   <Const Name="LootEatFromCorpse" Value="True" />
   <Const Name="LootMaxDistance" Value="2.9" />
   <Const Name="AutoOpenBackpack" Value="True" />
@@ -62,7 +62,7 @@
   <Const Name="FPSWhenInactive" Value="1" />
   <Const Name="FPSWhenMinimized" Value="1" />
   <Const Name="FPSWhenHidden" Value="1" />
-  <Const Name="FlashTaskbarWhenMessaged" Value="False" />
+  <Const Name="FlashTaskbarWhenMessaged" Value="True" />
   <Const Name="FlashTaskbarWhenAlarmFires" Value="True" />
   <Const Name="StatsUploaderSaveOnDiskOnly" Value="False" />
   <Const Name="StatsUploaderUrl" Value="ftp.server.com" />
