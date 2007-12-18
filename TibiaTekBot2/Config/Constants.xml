@@ -128,7 +128,7 @@
   <Const Name="ptrGoToY" Value="H613BB0" /> 
   <Const Name="ptrGoToZ" Value="H613BAC" /> 
   <Const Name="ptrHotkeyBegin" Value="H7690E8" />
-  <Const Name="ptrStatusMessage" Value="H768458" /> 
+  <Const Name="ptrStatusMessage" Value="H76d928" /> 
   <Const Name="ptrStatusMessageTimer" Value="H76d924" /> 
   <Const Name="ptrCharacterListBegin" Value="H76C28C" />
   <Const Name="CharacterListDist" Value="H54" />
