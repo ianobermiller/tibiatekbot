@@ -1731,6 +1731,7 @@ Partial Class frmMain
         '
         'DancerSpeed
         '
+        Me.DancerSpeed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.DancerSpeed.FormattingEnabled = True
         Me.DancerSpeed.Items.AddRange(New Object() {resources.GetString("DancerSpeed.Items"), resources.GetString("DancerSpeed.Items1"), resources.GetString("DancerSpeed.Items2")})
         resources.ApplyResources(Me.DancerSpeed, "DancerSpeed")

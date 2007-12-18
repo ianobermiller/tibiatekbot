@@ -2517,8 +2517,6 @@ Public Module CoreModule
         End Sub
 #End Region
 
-
-
 #Region " Auto Drinker Timer "
 
         Private Sub ManaPotionTimerObj_Execute() Handles ManaPotionTimerObj.OnExecute
@@ -2540,7 +2538,6 @@ Public Module CoreModule
         End Sub
 
 #End Region
-
 
 #Region " CaveBot Timer "
         Public Function IsLooterReady() As Boolean
