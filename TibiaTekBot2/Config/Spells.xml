@@ -24,7 +24,7 @@
 	<Spell Name="Antidote"				Words="adana pox"			ManaPoints="200"	SoulPoints="1"	Kind="Rune"/>
 	<Spell Name="Intense Healing"		Words="adura gran"			ManaPoints="240"	SoulPoints="2"	Kind="Rune"/>
 	<Spell Name="Fire Field"			Words="adevo grav flam"		ManaPoints="240"	SoulPoints="1"	Kind="Rune"/>
-	<Spell Name="Light Magic Missile"	Words="adori"				ManaPoints="120"	SoulPoints="1"	Kind="Rune"/>
+	<Spell Name="Light Magic Missile"	Words="adori min vis"		ManaPoints="120"	SoulPoints="1"	Kind="Rune"/>
 	<Spell Name="Convince Creature"		Words="adeta sio"			ManaPoints="200"	SoulPoints="3"	Kind="Rune"/>
 	<Spell Name="Fireball"				Words="adori flam"			ManaPoints="160"	SoulPoints="2"	Kind="Rune"/>
 	<Spell Name="Destroy Field"			Words="adito grav"			ManaPoints="120"	SoulPoints="2"	Kind="Rune"/>
