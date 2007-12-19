@@ -2417,6 +2417,7 @@ Public Module CoreModule
                 End If
                 If HitPoints > UHHPRequired Then Exit Sub
                 UHTimerObj.Interval = Consts.HealersAfterHealDelay
+                Core.ConsoleWrite(Date.Now)
                 Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(UHID, CharacterLoc))
 
                 Log("Auto UHer", "Used UH on yourself.")
@@ -4346,7 +4347,7 @@ Public Module CoreModule
                             If Not (FromFound And ToFound) Then Continue While
                             'ConsoleWrite("Projectile type: " & Type.ToString & " (" & FromBL.GetName & "->" & ToBl.GetName & ") ")
                             If ComboBotEnabled Then
-                                If Type = 37 Then 'SD rune
+                                If Type = 32 Then 'SD rune
                                     If ComboBotLeader.ToLower = FromBL.GetName.ToLower Then
                                         Proxy.SendPacketToServer(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), ToBl.GetEntityID))
                                     End If
