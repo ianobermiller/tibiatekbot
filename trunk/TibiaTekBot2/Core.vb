@@ -1297,6 +1297,7 @@ Public Module CoreModule
                 Do
                     If Container.IsOpened Then
                         If Not Container.GetName.StartsWith("Dead") AndAlso Not Container.GetName.StartsWith("Slain") AndAlso Not Container.GetName.StartsWith("Bag") AndAlso Not Container.GetName.StartsWith("Remains") Then Continue Do
+                        System.Threading.Thread.Sleep(Consts.LootDelay)
                         If Container.GetName.StartsWith("Bag") AndAlso Container.GetContainerIndex < &HF Then Continue Do
                         ContainerItemCount = Container.GetItemCount
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1
@@ -1304,7 +1305,7 @@ Public Module CoreModule
                             If CaveBotTimerObj.State = ThreadTimerState.Running Then
                                 If CavebotForm.EatFromCorpses.Checked AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
-                                    System.Threading.Thread.Sleep(150)
+                                    System.Threading.Thread.Sleep(Consts.LootDelay)
                                 End If
                                 If CavebotForm.LootFromCorpses.Checked Then
                                     If Not Consts.UnlimitedCapacity Then
@@ -1318,7 +1319,7 @@ Public Module CoreModule
                             ElseIf CaveBotTimerObj.State = ThreadTimerState.Stopped Then
                                 If Consts.LootEatFromCorpse AndAlso Definitions.IsFood(Item.ID) Then
                                     Proxy.SendPacketToServer(UseObject(Item))
-                                    System.Threading.Thread.Sleep(150)
+                                    System.Threading.Thread.Sleep(Consts.LootDelay)
                                 End If
                             End If
                             Item = Container.Items(I)
@@ -1349,14 +1350,9 @@ Public Module CoreModule
                                                 Item2 = Container2.Items(E)
                                                 If Item2.Count = 100 Then Continue For 'already fully stacked, next please..
                                                 If Item2.ID = Item.ID Then
-                                                    If (100 - Item2.Count) < remainingCount AndAlso Container2.GetItemCount < Container2.GetContainerSize Then
-                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, remainingCount))
-                                                        System.Threading.Thread.Sleep(Consts.LootDelay)
-                                                    Else
-                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, remainingCount)))
-                                                        System.Threading.Thread.Sleep(150)
-                                                        remainingCount = remainingCount - Min(100 - Item2.Count, remainingCount)
-                                                    End If
+                                                    Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, remainingCount)))
+                                                    System.Threading.Thread.Sleep(Consts.LootDelay)
+                                                    remainingCount = remainingCount - Min(100 - Item2.Count, remainingCount)
                                                 End If
                                             Next
                                         End If
@@ -2417,7 +2413,6 @@ Public Module CoreModule
                 End If
                 If HitPoints > UHHPRequired Then Exit Sub
                 UHTimerObj.Interval = Consts.HealersAfterHealDelay
-                Core.ConsoleWrite(Date.Now)
                 Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(UHID, CharacterLoc))
 
                 Log("Auto UHer", "Used UH on yourself.")
@@ -3334,7 +3329,7 @@ Public Module CoreModule
 
         Public Sub IrcChannelSpeakOwner(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
-                Proxy.SendPacketToClient(CreatureSpeak("~" & Nick, MessageType.ChannelGM, 5, Message, 0, 0, 0, ChannelID))
+                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 5, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3350,7 +3345,7 @@ Public Module CoreModule
 
         Public Sub IrcChannelSpeakOperator(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
-                Proxy.SendPacketToClient(CreatureSpeak("@" & Nick, MessageType.ChannelGM, 4, Message, 0, 0, 0, ChannelID))
+                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 4, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3358,7 +3353,7 @@ Public Module CoreModule
 
         Public Sub IrcChannelSpeakHalfOperator(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
-                Proxy.SendPacketToClient(CreatureSpeak("%" & Nick, MessageType.ChannelTutor, 3, Message, 0, 0, 0, ChannelID))
+                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelTutor, 3, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3366,7 +3361,7 @@ Public Module CoreModule
 
         Public Sub IrcChannelSpeakVoiced(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
-                Proxy.SendPacketToClient(CreatureSpeak("+" & Nick, MessageType.ChannelTutor, 2, Message, 0, 0, 0, ChannelID))
+                Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelTutor, 2, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3569,14 +3564,14 @@ Public Module CoreModule
         Private Sub IrcClient_Notice(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventNotice
             Try
                 If Nick.Equals("dairc-bot", StringComparison.CurrentCultureIgnoreCase) Then Exit Sub
-                Core.Proxy.SendPacketToClient(CreatureSpeak(Nick & "@IRC", MessageType.PM, 5, Message, 0, 0, 0, ChannelType.Console))
+                Core.Proxy.SendPacketToClient(PacketUtils.CreatureSpeak(Nick & "@IRC", MessageType.PM, 5, Message, 0, 0, 0, ChannelType.Console))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
 
         Private Sub IrcClient_PrivateMessage(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventPrivateMessage
-            Core.Proxy.SendPacketToClient(PacketUtils.Speak(Message, Nick & "@IRC"))
+            Core.Proxy.SendPacketToClient(PacketUtils.CreatureSpeak(Nick & "@IRC", MessageType.PM, 5, Message, 0, 0, 0, ChannelType.Console))
         End Sub
 
         Private Sub IrcClient_Disconnected() Handles IRCClient.EventDisconnected
@@ -3603,15 +3598,15 @@ Public Module CoreModule
                 If IrcChannelIsOpened(Channel) Then
                     Select Case IRCClient.GetUserLevel(Nick, Channel)
                         Case 1
-                            IrcChannelSpeakVoiced(Nick, Message, IrcChannelNameToID(Channel))
+                            IrcChannelSpeakVoiced(Nick & "@IRC", Message, IrcChannelNameToID(Channel))
                         Case 2
-                            IrcChannelSpeakHalfOperator(Nick, Message, IrcChannelNameToID(Channel))
+                            IrcChannelSpeakHalfOperator(Nick & "@IRC", Message, IrcChannelNameToID(Channel))
                         Case 3
-                            IrcChannelSpeakOperator(Nick, Message, IrcChannelNameToID(Channel))
+                            IrcChannelSpeakOperator(Nick & "@IRC", Message, IrcChannelNameToID(Channel))
                         Case 4
-                            IrcChannelSpeakOwner(Nick, Message, IrcChannelNameToID(Channel))
+                            IrcChannelSpeakOwner(Nick & "@IRC", Message, IrcChannelNameToID(Channel))
                         Case Else
-                            IrcChannelSpeakNormal(Nick, Message, IrcChannelNameToID(Channel))
+                            IrcChannelSpeakNormal(Nick & "@IRC", Message, IrcChannelNameToID(Channel))
                     End Select
                 End If
             Catch Ex As Exception
@@ -4057,8 +4052,10 @@ Public Module CoreModule
                                             Send = False
                                             Exit Sub
                                         End If
-                                    ElseIf Regex.IsMatch(ChatMessage.Destinatary, "^(.*)@irc$", RegexOptions.IgnoreCase) Then
+                                    ElseIf Regex.IsMatch(ChatMessage.Destinatary, "^(.+)@irc$", RegexOptions.IgnoreCase) Then
+                                        Proxy.SendPacketToClient(PacketUtils.SystemMessage(SysMessageType.StatusSmall, "Message sent to " & ChatMessage.Destinatary & "."))
                                         IRCClient.Speak(ChatMessage.Message, ChatMessage.Destinatary.Substring(0, ChatMessage.Destinatary.Length - 4))
+                                        Send = False
                                         Exit Sub
                                     End If
                                     bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
@@ -4126,6 +4123,11 @@ Public Module CoreModule
                             Send = False
                             IRCClient.Join(ChannelName)
                             ConsoleWrite("Opening IRC Channel " & ChannelName & ".")
+                        Else
+                            If Regex.IsMatch(ChannelName, "^(.+)@IRC$", RegexOptions.IgnoreCase) Then
+                                Proxy.SendPacketToClient(OpenPrivate(ChannelName))
+                                Send = False
+                            End If
                         End If
                     Case &H64, &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D, &H6F, &H70, &H71, &H72
                         LastActivity = Date.Now
@@ -4347,7 +4349,7 @@ Public Module CoreModule
                             If Not (FromFound And ToFound) Then Continue While
                             'ConsoleWrite("Projectile type: " & Type.ToString & " (" & FromBL.GetName & "->" & ToBl.GetName & ") ")
                             If ComboBotEnabled Then
-                                If Type = 32 Then 'SD rune
+                                If Type = 37 Then 'SD rune
                                     If ComboBotLeader.ToLower = FromBL.GetName.ToLower Then
                                         Proxy.SendPacketToServer(PacketUtils.UseObjectOnPlayerAsHotkey(Definitions.GetItemID("Sudden Death"), ToBl.GetEntityID))
                                     End If
@@ -4482,6 +4484,12 @@ Public Module CoreModule
                             'End If
                             Word = GetWord(bytBuffer, Pos)
                             Pos += Word
+                            'Dim Name As String = ""
+                            'Name = 
+                            'GetString(bytBuffer, Pos)
+                            'If Regex.IsMatch(Name, "^[^@]+@irc$", RegexOptions.IgnoreCase) Then
+
+                            'End If
                         Case &HB3 'close private
                             Pos += 2
                         Case &HD2 'get new vip?
