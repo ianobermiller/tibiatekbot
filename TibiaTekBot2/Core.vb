@@ -532,7 +532,7 @@ Public Module CoreModule
                 UHTimerObj = New ThreadTimer(1000)
                 PotionTimerObj = New ThreadTimer(1000)
                 ManaPotionTimerObj = New ThreadTimer(1000)
-                AdvertiseTimerObj = New ThreadTimer(125000)
+                AdvertiseTimerObj = New ThreadTimer(121000)
                 EaterTimerObj = New ThreadTimer(0)
                 HealFriendTimerObj = New ThreadTimer(300)
                 ChatMessageQueueTimerObj = New ThreadTimer(2500)
@@ -546,14 +546,14 @@ Public Module CoreModule
                 HealTimerObj = New ThreadTimer(300)
                 HealPartyTimerObj = New ThreadTimer(300)
                 StatsUploaderTimerObj = New ThreadTimer()
-                LooterTimerObj = New ThreadTimer(500)
+                LooterTimerObj = New ThreadTimer(100)
                 StackerTimerObj = New ThreadTimer()
                 ShowInvisibleCreaturesTimerObj = New ThreadTimer(500)
                 AutoPublishLocationTimerObj = New ThreadTimer(Consts.AutoPublishLocationInterval)
                 RainbowOutfitTimerObj = New ThreadTimer(50)
                 Map = New MapReader()
                 FPSChangerTimerObj = New ThreadTimer(1000)
-                TibiaClientStateTimerObj = New ThreadTimer(1000)
+                TibiaClientStateTimerObj = New ThreadTimer(500)
                 AutoDrinkerTimerObj = New ThreadTimer(300)
                 CaveBotTimerObj = New ThreadTimer(100)
                 AutoAttackerTimerObj = New ThreadTimer(500)
@@ -1297,7 +1297,6 @@ Public Module CoreModule
                 Do
                     If Container.IsOpened Then
                         If Not Container.GetName.StartsWith("Dead") AndAlso Not Container.GetName.StartsWith("Slain") AndAlso Not Container.GetName.StartsWith("Bag") AndAlso Not Container.GetName.StartsWith("Remains") Then Continue Do
-                        System.Threading.Thread.Sleep(Consts.LootDelay)
                         If Container.GetName.StartsWith("Bag") AndAlso Container.GetContainerIndex < &HF Then Continue Do
                         ContainerItemCount = Container.GetItemCount
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1
@@ -1335,7 +1334,7 @@ Public Module CoreModule
                             If Item.ID = BrownBagID AndAlso Not BagOpened AndAlso Consts.LootInBag Then 'got bag!
                                 Proxy.SendPacketToServer(OpenContainer(Item, &HF))
                                 BagOpened = True
-                                System.Threading.Thread.Sleep(Consts.LootInBagDelay)
+                                'System.Threading.Thread.Sleep(Consts.LootInBagDelay)
                                 Exit Sub
                             End If
                             If LootItems.IsLootable(Item.ID) Then
@@ -1359,11 +1358,11 @@ Public Module CoreModule
                                                 If Item2.Count = 100 Then Continue For 'already fully stacked, next please..
                                                 If Item2.ID = Item.ID Then
                                                     If Item2.Count + Item.Count <= 100 Then
-                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location))
+                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, remainingCount))
                                                         System.Threading.Thread.Sleep(150)
                                                         remainingCount = 0
                                                     ElseIf Container2.GetItemCount < Container2.GetContainerSize Then
-                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location))
+                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, remainingCount))
                                                         System.Threading.Thread.Sleep(Consts.LootDelay)
                                                         remainingCount = 0
                                                     Else
@@ -1400,7 +1399,7 @@ Public Module CoreModule
                                 End If
 
                                 If remainingCount > 0 Then
-                                    Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack)))
+                                    Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), remainingCount))
                                     System.Threading.Thread.Sleep(Consts.LootDelay)
                                 End If
                             End If
