@@ -83,7 +83,7 @@
   <Const Name="WindowButton3Offset" Value="H34" />
   <Const Name="WindowButton4Offset" Value="H38" />
   <Const Name="ptrInGame" Value="H76c2c8" /> 
-  <Const Name="ptrFrameRateBegin" Value="H76793C" />
+  <Const Name="ptrFrameRateBegin" Value="H76CE0C" />
   <Const Name="ptrEnterOneNamePerLine" Value="H598670" />
   <Const Name="ptrForYourInformation" Value="H599990" />
   <Const Name="ptrCharacterSelectionIndex" Value="H76C288" />
