@@ -492,6 +492,7 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.TibiaTekBotMenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -675,7 +676,7 @@ Partial Class frmMain
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.AboutToolStripMenuItem, Me.HideToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem, Me.HideToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.MenuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
         Me.MenuStrip1.Name = "MenuStrip1"
@@ -3405,6 +3406,12 @@ Partial Class frmMain
         'Timer1
         '
         '
+        'TibiaTekBotMenuToolStripMenuItem
+        '
+        Me.TibiaTekBotMenuToolStripMenuItem.DropDown = Me.PopupMenu
+        Me.TibiaTekBotMenuToolStripMenuItem.Name = "TibiaTekBotMenuToolStripMenuItem"
+        resources.ApplyResources(Me.TibiaTekBotMenuToolStripMenuItem, "TibiaTekBotMenuToolStripMenuItem")
+        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -4019,4 +4026,5 @@ Partial Class frmMain
     Friend WithEvents HealSpellUseHP As System.Windows.Forms.RadioButton
     Friend WithEvents ManaPotionName As System.Windows.Forms.ComboBox
     Friend WithEvents RestoreManaWith As System.Windows.Forms.CheckBox
+    Friend WithEvents TibiaTekBotMenuToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
