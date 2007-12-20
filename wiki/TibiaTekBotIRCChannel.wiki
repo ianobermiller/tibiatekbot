@@ -13,6 +13,8 @@ Before asking a question, read below under the title "Before You Ask".
 
 You can connect to the TibiaTek Bot IRC Channel via TibiaTek Bot's built-in IRC client. By default, it connects and joins the channel automatically. You can disable automatic connecting and joining via changing the variables _IRCConnectOnStartUp_ and _IRCJoinAfterConnected_ respectively.
 
+When you login using the built-in IRC client TibiaTek Bot will autogenerate a nickname for you.
+
 To join from another client connect to the DeltaAnime IRC server at irc.deltaanime.net, channel #tibiatekbot. Here's a list of other [http://en.wikipedia.org/wiki/List_of_IRC_clients IRC Clients].
 
 = IRC User Types =
@@ -55,6 +57,12 @@ Type _/nick <nicknamehere>_
 *Note:* nicknames cannot contain spaces, use underscores or dashes (-) instead.
 
 You can also set a default nickname via the Constants Editor by modifying the _IRCNickname_ variable. Refer to the [ConstantsEditor Constants Editor] wiki page for reference on how to use it.
+
+== Send a Private Message ==
+
+To send a private message through IRC, you must remember that the name of the person is <IRCNickname>@IRC. Example: _SonicTTB@IRC_.
+
+*Important:* your Tibia Character Name cannot be seen by others, it's masked as <YourIRCNickname>@IRC for others. This also applies to your IP, it cannot be traced.
 
 == Quit the IRC Connection ==
 
