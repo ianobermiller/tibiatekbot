@@ -923,7 +923,7 @@ Public Class frmMain
                     CreateLoadXML()
                 End If
             Loop Until blIsValid = True
-            Me.NotifyIcon.Visible = False
+            'Me.NotifyIcon.Visible = False
             LoginSelectForm = New frmLoginSelectDialog()
             If LoginSelectForm.ShowDialog() <> Forms.DialogResult.OK Then End
             Core.Proxy = New PProxy2(strFilename, strDirectory)
