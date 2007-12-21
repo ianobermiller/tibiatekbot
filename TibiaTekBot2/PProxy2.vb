@@ -21,7 +21,7 @@ Imports System.ComponentModel, TibiaTekBot.Constants, TibiaTekBot.Winsock
 
 Public Class PProxy2
 
-
+    Public LastAction As Long
 
     Public WithEvents Client As Process
     Private GamePort As UInt16
@@ -94,6 +94,7 @@ Public Class PProxy2
 
     Public Sub SendPacketToServer(ByVal bytBuffer() As Byte)
         Try
+            LastAction = Date.Now.Ticks
             If sckGS.GetState = Winsock.WinsockStates.Connected Then
                 If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
                     ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
