@@ -94,7 +94,12 @@ Public Class PProxy2
 
     Public Sub SendPacketToServer(ByVal bytBuffer() As Byte)
         Try
-            LastAction = Date.Now.Ticks
+            SyncLock Me
+                While ((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond) < 100
+                    System.Threading.Thread.Sleep(((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond) + 10)
+                End While
+                LastAction = Date.Now.Ticks
+            End SyncLock
             If sckGS.GetState = Winsock.WinsockStates.Connected Then
                 If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
                     ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
