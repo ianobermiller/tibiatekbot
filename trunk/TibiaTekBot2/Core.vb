@@ -3765,12 +3765,15 @@ Public Module CoreModule
                 Select Case ID
                     Case &H1E 'ping
                     Case &H64 'Clicked Map or Ground, so Player Moving
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Exit Sub
                     Case &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D 'Player Moving
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Exit Sub
                     Case &H88 'go to parent
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
                         Dim MyContainer As New Container
@@ -3783,6 +3786,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H78 'move object
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Dim Source As LocationDefinition = GetLocation(bytBuffer, Pos)
                         Dim ItemID As UShort = GetWord(bytBuffer, Pos)
@@ -3835,6 +3839,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H82 'use item
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Dim Location As LocationDefinition = GetLocation(bytBuffer, Pos)
                         Dim ItemID As Integer = GetWord(bytBuffer, Pos)
@@ -3913,6 +3918,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H83 'Use Item With
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Pos += 2
                         Dim Cont As New ContainerItemDefinition
@@ -3940,9 +3946,11 @@ Public Module CoreModule
                             Walker_Waypoints.Add(WalkerChar)
                         End If
                     Case &H84 'Use hotkey
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Pos += 13
                     Case &H8A
+                        Proxy.LastAction = Date.Now.Ticks
                         Dim SpellID As Integer = GetByte(bytBuffer, Pos)
                         GetDWord(bytBuffer, Pos)
                         Select Case SpellID
@@ -3980,6 +3988,7 @@ Public Module CoreModule
 
                         End Select
                     Case &H96 'message
+                        Proxy.LastAction = Date.Now.Ticks
                         Dim Group1() As String = {"ad", "al", "ex", "ut"}
                         Dim Group2() As String = {"amo", "ana", "ani", "eta", "evo", "ito", "iva", "ori", "ura"}
                         LastActivity = Date.Now
@@ -4031,7 +4040,7 @@ Public Module CoreModule
                                                 End If
                                                 IrcChannelSpeakUnknown(IRCClient.Nick & " " & Match.Groups(2).Value, IrcChannelNameToID(Channel))
                                             Case "nickserv"
-                                                Dim Match2 As Match = Regex.Match(Match.Groups(2).Value, "(?:(identify)\s([^\s]+)|(register)\s([^\s]+)\s([^\s]+))",RegexOptions.IgnoreCase)
+                                                Dim Match2 As Match = Regex.Match(Match.Groups(2).Value, "(?:(identify)\s([^\s]+)|(register)\s([^\s]+)\s([^\s]+))", RegexOptions.IgnoreCase)
                                                 If Match2.Success Then
                                                     Select Case Match2.Groups(1).Value.ToLower
                                                         Case "identify"
@@ -4158,12 +4167,14 @@ Public Module CoreModule
                             Send = False
                         End If
                     Case &H98 ' Requesting console through Channel List
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         If bytBuffer(3) = ConsoleChannelID Then
                             Send = False
                             OpenChannel()
                         End If
                     Case &H99 ' Closing channel
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         If bytBuffer(3) > ChannelType.IRCChannel AndAlso bytBuffer(3) <= ChannelType.IRCChannel + 40 Then
                             Dim ChannelID As Int16 = bytBuffer(3)
@@ -4174,6 +4185,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H9A ' Requesting console given a string
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Dim ChannelName As String = GetString(bytBuffer, 3)
                         If String.Compare(ChannelName, "console", True) = 0 Or String.Compare(ChannelName, ConsoleName, True) = 0 Then
@@ -4190,6 +4202,7 @@ Public Module CoreModule
                             End If
                         End If
                     Case &H64, &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D, &H6F, &H70, &H71, &H72
+                        Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                     Case Else
                         'ConsoleWrite(BytesToStr(bytBuffer))
