@@ -35,7 +35,7 @@
   <Const Name="DebugOnLog" Value="False" />
   <Const Name="ClearLogOnStartup" Value="True" />
   <Const Name="LootWithCavebot" Value="True" />
-  <Const Name="CavebotLootMinCap" Value="0" />
+  <Const Name="CavebotLootMinCap" Value="10" />
   <Const Name="CavebotAttackerRadius" Value="5.0" />
   <Const Name="LootDelay" Value="500" />
   <Const Name="LootInBag" Value="True" />
