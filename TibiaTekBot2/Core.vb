@@ -1362,7 +1362,7 @@ Public Module CoreModule
                         'Item = Containers(ActualIndex).Items(I)
                         If Item.ID = BrownBagID AndAlso Not BagOpened AndAlso Consts.LootInBag Then 'got bag!
                             Proxy.SendPacketToServer(OpenContainer(Item, &HF))
-                            MinWaitTime = 500
+                            MinWaitTime = 250
                             BagOpened = True
                             'System.Threading.Thread.Sleep(Consts.LootInBagDelay)
                             'Exit Sub
@@ -1389,20 +1389,20 @@ Public Module CoreModule
                                         If Item2.ID = Item.ID Then
                                             If Item2.Count + RemainingCount <= 100 Then
                                                 Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, RemainingCount))
-                                                MinWaitTime = 500
+                                                MinWaitTime = 250
                                                 Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                                 Containers(ActualIndex2).SetItemCount(Item2.Location.Z, Item2.Count + RemainingCount)
                                                 RemainingCount = 0
                                             ElseIf Containers(ActualIndex2).GetItemCount < Containers(ActualIndex2).GetContainerSize Then
                                                 Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, RemainingCount))
-                                                MinWaitTime = 500
+                                                MinWaitTime = 250
                                                 Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                                 Containers(ActualIndex2).SetItemCount(Item2.Location.Z, 100)
                                                 Containers(ActualIndex2).AddItem(Item.ID, (Item2.Count + RemainingCount) - 100)
                                                 RemainingCount = 0
                                             Else
                                                 Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, 100 - Item2.Count))
-                                                MinWaitTime = 500
+                                                MinWaitTime = 250
                                                 RemainingCount = RemainingCount - (100 - Item2.Count)
                                                 Containers(ActualIndex2).SetItemCount(Item2.Location.Z, 100)
                                             End If
@@ -1431,7 +1431,7 @@ Public Module CoreModule
                                         Loc.Y = &H40 + Containers(ActualIndex2).GetContainerIndex()
                                         Loc.Z = Containers(ActualIndex2).GetContainerSize - 1
                                         Proxy.SendPacketToServer(MoveObject(Item, Loc, RemainingCount))
-                                        MinWaitTime = 500
+                                        MinWaitTime = 250
                                         Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                         Containers(ActualIndex2).AddItem(Item.ID, RemainingCount)
                                         RemainingCount = 0
@@ -1441,7 +1441,7 @@ Public Module CoreModule
 
                             If RemainingCount > 0 Then
                                 Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), RemainingCount))
-                                MinWaitTime = 500
+                                MinWaitTime = 250
                                 Containers(ActualIndex).RemoveItem(Item.Location.Z)
                             End If
                         End If
