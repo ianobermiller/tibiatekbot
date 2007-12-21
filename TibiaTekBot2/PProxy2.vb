@@ -95,8 +95,8 @@ Public Class PProxy2
     Public Sub SendPacketToServer(ByVal bytBuffer() As Byte)
         Try
             SyncLock Me
-                While ((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond) < 100
-                    System.Threading.Thread.Sleep(((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond) + 10)
+                While ((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond) < 120
+                    System.Threading.Thread.Sleep(125 - ((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond))
                 End While
                 LastAction = Date.Now.Ticks
             End SyncLock

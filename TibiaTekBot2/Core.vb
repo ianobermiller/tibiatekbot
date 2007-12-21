@@ -322,7 +322,7 @@ Public Module CoreModule
         Public ReplacedContainer As Boolean = False
         Public WaitTime As DateTime
         Public LooterNextExecution As Long = 0
-        Public LootHasChanged As Boolean = True
+        Public LootHasChanged As Integer = 2
 
 
         Public FakingTitle As Boolean = False
@@ -1281,8 +1281,9 @@ Public Module CoreModule
 #Region " Auto Looter Timer "
 
         Private Sub LooterTimerObj_Execute() Handles LooterTimerObj.OnExecute
+            Dim MinWaitTime As Integer = 90
             Try
-                If LooterNextExecution > Date.Now.Ticks OrElse LootHasChanged = False Then
+                If LooterNextExecution > Date.Now.Ticks OrElse LootHasChanged = 0 Then
                     Exit Sub
                 End If
                 If Not InGame() Then Exit Sub
@@ -1292,7 +1293,7 @@ Public Module CoreModule
                         Exit Sub
                     End If
                 End If
-                LootHasChanged = False
+                LootHasChanged -= 1 'It is set to 2 so the looter has 2 chances.
                 Dim ActualItem As Integer
                 Dim ActualIndex As Integer
                 Dim ActualIndex2 As Integer
@@ -1361,7 +1362,7 @@ Public Module CoreModule
                         'Item = Containers(ActualIndex).Items(I)
                         If Item.ID = BrownBagID AndAlso Not BagOpened AndAlso Consts.LootInBag Then 'got bag!
                             Proxy.SendPacketToServer(OpenContainer(Item, &HF))
-                            'System.Threading.Thread.Sleep(125)
+                            MinWaitTime = 500
                             BagOpened = True
                             'System.Threading.Thread.Sleep(Consts.LootInBagDelay)
                             'Exit Sub
@@ -1388,22 +1389,22 @@ Public Module CoreModule
                                         If Item2.ID = Item.ID Then
                                             If Item2.Count + RemainingCount <= 100 Then
                                                 Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, RemainingCount))
+                                                MinWaitTime = 500
                                                 Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                                 Containers(ActualIndex2).SetItemCount(Item2.Location.Z, Item2.Count + RemainingCount)
-                                                'System.Threading.Thread.Sleep(125)
                                                 RemainingCount = 0
                                             ElseIf Containers(ActualIndex2).GetItemCount < Containers(ActualIndex2).GetContainerSize Then
                                                 Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, RemainingCount))
+                                                MinWaitTime = 500
                                                 Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                                 Containers(ActualIndex2).SetItemCount(Item2.Location.Z, 100)
                                                 Containers(ActualIndex2).AddItem(Item.ID, (Item2.Count + RemainingCount) - 100)
-                                                'System.Threading.Thread.Sleep(125)
                                                 RemainingCount = 0
                                             Else
                                                 Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, 100 - Item2.Count))
+                                                MinWaitTime = 500
                                                 RemainingCount = RemainingCount - (100 - Item2.Count)
                                                 Containers(ActualIndex2).SetItemCount(Item2.Location.Z, 100)
-                                                'System.Threading.Thread.Sleep(125)
                                             End If
                                         End If
                                         If RemainingCount = 0 Then
@@ -1430,9 +1431,9 @@ Public Module CoreModule
                                         Loc.Y = &H40 + Containers(ActualIndex2).GetContainerIndex()
                                         Loc.Z = Containers(ActualIndex2).GetContainerSize - 1
                                         Proxy.SendPacketToServer(MoveObject(Item, Loc, RemainingCount))
+                                        MinWaitTime = 500
                                         Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                         Containers(ActualIndex2).AddItem(Item.ID, RemainingCount)
-                                        'System.Threading.Thread.Sleep(125)
                                         RemainingCount = 0
                                     End If
                                 Next ActualIndex2
@@ -1440,8 +1441,8 @@ Public Module CoreModule
 
                             If RemainingCount > 0 Then
                                 Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), RemainingCount))
+                                MinWaitTime = 500
                                 Containers(ActualIndex).RemoveItem(Item.Location.Z)
-                                'System.Threading.Thread.Sleep(125)
                             End If
                         End If
                     Next
@@ -1449,7 +1450,7 @@ Public Module CoreModule
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
-            LooterNextExecution = Date.Now.Ticks + TimeSpan.TicksPerMillisecond * 90
+            LooterNextExecution = Date.Now.Ticks + TimeSpan.TicksPerMillisecond * MinWaitTime
         End Sub
 
 #End Region
@@ -4357,7 +4358,7 @@ Public Module CoreModule
                         Case &H6D 'move creature
                             Pos += 11 'loc + Integer + loc
                         Case &H6E 'get container = Container is opened by server and sent to client.
-                            LootHasChanged = True
+                            LootHasChanged = 2
                             Pos += 3 'container index, itemid
                             Word = GetWord(bytBuffer, Pos)
                             Pos += Word + 2 'name,size,hasparent
