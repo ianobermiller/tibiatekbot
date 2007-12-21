@@ -321,6 +321,8 @@ Public Module CoreModule
         Public LooterLoc As LocationDefinition
         Public ReplacedContainer As Boolean = False
         Public WaitTime As DateTime
+        Public LooterNextExecution As Long = 0
+        Public LootHasChanged As Boolean = True
 
 
         Public FakingTitle As Boolean = False
@@ -1280,135 +1282,174 @@ Public Module CoreModule
 
         Private Sub LooterTimerObj_Execute() Handles LooterTimerObj.OnExecute
             Try
+                If LooterNextExecution > Date.Now.Ticks OrElse LootHasChanged = False Then
+                    Exit Sub
+                End If
                 If Not InGame() Then Exit Sub
                 If Not Consts.UnlimitedCapacity Then
                     Core.ReadMemory(Consts.ptrCapacity, Capacity, 2)
-                    If Capacity <= LooterMinimumCapacity Then Exit Sub
+                    If Capacity <= LooterMinimumCapacity Then
+                        Exit Sub
+                    End If
                 End If
+                LootHasChanged = False
+                Dim ActualItem As Integer
+                Dim ActualIndex As Integer
+                Dim ActualIndex2 As Integer
                 Dim Container As New Container
-                Dim Container2 As New Container
                 Dim Item As ContainerItemDefinition
+                Container.Reset()
+                Dim Containers() As InternalContainer = {New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer}
+                Do
+                    If Container.IsOpened() Then
+                        ActualIndex = Container.GetContainerIndex()
+                        Containers(ActualIndex).SetSize(Container.GetContainerSize())
+                        Containers(ActualIndex).Index = ActualIndex
+                        Containers(ActualIndex).ItemCount = Container.GetItemCount()
+                        Containers(ActualIndex).ID = Container.GetContainerID()
+                        Containers(ActualIndex).Name = Container.GetName()
+                        Containers(ActualIndex).Parent = Container.HasParent()
+                        For ActualItem = Container.GetItemCount() - 1 To 0 Step -1
+                            Containers(ActualIndex).SetItem(ActualItem, Container.Items(ActualItem))
+                        Next ActualItem
+                    End If
+                Loop While Container.NextContainer()
                 Dim Item2 As ContainerItemDefinition
                 Dim ContainerItemCount As Integer
                 Dim ContainerItemCount2 As Integer
                 Dim Found As Boolean = False
                 Dim BrownBagID As UShort = Definitions.GetItemID("Brown Bag")
-                Container.Reset()
-                Do
-                    If Container.IsOpened Then
-                        If Not Container.GetName.StartsWith("Dead") AndAlso Not Container.GetName.StartsWith("Slain") AndAlso Not Container.GetName.StartsWith("Bag") AndAlso Not Container.GetName.StartsWith("Remains") Then Continue Do
-                        If Container.GetName.StartsWith("Bag") AndAlso Container.GetContainerIndex < &HF Then Continue Do
-                        ContainerItemCount = Container.GetItemCount
-                        For I As Integer = ContainerItemCount - 1 To 0 Step -1
-                            Item = Container.Items(I)
-                            If CaveBotTimerObj.State = ThreadTimerState.Running Then
-                                If CavebotForm.EatFromCorpses.Checked AndAlso Definitions.IsFood(Item.ID) Then
-                                    Proxy.SendPacketToServer(UseObject(Item))
-                                    If Item.Count > 1 Then
-                                        System.Threading.Thread.Sleep(150)
-                                    Else
-                                        System.Threading.Thread.Sleep(Consts.LootDelay)
-                                    End If
-                                End If
-                                If CavebotForm.LootFromCorpses.Checked Then
-                                    If Not Consts.UnlimitedCapacity Then
-                                        If Capacity < CInt(CavebotForm.LootMinimumCap.Value) Then
-                                            Exit Sub
-                                        End If
-                                    End If
-                                Else
-                                    Exit Sub
-                                End If
-                            ElseIf CaveBotTimerObj.State = ThreadTimerState.Stopped Then
-                                If Consts.LootEatFromCorpse AndAlso Definitions.IsFood(Item.ID) Then
-                                    Proxy.SendPacketToServer(UseObject(Item))
-                                    If Item.Count > 1 Then
-                                        System.Threading.Thread.Sleep(150)
-                                    Else
-                                        System.Threading.Thread.Sleep(Consts.LootDelay)
-                                    End If
-                                End If
-                            End If
-                            Item = Container.Items(I)
-                            If Item.ID = 0 Then Continue For
-                            If Item.ID = BrownBagID AndAlso Not BagOpened AndAlso Consts.LootInBag Then 'got bag!
-                                Proxy.SendPacketToServer(OpenContainer(Item, &HF))
-                                BagOpened = True
-                                'System.Threading.Thread.Sleep(Consts.LootInBagDelay)
-                                Exit Sub
-                            End If
-                            If LootItems.IsLootable(Item.ID) Then
-                                Dim remainingCount As Integer
-                                remainingCount = Max(Item.Count, 1)
-                                If DatInfo.GetInfo(Item.ID).IsStackable Then
-                                    Container2.Reset()
-                                    Do
-                                        'if its a corpse, or a brown bag that has a parent container
-                                        'this is NOT always true, but for the sake of simplicity...
-                                        If Container2.GetName.StartsWith("Dead") _
-                                            OrElse Container2.GetName.StartsWith("Slain") _
-                                            OrElse Container.GetName.StartsWith("Remains") _
-                                            OrElse (Container2.GetName.StartsWith("Bag") _
-                                            AndAlso Container2.HasParent _
-                                            AndAlso Container2.GetContainerID = BrownBagID) Then Continue Do
-                                        If Container2.IsOpened Then
-                                            ContainerItemCount2 = Container2.GetItemCount
-                                            For E As Integer = 0 To ContainerItemCount2 - 1
-                                                Item2 = Container2.Items(E)
-                                                If Item2.Count = 100 Then Continue For 'already fully stacked, next please..
-                                                If Item2.ID = Item.ID Then
-                                                    If Item2.Count + Item.Count <= 100 Then
-                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, remainingCount))
-                                                        System.Threading.Thread.Sleep(150)
-                                                        remainingCount = 0
-                                                    ElseIf Container2.GetItemCount < Container2.GetContainerSize Then
-                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, remainingCount))
-                                                        System.Threading.Thread.Sleep(Consts.LootDelay)
-                                                        remainingCount = 0
-                                                    Else
-                                                        Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, Min(100 - Item2.Count, remainingCount)))
-                                                        System.Threading.Thread.Sleep(150)
-                                                        remainingCount = remainingCount - Min(100 - Item2.Count, remainingCount)
-                                                    End If
-                                                End If
-                                            Next
-                                        End If
-                                    Loop While Container2.NextContainer() And remainingCount > 0
-                                End If
-                                If remainingCount > 0 Then
-                                    Container2.Reset()
-                                    Do
-                                        If Container2.GetName.StartsWith("Dead") _
-                                            OrElse Container2.GetName.StartsWith("Slain") _
-                                            OrElse Container.GetName.StartsWith("Remains") _
-                                            OrElse (Container2.GetName.StartsWith("Bag") _
-                                            AndAlso Container2.HasParent _
-                                            AndAlso Container2.GetContainerID = BrownBagID) Then Continue Do
-                                        If Container2.IsOpened Then
-                                            If Container2.GetItemCount < Container2.GetContainerSize Then
-                                                Dim Loc As LocationDefinition
-                                                Loc.X = &HFFFF
-                                                Loc.Y = &H40 + Container2.GetContainerIndex()
-                                                Loc.Z = Container2.GetContainerSize - 1
-                                                Proxy.SendPacketToServer(MoveObject(Item, Loc, remainingCount))
-                                                System.Threading.Thread.Sleep(Consts.LootDelay)
-                                                remainingCount = 0
+                For ActualIndex = 0 To 15
+                    If Containers(ActualIndex).ID = 0 Then Continue For
+                    If Not Containers(ActualIndex).GetName.StartsWith("Dead") _
+                    AndAlso Not Containers(ActualIndex).GetName.StartsWith("Slain") _
+                    AndAlso Not Containers(ActualIndex).GetName.StartsWith("Bag") _
+                    AndAlso Not Containers(ActualIndex).GetName.StartsWith("Remains") Then Continue For
+                    If Containers(ActualIndex).GetName.StartsWith("Bag") AndAlso Containers(ActualIndex).GetContainerIndex() < &HF Then Continue For
+                    ContainerItemCount = Containers(ActualIndex).GetItemCount()
+                    For I As Integer = ContainerItemCount - 1 To 0 Step -1
+                        Item = Containers(ActualIndex).Items(I)
+                        If Item.ID = 0 Then Continue For
+                        'If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                        '    If CavebotForm.EatFromCorpses.Checked AndAlso Definitions.IsFood(Item.ID) Then
+                        '        Proxy.SendPacketToServer(UseObject(Item))
+                        '        If Item.Count > 1 Then
+                        '            System.Threading.Thread.Sleep(125)
+                        '        Else
+                        '            System.Threading.Thread.Sleep(Consts.LootDelay)
+                        '        End If
+                        '    End If
+                        '    If CavebotForm.LootFromCorpses.Checked Then
+                        '        If Not Consts.UnlimitedCapacity Then
+                        '            If Capacity < CInt(CavebotForm.LootMinimumCap.Value) Then
+                        '                Exit Sub
+                        '            End If
+                        '        End If
+                        '    Else
+                        '        Exit Sub
+                        '    End If
+                        'ElseIf CaveBotTimerObj.State = ThreadTimerState.Stopped Then
+                        '    If Consts.LootEatFromCorpse AndAlso Definitions.IsFood(Item.ID) Then
+                        '        Proxy.SendPacketToServer(UseObject(Item))
+                        '        If Item.Count > 1 Then
+                        '            System.Threading.Thread.Sleep(125)
+                        '        Else
+                        '            System.Threading.Thread.Sleep(Consts.LootDelay)
+                        '        End If
+                        '    End If
+                        'End If
+                        'Item = Containers(ActualIndex).Items(I)
+                        If Item.ID = BrownBagID AndAlso Not BagOpened AndAlso Consts.LootInBag Then 'got bag!
+                            Proxy.SendPacketToServer(OpenContainer(Item, &HF))
+                            System.Threading.Thread.Sleep(125)
+                            BagOpened = True
+                            'System.Threading.Thread.Sleep(Consts.LootInBagDelay)
+                            'Exit Sub
+                        End If
+                        If LootItems.IsLootable(Item.ID) Then
+                            Dim RemainingCount As Integer
+                            RemainingCount = Max(Item.Count, 1)
+                            If DatInfo.GetInfo(Item.ID).IsStackable Then
+                                For ActualIndex2 = 0 To 15
+                                    If Containers(ActualIndex2).ID = 0 Then Continue For
+                                    'if its a corpse, or a brown bag that has a parent container
+                                    'this is NOT always true, but for the sake of simplicity...
+                                    If Containers(ActualIndex2).GetName.StartsWith("Dead") _
+                                        OrElse Containers(ActualIndex2).GetName.StartsWith("Slain") _
+                                        OrElse Containers(ActualIndex2).GetName.StartsWith("Remains") _
+                                        OrElse (Containers(ActualIndex2).GetName.StartsWith("Bag") _
+                                        AndAlso Containers(ActualIndex2).HasParent _
+                                        AndAlso Containers(ActualIndex2).GetContainerID = BrownBagID) Then Continue For
+                                    ContainerItemCount2 = Containers(ActualIndex2).GetItemCount()
+                                    For E As Integer = 0 To ContainerItemCount2 - 1
+                                        Item2 = Containers(ActualIndex2).Items(E)
+                                        If Item2.ID = 0 Then Continue For
+                                        If Item2.Count = 100 Then Continue For 'already fully stacked, next please..
+                                        If Item2.ID = Item.ID Then
+                                            If Item2.Count + RemainingCount <= 100 Then
+                                                Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, RemainingCount))
+                                                Containers(ActualIndex).RemoveItem(Item.Location.Z)
+                                                Containers(ActualIndex2).SetItemCount(Item2.Location.Z, Item2.Count + RemainingCount)
+                                                System.Threading.Thread.Sleep(125)
+                                                RemainingCount = 0
+                                            ElseIf Containers(ActualIndex2).GetItemCount < Containers(ActualIndex2).GetContainerSize Then
+                                                Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, RemainingCount))
+                                                Containers(ActualIndex).RemoveItem(Item.Location.Z)
+                                                Containers(ActualIndex2).SetItemCount(Item2.Location.Z, 100)
+                                                Containers(ActualIndex2).AddItem(Item.ID, (Item2.Count + RemainingCount) - 100)
+                                                System.Threading.Thread.Sleep(125)
+                                                RemainingCount = 0
+                                            Else
+                                                Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, 100 - Item2.Count))
+                                                RemainingCount = RemainingCount - (100 - Item2.Count)
+                                                Containers(ActualIndex2).SetItemCount(Item2.Location.Z, 100)
+                                                System.Threading.Thread.Sleep(125)
                                             End If
                                         End If
-                                    Loop While Container2.NextContainer() And remainingCount > 0
-                                End If
-
-                                If remainingCount > 0 Then
-                                    Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), remainingCount))
-                                    System.Threading.Thread.Sleep(Consts.LootDelay)
-                                End If
+                                        If RemainingCount = 0 Then
+                                            Exit For
+                                        End If
+                                    Next
+                                    If RemainingCount = 0 Then
+                                        Exit For
+                                    End If
+                                Next ActualIndex2
                             End If
-                        Next
-                    End If
-                Loop While Container.NextContainer()
+                            If RemainingCount > 0 Then
+                                For ActualIndex2 = 0 To 15
+                                    If Containers(ActualIndex2).ID = 0 Then Continue For
+                                    If Containers(ActualIndex2).GetName.StartsWith("Dead") _
+                                        OrElse Containers(ActualIndex2).GetName.StartsWith("Slain") _
+                                        OrElse Containers(ActualIndex2).GetName.StartsWith("Remains") _
+                                        OrElse (Containers(ActualIndex2).GetName.StartsWith("Bag") _
+                                        AndAlso Containers(ActualIndex2).HasParent _
+                                        AndAlso Containers(ActualIndex2).GetContainerID = BrownBagID) Then Continue For
+                                    If Containers(ActualIndex2).GetItemCount < Containers(ActualIndex2).GetContainerSize Then
+                                        Dim Loc As LocationDefinition
+                                        Loc.X = &HFFFF
+                                        Loc.Y = &H40 + Containers(ActualIndex2).GetContainerIndex()
+                                        Loc.Z = Containers(ActualIndex2).GetContainerSize - 1
+                                        Proxy.SendPacketToServer(MoveObject(Item, Loc, RemainingCount))
+                                        Containers(ActualIndex).RemoveItem(Item.Location.Z)
+                                        Containers(ActualIndex2).AddItem(Item.ID, RemainingCount)
+                                        System.Threading.Thread.Sleep(125)
+                                        RemainingCount = 0
+                                    End If
+                                Next ActualIndex2
+                            End If
+
+                            If RemainingCount > 0 Then
+                                Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), RemainingCount))
+                                Containers(ActualIndex).RemoveItem(Item.Location.Z)
+                                System.Threading.Thread.Sleep(125)
+                            End If
+                        End If
+                    Next
+                Next ActualIndex
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
+            LooterNextExecution = Date.Now.Ticks + TimeSpan.TicksPerMillisecond * 90
         End Sub
 
 #End Region
@@ -4302,7 +4343,8 @@ Public Module CoreModule
                             Pos += 6 'loc + Integer
                         Case &H6D 'move creature
                             Pos += 11 'loc + Integer + loc
-                        Case &H6E 'get container
+                        Case &H6E 'get container = Container is opened by server and sent to client.
+                            LootHasChanged = True
                             Pos += 3 'container index, itemid
                             Word = GetWord(bytBuffer, Pos)
                             Pos += Word + 2 'name,size,hasparent
