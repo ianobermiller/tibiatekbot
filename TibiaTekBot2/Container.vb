@@ -393,4 +393,126 @@ Public Module ContainerModule
 
     End Class
 
+    Public Class InternalContainer
+        Public Index As Integer = 0
+        Public ItemCount As Integer = 0
+        Public Size As Integer = 0
+        Public ID As Integer = 0
+        Public Name As String = ""
+        Public Parent As Boolean = False
+        Public Item(19) As ContainerItemDefinition
+
+        Public Sub SetSize(ByVal NewSize As Integer)
+            ReDim Item(NewSize)
+            For I As Integer = 0 To NewSize
+                Item(I).ID = 0
+            Next
+            Size = NewSize
+        End Sub
+
+        Public ReadOnly Property GetName() As String
+            Get
+                Try
+                    Return Name
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property GetItemCount() As Integer
+            Get
+                Try
+                    Return ItemCount
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property GetContainerSize() As Integer
+            Get
+                Try
+                    Return Size
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property GetContainerID() As Integer
+            Get
+                Try
+                    Return ID
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property HasParent() As Boolean
+            Get
+                Try
+                    Return Parent
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property GetContainerIndex() As Integer
+            Get
+                Return Index
+            End Get
+        End Property
+
+        Public ReadOnly Property Items(ByVal GetIndex As Integer) As ContainerItemDefinition
+            Get
+                Try
+                    Return Item(GetIndex)
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
+
+        Public Sub SetItem(ByVal InsertIndex As Integer, ByVal ToInsertItem As ContainerItemDefinition)
+            Item(InsertIndex) = ToInsertItem
+        End Sub
+
+        Public Sub AddItem(ByVal ID As UShort, ByVal Count As Integer)
+            For ActualItem As Integer = ItemCount - 1 To 0 Step -1
+                Item(ActualItem).Slot += 1
+                SetItem(ActualItem + 1, Item(ActualItem))
+            Next ActualItem
+            Dim NewItem As ContainerItemDefinition
+            NewItem.ID = ID
+            NewItem.Count = Count
+            NewItem.ContainerIndex = Index
+            NewItem.Slot = 0
+            SetItem(0, NewItem)
+            ItemCount += 1
+        End Sub
+
+        Public Sub RemoveItem(ByVal ItemSlot As Integer)
+            Item(ItemSlot).ID = 0
+            For ActualItem As Integer = ItemSlot + 1 To ItemCount - 1
+                Item(ActualItem).Slot -= 1
+                SetItem(ActualItem - 1, Item(ActualItem))
+            Next ActualItem
+            ItemCount -= 1
+        End Sub
+
+        Public Sub SetItemCount(ByVal ItemSlot As Integer, ByVal _Count As Integer)
+            Item(ItemSlot).Count = _Count
+        End Sub
+
+    End Class
+
 End Module
