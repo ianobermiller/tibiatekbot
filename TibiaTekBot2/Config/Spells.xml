@@ -20,7 +20,6 @@
 	Boston, MA 02111-1307, USA.
 -->
 <Spells>
-	<!-- Runes -->
 	<Spell Name="Antidote"				Words="adana pox"			ManaPoints="200"	SoulPoints="1"	Kind="Rune"/>
 	<Spell Name="Avalanche"				Words="adori mas frigo"		ManaPoints="600"	SoulPoints="3"	Kind="Rune"/>
 	<Spell Name="Chameleon"				Words="adevo ina"			ManaPoints="600"	SoulPoints="2"	Kind="Rune"/>
@@ -51,7 +50,7 @@
 	<Spell Name="Sudden Death"			Words="adori gran mort"		ManaPoints="985"	SoulPoints="5"	Kind="Rune"/>
 	<Spell Name="Thunderstorm"			Words="adori mas vis"		ManaPoints="430"	SoulPoints="3"	Kind="Rune"/>
 	<Spell Name="Ultimate Healing"		Words="adura vita"			ManaPoints="400"	SoulPoints="3"	Kind="Rune"/>
-	<!-- General -->
+
 	<Spell Name="Antidote"				Words="exana pox"			ManaPoints="30"		SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Find Person"			Words="exiva"				ManaPoints="20"		SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Great Light"			Words="utevo gran lux"		ManaPoints="60"		SoulPoints="0"	Kind="Support"/>
@@ -60,7 +59,7 @@
 	<Spell Name="Levitate Down"			Words="exani hur down"		ManaPoints="50"		SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Magic Rope"			Words="exani tera"			ManaPoints="20"		SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Ultimate Light"		Words="utevo vis lux"		ManaPoints="140"	SoulPoints="0"	Kind="Support"/>
-	<!-- Paladin -->
+
 	<Spell Name="Arrow"					Words="exevo con"			ManaPoints="100"	SoulPoints="1"	Kind="Ammunition"/>
 	<Spell Name="Bolt"					Words="exevo con mort"		ManaPoints="140"	SoulPoints="2"	Kind="Ammunition"/>
 	<Spell Name="Enchant Spear"			Words="exeta con"			ManaPoints="350"	SoulPoints="3"	Kind="Incantation"/>
@@ -73,14 +72,13 @@
 	<Spell Name="Divine Caldera"		Words="exevo mas san"		ManaPoints="160"	SoulPoints="0"	Kind="Offensive"/>
 	<Spell Name="Divine Healing"		Words="exura san"			ManaPoints="210"	SoulPoints="0"	Kind="Healing"/>
 	<Spell Name="Devine Missile"		Words="exori san"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive"/>
-	<!-- Knight -->
 	<Spell Name="Berserk"				Words="exori"				ManaPoints="115"	SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Challenge"				Words="exeta res"			ManaPoints="30"		SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Fierce Berserk"		Words="exori gran"			ManaPoints="340"	SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Groundshaker"			Words="exori mas"			ManaPoints="160"	SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Whirlwind Throw"		Words="exori hur"			ManaPoints="40"		SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Wound Cleansing"		Words="exana mort"			ManaPoints="65"		SoulPoints="0"	Kind="Healing"/>
-	<!-- Druid & Sorcerer -->
+	
 	<Spell Name="Cancel Invisibility"	Words="exana ina"			ManaPoints="200"	SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Create Food"			Words="exevo pan"			ManaPoints="120"	SoulPoints="1"	Kind="Food"/>
 	<Spell Name="Creature Illusion"		Words="utevo res ina"		ManaPoints="100"	SoulPoints="0"	Kind="Support"/>
