@@ -92,15 +92,18 @@ Public Class PProxy2
     End Property
 #End Region
 
-    Public Sub SendPacketToServer(ByVal bytBuffer() As Byte)
+    Public Sub SendPacketToServer(ByVal bytBuffer() As Byte, Optional ByVal DirectTransfer As Boolean = True)
         Try
-            'The Synclock doesn't seem to be very good though, probably interrupting the proxy
-            'SyncLock Me
-            While ((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond) < 120
-                System.Threading.Thread.Sleep(125 - ((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond))
-            End While
-            LastAction = Date.Now.Ticks
-            'End SyncLock
+            If DirectTransfer = False Then
+                SyncLock Me
+                    While ((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond) < 120
+                        System.Threading.Thread.Sleep(125 - ((Date.Now.Ticks - LastAction) / TimeSpan.TicksPerMillisecond))
+                    End While
+                    LastAction = Date.Now.Ticks
+                End SyncLock
+            Else
+                LastAction = Date.Now.Ticks
+            End If
             If sckGS.GetState = Winsock.WinsockStates.Connected Then
                 If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
                     ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
