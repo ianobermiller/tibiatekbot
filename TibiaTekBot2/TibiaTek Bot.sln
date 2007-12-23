@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Basic Express 2008
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TibiaTek Bot", "TibiaTek Bot.vbproj", "{C00CA9B5-72A8-4BE5-B78E-15E17A557922}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TibiaTek Bot Scripting Assembly", "..\TibiaTekBot Scripting Assembly\TibiaTek Bot Scripting Assembly.vbproj", "{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Public|Any CPU = Public|Any CPU
+		Public|x86 = Public|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Debug|x86.ActiveCfg = Debug|x86
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Debug|x86.Build.0 = Debug|x86
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Public|Any CPU.ActiveCfg = Public|Any CPU
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Public|Any CPU.Build.0 = Public|Any CPU
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Public|x86.ActiveCfg = Public|x86
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Public|x86.Build.0 = Public|x86
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Release|x86.ActiveCfg = Release|x86
+		{C00CA9B5-72A8-4BE5-B78E-15E17A557922}.Release|x86.Build.0 = Release|x86
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Public|Any CPU.ActiveCfg = Release|Any CPU
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Public|Any CPU.Build.0 = Release|Any CPU
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Public|x86.ActiveCfg = Release|Any CPU
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
