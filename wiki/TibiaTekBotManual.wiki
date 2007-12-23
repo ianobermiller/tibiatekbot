@@ -113,7 +113,7 @@ better for every new version.
 
 === A. Forum ===
 
-Join the TibiaTek Community Forum at [http://www.tibiatek.com/forums/].
+Join the TibiaTek Community Forum at [http://forums.tibiatek.com/].
 
 === B. [TibiaTekBot TibiaTek Bot] IRC Channel ===
 
