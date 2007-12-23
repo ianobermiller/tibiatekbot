@@ -164,6 +164,7 @@ Public Module CoreModule
         Public WithEvents TTMessagesTimerObj As ThreadTimer
         Public WithEvents MagicWallTimerObj As ThreadTimer
         Public WithEvents DancerTimerObj As ThreadTimer
+        Public WithEvents AmmoMakerTimerObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -341,6 +342,10 @@ Public Module CoreModule
 
         Public PotionHPRequired As Integer = 0
         Public PotionID As Integer = 0
+
+        Public AmmoMakerMinCap As Integer = 0
+        Public AmmoMakerMinMana As Integer = 0
+        Public AmmoMakerSpell As SpellDefinition
 #End Region
 
 #Region " Initialization"
@@ -405,6 +410,7 @@ Public Module CoreModule
                 MagicWallTimerObj = New ThreadTimer(300)
                 MagicWalls = New List(Of MagicWallDefinition)
                 DancerTimerObj = New ThreadTimer()
+                AmmoMakerTimerObj = New ThreadTimer(1000)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -3194,6 +3200,114 @@ Public Module CoreModule
 
 #End Region
 
+#End Region
+
+#Region " Ammo Maker Timer "
+        Private Sub AmmoMakerTimerObj_Execute() Handles AmmoMakerTimerObj.OnExecute
+            Try
+                If Not Client.IsConnected Then Exit Sub
+                If Capacity < AmmoMakerMinCap Then Exit Sub
+                If ManaPoints < AmmoMakerMinMana OrElse ManaPoints < AmmoMakerSpell.ManaPoints Then Exit Sub
+
+                Select Case AmmoMakerSpell.Kind
+                    Case SpellKind.Ammunition
+                        Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
+                    Case SpellKind.Incantation
+                        Dim SlotToUse As New InventorySlots
+                        Dim LeftHandSlot As Integer = 0
+                        Dim RightHandSlot As Integer = 0
+                        Dim Spear As New ContainerItemDefinition
+                        Dim Retries As Integer = 0
+                        Dim TempSlot As Integer = 0
+
+                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.LeftHand - 1) * Consts.ItemDist), LeftHandSlot, 2)
+                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                        If LeftHandSlot = 0 Then
+                            SlotToUse = InventorySlots.LeftHand
+                        ElseIf RightHandSlot = 0 Then
+                            SlotToUse = InventorySlots.RightHand
+                        Else
+                            Core.ConsoleError("Both hands are already in use. Please keep one hand free so Ammo Maker can move the Spear there. Ammo Maker is now stopped.")
+                            AmmoMakerMinMana = 0
+                            AmmoMakerMinCap = 0
+                            AmmoMakerTimerObj.StopTimer()
+                            Exit Sub
+                        End If
+
+                        If Not Container.FindItem(Spear, Definitions.GetItemID("Spear")) Then
+                            Core.ConsoleError("Ammo Maker couldn't find a spear. Ammo Maker is now stopped.")
+                            AmmoMakerMinMana = 0
+                            AmmoMakerMinCap = 0
+                            AmmoMakerTimerObj.StopTimer()
+                            Exit Sub
+                        End If
+                        'Moving spear to hand
+                        Retries = 0
+                        TempSlot = 0
+                        Do
+                            Retries += 1
+                            If Retries > 20 Then
+                                AmmoMakerMinMana = 0
+                                AmmoMakerMinCap = 0
+                                AmmoMakerTimerObj.StopTimer()
+                                Core.ConsoleError("Ammo Maker is stuck. Can't move Spear from Backpack to Hand. Ammo Maker is now stopped.")
+                                Exit Sub
+                            End If
+                            Core.Proxy.SendPacketToServer(PacketUtils.MoveObject(Spear.ID, Spear.Location, GetInventorySlotAsLocation(SlotToUse), 1))
+                            System.Threading.Thread.Sleep(1000)
+                            Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                        Loop Until TempSlot = Definitions.GetItemID("Spear")
+
+                        'Casting the spell
+                        Retries = 0
+                        TempSlot = 0
+                        Do
+                            Retries += 1
+                            If Retries > 20 Then
+                                AmmoMakerMinMana = 0
+                                AmmoMakerMinCap = 0
+                                AmmoMakerTimerObj.StopTimer()
+                                Core.ConsoleError("Ammo Maker couldn't cast the conjure spell. Ammo Maker is now stopped.")
+                                Exit Sub
+                            End If
+                            Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
+                            System.Threading.Thread.Sleep(1000)
+                            Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                        Loop While TempSlot = Definitions.GetItemID("Spear")
+
+                        'Moving spear back to the backpack
+                        Retries = 0
+                        TempSlot = 0
+                        Dim EnchantedSpearId As Integer = 0
+                        Dim MoveToSlot As New ContainerItemDefinition
+                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), EnchantedSpearId, 2)
+                        If Not Container.FindItem(MoveToSlot, EnchantedSpearId) Then 'Testing if theres already enchanted spears
+                            MoveToSlot = Spear
+                        End If
+                        Do
+                            Retries += 1
+                            If Retries > 20 Then
+                                AmmoMakerMinMana = 0
+                                AmmoMakerMinCap = 0
+                                AmmoMakerTimerObj.StopTimer()
+                                Core.ConsoleError("Ammo Maker is stuck, couldn't move spear from hand to backpack. Ammo Maker is now stopped.")
+                                Exit Sub
+                            End If
+                            Core.Proxy.SendPacketToServer(MoveObject(EnchantedSpearId, GetInventorySlotAsLocation(SlotToUse), MoveToSlot.Location, 1))
+                            System.Threading.Thread.Sleep(1000)
+                            Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                        Loop Until TempSlot = 0
+                    Case Else
+                        Core.ConsoleError("The Spell cannot be used to create or enchant ammunation. Ammo Maker is now stopped.")
+                        AmmoMakerTimerObj.StopTimer()
+                        AmmoMakerMinMana = 0
+                        AmmoMakerMinCap = 0
+                        Exit Sub
+                End Select
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
 #End Region
 
 #End Region

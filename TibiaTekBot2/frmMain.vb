@@ -154,6 +154,13 @@ Public Class frmMain
             If AttackChasingMode.Items.Count > 0 Then AttackChasingMode.SelectedIndex = 0
             'Dancer
             If DancerSpeed.Items.Count > 0 Then DancerSpeed.SelectedIndex = 0
+            'Ammo Maker
+            For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                If Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation Then
+                    AmmoMakerSpell.Items.Add(Spell.Words)
+                End If
+            Next
+            If AmmoMakerSpell.Items.Count > 0 Then AmmoMakerSpell.SelectedIndex = 0
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -228,8 +235,30 @@ Public Class frmMain
             RefreshPickuperControls()
             RefreshChangerControls()
             RefreshDancerControls()
+            RefreshAmmoMakerControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    Private Sub RefreshAmmoMakerControls()
+        Try
+            AmmoMakerTrigger.Checked = Core.AmmoMakerTimerObj.State = ThreadTimerState.Running
+
+            If AmmoMakerTrigger.Checked Then
+                AmmoMakerSpell.Text = Core.AmmoMakerSpell.Words
+                AmmoMakerMinCap.Value = Core.AmmoMakerMinCap
+                AmmoMakerMinMana.Value = Core.AmmoMakerMinMana
+
+                AmmoMakerSpell.Enabled = False
+                AmmoMakerMinCap.Enabled = False
+                AmmoMakerMinMana.Enabled = False
+            Else
+                AmmoMakerSpell.Enabled = True
+                AmmoMakerMinCap.Enabled = True
+                AmmoMakerMinMana.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
     Private Sub RefreshDancerControls()
@@ -2622,6 +2651,42 @@ Public Class frmMain
                 Core.DancerTimerObj.StopTimer()
             End If
             RefreshDancerControls()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub AmmoMakerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmmoMakerTrigger.CheckedChanged
+        Try
+            If AmmoMakerTrigger.Checked Then
+                If Core.AmmoMakerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+
+                Dim Found As Boolean = False
+                Dim S As New SpellDefinition
+                For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                    If (Spell.Name.Equals(AmmoMakerSpell.Text, StringComparison.CurrentCultureIgnoreCase) _
+                    OrElse Spell.Words.Equals(AmmoMakerSpell.Text.ToString, StringComparison.CurrentCultureIgnoreCase)) _
+                    AndAlso (Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation) Then
+                        S = Spell
+                        Found = True
+                        Exit For
+                    End If
+                Next
+                If Found Then
+                    Core.AmmoMakerSpell = S
+                    Core.AmmoMakerMinMana = AmmoMakerMinMana.Value
+                    Core.AmmoMakerMinCap = AmmoMakerMinCap.Value
+                    Core.AmmoMakerTimerObj.StartTimer()
+                Else
+                    MessageBox.Show("You cant make ammunitions with the selected spell. Please choose another spell.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+            Else
+                Core.AmmoMakerMinMana = 0
+                Core.AmmoMakerMinCap = 0
+                Core.AmmoMakerTimerObj.StopTimer()
+            End If
+            RefreshAmmoMakerControls()
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
