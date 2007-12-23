@@ -1168,13 +1168,13 @@ Public Module CoreModule
                                             If Item2.ID = Item.ID Then
                                                 If Item2.Count + RemainingCount <= 100 Then
                                                     Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, RemainingCount), False)
-                                                    WaitMillis = 500
+                                                    WaitMillis = 1000
                                                     Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                                     Containers(ActualIndex2).SetItemCount(Item2.Location.Z, Item2.Count + RemainingCount)
                                                     RemainingCount = 0
                                                 ElseIf Containers(ActualIndex2).GetItemCount < Containers(ActualIndex2).GetContainerSize Then
                                                     Proxy.SendPacketToServer(MoveObject(Item, Item2.Location, RemainingCount), False)
-                                                    WaitMillis = 500
+                                                    WaitMillis = 1000
                                                     Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                                     Containers(ActualIndex2).SetItemCount(Item2.Location.Z, 100)
                                                     Containers(ActualIndex2).AddItem(Item.ID, (Item2.Count + RemainingCount) - 100)
@@ -1209,7 +1209,7 @@ Public Module CoreModule
                                             Loc.Y = &H40 + Containers(ActualIndex2).GetContainerIndex()
                                             Loc.Z = Containers(ActualIndex2).GetContainerSize - 1
                                             Proxy.SendPacketToServer(MoveObject(Item, Loc, RemainingCount), False)
-                                            WaitMillis = 500
+                                            WaitMillis = 1000
                                             Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                             Containers(ActualIndex2).AddItem(Item.ID, RemainingCount)
                                             RemainingCount = 0
@@ -1218,7 +1218,7 @@ Public Module CoreModule
                                 End If
                                 If RemainingCount > 0 Then
                                     Proxy.SendPacketToServer(MoveObject(Item, GetInventorySlotAsLocation(InventorySlots.Backpack), RemainingCount), False)
-                                    WaitMillis = 500
+                                    WaitMillis = 1000
                                     Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                 End If
                             End If
@@ -1242,7 +1242,7 @@ Public Module CoreModule
                             If Item.ID = 0 Then Continue For
                             If Definitions.IsFood(Item.ID) Then
                                 Proxy.SendPacketToServer(UseObject(Item), False)
-                                WaitMillis = 500
+                                WaitMillis = 1000
                             End If
                         Next I
                     Next ActualIndex
