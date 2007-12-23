@@ -19,11 +19,11 @@
     or write to the Free Software Foundation, 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.Imports System.Math
 -->
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C00CA9B5-72A8-4BE5-B78E-15E17A557922}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -38,6 +38,12 @@
     <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
     <TargetZone>LocalIntranet</TargetZone>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PublishUrl>ftp://ftp.cpargermer.com/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -54,7 +60,9 @@
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
     <DisallowUrlActivation>true</DisallowUrlActivation>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>2.0.4.1</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -236,10 +244,10 @@
     <Compile Include="Spells.vb" />
     <Compile Include="ThreadTimer.vb" />
     <Compile Include="DatReader.vb" />
+    <Compile Include="Tibia.vb" />
     <Compile Include="TileData.vb" />
     <Compile Include="VipList.vb" />
     <Compile Include="Walker.vb" />
-    <Compile Include="Win32API.vb" />
     <Compile Include="Winsock.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -338,22 +346,22 @@
     <None Include="MapReader\doorlocked.gif" />
     <None Include="MapReader\dooropen.gif" />
     <Content Include="Config\Constants.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\Creatures.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\Items.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\LootItems.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\Outfits.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\Spells.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="COPYING.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -382,9 +390,25 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0</ProductName>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TibiaTekBot Interfaces\TibiaTek Bot Scripting Assembly.vbproj">
+      <Project>{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}</Project>
+      <Name>TibiaTek Bot Scripting Assembly</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="References\" />

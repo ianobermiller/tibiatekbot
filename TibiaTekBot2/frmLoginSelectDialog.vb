@@ -59,7 +59,7 @@ Public Class frmLoginSelectDialog
                     Exit Sub
                 End If
             End If
-            Core.IsPrivateServer = privateServer.Checked
+            Core.IsOpenTibiaServer = privateServer.Checked
             Me.DialogResult = System.Windows.Forms.DialogResult.OK
             Me.Close()
         Catch Ex As Exception

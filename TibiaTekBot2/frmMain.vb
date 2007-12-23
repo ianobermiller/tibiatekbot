@@ -18,8 +18,8 @@
 '    Boston, MA 02111-1307, USA.
 
 Imports System.Windows, TibiaTekBot.PProxy2, System.Runtime.InteropServices, _
-    System.ComponentModel, System.IO, System.Xml, System.Text.RegularExpressions, _
-    System.Windows.Forms
+ System.ComponentModel, System.IO, System.Xml, System.Text.RegularExpressions, _
+ System.Windows.Forms, Scripting
 
 Public Class frmMain
 
@@ -176,27 +176,28 @@ Public Class frmMain
 
 	Private Sub frmMain_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
 		Try
-			If Core.InGame Then
-				Me.Text = "TibiaTek Bot - " & Core.Proxy.CharacterName
-				FunctionsToolStripMenuItem.Enabled = True
-				AboutToolStripMenuItem.Enabled = True
-				RefreshControls()
-				MainTabControl.Enabled = True
-			Else
-				If Not (Core.Proxy Is Nothing OrElse Core.Proxy.Client Is Nothing) Then
-					Me.Text = "TibiaTek Bot - " & Hex(Core.Proxy.Client.Handle.ToString)
-				Else
-					Me.Text = "TibiaTek Bot"
-				End If
-				FunctionsToolStripMenuItem.Enabled = False
-				AboutToolStripMenuItem.Enabled = False
-				MainTabControl.Enabled = False
-			End If
+            If Core.Client.IsConnected Then
+                Me.Text = "TibiaTek Bot - " & Core.Proxy.CharacterName
+                FunctionsToolStripMenuItem.Enabled = True
+                AboutToolStripMenuItem.Enabled = True
+                RefreshControls()
+                MainTabControl.Enabled = True
+            Else
+                If Not (Core.Proxy Is Nothing OrElse Core.Client Is Nothing) Then
+                    Me.Text = "TibiaTek Bot - " & Hex(Core.Client.GetWindowHandle)
+                Else
+                    Me.Text = "TibiaTek Bot"
+                End If
+                FunctionsToolStripMenuItem.Enabled = False
+                AboutToolStripMenuItem.Enabled = False
+                MainTabControl.Enabled = False
+            End If
 		Catch Ex As Exception
 			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 			End
 		End Try
 	End Sub
+#Region " Refresh Controls "
 
     Private Sub RefreshControls()
         Try
@@ -231,7 +232,6 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
     Private Sub RefreshDancerControls()
         Try
             DancerTrigger.Checked = Core.DancerTimerObj.State = ThreadTimerState.Running
@@ -255,7 +255,6 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
     Private Sub RefreshChangerControls()
         Try
             RingChangerTrigger.Checked = Core.RingChangerTimerObj.State = ThreadTimerState.Running
@@ -277,11 +276,9 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
     Private Sub RefreshAntiIdlerControls()
         AntiIdlerTrigger.Checked = Core.AntiLogoutObj.State = ThreadTimerState.Running
     End Sub
-
     Private Sub RefreshPickuperControls()
         Try
             PickuperTrigger.Checked = Core.PickUpTimerObj.State = ThreadTimerState.Running
@@ -314,7 +311,6 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
     Private Sub RefreshTrainerControls()
         Try
             TrainerTrigger.Checked = Core.AutoTrainerTimerObj.State = ThreadTimerState.Running
@@ -341,18 +337,18 @@ Public Class frmMain
     Private Sub RefreshChameleonControls()
         Try
             Dim BL As New BattleList
-            BL.JumpToEntity(SpecialEntity.Myself)
+            BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
             Dim OD As New OutfitDefinition
             Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
             If ODFound Then
                 ChameleonOutfit.SelectedIndex = ChameleonOutfit.Items.IndexOf(OD.Name)
             End If
-            Select Case BL.Addons
-                Case Addons.First
+            Select Case BL.OutfitAddons
+                Case IBattlelist.OutfitAddons.First
                     ChameleonFirst.Checked = True
-                Case Addons.Second
+                Case IBattlelist.OutfitAddons.Second
                     ChameleonSecond.Checked = True
-                Case Addons.Both
+                Case IBattlelist.OutfitAddons.Both
                     ChameleonBoth.Checked = True
                 Case Else
                     ChameleonNone.Checked = True
@@ -362,7 +358,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshFakeTitleControls()
         Try
             FakeTitleTrigger.Checked = Core.FakingTitle
@@ -376,7 +371,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshNameSpyControls()
         Try
             If Core.NameSpyActivated Then
@@ -388,7 +382,6 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
     Private Sub RefreshExpCheckerControls()
         Try
             If Core.ExpCheckerActivated Or Core.ShowCreaturesUntilNextLevel Then
@@ -411,7 +404,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshDrinkerControls()
         Try
             ' DrinkerTrigger.Checked = Core.AutoDrinkerTimerObj.State = ThreadTimerState.Running
@@ -426,7 +418,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshHealPartyControls()
         Try
             HealPartyTrigger.Checked = Core.HealPartyTimerObj.State = ThreadTimerState.Running
@@ -451,7 +442,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshHealFriendControls()
         Try
             HealFriendTrigger.Checked = Core.HealFriendTimerObj.State = ThreadTimerState.Running
@@ -479,13 +469,12 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshHealerControls()
         Try
             HealWithRune.Checked = Core.UHTimerObj.State = ThreadTimerState.Running
             HealWithSpell.Checked = Core.HealTimerObj.State = ThreadTimerState.Running
             Dim MaxHitPoints As Integer = 0
-            Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
+            Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
             If HealWithRune.Checked Then
                 Select Case Definitions.GetItemName(Core.UHId)
                     Case "Ultimate Healing"
@@ -499,9 +488,6 @@ Public Class frmMain
                 Else
                     HealRunePercent.Value = 100
                 End If
-
-
-
                 HealRuneType.Enabled = False
                 HealRuneUseHp.Enabled = False
                 HealRuneUsePercent.Enabled = False
@@ -522,7 +508,7 @@ Public Class frmMain
                 End If
             End If
             If HealWithSpell.Checked Then
-                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
+                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
                 HealSpellName.Text = Core.HealSpell.Words
                 HealSpellHp.Value = Core.HealMinimumHP
 
@@ -562,7 +548,7 @@ Public Class frmMain
             End If
 
             If HealWithPotion.Checked Then
-                Select Case Definitions.GetItemName(Core.PotionId)
+                Select Case Definitions.GetItemName(Core.PotionID)
                     Case "Health Potion"
                         HealPotionName.Text = "Health Potion"
                     Case "Strong Health Potion"
@@ -598,10 +584,8 @@ Public Class frmMain
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
-
     Private Sub RefreshAdvertiserControls()
         Try
             TradeChannelAdvertiserTrigger.Checked = Core.AdvertiseTimerObj.State = ThreadTimerState.Running
@@ -613,10 +597,8 @@ Public Class frmMain
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
-
     Private Sub RefreshFpsChangerControls()
         Try
             FpsChangerTrigger.Checked = Core.FPSChangerTimerObj.State = ThreadTimerState.Running
@@ -640,7 +622,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshStatsUploaderControls()
         Try
             StatsUploaderTrigger.Checked = Core.StatsUploaderTimerObj.State = ThreadTimerState.Running
@@ -667,7 +648,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshTradeChannelWatcherControls()
         Try
             TradeChannelWatcherTrigger.Checked = Core.TradeWatcherActive = True
@@ -682,7 +662,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshCavebotControls()
         Try
             CavebotTrigger.Checked = Core.CaveBotTimerObj.State = ThreadTimerState.Running
@@ -696,7 +675,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshAutoFisherControls()
         Try
             AutoFisherTrigger.Checked = Core.FisherTimerObj.State = ThreadTimerState.Running
@@ -718,7 +696,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshComboBotControls()
         Try
             ComboBotTrigger.Checked = Core.ComboBotEnabled = True
@@ -733,7 +710,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshLightEffectsControls()
         Try
             LightEffectsTrigger.Checked = Core.LightTimerObj.State = ThreadTimerState.Running
@@ -773,7 +749,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshSpellCasterControls()
         Try
             SpellCasterTrigger.Checked = Core.SpellTimerObj.State = ThreadTimerState.Running
@@ -791,7 +766,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshAutoLooterControls()
         Try
             AutoLooterTrigger.Checked = Core.LooterTimerObj.State = ThreadTimerState.Running
@@ -812,7 +786,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshAmmoRestackerControls()
         Try
             AmmunitionRestackerTrigger.Checked = Core.AmmoRestackerTimerObj.State = ThreadTimerState.Running
@@ -827,7 +800,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshAutoStackerControls()
         Try
             AutoStackerTrigger.Checked = Core.StackerTimerObj.State = ThreadTimerState.Running
@@ -841,7 +813,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshRunemakerControls()
         Try
             RunemakerTrigger.Checked = Core.RunemakerTimerObj.State = ThreadTimerState.Running
@@ -862,7 +833,6 @@ Public Class frmMain
             End
         End Try
     End Sub
-
     Private Sub RefreshAutoEaterControls()
         Try
             AutoEaterTrigger.Checked = Core.EaterTimerObj.State = ThreadTimerState.Running
@@ -893,6 +863,8 @@ Public Class frmMain
             End
         End Try
     End Sub
+
+#End Region
 
 #Region " Load Stuff "
 
@@ -926,31 +898,34 @@ Public Class frmMain
             'Me.NotifyIcon.Visible = False
             LoginSelectForm = New frmLoginSelectDialog()
             If LoginSelectForm.ShowDialog() <> Forms.DialogResult.OK Then End
-            Core.Proxy = New PProxy2(strFilename, strDirectory)
-            Core.TibiaDirectory = strDirectory
-            Core.TibiaFilename = strFilename
+            Core.Client = New Tibia(strFilename, strDirectory)
+            Core.Client.Start()
+            If Not File.Exists(Application.StartupPath & "\TibiaTekBot Injected DLL.dll") Then
+                Throw New Exception("Unable to locate """ & Application.StartupPath & "\TibiaTekBot Injected DLL.dll"". Please re-install the application.")
+            End If
+            Core.Client.InjectDLL(Application.StartupPath & "\TibiaTekBot Injected DLL.dll")
+            Core.Proxy = New PProxy2(Core.Client)
             DatInfo = New DatReader(strDirectory & "\tibia.dat")
-            If Core.Proxy.Exists Then
-                Me.NotifyIcon.Visible = True
-                System.Threading.Thread.Sleep(1000)
-                Core.WindowTimerObj.StartTimer()
-                Dim TempInt As Integer = 0
-                Do
-                    Core.ReadMemory(Consts.ptrServerAddressBegin, TempInt, 1)
-                Loop Until TempInt <> 0
-                For I As Integer = 0 To Consts.ServerAddressCount - 1
-                    Core.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "127.0.0.1")
-                    Core.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Core.Proxy.sckLListen.LocalPort, 2)
-                Next
-                Core.Proxy.LoginPort = Core.LoginPort
-                Core.TibiaClientStateTimerObj.StartTimer()
-                Core.ReadMemory(Consts.ptrFrameRateBegin, Core.FrameRateBegin, 4)
-                InjectLastAttackedId()
-                If Core.IsPrivateServer Then
-                    Dim Temp As Integer = 0
-                    Win32API.VirtualProtectEx(Core.Proxy.Client.Handle, Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length, &H40, Temp)
-                    Core.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
-                End If
+
+
+            System.Threading.Thread.Sleep(1000)
+            Core.WindowTimerObj.StartTimer()
+            Dim TempInt As Integer = 0
+            Do
+                Core.Client.ReadMemory(Consts.ptrServerAddressBegin, TempInt, 1)
+            Loop Until TempInt <> 0
+            For I As Integer = 0 To Consts.ServerAddressCount - 1
+                Core.Client.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "127.0.0.1")
+                Core.Client.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Core.Proxy.sckLListen.LocalPort, 2)
+            Next
+            Me.NotifyIcon.Visible = True
+            Core.Proxy.LoginPort = Core.LoginPort
+            Core.TibiaClientStateTimerObj.StartTimer()
+            Core.Client.ReadMemory(Consts.ptrFrameRateBegin, Core.FrameRateBegin, 4)
+            InjectLastAttackedId()
+            If Core.IsOpenTibiaServer Then
+                Core.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
+                Core.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1091,8 +1066,8 @@ Public Class frmMain
             If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
                 Try
                     If Not Core.Proxy Is Nothing Then
-                        If Not Core.Proxy.Client Is Nothing Then
-                            Core.Proxy.Client.CloseMainWindow()
+                        If Not Core.Client Is Nothing Then
+                            Core.Client.Close()
                             Me.NotifyIcon.Visible = False
                         End If
                     End If
@@ -1109,7 +1084,7 @@ Public Class frmMain
 
     Private Sub AlarmsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AlarmsToolStripMenuItem.Click
         Try
-            If Not Core.InGame Then
+            If Not Core.Client.IsConnected Then
                 Beep()
                 Exit Sub
             End If
@@ -1123,12 +1098,14 @@ Public Class frmMain
     Private Sub ShowHideTibiaWindow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowHideTibiaWindow.Click
         Try
             If Not Core.Proxy Is Nothing Then
-                If Not Core.Proxy.Client Is Nothing Then
-                    If Core.Proxy.Client.MainWindowHandle = 0 Then Exit Sub
+                If Not Core.Client Is Nothing Then
+                    If Core.Client.GetWindowHandle = 0 Then Exit Sub
                     If Core.TibiaClientIsVisible Then
-                        Win32API.ShowWindow(Core.Proxy.Client.MainWindowHandle, Win32API.ShowState.SW_HIDE)
+                        Core.Client.Hide()
+                        'Win32API.ShowWindow(Core.Client.GetWindowHandle, Win32API.ShowState.SW_HIDE)
                     Else
-                        Win32API.ShowWindow(Core.Proxy.Client.MainWindowHandle, Win32API.ShowState.SW_SHOW)
+                        Core.Client.Show()
+                        'Win32API.ShowWindow(Core.Client.GetWindowHandle, Win32API.ShowState.SW_SHOW)
                     End If
                     Core.TibiaClientIsVisible = Not Core.TibiaClientIsVisible
                 End If
@@ -1149,9 +1126,9 @@ Public Class frmMain
 
     Public Sub MCPatcher()
         Try
-            System.IO.File.Copy(Core.TibiaDirectory & "\" & Core.TibiaFilename, Core.TibiaDirectory & "\_Tibia.exe.tmp")
-            Dim FSR As New FileStream(Core.TibiaDirectory & "\_Tibia.exe.tmp", FileMode.Open, FileAccess.Read)
-            Dim FSW As New FileStream(Core.TibiaDirectory & "\TibiaMC.exe", FileMode.OpenOrCreate, FileAccess.Write)
+            System.IO.File.Copy(Core.Client.Directory & "\" & Core.Client.Filename, Core.Client.Directory & "\_Tibia.exe.tmp")
+            Dim FSR As New FileStream(Core.Client.Directory & "\_Tibia.exe.tmp", FileMode.Open, FileAccess.Read)
+            Dim FSW As New FileStream(Core.Client.Directory & "\TibiaMC.exe", FileMode.OpenOrCreate, FileAccess.Write)
             Dim Reader As New BinaryReader(FSR)
             Dim Writer As New BinaryWriter(FSW)
             Dim CurrentByte As Byte = 0
@@ -1169,7 +1146,7 @@ Public Class frmMain
             Reader.Close()
             FSR.Close()
             FSW.Close()
-            MessageBox.Show("The new Tibia Client with Multi-Client is now saved at: " & Core.TibiaDirectory & "\" & "TibiaMC.exe")
+            MessageBox.Show("The new Tibia Client with Multi-Client is now saved at: " & Core.Client.Directory & "\" & "TibiaMC.exe")
 
             Dim Result As DialogResult = MessageBox.Show("Would you like to use the patched Tibia Client the next time you open TibiaTek Bot?", "Information", MessageBoxButtons.YesNo)
             If Result = Forms.DialogResult.Yes Then
@@ -1182,8 +1159,8 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         Finally
-            If System.IO.File.Exists(Core.TibiaDirectory & "\_Tibia.exe.tmp") Then
-                System.IO.File.Delete(Core.TibiaDirectory & "\_Tibia.exe.tmp")
+            If System.IO.File.Exists(Core.Client.Directory & "\_Tibia.exe.tmp") Then
+                System.IO.File.Delete(Core.Client.Directory & "\_Tibia.exe.tmp")
             End If
         End Try
     End Sub
@@ -1194,7 +1171,7 @@ Public Class frmMain
 
     Private Sub CavebotMenuItem_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles CavebotMenuItem.Click
         Try
-            If Not Core.InGame Then
+            If Not Core.Client.IsConnected Then
                 Beep()
                 Exit Sub
             End If
@@ -1211,7 +1188,7 @@ Public Class frmMain
 
     Private Sub CharacterStatisticsMenuItem_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles CharacterStatisticsMenuItem.Click
         Try
-            If Not Core.InGame Then
+            If Not Core.Client.IsConnected Then
                 Beep()
                 Exit Sub
             End If
@@ -1239,17 +1216,16 @@ Public Class frmMain
 
     Private Sub changeloginserver_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChangeLoginServerPopupItem.Click
         Try
-            If Not Core.InGame Then
+            If Not Core.Client.IsConnected Then
                 LoginSelectForm = New frmLoginSelectDialog()
                 If LoginSelectForm.ShowDialog() <> Forms.DialogResult.OK Then Exit Sub
                 For I As Integer = 0 To 3
-                    Core.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "localhost")
-                    Core.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Core.Proxy.sckLListen.LocalPort, 2)
+                    Core.Client.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "localhost")
+                    Core.Client.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Core.Proxy.sckLListen.LocalPort, 2)
                 Next
-                If Core.IsPrivateServer Then
-                    Dim Temp As Integer = 0
-                    Win32API.VirtualProtectEx(Core.Proxy.Client.Handle, Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length, &H40, Temp)
-                    Core.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
+                If Core.IsOpenTibiaServer Then
+                    Core.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
+                    Core.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
                 End If
             Else
                 MessageBox.Show("You must be logged out to change the login server.")
@@ -1268,8 +1244,8 @@ Public Class frmMain
         If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
             Try
                 If Not Core.Proxy Is Nothing Then
-                    If Not Core.Proxy.Client Is Nothing Then
-                        Core.Proxy.Client.CloseMainWindow()
+                    If Not Core.Client Is Nothing Then
+                        Core.Client.Close()
                         Me.NotifyIcon.Visible = False
                     End If
                 End If
@@ -1280,477 +1256,6 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub WebsiteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles WebsiteToolStripMenuItem.Click
-        CommandParser("website")
-    End Sub
-
-    Private Sub LoadToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        CommandParser("hotkeys load")
-    End Sub
-
-    Private Sub SaveToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        CommandParser("hotkeys save")
-    End Sub
-
-    Private Sub EditToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditToolStripMenuItem.Click
-        CommandParser("config load")
-    End Sub
-
-    Private Sub LoadToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadToolStripMenuItem.Click
-        CommandParser("config edit")
-    End Sub
-
-    Private Sub ClearToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearToolStripMenuItem.Click
-        CommandParser("config clear")
-    End Sub
-
-    Private Sub OnToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem.Click
-        Dim Res As String = InputBox("Enter the minimum capacity. Example: 20.", "Auto Looter Minimum Capacity", "0")
-        CommandParser("loot " & Res)
-    End Sub
-
-    Private Sub EditToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditToolStripMenuItem1.Click
-        CommandParser("loot edit")
-    End Sub
-
-    Private Sub OffToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem.Click
-        CommandParser("loot off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem1.Click
-        CommandParser("stacker on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem1.Click
-        CommandParser("stacker off")
-    End Sub
-
-    Private Sub UtToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UtToolStripMenuItem.Click
-        CommandParser("light on")
-    End Sub
-
-    Private Sub TorchToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TorchToolStripMenuItem.Click
-        CommandParser("light torch")
-    End Sub
-
-    Private Sub GreatTorchToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GreatTorchToolStripMenuItem.Click
-        CommandParser("light great torch")
-    End Sub
-
-    Private Sub UltimateTorchToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UltimateTorchToolStripMenuItem.Click
-        CommandParser("light ultimate torch")
-    End Sub
-
-    Private Sub UtevoLuxToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UtevoLuxToolStripMenuItem.Click
-        CommandParser("light utevo lux")
-    End Sub
-
-    Private Sub UtevoGranLuxToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UtevoGranLuxToolStripMenuItem.Click
-        CommandParser("light utevo gran lux")
-    End Sub
-
-    Private Sub UtevoVisLuxToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UtevoVisLuxToolStripMenuItem.Click
-        CommandParser("light utevo vis lux")
-    End Sub
-
-    Private Sub LightWandToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LightWandToolStripMenuItem.Click
-        CommandParser("light light wand")
-    End Sub
-
-    Private Sub OffToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem2.Click
-        CommandParser("light off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem2.Click
-        Dim Val As String = InputBox("Enter the minimum ammunition (Less than 100). Example: 50.", "Minimum Ammunition", "50")
-        CommandParser("ammorestacker " & Val)
-    End Sub
-
-    Private Sub OffToolStripMenuItem3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem3.Click
-        CommandParser("ammorestacker off")
-    End Sub
-
-    Private Sub CommandsListToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CommandsListToolStripMenuItem.Click
-        CommandParser("list")
-    End Sub
-
-    Private Sub OnToolStripMenuItem3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem3.Click
-        Dim number As String = InputBox("Enter the minimum mana points to cast the spell. Example: 100.", "Minimum Mana Points")
-        Dim spell As String = InputBox("Enter the spell words. Example: eXuRa """"HeAl pLx.", "Spell Words")
-        CommandParser("spell " & number & " """ & spell)
-    End Sub
-
-    Private Sub OffToolStripMenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem4.Click
-        CommandParser("spell off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem4.Click
-        Dim res As String = InputBox("Enter the delay in seconds to eat. Example: 30.", "Auto Eater Delay", "30")
-        CommandParser("eat " & res)
-    End Sub
-
-    Private Sub OffToolStripMenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem5.Click
-        CommandParser("eat off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem5.Click
-        Dim mp As String = InputBox("Enter the minimum mana points to conjure the spell words. Example: 400.", "Minimum Mana Points")
-        Dim sp As String = InputBox("Enter the minimum soul points to conjure the spell words. Example: 3.", "Minimum Soul Points")
-        Dim sw As String = InputBox("Enter the spell words or the spell name. Example: great fireball.", "Spell Words/Spell Name")
-        CommandParser("runemaker " & mp & " " & sp & " """ & sw & """")
-    End Sub
-
-    Private Sub OffToolStripMenuItem6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem6.Click
-        CommandParser("runemaker off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem6.Click
-        Dim mincap As String = InputBox("Enter the minimum capacity to fish. Example: 6.", "Minimum Capacity")
-        CommandParser("fisher " & mincap)
-    End Sub
-
-    Private Sub OffToolStripMenuItem7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem7.Click
-        CommandParser("fisher off")
-    End Sub
-
-    Private Sub TurboToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TurboToolStripMenuItem.Click
-        Dim mincap As String = InputBox("Enter the minimum capacity to fish. Example: 6.", "Minimum Capacity")
-        CommandParser("fisher " & mincap & " turbo")
-    End Sub
-
-    Private Sub OnToolStripMenuItem7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem7.Click
-        Dim advertisement As String = InputBox("Enter your advertisement. Example: sell 10 bp of uh ~ thais.", "Advertisement")
-        CommandParser("advertise " & advertisement)
-    End Sub
-
-    Private Sub OffToolStripMenuItem8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem8.Click
-        CommandParser("advertise off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem8_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem8.Click
-        Dim reg As String = InputBox("Enter the regular expression pattern to match. Example: bps? of uh.", "Regular Expression Pattern")
-        CommandParser("watch " & reg)
-    End Sub
-
-    Private Sub OffToolStripMenuItem9_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem9.Click
-        CommandParser("watch off")
-    End Sub
-
-    Private Sub EventsLoggingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EventsLoggingToolStripMenuItem.Click
-        CommandParser("log on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem10.Click
-        CommandParser("log off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem10.Click
-        CommandParser("cavebot on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem11.Click
-        CommandParser("cavebot off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem11_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem11.Click
-        CommandParser("statsuploader on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem12.Click
-        CommandParser("statsuploader off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem12_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem12.Click
-        CommandParser("fpschanger on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem13_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem13.Click
-        CommandParser("fpschanger off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem13_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem13.Click
-        Dim mhp As String = InputBox("Enter the minimum hit points, or the minimum hit points percent. Example: 50%. Example: 500.", "Minimum Hitpoints")
-        Dim sw As String = InputBox("Enter the spell words or spell name.", "Spell Name/Spell Words")
-        CommandParser("heal " & mhp & " """ & sw & """")
-    End Sub
-
-    Private Sub OffToolStripMenuItem14_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem14.Click
-        CommandParser("heal off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem14_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem14.Click
-        Dim mhp As String = InputBox("Enter the minimum hit points. Example: 500.", "Minimum Hit Points")
-        CommandParser("uh " & mhp)
-    End Sub
-
-    Private Sub OffToolStripMenuItem15_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem15.Click
-        CommandParser("uh off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem15_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem15.Click
-        Dim mhp As String = InputBox("Enter the minimum hit points percent. Example: 50%.", "Minimum Hit Points Percent")
-        Dim sw As String = InputBox("Enter the way of healing: exura sio, adura vita, both. Example: exura sio.", "Spell Name/Spell Words")
-        Dim frnd As String = InputBox("Enter your friend's name. Example: Eternal Oblivion.", "Friend's Name")
-        CommandParser("healfriend " & mhp & " """ & sw & """ """ & frnd & """")
-    End Sub
-
-    Private Sub OffToolStripMenuItem16_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem16.Click
-        CommandParser("healfriend off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem16_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem16.Click
-        Dim mhp As String = InputBox("Enter the minimum hit points percent. Example: 50%.", "Minimum Hit Points Percent")
-        Dim sw As String = InputBox("Enter the way of healing: exura sio, adura vita, both. Example: exura sio.", "Spell Name/Spell Words")
-        CommandParser("healparty " & mhp & " """ & sw & """")
-    End Sub
-
-    Private Sub OffToolStripMenuItem17_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem17.Click
-        CommandParser("healparty off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem17_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem17.Click
-        Dim mp As String = InputBox("Enter the minimum mana points. Example: 100.", "Minimum Mana Points")
-        CommandParser("drinker " & mp)
-    End Sub
-
-    Private Sub OffToolStripMenuItem18_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem18.Click
-        CommandParser("drinker off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem22.Click
-        CommandParser("exp on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem23_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem23.Click
-        CommandParser("exp off")
-    End Sub
-
-    Private Sub CharacterInformationLookupToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CharacterInformationLookupToolStripMenuItem.Click
-        Dim name As String = InputBox("Enter the player's character name. Example: Eternal Oblivion.", "Player's Character Name")
-        CommandParser("char """ & name & """")
-    End Sub
-
-    Private Sub GuildMembersLookupToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GuildMembersLookupToolStripMenuItem.Click
-        Dim gname As String = InputBox("Enter the guild name (case sensitive). Example: Lost Souls.", "Guild Name")
-        Dim result As DialogResult = MessageBox.Show("Do you want to show off-line guild members as well?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-        Dim sel As String
-        If result = Forms.DialogResult.Yes Then
-            sel = "both"
-        Else
-            sel = "online"
-        End If
-        CommandParser("guild " & sel & " """ & gname & """")
-    End Sub
-
-    Private Sub UpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpToolStripMenuItem.Click
-        CommandParser("look up")
-    End Sub
-
-    Private Sub AroundToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AroundToolStripMenuItem.Click
-        CommandParser("look around")
-    End Sub
-
-    Private Sub BelowToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BelowToolStripMenuItem.Click
-        CommandParser("look down")
-    End Sub
-
-    Private Sub OnToolStripMenuItem21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem21.Click
-        CommandParser("namespy on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem22.Click
-        CommandParser("namespy off")
-    End Sub
-
-    Private Sub FileToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FileToolStripMenuItem.Click
-        Dim file As String = InputBox("Enter the filepath of the application or filename like in MS-DOS. Example: notepad.", "Filepath")
-        CommandParser("open """ & file & """")
-    End Sub
-
-    Private Sub TibiawikiToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TibiawikiToolStripMenuItem.Click
-        Dim searchterms As String = InputBox("Enter the search terms. Example: apple.", "Seach Terms")
-        CommandParser("open wiki """ & searchterms)
-    End Sub
-
-    Private Sub CharacterToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CharacterToolStripMenuItem.Click
-        Dim searchterms As String = InputBox("Enter the search terms. Example: apple.", "Seach Terms")
-        CommandParser("open character """ & searchterms)
-    End Sub
-
-    Private Sub GuildToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GuildToolStripMenuItem.Click
-        Dim searchterms As String = InputBox("Enter the search terms. Example: apple.", "Seach Terms")
-        CommandParser("open guild """ & searchterms)
-    End Sub
-
-    Private Sub ErignetHighscorePagesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ErignetHighscorePagesToolStripMenuItem.Click
-        Dim searchterms As String = InputBox("Enter the search terms. Example: apple.", "Seach Terms")
-        CommandParser("open erig """ & searchterms)
-    End Sub
-
-    Private Sub GoogleToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GoogleToolStripMenuItem.Click
-        Dim searchterms As String = InputBox("Enter the search terms. Example: apple.", "Seach Terms")
-        CommandParser("open google """ & searchterms)
-    End Sub
-
-    Private Sub MytibiacomToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MytibiacomToolStripMenuItem.Click
-        Dim searchterms As String = InputBox("Enter the search terms. Example: apple.", "Seach Terms")
-        CommandParser("open mytibia """ & searchterms)
-    End Sub
-
-
-    Private Sub SendLocationToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SendLocationToolStripMenuItem.Click
-        Dim pname As String = InputBox("Enter your friend's name.", "Friend's Name")
-        CommandParser("sendlocation """ & pname)
-    End Sub
-
-    Private Sub GetItemIDsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GetItemIDsToolStripMenuItem.Click
-        CommandParser("getitemid")
-    End Sub
-
-    Private Sub FeedbackToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FeedbackToolStripMenuItem.Click
-        CommandParser("feedback")
-    End Sub
-
-    Private Sub OnToolStripMenuItem23_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem23.Click
-        CommandParser("attack on")
-    End Sub
-
-    Private Sub AutoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoToolStripMenuItem.Click
-        CommandParser("attack auto")
-    End Sub
-
-    Private Sub StandToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StandToolStripMenuItem.Click
-        CommandParser("attack stand")
-    End Sub
-
-    Private Sub FollowToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FollowToolStripMenuItem.Click
-        CommandParser("attack follow")
-    End Sub
-
-    Private Sub OffensiveToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffensiveToolStripMenuItem.Click
-        CommandParser("attack offensive")
-    End Sub
-
-    Private Sub BalancedToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BalancedToolStripMenuItem.Click
-        CommandParser("attack balanced")
-    End Sub
-
-    Private Sub DefensiveToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DefensiveToolStripMenuItem.Click
-        CommandParser("attack defensive")
-    End Sub
-
-    Private Sub OffToolStripMenuItem26_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem26.Click
-        CommandParser("attack off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem24_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem24.Click
-        Dim minhp As String = InputBox("Enter the minimum hit points percent to stop attacking. Example: 50%.", "Minimum Hitpoints Percent")
-        Dim maxhp As String = InputBox("Enter the maximum hit points percent to resume attacking. Example: 90%.", "Maximum Hitpoints Percent")
-        CommandParser("trainer " & minhp & " " & maxhp)
-    End Sub
-
-    Private Sub AddToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddToolStripMenuItem.Click
-        CommandParser("trainer add")
-    End Sub
-
-    Private Sub RemoveToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RemoveToolStripMenuItem.Click
-        CommandParser("trainer remove")
-    End Sub
-
-    Private Sub ClearToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearToolStripMenuItem1.Click
-        CommandParser("trainer clear")
-    End Sub
-
-    Private Sub OffToolStripMenuItem24_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem24.Click
-        CommandParser("trainer off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem25_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem25.Click
-        CommandParser("pickup on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem25_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem25.Click
-        CommandParser("pickup off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem18_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem18.Click
-        Dim newtitle As String = InputBox("Enter the new title for the Tibia Window.", "New Title")
-        CommandParser("faketitle """ & newtitle & """")
-    End Sub
-
-    Private Sub OffToolStripMenuItem19_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem19.Click
-        CommandParser("faketitle off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem20_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem20.Click
-        CommandParser("rainbow on")
-    End Sub
-
-    Private Sub FastToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FastToolStripMenuItem.Click
-        CommandParser("rainbow fast")
-    End Sub
-
-    Private Sub SlowToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SlowToolStripMenuItem.Click
-        CommandParser("rainbow slow")
-    End Sub
-
-    Private Sub OffToolStripMenuItem21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem21.Click
-        CommandParser("rainbow off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem19_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem19.Click
-        Dim outfit As String = InputBox("Enter the name of the creature or outfit. Example: Male Beggar.", "Outfit Name/Creature Name")
-        Dim addons As String = InputBox("Enter the addons. Leave empty if not needed. 0 = None. 1 = First. 2 = Second. 3 = Full. Example: 3.", "Addons")
-        CommandParser("chameleon """ & outfit & """ " & addons)
-    End Sub
-
-    Private Sub CopyToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CopyToolStripMenuItem.Click
-        Dim pname As String = InputBox("Enter the name of the creature in your screen to copy the outfit.", "Creature Name")
-        CommandParser("chameleon copy """ & pname)
-    End Sub
-
-    Private Sub SpellsxmlToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SpellsxmlToolStripMenuItem.Click
-        CommandParser("reload spells")
-    End Sub
-
-    Private Sub OutfitsxmlToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OutfitsxmlToolStripMenuItem.Click
-        CommandParser("reload outfits")
-    End Sub
-
-    Private Sub ItemsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItemsToolStripMenuItem.Click
-        CommandParser("reload items")
-    End Sub
-
-    Private Sub ConstantsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConstantsToolStripMenuItem.Click
-        CommandParser("reload constants")
-    End Sub
-
-    Private Sub TibiadatToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TibiadatToolStripMenuItem.Click
-        CommandParser("reload dat")
-    End Sub
-
-    Private Sub HideToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HideToolStripMenuItem.Click
-        Me.NotifyIcon.Visible = True
-        IsVisible = False
-        Me.Hide()
-    End Sub
-
-    Private Sub OnToolStripMenuItem26_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem26.Click
-        CommandParser("exp creatures on")
-    End Sub
-
-    Private Sub OffToolStripMenuItem20_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem20.Click
-        CommandParser("exp creatures off")
-    End Sub
-
-    Private Sub OnToolStripMenuItem27_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OnToolStripMenuItem27.Click
-        Dim leadername As String = InputBox("Enter the name of the leader. Example: Jokuperkele", "Name of the Leader")
-        CommandParser("combobot """ & leadername)
-    End Sub
-
-    Private Sub OffToolStripMenuItem27_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OffToolStripMenuItem27.Click
-        CommandParser("combobot off")
-    End Sub
 #End Region
 
     Private Sub LicenseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LicenseToolStripMenuItem.Click
@@ -2025,8 +1530,8 @@ Public Class frmMain
                 If Core.AmmoRestackerTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 Dim ItemID As Integer
                 Dim ItemCount As Integer
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
                 If ItemID = 0 OrElse Not DatInfo.GetInfo(ItemID).IsStackable Then
                     MessageBox.Show("You must place some of your ammunition on the Belt/Arrow Slot first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
@@ -2116,8 +1621,8 @@ Public Class frmMain
                 Core.IsOpeningReady = True
                 Core.CBCreatureDied = False
                 Core.WaypointIndex = 0
-                Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
-                Core.Proxy.SendPacketToServer(ChangeChasingMode(PacketUtils.ChasingMode.Chasing))
+                Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                 Core.CBState = CavebotState.Walking
             Else
                 Core.LooterTimerObj.StopTimer()
@@ -2128,7 +1633,7 @@ Public Class frmMain
                 Core.WaypointIndex = 0
                 Core.IsOpeningReady = True
                 Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(0))
-                Core.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
+                Core.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
             End If
             RefreshCavebotControls()
         Catch ex As Exception
@@ -2190,9 +1695,9 @@ Public Class frmMain
                     Core.StatsUploaderTimerObj.StartTimer()
                 Else
                     If StatsUploaderUrl.Text.Length = 0 _
-                        OrElse StatsUploaderUser.Text.Length = 0 _
-                        OrElse StatsUploaderPassword.Text.Length = 0 _
-                        OrElse Consts.StatsUploaderFrequency = 0 Then
+                     OrElse StatsUploaderUser.Text.Length = 0 _
+                     OrElse StatsUploaderPassword.Text.Length = 0 _
+                     OrElse Consts.StatsUploaderFrequency = 0 Then
                         MessageBox.Show("Don't leave empty values on text boxes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshStatsUploaderControls()
                         Exit Sub
@@ -2224,8 +1729,8 @@ Public Class frmMain
             If Not Core.IRCClient.DoMainLoopThread Is Nothing Then
                 Core.IRCClient.DoMainLoopThread.Abort()
             End If
-            If Not Core.Proxy Is Nothing AndAlso Not Core.Proxy.Client Is Nothing Then
-                Core.Proxy.Client.Kill()
+            If Not Core.Client Is Nothing Then
+                Core.Client.Close()
             End If
         End If
     End Sub
@@ -2241,7 +1746,7 @@ Public Class frmMain
                 Core.FPSChangerTimerObj.StartTimer()
             Else
                 Core.FPSChangerTimerObj.StopTimer()
-                Core.WriteMemory(Core.FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Core.FrameRateActive))
+                Core.Client.SetFramesPerSecond(Core.FrameRateActive)
             End If
             RefreshFpsChangerControls()
         Catch ex As Exception
@@ -2282,7 +1787,7 @@ Public Class frmMain
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-        If Core.InGame Then
+        If Core.Client.IsConnected Then
             RefreshControls()
             MainTabControl.Enabled = True
         Else
@@ -2305,15 +1810,6 @@ Public Class frmMain
             Case 4
                 Me.PictureBox1.Image = My.Resources.ttb_splash4
         End Select
-    End Sub
-
-    Private Sub HealerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
-
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
     End Sub
 
     Private Sub HealFriendTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -2418,7 +1914,7 @@ Public Class frmMain
 
     Private Sub MiscReloadTibiaDatButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadTibiaDatButton.Click
         Try
-            DatInfo.ReadDatFile(Core.TibiaDirectory & "\tibia.dat")
+            DatInfo.ReadDatFile(Core.Client.Directory & "\tibia.dat")
             MessageBox.Show("Done loading the Tibia.dat file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2442,10 +1938,10 @@ Public Class frmMain
                     Core.ExpCheckerActivated = False
                 End If
                 Core.FakingTitle = True
-                Core.ChangeClientTitle(FakeTitle.Text)
+                Core.Client.Title = FakeTitle.Text
             Else
                 Core.FakingTitle = False
-                Core.ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName)
+                Core.Client.Title = BotName & " - " & Core.Proxy.CharacterName
             End If
 
         Catch Ex As Exception
@@ -2470,12 +1966,12 @@ Public Class frmMain
                 Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
                 If ODFound Then
                     ChameleonOutfit.SelectedIndex = ChameleonOutfit.Items.IndexOf(OD.Name)
-                    Select Case BL.Addons
-                        Case Addons.First
+                    Select Case BL.OutfitAddons
+                        Case IBattlelist.OutfitAddons.First
                             ChameleonFirst.Checked = True
-                        Case Addons.Second
+                        Case IBattlelist.OutfitAddons.Second
                             ChameleonSecond.Checked = True
-                        Case Addons.Both
+                        Case IBattlelist.OutfitAddons.Both
                             ChameleonBoth.Checked = True
                         Case Else
                             ChameleonNone.Checked = True
@@ -2504,7 +2000,7 @@ Public Class frmMain
             Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByName(ChameleonOutfit.Text, OD)
             If ODFound Then
                 Dim BL As New BattleList
-                BL.JumpToEntity(SpecialEntity.Myself)
+                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 BL.OutfitID = OD.ID
             Else
                 MessageBox.Show("Unknown outfit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2515,17 +2011,17 @@ Public Class frmMain
     End Sub
 
     Private Sub ChameleonNone_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChameleonNone.CheckedChanged, ChameleonSecond.CheckedChanged, ChameleonFirst.CheckedChanged, ChameleonBoth.CheckedChanged
-        If Not Core.InGame Then Exit Sub
+        If Core.Client Is Nothing OrElse Not Core.Client.IsConnected Then Exit Sub
         Dim BL As New BattleList
-        BL.JumpToEntity(SpecialEntity.Myself)
+        BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
         If ChameleonFirst.Checked Then
-            BL.Addons = Addons.First
+            BL.OutfitAddons = IBattlelist.OutfitAddons.First
         ElseIf ChameleonSecond.Checked Then
-            BL.Addons = Addons.Second
+            BL.OutfitAddons = IBattlelist.OutfitAddons.Second
         ElseIf ChameleonBoth.Checked Then
-            BL.Addons = Addons.Both
+            BL.OutfitAddons = IBattlelist.OutfitAddons.Both
         Else
-            BL.Addons = Addons.None
+            BL.OutfitAddons = IBattlelist.OutfitAddons.None
         End If
     End Sub
 
@@ -2551,7 +2047,7 @@ Public Class frmMain
                 Core.ShowCreaturesUntilNextLevel = False
                 Core.ExpCheckerActivated = False
                 Core.LastExperience = 0
-                Core.ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName)
+                Core.Client.Title = BotName & " - " & Core.Proxy.CharacterName
             End If
             RefreshExpCheckerControls()
         Catch ex As Exception
@@ -2625,12 +2121,12 @@ Public Class frmMain
     Private Sub NameSpyTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NameSpyTrigger.CheckedChanged
         Try
             If NameSpyTrigger.Checked Then
-                Core.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
-                Core.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
+                Core.Client.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
+                Core.Client.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
                 Core.NameSpyActivated = True
             Else
-                Core.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
-                Core.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
+                Core.Client.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
+                Core.Client.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
                 Core.NameSpyActivated = False
             End If
             RefreshNameSpyControls()
@@ -2719,8 +2215,8 @@ Public Class frmMain
     Private Sub TrainerAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerAdd.Click
         Try
             Dim BL As New BattleList
-            If Not BL.JumpToEntity(SpecialEntity.Attacked) Then
-                If Not BL.JumpToEntity(SpecialEntity.Followed) Then
+            If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
+                If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
                     MessageBox.Show("You must be attacking or following something.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
@@ -2739,8 +2235,8 @@ Public Class frmMain
     Private Sub TrainerRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerRemove.Click
         Try
             Dim BL As New BattleList
-            If Not BL.JumpToEntity(SpecialEntity.Attacked) Then
-                If Not BL.JumpToEntity(SpecialEntity.Followed) Then
+            If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
+                If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
                     MessageBox.Show("You must be attacking or following something.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
@@ -2795,21 +2291,21 @@ Public Class frmMain
             If AutoAttackerTrigger.Checked Then
                 Select Case AttackerFightingMode.Text.ToLower
                     Case "offensive"
-                        Core.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Offensive, 1)
+                        Core.Client.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Offensive, 1)
                         Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Offensive))
                     Case "balanced"
-                        Core.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Balanced, 1)
+                        Core.Client.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Balanced, 1)
                         Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Balanced))
                     Case "defensive"
-                        Core.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Defensive, 1)
+                        Core.Client.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Defensive, 1)
                         Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Defensive))
                 End Select
                 Select Case AttackChasingMode.Text.ToLower
                     Case "chase"
-                        Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                        Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
                         Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                     Case "stand"
-                        Core.WriteMemory(Consts.ptrChasingMode, 0, 1)
+                        Core.Client.WriteMemory(Consts.ptrChasingMode, 0, 1)
                         Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Standing))
                 End Select
                 If AttackAutomatically.Checked Then
@@ -2831,7 +2327,7 @@ Public Class frmMain
         Try
             If PickuperTrigger.Checked Then
                 Dim RightHandItemID As Integer
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
                 If RightHandItemID = 0 OrElse Not Definitions.IsThrowable(RightHandItemID) Then
                     MessageBox.Show("You must have a throwable item in your right hand, like a spear, throwing knife, etc.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
@@ -2932,7 +2428,7 @@ Public Class frmMain
                     Exit Sub
                 End If
                 Dim MaxHitPoints As Integer = 0
-                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
                 If HealPotionUseHp.Checked Then
                     Core.PotionHPRequired = HealPotionHp.Value
                 Else
@@ -2940,17 +2436,17 @@ Public Class frmMain
                 End If
                 Select Case HealPotionName.Text
                     Case "Health Potion"
-                        Core.PotionId = Definitions.GetItemID("Health Potion")
+                        Core.PotionID = Definitions.GetItemID("Health Potion")
                     Case "Strong Health Potion"
-                        Core.PotionId = Definitions.GetItemID("Strong Health Potion")
+                        Core.PotionID = Definitions.GetItemID("Strong Health Potion")
                     Case "Great Health Potion"
-                        Core.PotionId = Definitions.GetItemID("Great Health Potion")
+                        Core.PotionID = Definitions.GetItemID("Great Health Potion")
                     Case Else
                         MessageBox.Show("You must select the Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
                         Exit Sub
                 End Select
-                If Core.PotionId = 0 Then
+                If Core.PotionID = 0 Then
                     MessageBox.Show("Unknown error occured selecting Potion Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshHealerControls()
                     Exit Sub
@@ -2960,7 +2456,7 @@ Public Class frmMain
             Else
                 Core.PotionTimerObj.StopTimer()
                 Core.PotionHPRequired = 0
-                Core.PotionId = 0
+                Core.PotionID = 0
             End If
             RefreshHealerControls()
         Catch ex As Exception
@@ -2976,7 +2472,7 @@ Public Class frmMain
                     Exit Sub
                 End If
                 Dim MaxHitPoints As Integer = 0
-                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
                 If HealRuneUseHp.Checked Then
                     Core.UHHPRequired = HealRuneHP.Value
                 Else
@@ -3018,7 +2514,7 @@ Public Class frmMain
                     Exit Sub
                 End If
                 Dim MaxHitPoints As Integer = 0
-                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
                 If HealSpellUseHP.Checked Then
                     Core.HealMinimumHP = HealSpellHp.Value
                 Else
@@ -3060,7 +2556,7 @@ Public Class frmMain
                     Exit Sub
                 End If
                 Dim MaxHitPoints As Integer = 0
-                Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
                 If RestoreManaWith.Checked Then
                     Core.DrinkerManaRequired = DrinkerManaPoints.Value
                 Else
@@ -3068,17 +2564,17 @@ Public Class frmMain
                 End If
                 Select Case ManaPotionName.Text
                     Case "Mana Potion"
-                        Core.ManaPotionId = Definitions.GetItemID("Mana Potion")
+                        Core.ManaPotionID = Definitions.GetItemID("Mana Potion")
                     Case "Strong Mana Potion"
-                        Core.ManaPotionId = Definitions.GetItemID("Strong Mana Potion")
+                        Core.ManaPotionID = Definitions.GetItemID("Strong Mana Potion")
                     Case "Great Mana Potion"
-                        Core.ManaPotionId = Definitions.GetItemID("Great Mana Potion")
+                        Core.ManaPotionID = Definitions.GetItemID("Great Mana Potion")
                     Case Else
                         MessageBox.Show("You must select the Mana Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
                         Exit Sub
                 End Select
-                If Core.ManaPotionId = 0 Then
+                If Core.ManaPotionID = 0 Then
                     MessageBox.Show("Unknown error occured selecting Potion Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshHealerControls()
                     Exit Sub
@@ -3088,7 +2584,7 @@ Public Class frmMain
             Else
                 Core.ManaPotionTimerObj.StopTimer()
                 Core.DrinkerManaRequired = 0
-                Core.ManaPotionId = 0
+                Core.ManaPotionID = 0
             End If
             RefreshHealerControls()
         Catch ex As Exception

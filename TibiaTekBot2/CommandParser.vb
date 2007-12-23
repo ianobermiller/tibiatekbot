@@ -18,16 +18,17 @@
 '    Boston, MA 02111-1307, USA.
 
 Imports System.Text.RegularExpressions, TibiaTekBot.frmMain, _
-    TibiaTekBot.Constants, _
-    TibiaTekBot.CoreModule, System.Diagnostics, System.Runtime.InteropServices, _
-    System.ComponentModel, TibiaTekBot.MiscUtils, TibiaTekBot.DatReader, System.Net, _
-    System.Xml
+	TibiaTekBot.Constants, _
+	TibiaTekBot.CoreModule, System.Diagnostics, System.Runtime.InteropServices, _
+	System.ComponentModel, TibiaTekBot.MiscUtils, TibiaTekBot.DatReader, Scripting, System.Net, _
+	System.Xml
+
 
 Public Module CommandParserModule
 
     Public Sub CommandParser(ByVal Message As String)
         Try
-            If Not Core.InGame() Then Exit Sub
+            If Not Core.Client.IsConnected Then Exit Sub
             Dim MatchObj As Match = Regex.Match(Message, "^([a-zA-Z]+)\s*([^;]*)$")
             If MatchObj.Success Then
                 Select Case MatchObj.Groups(1).Value.ToLower
@@ -158,11 +159,11 @@ Public Module CommandParserModule
         Else
             Try
                 Dim Temp As Integer = 0
-                Win32API.VirtualProtectEx(Core.Proxy.Client.Handle, CType(Consts.ptrForYourInformation, System.IntPtr), CType(20, UIntPtr), &H40, Temp)
-                Core.WriteMemory(Consts.ptrForYourInformation, "Viewing Message")
-                Dim Client As New WebClient
-                Client.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded")
-                Dim XMLResponse As String = Client.UploadString(BotWebsite & "/viewmessages.php", "POST", "name=" & Web.HttpUtility.UrlEncode(Core.Proxy.CharacterName) & "&world=" & Web.HttpUtility.UrlEncode(Core.Proxy.CharacterWorld))
+				Core.Client.UnprotectMemory(Consts.ptrForYourInformation, 20)
+				Core.Client.WriteMemory(Consts.ptrForYourInformation, "Viewing Message")
+				Dim WClient As New WebClient
+				WClient.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded")
+				Dim XMLResponse As String = WClient.UploadString(BotWebsite & "/viewmessages.php", "POST", "name=" & Web.HttpUtility.UrlEncode(Core.Proxy.CharacterName) & "&world=" & Web.HttpUtility.UrlEncode(Core.Proxy.CharacterWorld))
                 Dim Document As New XmlDocument()
                 Document.LoadXml(XMLResponse)
                 Dim Messages As XmlElement = Document.Item("Messages")
@@ -235,276 +236,275 @@ Public Module CommandParserModule
                     Case Else
                         Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                 End Select
-
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Website Command "
 
-    Private Sub CmdWebsite()
-        Try
-            System.Diagnostics.Process.Start(ConstantsModule.BotWebsite)
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdWebsite()
+		Try
+			System.Diagnostics.Process.Start(ConstantsModule.BotWebsite)
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Name Spy Command "
 
-    Private Sub CmdNameSpy(ByVal Arguments As GroupCollection)
-        Try
-            Select Case StrToShort(Arguments(2).Value)
-                Case 0
-                    Core.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
-                    Core.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
-                    Core.NameSpyActivated = False
-                    Core.ConsoleWrite("Name Spy is now Disabled.")
-                Case 1
-                    Core.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
-                    Core.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
-                    Core.NameSpyActivated = True
-                    Core.ConsoleWrite("Name Spy is now Enabled.")
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdNameSpy(ByVal Arguments As GroupCollection)
+		Try
+			Select Case StrToShort(Arguments(2).Value)
+				Case 0
+					Core.Client.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
+					Core.Client.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
+					Core.ConsoleWrite("Name Spy is now Disabled.")
+				Case 1
+					Core.Client.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
+					Core.Client.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
+					Core.NameSpyActivated = True
+					Core.ConsoleWrite("Name Spy is now Enabled.")
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " FPS Changer Command "
 
-    Private Sub CmdFpsChanger(ByVal Arguments As GroupCollection)
-        Try
-            Core.FrameRateActive = Consts.FPSWhenActive
-            Core.FrameRateInactive = Consts.FPSWhenInactive
-            Core.FrameRateMinimized = Consts.FPSWhenMinimized
-            Core.FrameRateHidden = Consts.FPSWhenHidden
-            Select Case StrToShort(Arguments(2).Value)
-                Case 0
-                    Core.FPSChangerTimerObj.StopTimer()
-                    Core.WriteMemory(Core.FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Core.FrameRateActive))
-                    Core.ConsoleWrite("FPS Changer is now Disabled.")
-                Case 1
-                    Core.FPSChangerTimerObj.StartTimer()
-                    Core.ConsoleWrite("FPS Changer is now Enabled.")
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdFpsChanger(ByVal Arguments As GroupCollection)
+		Try
+			Core.FrameRateActive = Consts.FPSWhenActive
+			Core.FrameRateInactive = Consts.FPSWhenInactive
+			Core.FrameRateMinimized = Consts.FPSWhenMinimized
+			Core.FrameRateHidden = Consts.FPSWhenHidden
+			Select Case StrToShort(Arguments(2).Value)
+				Case 0
+					Core.FPSChangerTimerObj.StopTimer()
+					Core.Client.SetFramesPerSecond(Core.FrameRateActive)
+					Core.ConsoleWrite("FPS Changer is now Disabled.")
+				Case 1
+					Core.FPSChangerTimerObj.StartTimer()
+					Core.ConsoleWrite("FPS Changer is now Enabled.")
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Send Location Command "
 
-    Private Sub CmdSendLocation(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).Value.ToLower
-            Dim MatchObj As Match = Regex.Match(Value, """([^""]+)""?")
-            If MatchObj.Success Then
-                If Not Core.BGWSendLocation.IsBusy Then
-                    Core.ConsoleWrite("Please wait...")
-                    Core.SendLocationDestinatary = MatchObj.Groups(1).Value
-                    Core.BGWSendLocation.RunWorkerAsync()
-                Else
-                    Core.ConsoleError("Busy.")
-                End If
-            Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdSendLocation(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).Value.ToLower
+			Dim MatchObj As Match = Regex.Match(Value, """([^""]+)""?")
+			If MatchObj.Success Then
+				If Not Core.BGWSendLocation.IsBusy Then
+					Core.ConsoleWrite("Please wait...")
+					Core.SendLocationDestinatary = MatchObj.Groups(1).Value
+					Core.BGWSendLocation.RunWorkerAsync()
+				Else
+					Core.ConsoleError("Busy.")
+				End If
+			Else
+				Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Reload Data Command "
 
-    Private Sub CmdReload(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).Value.ToLower
-            Try
-                Select Case Value
-                    Case "spells", "spell"
-                        Core.ConsoleWrite("Please wait...")
-                        CoreModule.Spells.LoadSpells()
-                    Case "outfits", "outfit"
-                        Core.ConsoleWrite("Please wait...")
-                        CoreModule.Outfits.LoadOutfits()
-                    Case "items", "item"
-                        Core.ConsoleWrite("Please wait...")
-                        Definitions.LoadItems()
-                    Case "constants", "constant", "consts", "const"
-                        Core.ConsoleWrite("Please wait...")
-                        Consts.LoadConstants()
-                    Case "tiles", "tile", "dat"
-                        Core.ConsoleWrite("Please wait...")
-                        DatInfo.ReadDatFile(Core.TibiaDirectory & "\tibia.dat")
-                    Case Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                        Exit Sub
-                End Select
-                Core.ConsoleWrite("Done reloading.")
-            Catch
-                Core.ConsoleError("Failed reloading.")
-            End Try
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdReload(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).Value.ToLower
+			Try
+				Select Case Value
+					Case "spells", "spell"
+						Core.ConsoleWrite("Please wait...")
+						CoreModule.Spells.LoadSpells()
+					Case "outfits", "outfit"
+						Core.ConsoleWrite("Please wait...")
+						CoreModule.Outfits.LoadOutfits()
+					Case "items", "item"
+						Core.ConsoleWrite("Please wait...")
+						Definitions.LoadItems()
+					Case "constants", "constant", "consts", "const"
+						Core.ConsoleWrite("Please wait...")
+						Consts.LoadConstants()
+					Case "tiles", "tile", "dat"
+						Core.ConsoleWrite("Please wait...")
+						DatInfo.ReadDatFile(Core.Client.Directory & "\tibia.dat")
+					Case Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+						Exit Sub
+				End Select
+				Core.ConsoleWrite("Done reloading.")
+			Catch
+				Core.ConsoleError("Failed reloading.")
+			End Try
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Chameleon Command "
 
-    Private Sub CmdChameleon(ByVal Arguments As GroupCollection)
-        Try
-            Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "copy ""([^""]+)""?$")
-            Dim BL As New BattleList
-            Dim Found As Boolean = False
-            If MatchObj.Success Then
-                BL.Reset()
-                Dim Name As String = MatchObj.Groups(1).Value
-                Found = False
-                Do
-                    If BL.IsOnScreen Then
-                        If String.Compare(Name, BL.GetName, True) = 0 Then
-                            Found = True
-                            Exit Do
-                        End If
-                    End If
-                Loop While BL.NextEntity(True)
-                If Found Then
-                    Dim BL2 As New BattleList
-                    BL2.JumpToEntity(SpecialEntity.Myself)
-                    BL2.OutfitID = BL.OutfitID
-                    BL2.Addons = BL.Addons
-                    BL2.HeadColor = BL.HeadColor
-                    BL2.BodyColor = BL.BodyColor
-                    BL2.LegsColor = BL.LegsColor
-                    BL2.FeetColor = BL.FeetColor
-                    Core.Proxy.SendPacketToServer(ChangeOutfit(BL2.OutfitID, CByte(BL2.HeadColor), CByte(BL2.BodyColor), CByte(BL2.LegsColor), CByte(BL2.FeetColor), CByte(BL2.Addons)))
-                    Core.ConsoleWrite("Your outfit has been changed to " & BL.GetName & ".")
-                End If
-            Else
-                MatchObj = Regex.Match(Arguments(2).ToString, """([^""]+)(?:""\s+(\d))?")
-                If MatchObj.Success Then
-                    Dim Request As String = MatchObj.Groups(1).Value
-                    Dim Outfit As New OutfitDefinition
-                    If Regex.IsMatch(Request, "^\d+$") Then
-                        Found = CoreModule.Outfits.GetOutfitByID(CUShort(Request), Outfit)
-                    Else
-                        Found = CoreModule.Outfits.GetOutfitByName(Request, Outfit)
-                    End If
-                    If Found Then
-                        BL.JumpToEntity(SpecialEntity.Myself)
-                        BL.OutfitID = Outfit.ID
+	Private Sub CmdChameleon(ByVal Arguments As GroupCollection)
+		Try
+			Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "copy ""([^""]+)""?$")
+			Dim BL As New BattleList
+			Dim Found As Boolean = False
+			If MatchObj.Success Then
+				BL.Reset()
+				Dim Name As String = MatchObj.Groups(1).Value
+				Found = False
+				Do
+					If BL.IsOnScreen Then
+						If String.Compare(Name, BL.GetName, True) = 0 Then
+							Found = True
+							Exit Do
+						End If
+					End If
+				Loop While BL.NextEntity(True)
+				If Found Then
+					Dim BL2 As New BattleList
+					BL2.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+					BL2.OutfitID = BL.OutfitID
+					BL2.OutfitAddons = BL.OutfitAddons
+					BL2.HeadColor = BL.HeadColor
+					BL2.BodyColor = BL.BodyColor
+					BL2.LegsColor = BL.LegsColor
+					BL2.FeetColor = BL.FeetColor
+					Core.Proxy.SendPacketToServer(ChangeOutfit(BL2.OutfitID, CByte(BL2.HeadColor), CByte(BL2.BodyColor), CByte(BL2.LegsColor), CByte(BL2.FeetColor), CByte(BL2.OutfitAddons)))
+					Core.ConsoleWrite("Your outfit has been changed to " & BL.GetName & ".")
+				End If
+			Else
+				MatchObj = Regex.Match(Arguments(2).ToString, """([^""]+)(?:""\s+(\d))?")
+				If MatchObj.Success Then
+					Dim Request As String = MatchObj.Groups(1).Value
+					Dim Outfit As New OutfitDefinition
+					If Regex.IsMatch(Request, "^\d+$") Then
+						Found = CoreModule.Outfits.GetOutfitByID(CUShort(Request), Outfit)
+					Else
+						Found = CoreModule.Outfits.GetOutfitByName(Request, Outfit)
+					End If
+					If Found Then
+						BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+						BL.OutfitID = Outfit.ID
 
-                        If Not String.IsNullOrEmpty(MatchObj.Groups(2).Value) Then
-                            If CInt(MatchObj.Groups(2).Value) > 3 Then Exit Sub
-                            BL.Addons = CType(CInt(MatchObj.Groups(2).Value), Addons)
-                        End If
-                        Core.ConsoleWrite("Your outfit has been changed to " & Outfit.Name & ".")
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-                Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                End If
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+						If Not String.IsNullOrEmpty(MatchObj.Groups(2).Value) Then
+							If CInt(MatchObj.Groups(2).Value) > 3 Then Exit Sub
+							BL.OutfitAddons = CType(CInt(MatchObj.Groups(2).Value), IBattlelist.OutfitAddons)
+						End If
+						Core.ConsoleWrite("Your outfit has been changed to " & Outfit.Name & ".")
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+				Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+				End If
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
+
 
 #End Region
 
 #Region " Auto Trainer Command "
 
-    Private Sub CmdTrainer(ByVal Arguments As GroupCollection)
-        Try
-            Dim Match As Match = Regex.Match(Arguments(2).Value.ToLower, "([1-9]\d{0,2})%?\s+([1-9]\d{0,2})%?")
-            If Match.Success Then
-                If CInt(Match.Groups(1).Value) > 99 Then
-                    Core.ConsoleError("Minimum Health Percent has to be less than 99%.")
-                    Exit Sub
-                ElseIf CInt(Match.Groups(2).Value) > 100 Then
-                    Core.ConsoleError("Maximum Health Percent has to be less than 100%.")
-                    Exit Sub
-                ElseIf CInt(Match.Groups(1).Value) >= CInt(Match.Groups(2).Value) Then
-                    Core.ConsoleError("Maximum Health Percent has to be higher than Minimum Health Percent.")
-                    Exit Sub
-                End If
-                If Core.AutoTrainerEntities.Count = 0 Then
-                    Core.ConsoleError("You have to add entities to the training list.")
-                    Exit Sub
-                End If
-                Core.AutoTrainerMinHPPercent = CInt(Match.Groups(1).Value)
-                Core.AutoTrainerMaxHPPercent = CInt(Match.Groups(2).Value)
-                Core.AutoTrainerTimerObj.StartTimer()
-                Core.ConsoleWrite("Auto Trainer will now attack the entities until " & Core.AutoTrainerMinHPPercent & "% of their health " & _
-                    "and after their recover " & Core.AutoTrainerMaxHPPercent & "% of their health.")
-            Else
-                Select Case StrToShort(Arguments(2).Value)
-                    Case 0
-                        Core.AutoTrainerMinHPPercent = 0
-                        Core.AutoTrainerMaxHPPercent = 0
-                        Core.AutoTrainerTimerObj.StopTimer()
-                        Core.ConsoleWrite("Auto Trainer is now Disabled.")
-                    Case Else
-                        Dim BL As New BattleList
-                        Select Case Arguments(2).Value
-                            Case "add", "agregar", "a"
-                                If Not BL.JumpToEntity(SpecialEntity.Attacked) Then
-                                    If Not BL.JumpToEntity(SpecialEntity.Followed) Then
-                                        Core.ConsoleError("You must be attacking or following something.")
-                                        Exit Sub
-                                    End If
-                                End If
-                                If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
-                                    Core.ConsoleError("This entity is already in your list.")
-                                Else
-                                    Core.AutoTrainerEntities.Add(BL.GetEntityID)
-                                    Core.ConsoleWrite("This entity has been added to your list.")
-                                End If
-                            Case "remove", "r", "remover", "quitar"
-                                If Not BL.JumpToEntity(SpecialEntity.Attacked) Then
-                                    If Not BL.JumpToEntity(SpecialEntity.Followed) Then
-                                        Core.ConsoleError("You must be attacking or following something.")
-                                        Exit Sub
-                                    End If
-                                End If
-                                If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
-                                    Core.AutoTrainerEntities.Remove(BL.GetEntityID)
-                                    Core.ConsoleWrite("This entity has been removed from your list.")
-                                Else
-                                    Core.ConsoleError("This entity is not on your list.")
-                                End If
-                            Case "clear"
-                                Core.AutoTrainerEntities.Clear()
-                                Core.ConsoleWrite("Auto Trainer entities list cleared.")
-                            Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                        End Select
-                End Select
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdTrainer(ByVal Arguments As GroupCollection)
+		Try
+			Dim Match As Match = Regex.Match(Arguments(2).Value.ToLower, "([1-9]\d{0,2})%?\s+([1-9]\d{0,2})%?")
+			If Match.Success Then
+				If CInt(Match.Groups(1).Value) > 99 Then
+					Core.ConsoleError("Minimum Health Percent has to be less than 99%.")
+					Exit Sub
+				ElseIf CInt(Match.Groups(2).Value) > 100 Then
+					Core.ConsoleError("Maximum Health Percent has to be less than 100%.")
+					Exit Sub
+				ElseIf CInt(Match.Groups(1).Value) >= CInt(Match.Groups(2).Value) Then
+					Core.ConsoleError("Maximum Health Percent has to be higher than Minimum Health Percent.")
+					Exit Sub
+				End If
+				If Core.AutoTrainerEntities.Count = 0 Then
+					Core.ConsoleError("You have to add entities to the training list.")
+					Exit Sub
+				End If
+				Core.AutoTrainerMinHPPercent = CInt(Match.Groups(1).Value)
+				Core.AutoTrainerMaxHPPercent = CInt(Match.Groups(2).Value)
+				Core.AutoTrainerTimerObj.StartTimer()
+				Core.ConsoleWrite("Auto Trainer will now attack the entities until " & Core.AutoTrainerMinHPPercent & "% of their health " & _
+				 "and after their recover " & Core.AutoTrainerMaxHPPercent & "% of their health.")
+			Else
+				Select Case StrToShort(Arguments(2).Value)
+					Case 0
+						Core.AutoTrainerMinHPPercent = 0
+						Core.AutoTrainerMaxHPPercent = 0
+						Core.AutoTrainerTimerObj.StopTimer()
+						Core.ConsoleWrite("Auto Trainer is now Disabled.")
+					Case Else
+						Dim BL As New BattleList
+						Select Case Arguments(2).Value
+							Case "add", "agregar", "a"
+								If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
+									If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
+										Core.ConsoleError("You must be attacking or following something.")
+										Exit Sub
+									End If
+								End If
+								If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
+									Core.ConsoleError("This entity is already in your list.")
+								Else
+									Core.AutoTrainerEntities.Add(BL.GetEntityID)
+									Core.ConsoleWrite("This entity has been added to your list.")
+								End If
+							Case "remove", "r", "remover", "quitar"
+								If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
+									If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
+										Core.ConsoleError("You must be attacking or following something.")
+										Exit Sub
+									End If
+								End If
+								If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
+									Core.AutoTrainerEntities.Remove(BL.GetEntityID)
+									Core.ConsoleWrite("This entity has been removed from your list.")
+								Else
+									Core.ConsoleError("This entity is not on your list.")
+								End If
+							Case "clear"
+								Core.AutoTrainerEntities.Clear()
+								Core.ConsoleWrite("Auto Trainer entities list cleared.")
+							Case Else
+								Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+						End Select
+				End Select
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
@@ -947,264 +947,263 @@ Public Module CommandParserModule
 
 #Region " Feedback Command "
 
-    Private Sub CmdFeedback(ByVal Arguments As GroupCollection)
-        Try
-            Dim Temp As UInteger
-            Win32API.VirtualProtectEx(Core.Proxy.Client.Handle, CType(Consts.ptrEnterOneNamePerLine, System.IntPtr), CType(24, UIntPtr), &H40, Temp)
-            Core.WriteMemory(Consts.ptrEnterOneNamePerLine, "Thank you for using TTB!")
-            Core.Proxy.SendPacketToClient(HouseSpellEdit(&HFE, 0, ""))
-            System.Threading.Thread.Sleep(500)
-            Core.WriteMemory(Consts.ptrEnterOneNamePerLine, "Enter one name per line.")
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdFeedback(ByVal Arguments As GroupCollection)
+		Try
+			Core.Client.UnprotectMemory(CType(Consts.ptrEnterOneNamePerLine, System.IntPtr), CType(24, UIntPtr))
+			Core.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Thank you for using TTB!")
+			Core.Proxy.SendPacketToClient(HouseSpellEdit(&HFE, 0, ""))
+			System.Threading.Thread.Sleep(500)
+			Core.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Enter one name per line.")
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Hotkey Settings "
 
-    Private Sub CmdHotkeys(ByVal Arguments As GroupCollection)
-        Try
-            Dim Argument As String = Arguments(2).Value.ToLower
-            Select Case Argument
-                Case "save"
-                    Core.HotkeySettings.LoadFromMemory()
-                    If Core.HotkeySettings.Save() Then
-                        Core.ConsoleWrite("Hotkeys saved.")
-                    Else
-                        Core.ConsoleError("Unable to save hotkeys.")
-                    End If
-                Case "load", "reload"
-                    Core.HotkeySettings.Load()
-                    Core.ConsoleWrite("Hotkeys loaded.")
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdHotkeys(ByVal Arguments As GroupCollection)
+		Try
+			Dim Argument As String = Arguments(2).Value.ToLower
+			Select Case Argument
+				Case "save"
+					Core.HotkeySettings.LoadFromMemory()
+					If Core.HotkeySettings.Save() Then
+						Core.ConsoleWrite("Hotkeys saved.")
+					Else
+						Core.ConsoleError("Unable to save hotkeys.")
+					End If
+				Case "load", "reload"
+					Core.HotkeySettings.Load()
+					Core.ConsoleWrite("Hotkeys loaded.")
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Configuration Manager "
 
-    Private Sub CmdConfig(ByVal Arguments As GroupCollection)
-        Try
-            Select Case Arguments(2).Value.ToLower
-                Case "edit", "modify", "change"
-                    Dim Data As String = ""
-                    Try
-                        Core.ConsoleWrite("Please wait...")
-                        Dim Reader As IO.StreamReader
-                        Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
-                        Data = Reader.ReadToEnd
-                        Reader.Close()
-                    Catch
-                    Finally
-                        Dim Temp As UInteger = 0
-                        Win32API.VirtualProtectEx(Core.Proxy.Client.Handle, CType(Consts.ptrEnterOneNamePerLine, IntPtr), CType(24, UIntPtr), &H40, Temp)
-                        Core.WriteMemory(Consts.ptrEnterOneNamePerLine, "Configuration Manager")
-                        Core.Proxy.SendPacketToClient(HouseSpellEdit(&HFF, 0, Data))
-                        System.Threading.Thread.Sleep(500)
-                        Core.WriteMemory(Consts.ptrEnterOneNamePerLine, "Enter one name per line.")
-                    End Try
-                Case "clear", "delete", "del", "cls"
-                    Try
-                        Core.ConsoleWrite("Please wait...")
-                        IO.File.Delete(Core.GetProfileDirectory() & "\config.txt")
-                    Catch
-                        Core.ConsoleError("Unable to clear your configuration.")
-                    Finally
-                        Core.ConsoleWrite("Cleared.")
-                    End Try
-                Case "load", "execute"
-                    Try
-                        Core.ConsoleWrite("Please wait...")
-                        Dim Data As String = ""
-                        Dim Reader As IO.StreamReader
-                        Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
-                        Data = Reader.ReadToEnd
-                        Dim MCollection As MatchCollection
-                        Dim GroupMatch As Match
-                        MCollection = [Regex].Matches(Data, "&([^\n;]+)[;]?")
-                        For Each GroupMatch In MCollection
-                            CommandParser(GroupMatch.Groups(1).Value)
-                        Next
-                        Core.ConsoleWrite("Done loading your configuration.")
-                    Catch
-                        Core.ConsoleError("Unable to load your configuration.")
-                    End Try
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdConfig(ByVal Arguments As GroupCollection)
+		Try
+			Select Case Arguments(2).Value.ToLower
+				Case "edit", "modify", "change"
+					Dim Data As String = ""
+					Try
+						Core.ConsoleWrite("Please wait...")
+						Dim Reader As IO.StreamReader
+						Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
+						Data = Reader.ReadToEnd
+						Reader.Close()
+					Catch
+					Finally
+						Dim Temp As UInteger = 0
+						Core.Client.UnprotectMemory(Consts.ptrEnterOneNamePerLine, CType(24, UIntPtr))
+						Core.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Configuration Manager")
+						Core.Proxy.SendPacketToClient(HouseSpellEdit(&HFF, 0, Data))
+						System.Threading.Thread.Sleep(500)
+						Core.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Enter one name per line.")
+					End Try
+				Case "clear", "delete", "del", "cls"
+					Try
+						Core.ConsoleWrite("Please wait...")
+						IO.File.Delete(Core.GetProfileDirectory() & "\config.txt")
+					Catch
+						Core.ConsoleError("Unable to clear your configuration.")
+					Finally
+						Core.ConsoleWrite("Cleared.")
+					End Try
+				Case "load", "execute"
+					Try
+						Core.ConsoleWrite("Please wait...")
+						Dim Data As String = ""
+						Dim Reader As IO.StreamReader
+						Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
+						Data = Reader.ReadToEnd
+						Dim MCollection As MatchCollection
+						Dim GroupMatch As Match
+						MCollection = [Regex].Matches(Data, "&([^\n;]+)[;]?")
+						For Each GroupMatch In MCollection
+							CommandParser(GroupMatch.Groups(1).Value)
+						Next
+						Core.ConsoleWrite("Done loading your configuration.")
+					Catch
+						Core.ConsoleError("Unable to load your configuration.")
+					End Try
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Auto Stacker Command "
 
-    Private Sub CmdStacker(ByVal Arguments As GroupCollection)
-        Try
-            Select Case StrToShort(Arguments(2).ToString)
-                Case 0
-                    Core.StackerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Stacker is now Disabled.")
-                Case 1
-                    Core.StackerTimerObj.Interval = Consts.AutoStackerDelay
-                    Core.StackerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Auto Stacker is now Enabled.")
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdStacker(ByVal Arguments As GroupCollection)
+		Try
+			Select Case StrToShort(Arguments(2).ToString)
+				Case 0
+					Core.StackerTimerObj.StopTimer()
+					Core.ConsoleWrite("Auto Stacker is now Disabled.")
+				Case 1
+					Core.StackerTimerObj.Interval = Consts.AutoStackerDelay
+					Core.StackerTimerObj.StartTimer()
+					Core.ConsoleWrite("Auto Stacker is now Enabled.")
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Map Viewer Command "
 
-    Private Sub CmdMapViewer()
-        Try
-            If Not Core.BGWMapViewer.IsBusy Then
-                Core.ConsoleWrite("Map Viewer is opening. Please wait...")
-                Core.BGWMapViewer.RunWorkerAsync()
-            Else
-                Core.ConsoleError("Map Viewer is already opened.")
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdMapViewer()
+		Try
+			If Not Core.BGWMapViewer.IsBusy Then
+				Core.ConsoleWrite("Map Viewer is opening. Please wait...")
+				Core.BGWMapViewer.RunWorkerAsync()
+			Else
+				Core.ConsoleError("Map Viewer is already opened.")
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Auto Looter Command "
 
-    Private Sub CmdLoot(ByVal Arguments As GroupCollection)
-        Try
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
-                Core.ConsoleError("Cavebot is currently running.")
-                Exit Sub
-            End If
-            Select Case StrToShort(Arguments(2).ToString)
-                Case 0
-                    Core.LooterMinimumCapacity = 0
-                    Core.LooterTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Looter is now Disabled.")
-                Case 1
-                    Core.LooterMinimumCapacity = 0
-                    Core.LooterTimerObj.StartTimer()
-                    Core.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches 0.")
-                Case Else
-                    Select Case Arguments(2).Value.ToLower
-                        Case "edit"
-                            If Core.LooterTimerObj.State = ThreadTimerState.Running Then
-                                Core.ConsoleError("Auto Looter must not be Enabled to edit the Loot Items.")
-                                Exit Sub
-                            End If
-                            Core.ConsoleWrite("Please wait...")
-                            CoreModule.LootItems.ShowLootCategories()
-                        Case Else
-                            Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]{0,4})")
-                            If MatchObj.Success Then
-                                Core.LooterMinimumCapacity = CUShort(MatchObj.Groups(1).Value)
-                                Core.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches " & Core.LooterMinimumCapacity & ".")
-                                Core.LooterTimerObj.StartTimer()
-                            Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                            End If
-                    End Select
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdLoot(ByVal Arguments As GroupCollection)
+		Try
+			If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+				Core.ConsoleError("Cavebot is currently running.")
+				Exit Sub
+			End If
+			Select Case StrToShort(Arguments(2).ToString)
+				Case 0
+					Core.LooterMinimumCapacity = 0
+					Core.LooterTimerObj.StopTimer()
+					Core.ConsoleWrite("Auto Looter is now Disabled.")
+				Case 1
+					Core.LooterMinimumCapacity = 0
+					Core.LooterTimerObj.StartTimer()
+					Core.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches 0.")
+				Case Else
+					Select Case Arguments(2).Value.ToLower
+						Case "edit"
+							If Core.LooterTimerObj.State = ThreadTimerState.Running Then
+								Core.ConsoleError("Auto Looter must not be Enabled to edit the Loot Items.")
+								Exit Sub
+							End If
+							Core.ConsoleWrite("Please wait...")
+							CoreModule.LootItems.ShowLootCategories()
+						Case Else
+							Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]{0,4})")
+							If MatchObj.Success Then
+								Core.LooterMinimumCapacity = CUShort(MatchObj.Groups(1).Value)
+								Core.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches " & Core.LooterMinimumCapacity & ".")
+								Core.LooterTimerObj.StartTimer()
+							Else
+								Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+							End If
+					End Select
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 
 #End Region
 
 #Region " Stats Uploader "
 
-    Private Sub CmdStatusUploader(ByVal Arguments As GroupCollection)
-        Try
-            Select Case StrToShort(Arguments(2).ToString)
-                Case 0
-                    Core.StatsUploaderTimerObj.StopTimer()
-                    Core.ConsoleWrite("Stats Uploader is now Disabled.")
-                Case 1
-                    If Consts.StatsUploaderSaveOnDiskOnly Then
-                        If Consts.StatsUploaderPath.Length = 0 OrElse Consts.StatsUploaderFilename.Length = 0 Then
-                            Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
-                            Exit Sub
-                        End If
-                        Core.UploaderUrl = Consts.StatsUploaderUrl
-                        Core.UploaderFilename = Consts.StatsUploaderFilename
-                        Core.UploaderPath = Consts.StatsUploaderPath
-                        Core.UploaderUserId = Consts.StatsUploaderUserID
-                        Core.UploaderPassword = Consts.StatsUploaderPassword
-                        Core.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
-                        Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
-                        Core.StatsUploaderTimerObj.StartTimer()
-                        Core.ConsoleWrite("Stats Uploader is now Enabled.")
-                    Else
+	Private Sub CmdStatusUploader(ByVal Arguments As GroupCollection)
+		Try
+			Select Case StrToShort(Arguments(2).ToString)
+				Case 0
+					Core.StatsUploaderTimerObj.StopTimer()
+					Core.ConsoleWrite("Stats Uploader is now Disabled.")
+				Case 1
+					If Consts.StatsUploaderSaveOnDiskOnly Then
+						If Consts.StatsUploaderPath.Length = 0 OrElse Consts.StatsUploaderFilename.Length = 0 Then
+							Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
+							Exit Sub
+						End If
+						Core.UploaderUrl = Consts.StatsUploaderUrl
+						Core.UploaderFilename = Consts.StatsUploaderFilename
+						Core.UploaderPath = Consts.StatsUploaderPath
+						Core.UploaderUserId = Consts.StatsUploaderUserID
+						Core.UploaderPassword = Consts.StatsUploaderPassword
+						Core.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
+						Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
+						Core.StatsUploaderTimerObj.StartTimer()
+						Core.ConsoleWrite("Stats Uploader is now Enabled.")
+					Else
 
-                        If Consts.StatsUploaderUrl.Length = 0 _
-                            OrElse Consts.StatsUploaderUserID.Length = 0 _
-                            OrElse Consts.StatsUploaderPassword.Length = 0 _
-                            OrElse Consts.StatsUploaderFrequency = 0 Then
-                            Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
-                            Exit Sub
-                        End If
-                        Core.UploaderUrl = Consts.StatsUploaderUrl
-                        Core.UploaderFilename = Consts.StatsUploaderFilename
-                        Core.UploaderPath = Consts.StatsUploaderPath
-                        Core.UploaderUserId = Consts.StatsUploaderUserID
-                        Core.UploaderPassword = Consts.StatsUploaderPassword
-                        Core.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
-                        Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
-                        Core.StatsUploaderTimerObj.StartTimer()
-                        Core.ConsoleWrite("Stats Uploader is now Enabled.")
-                    End If
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+						If Consts.StatsUploaderUrl.Length = 0 _
+						 OrElse Consts.StatsUploaderUserID.Length = 0 _
+						 OrElse Consts.StatsUploaderPassword.Length = 0 _
+						 OrElse Consts.StatsUploaderFrequency = 0 Then
+							Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
+							Exit Sub
+						End If
+						Core.UploaderUrl = Consts.StatsUploaderUrl
+						Core.UploaderFilename = Consts.StatsUploaderFilename
+						Core.UploaderPath = Consts.StatsUploaderPath
+						Core.UploaderUserId = Consts.StatsUploaderUserID
+						Core.UploaderPassword = Consts.StatsUploaderPassword
+						Core.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
+						Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
+						Core.StatsUploaderTimerObj.StartTimer()
+						Core.ConsoleWrite("Stats Uploader is now Enabled.")
+					End If
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Animation Command "
 
-    Private Sub CmdAnimation(ByVal Arguments As GroupCollection)
-        Try
-            If Regex.IsMatch(Arguments(2).ToString, "^([1-9]\d?)$") Then
-                Dim Num As Integer = CInt(Arguments(2).ToString)
-                If Num < 0 OrElse Num > 31 Then Num = 31
-                Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, CType(Num, MagicEffects)))
-                Core.ConsoleWrite("Animation: " & Num & ".")
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdAnimation(ByVal Arguments As GroupCollection)
+		Try
+			If Regex.IsMatch(Arguments(2).ToString, "^([1-9]\d?)$") Then
+				Dim Num As Integer = CInt(Arguments(2).ToString)
+				If Num < 0 OrElse Num > 31 Then Num = 31
+				Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, CType(Num, MagicEffects)))
+				Core.ConsoleWrite("Animation: " & Num & ".")
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Test Command "
 
-    Private Sub CmdTest(ByVal Arguments As GroupCollection)
-        Try
-            Core.ConsoleWrite("Begin Test")
-            Core.Proxy.SendPacketToClient(CreatureSpeak("Cameri", MessageType.ChannelCounsellor, 1, "Banned forever.", 0, 0, 0, ChannelType.Console))
+	Private Sub CmdTest(ByVal Arguments As GroupCollection)
+		Try
+			Core.ConsoleWrite("Begin Test")
+            'Core.Proxy.SendPacketToClient(CreatureSpeak("Cameri", MessageType.ChannelCounsellor, 1, "Banned forever.", 0, 0, 0, TibiaMessage.ChannelType.Console))
             Core.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1215,980 +1214,983 @@ Public Module CommandParserModule
 
 #Region " Auto Heal Party Command "
 
-    Private Sub CmdHealParty(ByVal Arguments As GroupCollection)
-        Try
-            Select Case StrToShort(Arguments(2).ToString)
-                Case 0
-                    Core.HealPartyMinimumHPPercentage = 0
-                    Core.HealPartyTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Heal Party is now Disabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""?([^""]+)""?")
-                    If MatchObj.Success Then
-                        Core.HealPartyMinimumHPPercentage = CInt(MatchObj.Groups(1).Value)
-                        Dim HealthType As String = ""
-                        Select Case MatchObj.Groups(2).Value.ToLower
-                            Case "ultimate healing", "uh", "adura vita"
-                                Core.HealPartyHealType = HealTypes.UltimateHealingRune
-                                HealthType = "Ultimate Healing."
-                            Case "exura sio", "heal friend", "sio"
-                                Core.HealPartyHealType = HealTypes.ExuraSio
-                                HealthType = "Exura Sio."
-                            Case "both"
-                                Core.HealPartyHealType = HealTypes.Both
-                                HealthType = "both Exura Sio and Ultimate Healing."
-                            Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                Exit Sub
-                        End Select
-                        Core.HealPartyTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Heal Party is now Enabled." & Ret & _
-                            "Healing party members when their hit points are less than " & Core.HealPartyMinimumHPPercentage & "% with " & HealthType)
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdHealParty(ByVal Arguments As GroupCollection)
+		Try
+			Select Case StrToShort(Arguments(2).ToString)
+				Case 0
+					Core.HealPartyMinimumHPPercentage = 0
+					Core.HealPartyTimerObj.StopTimer()
+					Core.ConsoleWrite("Auto Heal Party is now Disabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""?([^""]+)""?")
+					If MatchObj.Success Then
+						Core.HealPartyMinimumHPPercentage = CInt(MatchObj.Groups(1).Value)
+						Dim HealthType As String = ""
+						Select Case MatchObj.Groups(2).Value.ToLower
+							Case "ultimate healing", "uh", "adura vita"
+								Core.HealPartyHealType = HealTypes.UltimateHealingRune
+								HealthType = "Ultimate Healing."
+							Case "exura sio", "heal friend", "sio"
+								Core.HealPartyHealType = HealTypes.ExuraSio
+								HealthType = "Exura Sio."
+							Case "both"
+								Core.HealPartyHealType = HealTypes.Both
+								HealthType = "both Exura Sio and Ultimate Healing."
+							Case Else
+								Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+								Exit Sub
+						End Select
+						Core.HealPartyTimerObj.StartTimer()
+						Core.ConsoleWrite("Auto Heal Party is now Enabled." & Ret & _
+						 "Healing party members when their hit points are less than " & Core.HealPartyMinimumHPPercentage & "% with " & HealthType)
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Auto Healer Command "
 
-    Private Sub CmdHeal(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString.ToLower
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.HealTimerObj.StopTimer()
-                    Core.HealMinimumHP = 0
-                    Core.HealComment = ""
-                    Core.ConsoleWrite("Auto Healer is now Disabled.")
-                Case Else
-                    Dim RegExp As New Regex("([1-9][0-9]{0,4}%?)\s+""([^""]+)(?:""?(?:\s*""""([^""]+))?)?")
-                    Dim Match As Match = RegExp.Match(Value)
-                    If Match.Success Then
-                        Dim Match2 As Match = Regex.Match(Match.Groups(1).Value, "([1-9][0-9]?)%")
-                        If Match2.Success Then
-                            Dim MaxHitPoints As Integer = 0
-                            Core.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
-                            Core.HealMinimumHP = MaxHitPoints * (CInt(Match2.Groups(1).Value) / 100)
-                        Else
-                            Core.HealMinimumHP = CInt(Match.Groups(1).Value)
-                        End If
-                        For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
-                            If Spell.Name.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) Then
-                                Select Case Spell.Name.ToLower
-                                    Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing"
-                                        Core.HealSpell = Spell
-                                        Exit For
-                                    Case Else
-                                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                        Exit Sub
-                                End Select
-                            End If
-                        Next
-                        If Match.Groups(3).Value.Length > 0 Then
-                            Core.HealComment = Match.Groups(3).Value
-                        Else
-                            Core.HealComment = ""
-                        End If
-                        Core.HealTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Healer is now Enabled.")
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdHeal(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString.ToLower
+			Select Case StrToShort(Value)
+				Case 0
+					Core.HealTimerObj.StopTimer()
+					Core.HealMinimumHP = 0
+					Core.HealComment = ""
+					Core.ConsoleWrite("Auto Healer is now Disabled.")
+				Case Else
+					Dim RegExp As New Regex("([1-9][0-9]{0,4}%?)\s+""([^""]+)(?:""?(?:\s*""""([^""]+))?)?")
+					Dim Match As Match = RegExp.Match(Value)
+					If Match.Success Then
+						Dim Match2 As Match = Regex.Match(Match.Groups(1).Value, "([1-9][0-9]?)%")
+						If Match2.Success Then
+							Dim MaxHitPoints As Integer = 0
+							Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+							Core.HealMinimumHP = MaxHitPoints * (CInt(Match2.Groups(1).Value) / 100)
+						Else
+							Core.HealMinimumHP = CInt(Match.Groups(1).Value)
+						End If
+						For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+							If Spell.Name.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) Then
+								Select Case Spell.Name.ToLower
+									Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing"
+										Core.HealSpell = Spell
+										Exit For
+									Case Else
+										Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+										Exit Sub
+								End Select
+							End If
+						Next
+						If Match.Groups(3).Value.Length > 0 Then
+							Core.HealComment = Match.Groups(3).Value
+						Else
+							Core.HealComment = ""
+						End If
+						Core.HealTimerObj.StartTimer()
+						Core.ConsoleWrite("Auto Healer is now Enabled.")
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Fake Title Command "
 
-    Private Sub CmdFakeTitle(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).Value
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.FakingTitle = False
-                    Dim BL As New BattleList
-                    BL.JumpToEntity(SpecialEntity.Myself)
-                    Core.ChangeClientTitle(BotName & " - " & BL.GetName)
-                    Core.ConsoleWrite("Client title restored.")
-                Case Else
-                    Dim Regexp As New Regex("""([^""]+)""?")
-                    Dim Match As Match = Regexp.Match(Value)
-                    If Match.Success Then
-                        Core.LastExperience = 0
-                        If Core.ExpCheckerActivated Then
-                            Core.ExpCheckerActivated = False
-                            Core.ConsoleWrite("Experience Checker is now Disabled. Fake Title is now Enabled.")
-                        End If
-                        Core.FakingTitle = True
-                        Core.ChangeClientTitle(Match.Groups(1).Value)
-                        Core.ConsoleWrite("Client title changed to '" & Match.Groups(1).Value & "'.")
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdFakeTitle(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).Value
+			Select Case StrToShort(Value)
+				Case 0
+					Core.FakingTitle = False
+					Dim BL As New BattleList
+					BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+					Core.Client.Title = BotName & " - " & BL.GetName
+					Core.ConsoleWrite("Client title restored.")
+				Case Else
+					Dim Regexp As New Regex("""([^""]+)""?")
+					Dim Match As Match = Regexp.Match(Value)
+					If Match.Success Then
+						Core.LastExperience = 0
+						If Core.ExpCheckerActivated Then
+							Core.ExpCheckerActivated = False
+							Core.ConsoleWrite("Experience Checker is now Disabled. Fake Title is now Enabled.")
+						End If
+						Core.FakingTitle = True
+						Core.Client.Title = Match.Groups(1).Value
+						Core.ConsoleWrite("Client title changed to '" & Match.Groups(1).Value & "'.")
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Logger Command "
 
-    Private Sub CmdLog(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.LoggingEnabled = False
-                    Core.ConsoleWrite("Logging is now Disabled.")
-                Case 1
-                    Core.LoggingEnabled = True
-                    Core.ConsoleWrite("Logging is now Enabled.")
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdLog(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.LoggingEnabled = False
+					Core.ConsoleWrite("Logging is now Disabled.")
+				Case 1
+					Core.LoggingEnabled = True
+					Core.ConsoleWrite("Logging is now Enabled.")
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Auto Pickup "
 
-    Private Sub CmdPickUp(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    With Core
-                        .PickUpItemID = 0
-                        .PickUpTimerObj.StopTimer()
-                        .ConsoleWrite("Auto Pickup is now Disabled.")
-                    End With
-                Case 1
-                    Dim RightHandItemID As Integer
-                    Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                    If RightHandItemID = 0 OrElse Not Definitions.IsThrowable(RightHandItemID) Then
-                        Core.ConsoleError("You must have a throwable item in your right hand, like a spear, throwing knife, etc.")
-                        Exit Sub
-                    End If
-                    With Core
-                        .PickUpItemID = CUShort(RightHandItemID)
-                        .PickUpTimerObj.Interval = Consts.AutoPickUpDelay
-                        .PickUpTimerObj.StartTimer()
-                        .ConsoleWrite("Auto Pickup is now Enabled.")
-                    End With
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdPickUp(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					With Core
+						.PickUpItemID = 0
+						.PickUpTimerObj.StopTimer()
+						.ConsoleWrite("Auto Pickup is now Disabled.")
+					End With
+				Case 1
+					Dim RightHandItemID As Integer
+					Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+					If RightHandItemID = 0 OrElse Not Definitions.IsThrowable(RightHandItemID) Then
+						Core.ConsoleError("You must have a throwable item in your right hand, like a spear, throwing knife, etc.")
+						Exit Sub
+					End If
+					With Core
+						.PickUpItemID = CUShort(RightHandItemID)
+						.PickUpTimerObj.Interval = Consts.AutoPickUpDelay
+						.PickUpTimerObj.StartTimer()
+						.ConsoleWrite("Auto Pickup is now Enabled.")
+					End With
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Runemaker Command "
 
-    Private Sub CmdRunemaker(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.RunemakerManaPoints = 0
-                    Core.RunemakerSoulPoints = 0
-                    Core.RunemakerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Runemaker is now Disabled.")
-                Case Else
-                    Dim RegExp As New Regex("([1-9][0-9]{1,4})\s+([0-9]{0,3})\s+""([^""]+)""?")
-                    Dim Match As Match = RegExp.Match(Value)
-                    If Match.Success Then
-                        Dim Found As Boolean = False
-                        Dim S As New SpellDefinition
-                        For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
-                            If (Spell.Name.Equals(Match.Groups(3).Value, StringComparison.CurrentCultureIgnoreCase) _
-                            OrElse Spell.Words.Equals(Match.Groups(3).ToString, StringComparison.CurrentCultureIgnoreCase)) _
-                            AndAlso Spell.Kind = SpellKind.Rune Then
-                                S = Spell
-                                Found = True
-                                Exit For
-                            End If
-                        Next
-                        If Found Then
-                            Core.RunemakerSpell = S
-                            Core.RunemakerManaPoints = CInt(Match.Groups(1).Value)
-                            Core.RunemakerSoulPoints = CInt(Match.Groups(2).Value)
-                            Core.RunemakerTimerObj.StartTimer()
-                            Core.ConsoleWrite("Runemaker will now make " & S.Name & " when you have more than " & _
-                                Core.RunemakerManaPoints & " mana points and more than " & Core.RunemakerSoulPoints & " soul points.")
-                        Else
-                            Core.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
-                        End If
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+
+	Private Sub CmdRunemaker(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.RunemakerManaPoints = 0
+					Core.RunemakerSoulPoints = 0
+					Core.RunemakerTimerObj.StopTimer()
+					Core.ConsoleWrite("Runemaker is now Disabled.")
+				Case Else
+					Dim RegExp As New Regex("([1-9][0-9]{1,4})\s+([0-9]{0,3})\s+""([^""]+)""?")
+					Dim Match As Match = RegExp.Match(Value)
+					If Match.Success Then
+						Dim Found As Boolean = False
+						Dim S As New SpellDefinition
+						For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+							If (Spell.Name.Equals(Match.Groups(3).Value, StringComparison.CurrentCultureIgnoreCase) _
+							OrElse Spell.Words.Equals(Match.Groups(3).ToString, StringComparison.CurrentCultureIgnoreCase)) _
+							AndAlso Spell.Kind = SpellKind.Rune Then
+								S = Spell
+								Found = True
+								Exit For
+							End If
+						Next
+						If Found Then
+							Core.RunemakerSpell = S
+							Core.RunemakerManaPoints = CInt(Match.Groups(1).Value)
+							Core.RunemakerSoulPoints = CInt(Match.Groups(2).Value)
+							Core.RunemakerTimerObj.StartTimer()
+							Core.ConsoleWrite("Runemaker will now make " & S.Name & " when you have more than " & _
+								Core.RunemakerManaPoints & " mana points and more than " & Core.RunemakerSoulPoints & " soul points.")
+						Else
+							Core.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
+						End If
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
+
 
 #End Region
 
 #Region " Fisher Command "
 
-    Private Sub CmdFisher(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.FisherMinimumCapacity = 0
-                    Core.FisherSpeed = 0
-                    Core.FisherTurbo = False
-                    Core.FisherTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Fisher is now Disabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Value, "^(\d{1,3})(?:\s+(\S+))?$")
-                    If MatchObj.Success Then
-                        Select Case MatchObj.Groups(2).Value.ToLower
-                            Case "normal", "default", ""
-                                Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
-                                Core.FisherSpeed = 0
-                                Core.FisherTurbo = False
-                                Core.FisherTimerObj.StartTimer()
-                                Core.ConsoleWrite("Auto Fisher is now Enabled.")
-                            Case "turbo", "nitro", "fast", "faster", "fastest"
-                                Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
-                                Core.FisherSpeed = 500
-                                Core.FisherTurbo = True
-                                Core.FisherTimerObj.StartTimer()
-                                Core.ConsoleWrite("Auto Fisher (Turbo Mode) is now Enabled.")
-                            Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                        End Select
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdFisher(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.FisherMinimumCapacity = 0
+					Core.FisherSpeed = 0
+					Core.FisherTurbo = False
+					Core.FisherTimerObj.StopTimer()
+					Core.ConsoleWrite("Auto Fisher is now Disabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Value, "^(\d{1,3})(?:\s+(\S+))?$")
+					If MatchObj.Success Then
+						Select Case MatchObj.Groups(2).Value.ToLower
+							Case "normal", "default", ""
+								Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
+								Core.FisherSpeed = 0
+								Core.FisherTurbo = False
+								Core.FisherTimerObj.StartTimer()
+								Core.ConsoleWrite("Auto Fisher is now Enabled.")
+							Case "turbo", "nitro", "fast", "faster", "fastest"
+								Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
+								Core.FisherSpeed = 500
+								Core.FisherTurbo = True
+								Core.FisherTimerObj.StartTimer()
+								Core.ConsoleWrite("Auto Fisher (Turbo Mode) is now Enabled.")
+							Case Else
+								Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+						End Select
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Trade Channel Watcher Command "
 
-    Private Sub CmdTradeWatcher(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.TradeWatcherActive = False
-                    Core.TradeWatcherRegex = ""
-                    Core.ConsoleWrite("Trade Channel Watcher is now Disabled.")
-                Case Else
-                    If String.IsNullOrEmpty(Value) Then
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                        Exit Sub
-                    End If
-                    Dim RegExp As Regex
-                    Try
-                        RegExp = New Regex(Value)
-                        Core.TradeWatcherRegex = Value
-                        Core.TradeWatcherActive = True
-                        Core.ConsoleWrite("Trade Channel Watcher will now match advertisements with the following pattern '" & Core.TradeWatcherRegex & "'. Make sure the Trade channel is opened.")
-                    Catch ex As Exception
-                        Core.ConsoleError("Sorry, but this is not a valid regular expression." & Ret & _
-                        "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.")
-                    End Try
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdTradeWatcher(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.TradeWatcherActive = False
+					Core.TradeWatcherRegex = ""
+					Core.ConsoleWrite("Trade Channel Watcher is now Disabled.")
+				Case Else
+					If String.IsNullOrEmpty(Value) Then
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+						Exit Sub
+					End If
+					Dim RegExp As Regex
+					Try
+						RegExp = New Regex(Value)
+						Core.TradeWatcherRegex = Value
+						Core.TradeWatcherActive = True
+						Core.ConsoleWrite("Trade Channel Watcher will now match advertisements with the following pattern '" & Core.TradeWatcherRegex & "'. Make sure the Trade channel is opened.")
+					Catch ex As Exception
+						Core.ConsoleError("Sorry, but this is not a valid regular expression." & Ret & _
+						"See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.")
+					End Try
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Experience Checker Command "
 
-    Private Sub CmdExp(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).Value
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.ExpCheckerActivated = False
-                    Core.LastExperience = 0
-                    Core.ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName)
-                    Core.ConsoleWrite("Experience Checker is now Disabled.")
-                Case 1
-                    If Core.FakingTitle Then
-                        Core.FakingTitle = False
-                        Core.ConsoleWrite("Fake Title is now Disabled.")
-                    End If
-                    Core.LastExperience = 0
-                    Core.ExpCheckerActivated = True
-                    Core.ConsoleWrite("Experience Checker is now Enabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Value, "creatures?\s+([a-zA-Z]+)", RegexOptions.IgnoreCase)
-                    If MatchObj.Success Then
-                        Select Case StrToShort(MatchObj.Groups(1).Value.ToLower)
-                            Case 0
-                                Core.ShowCreaturesUntilNextLevel = False
-                                Core.ConsoleWrite("Showing creatures until next level is now Disabled.")
-                            Case 1
-                                Core.ShowCreaturesUntilNextLevel = True
-                                Core.ConsoleWrite("Showing creatures until next level is now Enabled.")
-                            Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                        End Select
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdExp(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).Value
+			Select Case StrToShort(Value)
+				Case 0
+					Core.ExpCheckerActivated = False
+					Core.LastExperience = 0
+					Core.Client.Title = BotName & " - " & Core.Proxy.CharacterName
+					Core.ConsoleWrite("Experience Checker is now Disabled.")
+				Case 1
+					If Core.FakingTitle Then
+						Core.FakingTitle = False
+						Core.ConsoleWrite("Fake Title is now Disabled.")
+					End If
+					Core.LastExperience = 0
+					Core.ExpCheckerActivated = True
+					Core.ConsoleWrite("Experience Checker is now Enabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Value, "creatures?\s+([a-zA-Z]+)", RegexOptions.IgnoreCase)
+					If MatchObj.Success Then
+						Select Case StrToShort(MatchObj.Groups(1).Value.ToLower)
+							Case 0
+								Core.ShowCreaturesUntilNextLevel = False
+								Core.ConsoleWrite("Showing creatures until next level is now Disabled.")
+							Case 1
+								Core.ShowCreaturesUntilNextLevel = True
+								Core.ConsoleWrite("Showing creatures until next level is now Enabled.")
+							Case Else
+								Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+						End Select
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Guild Members Command "
 
-    Private Sub CmdGuild(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Dim MatchObj As Match = Regex.Match(Value, "(online|both)\s+""([^""]+)")
-            If MatchObj.Success Then
-                Core.GuildMembersCommand = MatchObj.Groups(2).ToString
-                Core.GuildMembersOnlineOnly = False
-                If String.Compare(MatchObj.Groups(1).Value, "online", True) = 0 Then
-                    Core.GuildMembersOnlineOnly = True
-                End If
-                If Not Core.BGWGuildMembersCommand.IsBusy Then
-                    Core.ConsoleWrite("Please Wait...")
-                    Core.BGWGuildMembersCommand.RunWorkerAsync()
-                Else
-                    Core.ConsoleError("Busy.")
-                End If
-            Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdGuild(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Dim MatchObj As Match = Regex.Match(Value, "(online|both)\s+""([^""]+)")
+			If MatchObj.Success Then
+				Core.GuildMembersCommand = MatchObj.Groups(2).ToString
+				Core.GuildMembersOnlineOnly = False
+				If String.Compare(MatchObj.Groups(1).Value, "online", True) = 0 Then
+					Core.GuildMembersOnlineOnly = True
+				End If
+				If Not Core.BGWGuildMembersCommand.IsBusy Then
+					Core.ConsoleWrite("Please Wait...")
+					Core.BGWGuildMembersCommand.RunWorkerAsync()
+				Else
+					Core.ConsoleError("Busy.")
+				End If
+			Else
+				Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Char Command "
 
-    Private Sub CmdChar(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
-            If MatchObj.Success Then
-                Core.CharCommand = MatchObj.Groups(1).ToString
-                If Not Core.BGWCharCommand.IsBusy Then
-                    Core.ConsoleWrite("Please Wait...")
-                    Core.BGWCharCommand.RunWorkerAsync()
-                Else
-                    Core.ConsoleError("Busy.")
-                End If
-            Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdChar(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
+			If MatchObj.Success Then
+				Core.CharCommand = MatchObj.Groups(1).ToString
+				If Not Core.BGWCharCommand.IsBusy Then
+					Core.ConsoleWrite("Please Wait...")
+					Core.BGWCharCommand.RunWorkerAsync()
+				Else
+					Core.ConsoleError("Busy.")
+				End If
+			Else
+				Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Open Command "
 
-    Private Sub CmdOpen(ByVal Arguments As GroupCollection)
-        Dim Value As String = Arguments(2).ToString
-        Try
-            Dim MatchObj As Match = Regex.Match(Value, "^""([^""]+)""?")
-            If MatchObj.Success Then
-                Core.OpenCommand = MatchObj.Groups(1).ToString
-                If Not Core.BGWOpenCommand.IsBusy Then
-                    Core.ConsoleWrite("Please Wait...")
-                    Core.BGWOpenCommand.RunWorkerAsync()
-                Else
-                    Core.ConsoleError("Busy.")
-                End If
-            Else
-                MatchObj = Regex.Match(Value, "([a-zA-Z]+)\s+""([^""]+)")
-                If MatchObj.Success Then
-                    Dim Type As String = MatchObj.Groups(1).ToString
-                    Dim Prepend As String = ""
-                    Select Case Type.ToLower
-                        Case "google"
-                            Prepend = "http://www.google.com/search?q="
-                        Case "erig"
-                            Prepend = "http://www.erig.net/xphist.php?player="
-                        Case "wiki"
-                            Prepend = "http://tibia.erig.net/Special:Search?search="
-                        Case "character"
-                            Prepend = "http://www.tibia.com/community/?subtopic=character&name="
-                        Case "guild"
-                            Prepend = "http://www.tibia.com/community/?subtopic=guilds&page=view&GuildName="
-                        Case "mytibia"
-                            Prepend = "http://www.mytibia.com/"
-                        Case Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                            Exit Sub
-                    End Select
-                    Core.OpenCommand = Prepend & MatchObj.Groups(2).ToString
-                    If Not Core.BGWOpenCommand.IsBusy Then
-                        Core.ConsoleWrite("Please Wait...")
-                        Core.BGWOpenCommand.RunWorkerAsync()
-                    Else
-                        Core.ConsoleError("Busy.")
-                    End If
+	Private Sub CmdOpen(ByVal Arguments As GroupCollection)
+		Dim Value As String = Arguments(2).ToString
+		Try
+			Dim MatchObj As Match = Regex.Match(Value, "^""([^""]+)""?")
+			If MatchObj.Success Then
+				Core.OpenCommand = MatchObj.Groups(1).ToString
+				If Not Core.BGWOpenCommand.IsBusy Then
+					Core.ConsoleWrite("Please Wait...")
+					Core.BGWOpenCommand.RunWorkerAsync()
+				Else
+					Core.ConsoleError("Busy.")
+				End If
+			Else
+				MatchObj = Regex.Match(Value, "([a-zA-Z]+)\s+""([^""]+)")
+				If MatchObj.Success Then
+					Dim Type As String = MatchObj.Groups(1).ToString
+					Dim Prepend As String = ""
+					Select Case Type.ToLower
+						Case "google"
+							Prepend = "http://www.google.com/search?q="
+						Case "erig"
+							Prepend = "http://www.erig.net/xphist.php?player="
+						Case "wiki"
+							Prepend = "http://tibia.erig.net/Special:Search?search="
+						Case "character"
+							Prepend = "http://www.tibia.com/community/?subtopic=character&name="
+						Case "guild"
+							Prepend = "http://www.tibia.com/community/?subtopic=guilds&page=view&GuildName="
+						Case "mytibia"
+							Prepend = "http://www.mytibia.com/"
+						Case Else
+							Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+							Exit Sub
+					End Select
+					Core.OpenCommand = Prepend & MatchObj.Groups(2).ToString
+					If Not Core.BGWOpenCommand.IsBusy Then
+						Core.ConsoleWrite("Please Wait...")
+						Core.BGWOpenCommand.RunWorkerAsync()
+					Else
+						Core.ConsoleError("Busy.")
+					End If
 
-                Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                End If
-            End If
-        Catch e As Win32Exception
-            Core.ConsoleWrite("Error opening """ & Value & """ with message """ & e.Message & """.")
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+				Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+				End If
+			End If
+		Catch e As Win32Exception
+			Core.ConsoleWrite("Error opening """ & Value & """ with message """ & e.Message & """.")
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Ammunition Restacker Command "
 
-    Private Sub CmdAmmoRestacker(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.AmmoRestackerItemID = 0
-                    Core.AmmoRestackerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Ammunition Restacker is now Disabled.")
-                Case Else
-                    Dim ItemID As Integer
-                    Dim ItemCount As Integer
-                    Dim RegExp As New Regex("(\d{1,2})")
-                    Dim Match As Match = RegExp.Match(Value)
-                    If Not Match.Success Then
-                        Core.ConsoleError("You must specify the minimum ammunition count between 0 and 99, inclusive.")
-                        Exit Sub
-                    End If
-                    Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
-                    Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
-                    If ItemID = 0 OrElse Not DatInfo.GetInfo(ItemID).IsStackable OrElse Not Definitions.IsAmmunition(ItemID) Then
-                        Core.ConsoleError("You must place some of your ammunition on the Belt/Arrow Slot first.")
-                        Exit Sub
-                    End If
-                    Core.AmmoRestackerItemID = ItemID
-                    Core.AmmoRestackerOutOfAmmo = False
-                    Core.AmmoRestackerMinimumItemCount = CInt(Match.Groups(1).Value)
-                    Core.AmmoRestackerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Ammunition Restacker is now Enabled.")
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdAmmoRestacker(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.AmmoRestackerItemID = 0
+					Core.AmmoRestackerTimerObj.StopTimer()
+					Core.ConsoleWrite("Ammunition Restacker is now Disabled.")
+				Case Else
+					Dim ItemID As Integer
+					Dim ItemCount As Integer
+					Dim RegExp As New Regex("([1-9]\d)")
+					Dim Match As Match = RegExp.Match(Value)
+					If Not Match.Success Then
+						Core.ConsoleError("You must specify the minimum ammunition count between 1 and 99, inclusive.")
+						Exit Sub
+					End If
+					Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
+					Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
+					If ItemID = 0 OrElse Not DatInfo.GetInfo(ItemID).IsStackable Then
+						Core.ConsoleError("You must place some of your ammunition on the Belt/Arrow Slot first.")
+						Exit Sub
+					End If
+					Core.AmmoRestackerItemID = ItemID
+					Core.AmmoRestackerOutOfAmmo = False
+					Core.AmmoRestackerMinimumItemCount = CInt(Match.Groups(1).Value)
+					Core.AmmoRestackerTimerObj.StartTimer()
+					Core.ConsoleWrite("Ammunition Restacker is now Enabled.")
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Light Effect Command "
 
-    Private Sub CmdLight(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.SetLight(LightIntensity.Small, LightColor.UtevoLux)
-                    Core.LightTimerObj.StopTimer()
-                    Core.ConsoleWrite("Light Effect is now Disabled.")
-                Case 1
-                    Core.LightC = LightColor.BrightSword
-                    Core.LightI = LightIntensity.Huge + 2
-                    Core.ConsoleWrite("Full Light Effect is now Enabled.")
-                    Core.LightTimerObj.StartTimer()
-                Case Else
-                    Dim strOutput As String = "{0} Light Effect is now Enabled."
-                    Select Case Value.ToLower()
-                        Case "torch"
-                            Core.LightI = LightIntensity.Medium
-                            Core.LightC = LightColor.Torch
-                            Core.ConsoleWrite("Torch Light Effect is now Enabled.")
-                        Case "great torch"
-                            Core.LightI = LightIntensity.VeryLarge
-                            Core.LightC = LightColor.Torch
-                            Core.ConsoleWrite("Great Torch Light Effect is now Enabled.")
-                        Case "ultimate torch"
-                            Core.LightI = LightIntensity.Huge
-                            Core.LightC = LightColor.Torch
-                            Core.ConsoleWrite("Ultimate Torch Light Effect is now Enabled.")
-                        Case "utevo lux"
-                            Core.LightI = LightIntensity.Medium
-                            Core.LightC = LightColor.UtevoLux
-                            Core.ConsoleWrite("Utevo Lux Light Effect is now Enabled.")
-                        Case "utevo gran lux"
-                            Core.LightI = LightIntensity.Large
-                            Core.LightC = LightColor.UtevoLux
-                            Core.ConsoleWrite("Utevo Gran Lux Light Effect is now Enabled.")
-                        Case "utevo vis lux"
-                            Core.LightI = LightIntensity.VeryLarge
-                            Core.LightC = LightColor.UtevoLux
-                            Core.ConsoleWrite("Utevo Vis Lux Light Effect is now Enabled.")
-                        Case "light wand"
-                            Core.LightI = LightIntensity.Large
-                            Core.LightC = LightColor.LightWand
-                            Core.ConsoleWrite("Light Wand Light Effect is now Enabled.")
-                        Case Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                            Exit Sub
-                    End Select
-                    Core.LightTimerObj.StartTimer()
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdLight(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.SetLight(LightIntensity.Small, LightColor.UtevoLux)
+					Core.LightTimerObj.StopTimer()
+					Core.ConsoleWrite("Light Effect is now Disabled.")
+				Case 1
+					Core.LightC = LightColor.BrightSword
+					Core.LightI = LightIntensity.Huge + 2
+					Core.ConsoleWrite("Full Light Effect is now Enabled.")
+					Core.LightTimerObj.StartTimer()
+				Case Else
+					Dim strOutput As String = "{0} Light Effect is now Enabled."
+					Select Case Value.ToLower()
+						Case "torch"
+							Core.LightI = LightIntensity.Medium
+							Core.LightC = LightColor.Torch
+							Core.ConsoleWrite("Torch Light Effect is now Enabled.")
+						Case "great torch"
+							Core.LightI = LightIntensity.VeryLarge
+							Core.LightC = LightColor.Torch
+							Core.ConsoleWrite("Great Torch Light Effect is now Enabled.")
+						Case "ultimate torch"
+							Core.LightI = LightIntensity.Huge
+							Core.LightC = LightColor.Torch
+							Core.ConsoleWrite("Ultimate Torch Light Effect is now Enabled.")
+						Case "utevo lux"
+							Core.LightI = LightIntensity.Medium
+							Core.LightC = LightColor.UtevoLux
+							Core.ConsoleWrite("Utevo Lux Light Effect is now Enabled.")
+						Case "utevo gran lux"
+							Core.LightI = LightIntensity.Large
+							Core.LightC = LightColor.UtevoLux
+							Core.ConsoleWrite("Utevo Gran Lux Light Effect is now Enabled.")
+						Case "utevo vis lux"
+							Core.LightI = LightIntensity.VeryLarge
+							Core.LightC = LightColor.UtevoLux
+							Core.ConsoleWrite("Utevo Vis Lux Light Effect is now Enabled.")
+						Case "light wand"
+							Core.LightI = LightIntensity.Large
+							Core.LightC = LightColor.LightWand
+							Core.ConsoleWrite("Light Wand Light Effect is now Enabled.")
+						Case Else
+							Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+							Exit Sub
+					End Select
+					Core.LightTimerObj.StartTimer()
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Auto Attacker Command "
 
-    Private Sub CmdAttack(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Dim EntityName As String = ""
-            Dim BL As BattleList = New BattleList
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.AutoAttackerActivated = False
-                    Core.AutoAttackerIgnoredID = 0
-                    Core.AutoAttackerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Attacker is now Disabled.")
-                Case 1
-                    If BL.JumpToEntity(SpecialEntity.Followed) OrElse BL.JumpToEntity(SpecialEntity.Attacked) Then
-                        Core.AutoAttackerIgnoredID = BL.GetEntityID
-                        EntityName = BL.GetName
-                        If Core.AutoAttackerIgnoredID < &H40000000 Then Core.AutoAttackerIgnoredID = 0
-                    Else
-                        Core.AutoAttackerIgnoredID = 0
-                    End If
-                    Core.AutoAttackerActivated = True
-                    Core.ConsoleWrite("Auto Attacker is now Enabled.")
-                    If Core.AutoAttackerIgnoredID > 0 Then
-                        Core.ConsoleWrite("  Ignoring: " & EntityName & " (" & Core.AutoAttackerIgnoredID & ").")
-                    End If
-                Case Else
-                    Dim RegExp As New Regex("""([^""]+)""?")
-                    Dim Found As Boolean = False
-                    Dim Match As Match = RegExp.Match(Value)
-                    BL.Reset(True)
-                    If Match.Success Then
-                        Do
-                            If BL.IsOnScreen AndAlso Not BL.IsMyself Then
-                                If String.Compare(BL.GetName, Match.Groups(1).Value, True) = 0 Then
-                                    Found = True
-                                    Exit Do
-                                End If
-                            End If
-                        Loop While BL.NextEntity(True)
-                        If Found Then
-                            Core.WriteMemory(Consts.ptrSecureMode, 0, 1)
-                            Core.Proxy.SendPacketToServer(ChangeSecureMode(SecureMode.Normal))
-                            System.Threading.Thread.Sleep(1000)
-                            BL.Attack()
-                            Core.ConsoleWrite(String.Format("Attacking entity '{0}'.", BL.GetName))
-                        Else
-                            Core.ConsoleWrite(String.Format("Entity '{0}' not found.", Match.Groups(1).Value))
-                        End If
-                    Else
-                        Select Case Value.ToLower
-                            Case "stop", "s"
-                                Core.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
-                                Core.WriteMemory(Consts.ptrFollowedEntityID, 0, 4)
-                                Core.Proxy.SendPacketToServer(StopEverything())
-                                Core.ConsoleWrite("Stopped everything.")
-                            Case "follow", "chase", "chasing", "c", "f"
-                                Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
-                                Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
-                                Core.ConsoleWrite("Opponents will be chased.")
-                            Case "stand", "s", "stay"
-                                Core.WriteMemory(Consts.ptrChasingMode, 0, 1)
-                                Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Standing))
-                                Core.ConsoleWrite("Opponents will not be chased.")
-                            Case "offensive", "offense", "o"
-                                Core.WriteMemory(Consts.ptrFightingMode, FightingMode.Offensive, 1)
-                                Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Offensive))
-                                Core.ConsoleWrite("Fighting in offensive mode.")
-                            Case "balanced", "b", "middle"
-                                Core.WriteMemory(Consts.ptrFightingMode, FightingMode.Balanced, 1)
-                                Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Balanced))
-                                Core.ConsoleWrite("Fighting in balanced mode.")
-                            Case "defensive", "defense", "d"
-                                Core.WriteMemory(Consts.ptrFightingMode, FightingMode.Defensive, 1)
-                                Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Defensive))
-                                Core.ConsoleWrite("Fighting in defensive mode.")
-                            Case "auto", "automatic"
-                                Core.AutoAttackerTimerObj.StartTimer()
-                                Core.ConsoleWrite("Attacking creatures automatically.")
-                            Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                        End Select
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdAttack(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Dim EntityName As String = ""
+			Dim BL As BattleList = New BattleList
+			Select Case StrToShort(Value)
+				Case 0
+					Core.AutoAttackerActivated = False
+					Core.AutoAttackerIgnoredID = 0
+					Core.AutoAttackerTimerObj.StopTimer()
+					Core.ConsoleWrite("Auto Attacker is now Disabled.")
+				Case 1
+					If BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) OrElse BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
+						Core.AutoAttackerIgnoredID = BL.GetEntityID
+						EntityName = BL.GetName
+						If Core.AutoAttackerIgnoredID < &H40000000 Then Core.AutoAttackerIgnoredID = 0
+					Else
+						Core.AutoAttackerIgnoredID = 0
+					End If
+					Core.AutoAttackerActivated = True
+					Core.ConsoleWrite("Auto Attacker is now Enabled.")
+					If Core.AutoAttackerIgnoredID > 0 Then
+						Core.ConsoleWrite("  Ignoring: " & EntityName & " (" & Core.AutoAttackerIgnoredID & ").")
+					End If
+				Case Else
+					Dim RegExp As New Regex("""([^""]+)""?")
+					Dim Found As Boolean = False
+					Dim Match As Match = RegExp.Match(Value)
+					BL.Reset(True)
+					If Match.Success Then
+						Do
+							If BL.IsOnScreen AndAlso Not BL.IsMyself Then
+								If String.Compare(BL.GetName, Match.Groups(1).Value, True) = 0 Then
+									Found = True
+									Exit Do
+								End If
+							End If
+						Loop While BL.NextEntity(True)
+						If Found Then
+							Core.Client.WriteMemory(Consts.ptrSecureMode, 0, 1)
+							Core.Proxy.SendPacketToServer(ChangeSecureMode(SecureMode.Normal))
+							System.Threading.Thread.Sleep(1000)
+							BL.Attack()
+							Core.ConsoleWrite(String.Format("Attacking entity '{0}'.", BL.GetName))
+						Else
+							Core.ConsoleWrite(String.Format("Entity '{0}' not found.", Match.Groups(1).Value))
+						End If
+					Else
+						Select Case Value.ToLower
+							Case "stop", "s"
+								Core.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
+								Core.Client.WriteMemory(Consts.ptrFollowedEntityID, 0, 4)
+								Core.Proxy.SendPacketToServer(StopEverything())
+								Core.ConsoleWrite("Stopped everything.")
+							Case "follow", "chase", "chasing", "c", "f"
+								Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+								Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+								Core.ConsoleWrite("Opponents will be chased.")
+							Case "stand", "s", "stay"
+								Core.Client.WriteMemory(Consts.ptrChasingMode, 0, 1)
+								Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Standing))
+								Core.ConsoleWrite("Opponents will not be chased.")
+							Case "offensive", "offense", "o"
+								Core.Client.WriteMemory(Consts.ptrFightingMode, FightingMode.Offensive, 1)
+								Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Offensive))
+								Core.ConsoleWrite("Fighting in offensive mode.")
+							Case "balanced", "b", "middle"
+								Core.Client.WriteMemory(Consts.ptrFightingMode, FightingMode.Balanced, 1)
+								Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Balanced))
+								Core.ConsoleWrite("Fighting in balanced mode.")
+							Case "defensive", "defense", "d"
+								Core.Client.WriteMemory(Consts.ptrFightingMode, FightingMode.Defensive, 1)
+								Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Defensive))
+								Core.ConsoleWrite("Fighting in defensive mode.")
+							Case "auto", "automatic"
+								Core.AutoAttackerTimerObj.StartTimer()
+								Core.ConsoleWrite("Attacking creatures automatically.")
+							Case Else
+								Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+						End Select
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Spell Caster Command "
 
-    Private Sub CmdSpell(ByVal Arguments As GroupCollection)
-        Try
-            Select Case StrToShort(Arguments(2).ToString)
-                Case 0
-                    Core.SpellManaRequired = 0
-                    Core.SpellMsg = ""
-                    Core.SpellTimerObj.StopTimer()
-                    Core.ConsoleWrite("Spell Caster is now Disabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "^([1-9][0-9]{1,4})\s+""?(.+)$")
-                    If MatchObj.Success Then
-                        Core.SpellManaRequired = CUInt(MatchObj.Groups(1).ToString)
-                        Core.SpellMsg = MatchObj.Groups(2).ToString
-                        Core.SpellTimerObj.StartTimer()
-                        Core.ConsoleWrite("Spell Caster is now Enabled." & Ret & _
-                            "Casting '" & Core.SpellMsg & "' with " & Core.SpellManaRequired & " or more mana points.")
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdSpell(ByVal Arguments As GroupCollection)
+		Try
+			Select Case StrToShort(Arguments(2).ToString)
+				Case 0
+					Core.SpellManaRequired = 0
+					Core.SpellMsg = ""
+					Core.SpellTimerObj.StopTimer()
+					Core.ConsoleWrite("Spell Caster is now Disabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "^([1-9][0-9]{1,4})\s+""?(.+)$")
+					If MatchObj.Success Then
+						Core.SpellManaRequired = CUInt(MatchObj.Groups(1).ToString)
+						Core.SpellMsg = MatchObj.Groups(2).ToString
+						Core.SpellTimerObj.StartTimer()
+						Core.ConsoleWrite("Spell Caster is now Enabled." & Ret & _
+						 "Casting '" & Core.SpellMsg & "' with " & Core.SpellManaRequired & " or more mana points.")
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " About Command "
 
-    Private Sub CmdAbout()
-        Try
-            Core.ConsoleWrite(BotName & " v" & BotVersion & "." & Ret & _
-            "It is written by the TibiaTek Development Team, " & Ret & _
-            "and held at http://tibiatekbot.googlecode.com/" & Ret & _
-            "For versioning information, type: &version." & Ret & _
-            "To go to our website, type: &website.")
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdAbout()
+		Try
+			Core.ConsoleWrite(BotName & " v" & BotVersion & "." & Ret & _
+			"It is written by the TibiaTek Development Team, " & Ret & _
+			"and held at http://tibiatekbot.googlecode.com/" & Ret & _
+			"For versioning information, type: &version." & Ret & _
+			"To go to our website, type: &website.")
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Auto Eater Command "
 
-    Private Sub CmdEat(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.AutoEaterSmart = 0
-                    Core.EaterTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Eater is now Disabled.")
-                Case 1
-                    Core.AutoEaterSmart = 0
-                    Core.EaterTimerObj.Interval = Consts.AutoEaterInterval
-                    Core.EaterTimerObj.StartTimer()
-                    Core.ConsoleWrite("Auto Eater is now Enabled for every 30 seconds.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "smart\s+([1-9]\d{1,4})")
-                    If MatchObj.Success Then
-                        Core.AutoEaterSmart = CInt(MatchObj.Groups(1).ToString)
-                        Core.EaterTimerObj.Interval = Consts.AutoEaterSmartInterval
-                        Core.EaterTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Eater will eat only when you are below " & Core.AutoEaterSmart & " hit points, once every minute.")
-                    Else
-                        MatchObj = Regex.Match(Arguments(2).ToString, "([1-9]\d{0,2})")
-                        If MatchObj.Success Then
-                            Core.AutoEaterSmart = 0
-                            Core.EaterTimerObj.Interval = CInt(MatchObj.Groups(1).Value) * 1000
-                            Core.EaterTimerObj.StartTimer()
-                            Core.ConsoleWrite("Auto Eater is now Enabled for every " & ((Core.EaterTimerObj.Interval / 1000) Mod 1000) & " second(s).")
-                        Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                        End If
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdEat(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.AutoEaterSmart = 0
+					Core.EaterTimerObj.StopTimer()
+					Core.ConsoleWrite("Auto Eater is now Disabled.")
+				Case 1
+					Core.AutoEaterSmart = 0
+					Core.EaterTimerObj.Interval = Consts.AutoEaterInterval
+					Core.EaterTimerObj.StartTimer()
+					Core.ConsoleWrite("Auto Eater is now Enabled for every 30 seconds.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "smart\s+([1-9]\d{1,4})")
+					If MatchObj.Success Then
+						Core.AutoEaterSmart = CInt(MatchObj.Groups(1).ToString)
+						Core.EaterTimerObj.Interval = Consts.AutoEaterSmartInterval
+						Core.EaterTimerObj.StartTimer()
+						Core.ConsoleWrite("Auto Eater will eat only when you are below " & Core.AutoEaterSmart & " hit points, once every minute.")
+					Else
+						MatchObj = Regex.Match(Arguments(2).ToString, "([1-9]\d{0,2})")
+						If MatchObj.Success Then
+							Core.AutoEaterSmart = 0
+							Core.EaterTimerObj.Interval = CInt(MatchObj.Groups(1).Value) * 1000
+							Core.EaterTimerObj.StartTimer()
+							Core.ConsoleWrite("Auto Eater is now Enabled for every " & ((Core.EaterTimerObj.Interval / 1000) Mod 1000) & " second(s).")
+						Else
+							Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+						End If
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Auto UHer Command "
 
-    Private Sub CmdUH(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.UHTimerObj.StopTimer()
-                    Core.UHHPRequired = 0
-                    Core.ConsoleWrite("Auto UHer is now Disabled.")
-                Case Else
-                    If IsNumeric(Value) AndAlso CInt(Value) > 0 Then
-                        Core.UHHPRequired = CUInt(Value)
-                        Core.UHId = Definitions.GetItemID("Ultimate Healing")
-                        Core.UHTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto UHer will now 'UH' you if you are below " & Ret & _
-                        Core.UHHPRequired & " hit points.")
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdUH(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.UHTimerObj.StopTimer()
+					Core.UHHPRequired = 0
+					Core.ConsoleWrite("Auto UHer is now Disabled.")
+				Case Else
+					If IsNumeric(Value) AndAlso CInt(Value) > 0 Then
+						Core.UHHPRequired = CUInt(Value)
+						Core.UHId = Definitions.GetItemID("Ultimate Healing")
+						Core.UHTimerObj.StartTimer()
+						Core.ConsoleWrite("Auto UHer will now 'UH' you if you are below " & Ret & _
+						Core.UHHPRequired & " hit points.")
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Auto Heal Friend Command "
 
-    Private Sub CmdHealFriend(ByVal Arguments As GroupCollection)
-        Try
-            Select Case StrToShort(Arguments(2).ToString)
-                Case 0
-                    Core.HealFriendCharacterName = ""
-                    Core.HealFriendHealthPercentage = 0
-                    Core.HealFriendTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Heal Friend is now Disabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""([^""]+)""\s+""([^""]+)""?")
-                    If MatchObj.Success Then
-                        Core.HealFriendHealthPercentage = CUShort(MatchObj.Groups(1).ToString)
-                        If Core.HealFriendHealthPercentage < 0 Or Core.HealFriendHealthPercentage > 99 Then
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                            Exit Sub
-                        End If
-                        Dim HealthType As String = ""
-                        Select Case MatchObj.Groups(2).ToString.ToLower
-                            Case "ultimate healing", "uh", "adura vita"
-                                Core.HealFriendHealType = HealTypes.UltimateHealingRune
-                                HealthType = "Ultimate Healing."
-                            Case "exura sio", "heal friend", "sio"
-                                Core.HealFriendHealType = HealTypes.ExuraSio
-                                HealthType = "Exura Sio."
-                            Case "both"
-                                Core.HealFriendHealType = HealTypes.Both
-                                HealthType = "both Exura Sio and Ultimate Healing."
-                            Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                Exit Sub
-                        End Select
-                        Core.HealFriendCharacterName = MatchObj.Groups(3).Value
-                        Core.HealFriendTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Heal Friend is now Enabled." & Ret & _
-                            "Healing '" & Core.HealFriendCharacterName & "' when his/her hit points are less than " & Core.HealFriendHealthPercentage & "% with " & HealthType)
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdHealFriend(ByVal Arguments As GroupCollection)
+		Try
+			Select Case StrToShort(Arguments(2).ToString)
+				Case 0
+					Core.HealFriendCharacterName = ""
+					Core.HealFriendHealthPercentage = 0
+					Core.HealFriendTimerObj.StopTimer()
+					Core.ConsoleWrite("Auto Heal Friend is now Disabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""([^""]+)""\s+""([^""]+)""?")
+					If MatchObj.Success Then
+						Core.HealFriendHealthPercentage = CUShort(MatchObj.Groups(1).ToString)
+						If Core.HealFriendHealthPercentage < 0 Or Core.HealFriendHealthPercentage > 99 Then
+							Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+							Exit Sub
+						End If
+						Dim HealthType As String = ""
+						Select Case MatchObj.Groups(2).ToString.ToLower
+							Case "ultimate healing", "uh", "adura vita"
+								Core.HealFriendHealType = HealTypes.UltimateHealingRune
+								HealthType = "Ultimate Healing."
+							Case "exura sio", "heal friend", "sio"
+								Core.HealFriendHealType = HealTypes.ExuraSio
+								HealthType = "Exura Sio."
+							Case "both"
+								Core.HealFriendHealType = HealTypes.Both
+								HealthType = "both Exura Sio and Ultimate Healing."
+							Case Else
+								Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+								Exit Sub
+						End Select
+						Core.HealFriendCharacterName = MatchObj.Groups(3).Value
+						Core.HealFriendTimerObj.StartTimer()
+						Core.ConsoleWrite("Auto Heal Friend is now Enabled." & Ret & _
+						 "Healing '" & Core.HealFriendCharacterName & "' when his/her hit points are less than " & Core.HealFriendHealthPercentage & "% with " & HealthType)
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Version Command "
 
-    Private Sub CmdVersion()
-        Try
-            Core.ConsoleWrite(BotName & " v" & BotVersion & ".")
-            Core.ConsoleWrite("Powered By: PProxy v2.0 by CPargermer.")
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdVersion()
+		Try
+			Core.ConsoleWrite(BotName & " v" & BotVersion & ".")
+			Core.ConsoleWrite("Powered By: PProxy v2.0 by CPargermer.")
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Look Command "
 
-    Private Sub CmdLook(ByVal Arguments As GroupCollection)
-        Try
-            Dim Floor As Short = 0
-            Dim EntityCount As Integer = 0
-            Dim EntityList As New List(Of String)
-            Dim EntityListCount As New List(Of Integer)
-            Dim EntityListIndex As Integer
-            Dim EntityName As String = ""
-            Dim Output As String = ""
-            Dim I As Integer
-            Dim BL As BattleList = New BattleList
-            Dim Found As Boolean = False
-            Select Case Arguments(2).ToString.ToLower
-                Case "down", "below", "downstairs", "v", "\/"
-                    Floor = 1
-                Case "up", "above", "upstairs", "/\", "^"
-                    Floor = -1
-                Case "around"
-                    Floor = 0
-                Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    Exit Sub
-            End Select
-            BL.Reset(True)
-            Do
-                If BL.IsMyself OrElse BL.GetFloor <> Core.CharacterLoc.Z + Floor Then Continue Do
-                EntityName = BL.GetName
-                EntityListIndex = EntityList.IndexOf(EntityName)
-                If EntityListIndex > -1 Then
-                    EntityListCount(EntityListIndex) += 1
-                Else
-                    EntityList.Add(EntityName)
-                    EntityListCount.Add(1)
-                    EntityCount += 1
-                End If
-            Loop While BL.NextEntity(True)
-            If EntityCount = 0 Then
-                Output = "Nothing"
-            Else
-                For I = 0 To EntityCount - 1
-                    If (I > 0) And (I <= EntityCount - 1) Then Output = Output & ", "
-                    If EntityListCount(I) = 1 Then
-                        Output &= EntityList(I)
-                    Else
-                        Output &= EntityList(I) & "(" & EntityListCount(I) & "x)"
-                    End If
-                Next
-            End If
-            Core.ConsoleWrite("Entities found: " & Output & ".")
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdLook(ByVal Arguments As GroupCollection)
+		Try
+			Dim Floor As Short = 0
+			Dim EntityCount As Integer = 0
+			Dim EntityList As New List(Of String)
+			Dim EntityListCount As New List(Of Integer)
+			Dim EntityListIndex As Integer
+			Dim EntityName As String = ""
+			Dim Output As String = ""
+			Dim I As Integer
+			Dim BL As BattleList = New BattleList
+			Dim Found As Boolean = False
+			Select Case Arguments(2).ToString.ToLower
+				Case "down", "below", "downstairs", "v", "\/"
+					Floor = 1
+				Case "up", "above", "upstairs", "/\", "^"
+					Floor = -1
+				Case "around"
+					Floor = 0
+				Case Else
+					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					Exit Sub
+			End Select
+			BL.Reset(True)
+			Do
+				If BL.IsMyself OrElse BL.GetFloor <> Core.CharacterLoc.Z + Floor Then Continue Do
+				EntityName = BL.GetName
+				EntityListIndex = EntityList.IndexOf(EntityName)
+				If EntityListIndex > -1 Then
+					EntityListCount(EntityListIndex) += 1
+				Else
+					EntityList.Add(EntityName)
+					EntityListCount.Add(1)
+					EntityCount += 1
+				End If
+			Loop While BL.NextEntity(True)
+			If EntityCount = 0 Then
+				Output = "Nothing"
+			Else
+				For I = 0 To EntityCount - 1
+					If (I > 0) And (I <= EntityCount - 1) Then Output = Output & ", "
+					If EntityListCount(I) = 1 Then
+						Output &= EntityList(I)
+					Else
+						Output &= EntityList(I) & "(" & EntityListCount(I) & "x)"
+					End If
+				Next
+			End If
+			Core.ConsoleWrite("Entities found: " & Output & ".")
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Advertise Command "
 
-    Private Sub CmdAdvertise(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.AdvertiseMsg = ""
-                    Core.AdvertiseTimerObj.StopTimer()
-                    Core.ConsoleWrite("Trade Channel Advertiser is now Disabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, """([^""]+)""?")
-                    If MatchObj.Success Then
-                        'OpenChannel("Trade", ChannelType.Trade)
-                        Core.AdvertiseMsg = MatchObj.Groups(1).ToString
-                        Core.ConsoleWrite("Trade Channel Advertiser is now Enabled. Make sure the Trade Channel is opened.")
-                        Core.AdvertiseTimerObj.StartTimer(1000)
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdAdvertise(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.AdvertiseMsg = ""
+					Core.AdvertiseTimerObj.StopTimer()
+					Core.ConsoleWrite("Trade Channel Advertiser is now Disabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, """([^""]+)""?")
+					If MatchObj.Success Then
+						'OpenChannel("Trade", ChannelType.Trade)
+						Core.AdvertiseMsg = MatchObj.Groups(1).ToString
+						Core.ConsoleWrite("Trade Channel Advertiser is now Enabled. Make sure the Trade Channel is opened.")
+						Core.AdvertiseTimerObj.StartTimer(1000)
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " Get Item ID Command "
 
-    Private Sub CmdGetItemId()
-        Try
-            Dim Container As New Container()
-            Dim I As Integer
-            Dim Item As ContainerItemDefinition
-            Dim ItemCount As Integer
-            Dim Output As String = ""
-            Dim ItemName As String
-            Dim ID As Integer
-            Core.ConsoleWrite("Getting Item IDs, Please Wait...")
-            Core.ConsoleWrite("Inventory: ")
-            For E As InventorySlots = InventorySlots.Head To InventorySlots.Belt
-                Output = E.ToString & ": "
-                Core.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)), ID, 2)
-                ItemName = Definitions.GetItemName(ID)
-                If String.Compare(ItemName, "Unknown") = 0 Then
-                    Output &= "Unknown H" & Hex(ID)
-                Else
-                    Output &= ItemName
-                End If
-                If DatInfo.GetInfo(ID).IsStackable Then
-                    Core.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)) + Consts.ItemCountOffset, ItemCount, 1)
-                    Output &= " (x" & ItemCount & ")"
-                End If
-                Output &= "."
-                Core.ConsoleWrite(Output)
-            Next
+	Private Sub CmdGetItemId()
+		Try
+			Dim Container As New Container()
+			Dim I As Integer
+			Dim Item As ContainerItemDefinition
+			Dim ItemCount As Integer
+			Dim Output As String = ""
+			Dim ItemName As String
+			Dim ID As Integer
+			Core.ConsoleWrite("Getting Item IDs, Please Wait...")
+			Core.ConsoleWrite("Inventory: ")
+			For E As InventorySlots = InventorySlots.Head To InventorySlots.Belt
+				Output = E.ToString & ": "
+				Core.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)), ID, 2)
+				ItemName = Definitions.GetItemName(ID)
+				If String.Compare(ItemName, "Unknown") = 0 Then
+					Output &= "Unknown H" & Hex(ID)
+				Else
+					Output &= ItemName
+				End If
+				If DatInfo.GetInfo(ID).IsStackable Then
+					Core.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)) + Consts.ItemCountOffset, ItemCount, 1)
+					Output &= " (x" & ItemCount & ")"
+				End If
+				Output &= "."
+				Core.ConsoleWrite(Output)
+			Next
 
-            Container.Reset()
-            Do
-                If Container.IsOpened Then
-                    Output = ""
-                    Core.ConsoleWrite("Container #" & Hex(Container.GetContainerIndex + 1) & ": " & Container.GetName() & "")
-                    ItemCount = Container.GetItemCount()
-                    For I = 0 To ItemCount - 1
-                        Item = Container.Items(I)
-                        ItemName = Definitions.GetItemName(Item.ID)
-                        If String.Compare(ItemName, "Unknown") = 0 Then
-                            Output &= "Unknown H" & Hex(Item.ID)
-                        Else
-                            Output &= ItemName & " H" & Hex(Item.ID)
-                        End If
-                        If DatInfo.GetInfo(Item.ID).IsStackable Then
-                            Output &= " (x" & Item.Count & ")"
-                        End If
-                        If I < ItemCount - 1 Then
-                            Output &= ", "
-                        Else
-                            Output &= "."
-                        End If
-                    Next
-                    Core.ConsoleWrite(Output)
-                End If
-            Loop While Container.NextContainer()
-            Core.ConsoleWrite("Done.")
-            Exit Sub
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+			Container.Reset()
+			Do
+				If Container.IsOpened Then
+					Output = ""
+					Core.ConsoleWrite("Container #" & Hex(Container.GetContainerIndex + 1) & ": " & Container.GetName() & "")
+					ItemCount = Container.GetItemCount()
+					For I = 0 To ItemCount - 1
+						Item = Container.Items(I)
+						ItemName = Definitions.GetItemName(Item.ID)
+						If String.Compare(ItemName, "Unknown") = 0 Then
+							Output &= "Unknown H" & Hex(Item.ID)
+						Else
+							Output &= ItemName & " H" & Hex(Item.ID)
+						End If
+						If DatInfo.GetInfo(Item.ID).IsStackable Then
+							Output &= " (x" & Item.Count & ")"
+						End If
+						If I < ItemCount - 1 Then
+							Output &= ", "
+						Else
+							Output &= "."
+						End If
+					Next
+					Core.ConsoleWrite(Output)
+				End If
+			Loop While Container.NextContainer()
+			Core.ConsoleWrite("Done.")
+			Exit Sub
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 
 #End Region
 
 #Region " List Commands Command "
+
     Private Sub CmdCommands()
         Try
             Core.ConsoleWrite("Listing all commands. Type &help <command> for help. Example: &help attack." & Ret & _
@@ -2246,586 +2248,587 @@ Public Module CommandParserModule
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 #End Region
 
 #Region " Rainbow Outfit Command "
-    Private Sub CmdRainbow(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.ConsoleWrite("Rainbow Outfit is now Disabled")
-                    Core.RainbowOutfitTimerObj.StopTimer()
-                    Core.RainbowOutfitBody = 0
-                    Core.RainbowOutfitFeet = 0
-                    Core.RainbowOutfitHead = 0
-                    Core.RainbowOutfitLegs = 0
-                Case 1
-                    Core.ConsoleWrite("Rainbow Outfit is now Enabled")
-                    Core.RainbowOutfitBody = 0
-                    Core.RainbowOutfitFeet = 10
-                    Core.RainbowOutfitHead = 20
-                    Core.RainbowOutfitLegs = 30
-                    Core.RainbowOutfitTimerObj.Interval = 50
-                    Core.RainbowOutfitTimerObj.StartTimer()
-                Case Else
-                    Select Case Value.ToLower
-                        Case "fast"
-                            Core.RainbowOutfitBody = 0
-                            Core.RainbowOutfitFeet = 10
-                            Core.RainbowOutfitHead = 20
-                            Core.RainbowOutfitLegs = 30
-                            Core.RainbowOutfitTimerObj.Interval = 50
-                            Core.ConsoleWrite("Rainbow Outfit is now Enabled with fast speed.")
-                            Core.RainbowOutfitTimerObj.StartTimer()
-                        Case "slow"
-                            Core.RainbowOutfitBody = 0
-                            Core.RainbowOutfitFeet = 10
-                            Core.RainbowOutfitHead = 20
-                            Core.RainbowOutfitLegs = 30
-                            Core.RainbowOutfitTimerObj.Interval = 100
-                            Core.ConsoleWrite("Rainbow Outfit is now Enabled with low speed.")
-                            Core.RainbowOutfitTimerObj.StartTimer()
-                        Case Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End Select
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdRainbow(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.ConsoleWrite("Rainbow Outfit is now Disabled")
+					Core.RainbowOutfitTimerObj.StopTimer()
+					Core.RainbowOutfitBody = 0
+					Core.RainbowOutfitFeet = 0
+					Core.RainbowOutfitHead = 0
+					Core.RainbowOutfitLegs = 0
+				Case 1
+					Core.ConsoleWrite("Rainbow Outfit is now Enabled")
+					Core.RainbowOutfitBody = 0
+					Core.RainbowOutfitFeet = 10
+					Core.RainbowOutfitHead = 20
+					Core.RainbowOutfitLegs = 30
+					Core.RainbowOutfitTimerObj.Interval = 50
+					Core.RainbowOutfitTimerObj.StartTimer()
+				Case Else
+					Select Case Value.ToLower
+						Case "fast"
+							Core.RainbowOutfitBody = 0
+							Core.RainbowOutfitFeet = 10
+							Core.RainbowOutfitHead = 20
+							Core.RainbowOutfitLegs = 30
+							Core.RainbowOutfitTimerObj.Interval = 50
+							Core.ConsoleWrite("Rainbow Outfit is now Enabled with fast speed.")
+							Core.RainbowOutfitTimerObj.StartTimer()
+						Case "slow"
+							Core.RainbowOutfitBody = 0
+							Core.RainbowOutfitFeet = 10
+							Core.RainbowOutfitHead = 20
+							Core.RainbowOutfitLegs = 30
+							Core.RainbowOutfitTimerObj.Interval = 100
+							Core.ConsoleWrite("Rainbow Outfit is now Enabled with low speed.")
+							Core.RainbowOutfitTimerObj.StartTimer()
+						Case Else
+							Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End Select
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 #End Region
 
 #Region " Auto Drinker Command "
-    Private Sub CmdDrinker(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString.ToLower
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.AutoDrinkerTimerObj.StopTimer()
-                    Core.DrinkerManaRequired = 0
-                    Core.ConsoleWrite("Auto Drinker is now Disabled.")
-                Case Else
-                    Dim RegExp As New Regex("^[1-9]\d{1,3}$")
-                    Dim Match As Match = RegExp.Match(Value)
-                    If Match.Success Then
-                        Core.DrinkerManaRequired = Value
-                        Core.AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
-                        Core.AutoDrinkerTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Drinker is now Enabled.")
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdDrinker(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString.ToLower
+			Select Case StrToShort(Value)
+				Case 0
+					Core.AutoDrinkerTimerObj.StopTimer()
+					Core.DrinkerManaRequired = 0
+					Core.ConsoleWrite("Auto Drinker is now Disabled.")
+				Case Else
+					Dim RegExp As New Regex("^[1-9]\d{1,3}$")
+					Dim Match As Match = RegExp.Match(Value)
+					If Match.Success Then
+						Core.DrinkerManaRequired = Value
+						Core.AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
+						Core.AutoDrinkerTimerObj.StartTimer()
+						Core.ConsoleWrite("Auto Drinker is now Enabled.")
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 #End Region
 
 #Region " CaveBot Command "
-    Private Sub CmdCaveBot(ByVal Arguments As GroupCollection)
-        Try
-            Dim value As String = Arguments(2).ToString.ToLower
-            Select Case StrToShort(value)
-                Case 0
-                    Core.LooterTimerObj.StopTimer()
-                    Core.AutoAttackerTimerObj.StopTimer()
-                    Core.CaveBotTimerObj.StopTimer()
-                    Core.EaterTimerObj.StopTimer()
-                    Core.EaterTimerObj.Interval = 0
-                    Core.WaypointIndex = 0
-                    Core.IsOpeningReady = True
-                    Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(0))
-                    Core.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
-                    Core.ConsoleWrite("Cavebot is now Disabled.")
-                Case 1
-                    If Core.Walker_Waypoints.Count = 0 Then
-                        Core.ConsoleWrite("No waypoints found.")
-                        Exit Sub
-                    End If
-                    If Consts.LootWithCavebot Then
-                        Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
-                        Core.LooterTimerObj.StartTimer()
-                    End If
-                    Core.AutoAttackerTimerObj.StartTimer()
-                    Core.CaveBotTimerObj.StartTimer()
-                    Core.AutoEaterSmart = 0
-                    Core.EaterTimerObj.Interval = 20000
-                    Core.EaterTimerObj.StartTimer()
-                    Core.IsOpeningReady = True
-                    Core.CBCreatureDied = False
-                    Core.WaypointIndex = 0
-                    Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
-                    Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
-                    Core.ConsoleWrite("Cavebot is now Enabled.")
-                    Core.CBState = CavebotState.Walking
-                Case Else 'ADD or Continue
-                    If Arguments(2).ToString = "continue" Then
-                        If Core.Walker_Waypoints.Count = 0 Then
-                            Core.ConsoleWrite("No waypoints found.")
-                            Exit Sub
-                        End If
-                        Core.WaypointIndex = SelectNearestWaypoint(Core.Walker_Waypoints)
-                        If Core.WaypointIndex = -1 Then
-                            Core.ConsoleError("No waypoints found on this floor.")
-                            Exit Sub
-                        End If
-                        If Consts.LootWithCavebot Then
-                            Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
-                            Core.LooterTimerObj.StartTimer()
-                        End If
-                        Core.AutoAttackerTimerObj.StartTimer()
-                        Core.CaveBotTimerObj.StartTimer()
-                        Core.AutoEaterSmart = 0
-                        Core.EaterTimerObj.Interval = 20000
-                        Core.EaterTimerObj.StartTimer()
-                        Core.IsOpeningReady = True
-                        Core.CBCreatureDied = False
-                        Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
-                        Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
-                        Core.ConsoleWrite("Cavebot is now Enabled.")
-                        Core.CBState = CavebotState.Walking
-                        Exit Sub
-                    End If
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase)
-                    If MatchObj.Success Then
-                        Dim BL As New BattleList
-                        Dim Character As New Walker
-                        Dim WPType As String
-                        BL.JumpToEntity(SpecialEntity.Myself)
-                        Character.Coordinates = BL.GetLocation
-                        If Walker.CheckDistance = False Then Exit Sub
+	Private Sub CmdCaveBot(ByVal Arguments As GroupCollection)
+		Try
+			Dim value As String = Arguments(2).ToString.ToLower
+			Select Case StrToShort(value)
+				Case 0
+					Core.LooterTimerObj.StopTimer()
+					Core.AutoAttackerTimerObj.StopTimer()
+					Core.CaveBotTimerObj.StopTimer()
+					Core.EaterTimerObj.StopTimer()
+					Core.EaterTimerObj.Interval = 0
+					Core.WaypointIndex = 0
+					Core.IsOpeningReady = True
+					Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(0))
+					Core.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
+					Core.ConsoleWrite("Cavebot is now Disabled.")
+				Case 1
+					If Core.Walker_Waypoints.Count = 0 Then
+						Core.ConsoleWrite("No waypoints found.")
+						Exit Sub
+					End If
+					If Consts.LootWithCavebot Then
+						Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
+						Core.LooterTimerObj.StartTimer()
+					End If
+					Core.AutoAttackerTimerObj.StartTimer()
+					Core.CaveBotTimerObj.StartTimer()
+					Core.AutoEaterSmart = 0
+					Core.EaterTimerObj.Interval = 20000
+					Core.EaterTimerObj.StartTimer()
+					Core.IsOpeningReady = True
+					Core.CBCreatureDied = False
+					Core.WaypointIndex = 0
+					Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+					Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+					Core.ConsoleWrite("Cavebot is now Enabled.")
+					Core.CBState = CavebotState.Walking
+				Case Else 'ADD or Continue
+					If Arguments(2).ToString = "continue" Then
+						If Core.Walker_Waypoints.Count = 0 Then
+							Core.ConsoleWrite("No waypoints found.")
+							Exit Sub
+						End If
+						Core.WaypointIndex = SelectNearestWaypoint(Core.Walker_Waypoints)
+						If Core.WaypointIndex = -1 Then
+							Core.ConsoleError("No waypoints found on this floor.")
+							Exit Sub
+						End If
+						If Consts.LootWithCavebot Then
+							Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
+							Core.LooterTimerObj.StartTimer()
+						End If
+						Core.AutoAttackerTimerObj.StartTimer()
+						Core.CaveBotTimerObj.StartTimer()
+						Core.AutoEaterSmart = 0
+						Core.EaterTimerObj.Interval = 20000
+						Core.EaterTimerObj.StartTimer()
+						Core.IsOpeningReady = True
+						Core.CBCreatureDied = False
+						Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+						Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+						Core.ConsoleWrite("Cavebot is now Enabled.")
+						Core.CBState = CavebotState.Walking
+						Exit Sub
+					End If
+					Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase)
+					If MatchObj.Success Then
+						Dim BL As New BattleList
+						Dim Character As New Walker
+						Dim WPType As String
+						BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+						Character.Coordinates = BL.GetLocation
+						If Walker.CheckDistance = False Then Exit Sub
 
-                        Select Case MatchObj.Groups(1).Value.ToLower
-                            Case "walk", "w"
-                                Character.Type = Walker.WaypointType.Walk
-                                WPType = "W"
-                                Core.ConsoleWrite("Walking waypoint added.")
-                            Case "ladder", "l"
-                                Character.Type = Walker.WaypointType.Ladder
-                                WPType = "L"
-                                Core.ConsoleWrite("Ladder waypoint added.")
-                            Case "rope", "r"
-                                Character.Type = Walker.WaypointType.Rope
-                                WPType = "R"
-                                Core.ConsoleWrite("Rope waypoint added.")
-                            Case "sewer", "s"
-                                Character.Type = Walker.WaypointType.Sewer
-                                WPType = "SE"
-                                Core.ConsoleWrite("Sewer waypoint added.")
-                            Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                Exit Sub
-                        End Select
+						Select Case MatchObj.Groups(1).Value.ToLower
+							Case "walk", "w"
+								Character.Type = Walker.WaypointType.Walk
+								WPType = "W"
+								Core.ConsoleWrite("Walking waypoint added.")
+							Case "ladder", "l"
+								Character.Type = Walker.WaypointType.Ladder
+								WPType = "L"
+								Core.ConsoleWrite("Ladder waypoint added.")
+							Case "rope", "r"
+								Character.Type = Walker.WaypointType.Rope
+								WPType = "R"
+								Core.ConsoleWrite("Rope waypoint added.")
+							Case "sewer", "s"
+								Character.Type = Walker.WaypointType.Sewer
+								WPType = "SE"
+								Core.ConsoleWrite("Sewer waypoint added.")
+							Case Else
+								Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+								Exit Sub
+						End Select
 
-                        Core.Walker_Waypoints.Add(Character)
-                    Else
-                        MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
-                        If MatchObj.Success Then
-                            Dim BL As New BattleList
-                            Dim Character As New Walker
-                            Dim WPType As String
-                            BL.JumpToEntity(SpecialEntity.Myself)
-                            Character.Coordinates = BL.GetLocation
-                            If Walker.CheckDistance = False Then Exit Sub
+						Core.Walker_Waypoints.Add(Character)
+					Else
+						MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
+						If MatchObj.Success Then
+							Dim BL As New BattleList
+							Dim Character As New Walker
+							Dim WPType As String
+							BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+							Character.Coordinates = BL.GetLocation
+							If Walker.CheckDistance = False Then Exit Sub
 
-                            Character.Type = Walker.WaypointType.StairsOrHole
-                            WPType = "S/H"
-                            Select Case MatchObj.Groups(2).ToString
-                                Case "up", "north"
-                                    Character.Coordinates.Y -= 1
-                                Case "left", "west"
-                                    Character.Coordinates.X -= 1
-                                Case "down", "south"
-                                    Character.Coordinates.Y += 1
-                                Case "right", "east"
-                                    Character.Coordinates.X += 1
-                                Case Else
-                                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                    Exit Sub
-                            End Select
+							Character.Type = Walker.WaypointType.StairsOrHole
+							WPType = "S/H"
+							Select Case MatchObj.Groups(2).ToString
+								Case "up", "north"
+									Character.Coordinates.Y -= 1
+								Case "left", "west"
+									Character.Coordinates.X -= 1
+								Case "down", "south"
+									Character.Coordinates.Y += 1
+								Case "right", "east"
+									Character.Coordinates.X += 1
+								Case Else
+									Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+									Exit Sub
+							End Select
 
-                            Core.Walker_Waypoints.Add(Character)
-                            Core.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
-                        Else
-                            MatchObj = Regex.Match(Arguments(2).ToString, "add\swait\s(\d{1,5})")
-                            If MatchObj.Success Then
-                                Dim WPType As String
-                                Dim Character As New Walker
-                                Dim BL As New BattleList
-                                BL.JumpToEntity(SpecialEntity.Myself)
-                                If Walker.CheckDistance = False Then Exit Sub
-                                Character.Coordinates = BL.GetLocation
-                                Character.Type = Walker.WaypointType.Wait
-                                Character.Info = MatchObj.Groups(1).ToString
-                                WPType = "WT"
-                                Core.Walker_Waypoints.Add(Character)
-                                Core.ConsoleWrite("Wait waypoint added.")
-                            Else
-                                MatchObj = Regex.Match(Arguments(2).ToString, "add\ssay\s+""?(.+)$")
-                                If MatchObj.Success Then
-                                    If Walker.CheckDistance = False Then Exit Sub
-                                    Dim WPType As String
-                                    Dim Character As New Walker
-                                    Dim BL As New BattleList
-                                    BL.JumpToEntity(SpecialEntity.Myself)
-                                    Character.Coordinates = BL.GetLocation
-                                    Character.Type = Walker.WaypointType.Say
-                                    Character.Info = MatchObj.Groups(1).ToString
-                                    WPType = "S"
+							Core.Walker_Waypoints.Add(Character)
+							Core.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
+						Else
+							MatchObj = Regex.Match(Arguments(2).ToString, "add\swait\s(\d{1,5})")
+							If MatchObj.Success Then
+								Dim WPType As String
+								Dim Character As New Walker
+								Dim BL As New BattleList
+								BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+								If Walker.CheckDistance = False Then Exit Sub
+								Character.Coordinates = BL.GetLocation
+								Character.Type = Walker.WaypointType.Wait
+								Character.Info = MatchObj.Groups(1).ToString
+								WPType = "WT"
+								Core.Walker_Waypoints.Add(Character)
+								Core.ConsoleWrite("Wait waypoint added.")
+							Else
+								MatchObj = Regex.Match(Arguments(2).ToString, "add\ssay\s+""?(.+)$")
+								If MatchObj.Success Then
+									If Walker.CheckDistance = False Then Exit Sub
+									Dim WPType As String
+									Dim Character As New Walker
+									Dim BL As New BattleList
+									BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+									Character.Coordinates = BL.GetLocation
+									Character.Type = Walker.WaypointType.Say
+									Character.Info = MatchObj.Groups(1).ToString
+									WPType = "S"
 
-                                    Core.Walker_Waypoints.Add(Character)
-                                    Core.ConsoleWrite("Say waypoint added.")
-                                Else
-                                    MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
-                                    If MatchObj.Success Then
-                                        If Walker.CheckDistance = False Then Exit Sub
-                                        Dim BL As New BattleList
-                                        Dim Character As New Walker
-                                        Dim WPType As String
-                                        BL.JumpToEntity(SpecialEntity.Myself)
-                                        Character.Coordinates = BL.GetLocation
+									Core.Walker_Waypoints.Add(Character)
+									Core.ConsoleWrite("Say waypoint added.")
+								Else
+									MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
+									If MatchObj.Success Then
+										If Walker.CheckDistance = False Then Exit Sub
+										Dim BL As New BattleList
+										Dim Character As New Walker
+										Dim WPType As String
+										BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+										Character.Coordinates = BL.GetLocation
 
-                                        Character.Type = Walker.WaypointType.Shovel
-                                        WPType = "SH"
-                                        Select Case MatchObj.Groups(2).ToString
-                                            Case "up", "north"
-                                                Character.Info = Walker.Directions.Up
-                                            Case "left", "west"
-                                                Character.Info = Walker.Directions.Left
-                                            Case "down", "south"
-                                                Character.Info = Walker.Directions.Down
-                                            Case "right", "east"
-                                                Character.Info = Walker.Directions.Up
-                                            Case Else
-                                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                                Exit Sub
-                                        End Select
-                                        Core.Walker_Waypoints.Add(Character)
-                                    Else
-                                        MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
-                                        If MatchObj.Success Then
-                                            UpdatePlayerPos()
-                                            Select Case StrToShort(MatchObj.Groups(2).ToString)
-                                                Case 1
-                                                    Core.LearningMode = True
-                                                    'AutoAddTime = Now.AddSeconds(10)
-                                                    Core.LastFloor = Core.CharacterLoc.Z
-                                                    Core.AutoAddTimerObj.StartTimer()
-                                                    Core.ConsoleWrite("Adding waypoints automatically.")
-                                                Case 0
-                                                    Core.LearningMode = False
-                                                    Core.AutoAddTimerObj.StopTimer()
-                                                    Core.ConsoleWrite("Stopped adding waypoints automatically.")
-                                            End Select
-                                        Else
-                                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+										Character.Type = Walker.WaypointType.Shovel
+										WPType = "SH"
+										Select Case MatchObj.Groups(2).ToString
+											Case "up", "north"
+												Character.Info = Walker.Directions.Up
+											Case "left", "west"
+												Character.Info = Walker.Directions.Left
+											Case "down", "south"
+												Character.Info = Walker.Directions.Down
+											Case "right", "east"
+												Character.Info = Walker.Directions.Up
+											Case Else
+												Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+												Exit Sub
+										End Select
+										Core.Walker_Waypoints.Add(Character)
+									Else
+										MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
+										If MatchObj.Success Then
+											UpdatePlayerPos()
+											Select Case StrToShort(MatchObj.Groups(2).ToString)
+												Case 1
+													Core.LearningMode = True
+													'AutoAddTime = Now.AddSeconds(10)
+													Core.LastFloor = Core.CharacterLoc.Z
+													Core.AutoAddTimerObj.StartTimer()
+													Core.ConsoleWrite("Adding waypoints automatically.")
+												Case 0
+													Core.LearningMode = False
+													Core.AutoAddTimerObj.StopTimer()
+													Core.ConsoleWrite("Stopped adding waypoints automatically.")
+											End Select
+										Else
+											Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+										End If
+									End If
+								End If
+							End If
+						End If
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 #End Region
 
 #Region " Walker Command "
-    Private Sub CmdWalker(ByVal Arguments As GroupCollection)
-        Try
-            Dim value As String = Arguments(2).ToString.ToLower
-            Select Case StrToShort(value)
-                Case 0
-                    Core.WalkerTimerObj.StopTimer()
-                    Core.WalkerLoop = False
-                    Core.WaypointIndex = 0
-                    Core.ConsoleWrite("Walker is now Disabled.")
-                Case 1
-                    If Core.Walker_Waypoints.Count = 0 Then
-                        Core.ConsoleError("No Waypoints Found")
-                        Exit Sub
-                    End If
-                    Core.WaypointIndex = 0
-                    Core.WalkerTimerObj.StartTimer()
-                    Core.WalkerLoop = False
-                    Core.ConsoleWrite("Walker is now Enabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "continue", RegexOptions.IgnoreCase)
-                    If MatchObj.Success Then
-                        Core.WalkerTimerObj.StartTimer()
-                        Core.WalkerLoop = True
-                        Core.ConsoleWrite("Walker On With Continue Mode")
-                    Else
-                        MatchObj = (Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase))
-                        If MatchObj.Success Then
-                            Dim BL As New BattleList
-                            Dim Character As New Walker
-                            Dim WPType As String
-                            BL.JumpToEntity(SpecialEntity.Myself)
-                            Character.Coordinates = BL.GetLocation
-                            If Walker.CheckDistance = False Then Exit Sub
+	Private Sub CmdWalker(ByVal Arguments As GroupCollection)
+		Try
+			Dim value As String = Arguments(2).ToString.ToLower
+			Select Case StrToShort(value)
+				Case 0
+					Core.WalkerTimerObj.StopTimer()
+					Core.WalkerLoop = False
+					Core.WaypointIndex = 0
+					Core.ConsoleWrite("Walker is now Disabled.")
+				Case 1
+					If Core.Walker_Waypoints.Count = 0 Then
+						Core.ConsoleError("No Waypoints Found")
+						Exit Sub
+					End If
+					Core.WaypointIndex = 0
+					Core.WalkerTimerObj.StartTimer()
+					Core.WalkerLoop = False
+					Core.ConsoleWrite("Walker is now Enabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "continue", RegexOptions.IgnoreCase)
+					If MatchObj.Success Then
+						Core.WalkerTimerObj.StartTimer()
+						Core.WalkerLoop = True
+						Core.ConsoleWrite("Walker On With Continue Mode")
+					Else
+						MatchObj = (Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase))
+						If MatchObj.Success Then
+							Dim BL As New BattleList
+							Dim Character As New Walker
+							Dim WPType As String
+							BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+							Character.Coordinates = BL.GetLocation
+							If Walker.CheckDistance = False Then Exit Sub
 
-                            Select Case MatchObj.Groups(1).Value.ToLower
-                                Case "walk", "w"
-                                    Character.Type = Walker.WaypointType.Walk
-                                    WPType = "W"
-                                    Core.ConsoleWrite("Walking waypoint added.")
-                                Case "ladder", "l"
-                                    Character.Type = Walker.WaypointType.Ladder
-                                    WPType = "L"
-                                    Core.ConsoleWrite("Ladder waypoint added.")
-                                Case "rope", "r"
-                                    Character.Type = Walker.WaypointType.Rope
-                                    WPType = "R"
-                                    Core.ConsoleWrite("Rope waypoint added.")
-                                Case "sewer", "s"
-                                    Character.Type = Walker.WaypointType.Sewer
-                                    WPType = "SE"
-                                    Core.ConsoleWrite("Sewer waypoint added.")
-                                Case Else
-                                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                    Exit Sub
-                            End Select
+							Select Case MatchObj.Groups(1).Value.ToLower
+								Case "walk", "w"
+									Character.Type = Walker.WaypointType.Walk
+									WPType = "W"
+									Core.ConsoleWrite("Walking waypoint added.")
+								Case "ladder", "l"
+									Character.Type = Walker.WaypointType.Ladder
+									WPType = "L"
+									Core.ConsoleWrite("Ladder waypoint added.")
+								Case "rope", "r"
+									Character.Type = Walker.WaypointType.Rope
+									WPType = "R"
+									Core.ConsoleWrite("Rope waypoint added.")
+								Case "sewer", "s"
+									Character.Type = Walker.WaypointType.Sewer
+									WPType = "SE"
+									Core.ConsoleWrite("Sewer waypoint added.")
+								Case Else
+									Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+									Exit Sub
+							End Select
 
-                            Core.Walker_Waypoints.Add(Character)
-                        Else
-                            MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
-                            If MatchObj.Success Then
-                                Dim BL As New BattleList
-                                Dim Character As New Walker
-                                Dim WPType As String
-                                BL.JumpToEntity(SpecialEntity.Myself)
-                                Character.Coordinates = BL.GetLocation
-                                If Walker.CheckDistance = False Then Exit Sub
+							Core.Walker_Waypoints.Add(Character)
+						Else
+							MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
+							If MatchObj.Success Then
+								Dim BL As New BattleList
+								Dim Character As New Walker
+								Dim WPType As String
+								BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+								Character.Coordinates = BL.GetLocation
+								If Walker.CheckDistance = False Then Exit Sub
 
-                                Character.Type = Walker.WaypointType.StairsOrHole
-                                WPType = "S/H"
-                                Select Case MatchObj.Groups(2).ToString
-                                    Case "up", "north"
-                                        Character.Coordinates.Y -= 1
-                                    Case "left", "west"
-                                        Character.Coordinates.X -= 1
-                                    Case "down", "south"
-                                        Character.Coordinates.Y += 1
-                                    Case "right", "east"
-                                        Character.Coordinates.X += 1
-                                    Case Else
-                                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                        Exit Sub
-                                End Select
+								Character.Type = Walker.WaypointType.StairsOrHole
+								WPType = "S/H"
+								Select Case MatchObj.Groups(2).ToString
+									Case "up", "north"
+										Character.Coordinates.Y -= 1
+									Case "left", "west"
+										Character.Coordinates.X -= 1
+									Case "down", "south"
+										Character.Coordinates.Y += 1
+									Case "right", "east"
+										Character.Coordinates.X += 1
+									Case Else
+										Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+										Exit Sub
+								End Select
 
-                                Core.Walker_Waypoints.Add(Character)
-                                Core.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
-                            Else
-                                MatchObj = Regex.Match(Arguments(2).ToString, "add\swait\s(\d{1,5})")
-                                If MatchObj.Success Then
-                                    Dim WPType As String
-                                    Dim Character As New Walker
-                                    Dim BL As New BattleList
-                                    BL.JumpToEntity(SpecialEntity.Myself)
-                                    If Walker.CheckDistance = False Then Exit Sub
-                                    Character.Coordinates = BL.GetLocation
-                                    Character.Type = Walker.WaypointType.Wait
-                                    Character.Info = MatchObj.Groups(1).ToString
-                                    WPType = "WT"
-                                    Core.Walker_Waypoints.Add(Character)
-                                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
-                                    Core.ConsoleWrite("Wait waypoint added.")
-                                Else
-                                    MatchObj = Regex.Match(Arguments(2).ToString, "add\ssay\s+""?(.+)$")
-                                    If MatchObj.Success Then
-                                        If Walker.CheckDistance = False Then Exit Sub
-                                        Dim WPType As String
-                                        Dim Character As New Walker
-                                        Dim BL As New BattleList
-                                        BL.JumpToEntity(SpecialEntity.Myself)
-                                        Character.Coordinates = BL.GetLocation
-                                        Character.Type = Walker.WaypointType.Say
-                                        Character.Info = MatchObj.Groups(1).ToString
-                                        WPType = "S"
+								Core.Walker_Waypoints.Add(Character)
+								Core.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
+							Else
+								MatchObj = Regex.Match(Arguments(2).ToString, "add\swait\s(\d{1,5})")
+								If MatchObj.Success Then
+									Dim WPType As String
+									Dim Character As New Walker
+									Dim BL As New BattleList
+									BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+									If Walker.CheckDistance = False Then Exit Sub
+									Character.Coordinates = BL.GetLocation
+									Character.Type = Walker.WaypointType.Wait
+									Character.Info = MatchObj.Groups(1).ToString
+									WPType = "WT"
+									Core.Walker_Waypoints.Add(Character)
+									Core.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
+									Core.ConsoleWrite("Wait waypoint added.")
+								Else
+									MatchObj = Regex.Match(Arguments(2).ToString, "add\ssay\s+""?(.+)$")
+									If MatchObj.Success Then
+										If Walker.CheckDistance = False Then Exit Sub
+										Dim WPType As String
+										Dim Character As New Walker
+										Dim BL As New BattleList
+										BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+										Character.Coordinates = BL.GetLocation
+										Character.Type = Walker.WaypointType.Say
+										Character.Info = MatchObj.Groups(1).ToString
+										WPType = "S"
 
-                                        Core.Walker_Waypoints.Add(Character)
-                                        Core.ConsoleWrite("Say waypoint added.")
-                                    Else
-                                        MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
-                                        If MatchObj.Success Then
-                                            If Walker.CheckDistance = False Then Exit Sub
-                                            Dim BL As New BattleList
-                                            Dim Character As New Walker
-                                            Dim WPType As String
-                                            BL.JumpToEntity(SpecialEntity.Myself)
-                                            Character.Coordinates = BL.GetLocation
+										Core.Walker_Waypoints.Add(Character)
+										Core.ConsoleWrite("Say waypoint added.")
+									Else
+										MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
+										If MatchObj.Success Then
+											If Walker.CheckDistance = False Then Exit Sub
+											Dim BL As New BattleList
+											Dim Character As New Walker
+											Dim WPType As String
+											BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+											Character.Coordinates = BL.GetLocation
 
-                                            Character.Type = Walker.WaypointType.Shovel
-                                            WPType = "SH"
-                                            Select Case MatchObj.Groups(2).ToString
-                                                Case "up", "north"
-                                                    Character.Info = Walker.Directions.Up
-                                                Case "left", "west"
-                                                    Character.Info = Walker.Directions.Left
-                                                Case "down", "south"
-                                                    Character.Info = Walker.Directions.Down
-                                                Case "right", "east"
-                                                    Character.Info = Walker.Directions.Up
-                                                Case Else
-                                                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                                    Exit Sub
-                                            End Select
-                                            Core.Walker_Waypoints.Add(Character)
-                                        Else
-                                            MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
-                                            If MatchObj.Success Then
-                                                UpdatePlayerPos()
-                                                Select Case StrToShort(MatchObj.Groups(2).ToString)
-                                                    Case 1
-                                                        Core.LastFloor = Core.CharacterLoc.Z
-                                                        Core.LearningMode = True
-                                                        'AutoAddTime = Now.AddSeconds(10)
-                                                        Core.AutoAddTimerObj.StartTimer()
-                                                        Core.ConsoleWrite("Adding waypoints automatically.")
-                                                    Case 0
-                                                        Core.LearningMode = False
-                                                        Core.AutoAddTimerObj.StopTimer()
-                                                        Core.ConsoleWrite("Stopped adding waypoints automatically.")
-                                                End Select
-                                            Else
-                                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+											Character.Type = Walker.WaypointType.Shovel
+											WPType = "SH"
+											Select Case MatchObj.Groups(2).ToString
+												Case "up", "north"
+													Character.Info = Walker.Directions.Up
+												Case "left", "west"
+													Character.Info = Walker.Directions.Left
+												Case "down", "south"
+													Character.Info = Walker.Directions.Down
+												Case "right", "east"
+													Character.Info = Walker.Directions.Up
+												Case Else
+													Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+													Exit Sub
+											End Select
+											Core.Walker_Waypoints.Add(Character)
+										Else
+											MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
+											If MatchObj.Success Then
+												UpdatePlayerPos()
+												Select Case StrToShort(MatchObj.Groups(2).ToString)
+													Case 1
+														Core.LastFloor = Core.CharacterLoc.Z
+														Core.LearningMode = True
+														'AutoAddTime = Now.AddSeconds(10)
+														Core.AutoAddTimerObj.StartTimer()
+														Core.ConsoleWrite("Adding waypoints automatically.")
+													Case 0
+														Core.LearningMode = False
+														Core.AutoAddTimerObj.StopTimer()
+														Core.ConsoleWrite("Stopped adding waypoints automatically.")
+												End Select
+											Else
+												Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+											End If
+										End If
+									End If
+								End If
+							End If
+						End If
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 #End Region
 
 #Region " Combobot Command "
-    Private Sub CmdCombobot(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).ToString
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.ComboBotEnabled = False
-                    Core.ConsoleWrite("Combobot is now Disabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
-                    If MatchObj.Success Then
-                        Core.ComboBotLeader = MatchObj.Groups(1).ToString
-                        Core.ComboBotEnabled = True
-                        Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
-                        Exit Sub
-                    Else
-                        If Value = "leader" Then
-                            Dim BL As New BattleList
-                            BL.Reset()
-                            If BL.JumpToEntity(SpecialEntity.Attacked) OrElse BL.JumpToEntity(SpecialEntity.Followed) Then
-                                If BL.IsPlayer Then
-                                    Core.ComboBotLeader = BL.GetName
-                                    Core.ComboBotEnabled = True
-                                    Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
-                                    Exit Sub
-                                Else
-                                    Core.ConsoleError("You can only set players as leader.")
-                                    Exit Sub
-                                End If
-                            Else
-                                Core.ConsoleError("You need to Attack/Follow player to set him/her as leader.")
-                                Exit Sub
-                            End If
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                        End If
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdCombobot(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).ToString
+			Select Case StrToShort(Value)
+				Case 0
+					Core.ComboBotEnabled = False
+					Core.ConsoleWrite("Combobot is now Disabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
+					If MatchObj.Success Then
+						Core.ComboBotLeader = MatchObj.Groups(1).ToString
+						Core.ComboBotEnabled = True
+						Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
+						Exit Sub
+					Else
+						If Value = "leader" Then
+							Dim BL As New BattleList
+							BL.Reset()
+							If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) OrElse BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
+								If BL.IsPlayer Then
+									Core.ComboBotLeader = BL.GetName
+									Core.ComboBotEnabled = True
+									Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
+									Exit Sub
+								Else
+									Core.ConsoleError("You can only set players as leader.")
+									Exit Sub
+								End If
+							Else
+								Core.ConsoleError("You need to Attack/Follow player to set him/her as leader.")
+								Exit Sub
+							End If
+							Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+						End If
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 #End Region
 
 #Region " Amulet/Necklace Changer"
-    Private Sub CmdAmuletChanger(ByVal Arguments As GroupCollection)
-        Try
-            Dim Value As String = Arguments(2).Value
-            Select Case StrToShort(Value)
-                Case 0
-                    Core.AmuletChangerTimerObj.StopTimer()
-                    Core.AmuletID = 0
-                    Core.ConsoleWrite("Amulet/Necklace Changer is now Disabled.")
-                Case 1
-                    Dim ItemID As Integer
-                    Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), ItemID, 2)
-                    If ItemID = 0 Then
-                        Core.ConsoleError("You are not wearing any amulet. Please equip the amulet that you want to restack.")
-                        Exit Sub
-                    End If
-                    Core.AmuletID = ItemID
-                    Core.AmuletChangerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
-                    If MatchObj.Success Then
-                        Core.AmuletID = Definitions.GetItemID(MatchObj.Groups(1).ToString)
-                        If Core.AmuletID = 0 AndAlso Definitions.IsNeck(Core.AmuletID) Then
-                            Core.ConsoleError("Invalid Amulet/Necklace Name.")
-                            Exit Sub
-                        End If
-                        Core.AmuletChangerTimerObj.StartTimer()
-                        Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdAmuletChanger(ByVal Arguments As GroupCollection)
+		Try
+			Dim Value As String = Arguments(2).Value
+			Select Case StrToShort(Value)
+				Case 0
+					Core.AmuletChangerTimerObj.StopTimer()
+					Core.AmuletID = 0
+					Core.ConsoleWrite("Amulet/Necklace Changer is now Disabled.")
+				Case 1
+					Dim ItemID As Integer
+					Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), ItemID, 2)
+					If ItemID = 0 Then
+						Core.ConsoleError("You are not wearing any amulet. Please equip the amulet that you want to restack.")
+						Exit Sub
+					End If
+					Core.AmuletID = ItemID
+					Core.AmuletChangerTimerObj.StartTimer()
+					Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
+					If MatchObj.Success Then
+						Core.AmuletID = Definitions.GetItemID(MatchObj.Groups(1).ToString)
+						If Core.AmuletID = 0 AndAlso Definitions.IsNeck(Core.AmuletID) Then
+							Core.ConsoleError("Invalid Amulet/Necklace Name.")
+							Exit Sub
+						End If
+						Core.AmuletChangerTimerObj.StartTimer()
+						Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 #End Region
 
 #Region " Ring Changer"
-    Private Sub CmdRingChanger(ByVal Arguments As GroupCollection)
-        Try
-            Select Case StrToShort(Arguments(2).Value)
-                Case 0
-                    Core.RingChangerTimerObj.StopTimer()
-                    Core.RingID = 0
-                    Core.ConsoleWrite("Ring Changer is now Disabled.")
-                Case 1
-                    Dim ItemID As Integer
-                    Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Finger - 1) * Consts.ItemDist), ItemID, 2)
-                    If ItemID = 0 Then
-                        Core.ConsoleError("You are not wearing any ring. Please equip the ring that you want to change.")
-                        Exit Sub
-                    End If
-                    Core.RingID = ItemID
-                    Core.RingChangerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Ring Changer is now Enabled.")
-                Case Else
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).Value, """([^""]+)")
-                    If MatchObj.Success Then
-                        Core.RingID = Definitions.GetItemID(MatchObj.Groups(1).ToString)
-                        If Core.RingID = 0 AndAlso Definitions.IsRing(Core.RingID) Then
-                            Core.ConsoleError("Invalid Ring Name.")
-                            Exit Sub
-                        End If
-                        Core.RingChangerTimerObj.StartTimer()
-                        Core.ConsoleWrite("Ring Changer is now Enabled.")
-                    Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                    End If
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Private Sub CmdRingChanger(ByVal Arguments As GroupCollection)
+		Try
+			Select Case StrToShort(Arguments(2).Value)
+				Case 0
+					Core.RingChangerTimerObj.StopTimer()
+					Core.RingID = 0
+					Core.ConsoleWrite("Ring Changer is now Disabled.")
+				Case 1
+					Dim ItemID As Integer
+					Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Finger - 1) * Consts.ItemDist), ItemID, 2)
+					If ItemID = 0 Then
+						Core.ConsoleError("You are not wearing any ring. Please equip the ring that you want to change.")
+						Exit Sub
+					End If
+					Core.RingID = ItemID
+					Core.RingChangerTimerObj.StartTimer()
+					Core.ConsoleWrite("Ring Changer is now Enabled.")
+				Case Else
+					Dim MatchObj As Match = Regex.Match(Arguments(2).Value, """([^""]+)")
+					If MatchObj.Success Then
+						Core.RingID = Definitions.GetItemID(MatchObj.Groups(1).ToString)
+						If Core.RingID = 0 AndAlso Definitions.IsRing(Core.RingID) Then
+							Core.ConsoleError("Invalid Ring Name.")
+							Exit Sub
+						End If
+						Core.RingChangerTimerObj.StartTimer()
+						Core.ConsoleWrite("Ring Changer is now Enabled.")
+					Else
+						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+					End If
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 #End Region
 
 #Region " Anti-Logout"

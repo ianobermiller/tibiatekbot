@@ -17,7 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports TibiaTekBot.CoreModule, System.IO, System.Math
+Imports TibiaTekBot.CoreModule, System.IO, System.Math, Scripting
 
 Module MiscUtils
 
@@ -46,24 +46,6 @@ Module MiscUtils
         Else
             Return Time.Hours & "h" & Time.Minutes & "m" & Time.Seconds & "s"
         End If
-    End Function
-
-    Public Function FPSXToB(ByVal X As Double) As Double
-        Try
-            Return Round(1100 / (X + 5), 1)
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
-
-    Public Function FPSBToX(ByVal B As Double) As Double
-        Try
-            Return Round((1110 / B) - 5, 1)
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
     End Function
 
     Public Function GetWaypointsDirectory() As String
@@ -144,18 +126,18 @@ Module MiscUtils
         End Try
     End Function
 
-    Public Function GetInventorySlotAsLocation(ByVal Slot As InventorySlots) As LocationDefinition
-        Try
-            Dim Result As New LocationDefinition
-            Result.X = &HFFFF
-            Result.Y = CShort(Slot)
-            Result.Z = 0
-            Return Result
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
+	Public Function GetInventorySlotAsLocation(ByVal Slot As InventorySlots) As ITibia.LocationDefinition
+		Try
+			Dim Result As New ITibia.LocationDefinition
+			Result.X = &HFFFF
+			Result.Y = CShort(Slot)
+			Result.Z = 0
+			Return Result
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Function
 
     Public Sub Log(ByVal Source As String, ByVal Text As String)
         If Core.LoggingEnabled OrElse Consts.DebugOnLog Then
@@ -171,21 +153,22 @@ Module MiscUtils
     Public Sub StopPlayer()
         Try
             Dim BL As New BattleList
-            BL.JumpToEntity(SpecialEntity.Myself)
+            BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
             BL.IsWalking = False
             'Core.ConsoleWrite("Stop Player: STOP")
             Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
-            Core.WriteMemory(Consts.ptrGoToX, 0, 4)
-            Core.WriteMemory(Consts.ptrGoToY, 0, 4)
-            Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
+            Core.Client.WriteMemory(Consts.ptrGoToX, 0, 4)
+            Core.Client.WriteMemory(Consts.ptrGoToY, 0, 4)
+            Core.Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
             BL.IsWalking = True
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-    End Sub
+	End Sub
 
     Public Sub InjectLastAttackedId()
         Try
+
             Dim CodeCave As Integer = &H596C3A
             'I'd like to tell about this function first. Because we can't surely find any address
             'where is the last attacked Id we need to create one. So I find the place where attacked
@@ -196,32 +179,32 @@ Module MiscUtils
             '                CodeCave: 5920B3
             '                Continue Old Code: 450DC9
             'Offset 450DC3 . The place where Tibia puts attacked Id to the memory (adr: 60EA9C)
-            Core.WriteMemory(&H451803, &H145432E9, 5) ' JMP 596c3a
-            Core.WriteMemory(&H451808, &H90, 1) 'NOP
+            Core.Client.WriteMemory(&H451803, &H145432E9, 5) ' JMP 596c3a
+            Core.Client.WriteMemory(&H451808, &H90, 1) 'NOP
             'Offset 592040 . Our codecaves
-            Core.WriteMemory(CodeCave, &HFE83, 3) : CodeCave += 3 'CMP ESI,0
-            Core.WriteMemory(CodeCave, &H674, 2) : CodeCave += 2 'JE 59204B
-            Core.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [0076DA10],ESI
-            Core.WriteMemory(CodeCave, &H76DA10, 4) : CodeCave += 4 '---------"--------
-            Core.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [613B3C],ESI
-            Core.WriteMemory(CodeCave, &H613B3C, 4) : CodeCave += 4 '------"---------
-            Core.WriteMemory(CodeCave, &HE9, 1) : CodeCave += 1 'JMP 450DC9
-            Core.WriteMemory(CodeCave, &HFFEBABB9, 4) ' ---"----
+            Core.Client.WriteMemory(CodeCave, &HFE83, 3) : CodeCave += 3 'CMP ESI,0
+            Core.Client.WriteMemory(CodeCave, &H674, 2) : CodeCave += 2 'JE 59204B
+            Core.Client.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [0076DA10],ESI
+            Core.Client.WriteMemory(CodeCave, &H76DA10, 4) : CodeCave += 4 '---------"--------
+            Core.Client.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [613B3C],ESI
+            Core.Client.WriteMemory(CodeCave, &H613B3C, 4) : CodeCave += 4 '------"---------
+            Core.Client.WriteMemory(CodeCave, &HE9, 1) : CodeCave += 1 'JMP 450DC9
+            Core.Client.WriteMemory(CodeCave, &HFFEBABB9, 4) ' ---"----
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    Public Sub UpdatePlayerPos()
-        Try
-            Core.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
-            Core.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
-            Core.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 1)
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+	Public Sub UpdatePlayerPos()
+		Try
+			Core.Client.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
+			Core.Client.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
+			Core.Client.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 1)
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
     Public Function SelectNearestWaypoint(ByVal Waypoints As List(Of Walker)) As Integer
         Try

@@ -718,25 +718,11 @@ Public Module ConstantsModule
         BodyBackpack = 3
     End Enum
 
-    Public Enum SpecialEntity
-        Myself
-        Attacked
-        Followed
-    End Enum
-
     Public Enum HealTypes
         None
         UltimateHealingRune
         ExuraSio
         Both
-    End Enum
-
-    Public Enum SkullMark
-        None
-        Yellow
-        Green
-        White
-        Red
     End Enum
 
     Public Enum HotkeyUseMode
@@ -751,23 +737,17 @@ Public Module ConstantsModule
         Text = 2
     End Enum
 
-    Public Enum PartyStatus
-        None
-        Unknown
-        Invited
-        Member
-        Leader
-    End Enum
 
     Public Enum ChannelType As Integer
-        Personal = &HFFFF
         GuildChat = 0
         GameChat = 4
-        Trade
-        RLChat
-        Help
+        Trade = 5
+        RLChat = 6
+        Help = 7
         Console = ConsoleChannelID
-        IRCChannel
+        IRCChannelBegin
+        IRCChannelEnd = IRCChannelBegin + 40
+        Personal = &HFFFF
     End Enum
 
     <Flags()> Public Enum Conditions
@@ -799,22 +779,22 @@ Public Module ConstantsModule
         StatusSmall
         StatusConsoleBlue
         StatusConsoleRed
-	End Enum
+    End Enum
 
-	Public Enum TextColors
-		Blue = 5
-		Green = &H1E
-		LightBlue = 35
-		LightGreen = 30
-		Crystal = 65
-		Platinum = 89
-		LightGrey = 129
-		Red = 180
-		Orange = 198
-		Gold = 210
-		White = 215
-		None = 255
-	End Enum
+    Public Enum TextColors
+        Blue = 5
+        Green = &H1E
+        LightBlue = 35
+        LightGreen = 30
+        Crystal = 65
+        Platinum = 89
+        LightGrey = 129
+        Red = 180
+        Orange = 198
+        Gold = 210
+        White = 215
+        None = 255
+    End Enum
 
     Public Enum MagicEffects
         BloodHit = 1
@@ -894,13 +874,6 @@ Public Module ConstantsModule
         Rune = &H20000000
     End Enum
 
-    <Flags()> Public Enum Addons
-        None = 0
-        First = 1
-        Second = 2
-        Both = 3
-    End Enum
-
     Public Enum HotkeyCombination
         F1 = 0
         F2
@@ -938,13 +911,6 @@ Public Module ConstantsModule
         CF10
         CF11
         CF12
-    End Enum
-
-    Public Enum WindowState As Integer
-        Active
-        Minimized
-        Inactive
-        Hidden
     End Enum
 
     Public Enum Fluids As ULong
