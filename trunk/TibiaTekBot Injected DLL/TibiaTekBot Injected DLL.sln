@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TibiaTekBot2Dll", "TibiaTekBot3Dll.vcproj", "{36DC3CD5-DA85-4EF3-83E0-B0ED8E118095}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Tibia 7.92|Win32 = Tibia 7.92|Win32
+		Tibia 8.00|Win32 = Tibia 8.00|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36DC3CD5-DA85-4EF3-83E0-B0ED8E118095}.Debug|Win32.ActiveCfg = Debug|Win32
+		{36DC3CD5-DA85-4EF3-83E0-B0ED8E118095}.Debug|Win32.Build.0 = Debug|Win32
+		{36DC3CD5-DA85-4EF3-83E0-B0ED8E118095}.Tibia 7.92|Win32.ActiveCfg = Tibia 7.92|Win32
+		{36DC3CD5-DA85-4EF3-83E0-B0ED8E118095}.Tibia 7.92|Win32.Build.0 = Tibia 7.92|Win32
+		{36DC3CD5-DA85-4EF3-83E0-B0ED8E118095}.Tibia 8.00|Win32.ActiveCfg = Tibia 8.00|Win32
+		{36DC3CD5-DA85-4EF3-83E0-B0ED8E118095}.Tibia 8.00|Win32.Build.0 = Tibia 8.00|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
