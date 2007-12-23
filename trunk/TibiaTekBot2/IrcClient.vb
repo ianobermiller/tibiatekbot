@@ -233,6 +233,7 @@ Public Class IrcClient
             Return False
         End Try
     End Function
+
     Public Sub Disconnect()
 		If WasConnected AndAlso Not Client Is Nothing AndAlso Client.Connected Then
 			WasConnected = False
@@ -254,15 +255,15 @@ Public Class IrcClient
         End If
     End Function
 
-    Public Sub WriteLine(ByVal Command As String)
-        Try
-            If Writer Is Nothing OrElse Client Is Nothing OrElse Not Client.Connected Then Exit Sub
-            Writer.WriteLine(Command)
-            Writer.Flush()
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+	Public Sub WriteLine(ByVal Command As String)
+		Try
+			If Writer Is Nothing OrElse Client Is Nothing OrElse Not Client.Connected Then Exit Sub
+			Writer.WriteLine(Command)
+			Writer.Flush()
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
     Public Sub MainLoop()
         Try
             If Not WasConnected Then Exit Sub
@@ -294,11 +295,15 @@ Public Class IrcClient
     Public Sub ChangeNick(ByVal NewNick As String)
         WriteLine(String.Format("NICK {0}", NewNick))
     End Sub
-    Public Sub Identify()
-        If Not WasConnected Then Exit Sub
-        WriteLine(String.Format("USER {0} {1} * :{2}", Me._User, IIf(Me._IsInvisible, "8", "0"), Me.RealName))
-        ChangeNick(Me._Nick)
-    End Sub
+	Public Sub Identify()
+		Try
+			If Not WasConnected Then Exit Sub
+			WriteLine(String.Format("USER {0} {1} * :{2}", Me._User, IIf(Me._IsInvisible, "8", "0"), Me.RealName))
+			ChangeNick(Me._Nick)
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
     Public Sub Part(ByVal Channel As String, Optional ByVal Reason As String = "Good Bye! [" & IRCClientVersion & "]")
         Try
             If Not WasConnected Then Exit Sub
@@ -307,7 +312,7 @@ Public Class IrcClient
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+		End Try
     End Sub
     Public Sub SendNotice(ByVal Destinatary As String, ByVal Message As String)
         Try
@@ -315,8 +320,8 @@ Public Class IrcClient
             WriteLine(String.Format("NOTICE {0} :{1}", Destinatary, Message))
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+		End Try
+	End Sub
 
     Public Sub Speak(ByVal Message As String, ByVal Destinatary As String)
         Try
@@ -324,8 +329,8 @@ Public Class IrcClient
             WriteLine(String.Format("PRIVMSG {0} :{1}", Destinatary, Message))
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+		End Try
+	End Sub
 
     Public Sub SpeakToServer(ByVal Message As String, ByVal Server As String)
         Try
@@ -345,8 +350,8 @@ Public Class IrcClient
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+		End Try
+	End Sub
 
     Public Sub Join(ByVal Channel As String)
         Try
@@ -356,8 +361,8 @@ Public Class IrcClient
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
+		End Try
+	End Sub
 
 
 #End Region
@@ -392,9 +397,9 @@ Public Class IrcClient
             Next
             Return System.Text.ASCIIEncoding.ASCII.GetString(ResultByteArray)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-        Return String.Empty
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+		Return String.Empty
     End Function
     Private Function IsSpecial(ByVal C As Char) As Boolean
         Try
@@ -402,18 +407,22 @@ Public Class IrcClient
                  OrElse (Asc(C) >= &H7B AndAlso Asc(C) <= &H7D)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-        Return False
+		End Try
+		Return False
     End Function
-    Protected Overrides Sub Finalize()
-        If Not Me.Client Is Nothing AndAlso Not Me.Client.Client Is Nothing Then
-            If Me.Client.Connected Then
-                Me.Client.Client.Close()
-            End If
-        End If
-        If Not Me.DoMainLoopThread Is Nothing Then Me.DoMainLoopThread.Abort()
-        MyBase.Finalize()
-    End Sub
+	Protected Overrides Sub Finalize()
+		Try
+			If Not Me.Client Is Nothing AndAlso Not Me.Client.Client Is Nothing Then
+				If Me.Client.Connected Then
+					Me.Client.Client.Close()
+				End If
+			End If
+			If Not Me.DoMainLoopThread Is Nothing Then Me.DoMainLoopThread.Abort()
+			MyBase.Finalize()
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+		End Try
+	End Sub
 #End Region
 
     Public Sub DoMainLoop()
@@ -421,9 +430,9 @@ Public Class IrcClient
         Do
             Try
                 Do While IsConnected
-                    If Not Core.InGame Then
-                        Disconnect()
-                    End If
+					If Not Core.Client.IsConnected Then
+						Disconnect()
+					End If
                     Try
                         Dim Message As String = ""
                         Dim SplitMessages() As String

@@ -19,9 +19,10 @@
 
 Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, System.Math, _
   System, System.Net, System.Net.Sockets, System.Text, System.Globalization, _
-        System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, _
-        System.Drawing.Imaging, TibiaTekBot.PProxy2, TibiaTekBot.ThreadTimer, _
-        System.ComponentModel, System.Runtime.InteropServices, TibiaTekBot.IrcClient
+  System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, _
+  System.Drawing.Imaging, TibiaTekBot.PProxy2, TibiaTekBot.ThreadTimer, _
+  System.ComponentModel, System.Runtime.InteropServices, TibiaTekBot.IrcClient, _
+  Scripting
 
 #Region " To Do "
 
@@ -85,7 +86,7 @@ Public Module CoreModule
         Dim Enabled As Boolean
         Dim LastMagicWallDate As Date
         Dim Stage As UShort
-        Dim Position As LocationDefinition
+        Dim Position As ITibia.LocationDefinition
     End Structure
 
     Public Structure ChatMessageDefinition
@@ -96,27 +97,15 @@ Public Module CoreModule
         Dim Message As String
     End Structure
 
-    Public Structure LocationDefinition
-        Dim X As Integer
-        Dim Y As Integer
-        Dim Z As Integer
-        Public Sub New(ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer)
-            Me.X = X
-            Me.Y = Y
-            Me.Z = Z
-        End Sub
-    End Structure
-
 #End Region
     Public Core As New CoreClass
     Public Outfits As Outfits
     Public Spells As Spells
     Public LootItems As LootItems
     Public Creatures As Creatures
-
     Public Class CoreClass
 #Region " Objects "
-
+        Public WithEvents Client As Tibia
         Public WithEvents Proxy As PProxy2
         'Dim MyLua As New LuaInterface.Lua
         Public WithEvents BGWOpenCommand As BackgroundWorker
@@ -190,8 +179,9 @@ Public Module CoreModule
         Public ManaPoints As Integer = 0
         Public SoulPoints As Integer = 0
         Public Capacity As Integer = 0
-        Public CharacterLoc As LocationDefinition
-        Public CharacterLastLocation As LocationDefinition
+
+        Public CharacterLoc As ITibia.LocationDefinition
+        Public CharacterLastLocation As ITibia.LocationDefinition
         Public LightC As LightColor = LightColor.Darkness
         Public LightI As LightIntensity = LightIntensity.None
         Public ExpCheckerActivated As Boolean = False
@@ -201,14 +191,11 @@ Public Module CoreModule
         Public SpellManaRequired As Integer = 0
         Public UHHPRequired As Integer = 0
         Public UHId As Integer = 0
-        Public PotionHPRequired As Integer = 0
-        Public PotionId As Integer = 0
-        Public ManaPotionId As Integer = 0
         Public AdvertiseMsg As String = ""
         Public AutoEaterSmart As Integer = 0
         Public SendLocationDestinatary As String = ""
-        Public TibiaDirectory As String = ""
-        Public TibiaFilename As String = ""
+        'Public TibiaDirectory As String = ""
+        'Public TibiaFilename As String = ""
 
         Public OpenCommand As String = ""
         Public CharCommand As String = ""
@@ -227,7 +214,7 @@ Public Module CoreModule
 
         'Public MapReaderIsBusy As Boolean = False
 
-        Public FisherSpeed As UShort = 0
+        Public FisherSpeed As Integer = 0
         Public FisherMinimumCapacity As Integer = 0
         Public FisherTurbo As Boolean = False
 
@@ -286,7 +273,7 @@ Public Module CoreModule
         Public ExecutablePath As String = ""
         Public LoginServer As String = ""
         Public LoginPort As Integer = 7171
-        Public IsPrivateServer As Boolean = False
+        Public IsOpenTibiaServer As Boolean = False
 
         Public LastUpdateCheck As Date = Date.MinValue
 
@@ -295,7 +282,7 @@ Public Module CoreModule
         Public RainbowOutfitLegs As Integer = 0
         Public RainbowOutfitFeet As Integer = 0
 
-        Public TibiaWindowState As WindowState = WindowState.Active
+        Public TibiaWindowState As ITibia.WindowStates = ITibia.WindowStates.Active
         Public TibiaClientIsVisible As Boolean = True
 
         Public FrameRateBegin As Integer = 0
@@ -316,14 +303,13 @@ Public Module CoreModule
         Public CBCreatureDied As Boolean = False
         Public LearningMode As Boolean = False
         Public IgnoreCreature As List(Of Integer)
-
-        Public LooterItemID As Integer = 0
-        Public LooterLoc As LocationDefinition
-        Public ReplacedContainer As Boolean = False
-        Public WaitTime As DateTime
         Public LooterNextExecution As Long = 0
         Public LootHasChanged As Integer = 2
 
+        Public LooterItemID As Integer = 0
+        Public LooterLoc As ITibia.LocationDefinition
+        Public ReplacedContainer As Boolean = False
+        Public WaitTime As DateTime
 
         Public FakingTitle As Boolean = False
 
@@ -350,163 +336,11 @@ Public Module CoreModule
         Public NameSpyActivated As Boolean = False
 
         Public MagicWalls As List(Of MagicWallDefinition)
-#End Region
 
-#Region " Memory Reading/Writing "
-        Public Sub WriteMemory(ByVal Address As Integer, ByVal Value As Integer, ByVal Size As Integer)
-            Try
-                Dim bytArray() As Byte
-                bytArray = BitConverter.GetBytes(Value)
-                Win32API.WriteProcessMemory(Proxy.Client.Handle.ToInt32, Address, bytArray, Size, 0)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
+        Public ManaPotionID As Integer = 0
 
-        Public Sub WriteMemory(ByVal Address As Integer, ByVal Value() As Byte)
-            Try
-                Win32API.WriteProcessMemory(Proxy.Client.Handle.ToInt32, Address, Value, Value.Length, 0)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub WriteMemory(ByVal Address As Integer, ByVal Value() As Byte, ByVal Offset As Integer, ByVal Length As Integer)
-            Try
-                Dim Count1 As Integer
-                For Count1 = 0 To Length - 1
-                    WriteMemory(Address + Count1, Value(Count1 + Offset), 1)
-                Next
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub WriteMemory(ByVal Address As Integer, ByVal Value As String)
-            Try
-                Dim Length As Integer = Value.Length
-                For I As Integer = 0 To Length - 1
-                    WriteMemory(Address + I, Asc(Value.Chars(I)), 1)
-                Next
-                WriteMemory(Address + Length, 0, 1)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub WriteMemory(ByVal Address As Integer, ByVal Value As Double)
-            Try
-                Dim Buffer(0 To 7) As Byte
-                Buffer = BitConverter.GetBytes(Value)
-                For I As Integer = 0 To 7
-                    WriteMemory(Address + I, CInt(Buffer(I)), 1)
-                Next
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub ReadMemory(ByVal Address As Integer, ByRef Value As Double)
-            Try
-                Dim Buffer(7) As Byte
-                Dim Temp As Integer
-                For I As Integer = 0 To 7
-                    ReadMemory(Address + I, Temp, 1)
-                    Buffer(I) = CByte(Temp)
-                Next
-                Value = BitConverter.ToDouble(Buffer, 0)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub ReadMemory(ByVal Address As Integer, ByRef Value As Integer, ByVal Size As Integer)
-            Try
-                Win32API.ReadProcessMemory(Proxy.Client.Handle.ToInt32, Address, Value, Size, 0)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub ReadMemory(ByVal Address As Integer, ByRef Value As UInteger, ByVal Size As Integer)
-            Try
-                Dim mValue As Integer = 0
-                Win32API.ReadProcessMemory(Proxy.Client.Handle.ToInt32, Address, mValue, Size, 0)
-                Value = CUInt(mValue)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub ReadMemory(ByVal Address As Integer, ByRef Value() As Byte, ByVal Length As Integer)
-            Try
-                Dim bytArray() As Byte
-                Dim Count1 As Integer
-                Dim tempInteger As Integer
-                ReDim bytArray(Length - 1)
-                For Count1 = 0 To Length - 1
-                    ReadMemory(Address + Count1, tempInteger, 1)
-                    bytArray(Count1) = CByte(tempInteger)
-                Next
-                Value = bytArray
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub ReadMemory(ByVal Address As Integer, ByRef Value As String)
-            Try
-                Dim intChar As Integer
-                Dim Count1 As Integer
-                Dim strTemp As String
-                strTemp = ""
-                Count1 = 0
-                Do
-                    ReadMemory(Address + Count1, intChar, 1)
-                    If intChar <> 0 Then strTemp = strTemp & Chr(intChar)
-                    Count1 += 1
-                Loop Until intChar = 0
-                Value = strTemp
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub ReadMemory(ByVal Address As Integer, ByRef Value As String, ByVal Length As Integer)
-            Try
-                Dim intChar As Integer
-                Dim Count1 As Integer
-                Dim strTemp As String
-                strTemp = ""
-                For Count1 = 0 To Length - 1
-                    ReadMemory(Address + Count1, intChar, 1)
-                    strTemp = strTemp & Chr(intChar)
-                Next
-                Value = strTemp
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
-
-        Public Sub ChangeClientTitle(ByVal strString As String)
-            Try
-                Win32API.SetWindowText(Proxy.Client.MainWindowHandle.ToInt32, strString)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
+        Public PotionHPRequired As Integer = 0
+        Public PotionID As Integer = 0
 #End Region
 
 #Region " Initialization"
@@ -571,8 +405,9 @@ Public Module CoreModule
                 MagicWallTimerObj = New ThreadTimer(300)
                 MagicWalls = New List(Of MagicWallDefinition)
                 DancerTimerObj = New ThreadTimer()
-			Catch Ex As Exception
-				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -617,7 +452,8 @@ Public Module CoreModule
                 'N = Container.ContainerCount
                 'If N > &HF Then N = &HF
                 N = &HE
-                Dim buffer() As Byte = UseObjectOnGround(LooterItemID, LooterLoc, N)
+                Dim buffer() As Byte
+                buffer = UseObjectOnGround(LooterItemID, LooterLoc, N)
                 If (buffer(11) - 1) = Container.ContainerCount Then
                     ReplacedContainer = True
                 Else
@@ -680,7 +516,7 @@ Public Module CoreModule
         Private Sub BGWCharCommand_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BGWCharCommand.DoWork
             Try
                 Dim URL As String = "http://www.tibia.com/community/?subtopic=character&name=" & CharCommand
-                Dim Client As WebClient
+                Dim WClient As WebClient
                 Dim Data As Stream
                 Dim Reader As StreamReader
                 Dim Line As String
@@ -703,14 +539,14 @@ Public Module CoreModule
                 Dim NoMoreDeath As Boolean = False
                 Dim Output As String = ""
                 Try
-                    Client = New WebClient()
-                    Data = Client.OpenRead(URL)
+                    WClient = New WebClient()
+                    Data = WClient.OpenRead(URL)
                     Reader = New StreamReader(Data)
                     Line = Reader.ReadLine()
                     While (Not Line Is Nothing)
                         MatchObj = Regex.Match(Line, "Name:</TD><TD>([^<]+)</TD>.*Sex:</TD><TD>([^<]+)</TD>.*Profession:</TD><TD>([^<]+)</TD>" & _
-                            ".*Level:</TD><TD>([^<]+)</TD>.*World:</TD><TD>([^<]+)</TD>.*Residence:</TD><TD>([^<]+)</TD>" & _
-                            ".*Last login:</TD><TD>([^<]+)</TD>")
+                         ".*Level:</TD><TD>([^<]+)</TD>.*World:</TD><TD>([^<]+)</TD>.*Residence:</TD><TD>([^<]+)</TD>" & _
+                         ".*Last login:</TD><TD>([^<]+)</TD>")
                         If MatchObj.Success Then
                             CharacterName = MatchObj.Groups(1).ToString
                             Sex = MatchObj.Groups(2).ToString
@@ -739,7 +575,7 @@ Public Module CoreModule
                             Residence = MatchObj.Groups(6).ToString
                             LastLogin = MatchObj.Groups(7).ToString.Replace("&#160;", " ")
                             Output = CharacterName & " L" & Level & " " & Vocation & Ret & _
-                                Residence & ", " & World
+                             Residence & ", " & World
 
                             MatchObj = Regex.Match(Line, "membership:</TD><TD>(.*)</TD>")
                             If MatchObj.Success Then
@@ -860,7 +696,7 @@ Public Module CoreModule
         Private Sub BGWGuildMembersCommand_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BGWGuildMembersCommand.DoWork
             Try
                 Dim URL As String = "http://www.tibia.com/community/?subtopic=guilds&page=view&GuildName=" & GuildMembersCommand
-                Dim Client, Client2 As WebClient
+                Dim WClient, WClient2 As WebClient
                 Dim Data, Data2 As Stream
                 Dim Reader, Reader2 As StreamReader
                 Dim Line As String
@@ -875,8 +711,8 @@ Public Module CoreModule
                 Dim Index As Integer = 0
                 Dim I As Integer = 0
                 Try
-                    Client = New WebClient()
-                    Data = Client.OpenRead(URL)
+                    WClient = New WebClient()
+                    Data = WClient.OpenRead(URL)
                     Reader = New StreamReader(Data)
                     Line = Reader.ReadLine()
                     While (Not Line Is Nothing)
@@ -893,8 +729,8 @@ Public Module CoreModule
                     If World.Length = 0 Then
                         Core.ConsoleWrite("This guild does not exist, make sure you typed it correctly (case-sensitive).")
                     Else
-                        Client2 = New WebClient
-                        Data2 = Client2.OpenRead("http://www.tibia.com/community/?subtopic=whoisonline&world=" & World & "&order=level")
+                        WClient2 = New WebClient
+                        Data2 = WClient2.OpenRead("http://www.tibia.com/community/?subtopic=whoisonline&world=" & World & "&order=level")
                         Reader2 = New StreamReader(Data2)
                         Line = Reader2.ReadLine()
                         While (Not Line Is Nothing)
@@ -962,8 +798,8 @@ Public Module CoreModule
                 Reader.Close()
                 If String.Compare(Version, BotVersion) <> 0 Then
                     Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusWarning, _
-                        "There is a new version of TibiaTek Bot available for download. " & _
-                        "Get it at: " & Website & "."))
+                     "There is a new version of TibiaTek Bot available for download. " & _
+                     "Get it at: " & Website & "."))
                 End If
             Catch
             End Try
@@ -975,7 +811,6 @@ Public Module CoreModule
 #End Region
 
 #Region " Thread Timers "
-
         Public Sub StopEverything()
             Try
                 LightC = LightColor.Darkness
@@ -1065,9 +900,9 @@ Public Module CoreModule
                 End If
                 TTMessagesTimerObj.StopTimer()
                 FPSChangerTimerObj.StopTimer()
-				Thread.Sleep(500)
-				MagicWalls.Clear()
-                WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(Consts.FPSWhenActive))
+                Thread.Sleep(500)
+                MagicWalls.Clear()
+                Client.SetFramesPerSecond(Consts.FPSWhenActive)
                 MagicWalls.Clear()
                 Log("Event", "All timers are now stopped.")
             Catch Ex As Exception
@@ -1079,19 +914,20 @@ Public Module CoreModule
 
         Private Sub WindowTimerObj_Execute() Handles WindowTimerObj.OnExecute
             Try
+                If Client Is Nothing Then Exit Sub
                 Dim WindowBegin As Integer = 0
                 Dim WindowCaption As String = ""
                 Dim Title As String
-                ReadMemory(Consts.ptrWindowBegin, WindowBegin, 4)
+                Client.ReadMemory(Consts.ptrWindowBegin, WindowBegin, 4)
                 If WindowBegin = 0 Then 'no window opened
-                    If Not InGame() Then
-                        If Not (Core.Proxy Is Nothing OrElse Core.Proxy.Client Is Nothing) Then
-                            Title = BotName & " - " & Hex(Core.Proxy.Client.Handle.ToInt32) & " - Not Logged In"
+                    If Not Client.IsConnected() Then
+                        If Not (Core.Proxy Is Nothing OrElse Core.Client Is Nothing) Then
+                            Title = BotName & " - " & Hex(Core.Client.GetProcessHandle) & " - Not Logged In"
                         Else
                             Title = BotName & " - Not Logged In"
                         End If
-                        If Not Proxy.Client.MainWindowTitle.Equals(Title) Then
-                            ChangeClientTitle(Title)
+                        If Not Client.Title.Equals(Title) Then
+                            Client.Title = Title
                         End If
                     Else
                         If HotkeyWindowWasOpened Then
@@ -1102,21 +938,21 @@ Public Module CoreModule
                         End If
                     End If
                 Else
-                    ReadMemory(WindowBegin + Consts.WindowCaptionOffset, WindowCaption)
-                    If Not InGame() Then
-                        If Not (Core.Proxy Is Nothing OrElse Core.Proxy.Client Is Nothing) Then
-                            Title = BotName & " - " & Hex(Core.Proxy.Client.Handle.ToInt32) & " - " & WindowCaption
+                    Client.ReadMemory(WindowBegin + Consts.WindowCaptionOffset, WindowCaption)
+                    If Not Client.IsConnected() Then
+                        If Not (Core.Proxy Is Nothing OrElse Core.Client Is Nothing) Then
+                            Title = BotName & " - " & Hex(Core.Client.GetProcessHandle) & " - " & WindowCaption
                         Else
                             Title = BotName & " - " & WindowCaption
                         End If
-                        If Not Proxy.Client.MainWindowTitle.Equals(Title) Then
-                            ChangeClientTitle(Title)
+                        If Not Client.Title.Equals(Title) Then
+                            Client.Title = Title
                         End If
                     Else
                         If Not ExpCheckerActivated AndAlso Not FakingTitle Then
                             Title = BotName & " - " & Proxy.CharacterName
-                            If Not Proxy.Client.MainWindowTitle.Equals(Title) Then
-                                ChangeClientTitle(Title)
+                            If Not Client.Title.Equals(Title) Then
+                                Client.Title = Title
                             End If
                         End If
                         If Not HotkeyWindowWasOpened AndAlso WindowCaption.Equals("Hotkey Options") Then
@@ -1126,6 +962,7 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -1133,40 +970,13 @@ Public Module CoreModule
 
 #Region " Tibia Client Status Timer "
 
+
         Private Sub TibiaClientStateTimerObj_Execute() Handles TibiaClientStateTimerObj.OnExecute
             Try
-                If Not TibiaClientIsVisible Then
-                    TibiaWindowState = WindowState.Hidden
-                    Return
-                End If
-                Dim WP As New Win32API.WindowPlacement
-                Dim CurrentProcess As Process
-                Dim PID As Integer = 1
-                Dim hWnd As Integer = 0
-                WP.Length = Convert.ToByte(Marshal.SizeOf(GetType(Win32API.WindowPlacement)))
-                If Win32API.GetWindowPlacement(Proxy.Client.MainWindowHandle, WP) = False Then
-                    Return
-                End If
-                Select Case WP.ShowCmd
-                    Case Win32API.ShowState.SW_SHOWNORMAL, Win32API.ShowState.SW_SHOWMAXIMIZED
-                        hWnd = Win32API.GetForegroundWindow()
-                        Win32API.GetWindowThreadProcessId(hWnd, PID)
-                        If PID = 1 Then
-                            TibiaWindowState = WindowState.Inactive
-                            Return
-                        End If
-                        CurrentProcess = Process.GetProcessById(PID)
-                        CurrentProcess.Refresh()
-                        If CurrentProcess.Id = Proxy.Client.Id Then
-                            TibiaWindowState = WindowState.Active
-                        Else
-                            TibiaWindowState = WindowState.Inactive
-                        End If
-                    Case Win32API.ShowState.SW_SHOWMINIMIZED
-                        TibiaWindowState = WindowState.Minimized
-                End Select
+                TibiaWindowState = Client.GetWindowState()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -1177,24 +987,24 @@ Public Module CoreModule
         Private Sub FPSChangerTimerObj_Execute() Handles FPSChangerTimerObj.OnExecute
             Try
                 Select Case TibiaWindowState
-                    Case WindowState.Active
-                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(FrameRateActive))
+                    Case ITibia.WindowStates.Active
+                        Client.SetFramesPerSecond(FrameRateActive)
                         System.Threading.Thread.Sleep(1000)
-                    Case WindowState.Inactive
-                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(FrameRateInactive))
+                    Case ITibia.WindowStates.Inactive
+                        Client.SetFramesPerSecond(FrameRateInactive)
                         System.Threading.Thread.Sleep(1000)
-                    Case WindowState.Minimized
-                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(FrameRateMinimized))
+                    Case ITibia.WindowStates.Minimized
+                        Client.SetFramesPerSecond(FrameRateMinimized)
                         System.Threading.Thread.Sleep(1000)
-                    Case WindowState.Hidden
-                        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, FPSBToX(FrameRateHidden))
+                    Case ITibia.WindowStates.Hidden
+                        Client.SetFramesPerSecond(FrameRateHidden)
                         System.Threading.Thread.Sleep(1000)
                 End Select
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
-
 
 #End Region
 
@@ -1202,7 +1012,7 @@ Public Module CoreModule
 
         Private Sub ShowInvisibleCreaturesTimerObj_Execute() Handles ShowInvisibleCreaturesTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim BL As New BattleList
                 BL.Reset(True)
                 Do
@@ -1219,6 +1029,7 @@ Public Module CoreModule
                 Loop While BL.NextEntity(True)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -1227,17 +1038,15 @@ Public Module CoreModule
 #Region " Auto Publish Location Timer "
 
         Private Sub AutoPublishLocationTimerObj_Execute() Handles AutoPublishLocationTimerObj.OnExecute
-            SyncLock AutoPublishLocationTimerObj
-                Try
-                    If Not InGame() Then Exit Sub
-                    If String.IsNullOrEmpty(Proxy.CharacterName) Or CharacterLoc.X = 0 Or CharacterLoc.Y = 0 Then Exit Sub
-                    Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "&x=" & CharacterLoc.X & "&y=" & CharacterLoc.Y & "&z=" & CharacterLoc.Z)
-                    Dim Client As New WebClient
-                    Client.Headers.Add("Content-Type", "application/x-www-form-urlencoded")
-                    Client.UploadDataAsync(New System.Uri(BotWebsite & "/updatemaploc.php"), "POST", Content)
-                Catch
-                End Try
-            End SyncLock
+            Try
+                If Not Client.IsConnected Then Exit Sub
+                If String.IsNullOrEmpty(Proxy.CharacterName) Or CharacterLoc.X = 0 Or CharacterLoc.Y = 0 Then Exit Sub
+                Dim Content As Byte() = System.Text.Encoding.ASCII.GetBytes("charname=" & System.Web.HttpUtility.UrlEncode(Proxy.CharacterName) & "&x=" & CharacterLoc.X & "&y=" & CharacterLoc.Y & "&z=" & CharacterLoc.Z)
+                Dim WClient As New WebClient
+                WClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded")
+                WClient.UploadDataAsync(New System.Uri("http://www.tibiatekbot.com/updatemaploc.php"), "POST", Content)
+            Catch
+            End Try
         End Sub
 
 #End Region
@@ -1246,7 +1055,7 @@ Public Module CoreModule
 
         Private Sub StackerTimerObj_Execute() Handles StackerTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim MyContainer As New Container
                 Dim SecondContainer As New Container
                 Dim ContainerIndex As Integer
@@ -1273,6 +1082,7 @@ Public Module CoreModule
                 Loop While MyContainer.NextContainer
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -1286,7 +1096,7 @@ Public Module CoreModule
                 If LooterNextExecution > Date.Now.Ticks OrElse LootHasChanged = 0 Then
                     Exit Sub
                 End If
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 LootHasChanged -= 1 'The looter has two tries to loot successfully
                 Dim ActualItem As Integer
                 Dim ActualIndex As Integer
@@ -1314,7 +1124,7 @@ Public Module CoreModule
                 Dim ContainerItemCount2 As Integer
                 Dim Found As Boolean = False
                 Dim BrownBagID As UShort = Definitions.GetItemID("Brown Bag")
-                Core.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
 
                 'If all loot conditions are fulfilled, start looting
                 If CaveBotTimerObj.State = ThreadTimerState.Stopped AndAlso _
@@ -1394,7 +1204,7 @@ Public Module CoreModule
                                             AndAlso Containers(ActualIndex2).HasParent _
                                             AndAlso Containers(ActualIndex2).GetContainerID = BrownBagID) Then Continue For
                                         If Containers(ActualIndex2).GetItemCount < Containers(ActualIndex2).GetContainerSize Then
-                                            Dim Loc As LocationDefinition
+                                            Dim Loc As ITibia.LocationDefinition
                                             Loc.X = &HFFFF
                                             Loc.Y = &H40 + Containers(ActualIndex2).GetContainerIndex()
                                             Loc.Z = Containers(ActualIndex2).GetContainerSize - 1
@@ -1415,7 +1225,6 @@ Public Module CoreModule
                         Next
                     Next ActualIndex
                 End If
-
                 'Eating comes afterward, so the loot item positions don't get invalid
                 If (CaveBotTimerObj.State = ThreadTimerState.Running AndAlso _
                 CavebotForm.EatFromCorpses.Checked) OrElse _
@@ -1456,11 +1265,11 @@ Public Module CoreModule
             Try
                 ' If StatsUploaderIsBusy Then Exit Sub
                 Try
-                    If Not InGame() Then Exit Sub
+                    If Not Client.IsConnected Then Exit Sub
                     'StatsUploaderIsBusy = True
-                    Dim Client As New System.Net.WebClient
+                    Dim WClient As New System.Net.WebClient
                     Dim BL As New BattleList
-                    BL.JumpToEntity(SpecialEntity.Myself)
+                    BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                     Dim xmlFile As New System.Xml.XmlDocument()
 
                     Dim xmlStats As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Stats", "")
@@ -1488,12 +1297,12 @@ Public Module CoreModule
 
                     Dim xmlMagicLevel As XmlElement = xmlFile.CreateElement("MagicLevel")
                     Dim MagicLevel As Integer = 0
-                    Core.ReadMemory(Consts.ptrMagicLevel, MagicLevel, 4)
+                    Core.Client.ReadMemory(Consts.ptrMagicLevel, MagicLevel, 4)
                     xmlMagicLevel.InnerText = MagicLevel.ToString
 
                     Dim xmlMagicLevelP As XmlAttribute = xmlFile.CreateAttribute("MagicLevel")
                     Dim MagicLevelP As Integer = 0
-                    Core.ReadMemory(Consts.ptrMagicLevelPercent, MagicLevelP, 1)
+                    Core.Client.ReadMemory(Consts.ptrMagicLevelPercent, MagicLevelP, 1)
                     xmlMagicLevelP.InnerText = MagicLevelP.ToString
                     xmlMagicLevel.Attributes.Append(xmlMagicLevelP)
 
@@ -1508,12 +1317,12 @@ Public Module CoreModule
 
                     Dim xmlCapacity As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Capacity", "")
                     Dim Capacity As Integer = 0
-                    Core.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                    Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
                     xmlCapacity.InnerText = CStr(Capacity)
 
                     Dim xmlStamina As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Stamina", "")
                     Dim Stamina As Integer = 0
-                    Core.ReadMemory(Consts.ptrStamina, Stamina, 4)
+                    Core.Client.ReadMemory(Consts.ptrStamina, Stamina, 4)
                     Dim StaminaTime As TimeSpan = TimeSpan.FromSeconds(Stamina)
                     xmlStamina.InnerText = StaminaTime.ToString
 
@@ -1523,8 +1332,8 @@ Public Module CoreModule
 
                     Dim xmlFistFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "FistFighting", "")
                     Dim xmlFistFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.ReadMemory(Consts.ptrSkillsBegin + (Skills.FistFighting * Consts.SkillsDist), Skill, 1)
-                    Core.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.FistFighting * Consts.SkillsDist), Skill, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlFistFighting.InnerText = CStr(Skill)
                     xmlFistFightingP.InnerText = CStr(SkillPercent)
                     xmlFistFighting.Attributes.Append(xmlFistFightingP)
@@ -1532,8 +1341,8 @@ Public Module CoreModule
 
                     Dim xmlClubFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "ClubFighting", "")
                     Dim xmlClubFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.ReadMemory(Consts.ptrSkillsBegin + (Skills.ClubFighting * Consts.SkillsDist), Skill, 1)
-                    Core.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.ClubFighting * Consts.SkillsDist), Skill, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlClubFighting.InnerText = CStr(Skill)
                     xmlClubFightingP.InnerText = CStr(SkillPercent)
                     xmlClubFighting.Attributes.Append(xmlClubFightingP)
@@ -1541,8 +1350,8 @@ Public Module CoreModule
 
                     Dim xmlSwordFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "SwordFighting", "")
                     Dim xmlSwordFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.ReadMemory(Consts.ptrSkillsBegin + (Skills.SwordFighting * Consts.SkillsDist), Skill, 1)
-                    Core.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.SwordFighting * Consts.SkillsDist), Skill, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlSwordFighting.InnerText = CStr(Skill)
                     xmlSwordFightingP.InnerText = CStr(SkillPercent)
                     xmlSwordFighting.Attributes.Append(xmlSwordFightingP)
@@ -1550,8 +1359,8 @@ Public Module CoreModule
 
                     Dim xmlAxeFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "AxeFighting", "")
                     Dim xmlAxeFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.ReadMemory(Consts.ptrSkillsBegin + (Skills.AxeFighting * Consts.SkillsDist), Skill, 1)
-                    Core.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.AxeFighting * Consts.SkillsDist), Skill, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlAxeFighting.InnerText = CStr(Skill)
                     xmlAxeFightingP.InnerText = CStr(SkillPercent)
                     xmlAxeFighting.Attributes.Append(xmlAxeFightingP)
@@ -1559,8 +1368,8 @@ Public Module CoreModule
 
                     Dim xmlDistanceFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "DistanceFighting", "")
                     Dim xmlDistanceFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.ReadMemory(Consts.ptrSkillsBegin + (Skills.DistanceFighting * Consts.SkillsDist), Skill, 1)
-                    Core.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.DistanceFighting * Consts.SkillsDist), Skill, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlDistanceFighting.InnerText = CStr(Skill)
                     xmlDistanceFightingP.InnerText = CStr(SkillPercent)
                     xmlDistanceFighting.Attributes.Append(xmlDistanceFightingP)
@@ -1568,8 +1377,8 @@ Public Module CoreModule
 
                     Dim xmlShielding As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Shielding", "")
                     Dim xmlShieldingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.ReadMemory(Consts.ptrSkillsBegin + (Skills.Shielding * Consts.SkillsDist), Skill, 1)
-                    Core.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), SkillPercent, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Shielding * Consts.SkillsDist), Skill, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), SkillPercent, 1)
                     xmlShielding.InnerText = CStr(Skill)
                     xmlShieldingP.InnerText = CStr(SkillPercent)
                     xmlShielding.Attributes.Append(xmlShieldingP)
@@ -1577,8 +1386,8 @@ Public Module CoreModule
 
                     Dim xmlFishing As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Fishing", "")
                     Dim xmlFishingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.ReadMemory(Consts.ptrSkillsBegin + (Skills.Fishing * Consts.SkillsDist), Skill, 1)
-                    Core.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), SkillPercent, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Fishing * Consts.SkillsDist), Skill, 1)
+                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), SkillPercent, 1)
                     xmlFishing.InnerText = CStr(Skill)
                     xmlFishingP.InnerText = CStr(SkillPercent)
                     xmlFishing.Attributes.Append(xmlFishingP)
@@ -1589,7 +1398,7 @@ Public Module CoreModule
                     Do
                         If BL.IsOnScreen AndAlso Not BL.IsMyself Then
                             Dim xmlEntity As System.Xml.XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Entity", "")
-                            Dim Loc As LocationDefinition = BL.GetLocation
+                            Dim Loc As ITibia.LocationDefinition = BL.GetLocation
                             Dim X As XmlAttribute = xmlFile.CreateAttribute("X")
                             X.Value = Loc.X.ToString
                             Dim Y As XmlAttribute = xmlFile.CreateAttribute("Y")
@@ -1656,7 +1465,6 @@ Public Module CoreModule
                             xmlContainers.AppendChild(xmlContainer)
                         End If
                     Loop While Container.NextContainer
-
                     xmlStats.AppendChild(xmlName)
                     xmlStats.AppendChild(xmlLevel)
                     xmlStats.AppendChild(xmlExperience)
@@ -1674,7 +1482,6 @@ Public Module CoreModule
                     xmlStats.AppendChild(xmlVipList)
                     xmlStats.AppendChild(xmlContainers)
                     xmlStats.AppendChild(xmlLastUpdate)
-
                     xmlFile.AppendChild(xmlStats)
 
                     If UploaderSaveToDiskOnly Then
@@ -1684,7 +1491,7 @@ Public Module CoreModule
                         'Dim CS As New CaptureScreen.CaptureScreen
                         'CS.CaptureScreenToFile("screenshot.jpg", ImageFormat.Jpeg)
                         If IO.File.Exists("temp.xml") Then  'AndAlso IO.File.Exists("screenshot.jpg") 
-                            Client.UploadFile("ftp://" & UploaderUserId & ":" & UploaderPassword & "@" & UploaderUrl & UploaderPath & UploaderFilename, "Temp.xml")
+                            WClient.UploadFile("ftp://" & UploaderUserId & ":" & UploaderPassword & "@" & UploaderUrl & UploaderPath & UploaderFilename, "Temp.xml")
                             'Client.UploadFile("ftp://" & Consts.StatsUploaderUserID & ":" & Consts.StatsUploaderPassword & "@" & Consts.StatsUploaderUrl & Consts.StatsUploaderPath & "screenshot.jpg", "screenshot.jpg")
                             IO.File.Delete("temp.xml")
                             'IO.File.Delete("screenshot.jpg")
@@ -1696,6 +1503,7 @@ Public Module CoreModule
                 End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -1705,7 +1513,7 @@ Public Module CoreModule
 
         Private Sub HealPartyTimerObj_Execute() Handles HealPartyTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim BL As New BattleList
                 If HealPartyMinimumHPPercentage = 0 OrElse HealPartyHealType = HealTypes.None Then
                     HealPartyMinimumHPPercentage = 0
@@ -1714,13 +1522,12 @@ Public Module CoreModule
                 End If
 
                 If HealPartyTimerObj.Interval > Consts.HealersCheckInterval Then HealPartyTimerObj.Interval = Consts.HealersCheckInterval
-
                 BL.Reset(True)
                 Do
                     If Not BL.IsOnScreen OrElse BL.IsMyself OrElse BL.GetFloor <> CharacterLoc.Z Then Continue Do
-                    Dim PLPartyStatus As PartyStatus = BL.GetPartyStatus
-                    If (PLPartyStatus = PartyStatus.Member OrElse PLPartyStatus = PartyStatus.Leader) _
-                        AndAlso BL.GetHPPercentage <= HealPartyMinimumHPPercentage Then
+                    Dim PLPartyStatus As IBattlelist.PartyStatus = BL.GetPartyStatus
+                    If (PLPartyStatus = IBattlelist.PartyStatus.Member OrElse PLPartyStatus = IBattlelist.PartyStatus.Leader) _
+                     AndAlso BL.GetHPPercentage <= HealPartyMinimumHPPercentage Then
                         Select Case HealPartyHealType
                             Case HealTypes.ExuraSio
                                 If ManaPoints < Spells.GetSpellMana("Heal Friend") Then Exit Sub
@@ -1749,14 +1556,14 @@ Public Module CoreModule
 
         Public Sub HealTimerObj_Execute() Handles HealTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If HealTimerObj.Interval > Consts.HealersCheckInterval Then HealTimerObj.Interval = Consts.HealersCheckInterval
                 If HealMinimumHP = 0 OrElse HitPoints > HealMinimumHP Then Exit Sub
                 Dim Output As String = HealSpell.Words
                 If ManaPoints < Spells.GetSpellMana(HealSpell.Name) Then Exit Sub
                 If String.Compare(HealSpell.Name, "heal friend", True) = 0 Then
                     Dim BL As New BattleList
-                    BL.JumpToEntity(SpecialEntity.Myself)
+                    BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                     Output &= " """ & BL.GetName & """"
                 End If
                 If Not String.IsNullOrEmpty(HealComment) Then Output &= " """"" & HealComment
@@ -1773,13 +1580,13 @@ Public Module CoreModule
 
         Public Sub PickUpTimerObj_Execute() Handles PickUpTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If PickUpItemID = 0 Then Exit Sub
                 'If PickUpTimerObj.Interval > 500 Then PickUpTimerObj.Interval = 500
                 Dim RightHandItemID As Integer = 0
                 Dim RightHandItemCount As Integer = 0
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandItemCount, 1)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandItemCount, 1)
                 If RightHandItemID > 0 AndAlso RightHandItemID <> PickUpItemID Then
                     If RightHandItemCount = 0 Then RightHandItemCount = 1
                     Proxy.SendPacketToServer(MoveObject(RightHandItemID, GetInventorySlotAsLocation(InventorySlots.RightHand), GetInventorySlotAsLocation(InventorySlots.Backpack), CInt(RightHandItemCount)))
@@ -1791,8 +1598,8 @@ Public Module CoreModule
                 Dim ItemCount As Integer = 0
                 Dim Capacity As Integer = 0
                 Dim Z As Integer = 0
-                Dim Source As New LocationDefinition
-                'Core.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                Dim Source As New ITibia.LocationDefinition
+                'Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
 
                 Dim MaxItemsToPickUp As Integer = CInt(Fix(Capacity / 20))
                 If Consts.UnlimitedCapacity Then
@@ -1803,12 +1610,12 @@ Public Module CoreModule
                     For X As Short = 7 To 9
                         For Y As Short = 5 To 7
                             Address = Map.GetAddress(X, Y, MapReader.WorldZToClientZ(CharacterLoc.Z))
-                            Core.ReadMemory(Address, StackSize, 1)
+                            Core.Client.ReadMemory(Address, StackSize, 1)
                             If StackSize > 1 Then 'look for spear plx
                                 For I As Integer = 0 To StackSize - 1
-                                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ItemID, 2)
+                                    Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ItemID, 2)
                                     If ItemID = PickUpItemID Then
-                                        Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, ItemCount, 1)
+                                        Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, ItemCount, 1)
                                         If ItemCount = 0 Then ItemCount = 1
                                         Source = CharacterLoc
                                         Source.X += X - 8
@@ -1822,9 +1629,9 @@ Public Module CoreModule
                     Next
                 End If
                 'System.Threading.Thread.Sleep(300)
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandItemCount, 1)
-                Core.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandItemCount, 1)
+                Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
                 MaxItemsToPickUp = CInt(Fix(Capacity / 20))
                 If RightHandItemID = 0 And RightHandItemCount = 0 Then
                     'Dim MyContainer As New Container
@@ -1853,7 +1660,7 @@ Public Module CoreModule
 
         Public Sub AmmoRestackerTimerObj_Execute() Handles AmmoRestackerTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim Container As New Container
                 Dim ContainerItemCount As Integer
                 Dim Item As ContainerItemDefinition
@@ -1863,8 +1670,8 @@ Public Module CoreModule
                 Dim TotalAmmo As Integer = 0
                 If AmmoRestackerItemID = 0 OrElse AmmoRestackerMinimumItemCount = 0 Then Exit Sub
                 'find out of we really need more ammo
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), AmmoItemID, 2)
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, AmmoItemCount, 1)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), AmmoItemID, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, AmmoItemCount, 1)
                 If AmmoItemID = AmmoRestackerItemID AndAlso AmmoItemCount > AmmoRestackerMinimumItemCount Then
                     Exit Sub
                 End If
@@ -1906,7 +1713,7 @@ Public Module CoreModule
 
         Public Sub AutoTrainerTimerObj_Execute() Handles AutoTrainerTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If AutoTrainerMinHPPercent = 0 OrElse AutoTrainerMaxHPPercent = 0 Then
                     AutoTrainerEntities.Clear()
                     AutoTrainerMinHPPercent = 0
@@ -1915,7 +1722,7 @@ Public Module CoreModule
                 End If
                 Dim BL As New BattleList
                 Dim AttackedEntityID As Integer = 0
-                Core.ReadMemory(Consts.ptrAttackedEntityID, AttackedEntityID, 4)
+                Core.Client.ReadMemory(Consts.ptrAttackedEntityID, AttackedEntityID, 4)
                 If AttackedEntityID > 0 Then
                     If AutoTrainerEntities.Contains(AttackedEntityID) Then
                         If BL.Find(AttackedEntityID, True) Then
@@ -1936,6 +1743,7 @@ Public Module CoreModule
                 Next
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -1945,7 +1753,7 @@ Public Module CoreModule
 
         Public Sub RunemakerTimerObj_Execute() Handles RunemakerTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim FirstRightHandSlot As Integer = 0
                 Dim FirstRightHandSlotCount As Integer = 0
                 Dim BeltSlot As Integer = 0
@@ -1971,7 +1779,7 @@ Public Module CoreModule
                     ConsoleError("You ran out of Soul Points, therefore the Runemaker is now Disabled.")
                     Exit Sub
                 End If
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
                 'check that there are no items occupying the belt slot
 
                 If BeltSlot > 0 Then
@@ -1987,7 +1795,7 @@ Public Module CoreModule
                         End If
                         Proxy.SendPacketToServer(MoveObject(BeltSlot, GetInventorySlotAsLocation(InventorySlots.Belt), GetInventorySlotAsLocation(InventorySlots.Backpack), 100))
                         System.Threading.Thread.Sleep(1000)
-                        Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
+                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
                     Loop While BeltSlot <> 0
                 End If
 
@@ -2018,8 +1826,8 @@ Public Module CoreModule
                 End If
 
                 'move any object in right hand to arrow slot
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandSlotCount, 1)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandSlotCount, 1)
                 If RightHandSlot > 0 Then
                     FirstRightHandSlot = RightHandSlot
                     FirstRightHandSlotCount = RightHandSlotCount
@@ -2037,7 +1845,7 @@ Public Module CoreModule
                         End If
                         Proxy.SendPacketToServer(MoveObject(RightHandSlot, GetInventorySlotAsLocation(InventorySlots.RightHand), GetInventorySlotAsLocation(InventorySlots.Belt), Count))
                         System.Threading.Thread.Sleep(1000)
-                        Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
+                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
                     Loop Until FirstRightHandSlot = BeltSlot
                 End If
 
@@ -2054,7 +1862,7 @@ Public Module CoreModule
                     End If
                     Proxy.SendPacketToServer(MoveObject(BlankRune.ID, BlankRune.Location, GetInventorySlotAsLocation(InventorySlots.RightHand), 1))
                     System.Threading.Thread.Sleep(1000)
-                    Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                 Loop Until RightHandSlot = BlankRune.ID
 
                 'cast conjure
@@ -2070,7 +1878,7 @@ Public Module CoreModule
                     End If
                     Proxy.SendPacketToServer(Speak(RunemakerSpell.Words))
                     System.Threading.Thread.Sleep(1000)
-                    Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                 Loop Until RightHandSlot <> BlankRuneID
 
                 'move magical rune to backpack
@@ -2086,9 +1894,8 @@ Public Module CoreModule
                     End If
                     Proxy.SendPacketToServer(MoveObject(RightHandSlot, GetInventorySlotAsLocation(InventorySlots.RightHand), BlankRune.Location, 1))
                     System.Threading.Thread.Sleep(1000)
-                    Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                 Loop Until RightHandSlot = 0
-
                 'move any object that was in arrow slot to right hand
                 If FirstRightHandSlot > 0 Then
                     Count = FirstRightHandSlotCount
@@ -2105,7 +1912,7 @@ Public Module CoreModule
                         End If
                         Proxy.SendPacketToServer(MoveObject(FirstRightHandSlot, GetInventorySlotAsLocation(InventorySlots.Belt), GetInventorySlotAsLocation(InventorySlots.RightHand), Count))
                         System.Threading.Thread.Sleep(1000)
-                        Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                     Loop Until RightHandSlot = FirstRightHandSlot
                 End If
                 System.Threading.Thread.Sleep(5000)
@@ -2122,7 +1929,7 @@ Public Module CoreModule
             Try
                 If FisherTimerObj.State = ThreadTimerState.Stopped Then Exit Sub
                 Dim Intervals() As UShort = {1000, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000}
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If FisherTimerObj.Interval = 10000 Then FisherTimerObj.Interval = 1000
                 If Map.IsBusy Then Exit Sub
                 Dim FishingRodItemData As ContainerItemDefinition
@@ -2171,6 +1978,7 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -2180,22 +1988,23 @@ Public Module CoreModule
 
         Public Sub MapReaderTimerObj_OnExecute() Handles MapReaderTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim X, Y, Z As Integer
-                Core.ReadMemory(Consts.ptrCoordX, X, 2)
+                Core.Client.ReadMemory(Consts.ptrCoordX, X, 2)
                 CharacterLoc.X = X
-                Core.ReadMemory(Consts.ptrCoordY, Y, 2)
+                Core.Client.ReadMemory(Consts.ptrCoordY, Y, 2)
                 CharacterLoc.Y = Y
-                Core.ReadMemory(Consts.ptrCoordZ, Z, 1)
+                Core.Client.ReadMemory(Consts.ptrCoordZ, Z, 1)
                 CharacterLoc.Z = Z
                 If CharacterLastLocation.X <> CharacterLoc.X OrElse _
-                    CharacterLastLocation.Y <> CharacterLoc.Y OrElse _
-                    CharacterLastLocation.Z <> CharacterLoc.Z Then
+                 CharacterLastLocation.Y <> CharacterLoc.Y OrElse _
+                 CharacterLastLocation.Z <> CharacterLoc.Z Then
                     Map.Refresh()
                     CharacterLastLocation = CharacterLoc
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -2205,7 +2014,7 @@ Public Module CoreModule
 
         Public Sub ChatMessageQueueTimerObj_Execute() Handles ChatMessageQueueTimerObj.OnExecute
             Try
-                If Not InGame() Then
+                If Not Client.IsConnected Then
                     ChatMessageQueueList.Clear()
                     Exit Sub
                 End If
@@ -2261,10 +2070,13 @@ Public Module CoreModule
                             End Select
                             Log("You", "Said in """ & Channel & """: " & ChatMessage.Message)
                     End Select
+                    'AppObjs.ConsoleRead(CStr(ChatMessage.SentByUser))
                     Proxy.SendPacketToServer(bytBuffer)
+                    'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, ChatMessage.Message))
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -2274,7 +2086,7 @@ Public Module CoreModule
 
         Public Sub EaterTimerObj_Execute() Handles EaterTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If AutoEaterSmart > 0 AndAlso HitPoints > AutoEaterSmart Then Exit Sub
                 Dim Ate As Boolean = False
                 If Consts.EatFromFloorFirst Then
@@ -2288,6 +2100,7 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -2312,6 +2125,7 @@ Public Module CoreModule
                 Return False
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Function
 
@@ -2341,6 +2155,7 @@ Public Module CoreModule
                 Return Found
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Function
 
@@ -2350,21 +2165,21 @@ Public Module CoreModule
 
         Public Sub StatsTimerObj_Execute() Handles StatsTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim X, Y, Z As Integer
-                Core.ReadMemory(Consts.ptrLevel, Level, 4)
-                Core.ReadMemory(Consts.ptrExperience, Experience, 4)
-                Core.ReadMemory(Consts.ptrHitPoints, HitPoints, 4)
-                Core.ReadMemory(Consts.ptrManaPoints, ManaPoints, 4)
-                Core.ReadMemory(Consts.ptrSoulPoints, SoulPoints, 4)
-                Core.ReadMemory(Consts.ptrCoordX, X, 2)
+                Core.Client.ReadMemory(Consts.ptrLevel, Level, 4)
+                Core.Client.ReadMemory(Consts.ptrExperience, Experience, 4)
+                Core.Client.ReadMemory(Consts.ptrHitPoints, HitPoints, 4)
+                Core.Client.ReadMemory(Consts.ptrManaPoints, ManaPoints, 4)
+                Core.Client.ReadMemory(Consts.ptrSoulPoints, SoulPoints, 4)
+                Core.Client.ReadMemory(Consts.ptrCoordX, X, 2)
                 CharacterLoc.X = X
-                Core.ReadMemory(Consts.ptrCoordY, Y, 2)
+                Core.Client.ReadMemory(Consts.ptrCoordY, Y, 2)
                 CharacterLoc.Y = Y
-                Core.ReadMemory(Consts.ptrCoordZ, Z, 1)
+                Core.Client.ReadMemory(Consts.ptrCoordZ, Z, 1)
                 CharacterLoc.Z = Z
-                Core.ReadMemory(Consts.ptrCharacterID, CharacterID, 4)
-                Core.ReadMemory(Consts.ptrCapacity, Capacity, 4)
+                Core.Client.ReadMemory(Consts.ptrCharacterID, CharacterID, 4)
+                Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 4)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -2376,7 +2191,7 @@ Public Module CoreModule
 
         Public Sub LightTimerObj_Execute() Handles LightTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 SetLight(LightI, LightC)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2386,7 +2201,7 @@ Public Module CoreModule
         Public Sub SetLight(ByVal LightIntensity As LightIntensity, ByVal LightColor As LightColor)
             Try
                 Dim BL As New BattleList
-                BL.JumpToEntity(SpecialEntity.Myself)
+                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 If (BL.LightIntensity <> LightIntensity) OrElse (BL.LightColor <> LightColor) Then
                     BL.LightIntensity = LightIntensity
                     BL.LightColor = LightColor
@@ -2402,7 +2217,7 @@ Public Module CoreModule
 
         Public Sub ExpCheckerTimerObj_Execute() Handles ExpCheckerTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim NextLevelExpL As Long = 0
                 Dim CurrentLevelExpL As Long = 0
                 Dim ExperienceL As Long = Experience
@@ -2422,8 +2237,8 @@ Public Module CoreModule
                 NextLevelPercentageL = CLng(Floor((ExperienceL - CurrentLevelExpL) * 100 / (NextLevelExpL - CurrentLevelExpL)))
                 NextLevelPercentage = CInt(NextLevelPercentageL)
                 If ExpCheckerActivated Then
-                    If Not Proxy.Client.MainWindowTitle.Equals(BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
-                        ChangeClientTitle(BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExpL - ExperienceL) & " (" & NextLevelPercentageL & "% completed)")
+                    If Not Client.Title.Equals(BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
+                        Client.Title = BotName & " - " & Core.Proxy.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExpL - ExperienceL) & " (" & NextLevelPercentageL & "% completed)"
                     End If
                     LastExperienceL = ExperienceL
                     LastExperience = Experience
@@ -2439,7 +2254,7 @@ Public Module CoreModule
 
         Private Sub SpellTimerObj_Execute() Handles SpellTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If SpellTimerObj.Interval = Consts.SpellCasterDelay Then SpellTimerObj.Interval = Consts.SpellCasterInterval
                 If SpellManaRequired = 0 OrElse String.IsNullOrEmpty(SpellMsg) Then Exit Sub
                 If ManaPoints = 0 Then
@@ -2450,6 +2265,7 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -2459,7 +2275,7 @@ Public Module CoreModule
 
         Private Sub UHTimerObj_Execute() Handles UHTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If UHTimerObj.Interval > Consts.HealersCheckInterval Then UHTimerObj.Interval = Consts.HealersCheckInterval
                 If UHHPRequired = 0 Then
                     UHTimerObj.StopTimer()
@@ -2477,13 +2293,14 @@ Public Module CoreModule
             End Try
         End Sub
 
+
 #End Region
 
 #Region " Heal Friend Timer "
 
         Private Sub HealFriendTimerObj_Execute() Handles HealFriendTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim BL As New BattleList
                 If HealFriendCharacterName.Length = 0 OrElse HealFriendHealthPercentage = 0 OrElse HealFriendHealType = HealTypes.None Then
                     HealFriendCharacterName = ""
@@ -2510,6 +2327,7 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -2518,16 +2336,18 @@ Public Module CoreModule
                 Proxy.SendPacketToServer(Speak(Spells.GetSpellWords("Heal Friend") & " """ & Name & """"))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
-        Private Sub UHOnLocation(ByVal Loc As LocationDefinition)
+        Private Sub UHOnLocation(ByVal Loc As ITibia.LocationDefinition)
             Try
                 Dim UHRuneID As UShort = Definitions.GetItemID("Ultimate Healing")
                 Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(UHRuneID, Loc))
                 'Proxy.SendPacketToClient(CreatureSpeak(Proxy.CharacterName, MessageType.MonsterSay, 0, "UHed player!", CharacterLoc.X, CharacterLoc.Y, CharacterLoc.Z))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 
@@ -2537,7 +2357,7 @@ Public Module CoreModule
 
         Public Sub AdvertiserTimerObj_OnExecute() Handles AdvertiseTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If AdvertiseMsg.Length = 0 Then Exit Sub
                 Dim ChatMessage As New ChatMessageDefinition
                 ChatMessage.MessageType = MessageType.Channel
@@ -2546,34 +2366,61 @@ Public Module CoreModule
                 Core.ChatMessageQueueList.Add(ChatMessage)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
-
 #End Region
 
 #Region " Rainbow Outfit Timer "
 
         Public Sub rainbowTimerObj_Execute() Handles RainbowOutfitTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim BL As New BattleList
                 If RainbowOutfitHead = 131 Then RainbowOutfitHead = 0 Else RainbowOutfitHead = RainbowOutfitHead + 1
                 If RainbowOutfitBody = 131 Then RainbowOutfitBody = 0 Else RainbowOutfitBody = RainbowOutfitBody + 1
                 If RainbowOutfitLegs = 131 Then RainbowOutfitLegs = 0 Else RainbowOutfitLegs = RainbowOutfitLegs + 1
                 If RainbowOutfitFeet = 131 Then RainbowOutfitFeet = 0 Else RainbowOutfitFeet = RainbowOutfitFeet + 1
-                BL.JumpToEntity(SpecialEntity.Myself)
-                Proxy.SendPacketToServer(ChangeOutfit(BL.OutfitID, RainbowOutfitHead, RainbowOutfitBody, RainbowOutfitLegs, RainbowOutfitFeet, BL.Addons))
+                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                Proxy.SendPacketToServer(ChangeOutfit(BL.OutfitID, RainbowOutfitHead, RainbowOutfitBody, RainbowOutfitLegs, RainbowOutfitFeet, BL.OutfitAddons))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
+
 #End Region
 
 #Region " Auto Drinker Timer "
 
+        Public Sub AutoDrinkerTimerObj_Execute() Handles AutoDrinkerTimerObj.OnExecute
+            Try
+                If Not Client.IsConnected Then Exit Sub
+                If AutoDrinkerTimerObj.Interval > Consts.HealersCheckInterval Then AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
+                If DrinkerManaRequired = 0 Then Exit Sub
+                If ManaPoints = 0 Then
+                    Exit Sub
+                ElseIf ManaPoints <= DrinkerManaRequired Then
+                    Dim ItemID As Integer = 0
+                    If Core.IsOpenTibiaServer Then
+                        Proxy.SendPacketToServer(UseHotkey(Definitions.GetItemID("Vial"), CInt(Fluids.ManaOpenTibia)))
+                    Else
+                        Proxy.SendPacketToServer(UseHotkey(Definitions.GetItemID("Vial"), CInt(Fluids.Mana)))
+                    End If
+                    AutoDrinkerTimerObj.Interval = Consts.HealersAfterHealDelay
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+
+#End Region
+
+#Region " Mana Potion Timer "
+
         Private Sub ManaPotionTimerObj_Execute() Handles ManaPotionTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 If ManaPotionTimerObj.Interval > Consts.HealersCheckInterval Then ManaPotionTimerObj.Interval = Consts.HealersCheckInterval
                 If ManaPoints = 0 Then
                     ManaPotionTimerObj.StopTimer()
@@ -2582,8 +2429,9 @@ Public Module CoreModule
                 If DrinkerManaRequired = 0 Then Exit Sub
                 If ManaPoints < DrinkerManaRequired Then
                     ManaPotionTimerObj.Interval = Consts.HealersAfterHealDelay
-                    Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(ManaPotionId, CharacterID))
+                    Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(ManaPotionID, CharacterID))
                 End If
+                ManaPotionTimerObj.Interval = Consts.HealersAfterHealDelay
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -2600,9 +2448,9 @@ Public Module CoreModule
                 Dim StatusMessage As String = ""
                 Dim StatusTmr As Integer = 0
                 Container.Reset()
-                Core.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
-                Core.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
-                Core.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                Core.Client.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
+                Core.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
+                Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
                 If Capacity < CInt(CavebotForm.LootMinimumCap.Value) Then Return True
                 If Capacity <= LooterMinimumCapacity Then Return True
                 If StatusMessage.Equals("This object is too heavy.") AndAlso StatusTmr <> 0 Then
@@ -2622,7 +2470,6 @@ Public Module CoreModule
                             End If
                         Next
                     End If
-
                 Loop While Container.NextContainer()
                 Return True
             Catch Ex As Exception
@@ -2638,8 +2485,8 @@ Public Module CoreModule
                 Dim StatusMessage As String = ""
                 Dim StatusTmr As Integer = 0
                 Container.Reset()
-                Core.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
-                Core.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
+                Core.Client.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
+                Core.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
                 If StatusMessage.Equals("You are full.") AndAlso StatusTmr <> 0 Then
                     Return True
                 End If
@@ -2661,6 +2508,7 @@ Public Module CoreModule
                 Return True
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Function
 
@@ -2669,27 +2517,27 @@ Public Module CoreModule
                 If CaveBotTimerObj.State = ThreadTimerState.Stopped Then Exit Sub
                 Dim BL As New BattleList
                 Dim MyselfBL As New BattleList
-                MyselfBL.JumpToEntity(SpecialEntity.Myself)
+                MyselfBL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 Dim PlayerZ As Integer
                 Dim CurrentContCount As Integer = 0
                 Dim StatusText As String = ""
                 Dim StatusTimer As Integer = 0
-                Core.ReadMemory(Consts.ptrCoordZ, PlayerZ, 4)
-                Core.ReadMemory(Consts.ptrStatusMessage, StatusText)
-                Core.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
-                If Not InGame() Then Exit Sub
+                Core.Client.ReadMemory(Consts.ptrCoordZ, PlayerZ, 4)
+                Core.Client.ReadMemory(Consts.ptrStatusMessage, StatusText)
+                Core.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
+                If Not Client.IsConnected Then Exit Sub
                 Select Case CBState
                     Case CavebotState.Walking
                         CBCreatureDied = False
-                        If BL.JumpToEntity(SpecialEntity.Attacked) AndAlso (BL.IsOnScreen Or BattleList.CreaturesOnScreen) Then
+                        If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) AndAlso (BL.IsOnScreen Or BL.CreaturesOnScreen) Then
                             CBState = CavebotState.Attacking
-                            Core.WriteMemory(Consts.ptrGoToX, 0, 4)
-                            Core.WriteMemory(Consts.ptrGoToY, 0, 4)
-                            Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
+                            Core.Client.WriteMemory(Consts.ptrGoToX, 0, 4)
+                            Core.Client.WriteMemory(Consts.ptrGoToY, 0, 4)
+                            Core.Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
                             BL.IsWalking = True
                             Exit Sub
                         End If
-                        If BL.JumpToEntity(SpecialEntity.Attacked) Then
+                        If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
                             Exit Sub
                         ElseIf Walker_Waypoints(WaypointIndex).MoveChar() Then
                             WaypointIndex += 1
@@ -2704,21 +2552,21 @@ Public Module CoreModule
                             End If
                         End If
                     Case CavebotState.Attacking
-                        If BL.JumpToEntity(SpecialEntity.Attacked) Then
+                        If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
                             If BL.GetHPPercentage = 0 Then
                                 Core.CBState = CavebotState.OpeningBody
                                 Exit Select
                             End If
                         End If
-                        If BattleList.CreaturesOnScreen = False Then
+                        If Not BL.CreaturesOnScreen Then
                             'Core.ConsoleWrite("Attacking -> Walking")
                             Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
                             CBState = CavebotState.Walking
                         End If
                         Dim Chase As Integer
-                        Core.ReadMemory(Consts.ptrChasingMode, Chase, 1)
+                        Core.Client.ReadMemory(Consts.ptrChasingMode, Chase, 1)
                         If Chase <> 1 Then
-                            Core.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                            Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
                             Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                         End If
                         If BL.GetHPPercentage < 30 And BL.IsWalking = True And MyselfBL.IsWalking = False And BL.GetDistance > 4 Then
@@ -2753,14 +2601,15 @@ Public Module CoreModule
                         End If
                         If KeepWalking Then CBState = CavebotState.Walking
                 End Select
-
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
+
 #End Region
 
 #Region " Auto Attack Timer "
+
         Public Sub AutoAttackerTimerObj_Execute() Handles AutoAttackerTimerObj.OnExecute
             Try
                 Dim BL As New BattleList 'Variables
@@ -2794,25 +2643,25 @@ Public Module CoreModule
                     Loop While BL.NextEntity(True) = True
                     'Attacking part
                     If AttackerMonsters.Count = 0 Then Exit Sub
-                    If AttackBL.JumpToEntity(SpecialEntity.Attacked) Then
+                    If AttackBL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
                         If BL.GetEntityID.Equals(AttackerMonsters.GetByIndex(0)) Then Exit Sub
                     End If
                     If CaveBotTimerObj.State = ThreadTimerState.Running Then
                         CBState = CavebotState.None
                         'Core.ConsoleWrite("AttackerTimer: STOP!")
                         Proxy.SendPacketToServer(PacketUtils.StopEverything)
-                        Core.WriteMemory(Consts.ptrGoToX, 0, 4)
-                        Core.WriteMemory(Consts.ptrGoToY, 0, 4)
-                        Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
+                        Client.WriteMemory(Consts.ptrGoToX, 0, 4)
+                        Client.WriteMemory(Consts.ptrGoToY, 0, 4)
+                        Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
                         System.Threading.Thread.Sleep(1000)
                     End If
-                    WriteMemory(Consts.ptrAttackedEntityID, AttackerMonsters.GetByIndex(0), 4)
+                    Client.WriteMemory(Consts.ptrAttackedEntityID, AttackerMonsters.GetByIndex(0), 4)
                     Proxy.SendPacketToServer(AttackEntity(AttackerMonsters.GetByIndex(0)))
                     If CaveBotTimerObj.State = ThreadTimerState.Running Then CBState = CavebotState.Attacking
                     System.Threading.Thread.Sleep(2000)
                     Exit Sub
                 Else
-                    If BL.JumpToEntity(SpecialEntity.Attacked) Then Exit Sub
+                    If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then Exit Sub
                     'We are not attacking, so..
                     BL.Reset()
                     'Looping trough battlelist
@@ -2830,12 +2679,12 @@ Public Module CoreModule
                                         CBState = CavebotState.None
                                         'Core.ConsoleWrite("AttackerTimer: STOP!")
                                         Proxy.SendPacketToServer(PacketUtils.StopEverything)
-                                        Core.WriteMemory(Consts.ptrGoToX, 0, 4)
-                                        Core.WriteMemory(Consts.ptrGoToY, 0, 4)
-                                        Core.WriteMemory(Consts.ptrGoToZ, 0, 1)
+                                        Client.WriteMemory(Consts.ptrGoToX, 0, 4)
+                                        Client.WriteMemory(Consts.ptrGoToY, 0, 4)
+                                        Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
                                         System.Threading.Thread.Sleep(1000)
                                     End If
-                                    WriteMemory(Consts.ptrAttackedEntityID, BL.GetEntityID, 4)
+                                    Client.WriteMemory(Consts.ptrAttackedEntityID, BL.GetEntityID, 4)
                                     Proxy.SendPacketToServer(AttackEntity(BL.GetEntityID))
                                     If CaveBotTimerObj.State = ThreadTimerState.Running Then CBState = CavebotState.Attacking
                                     System.Threading.Thread.Sleep(2000)
@@ -2845,7 +2694,6 @@ Public Module CoreModule
                         End If
                     Loop While BL.NextEntity(True) = True
                 End If
-
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -2857,7 +2705,7 @@ Public Module CoreModule
                 Dim MyBL As New BattleList 'Own
                 Dim CreatureBL As New BattleList 'Selected Creature
 
-                MyBL.JumpToEntity(SpecialEntity.Myself)
+                MyBL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 If CreatureBL.Find(EntityId, True) = False Then Return True
                 'Looping trough battlelist
                 PlayerBL.Reset(True)
@@ -2879,7 +2727,6 @@ Public Module CoreModule
 #End Region
 
 #Region " Greeting Timer "
-
         Private Sub GreetingTimer_Execute() Handles GreetingTimerObj.OnExecute
             GreetingTimerObj.StopTimer()
             Try
@@ -2964,17 +2811,17 @@ Public Module CoreModule
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
+
 #End Region
 
 #Region " AutoAdd Timer "
-        Private Function AddWaypointLocation(ByVal Loc As LocationDefinition, ByVal CameDirection As Directions, ByVal HeadingDirection As Directions) As LocationDefinition
+        Private Function AddWaypointLocation(ByVal Loc As ITibia.LocationDefinition, ByVal CameDirection As Directions, ByVal HeadingDirection As Directions) As ITibia.LocationDefinition
             Try
                 Dim TD As New TileData
-                Dim ReturnLocation As New LocationDefinition
-                Dim TempLocation As New LocationDefinition
+                Dim ReturnLocation As New ITibia.LocationDefinition
+                Dim TempLocation As New ITibia.LocationDefinition
                 ReturnLocation = Loc
                 TempLocation = Loc
-
                 'Selecting Came Direction
                 Select Case CameDirection
                     Case 0 'From Down to Up
@@ -3070,15 +2917,15 @@ Public Module CoreModule
 
         Public Sub AutoAddTimerObj_Execute() Handles AutoAddTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim BL As New BattleList
                 Dim TD As New TileData
-                Dim CameLoc As New LocationDefinition
-                Dim WaypointLoc As New LocationDefinition
+                Dim CameLoc As New ITibia.LocationDefinition
+                Dim WaypointLoc As New ITibia.LocationDefinition
                 Dim CameDir As New Byte '0 = From Down to Up, 1 = From Up to Down
                 'Add normal Walking time every 10s
                 If Walker_Waypoints.Count <> 0 Then 'List is not empty
-                    BL.JumpToEntity(SpecialEntity.Myself)
+                    BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                     If BL.GetLocation.Z <> LastFloor Then
                         If BL.GetLocation.Z < LastFloor Then CameDir = 0
                         If BL.GetLocation.Z > LastFloor Then CameDir = 1
@@ -3105,7 +2952,7 @@ Public Module CoreModule
                 End If
                 If AutoAddTime < Date.Now Then
                     Dim WalkerChar As New Walker
-                    BL.JumpToEntity(SpecialEntity.Myself)
+                    BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                     UpdatePlayerPos()
                     If Walker_Waypoints.Count = 0 Then
                         WalkerChar.Coordinates = BL.GetLocation
@@ -3132,16 +2979,17 @@ Public Module CoreModule
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
+
 #End Region
 
 #Region " Amulet/Necklace Changer "
         Private Sub AmuletChangerTimerObj_Execute() Handles AmuletChangerTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim Cont As New Container
                 Dim Amulet As New ContainerItemDefinition
                 Dim NeckSlot As Integer = 0
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), NeckSlot, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Neck - 1) * Consts.ItemDist), NeckSlot, 2)
                 If NeckSlot = 0 Then 'No amulet, let's change there something :)
                     If Not Container.FindItem(Amulet, AmuletID, 0, 0, Consts.MaxContainers - 1) Then
                         Exit Sub
@@ -3150,18 +2998,20 @@ Public Module CoreModule
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
             End Try
         End Sub
 #End Region
 
 #Region " Ring Changer "
+
         Private Sub RingChangerTimerObj_Execute() Handles RingChangerTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim Cont As New Container
                 Dim Ring As New ContainerItemDefinition
                 Dim FingerSlot As Integer = 0
-                Core.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Finger - 1) * Consts.ItemDist), FingerSlot, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Finger - 1) * Consts.ItemDist), FingerSlot, 2)
                 If FingerSlot = 0 Then 'No amulet, let's change there something :)
                     If Not Container.FindItem(Ring, RingID, 0, 0, Consts.MaxContainers - 1) Then
                         Exit Sub
@@ -3172,19 +3022,18 @@ Public Module CoreModule
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
-#End Region
 
 #Region " Anti-Logout Timer "
 
         Public Sub AntiLogoutObj_Execute() Handles AntiLogoutObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 Dim IdleTime As TimeSpan = Date.Now.Subtract(LastActivity)
                 If IdleTime.TotalMinutes <= 14 Then Exit Sub
                 Dim BL As New BattleList
                 Dim MyLastDirection As Integer
                 Dim RandNum As New Random(Date.Now.Millisecond)
-                BL.JumpToEntity(SpecialEntity.Myself)
+                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 MyLastDirection = BL.GetDirection
                 Select Case BL.GetDirection
                     Case Directions.Up
@@ -3224,11 +3073,11 @@ Public Module CoreModule
 #End Region
 
 #Region " MagicWall Timer "
-		Private Sub MagicWallTimerObj_OnExecute() Handles MagicWallTimerObj.OnExecute
+        Private Sub MagicWallTimerObj_OnExecute() Handles MagicWallTimerObj.OnExecute
             Try
                 MagicWallTimerObj.StartTimer()
                 Static TimePassed As TimeSpan
-                If Not InGame() Then MagicWallTimerObj.StopTimer()
+                If Not Client.IsConnected Then MagicWallTimerObj.StopTimer()
                 Dim Count As Integer = MagicWalls.Count
                 For I As Integer = 0 To Count - 1
                     TimePassed = Date.Now.Subtract(MagicWalls(I).LastMagicWallDate)
@@ -3286,28 +3135,28 @@ Public Module CoreModule
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
-		End Sub
+        End Sub
 
 
-		Private Sub MagicWallAdd(ByVal Position As LocationDefinition)
-			Dim NewMW As MagicWallDefinition
-			NewMW.LastMagicWallDate = Date.Now
-			NewMW.Position = Position
-			NewMW.Stage = 19
-			NewMW.Enabled = True
-			MagicWalls.Add(NewMW)
-			Proxy.SendPacketToClient(AnimatedText(TextColors.Green, Position, "20s"))
-			If MagicWallTimerObj.State = ThreadTimerState.Stopped Then
-				MagicWallTimerObj.StartTimer()
-			End If
-		End Sub
+        Private Sub MagicWallAdd(ByVal Position As ITibia.LocationDefinition)
+            Dim NewMW As MagicWallDefinition
+            NewMW.LastMagicWallDate = Date.Now
+            NewMW.Position = Position
+            NewMW.Stage = 19
+            NewMW.Enabled = True
+            MagicWalls.Add(NewMW)
+            Proxy.SendPacketToClient(AnimatedText(TextColors.Green, Position, "20s"))
+            If MagicWallTimerObj.State = ThreadTimerState.Stopped Then
+                MagicWallTimerObj.StartTimer()
+            End If
+        End Sub
 #End Region
 
 #Region " Dancer Timer "
         Private Sub DancerTimerObj_OnExecute() Handles DancerTimerObj.OnExecute
             Try
                 Dim RandomNumber As New Random(Date.Now.Second)
-                Dim BL As New BattleList(SpecialEntity.Myself)
+                Dim BL As New BattleList(IBattlelist.SpecialEntity.Myself)
                 Dim Direction As New Directions
                 Direction = RandomNumber.Next(3)
                 While Direction = BL.GetDirection
@@ -3327,7 +3176,7 @@ Public Module CoreModule
 
         Private Sub PotionTimerObj_Execute() Handles PotionTimerObj.OnExecute
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected() Then Exit Sub
                 If PotionTimerObj.Interval > Consts.HealersCheckInterval Then PotionTimerObj.Interval = Consts.HealersCheckInterval
                 If PotionHPRequired = 0 Then
                     PotionTimerObj.StopTimer()
@@ -3335,7 +3184,7 @@ Public Module CoreModule
                 End If
                 If HitPoints > PotionHPRequired Then Exit Sub
                 PotionTimerObj.Interval = Consts.HealersAfterHealDelay
-                Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(PotionId, CharacterID))
+                Proxy.SendPacketToServer(UseObjectOnPlayerAsHotkey(PotionID, CharacterID))
                 'Proxy.SendPacketToClient(CreatureSpeak(Proxy.CharacterName, MessageType.MonsterSay, 0, "Uh!", CharacterLoc.X, CharacterLoc.Y, CharacterLoc.Z))
                 Log("Auto Potioner", "Used Potion on yourself.")
             Catch Ex As Exception
@@ -3347,13 +3196,15 @@ Public Module CoreModule
 
 #End Region
 
+#End Region
+
 #Region " IRC Client "
 
 #Region " Connection "
 
         Public Sub ConnectToIrc()
             Try
-                If Not InGame() Then Exit Sub
+                If Not Client.IsConnected Then Exit Sub
                 'IrcGenerateNick()
                 If Not String.IsNullOrEmpty(Consts.IRCNickname) Then
                     IRCClient.Nick = Consts.IRCNickname
@@ -3372,9 +3223,9 @@ Public Module CoreModule
 
         Public Sub IrcGenerateNick()
             Dim Nicks() As String = {"TTBOwner", "TTBFan", "TTBKicker", "TTBKiller", "TTBPwner", "TTBRokr", _
-                "TTBKrzr", "TTBRazr", "TTBLord", "TTBUser", "TTBPKer", "TTBLurer", "TTBGamer", "TTBLoco", _
-                "TTBNeedy", "TTBBeast", "TTBCrzy", "TTBHunter", "TTBRot", "TTBSuper", "TTBLntc", "TTBTurbo", _
-                "TTBKilo", "TTBAlpha", "TTBBeta", "TTBOmega", "TTBPhi", "TTBPsych", "TTBMstr"}
+             "TTBKrzr", "TTBRazr", "TTBLord", "TTBUser", "TTBPKer", "TTBLurer", "TTBGamer", "TTBLoco", _
+             "TTBNeedy", "TTBBeast", "TTBCrzy", "TTBHunter", "TTBRot", "TTBSuper", "TTBLntc", "TTBTurbo", _
+             "TTBKilo", "TTBAlpha", "TTBBeta", "TTBOmega", "TTBPhi", "TTBPsych", "TTBMstr", "TTBBravo", "TTBCharlie"}
             Dim R As New Random(System.DateTime.Now.Millisecond)
             IRCClient.Nick = Nicks(R.Next(Nicks.Length)) & R.Next(100, 1000).ToString
         End Sub
@@ -3441,7 +3292,7 @@ Public Module CoreModule
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
-            Return ""
+            Return String.Empty
         End Function
 
         Public Function IrcChannelIsOpened(ByVal ChannelID As Integer) As Boolean
@@ -3553,10 +3404,6 @@ Public Module CoreModule
             'ConsoleWrite(Nick & " quits. Reason: " & Message & ".")
         End Sub
 
-        Private Sub IrcClient_ChannelPart(ByVal Nick As String, ByVal Channel As String) Handles IRCClient.EventChannelPart
-            'ConsoleWrite(Nick & " parts " & Channel & ".")
-        End Sub
-
         Private Sub IrcClient_ChannelSelfJoin(ByVal Channel As String) Handles IRCClient.EventChannelSelfJoin
             Try
                 ConsoleWrite("Joined channel " & Channel & ".")
@@ -3573,7 +3420,7 @@ Public Module CoreModule
                 Dim R As New Random(System.DateTime.Now.Millisecond)
                 Dim CI As ChannelInformation
                 Do
-                    ChannelID = R.Next(ChannelType.IRCChannel, ChannelType.IRCChannel + 40) '0..39
+                    ChannelID = R.Next(ChannelType.IRCChannelBegin, ChannelType.IRCChannelEnd) '0..39
                     If Not UsedIDs.Contains(ChannelID) Then
                         For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
                             If ChannelKVP.Key = Channel Then
@@ -3676,22 +3523,22 @@ Public Module CoreModule
 
 #Region " Proxy Events "
 
-        Public Function InGame() As Boolean
-            Try
-                If Core.Proxy Is Nothing Then Return False
-                If Core.Proxy.Client Is Nothing Then Return False
-                Dim IsInGame As Integer = 0
-                ReadMemory(Consts.ptrInGame, IsInGame, 4)
-                Return CBool(IsInGame = 8)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+        'Public Function IsClient.IsConnected As Boolean
+        '	Try
+        '		If Core.Proxy Is Nothing Then Return False
+        '		If Core.Client Is Nothing Then Return False
+        '		Dim _IsClient.IsConnected As Integer = 0
+        '		Client.ReadMemory(Consts.ptrClient.IsConnected, _IsClient.IsConnected, 4)
+        '		Return CBool(_IsClient.IsConnected = 8)
+        '	Catch Ex As Exception
+        '		MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '		End
+        '	End Try
+        'End Function
 
         Public Function GetProfileDirectory() As String
             Try
-                'If Not InGame() Then Throw New Exception("You must be logged in.")
+                'If Not Client.IsConnected() Then Throw New Exception("You must be logged in.")
                 Dim Path As String = ExecutablePath & "\Profiles\" & Proxy.CharacterWorld & "\" & Proxy.CharacterName
                 If Not IO.Directory.Exists(Path) Then
                     IO.Directory.CreateDirectory(Path)
@@ -3718,7 +3565,6 @@ Public Module CoreModule
                 Log("Event", "Connected to game server.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
@@ -3732,11 +3578,10 @@ Public Module CoreModule
                 Log("Event", "Disconnected from game server.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
             End Try
         End Sub
 
-        Private Sub Proxy_ClientHasClosed() Handles Proxy.ClientHasClosed
+        Private Sub Client_Exited() Handles Client.Exited
             Try
                 Log("Event", "The Tibia Client has been closed.")
                 End
@@ -3754,7 +3599,7 @@ Public Module CoreModule
                 Dim Pos As Integer = 2
                 Dim Message As String
                 Dim BL As New BattleList
-                BL.JumpToEntity(SpecialEntity.Myself)
+                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 If Consts.DebugOnLog Then Log("FromClient", BytesToStr(bytBuffer))
                 'ConsoleWrite(BytesToStr(bytBuffer))
                 Dim ID As UShort = GetByte(bytBuffer, Pos)
@@ -3784,10 +3629,10 @@ Public Module CoreModule
                     Case &H78 'move object
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
-                        Dim Source As LocationDefinition = GetLocation(bytBuffer, Pos)
+                        Dim Source As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
                         Dim ItemID As UShort = GetWord(bytBuffer, Pos)
                         Dim Slot As Integer = GetByte(bytBuffer, Pos)
-                        Dim Destination As LocationDefinition = GetLocation(bytBuffer, Pos)
+                        Dim Destination As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
                         Dim Count As Integer = GetByte(bytBuffer, Pos)
                         Dim MyContainer As New Container
                         If Source.X = &HFFFF AndAlso Source.Y = &H4F Then 'containers only
@@ -3798,8 +3643,8 @@ Public Module CoreModule
                                 If LooterCurrentCategory = 0 Then Exit Sub
                                 'thrown to map, or thrown to inventory, or thrown to another bp
                                 If (Destination.X < &HFFFF) _
-                                    OrElse (Destination.X = &HFFFF AndAlso Destination.Y < &H40) _
-                                    OrElse (Destination.X = Source.X AndAlso Destination.Y <> Source.Y) Then
+                                 OrElse (Destination.X = &HFFFF AndAlso Destination.Y < &H40) _
+                                 OrElse (Destination.X = Source.X AndAlso Destination.Y <> Source.Y) Then
                                     LootItems.Remove(ItemID)
                                     Proxy.SendPacketToClient(RemoveObjectFromContainer(Slot, Source.Y - &H40))
                                     ConsoleWrite(Definitions.GetItemName(ItemID) & " (H" & Hex(ItemID) & ") removed from " & MyContainer.GetName & ".")
@@ -3808,8 +3653,8 @@ Public Module CoreModule
                                 End If
                             End If
                         ElseIf (Source.X = &HFFFF AndAlso Source.Y < &H40) _
-                            OrElse Source.X < &HFFFF _
-                            OrElse (Source.X = &HFFFF AndAlso Source.Y <> Destination.Y) Then
+                         OrElse Source.X < &HFFFF _
+                         OrElse (Source.X = &HFFFF AndAlso Source.Y <> Destination.Y) Then
                             If Destination.X = &HFFFF AndAlso Destination.Y = &H4F Then
                                 MyContainer.JumpToContainer(&HF) 'go to that container
                                 Dim ContainerSize As Integer = MyContainer.GetContainerSize
@@ -3837,7 +3682,7 @@ Public Module CoreModule
                     Case &H82 'use item
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
-                        Dim Location As LocationDefinition = GetLocation(bytBuffer, Pos)
+                        Dim Location As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
                         Dim ItemID As Integer = GetWord(bytBuffer, Pos)
                         Dim Slot As Integer = GetByte(bytBuffer, Pos)
                         Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
@@ -3922,7 +3767,7 @@ Public Module CoreModule
                         Cont.Slot = GetWord(bytBuffer, Pos)
                         Cont.ID = GetWord(bytBuffer, Pos)
                         Pos += 1
-                        Dim Location As LocationDefinition = GetLocation(bytBuffer, Pos)
+                        Dim Location As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
                         Dim TileId As Integer = GetWord(bytBuffer, Pos)
                         If LearningMode Then
                             Dim WalkerChar As New Walker
@@ -3981,7 +3826,6 @@ Public Module CoreModule
                                         ConsoleError("Sorry, the feedback was not sent properly.")
                                     End Try
                                 End If
-
                         End Select
                     Case &H96 'message
                         Proxy.LastAction = Date.Now.Ticks
@@ -4009,7 +3853,7 @@ Public Module CoreModule
                                     Next
                                 Next
                             End If
-                        ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannel AndAlso bytBuffer(4) < ChannelType.IRCChannel + 40) Then
+                        ElseIf MessageType = MessageType.Channel AndAlso (bytBuffer(4) >= ChannelType.IRCChannelBegin AndAlso bytBuffer(4) < ChannelType.IRCChannelEnd) Then
                             Send = False
                             Dim ChannelID As Int16 = bytBuffer(4)
                             Message = GetString(bytBuffer, 6)
@@ -4172,7 +4016,7 @@ Public Module CoreModule
                     Case &H99 ' Closing channel
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
-                        If bytBuffer(3) > ChannelType.IRCChannel AndAlso bytBuffer(3) <= ChannelType.IRCChannel + 40 Then
+                        If bytBuffer(3) > ChannelType.IRCChannelBegin AndAlso bytBuffer(3) <= ChannelType.IRCChannelEnd Then
                             Dim ChannelID As Int16 = bytBuffer(3)
                             Send = False
                             If IrcChannelIsOpened(ChannelID) Then
@@ -4225,7 +4069,7 @@ Public Module CoreModule
                         End If
                         If Consts.AutoOpenBackpack Then
                             Dim ItemID As Integer = 0
-                            Core.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (InventorySlots.Backpack - 1)), ItemID, 2)
+                            Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (InventorySlots.Backpack - 1)), ItemID, 2)
                             If DatInfo.GetInfo(ItemID).IsContainer Then
                                 Proxy.SendPacketToServer(UseObject(InventorySlots.Backpack, 0))
                             End If
@@ -4245,7 +4089,7 @@ Public Module CoreModule
                     If Consts.DebugOnLog Then Log("FromServer", BytesToStr(bytBuffer))
                 End If
                 Dim Pos As Integer = 0
-                Dim Loc As LocationDefinition
+                Dim Loc As ITibia.LocationDefinition
                 Dim ID As Integer = 0
                 Dim PacketLength As UShort = GetWord(bytBuffer, Pos) + 2
                 Dim PacketID As Integer = 0
@@ -4294,7 +4138,7 @@ Public Module CoreModule
                                 If LooterTimerObj.State = ThreadTimerState.Running Then
                                     If Not ((Definitions.GetItemKind(ID) And ItemKind.Container) = ItemKind.Container) Then 'if its known container, skip
                                         Dim BL As New BattleList
-                                        BL.JumpToEntity(SpecialEntity.Myself)
+                                        BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                                         If BL.GetDistanceFromLocation(Loc) <= Consts.LootMaxDistance Then
                                             If CaveBotTimerObj.State = ThreadTimerState.Running Then
                                                 If Not CavebotForm.LootFromCorpses.Checked AndAlso Not CavebotForm.EatFromCorpses.Checked Then
@@ -4414,7 +4258,6 @@ Public Module CoreModule
                             Dim FromBL As New BattleList
                             Dim ToBl As New BattleList
                             Dim Type As Integer = 0
-
                             Dim FromFound As Boolean = FromBL.Find(GetLocation(bytBuffer, Pos), True)
                             Dim ToFound As Boolean = ToBl.Find(GetLocation(bytBuffer, Pos), True)
                             Type = GetByte(bytBuffer, Pos)
@@ -4432,11 +4275,11 @@ Public Module CoreModule
                             Dim EntityID As Integer = 0
                             EntityID = GetDWord(bytBuffer, Pos)
                             If (AutoAttackerActivated) Then
-                                If BattleList.IsPlayer(EntityID) OrElse EntityID = AutoAttackerIgnoredID Then Exit Sub
-                                ReadMemory(Consts.ptrAttackedEntityID, AttackedID, 4)
+                                If (New BattleList).IsPlayer(EntityID) OrElse EntityID = AutoAttackerIgnoredID Then Exit Sub
+                                Client.ReadMemory(Consts.ptrAttackedEntityID, AttackedID, 4)
                                 If AttackedID = 0 Then
-                                    WriteMemory(Consts.ptrFollowedEntityID, AutoAttackerIgnoredID, 4)
-                                    WriteMemory(Consts.ptrAttackedEntityID, EntityID, 4)
+                                    Client.WriteMemory(Consts.ptrFollowedEntityID, AutoAttackerIgnoredID, 4)
+                                    Client.WriteMemory(Consts.ptrAttackedEntityID, EntityID, 4)
                                     Proxy.SendPacketToServer(AttackEntity(EntityID))
                                 End If
                             End If
@@ -4448,7 +4291,7 @@ Public Module CoreModule
                             CBCreatureDied = True
                             If ShowCreaturesUntilNextLevel Then
                                 Dim LastAttackedID As Integer = 0
-                                ReadMemory(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
+                                Client.ReadMemory(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
                                 If ID = LastAttackedID Then
                                     Dim BL As New BattleList
                                     Dim Name As String = 0
@@ -4525,7 +4368,6 @@ Public Module CoreModule
                                         Case Else
                                             Channel = "Unknown"
                                     End Select
-
                                     Message = GetString(bytBuffer, Pos)
                                     If TradeWatcherActive AndAlso ChanType = ChannelType.Trade AndAlso Not Name.Equals(Proxy.CharacterName) Then
                                         If Regex.IsMatch(Message, TradeWatcherRegex, RegexOptions.IgnoreCase) Then
@@ -4579,7 +4421,6 @@ Public Module CoreModule
 #End If
                             Exit Sub
                     End Select
-
                 End While
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -4587,15 +4428,16 @@ Public Module CoreModule
             End Try
         End Sub
 
-        Private Sub MessageAlarm(ByVal MessageType As MessageType, ByVal Name As String, ByVal Level As Integer, ByVal Loc As LocationDefinition, ByVal Message As String)
+        Private Sub MessageAlarm(ByVal MessageType As MessageType, ByVal Name As String, ByVal Level As Integer, ByVal Loc As ITibia.LocationDefinition, ByVal Message As String)
             Try
                 Dim Alert As Boolean = True
                 Dim Player As String
                 Dim Output As String = ""
                 If String.Compare(Name, Proxy.CharacterName) = 0 Then Exit Sub
-                If TibiaWindowState <> WindowState.Active AndAlso Consts.FlashTaskbarWhenMessaged Then
-                    Dim FWI As New Win32API.FlashWInfo(Proxy.Client.MainWindowHandle, Win32API.FlashWFlags.FLASHW_TIMERNOFG Or Win32API.FlashWFlags.FLASHW_TRAY Or Win32API.FlashWFlags.FLASHW_CAPTION, 0, 0)
-                    Win32API.FlashWindowEx(FWI)
+                If TibiaWindowState <> ITibia.WindowStates.Active AndAlso Consts.FlashTaskbarWhenMessaged Then
+                    Client.FlashWindow()
+                    '					Dim FWI As New Tibia.FlashWInfo(Client.GetWindowHandle, Win32API.FlashWFlags.FLASHW_TIMERNOFG Or Win32API.FlashWFlags.FLASHW_TRAY Or Win32API.FlashWFlags.FLASHW_CAPTION, 0, 0)
+                    ''				Tibia.FlashWindowEx(FWI)
                 End If
                 Select Case MessageType
                     Case MessageType.Normal, MessageType.Whisper, MessageType.Yell
@@ -4618,9 +4460,8 @@ Public Module CoreModule
                     End If
                 Next
                 If Not Alert OrElse Not AlarmsActivated Then Exit Sub
-                If TibiaWindowState <> WindowState.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
-                    Dim FWI As New Win32API.FlashWInfo(Proxy.Client.MainWindowHandle, Win32API.FlashWFlags.FLASHW_TIMERNOFG Or Win32API.FlashWFlags.FLASHW_TRAY Or Win32API.FlashWFlags.FLASHW_CAPTION, 0, 0)
-                    Win32API.FlashWindowEx(FWI)
+                If TibiaWindowState <> ITibia.WindowStates.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
+                    Client.FlashWindow()
                 End If
                 If Consts.MusicalNotesOnAlarm Then Proxy.SendPacketToClient(MagicEffect(CharacterLoc, MagicEffects.MusicalNotesWhite))
                 Dim ChatMessage As New ChatMessageDefinition

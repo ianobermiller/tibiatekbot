@@ -17,15 +17,17 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.Math
+Imports System.Math, Scripting
 
 Public Module BattleListModule
 
     Public Class BattleList
+        Implements IBattlelist
+
         Private IndexPosition As Integer
         Private ID As Integer
 
-        Public ReadOnly Property GetIndexPosition() As Integer
+        Public ReadOnly Property GetIndexPosition() As Integer Implements IBattlelist.GetIndexPosition
             Get
                 Try
                     Return IndexPosition
@@ -36,11 +38,11 @@ Public Module BattleListModule
             End Get
         End Property
 
-        Public ReadOnly Property GetFloor() As Integer
+        Public ReadOnly Property GetFloor() As Integer Implements IBattlelist.GetFloor
             Get
                 Try
                     Dim Floor As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Floor, 1)
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Floor, 1)
                     Return Floor
                 Catch Ex As Exception
                     MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -49,11 +51,11 @@ Public Module BattleListModule
             End Get
         End Property
 
-        Public ReadOnly Property GetEntityID() As Integer
+        Public ReadOnly Property GetEntityID() As Integer Implements IBattlelist.GetEntityID
             Get
                 Try
                     Dim ID As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
                     Return ID
                 Catch Ex As Exception
                     MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -62,676 +64,677 @@ Public Module BattleListModule
             End Get
         End Property
 
-        Public Function WalkTo() As Boolean
+        Public Function WalkTo() As Boolean Implements IBattlelist.WalkTo
             Try
-                Dim Location As LocationDefinition = GetLocation
-                If Location.Z = Core.CharacterLoc.Z Then
-                    Core.WriteMemory(Consts.ptrGoToX, CInt(Location.X), 2)
-                    Core.WriteMemory(Consts.ptrGoToY, CInt(Location.Y), 2)
-                    Core.WriteMemory(Consts.ptrGoToZ, CInt(Location.Z), 1)
-                    Core.WriteMemory(Consts.ptrGo, 1, 1)
-                    Return True
-                End If
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+				Dim Location As ITibia.LocationDefinition = GetLocation
+				If Location.Z = Core.CharacterLoc.Z Then
+					Core.Client.WriteMemory(Consts.ptrGoToX, CInt(Location.X), 2)
+					Core.Client.WriteMemory(Consts.ptrGoToY, CInt(Location.Y), 2)
+					Core.Client.WriteMemory(Consts.ptrGoToZ, CInt(Location.Z), 1)
+					Core.Client.WriteMemory(Consts.ptrGo, 1, 1)
+					Return True
+				End If
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
 
-        Public ReadOnly Property GetName() As String
-            Get
-                Try
-                    Dim Name As String = ""
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLNameOffset, Name)
-                    If String.IsNullOrEmpty(Name) Then
-                        Return "Unknown Entity"
-                    Else
-                        Return Name
-                    End If
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property GetName() As String Implements IBattlelist.GetName
+			Get
+				Try
+					Dim Name As String = ""
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLNameOffset, Name)
+					If String.IsNullOrEmpty(Name) Then
+						Return "Unknown Entity"
+					Else
+						Return Name
+					End If
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property GetHPPercentage() As UShort
-            Get
-                Try
-                    Dim HPPercentage As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLHPPercentOffset, HPPercentage, 1)
-                    Return CUShort(HPPercentage)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property GetHPPercentage() As Integer Implements IBattlelist.GetHPPercentage
+			Get
+				Try
+					Dim HPPercentage As Integer = 0
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLHPPercentOffset, HPPercentage, 1)
+					Return HPPercentage
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property IsOnScreen() As Boolean
-            Get
-                Try
-                    Dim OnScreen As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, OnScreen, 1)
-                    If OnScreen = 1 Then Return True Else Return False
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property IsOnScreen() As Boolean Implements IBattlelist.IsOnScreen
+			Get
+				Try
+					Dim OnScreen As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, OnScreen, 1)
+					If OnScreen = 1 Then Return True Else Return False
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property GetDirection() As Integer
-            Get
-                Try
-                    Dim Dir As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLDirectionOffset, Dir, 1)
-                    Return Dir
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property GetDirection() As Integer Implements IBattlelist.GetDirection
+			Get
+				Try
+					Dim Dir As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLDirectionOffset, Dir, 1)
+					Return Dir
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property GetDistance(Optional ByVal IncludeFloor As Boolean = False) As Double
-            Get
-                Try
-                    If IsMyself Then Return 0
-                    Dim Loc As LocationDefinition = GetLocation
-                    Dim Dist As Double = 0.0
-                    Dim X, Y, Z As Integer
-                    X = Abs(CInt(Core.CharacterLoc.X) - CInt(Loc.X))
-                    Y = Abs(CInt(Core.CharacterLoc.Y) - CInt(Loc.Y))
-                    Z = 0
-                    If IncludeFloor Then
-                        Z = Abs(CInt(Core.CharacterLoc.Z) - CInt(Loc.Z))
-                    End If
-                    Dist = Sqrt(Pow(X, 2) + Pow(Y, 2) + Pow(Z, 2))
-                    Return Dist
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property GetDistance(Optional ByVal IncludeFloor As Boolean = False) As Double Implements IBattlelist.GetDistance
+			Get
+				Try
+					If IsMyself Then Return 0
+					Dim Loc As ITibia.LocationDefinition = GetLocation
+					Dim Dist As Double = 0.0
+					Dim X, Y, Z As Integer
+					X = Abs(CInt(Core.CharacterLoc.X) - CInt(Loc.X))
+					Y = Abs(CInt(Core.CharacterLoc.Y) - CInt(Loc.Y))
+					Z = 0
+					If IncludeFloor Then
+						Z = Abs(CInt(Core.CharacterLoc.Z) - CInt(Loc.Z))
+					End If
+					Dist = Sqrt(Pow(X, 2) + Pow(Y, 2) + Pow(Z, 2))
+					Return Dist
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property GetDistanceFromLocation(ByVal Loc As LocationDefinition, Optional ByVal IncludeFloor As Boolean = False, Optional ByVal CurrentIndex As Boolean = False) As Double
-            Get
-                Try
-                    Core.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
-                    Core.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
-                    Core.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 4)
-                    'Log("GetDistanceFromLocation", String.Format("Loc = ({0},{1},{2}), CharLoc = ({3},{4},{5})", Loc.X, Loc.Y, Loc.Z, AppObjs.CharacterLoc.X, AppObjs.CharacterLoc.Y, AppObjs.CharacterLoc.Z))
-                    Dim Dist As Double = 0.0
-                    Dim X, Y, Z As Integer
-                    If CurrentIndex = True Then
-                        Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordXOffset, X, 2)
-                        Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordYOffset, Y, 2)
-                        X = Abs(CInt(X) - CInt(Loc.X))
-                        Y = Abs(CInt(Y) - CInt(Loc.Y))
-                        Z = 0
-                        If IncludeFloor Then
-                            Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Z, 1)
-                            Z = Abs(CInt(Z) - CInt(Loc.Z))
-                        End If
-                    Else
-                        X = Abs(CInt(Core.CharacterLoc.X) - CInt(Loc.X))
-                        Y = Abs(CInt(Core.CharacterLoc.Y) - CInt(Loc.Y))
-                        Z = 0
-                        If IncludeFloor Then
-                            Z = Abs(CInt(Core.CharacterLoc.Z) - CInt(Loc.Z))
-                        End If
-                    End If
-                    Dist = Sqrt(Pow(X, 2) + Pow(Y, 2) + Pow(Z, 2))
-                    Return Dist
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property GetDistanceFromLocation(ByVal Loc As ITibia.LocationDefinition, Optional ByVal IncludeFloor As Boolean = False, Optional ByVal CurrentIndex As Boolean = False) As Double Implements IBattlelist.GetDistanceFromLocation
+			Get
+				Try
+					Core.Client.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
+					Core.Client.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
+					Core.Client.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 4)
+					'Log("GetDistanceFromLocation", String.Format("Loc = ({0},{1},{2}), CharLoc = ({3},{4},{5})", Loc.X, Loc.Y, Loc.Z, AppObjs.CharacterLoc.X, AppObjs.CharacterLoc.Y, AppObjs.CharacterLoc.Z))
+					Dim Dist As Double = 0.0
+					Dim X, Y, Z As Integer
+					If CurrentIndex = True Then
+						Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordXOffset, X, 2)
+						Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordYOffset, Y, 2)
+						X = Abs(CInt(X) - CInt(Loc.X))
+						Y = Abs(CInt(Y) - CInt(Loc.Y))
+						Z = 0
+						If IncludeFloor Then
+							Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Z, 1)
+							Z = Abs(CInt(Z) - CInt(Loc.Z))
+						End If
+					Else
+						X = Abs(CInt(Core.CharacterLoc.X) - CInt(Loc.X))
+						Y = Abs(CInt(Core.CharacterLoc.Y) - CInt(Loc.Y))
+						Z = 0
+						If IncludeFloor Then
+							Z = Abs(CInt(Core.CharacterLoc.Z) - CInt(Loc.Z))
+						End If
+					End If
+					Dist = Sqrt(Pow(X, 2) + Pow(Y, 2) + Pow(Z, 2))
+					Return Dist
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public Property Speed() As Integer
-            Get
-                Try
-                    Dim CurrentSpeed As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLSpeedOffset, CurrentSpeed, 4)
-                    Return CurrentSpeed
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewSpeed As Integer)
-                Try
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLSpeedOffset, NewSpeed, 4)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property Speed() As Integer Implements IBattlelist.Speed
+			Get
+				Try
+					Dim CurrentSpeed As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLSpeedOffset, CurrentSpeed, 4)
+					Return CurrentSpeed
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewSpeed As Integer)
+				Try
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLSpeedOffset, NewSpeed, 4)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property LightIntensity() As Integer
-            Get
-                Try
-                    Dim CurrentLightI As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLightIntensityOffset, CurrentLightI, 1)
-                    Return CurrentLightI
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewLightI As Integer)
-                Try
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLightIntensityOffset, NewLightI, 1)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property LightIntensity() As Integer Implements IBattlelist.LightIntensity
+			Get
+				Try
+					Dim CurrentLightI As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLightIntensityOffset, CurrentLightI, 1)
+					Return CurrentLightI
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewLightI As Integer)
+				Try
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLightIntensityOffset, NewLightI, 1)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property LightColor() As Integer
-            Get
-                Try
-                    Dim CurrentLightC As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLightColorOffset, CurrentLightC, 1)
-                    Return CurrentLightC
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewLightC As Integer)
-                Try
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLightColorOffset, NewLightC, 1)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property LightColor() As Integer Implements IBattlelist.LightColor
+			Get
+				Try
+					Dim CurrentLightC As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLightColorOffset, CurrentLightC, 1)
+					Return CurrentLightC
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewLightC As Integer)
+				Try
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLightColorOffset, NewLightC, 1)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property IsWalking() As Boolean
-            Get
-                Try
-                    Dim WalkingState As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLWalkingOffset, WalkingState, 1)
-                    If WalkingState = 0 Then Return False Else Return True
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewValue As Boolean)
-                Try
-                    If NewValue = True Then
-                        Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLWalkingOffset, 1, 1)
-                    Else
-                        Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLWalkingOffset, 0, 1)
-                    End If
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property IsWalking() As Boolean Implements IBattlelist.IsWalking
+			Get
+				Try
+					Dim WalkingState As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLWalkingOffset, WalkingState, 1)
+					If WalkingState = 0 Then Return False Else Return True
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewValue As Boolean)
+				Try
+					If NewValue = True Then
+						Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLWalkingOffset, 1, 1)
+					Else
+						Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLWalkingOffset, 0, 1)
+					End If
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public ReadOnly Property IsMyself() As Boolean
-            Get
-                Try
-                    Dim ID As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
-                    If ID = Core.CharacterID Then Return True Else Return False
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property IsMyself() As Boolean Implements IBattlelist.IsMyself
+			Get
+				Try
+					Dim ID As Integer = 0
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
+					If ID = Core.CharacterID Then Return True Else Return False
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property GetLocation() As LocationDefinition
-            Get
-                Try
-                    Dim Loc As New LocationDefinition
-                    Dim X, Y, Z As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordXOffset, X, 2)
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordYOffset, Y, 2)
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Z, 1)
-                    Loc.X = CUShort(X)
-                    Loc.Y = CUShort(Y)
-                    Loc.Z = CInt(Z)
-                    Return Loc
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property GetLocation() As ITibia.LocationDefinition Implements IBattlelist.GetLocation
+			Get
+				Try
+					Dim Loc As New ITibia.LocationDefinition
+					Dim X, Y, Z As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordXOffset, X, 2)
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordYOffset, Y, 2)
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Z, 1)
+					Loc.X = CUShort(X)
+					Loc.Y = CUShort(Y)
+					Loc.Z = CInt(Z)
+					Return Loc
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property IsFollowed() As Boolean
-            Get
-                Try
-                    Dim FollowedID, ID As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
-                    If ID = 0 Then Return False
-                    Core.ReadMemory(Consts.ptrFollowedEntityID, FollowedID, 4)
-                    If ID = FollowedID Then Return True Else Return False
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property IsFollowed() As Boolean Implements IBattlelist.IsFollowed
+			Get
+				Try
+					Dim FollowedID, ID As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
+					If ID = 0 Then Return False
+					Core.Client.ReadMemory(Consts.ptrFollowedEntityID, FollowedID, 4)
+					If ID = FollowedID Then Return True Else Return False
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property IsAttacked() As Boolean
-            Get
-                Try
-                    Dim AttackedID, ID As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
-                    If ID = 0 Then Return False
-                    Core.ReadMemory(Consts.ptrAttackedEntityID, AttackedID, 4)
-                    If ID = AttackedID Then Return True Else Return False
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property IsAttacked() As Boolean Implements IBattlelist.IsAttacked
+			Get
+				Try
+					Dim AttackedID, ID As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
+					If ID = 0 Then Return False
+					Core.Client.ReadMemory(Consts.ptrAttackedEntityID, AttackedID, 4)
+					If ID = AttackedID Then Return True Else Return False
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public Function Find(ByVal Name As String, Optional ByVal OnScreen As Boolean = False) As Boolean
-            Try
-                Dim IsOnScreen As Integer = 0
-                Dim CurrentName As String = ""
-                For IndexPosition = 0 To Consts.BLMax - 1
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLNameOffset, CurrentName)
-                    If [String].Compare(CurrentName, Name, True) = 0 Then
-                        Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, IsOnScreen, 1)
-                        If OnScreen AndAlso IsOnScreen = 0 Then Return False
-                        Return True
-                    End If
-                Next
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function 'Find By Name
+		Public Function Find(ByVal Name As String, Optional ByVal OnScreen As Boolean = False) As Boolean Implements IBattlelist.Find
+			Try
+				Dim IsOnScreen As Integer = 0
+				Dim CurrentName As String = ""
+				For IndexPosition = 0 To Consts.BLMax - 1
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLNameOffset, CurrentName)
+					If [String].Compare(CurrentName, Name, True) = 0 Then
+						Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, IsOnScreen, 1)
+						If OnScreen AndAlso IsOnScreen = 0 Then Return False
+						Return True
+					End If
+				Next
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function 'Find By Name
 
-        Public Function Find(ByVal ID As Integer, Optional ByVal MustBeOnScreen As Boolean = False) As Boolean
-            Try
-                Dim EntityID As Integer
-                For IndexPosition = 0 To Consts.BLMax - 1
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), EntityID, 4)
-                    If ID = EntityID Then
-                        If MustBeOnScreen AndAlso Not IsOnScreen Then Return False
-                        Return True
-                    End If
-                Next
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function 'Find By ID
+		Public Function Find(ByVal ID As Integer, Optional ByVal MustBeOnScreen As Boolean = False) As Boolean Implements IBattlelist.Find
+			Try
+				Dim EntityID As Integer
+				For IndexPosition = 0 To Consts.BLMax - 1
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), EntityID, 4)
+					If ID = EntityID Then
+						If MustBeOnScreen AndAlso Not IsOnScreen Then Return False
+						Return True
+					End If
+				Next
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function 'Find By ID
 
-        Public Function Find(ByVal Loc As LocationDefinition, Optional ByVal MustBeOnScreen As Boolean = False) As Boolean
-            Try
-                Dim CurrentLoc As New LocationDefinition
+		Public Function Find(ByVal Loc As ITibia.LocationDefinition, Optional ByVal MustBeOnScreen As Boolean = False) As Boolean Implements IBattlelist.Find
+			Try
+				Dim CurrentLoc As New ITibia.LocationDefinition
 
-                For IndexPosition = 0 To Consts.BLMax - 1
-                    Dim X, Y, Z As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordXOffset, X, 2)
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordYOffset, Y, 2)
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Z, 1)
-                    CurrentLoc.X = X
-                    CurrentLoc.Y = Y
-                    CurrentLoc.Z = Z
+				For IndexPosition = 0 To Consts.BLMax - 1
+					Dim X, Y, Z As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordXOffset, X, 2)
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordYOffset, Y, 2)
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLCoordZOffset, Z, 1)
+					CurrentLoc.X = X
+					CurrentLoc.Y = Y
+					CurrentLoc.Z = Z
 
-                    If Loc.X = CurrentLoc.X And Loc.Y = CurrentLoc.Y And Loc.Z = CurrentLoc.Z Then
-                        If MustBeOnScreen AndAlso Not IsOnScreen Then Continue For
-                        Return True
-                    End If
-                Next
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+					If Loc.X = CurrentLoc.X And Loc.Y = CurrentLoc.Y And Loc.Z = CurrentLoc.Z Then
+						If MustBeOnScreen AndAlso Not IsOnScreen Then Continue For
+						Return True
+					End If
+				Next
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
 
-        Public Function JumpToEntity(ByVal Type As SpecialEntity) As Boolean
-            Try
-                Dim Found As Boolean = False
-                Dim ID As Integer
-                For IndexPosition = 0 To Consts.BLMax - 1
-                    Select Case Type
-                        Case SpecialEntity.Myself
-                            Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
-                            If ID = Core.CharacterID Then
-                                Return True
-                            End If
+		Public Function JumpToEntity(ByVal Type As IBattlelist.SpecialEntity) As Boolean Implements IBattlelist.JumpToEntity
+			Try
+				Dim Found As Boolean = False
+				Dim ID As Integer
+				For IndexPosition = 0 To Consts.BLMax - 1
+					Select Case Type
+						Case IBattlelist.SpecialEntity.Myself
+							Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
+							If ID = Core.CharacterID Then
+								Return True
+							End If
+						Case IBattlelist.SpecialEntity.Attacked
+							If IsAttacked Then Return True
+						Case IBattlelist.SpecialEntity.Followed
+							If IsFollowed Then Return True
+					End Select
+				Next
+				IndexPosition = 0
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
 
-                        Case SpecialEntity.Attacked
-                            If IsAttacked Then Return True
-                        Case SpecialEntity.Followed
-                            If IsFollowed Then Return True
-                    End Select
-                Next
-                IndexPosition = 0
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+		Public Property HeadColor() As Integer Implements IBattlelist.HeadColor
+			Get
+				Try
+					Dim Result As Integer = 0
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLHeadCOffset, Result, 1)
+					Return CInt(Result)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewColor As Integer)
+				Try
+					Dim Input As Integer = CInt(NewColor)
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLHeadCOffset, Input, 1)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property HeadColor() As Integer
-            Get
-                Try
-                    Dim Result As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLHeadCOffset, Result, 1)
-                    Return CInt(Result)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewColor As Integer)
-                Try
-                    Dim Input As Integer = CInt(NewColor)
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLHeadCOffset, Input, 1)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property BodyColor() As Integer Implements IBattlelist.BodyColor
+			Get
+				Try
+					Dim Result As Integer = 0
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLBodyCOffset, Result, 1)
+					Return CInt(Result)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewColor As Integer)
+				Try
+					Dim Input As Integer = CInt(NewColor)
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLBodyCOffset, Input, 1)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property BodyColor() As Integer
-            Get
-                Try
-                    Dim Result As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLBodyCOffset, Result, 1)
-                    Return CInt(Result)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewColor As Integer)
-                Try
-                    Dim Input As Integer = CInt(NewColor)
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLBodyCOffset, Input, 1)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property LegsColor() As Integer Implements IBattlelist.LegsColor
+			Get
+				Try
+					Dim Result As Integer = 0
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLegsCOffset, Result, 1)
+					Return CInt(Result)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewColor As Integer)
+				Try
+					Dim Input As Integer = CInt(NewColor)
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLegsCOffset, Input, 1)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property LegsColor() As Integer
-            Get
-                Try
-                    Dim Result As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLegsCOffset, Result, 1)
-                    Return CInt(Result)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewColor As Integer)
-                Try
-                    Dim Input As Integer = CInt(NewColor)
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLLegsCOffset, Input, 1)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property FeetColor() As Integer Implements IBattlelist.FeetColor
+			Get
+				Try
+					Dim Result As Integer = 0
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLFeetCOffset, Result, 1)
+					Return CInt(Result)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewColor As Integer)
+				Try
+					Dim Input As Integer = CInt(NewColor)
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLFeetCOffset, Input, 1)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property FeetColor() As Integer
-            Get
-                Try
-                    Dim Result As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLFeetCOffset, Result, 1)
-                    Return CInt(Result)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewColor As Integer)
-                Try
-                    Dim Input As Integer = CInt(NewColor)
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLFeetCOffset, Input, 1)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property OutfitID() As Integer Implements IBattlelist.OutfitID
+			Get
+				Try
+					Dim Result As Integer = 0
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOutfitOffset, Result, 2)
+					Return CUShort(Result)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewOutfit As Integer)
+				Try
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOutfitOffset, NewOutfit, 2)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property OutfitID() As Integer
-            Get
-                Try
-                    Dim Result As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOutfitOffset, Result, 2)
-                    Return CUShort(Result)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewOutfit As Integer)
-                Try
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOutfitOffset, NewOutfit, 2)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
+		Public Property OutfitAddons() As IBattlelist.OutfitAddons Implements IBattlelist.GetAddons
+			Get
+				Try
+					Dim Result As Integer = 0
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLAddonsOffset, Result, 1)
+					Return CType(Result, IBattlelist.OutfitAddons)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+			Set(ByVal NewAddons As IBattlelist.OutfitAddons)
+				Try
+					Dim Input As Integer = CInt(NewAddons)
+					Core.Client.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLAddonsOffset, Input, 1)
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Set
+		End Property
 
-        Public Property Addons() As Addons
-            Get
-                Try
-                    Dim Result As Integer = 0
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLAddonsOffset, Result, 1)
-                    Return CType(Result, Addons)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-            Set(ByVal NewAddons As Addons)
-                Try
-                    Dim Input As Integer = CInt(NewAddons)
-                    Core.WriteMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLAddonsOffset, Input, 1)
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Set
-        End Property
 
-        Public Shared Function IsPlayer(ByVal EntityID As Integer) As Boolean
-            Return (EntityID < &H40000000)
-        End Function
+		Public Function IsPlayer(ByVal EntityID As Integer) As Boolean Implements IBattlelist.IsPlayer
+			Return (EntityID < &H40000000)
+		End Function
 
-        Public Function IsPlayer() As Boolean
-            Try
-                Dim ID As Integer
-                Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
-                Return (ID < &H40000000)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+		Public Function IsPlayer() As Boolean Implements IBattlelist.IsPlayer
+			Try
+				Dim ID As Integer
+				Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist), ID, 4)
+				Return (ID < &H40000000)
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
 
-        Public ReadOnly Property GetPartyStatus() As PartyStatus
-            Get
-                Try
-                    Dim PStatus As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLPartyOffset, PStatus, 1)
-                    Dim PS As PartyStatus
-                    Select Case PStatus
-                        Case 0
-                            PS = PartyStatus.None
-                        Case 1
-                            PS = PartyStatus.Unknown
-                        Case 2
-                            PS = PartyStatus.Invited
-                        Case 3
-                            PS = PartyStatus.Member
-                        Case 4
-                            PS = PartyStatus.Leader
-                        Case Else
-                            PS = PartyStatus.Unknown
-                    End Select
-                    Return PS
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property GetPartyStatus() As IBattlelist.PartyStatus Implements IBattlelist.GetPartyStatus
+			Get
+				Try
+					Dim PStatus As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLPartyOffset, PStatus, 1)
+					Dim PS As IBattlelist.PartyStatus
+					Select Case PStatus
+						Case 0
+							PS = IBattlelist.PartyStatus.None
+						Case 1
+							PS = IBattlelist.PartyStatus.Unknown
+						Case 2
+							PS = IBattlelist.PartyStatus.Invited
+						Case 3
+							PS = IBattlelist.PartyStatus.Member
+						Case 4
+							PS = IBattlelist.PartyStatus.Leader
+						Case Else
+							PS = IBattlelist.PartyStatus.Unknown
+					End Select
+					Return PS
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public ReadOnly Property GetSkullMark() As SkullMark
-            Get
-                Try
-                    Dim SMark As Integer
-                    Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLSkullOffset, SMark, 1)
-                    Dim SM As SkullMark
-                    Select Case SMark
-                        Case 0
-                            SM = SkullMark.None
-                        Case 1
-                            SM = SkullMark.Yellow
-                        Case 2
-                            SM = SkullMark.Green
-                        Case 3
-                            SM = SkullMark.White
-                        Case 4
-                            SM = SkullMark.Red
-                        Case Else
-                            SM = SkullMark.None
-                    End Select
-                    Return SM
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
+		Public ReadOnly Property GetSkullMark() As IBattlelist.SkullMark Implements IBattlelist.GetSkullMark
+			Get
+				Try
+					Dim SMark As Integer
+					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLSkullOffset, SMark, 1)
+					Dim SM As IBattlelist.SkullMark
+					Select Case SMark
+						Case 0
+							SM = IBattlelist.SkullMark.None
+						Case 1
+							SM = IBattlelist.SkullMark.Yellow
+						Case 2
+							SM = IBattlelist.SkullMark.Green
+						Case 3
+							SM = IBattlelist.SkullMark.White
+						Case 4
+							SM = IBattlelist.SkullMark.Red
+						Case Else
+							SM = IBattlelist.SkullMark.None
+					End Select
+					Return SM
+				Catch Ex As Exception
+					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+					End
+				End Try
+			End Get
+		End Property
 
-        Public Sub New()
-            IndexPosition = 0
-        End Sub
+		Public Sub New()
+			IndexPosition = 0
+		End Sub
 
-        Public Sub New(ByVal Position As Integer)
-            Try
-                If (Position > CInt(Consts.BLMax) - 1) Then
-                    Me.IndexPosition = 255
-                Else
-                    Me.IndexPosition = Position
-                End If
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
+		Public Sub New(ByVal Position As Integer)
+			Try
+				If (Position > CInt(Consts.BLMax) - 1) Then
+					Me.IndexPosition = 255
+				Else
+					Me.IndexPosition = Position
+				End If
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Sub
 
-        Public Sub New(ByVal SE As SpecialEntity)
-            JumpToEntity(SE)
-        End Sub
+		Public Sub New(ByVal SE As IBattlelist.SpecialEntity)
+			JumpToEntity(SE)
+		End Sub
 
-        Public Function Reset(Optional ByVal OnScreen As Boolean = False) As Boolean
-            Try
-                Dim IsOnScreen As Integer = 0
-                If OnScreen Then
-                    For IndexPosition = 0 To Consts.BLMax - 1
-                        Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, IsOnScreen, 1)
-                        If IsOnScreen = 1 Then Return True
-                    Next
-                Else
-                    IndexPosition = 0
-                    Return True
-                End If
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+		Public Function Reset(Optional ByVal OnScreen As Boolean = False) As Boolean Implements IBattlelist.Reset
+			Try
+				Dim IsOnScreen As Integer = 0
+				If OnScreen Then
+					For IndexPosition = 0 To Consts.BLMax - 1
+						Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, IsOnScreen, 1)
+						If IsOnScreen = 1 Then Return True
+					Next
+				Else
+					IndexPosition = 0
+					Return True
+				End If
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
 
-        Public Sub Attack()
-            Try
-                Dim ID As Integer = GetEntityID
-                Core.WriteMemory(Consts.ptrAttackedEntityID, ID, 4)
-                Core.Proxy.SendPacketToServer(AttackEntity(CUInt(ID)))
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
+		Public Sub Attack() Implements IBattlelist.Attack
+			Try
+				Dim ID As Integer = GetEntityID
+				Core.Client.WriteMemory(Consts.ptrAttackedEntityID, ID, 4)
+				Core.Proxy.SendPacketToServer(AttackEntity(CUInt(ID)))
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Sub
 
-        Public Function NextEntity(Optional ByVal OnScreen As Boolean = False) As Boolean
-            Try
-                Dim IsOnScreen As Integer = 0
-                If OnScreen Then
-                    For IndexPosition = IndexPosition + 1 To Consts.BLMax - 1
-                        Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, IsOnScreen, 1)
-                        If IsOnScreen = 1 Then
-                            Return True
-                        End If
-                    Next
-                Else
-                    Me.IndexPosition += 1
-                    If Me.IndexPosition = Consts.BLMax Then
-                        Me.IndexPosition = Consts.BLMax - 1
-                        Return False
-                    Else
-                        Return True
-                    End If
-                End If
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+		Public Function NextEntity(Optional ByVal OnScreen As Boolean = False) As Boolean Implements IBattlelist.NextEntity
+			Try
+				Dim IsOnScreen As Integer = 0
+				If OnScreen Then
+					For IndexPosition = IndexPosition + 1 To Consts.BLMax - 1
+						Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, IsOnScreen, 1)
+						If IsOnScreen = 1 Then
+							Return True
+						End If
+					Next
+				Else
+					Me.IndexPosition += 1
+					If Me.IndexPosition = Consts.BLMax Then
+						Me.IndexPosition = Consts.BLMax - 1
+						Return False
+					Else
+						Return True
+					End If
+				End If
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
 
-        Public Function PrevEntity(Optional ByVal OnScreen As Boolean = False) As Boolean
-            Try
-                Dim IsOnScreen As Integer = 0
-                If OnScreen Then
-                    For IndexPosition = IndexPosition - 1 To 0 Step -1
-                        Core.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, IsOnScreen, 1)
-                        If IsOnScreen = 1 Then Return True
-                    Next
-                Else
-                    IndexPosition -= 1
-                    If IndexPosition = -1 Then
-                        IndexPosition = 0
-                        Return False
-                    End If
-                    Return True
-                End If
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
-        Public Shared Function CreaturesOnScreen() As Boolean
+		Public Function PrevEntity(Optional ByVal OnScreen As Boolean = False) As Boolean Implements IBattlelist.PrevEntity
+			Try
+				Dim IsOnScreen As Integer = 0
+				If OnScreen Then
+					For IndexPosition = IndexPosition - 1 To 0 Step -1
+						Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLOnScreenOffset, IsOnScreen, 1)
+						If IsOnScreen = 1 Then Return True
+					Next
+				Else
+					IndexPosition -= 1
+					If IndexPosition = -1 Then
+						IndexPosition = 0
+						Return False
+					End If
+					Return True
+				End If
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
+
+        Public Function CreaturesOnScreen() As Boolean Implements IBattlelist.CreaturesOnScreen
             Try
                 Dim BL As New BattleList
                 BL.Reset()

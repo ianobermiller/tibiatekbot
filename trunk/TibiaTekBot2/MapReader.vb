@@ -17,6 +17,8 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
+Imports Scripting
+
 Public Module MapReaderModule
 
     Public Structure ClientCoordinates
@@ -29,54 +31,54 @@ Public Module MapReaderModule
         Private ItemID As Integer
         Private Data As Integer
         Private ExtraData As Integer
-        Private Location As LocationDefinition
+		Private Location As ITibia.LocationDefinition
         Private ClientCoords As ClientCoordinates
         Private StackPosition As Integer
 
-        Public ReadOnly Property GetMapLocation() As LocationDefinition
-            Get
-                Return Location
-            End Get
-        End Property
+		Public ReadOnly Property GetMapLocation() As ITibia.LocationDefinition
+			Get
+				Return Location
+			End Get
+		End Property
 
-        Public ReadOnly Property GetClientCoordinates() As ClientCoordinates
-            Get
-                Return ClientCoords
-            End Get
-        End Property
+		Public ReadOnly Property GetClientCoordinates() As ClientCoordinates
+			Get
+				Return ClientCoords
+			End Get
+		End Property
 
-        Public ReadOnly Property GetObjectID() As Integer
-            Get
-                Return ItemID
-            End Get
-        End Property
+		Public ReadOnly Property GetObjectID() As Integer
+			Get
+				Return ItemID
+			End Get
+		End Property
 
-        Public ReadOnly Property GetData() As Integer
-            Get
-                Return Data
-            End Get
-        End Property
+		Public ReadOnly Property GetData() As Integer
+			Get
+				Return Data
+			End Get
+		End Property
 
-        Public ReadOnly Property GetExtraData() As Integer
-            Get
-                Return ExtraData
-            End Get
-        End Property
+		Public ReadOnly Property GetExtraData() As Integer
+			Get
+				Return ExtraData
+			End Get
+		End Property
 
-        Public ReadOnly Property GetStackPosition() As Integer
-            Get
-                Return StackPosition
-            End Get
-        End Property
+		Public ReadOnly Property GetStackPosition() As Integer
+			Get
+				Return StackPosition
+			End Get
+		End Property
 
-        Public Sub New(ByVal ItemID As Integer, ByVal Data As Integer, ByVal ExtraData As Integer, ByVal MapLocation As LocationDefinition, ByVal Coordinates As ClientCoordinates, ByVal StackPos As Integer)
-            Me.ItemID = ItemID
-            Me.Data = Data
-            Me.ExtraData = ExtraData
-            Me.Location = MapLocation
-            Me.ClientCoords = Coordinates
-            Me.StackPosition = StackPos
-        End Sub
+		Public Sub New(ByVal ItemID As Integer, ByVal Data As Integer, ByVal ExtraData As Integer, ByVal MapLocation As ITibia.LocationDefinition, ByVal Coordinates As ClientCoordinates, ByVal StackPos As Integer)
+			Me.ItemID = ItemID
+			Me.Data = Data
+			Me.ExtraData = ExtraData
+			Me.Location = MapLocation
+			Me.ClientCoords = Coordinates
+			Me.StackPosition = StackPos
+		End Sub
     End Structure
 
     Public Class MapReader
@@ -158,129 +160,129 @@ Public Module MapReaderModule
 
         Public Sub RefreshMapBeginning()
             Try
-                Core.ReadMemory(Consts.ptrMapPointer, MapBegins, 4)
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
+				Core.Client.ReadMemory(Consts.ptrMapPointer, MapBegins, 4)
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Sub
 
-        Public Function FindObjectInTile(ByRef [Object] As TileObject, ByVal ItemID As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer) As Boolean
-            Try
-                Dim Count As Integer = 0
-                Dim ID As Integer = 0
-                Dim Data As Integer = 0
-                Dim ExtraData As Integer = 0
-                Dim Address As Integer = GetAddress(X, Y, Z)
-                Core.ReadMemory(Address, Count, 1)
-                For I As Integer = 0 To Count - 1
-                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
-                    If ID = ItemID Then
-                        Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                        Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
-                        Dim MapLocation As LocationDefinition
-                        Dim ClientCoords As ClientCoordinates
-                        MapLocation.X = Core.CharacterLoc.X + X - 8
-                        MapLocation.Y = Core.CharacterLoc.Y + Y - 6
-                        MapLocation.Z = ClientZToWorldZ(Z)
-                        ClientCoords.X = X
-                        ClientCoords.Y = Y
-                        ClientCoords.Z = Z
-                        [Object] = New TileObject(ItemID, Data, ExtraData, MapLocation, ClientCoords, I)
-                        Return True
-                    End If
-                Next
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+		Public Function FindObjectInTile(ByRef [Object] As TileObject, ByVal ItemID As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer) As Boolean
+			Try
+				Dim Count As Integer = 0
+				Dim ID As Integer = 0
+				Dim Data As Integer = 0
+				Dim ExtraData As Integer = 0
+				Dim Address As Integer = GetAddress(X, Y, Z)
+				Core.Client.ReadMemory(Address, Count, 1)
+				For I As Integer = 0 To Count - 1
+					Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
+					If ID = ItemID Then
+						Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+						Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
+						Dim MapLocation As ITibia.LocationDefinition
+						Dim ClientCoords As ClientCoordinates
+						MapLocation.X = Core.CharacterLoc.X + X - 8
+						MapLocation.Y = Core.CharacterLoc.Y + Y - 6
+						MapLocation.Z = ClientZToWorldZ(Z)
+						ClientCoords.X = X
+						ClientCoords.Y = Y
+						ClientCoords.Z = Z
+						[Object] = New TileObject(ItemID, Data, ExtraData, MapLocation, ClientCoords, I)
+						Return True
+					End If
+				Next
+				Return False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
 
-        Public Function GetTileObjects(ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer) As TileObject()
-            Try
-                Dim Address As Integer = GetAddress(X, Y, Z)
-                Dim Count As Integer = 0
-                Dim ID As Integer = 0
-                Dim Data As Integer = 0
-                Dim ExtraData As Integer = 0
-                Dim MapLocation As LocationDefinition
-                Dim ClientCoords As ClientCoordinates
-                MapLocation.X = Core.CharacterLoc.X + X - 8
-                MapLocation.Y = Core.CharacterLoc.Y + Y - 6
-                MapLocation.Z = ClientZToWorldZ(Z)
-                ClientCoords.X = X
-                ClientCoords.Y = Y
-                ClientCoords.Z = Z
-                Core.ReadMemory(Address, Count, 1)
-                Dim TileObjects(Count - 1) As TileObject
-                For I As Integer = 0 To Count - 1
-                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
-                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                    Core.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
-                    TileObjects(I) = New TileObject(ID, Data, ExtraData, MapLocation, ClientCoords, I)
-                Next
-                Return TileObjects
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+		Public Function GetTileObjects(ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer) As TileObject()
+			Try
+				Dim Address As Integer = GetAddress(X, Y, Z)
+				Dim Count As Integer = 0
+				Dim ID As Integer = 0
+				Dim Data As Integer = 0
+				Dim ExtraData As Integer = 0
+				Dim MapLocation As ITibia.LocationDefinition
+				Dim ClientCoords As ClientCoordinates
+				MapLocation.X = Core.CharacterLoc.X + X - 8
+				MapLocation.Y = Core.CharacterLoc.Y + Y - 6
+				MapLocation.Z = ClientZToWorldZ(Z)
+				ClientCoords.X = X
+				ClientCoords.Y = Y
+				ClientCoords.Z = Z
+				Core.Client.ReadMemory(Address, Count, 1)
+				Dim TileObjects(Count - 1) As TileObject
+				For I As Integer = 0 To Count - 1
+					Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
+					Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+					Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
+					TileObjects(I) = New TileObject(ID, Data, ExtraData, MapLocation, ClientCoords, I)
+				Next
+				Return TileObjects
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Function
 
-        Public ReadOnly Property IsBusy() As Boolean
-            Get
-                Return Busy
-            End Get
-        End Property
+		Public ReadOnly Property IsBusy() As Boolean
+			Get
+				Return Busy
+			End Get
+		End Property
 
-        Public Sub New()
-        End Sub
+		Public Sub New()
+		End Sub
 
-        Public Sub Refresh()
-            Try
-                Busy = True
-                If MapBegins = 0 Then RefreshMapBeginning()
-                SyncLock Me
-                    FindYourSelf()
-                    'WriteMap()
-                End SyncLock
-                Busy = False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
+		Public Sub Refresh()
+			Try
+				Busy = True
+				If MapBegins = 0 Then RefreshMapBeginning()
+				SyncLock Me
+					FindYourSelf()
+					'WriteMap()
+				End SyncLock
+				Busy = False
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Sub
 
-        Private Sub FindYourSelf()
-            Try
-                MapZ = 0
-                MapY = 0
-                MapZ = 0
-                Dim StackSize As Integer = 0
-                Dim ObjectID As Integer = 0
-                Dim Data As Integer = 0
-                For I As Integer = 0 To 2015
-                    Core.ReadMemory(MapBegins + (Consts.MapTileDist * I), StackSize, 1)
-                    If StackSize < 2 Then Continue For ' there's got to be a tile, and another object, at least
-                    For E As Integer = 0 To StackSize - 1
-                        Core.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ObjectID, 2)
-                        If ObjectID = &H63 Then
-                            Core.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                            If Data = Core.CharacterID Then
-                                MapI = I
-                                MapZ = Fix(I / (14 * 18))
-                                MapY = Fix((I - MapZ * 14 * 18) / 18)
-                                MapX = Fix((I - MapZ * 14 * 18 - MapY * 18))
-                                Exit Sub
-                            End If
-                        End If
-                    Next
-                Next
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Sub
+		Private Sub FindYourSelf()
+			Try
+				MapZ = 0
+				MapY = 0
+				MapZ = 0
+				Dim StackSize As Integer = 0
+				Dim ObjectID As Integer = 0
+				Dim Data As Integer = 0
+				For I As Integer = 0 To 2015
+					Core.Client.ReadMemory(MapBegins + (Consts.MapTileDist * I), StackSize, 1)
+					If StackSize < 2 Then Continue For ' there's got to be a tile, and another object, at least
+					For E As Integer = 0 To StackSize - 1
+						Core.Client.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ObjectID, 2)
+						If ObjectID = &H63 Then
+							Core.Client.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+							If Data = Core.CharacterID Then
+								MapI = I
+								MapZ = Fix(I / (14 * 18))
+								MapY = Fix((I - MapZ * 14 * 18) / 18)
+								MapX = Fix((I - MapZ * 14 * 18 - MapY * 18))
+								Exit Sub
+							End If
+						End If
+					Next
+				Next
+			Catch Ex As Exception
+				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+				End
+			End Try
+		End Sub
 
     End Class
 

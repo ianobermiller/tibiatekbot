@@ -17,8 +17,9 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports TibiaTekBot.Constants, System.Xml, TibiaTekBot.MiscUtils, TibiaTekBot.Constantsmodule, _
- System.Text.RegularExpressions, Microsoft.VisualBasic.Devices, TibiaTekBot.CoreModule
+Imports TibiaTekBot.Constants, System.Xml, TibiaTekBot.MiscUtils, _
+ TibiaTekBot.Constantsmodule, System.Text.RegularExpressions, _
+ Microsoft.VisualBasic.Devices, TibiaTekBot.CoreModule, Scripting
 
 Public Class frmAlarms
     Dim BLMessagePlayerInterval As Integer = 0
@@ -491,7 +492,7 @@ Public Class frmAlarms
             Dim Name As String = ""
             Dim BattleListIgnoredPlayersCount As Integer
             Dim Alert As Boolean = False
-            Dim SkullMark As SkullMark
+			Dim SkullMark As IBattlelist.SkullMark
             Dim Output As String = ""
             Dim I As Integer
             BattleListIgnoredPlayersCount = BattlelistIgnoredPlayers.Items.Count
@@ -523,13 +524,13 @@ Public Class frmAlarms
                         If BattlelistPlayerKiller.Checked Then
                             SkullMark = BL.GetSkullMark
                             Select Case SkullMark
-                                Case SkullMark.Yellow
+                                Case IBattlelist.SkullMark.Yellow
                                     Alert = True
                                     Output = "Player Killer "
-                                Case SkullMark.White
+                                Case IBattlelist.SkullMark.White
                                     Alert = True
                                     Output = "Player Killer "
-                                Case SkullMark.Red
+                                Case IBattlelist.SkullMark.Red
                                     Alert = True
                                     Output = "Player Killer "
                             End Select
@@ -539,484 +540,481 @@ Public Class frmAlarms
                 End If
             Loop While BL.NextEntity(True)
             If Alert Then
-                If Core.TibiaWindowState <> ConstantsModule.WindowState.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
-                    Dim FWI As New Win32API.FlashWInfo(Core.Proxy.Client.MainWindowHandle, Win32API.FlashWFlags.FLASHW_TIMERNOFG Or Win32API.FlashWFlags.FLASHW_TRAY Or Win32API.FlashWFlags.FLASHW_CAPTION, 0, 0)
-                    Win32API.FlashWindowEx(FWI)
-                End If
-                If BattlelistPlaySound.Checked Then
-                    Dim Sound As New Audio
-                    Try
-                        Sound.Play(Core.ExecutablePath & "\Alarms\Battlelist.wav", AudioPlayMode.Background)
-                    Catch
-                    End Try
-                End If
-                Dim ChatMessage As New CoreModule.ChatMessageDefinition
-                Output &= Name & " has fired my alarm."
-                If BattlelistMessagePlayer.Checked Then
-                    If BLMessagePlayerInterval = 0 Then
-                        ChatMessage.Destinatary = BattlelistMessagePlayerInput.Text
-                        ChatMessage.MessageType = MessageType.PM
-                        ChatMessage.Message = Output
-                        Core.ChatMessageQueueList.Insert(0, ChatMessage)
-                        BLMessagePlayerInterval += 1
-                    ElseIf BLMessagePlayerInterval <= 15 Then
-                        BLMessagePlayerInterval += 1
-                    Else
-                        BLMessagePlayerInterval = 0
-                    End If
-                End If
-                If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesRed))
-                If BattlelistLogout.Checked Then
-                    Log("Battlelist Alarm", Output)
-                    Log("Battlelist Alarm", "Logging out.")
-                    Core.Proxy.SendPacketToServer(PacketUtils.PlayerLogout)
-                End If
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+				If Core.TibiaWindowState <> ITibia.WindowStates.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
+					Core.Client.FlashWindow()
+				End If
+				If BattlelistPlaySound.Checked Then
+					Dim Sound As New Audio
+					Try
+						Sound.Play(Core.ExecutablePath & "\Alarms\Battlelist.wav", AudioPlayMode.Background)
+					Catch
+					End Try
+				End If
+				Dim ChatMessage As New CoreModule.ChatMessageDefinition
+				Output &= Name & " has fired my alarm."
+				If BattlelistMessagePlayer.Checked Then
+					If BLMessagePlayerInterval = 0 Then
+						ChatMessage.Destinatary = BattlelistMessagePlayerInput.Text
+						ChatMessage.MessageType = MessageType.PM
+						ChatMessage.Message = Output
+						Core.ChatMessageQueueList.Insert(0, ChatMessage)
+						BLMessagePlayerInterval += 1
+					ElseIf BLMessagePlayerInterval <= 15 Then
+						BLMessagePlayerInterval += 1
+					Else
+						BLMessagePlayerInterval = 0
+					End If
+				End If
+				If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesRed))
+				If BattlelistLogout.Checked Then
+					Log("Battlelist Alarm", Output)
+					Log("Battlelist Alarm", "Logging out.")
+					Core.Proxy.SendPacketToServer(PacketUtils.PlayerLogout)
+				End If
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
-    Private Sub MessageIgnoredPlayersAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MessageIgnoredPlayersAdd.Click
-        If Not MessageIgnoredPlayersInput.Text Is Nothing Then
-            Try
-                If MessageIgnoredPlayersInput.Text.Length = 0 Then
-                    MessageBox.Show("Invalid regular expression: " & MessageIgnoredPlayersInput.Text & ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
-                    Exit Sub
-                End If
-                Dim Regexp As New Regex("^" & MessageIgnoredPlayersInput.Text & "$")
-                MessageIgnoredPlayers.Items.Add(MessageIgnoredPlayersInput.Text)
-                MessageIgnoredPlayersInput.Text = ""
-            Catch
-                MessageBox.Show("Invalid regular expression: " & MessageIgnoredPlayersInput.Text & ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
-            End Try
-        End If
-    End Sub
+	Private Sub MessageIgnoredPlayersAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MessageIgnoredPlayersAdd.Click
+		If Not MessageIgnoredPlayersInput.Text Is Nothing Then
+			Try
+				If MessageIgnoredPlayersInput.Text.Length = 0 Then
+					MessageBox.Show("Invalid regular expression: " & MessageIgnoredPlayersInput.Text & ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
+					Exit Sub
+				End If
+				Dim Regexp As New Regex("^" & MessageIgnoredPlayersInput.Text & "$")
+				MessageIgnoredPlayers.Items.Add(MessageIgnoredPlayersInput.Text)
+				MessageIgnoredPlayersInput.Text = ""
+			Catch
+				MessageBox.Show("Invalid regular expression: " & MessageIgnoredPlayersInput.Text & ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1)
+			End Try
+		End If
+	End Sub
 
-    Private Sub MessageIgnoredPlayersRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MessageIgnoredPlayersRemove.Click
-        Try
-            If MessageIgnoredPlayers.SelectedIndex > -1 Then
-                MessageIgnoredPlayersInput.Text = MessageIgnoredPlayers.Items.Item(MessageIgnoredPlayers.SelectedIndex).ToString
-                MessageIgnoredPlayers.Items.RemoveAt(MessageIgnoredPlayers.SelectedIndex)
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+	Private Sub MessageIgnoredPlayersRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MessageIgnoredPlayersRemove.Click
+		Try
+			If MessageIgnoredPlayers.SelectedIndex > -1 Then
+				MessageIgnoredPlayersInput.Text = MessageIgnoredPlayers.Items.Item(MessageIgnoredPlayers.SelectedIndex).ToString
+				MessageIgnoredPlayers.Items.RemoveAt(MessageIgnoredPlayers.SelectedIndex)
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
-    Private Sub frmAlarms_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
-            FoodCond.Active = False
-            FoodCond.Condition = LogicConditions.Equal
-            FoodCond.Count = 0
-            BlankRunesCond.Active = False
-            BlankRunesCond.Condition = LogicConditions.Equal
-            BlankRunesCond.Count = 0
-            WormsCond.Active = False
-            WormsCond.Condition = LogicConditions.Equal
-            WormsCond.Count = 0
-            ThrowablesCond.Active = False
-            ThrowablesCond.Condition = LogicConditions.Equal
-            ThrowablesCond.Count = 0
-            AmmunitionCond.Active = False
-            AmmunitionCond.Condition = LogicConditions.Equal
-            AmmunitionCond.Count = 0
-            Button8_Click(Nothing, Nothing)
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+	Private Sub frmAlarms_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+		Try
+			FoodCond.Active = False
+			FoodCond.Condition = LogicConditions.Equal
+			FoodCond.Count = 0
+			BlankRunesCond.Active = False
+			BlankRunesCond.Condition = LogicConditions.Equal
+			BlankRunesCond.Count = 0
+			WormsCond.Active = False
+			WormsCond.Condition = LogicConditions.Equal
+			WormsCond.Count = 0
+			ThrowablesCond.Active = False
+			ThrowablesCond.Condition = LogicConditions.Equal
+			ThrowablesCond.Count = 0
+			AmmunitionCond.Active = False
+			AmmunitionCond.Condition = LogicConditions.Equal
+			AmmunitionCond.Count = 0
+			Button8_Click(Nothing, Nothing)
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
-    Private Sub StatusAlarmTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatusAlarmTimer.Tick
-        Try
-            Dim Alert As Boolean = False
-            Dim Output As String = ""
-            Dim CurrentConditions As Integer = 0
+	Private Sub StatusAlarmTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatusAlarmTimer.Tick
+		Try
+			Dim Alert As Boolean = False
+			Dim Output As String = ""
+			Dim CurrentConditions As Integer = 0
 
-            Core.ReadMemory(Consts.ptrConditions, CurrentConditions, 2)
-            If Core.HitPoints < StatusHitPoints.Value Then
-                Output &= " My HP is " & Core.HitPoints & ", below " & StatusHitPoints.Value & "."
-                Alert = True
-            End If
-            If Core.ManaPoints < StatusManaPoints.Value Then
-                Output &= " My MP is " & Core.ManaPoints & ", below " & StatusManaPoints.Value & "."
-                Alert = True
-            End If
-            If Core.SoulPoints < StatusSoulPoints.Value Then
-                Output &= " My SP is " & Core.SoulPoints & ", below " & StatusSoulPoints.Value & "."
-                Alert = True
-            End If
-            Dim Capacity As Integer = 0
-            Core.ReadMemory(Consts.ptrCapacity, Capacity, 4)
-            If Capacity < StatusCapacity.Value Then
-                Output &= " My Capacity is " & Core.SoulPoints & ", below " & StatusSoulPoints.Value & "."
-                Alert = True
-            End If
-            If StatusConditionBurnt.Checked AndAlso (CurrentConditions And Conditions.Burnt) = Conditions.Burnt Then
-                Output &= " I'm burnt."
-                Alert = True
-            End If
-            If StatusConditionCombatSign.Checked AndAlso (CurrentConditions And Conditions.CombatSign) = Conditions.CombatSign Then
-                Output &= " I'm PZ locked."
-                Alert = True
-            End If
-            If StatusConditionDrowning.Checked AndAlso (CurrentConditions And Conditions.Drowning) = Conditions.Drowning Then
-                Output &= " I'm drowning."
-                Alert = True
-            End If
-            If StatusConditionElectrified.Checked AndAlso (CurrentConditions And Conditions.Electrified) = Conditions.Electrified Then
-                Output &= " I'm electrified."
-                Alert = True
-            End If
-            If StatusConditionParalized.Checked AndAlso (CurrentConditions And Conditions.Paralized) = Conditions.Paralized Then
-                Output &= " I'm paralized."
-                Alert = True
-            End If
-            If Alert Then
-                If Core.TibiaWindowState <> ConstantsModule.WindowState.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
-                    Dim FWI As New Win32API.FlashWInfo(Core.Proxy.Client.MainWindowHandle, Win32API.FlashWFlags.FLASHW_TIMERNOFG Or Win32API.FlashWFlags.FLASHW_TRAY Or Win32API.FlashWFlags.FLASHW_CAPTION, 0, 0)
-                    Win32API.FlashWindowEx(FWI)
-                End If
-                If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesYellow))
-                If StatusPlaySound.Checked Then
-                    Dim Sound As New Audio
-                    Try
-                        Sound.Play(Core.ExecutablePath & "\Alarms\Status.wav", AudioPlayMode.Background)
-                    Catch
-                    End Try
-                End If
-                Dim ChatMessage As ChatMessageDefinition
-                ChatMessage.Message = Output
-                ChatMessage.MessageType = MessageType.PM
-                If StatusMessagePlayer.Checked Then
-                    If STMessagePlayerInterval = 0 Then
-                        If Not String.IsNullOrEmpty(StatusMessagePlayerName.Text) Then
-                            ChatMessage.Destinatary = StatusMessagePlayerName.Text
-                            Core.ChatMessageQueueList.Add(ChatMessage)
-                        End If
-                        STMessagePlayerInterval += 1
-                    ElseIf STMessagePlayerInterval <= 15 Then
-                        STMessagePlayerInterval += 1
-                    Else
-                        STMessagePlayerInterval = 0
-                    End If
-                End If
-                If StatusLogOut.Checked Then
-                    Log("Status Alarm", Output)
-                    Log("Status Alarm", "Logging out.")
-                    Core.Proxy.SendPacketToServer(PlayerLogout())
-                End If
+			Core.Client.ReadMemory(Consts.ptrConditions, CurrentConditions, 2)
+			If Core.HitPoints < StatusHitPoints.Value Then
+				Output &= " My HP is " & Core.HitPoints & ", below " & StatusHitPoints.Value & "."
+				Alert = True
+			End If
+			If Core.ManaPoints < StatusManaPoints.Value Then
+				Output &= " My MP is " & Core.ManaPoints & ", below " & StatusManaPoints.Value & "."
+				Alert = True
+			End If
+			If Core.SoulPoints < StatusSoulPoints.Value Then
+				Output &= " My SP is " & Core.SoulPoints & ", below " & StatusSoulPoints.Value & "."
+				Alert = True
+			End If
+			Dim Capacity As Integer = 0
+			Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 4)
+			If Capacity < StatusCapacity.Value Then
+				Output &= " My Capacity is " & Core.SoulPoints & ", below " & StatusSoulPoints.Value & "."
+				Alert = True
+			End If
+			If StatusConditionBurnt.Checked AndAlso (CurrentConditions And Conditions.Burnt) = Conditions.Burnt Then
+				Output &= " I'm burnt."
+				Alert = True
+			End If
+			If StatusConditionCombatSign.Checked AndAlso (CurrentConditions And Conditions.CombatSign) = Conditions.CombatSign Then
+				Output &= " I'm PZ locked."
+				Alert = True
+			End If
+			If StatusConditionDrowning.Checked AndAlso (CurrentConditions And Conditions.Drowning) = Conditions.Drowning Then
+				Output &= " I'm drowning."
+				Alert = True
+			End If
+			If StatusConditionElectrified.Checked AndAlso (CurrentConditions And Conditions.Electrified) = Conditions.Electrified Then
+				Output &= " I'm electrified."
+				Alert = True
+			End If
+			If StatusConditionParalized.Checked AndAlso (CurrentConditions And Conditions.Paralized) = Conditions.Paralized Then
+				Output &= " I'm paralized."
+				Alert = True
+			End If
+			If Alert Then
+				If Core.TibiaWindowState <> ITibia.WindowStates.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
+					Core.Client.FlashWindow()
+				End If
+				If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesYellow))
+				If StatusPlaySound.Checked Then
+					Dim Sound As New Audio
+					Try
+						Sound.Play(Core.ExecutablePath & "\Alarms\Status.wav", AudioPlayMode.Background)
+					Catch
+					End Try
+				End If
+				Dim ChatMessage As ChatMessageDefinition
+				ChatMessage.Message = Output
+				ChatMessage.MessageType = MessageType.PM
+				If StatusMessagePlayer.Checked Then
+					If STMessagePlayerInterval = 0 Then
+						If Not String.IsNullOrEmpty(StatusMessagePlayerName.Text) Then
+							ChatMessage.Destinatary = StatusMessagePlayerName.Text
+							Core.ChatMessageQueueList.Add(ChatMessage)
+						End If
+						STMessagePlayerInterval += 1
+					ElseIf STMessagePlayerInterval <= 15 Then
+						STMessagePlayerInterval += 1
+					Else
+						STMessagePlayerInterval = 0
+					End If
+				End If
+				If StatusLogOut.Checked Then
+					Log("Status Alarm", Output)
+					Log("Status Alarm", "Logging out.")
+					Core.Proxy.SendPacketToServer(PlayerLogout())
+				End If
 
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
-    Private Sub ItemsList_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItemsList.SelectedIndexChanged
-        Try
-            If ItemsList.SelectedIndex > -1 Then
-                ItemsCount.Enabled = True
-                ItemsCondition.Enabled = True
-                'ItemsCheckFloor.Enabled = True
-                'ItemsCheckInventory.Enabled = True
-                'ItemsApply.Enabled = True
-                CanUpdate = False
-                Select Case ItemsList.SelectedIndex
-                    Case 0 'food
-                        ItemsCondition.SelectedIndex = CInt(FoodCond.Condition)
-                        ItemsCount.Value = FoodCond.Count
+	Private Sub ItemsList_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItemsList.SelectedIndexChanged
+		Try
+			If ItemsList.SelectedIndex > -1 Then
+				ItemsCount.Enabled = True
+				ItemsCondition.Enabled = True
+				'ItemsCheckFloor.Enabled = True
+				'ItemsCheckInventory.Enabled = True
+				'ItemsApply.Enabled = True
+				CanUpdate = False
+				Select Case ItemsList.SelectedIndex
+					Case 0 'food
+						ItemsCondition.SelectedIndex = CInt(FoodCond.Condition)
+						ItemsCount.Value = FoodCond.Count
 
-                        ItemsCheckFloor.Checked = FoodCond.CheckFloor
-                        ItemsCheckInventory.Checked = FoodCond.CheckInventory
-                    Case 1 'blanks
-                        ItemsCondition.SelectedIndex = CInt(BlankRunesCond.Condition)
-                        ItemsCount.Value = BlankRunesCond.Count
-                        ItemsCheckFloor.Checked = BlankRunesCond.CheckFloor
-                        ItemsCheckInventory.Checked = BlankRunesCond.CheckInventory
-                    Case 2 'worms
-                        ItemsCondition.SelectedIndex = WormsCond.Condition
-                        ItemsCount.Value = WormsCond.Count
-                        ItemsCheckFloor.Checked = WormsCond.CheckFloor
-                        ItemsCheckInventory.Checked = WormsCond.CheckInventory
-                    Case 3 'throwables
-                        ItemsCondition.SelectedIndex = CInt(ThrowablesCond.Condition)
-                        ItemsCount.Value = ThrowablesCond.Count
-                        ItemsCheckFloor.Checked = ThrowablesCond.CheckFloor
-                        ItemsCheckInventory.Checked = ThrowablesCond.CheckInventory
-                    Case 4 'ammunition
-                        ItemsCondition.SelectedIndex = CInt(AmmunitionCond.Condition)
-                        ItemsCount.Value = AmmunitionCond.Count
-                        ItemsCheckFloor.Checked = AmmunitionCond.CheckFloor
-                        ItemsCheckInventory.Checked = AmmunitionCond.CheckInventory
-                End Select
-                CanUpdate = True
-            Else
-                ItemsCondition.Enabled = False
-                ItemsCount.Enabled = False
-                'ItemsCheckFloor.Enabled = False
-                'ItemsCheckInventory.Enabled = False
-                '            ItemsApply.Enabled = False
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+						ItemsCheckFloor.Checked = FoodCond.CheckFloor
+						ItemsCheckInventory.Checked = FoodCond.CheckInventory
+					Case 1 'blanks
+						ItemsCondition.SelectedIndex = CInt(BlankRunesCond.Condition)
+						ItemsCount.Value = BlankRunesCond.Count
+						ItemsCheckFloor.Checked = BlankRunesCond.CheckFloor
+						ItemsCheckInventory.Checked = BlankRunesCond.CheckInventory
+					Case 2 'worms
+						ItemsCondition.SelectedIndex = WormsCond.Condition
+						ItemsCount.Value = WormsCond.Count
+						ItemsCheckFloor.Checked = WormsCond.CheckFloor
+						ItemsCheckInventory.Checked = WormsCond.CheckInventory
+					Case 3 'throwables
+						ItemsCondition.SelectedIndex = CInt(ThrowablesCond.Condition)
+						ItemsCount.Value = ThrowablesCond.Count
+						ItemsCheckFloor.Checked = ThrowablesCond.CheckFloor
+						ItemsCheckInventory.Checked = ThrowablesCond.CheckInventory
+					Case 4 'ammunition
+						ItemsCondition.SelectedIndex = CInt(AmmunitionCond.Condition)
+						ItemsCount.Value = AmmunitionCond.Count
+						ItemsCheckFloor.Checked = AmmunitionCond.CheckFloor
+						ItemsCheckInventory.Checked = AmmunitionCond.CheckInventory
+				End Select
+				CanUpdate = True
+			Else
+				ItemsCondition.Enabled = False
+				ItemsCount.Enabled = False
+				'ItemsCheckFloor.Enabled = False
+				'ItemsCheckInventory.Enabled = False
+				'            ItemsApply.Enabled = False
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
-    Private Sub UpdateItemConditions()
-        Try
-            If Not CanUpdate Then Exit Sub
-            Select Case ItemsList.SelectedIndex
-                Case 0 'food
-                    FoodCond.Active = ItemsList.GetItemChecked(0)
-                    FoodCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
-                    FoodCond.Count = ItemsCount.Value
-                    FoodCond.CheckFloor = ItemsCheckFloor.Checked
-                    FoodCond.CheckInventory = ItemsCheckInventory.Checked
-                Case 1 'blanks
-                    BlankRunesCond.Active = ItemsList.GetItemChecked(1)
-                    BlankRunesCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
-                    BlankRunesCond.Count = ItemsCount.Value
-                    BlankRunesCond.CheckFloor = ItemsCheckFloor.Checked
-                    BlankRunesCond.CheckInventory = ItemsCheckInventory.Checked
-                Case 2 'worms
-                    WormsCond.Active = ItemsList.GetItemChecked(2)
-                    WormsCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
-                    WormsCond.Count = ItemsCount.Value
-                    WormsCond.CheckFloor = ItemsCheckFloor.Checked
-                    WormsCond.CheckInventory = ItemsCheckInventory.Checked
-                Case 3 'throwables
-                    ThrowablesCond.Active = ItemsList.GetItemChecked(3)
-                    ThrowablesCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
-                    ThrowablesCond.Count = ItemsCount.Value
-                    ThrowablesCond.CheckFloor = ItemsCheckFloor.Checked
-                    ThrowablesCond.CheckInventory = ItemsCheckInventory.Checked
-                Case 4 'ammunition
-                    AmmunitionCond.Active = ItemsList.GetItemChecked(4)
-                    AmmunitionCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
-                    AmmunitionCond.Count = ItemsCount.Value
-                    AmmunitionCond.CheckFloor = ItemsCheckFloor.Checked
-                    AmmunitionCond.CheckInventory = ItemsCheckInventory.Checked
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+	Private Sub UpdateItemConditions()
+		Try
+			If Not CanUpdate Then Exit Sub
+			Select Case ItemsList.SelectedIndex
+				Case 0 'food
+					FoodCond.Active = ItemsList.GetItemChecked(0)
+					FoodCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
+					FoodCond.Count = ItemsCount.Value
+					FoodCond.CheckFloor = ItemsCheckFloor.Checked
+					FoodCond.CheckInventory = ItemsCheckInventory.Checked
+				Case 1 'blanks
+					BlankRunesCond.Active = ItemsList.GetItemChecked(1)
+					BlankRunesCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
+					BlankRunesCond.Count = ItemsCount.Value
+					BlankRunesCond.CheckFloor = ItemsCheckFloor.Checked
+					BlankRunesCond.CheckInventory = ItemsCheckInventory.Checked
+				Case 2 'worms
+					WormsCond.Active = ItemsList.GetItemChecked(2)
+					WormsCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
+					WormsCond.Count = ItemsCount.Value
+					WormsCond.CheckFloor = ItemsCheckFloor.Checked
+					WormsCond.CheckInventory = ItemsCheckInventory.Checked
+				Case 3 'throwables
+					ThrowablesCond.Active = ItemsList.GetItemChecked(3)
+					ThrowablesCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
+					ThrowablesCond.Count = ItemsCount.Value
+					ThrowablesCond.CheckFloor = ItemsCheckFloor.Checked
+					ThrowablesCond.CheckInventory = ItemsCheckInventory.Checked
+				Case 4 'ammunition
+					AmmunitionCond.Active = ItemsList.GetItemChecked(4)
+					AmmunitionCond.Condition = CType(ItemsCondition.SelectedIndex, LogicConditions)
+					AmmunitionCond.Count = ItemsCount.Value
+					AmmunitionCond.CheckFloor = ItemsCheckFloor.Checked
+					AmmunitionCond.CheckInventory = ItemsCheckInventory.Checked
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
-    Private Sub ItemsList_ItemCheck(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ItemsList.ItemCheck
-        Try
-            Select Case e.Index
-                Case 0 'food
-                    FoodCond.Active = e.NewValue = CheckState.Checked
-                Case 1 'blanks
-                    BlankRunesCond.Active = e.NewValue = CheckState.Checked
-                Case 2 'worms
-                    WormsCond.Active = e.NewValue = CheckState.Checked
-                Case 3 'throwables
-                    ThrowablesCond.Active = e.NewValue = CheckState.Checked
-                Case 4 'ammunition
-                    AmmunitionCond.Active = e.NewValue = CheckState.Checked
-            End Select
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+	Private Sub ItemsList_ItemCheck(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ItemsList.ItemCheck
+		Try
+			Select Case e.Index
+				Case 0 'food
+					FoodCond.Active = e.NewValue = CheckState.Checked
+				Case 1 'blanks
+					BlankRunesCond.Active = e.NewValue = CheckState.Checked
+				Case 2 'worms
+					WormsCond.Active = e.NewValue = CheckState.Checked
+				Case 3 'throwables
+					ThrowablesCond.Active = e.NewValue = CheckState.Checked
+				Case 4 'ammunition
+					AmmunitionCond.Active = e.NewValue = CheckState.Checked
+			End Select
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
-    Private Sub ItemsTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItemsAlarmTimer.Tick
-        Try
-            Dim MyContainer As New Container
-            Dim Item As ContainerItemDefinition
-            Dim ContainerItemCount As Integer
-            Dim Found As Boolean = False
-            Dim FoodCount As Integer = 0
-            Dim BlankRunesCount As Integer = 0
-            Dim ThrowablesCount As Integer = 0
-            Dim AmmunitionCount As Integer = 0
-            Dim WormsCount As Integer = 0
-            Dim Alert As Boolean = False
-            Dim Output As String = ""
-            If FoodCond.Active Then
-                MyContainer.Reset()
-                Do
-                    If MyContainer.IsOpened Then
-                        ContainerItemCount = MyContainer.GetItemCount
-                        For I As Integer = 0 To ContainerItemCount - 1
-                            Item = MyContainer.Items(I)
-                            If Definitions.IsFood(Item.ID) Then
-                                If Item.Count = 0 Then
-                                    FoodCount += 1
-                                Else
-                                    FoodCount += Item.Count
-                                End If
-                            End If
-                        Next
-                    End If
-                Loop While MyContainer.NextContainer
-                Select Case FoodCond.Condition
-                    Case LogicConditions.Equal
-                        If FoodCount = FoodCond.Count Then Alert = True
-                    Case LogicConditions.LessOrEqualThan
-                        If FoodCount <= FoodCond.Count Then Alert = True
-                    Case LogicConditions.LessThan
-                        If FoodCount < FoodCond.Count Then Alert = True
-                    Case LogicConditions.MoreOrEqualThan
-                        If FoodCount >= FoodCond.Count Then Alert = True
-                    Case LogicConditions.MoreThan
-                        If FoodCount > FoodCond.Count Then Alert = True
-                    Case LogicConditions.NotEqual
-                        If FoodCount <> FoodCond.Count Then Alert = True
-                End Select
-                If Alert Then Output = "Your alarm has fired because you have " & FoodCount & " food items."
-            End If
-            If Not Alert AndAlso BlankRunesCond.Active Then
-                BlankRunesCount = ContainerModule.Container.GetItemCountByItemID(Definitions.GetItemID("Blank"))
-                Select Case BlankRunesCond.Condition
-                    Case LogicConditions.Equal
-                        If BlankRunesCount = BlankRunesCond.Count Then Alert = True
-                    Case LogicConditions.LessOrEqualThan
-                        If BlankRunesCount <= BlankRunesCond.Count Then Alert = True
-                    Case LogicConditions.LessThan
-                        If BlankRunesCount < BlankRunesCond.Count Then Alert = True
-                    Case LogicConditions.MoreOrEqualThan
-                        If BlankRunesCount >= BlankRunesCond.Count Then Alert = True
-                    Case LogicConditions.MoreThan
-                        If BlankRunesCount > BlankRunesCond.Count Then Alert = True
-                    Case LogicConditions.NotEqual
-                        If BlankRunesCount <> BlankRunesCond.Count Then Alert = True
-                End Select
-                If Alert Then Output = "Your alarm has fired because you have " & BlankRunesCount & " blank runes."
-            End If
-            If Not Alert AndAlso WormsCond.Active Then
-                WormsCount = ContainerModule.Container.GetItemCountByItemID(Definitions.GetItemID("Worm"))
-                Select Case WormsCond.Condition
-                    Case LogicConditions.Equal
-                        If WormsCount = WormsCond.Count Then Alert = True
-                    Case LogicConditions.LessOrEqualThan
-                        If WormsCount <= WormsCond.Count Then Alert = True
-                    Case LogicConditions.LessThan
-                        If WormsCount < WormsCond.Count Then Alert = True
-                    Case LogicConditions.MoreOrEqualThan
-                        If WormsCount >= WormsCond.Count Then Alert = True
-                    Case LogicConditions.MoreThan
-                        If WormsCount > WormsCond.Count Then Alert = True
-                    Case LogicConditions.NotEqual
-                        If WormsCount <> WormsCond.Count Then Alert = True
-                End Select
-                If Alert Then Output = "Your alarm has fired because you have " & WormsCount & " worms."
-            End If
-            If Not Alert AndAlso ThrowablesCond.Active Then
-                MyContainer.Reset()
-                Do
-                    If MyContainer.IsOpened Then
-                        ContainerItemCount = MyContainer.GetItemCount
-                        For I As Integer = 0 To ContainerItemCount - 1
-                            Item = MyContainer.Items(I)
-                            If Definitions.IsThrowable(Item.ID) Then
-                                If Item.Count = 0 Then
-                                    ThrowablesCount += 1
-                                Else
-                                    ThrowablesCount += Item.Count
-                                End If
-                            End If
-                        Next
-                    End If
-                Loop While MyContainer.NextContainer
-                Select Case ThrowablesCond.Condition
-                    Case LogicConditions.Equal
-                        If ThrowablesCount = ThrowablesCond.Count Then Alert = True
-                    Case LogicConditions.LessOrEqualThan
-                        If ThrowablesCount <= ThrowablesCond.Count Then Alert = True
-                    Case LogicConditions.LessThan
-                        If ThrowablesCount < ThrowablesCond.Count Then Alert = True
-                    Case LogicConditions.MoreOrEqualThan
-                        If ThrowablesCount >= ThrowablesCond.Count Then Alert = True
-                    Case LogicConditions.MoreThan
-                        If ThrowablesCount > ThrowablesCond.Count Then Alert = True
-                    Case LogicConditions.NotEqual
-                        If ThrowablesCount <> ThrowablesCond.Count Then Alert = True
-                End Select
-                If Alert Then Output = "Your alarm has fired because you have " & ThrowablesCount & " throwables."
-            End If
-            If Not Alert AndAlso AmmunitionCond.Active Then
-                MyContainer.Reset()
-                Do
-                    If MyContainer.IsOpened Then
-                        ContainerItemCount = MyContainer.GetItemCount
-                        For I As Integer = 0 To ContainerItemCount - 1
-                            Item = MyContainer.Items(I)
-                            If Definitions.IsAmmunition(Item.ID) Then
-                                If Item.Count = 0 Then
-                                    AmmunitionCount += 1
-                                Else
-                                    AmmunitionCount += Item.Count
-                                End If
-                            End If
-                        Next
-                    End If
-                Loop While MyContainer.NextContainer
-                Select Case AmmunitionCond.Condition
-                    Case LogicConditions.Equal
-                        If AmmunitionCount = AmmunitionCond.Count Then Alert = True
-                    Case LogicConditions.LessOrEqualThan
-                        If AmmunitionCount <= AmmunitionCond.Count Then Alert = True
-                    Case LogicConditions.LessThan
-                        If AmmunitionCount < AmmunitionCond.Count Then Alert = True
-                    Case LogicConditions.MoreOrEqualThan
-                        If AmmunitionCount >= AmmunitionCond.Count Then Alert = True
-                    Case LogicConditions.MoreThan
-                        If AmmunitionCount > AmmunitionCond.Count Then Alert = True
-                    Case LogicConditions.NotEqual
-                        If AmmunitionCount <> AmmunitionCond.Count Then Alert = True
-                End Select
-                If Alert Then Output = "Your alarm has fired because you have " & AmmunitionCount & " items of ammunition."
-            End If
-            If Alert Then
-                If Core.TibiaWindowState <> ConstantsModule.WindowState.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
-                    Dim FWI As New Win32API.FlashWInfo(Core.Proxy.Client.MainWindowHandle, Win32API.FlashWFlags.FLASHW_TIMERNOFG Or Win32API.FlashWFlags.FLASHW_TRAY Or Win32API.FlashWFlags.FLASHW_CAPTION, 0, 0)
-                    Win32API.FlashWindowEx(FWI)
-                End If
-                If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesGreen))
-                If ItemsPlaySound.Checked Then
-                    Dim Sound As New Audio
-                    Try
-                        Sound.Play(Core.ExecutablePath & "\Alarms\Items.wav", AudioPlayMode.Background)
-                    Catch
-                    End Try
-                End If
-                Dim ChatMessage As ChatMessageDefinition
-                ChatMessage.Message = Output
-                ChatMessage.MessageType = MessageType.PM
-                If ItemsMessagePlayer.Checked Then
-                    If ITMessagePlayerInterval = 0 Then
-                        If Not String.IsNullOrEmpty(ItemsMessagePlayerName.Text) Then
-                            ChatMessage.Destinatary = ItemsMessagePlayerName.Text
-                            Core.ChatMessageQueueList.Add(ChatMessage)
-                        End If
-                        ITMessagePlayerInterval += 1
-                    ElseIf ITMessagePlayerInterval <= 15 Then
-                        ITMessagePlayerInterval += 1
-                    Else
-                        ITMessagePlayerInterval = 0
-                    End If
-                End If
-                If ItemsLogOut.Checked Then
-                    Log("Items Alarm", Output)
-                    Log("Items Alarm", "Logging out.")
-                    Core.Proxy.SendPacketToServer(PlayerLogout())
-                End If
-            End If
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+	Private Sub ItemsTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItemsAlarmTimer.Tick
+		Try
+			Dim MyContainer As New Container
+			Dim Item As ContainerItemDefinition
+			Dim ContainerItemCount As Integer
+			Dim Found As Boolean = False
+			Dim FoodCount As Integer = 0
+			Dim BlankRunesCount As Integer = 0
+			Dim ThrowablesCount As Integer = 0
+			Dim AmmunitionCount As Integer = 0
+			Dim WormsCount As Integer = 0
+			Dim Alert As Boolean = False
+			Dim Output As String = ""
+			If FoodCond.Active Then
+				MyContainer.Reset()
+				Do
+					If MyContainer.IsOpened Then
+						ContainerItemCount = MyContainer.GetItemCount
+						For I As Integer = 0 To ContainerItemCount - 1
+							Item = MyContainer.Items(I)
+							If Definitions.IsFood(Item.ID) Then
+								If Item.Count = 0 Then
+									FoodCount += 1
+								Else
+									FoodCount += Item.Count
+								End If
+							End If
+						Next
+					End If
+				Loop While MyContainer.NextContainer
+				Select Case FoodCond.Condition
+					Case LogicConditions.Equal
+						If FoodCount = FoodCond.Count Then Alert = True
+					Case LogicConditions.LessOrEqualThan
+						If FoodCount <= FoodCond.Count Then Alert = True
+					Case LogicConditions.LessThan
+						If FoodCount < FoodCond.Count Then Alert = True
+					Case LogicConditions.MoreOrEqualThan
+						If FoodCount >= FoodCond.Count Then Alert = True
+					Case LogicConditions.MoreThan
+						If FoodCount > FoodCond.Count Then Alert = True
+					Case LogicConditions.NotEqual
+						If FoodCount <> FoodCond.Count Then Alert = True
+				End Select
+				If Alert Then Output = "Your alarm has fired because you have " & FoodCount & " food items."
+			End If
+			If Not Alert AndAlso BlankRunesCond.Active Then
+				BlankRunesCount = ContainerModule.Container.GetItemCountByItemID(Definitions.GetItemID("Blank"))
+				Select Case BlankRunesCond.Condition
+					Case LogicConditions.Equal
+						If BlankRunesCount = BlankRunesCond.Count Then Alert = True
+					Case LogicConditions.LessOrEqualThan
+						If BlankRunesCount <= BlankRunesCond.Count Then Alert = True
+					Case LogicConditions.LessThan
+						If BlankRunesCount < BlankRunesCond.Count Then Alert = True
+					Case LogicConditions.MoreOrEqualThan
+						If BlankRunesCount >= BlankRunesCond.Count Then Alert = True
+					Case LogicConditions.MoreThan
+						If BlankRunesCount > BlankRunesCond.Count Then Alert = True
+					Case LogicConditions.NotEqual
+						If BlankRunesCount <> BlankRunesCond.Count Then Alert = True
+				End Select
+				If Alert Then Output = "Your alarm has fired because you have " & BlankRunesCount & " blank runes."
+			End If
+			If Not Alert AndAlso WormsCond.Active Then
+				WormsCount = ContainerModule.Container.GetItemCountByItemID(Definitions.GetItemID("Worm"))
+				Select Case WormsCond.Condition
+					Case LogicConditions.Equal
+						If WormsCount = WormsCond.Count Then Alert = True
+					Case LogicConditions.LessOrEqualThan
+						If WormsCount <= WormsCond.Count Then Alert = True
+					Case LogicConditions.LessThan
+						If WormsCount < WormsCond.Count Then Alert = True
+					Case LogicConditions.MoreOrEqualThan
+						If WormsCount >= WormsCond.Count Then Alert = True
+					Case LogicConditions.MoreThan
+						If WormsCount > WormsCond.Count Then Alert = True
+					Case LogicConditions.NotEqual
+						If WormsCount <> WormsCond.Count Then Alert = True
+				End Select
+				If Alert Then Output = "Your alarm has fired because you have " & WormsCount & " worms."
+			End If
+			If Not Alert AndAlso ThrowablesCond.Active Then
+				MyContainer.Reset()
+				Do
+					If MyContainer.IsOpened Then
+						ContainerItemCount = MyContainer.GetItemCount
+						For I As Integer = 0 To ContainerItemCount - 1
+							Item = MyContainer.Items(I)
+							If Definitions.IsThrowable(Item.ID) Then
+								If Item.Count = 0 Then
+									ThrowablesCount += 1
+								Else
+									ThrowablesCount += Item.Count
+								End If
+							End If
+						Next
+					End If
+				Loop While MyContainer.NextContainer
+				Select Case ThrowablesCond.Condition
+					Case LogicConditions.Equal
+						If ThrowablesCount = ThrowablesCond.Count Then Alert = True
+					Case LogicConditions.LessOrEqualThan
+						If ThrowablesCount <= ThrowablesCond.Count Then Alert = True
+					Case LogicConditions.LessThan
+						If ThrowablesCount < ThrowablesCond.Count Then Alert = True
+					Case LogicConditions.MoreOrEqualThan
+						If ThrowablesCount >= ThrowablesCond.Count Then Alert = True
+					Case LogicConditions.MoreThan
+						If ThrowablesCount > ThrowablesCond.Count Then Alert = True
+					Case LogicConditions.NotEqual
+						If ThrowablesCount <> ThrowablesCond.Count Then Alert = True
+				End Select
+				If Alert Then Output = "Your alarm has fired because you have " & ThrowablesCount & " throwables."
+			End If
+			If Not Alert AndAlso AmmunitionCond.Active Then
+				MyContainer.Reset()
+				Do
+					If MyContainer.IsOpened Then
+						ContainerItemCount = MyContainer.GetItemCount
+						For I As Integer = 0 To ContainerItemCount - 1
+							Item = MyContainer.Items(I)
+							If Definitions.IsAmmunition(Item.ID) Then
+								If Item.Count = 0 Then
+									AmmunitionCount += 1
+								Else
+									AmmunitionCount += Item.Count
+								End If
+							End If
+						Next
+					End If
+				Loop While MyContainer.NextContainer
+				Select Case AmmunitionCond.Condition
+					Case LogicConditions.Equal
+						If AmmunitionCount = AmmunitionCond.Count Then Alert = True
+					Case LogicConditions.LessOrEqualThan
+						If AmmunitionCount <= AmmunitionCond.Count Then Alert = True
+					Case LogicConditions.LessThan
+						If AmmunitionCount < AmmunitionCond.Count Then Alert = True
+					Case LogicConditions.MoreOrEqualThan
+						If AmmunitionCount >= AmmunitionCond.Count Then Alert = True
+					Case LogicConditions.MoreThan
+						If AmmunitionCount > AmmunitionCond.Count Then Alert = True
+					Case LogicConditions.NotEqual
+						If AmmunitionCount <> AmmunitionCond.Count Then Alert = True
+				End Select
+				If Alert Then Output = "Your alarm has fired because you have " & AmmunitionCount & " items of ammunition."
+			End If
+			If Alert Then
+				If Core.TibiaWindowState <> ITibia.WindowStates.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
+					Core.Client.FlashWindow()
+				End If
+				If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesGreen))
+				If ItemsPlaySound.Checked Then
+					Dim Sound As New Audio
+					Try
+						Sound.Play(Core.ExecutablePath & "\Alarms\Items.wav", AudioPlayMode.Background)
+					Catch
+					End Try
+				End If
+				Dim ChatMessage As ChatMessageDefinition
+				ChatMessage.Message = Output
+				ChatMessage.MessageType = MessageType.PM
+				If ItemsMessagePlayer.Checked Then
+					If ITMessagePlayerInterval = 0 Then
+						If Not String.IsNullOrEmpty(ItemsMessagePlayerName.Text) Then
+							ChatMessage.Destinatary = ItemsMessagePlayerName.Text
+							Core.ChatMessageQueueList.Add(ChatMessage)
+						End If
+						ITMessagePlayerInterval += 1
+					ElseIf ITMessagePlayerInterval <= 15 Then
+						ITMessagePlayerInterval += 1
+					Else
+						ITMessagePlayerInterval = 0
+					End If
+				End If
+				If ItemsLogOut.Checked Then
+					Log("Items Alarm", Output)
+					Log("Items Alarm", "Logging out.")
+					Core.Proxy.SendPacketToServer(PlayerLogout())
+				End If
+			End If
+		Catch Ex As Exception
+			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End
+		End Try
+	End Sub
 
     Private Sub ItemsCheckInventory_CheckStateChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItemsCheckInventory.CheckedChanged
         UpdateItemConditions()
