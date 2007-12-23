@@ -405,7 +405,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TibiaTekBot Interfaces\TibiaTek Bot Scripting Assembly.vbproj">
+    <ProjectReference Include="..\TibiaTekBot Scripting Assembly\TibiaTek Bot Scripting Assembly.vbproj">
       <Project>{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}</Project>
       <Name>TibiaTek Bot Scripting Assembly</Name>
     </ProjectReference>

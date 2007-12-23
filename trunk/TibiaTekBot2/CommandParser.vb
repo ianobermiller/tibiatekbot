@@ -138,6 +138,8 @@ Public Module CommandParserModule
                         CmdViewMessage()
                     Case "dancer"
                         CmdDancer(MatchObj.Groups)
+                    Case "ammomaker", "ammocreater", "makeammo", "ammunitionmaker", "makeammunition"
+                        CmdAmmoMaker(MatchObj.Groups)
                     Case Else
                         Core.ConsoleError("This command does not exist." & Ret & _
                             "  For a list of available commands type: &help.")
@@ -851,9 +853,16 @@ Public Module CommandParserModule
                 Case "dancer"
                     Core.ConsoleWrite("«Dancer»" & Ret & _
                     "Usage: &dancer slow|fast|turbo|on|off." & Ret & _
-                    "example: &dancer on." & Ret & _
+                    "Example: &dancer on." & Ret & _
                     "Comment " & Ret & _
                     "  Now you can proof that you are not using Multi Client.. Even if you really are.")
+                Case "ammomaker", "ammunitionmaker"
+                    Core.ConsoleWrite("«Ammunition Maker»" & Ret & _
+                    "Usage: <minimum mana points> <minimum capacity> ""<spell words or spell name>""." & Ret & _
+                    "Example: &ammomaker 250 100 ""bolt""." & Ret & _
+                    "Comment " & Ret & _
+                    "  Don't want to pay from ammo but too lazy to make them? With this command you can let bot to handle the " & Ret & _
+                    " ammo making, meanwhile you can lay back and take a nice warm cup of coffee.")
                 Case Else
                     Select Case Topic.ToLower
                         Case "general", "general tools", "a"
@@ -892,6 +901,7 @@ Public Module CommandParserModule
                             "  Cavebot -> &cavebot." & Ret & _
                             "  FPS Changer -> &fpschanger." & Ret & _
                             "  Stats Uploader -> &statsuploader." & Ret & _
+                            "  Ammo Maker -> &ammomaker." & Ret & _
                             "  Anti-Logout -> &antilogout.") ' & Ret & _
                             '"  Remote Administration -> &admin.") ' & Ret & _
                         Case "info tools", "info", "d"
@@ -1201,9 +1211,39 @@ Public Module CommandParserModule
 #Region " Test Command "
 
 	Private Sub CmdTest(ByVal Arguments As GroupCollection)
-		Try
-			Core.ConsoleWrite("Begin Test")
-            'Core.Proxy.SendPacketToClient(CreatureSpeak("Cameri", MessageType.ChannelCounsellor, 1, "Banned forever.", 0, 0, 0, TibiaMessage.ChannelType.Console))
+        Try
+            Dim Spear As ContainerItemDefinition
+            Select Case Arguments(2).ToString
+                Case "spear"
+                Case Else
+                    Core.ConsoleWrite("Begin Test")
+                    If Container.FindItem(Spear, Definitions.GetItemID("Gold Coin")) Then
+                        Core.ConsoleWrite("Found Spear")
+                    End If
+                    Dim Retries As Integer = 0
+                    Dim TempSlot As Integer = 0
+                    Dim SlotToUse As InventorySlots = InventorySlots.RightHand
+                    Dim EnchantedSpearId As Integer = 0
+                    Dim MoveToSlot As New ContainerItemDefinition
+                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), EnchantedSpearId, 2)
+                    If Not Container.FindItem(MoveToSlot, EnchantedSpearId) Then 'Testing if theres alreadry enchanted spears
+                        MoveToSlot = Spear
+                    End If
+                    Do
+                        Retries += 1
+                        If Retries > 20 Then
+                            'AmmoMakerMinMana = 0
+                            'AmmoMakerMinCap = 0
+                            'AmmoMakerTimerObj.StopTimer()
+                            Core.ConsoleError("Ammo Maker is stuck, couldn't move spear from hand to backpack. Ammo Maker is now stopped.")
+                            Exit Sub
+                        End If
+                        Core.Proxy.SendPacketToServer(MoveObject(EnchantedSpearId, GetInventorySlotAsLocation(SlotToUse), MoveToSlot.Location, 1))
+                        System.Threading.Thread.Sleep(1000)
+                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                    Loop Until TempSlot = 0
+                    'Core.Proxy.SendPacketToClient(CreatureSpeak("Cameri", MessageType.ChannelCounsellor, 1, "Banned forever.", 0, 0, 0, TibiaMessage.ChannelType.Console))
+            End Select
             Core.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2882,6 +2922,49 @@ Public Module CommandParserModule
                             Case Else
                                 Core.ConsoleWrite("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         End Select
+                    End If
+            End Select
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+#End Region
+
+#Region " Ammo Maker "
+    Private Sub CmdAmmoMaker(ByVal Arguments As GroupCollection)
+        Try
+            Dim Value As String = Arguments(2).ToString
+            Select Case StrToShort(Value)
+                Case 0
+                    Core.AmmoMakerMinMana = 0
+                    Core.AmmoMakerMinCap = 0
+                    Core.AmmoMakerTimerObj.StopTimer()
+                    Core.ConsoleWrite("Ammunition Maker is now Disabled.")
+                Case Else
+                    Dim MatchObj As Match = Regex.Match(Value, "([1-9][0-9]{1,4})\s+([0-9]{0,3})\s+""([^""]+)""?")
+                    If MatchObj.Success Then
+                        Dim Found As Boolean = False
+                        Dim S As New SpellDefinition
+                        For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                            If (Spell.Name.Equals(MatchObj.Groups(3).Value, StringComparison.CurrentCultureIgnoreCase) _
+                            OrElse Spell.Words.Equals(MatchObj.Groups(3).ToString, StringComparison.CurrentCultureIgnoreCase)) _
+                            AndAlso (Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation) Then
+                                S = Spell
+                                Found = True
+                                Exit For
+                            End If
+                        Next
+                        If Found Then
+                            Core.AmmoMakerSpell = S
+                            Core.AmmoMakerMinMana = CInt(MatchObj.Groups(1).Value)
+                            Core.AmmoMakerMinCap = CInt(MatchObj.Groups(2).Value)
+                            Core.AmmoMakerTimerObj.StartTimer()
+                            Core.ConsoleWrite("Ammo Maker is now Enabled.")
+                        Else
+                            Core.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
+                        End If
+                    Else
+                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch ex As Exception
