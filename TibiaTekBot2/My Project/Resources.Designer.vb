@@ -270,6 +270,20 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property ttb_splash5() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ttb_splash5", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property ttb_splash6() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ttb_splash6", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property ttb21_16() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("ttb21_16", resourceCulture)

@@ -380,6 +380,8 @@
     <None Include="Resources\ttb splash2.jpg" />
     <None Include="Resources\ttb splash3.jpg" />
     <None Include="Resources\ttb splash4.jpg" />
+    <None Include="Resources\ttb splash5.jpg" />
+    <None Include="Resources\ttb splash6.jpg" />
     <Content Include="Resources\ttb21.ico" />
     <Content Include="Resources\ttb21_16.ico" />
     <None Include="Resources\ttb2_16x161.ico" />

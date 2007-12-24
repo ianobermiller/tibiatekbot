@@ -26,7 +26,7 @@ Public NotInheritable Class frmSplashScreen
     Private Sub SplashScreen1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         'Set up the dialog text at runtime according to the application's assembly information.  
         Dim R As New Random(System.DateTime.Now.Millisecond)
-        Select Case R.Next(0, 5)
+        Select Case R.Next(0, 7)
             Case 0
                 Me.BackgroundImage = My.Resources.ttb_splash0
             Case 1
@@ -37,6 +37,10 @@ Public NotInheritable Class frmSplashScreen
                 Me.BackgroundImage = My.Resources.ttb_splash3
             Case 4
                 Me.BackgroundImage = My.Resources.ttb_splash4
+            Case 5
+                Me.BackgroundImage = My.Resources.ttb_splash5
+            Case 6
+                Me.BackgroundImage = My.Resources.ttb_splash6
         End Select
 
         'TODO: Customize the application's assembly information in the "Application" pane of the project 
