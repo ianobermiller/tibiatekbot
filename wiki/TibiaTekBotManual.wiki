@@ -121,4 +121,4 @@ Chat with us by joining our IRC Channel #tibiatekbot at irc.deltaanime.net.
 
 === C. Feedback Command ===
 
-Use the &feedback command to quickly send us any feed back from inside Tibia.
+Use the &feedback command to quickly send us any feed back directly from Tibia. Whether it's a bug report, comment or anything, you can use it to let us know.
