@@ -55,6 +55,7 @@ Partial Class frmMain
         Me.ShowHideTibiaWindow = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.ClosePopupItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.TibiaTekBotMenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.FunctionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.GeneralToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -203,7 +204,6 @@ Partial Class frmMain
         Me.ConstantsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TibiadatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PatchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.TibiaTekBotMenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutUsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.WebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -320,6 +320,14 @@ Partial Class frmMain
         Me.TradeChannelWatcherExpression = New System.Windows.Forms.TextBox
         Me.Label9 = New System.Windows.Forms.Label
         Me.TabPage9 = New System.Windows.Forms.TabPage
+        Me.AmmoMakerBox = New System.Windows.Forms.GroupBox
+        Me.AmmoMakerMinCap = New System.Windows.Forms.NumericUpDown
+        Me.AmmoMakerMinCaplbl = New System.Windows.Forms.Label
+        Me.AmmoMakerTrigger = New System.Windows.Forms.CheckBox
+        Me.AmmoMakerMinMana = New System.Windows.Forms.NumericUpDown
+        Me.AmmoMakerMinManalbl = New System.Windows.Forms.Label
+        Me.AmmoMakerSpell = New System.Windows.Forms.ComboBox
+        Me.AmmoMakerSpelllbl = New System.Windows.Forms.Label
         Me.GroupBox10 = New System.Windows.Forms.GroupBox
         Me.StatsUploaderSaveToDisk = New System.Windows.Forms.CheckBox
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel
@@ -492,14 +500,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.AmmoMakerBox = New System.Windows.Forms.GroupBox
-        Me.AmmoMakerTrigger = New System.Windows.Forms.CheckBox
-        Me.AmmoMakerMinMana = New System.Windows.Forms.NumericUpDown
-        Me.AmmoMakerMinManalbl = New System.Windows.Forms.Label
-        Me.AmmoMakerSpell = New System.Windows.Forms.ComboBox
-        Me.AmmoMakerSpelllbl = New System.Windows.Forms.Label
-        Me.AmmoMakerMinCaplbl = New System.Windows.Forms.Label
-        Me.AmmoMakerMinCap = New System.Windows.Forms.NumericUpDown
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -546,6 +546,9 @@ Partial Class frmMain
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.TabPage9.SuspendLayout()
+        Me.AmmoMakerBox.SuspendLayout()
+        CType(Me.AmmoMakerMinCap, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.AmmoMakerMinMana, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox10.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -600,9 +603,6 @@ Partial Class frmMain
         Me.GroupBox16.SuspendLayout()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.AmmoMakerBox.SuspendLayout()
-        CType(Me.AmmoMakerMinMana, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.AmmoMakerMinCap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NotifyIcon
@@ -616,7 +616,6 @@ Partial Class frmMain
         '
         Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
-        Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
@@ -684,6 +683,12 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.ClosePopupItem, "ClosePopupItem")
         Me.ClosePopupItem.Name = "ClosePopupItem"
+        '
+        'TibiaTekBotMenuToolStripMenuItem
+        '
+        Me.TibiaTekBotMenuToolStripMenuItem.DropDown = Me.PopupMenu
+        Me.TibiaTekBotMenuToolStripMenuItem.Name = "TibiaTekBotMenuToolStripMenuItem"
+        resources.ApplyResources(Me.TibiaTekBotMenuToolStripMenuItem, "TibiaTekBotMenuToolStripMenuItem")
         '
         'MenuStrip1
         '
@@ -1470,12 +1475,6 @@ Partial Class frmMain
         Me.PatchToolStripMenuItem.Name = "PatchToolStripMenuItem"
         resources.ApplyResources(Me.PatchToolStripMenuItem, "PatchToolStripMenuItem")
         '
-        'TibiaTekBotMenuToolStripMenuItem
-        '
-        Me.TibiaTekBotMenuToolStripMenuItem.DropDown = Me.PopupMenu
-        Me.TibiaTekBotMenuToolStripMenuItem.Name = "TibiaTekBotMenuToolStripMenuItem"
-        resources.ApplyResources(Me.TibiaTekBotMenuToolStripMenuItem, "TibiaTekBotMenuToolStripMenuItem")
-        '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutUsToolStripMenuItem, Me.WebsiteToolStripMenuItem, Me.VersionToolStripMenuItem, Me.DevelopmentWebsiteToolStripMenuItem, Me.LicenseToolStripMenuItem})
@@ -2257,6 +2256,59 @@ Partial Class frmMain
         resources.ApplyResources(Me.TabPage9, "TabPage9")
         Me.TabPage9.Name = "TabPage9"
         Me.TabPage9.UseVisualStyleBackColor = True
+        '
+        'AmmoMakerBox
+        '
+        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinCap)
+        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinCaplbl)
+        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerTrigger)
+        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinMana)
+        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinManalbl)
+        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerSpell)
+        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerSpelllbl)
+        resources.ApplyResources(Me.AmmoMakerBox, "AmmoMakerBox")
+        Me.AmmoMakerBox.Name = "AmmoMakerBox"
+        Me.AmmoMakerBox.TabStop = False
+        '
+        'AmmoMakerMinCap
+        '
+        resources.ApplyResources(Me.AmmoMakerMinCap, "AmmoMakerMinCap")
+        Me.AmmoMakerMinCap.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.AmmoMakerMinCap.Name = "AmmoMakerMinCap"
+        '
+        'AmmoMakerMinCaplbl
+        '
+        resources.ApplyResources(Me.AmmoMakerMinCaplbl, "AmmoMakerMinCaplbl")
+        Me.AmmoMakerMinCaplbl.Name = "AmmoMakerMinCaplbl"
+        '
+        'AmmoMakerTrigger
+        '
+        resources.ApplyResources(Me.AmmoMakerTrigger, "AmmoMakerTrigger")
+        Me.AmmoMakerTrigger.Name = "AmmoMakerTrigger"
+        Me.AmmoMakerTrigger.UseVisualStyleBackColor = True
+        '
+        'AmmoMakerMinMana
+        '
+        resources.ApplyResources(Me.AmmoMakerMinMana, "AmmoMakerMinMana")
+        Me.AmmoMakerMinMana.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
+        Me.AmmoMakerMinMana.Name = "AmmoMakerMinMana"
+        '
+        'AmmoMakerMinManalbl
+        '
+        resources.ApplyResources(Me.AmmoMakerMinManalbl, "AmmoMakerMinManalbl")
+        Me.AmmoMakerMinManalbl.Name = "AmmoMakerMinManalbl"
+        '
+        'AmmoMakerSpell
+        '
+        Me.AmmoMakerSpell.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.AmmoMakerSpell.FormattingEnabled = True
+        resources.ApplyResources(Me.AmmoMakerSpell, "AmmoMakerSpell")
+        Me.AmmoMakerSpell.Name = "AmmoMakerSpell"
+        '
+        'AmmoMakerSpelllbl
+        '
+        resources.ApplyResources(Me.AmmoMakerSpelllbl, "AmmoMakerSpelllbl")
+        Me.AmmoMakerSpelllbl.Name = "AmmoMakerSpelllbl"
         '
         'GroupBox10
         '
@@ -3419,59 +3471,6 @@ Partial Class frmMain
         'Timer1
         '
         '
-        'AmmoMakerBox
-        '
-        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinCap)
-        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinCaplbl)
-        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerTrigger)
-        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinMana)
-        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinManalbl)
-        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerSpell)
-        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerSpelllbl)
-        resources.ApplyResources(Me.AmmoMakerBox, "AmmoMakerBox")
-        Me.AmmoMakerBox.Name = "AmmoMakerBox"
-        Me.AmmoMakerBox.TabStop = False
-        '
-        'AmmoMakerTrigger
-        '
-        resources.ApplyResources(Me.AmmoMakerTrigger, "AmmoMakerTrigger")
-        Me.AmmoMakerTrigger.Name = "AmmoMakerTrigger"
-        Me.AmmoMakerTrigger.UseVisualStyleBackColor = True
-        '
-        'AmmoMakerMinMana
-        '
-        resources.ApplyResources(Me.AmmoMakerMinMana, "AmmoMakerMinMana")
-        Me.AmmoMakerMinMana.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
-        Me.AmmoMakerMinMana.Name = "AmmoMakerMinMana"
-        '
-        'AmmoMakerMinManalbl
-        '
-        resources.ApplyResources(Me.AmmoMakerMinManalbl, "AmmoMakerMinManalbl")
-        Me.AmmoMakerMinManalbl.Name = "AmmoMakerMinManalbl"
-        '
-        'AmmoMakerSpell
-        '
-        Me.AmmoMakerSpell.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.AmmoMakerSpell.FormattingEnabled = True
-        resources.ApplyResources(Me.AmmoMakerSpell, "AmmoMakerSpell")
-        Me.AmmoMakerSpell.Name = "AmmoMakerSpell"
-        '
-        'AmmoMakerSpelllbl
-        '
-        resources.ApplyResources(Me.AmmoMakerSpelllbl, "AmmoMakerSpelllbl")
-        Me.AmmoMakerSpelllbl.Name = "AmmoMakerSpelllbl"
-        '
-        'AmmoMakerMinCaplbl
-        '
-        resources.ApplyResources(Me.AmmoMakerMinCaplbl, "AmmoMakerMinCaplbl")
-        Me.AmmoMakerMinCaplbl.Name = "AmmoMakerMinCaplbl"
-        '
-        'AmmoMakerMinCap
-        '
-        resources.ApplyResources(Me.AmmoMakerMinCap, "AmmoMakerMinCap")
-        Me.AmmoMakerMinCap.Maximum = New Decimal(New Integer() {2147483647, 0, 0, 0})
-        Me.AmmoMakerMinCap.Name = "AmmoMakerMinCap"
-        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -3551,6 +3550,10 @@ Partial Class frmMain
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
         Me.TabPage9.ResumeLayout(False)
+        Me.AmmoMakerBox.ResumeLayout(False)
+        Me.AmmoMakerBox.PerformLayout()
+        CType(Me.AmmoMakerMinCap, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.AmmoMakerMinMana, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
@@ -3630,10 +3633,6 @@ Partial Class frmMain
         Me.GroupBox16.PerformLayout()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.AmmoMakerBox.ResumeLayout(False)
-        Me.AmmoMakerBox.PerformLayout()
-        CType(Me.AmmoMakerMinMana, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.AmmoMakerMinCap, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -17,14 +17,16 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.xml, TibiaTekBot.DatReader, TibiaTekBot.Constants, System.Globalization
+Imports System.Xml, TibiaTekBot.DatFile, TibiaTekBot.Constants, System.Globalization, Scripting
 
 Public Module ConstantsModule
 
-    Public Definitions As Items
+    'Public Client.Items As Items
     Public Consts As Constants
 
     Public Class Constants
+        Implements IConstants
+
         Public LatestVersionUrl As String = "http://www.tibiatek.com/version.php"
         Public MusicalNotesOnAlarm As Boolean = True
         Public EatFromFloor As Boolean = True
@@ -49,6 +51,8 @@ Public Module ConstantsModule
         Public FPSWhenMinimized As Double = 1
         Public FlashTaskbarWhenAlarmFires As Boolean = True
         Public FlashTaskbarWhenMessaged As Boolean = False
+        Public FlashTaskbarWhenPMOnly As Boolean = True
+        Public FlashTaskbarWhenSpell As Boolean = False
         Public LootEatFromCorpse As Boolean = True
         Public LootMaxDistance As Double = 2.9
         Public WaypointMaxDistance As Integer = 100
@@ -294,6 +298,10 @@ Public Module ConstantsModule
                                                     FlashTaskbarWhenAlarmFires = System.Boolean.Parse(Value)
                                                 Case "FlashTaskbarWhenMessaged"
                                                     FlashTaskbarWhenMessaged = System.Boolean.Parse(Value)
+                                                Case "FlashTaskbarWhenPMOnly"
+                                                    FlashTaskbarWhenPMOnly = System.Boolean.Parse(Value)
+                                                Case "FlashTaskbarWhenSpell"
+                                                    FlashTaskbarWhenSpell = System.Boolean.Parse(Value)
                                                 Case "LootMaxDistance"
                                                     LootMaxDistance = System.Double.Parse(Value, NumberStyles.Number, CI)
                                                 Case "CavebotAttackerShrinkRadius"
@@ -661,51 +669,20 @@ Public Module ConstantsModule
     "    or write to the Free Software Foundation, 59 Temple Place - Suite 330," & vbCrLf & _
     "    Boston, MA 02111-1307, USA."
 
-    Public Enum InventorySlots
-        Head = 1
-        Neck
-        Backpack
-        Armor
-        LeftHand
-        RightHand
-        Legs
-        Feet
-        Finger
-        Belt
-    End Enum
-
-    Public Enum LightColor
-        Darkness = 0
-        BrightSword = &H8F
-        UtevoLux = &HD7
-        Torch = &HCE
-        LightWand = &HD1
-    End Enum
-
-    Public Enum LightIntensity
-        None = 0
-        VerySmall = 2
-        Small = 4
-        Medium = 6
-        Large = 8
-        VeryLarge = 10
-        Huge = 12
-    End Enum
-
-    Public Enum MessageType
-        Normal = 1
-        Whisper = 2
-        Yell = 3
-        PM = 4
-        PMGM = &HB
-        Channel = 5
-        Broadcast = 9
-        ChannelGM = &HA
-        ChannelTutor = &HC
-        ChannelCounsellor = &HE
-        MonsterSay = &H10
-        MonsterYell = &H11
-    End Enum
+    'Public Enum MessageType
+    '    Normal = 1
+    '    Whisper = 2
+    '    Yell = 3
+    '    PM = 4
+    '    PMGM = &HB
+    '    Channel = 5
+    '    Broadcast = 9
+    '    ChannelGM = &HA
+    '    ChannelTutor = &HC
+    '    ChannelCounsellor = &HE
+    '    MonsterSay = &H10
+    '    MonsterYell = &H11
+    'End Enum
 
     Public Enum ThreadTimerState
         Stopped
@@ -735,19 +712,6 @@ Public Module ConstantsModule
         None = 0
         Item = 1
         Text = 2
-    End Enum
-
-
-    Public Enum ChannelType As Integer
-        GuildChat = 0
-        GameChat = 4
-        Trade = 5
-        RLChat = 6
-        Help = 7
-        Console = ConsoleChannelID
-        IRCChannelBegin
-        IRCChannelEnd = IRCChannelBegin + 40
-        Personal = &HFFFF
     End Enum
 
     <Flags()> Public Enum Conditions
@@ -781,56 +745,6 @@ Public Module ConstantsModule
         StatusConsoleRed
     End Enum
 
-    Public Enum TextColors
-        Blue = 5
-        Green = &H1E
-        LightBlue = 35
-        LightGreen = 30
-        Crystal = 65
-        Platinum = 89
-        LightGrey = 129
-        Red = 180
-        Orange = 198
-        Gold = 210
-        White = 215
-        None = 255
-    End Enum
-
-    Public Enum MagicEffects
-        BloodHit = 1
-        WaterWaves = 2
-        Smoke = 3
-        Spark = 4
-        Explosion1 = 5
-        Explosion2 = 6
-        Explosion3 = 7
-        YellowCircle = 8 '<-- what's this?
-        Poisoned = 9
-        BerserkAttack = 10
-        EnergyAttack = 11
-        ElectricAttack = 12
-        BlueAura = 13
-        Haste = 14
-        GreenAura = 15
-        FireAttack = 16
-        PoisonSpark = 17
-        SuddenDeath = 18
-        PhysicalAttack = 18
-        MusicalNotesGreen = 19
-        MusicalNotesRed = 20
-        PoisonWave = 21
-        MusicalNotesYellow = 22
-        MusicalNotesPurple = 23
-        MusicalNotesBlue = 24
-        MusicalNotesWhite = 25
-        Bubbles = 26
-        RollingDice = 27
-        PresentOpening = 28
-        Fireworks = 29
-        FireworksFail = 30
-        FireworksBlue = 31
-    End Enum
-
     Public Enum Skills
         FistFighting = 0
         ClubFighting
@@ -839,39 +753,6 @@ Public Module ConstantsModule
         DistanceFighting
         Shielding
         Fishing
-    End Enum
-
-    <Flags()> Public Enum ItemKind
-        Unknown = &H0 'void? xd, any item that doesnt have any category
-        Equipment = &H1
-        Helmet = &H2
-        Armor = &H4
-        Leg = &H8
-        Footwear = &H10
-        Shield = &H20
-        SingleHandedWeapon = &H40 'for rods and wands too
-        DoubleHandedWeapon = &H80 'for bows/xbows too
-        Ammunition = &H100 'arros & bolts
-        Throwable = &H200 'spears, snowballs, throwing stars, etc
-        Tool = &H400 'rope, shovel, light shovel, pick, etc
-        Valuable = &H800 'gems, creature products, books, etc
-        Ring = &H1000
-        Neck = &H2000 'amulets and necklaces, scarf
-        Container = &H4000 'bags, backpacks, depots, wardrobes, all those
-        Food = &H8000
-        FluidContainer = &H10000
-        LightSource = &H20000 'torch, ???
-        MagicField = &H80000 'fire field, poison field, purple field, smoke field...etc
-        Door = &H100000 'closed doors, open doors
-        Special = &H200000 'mailboxes, switches?
-        RopeSpot = &H400000
-        Teleport = &H800000 'ramps, stairs, teleports
-        UsableTeleport = &H1000000 'ladders
-        UsableTeleport2 = &H2000000 'sewers
-        BlockedTeleport = &H4000000 'hole covered with rocks...
-        Blocking = &H8000000 'blocks the path, but you can walk over them
-        FullBlocking = &H10000000 'won't let you walk over them at all
-        Rune = &H20000000
     End Enum
 
     Public Enum HotkeyCombination
@@ -926,17 +807,6 @@ Public Module ConstantsModule
         OpeningBody
         Looting
         None
-    End Enum
-
-    Public Enum Directions As Integer
-        Up = 0
-        Right = 1
-        Down = 2
-        Left = 3
-        UpRight = 4
-        DownRight = 5
-        DownLeft = 6
-        UpLeft = 7
     End Enum
 
     Public Enum SpellKind As Integer

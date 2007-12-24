@@ -17,7 +17,8 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.xml
+Imports System.Xml, Scripting
+
 Public Module LootItemsModule
 
     Public Class LootItems
@@ -38,21 +39,21 @@ Public Module LootItemsModule
             End Get
         End Property
 
-        Public ReadOnly Property GetItemsIDs(Optional ByVal ContainerIndex As Integer = Integer.MaxValue) As ContainerItemDefinition()
+        Public ReadOnly Property GetItemsIDs(Optional ByVal ContainerIndex As Integer = Integer.MaxValue) As Scripting.IContainer.ContainerItemDefinition()
             Get
                 Try
-                    Dim R As New List(Of ContainerItemDefinition)
+                    Dim R As New List(Of Scripting.IContainer.ContainerItemDefinition)
                     Dim ItemID As UShort = 0
                     For Each Item As LootItemDefinition In Items.Values
                         If ContainerIndex < Integer.MaxValue AndAlso Item.GetContainerIndex <> ContainerIndex Then Continue For
                         ItemID = Item.GetID
                         Dim Count As Integer = 0
-                        If DatInfo.GetInfo(ItemID).HasExtraByte Then
+                        If Core.Client.Dat.GetInfo(ItemID).HasExtraByte Then
                             Count = 100
                         Else
                             Count = 0
                         End If
-                        R.Add(New ContainerItemDefinition(ItemID, Count))
+                        R.Add(New Scripting.IContainer.ContainerItemDefinition(ItemID, Count))
                     Next
                     Return R.ToArray
                 Catch Ex As Exception
@@ -208,34 +209,36 @@ Public Module LootItemsModule
 
         Public Sub ShowLootCategories()
             Try
-                Dim StarBag As UShort = Definitions.GetItemID("Star Bag")
-                Dim TreasureChest As UShort = Definitions.GetItemID("Treasure Chest With Gold")
-                Dim BotanistContainer As UShort = Definitions.GetItemID("Botanist's Container")
-                Dim GoldenBP As UShort = Definitions.GetItemID("Golden Backpack")
-                Dim GreenBP As UShort = Definitions.GetItemID("Green Backpack")
-                Dim RedBP As UShort = Definitions.GetItemID("Red Backpack")
-                Dim BlueBP As UShort = Definitions.GetItemID("Blue Backpack")
-                Dim PurpleBP As UShort = Definitions.GetItemID("Purple Backpack")
-                Dim GrayBP As UShort = Definitions.GetItemID("Gray Backpack")
-                Dim JungleBP As UShort = Definitions.GetItemID("Jungle Backpack")
-                Dim BrownBP As UShort = Definitions.GetItemID("Brown Backpack")
-                Dim StarBP As UShort = Definitions.GetItemID("Star Backpack")
-                Dim PirateBP As UShort = Definitions.GetItemID("Pirate Backpack")
-                Dim ItemsList() As ContainerItemDefinition = { _
-                    New ContainerItemDefinition(TreasureChest), _
-                    New ContainerItemDefinition(BotanistContainer), _
-                    New ContainerItemDefinition(JungleBP), _
-                    New ContainerItemDefinition(PirateBP), _
-                    New ContainerItemDefinition(StarBP), _
-                    New ContainerItemDefinition(GoldenBP), _
-                    New ContainerItemDefinition(GreenBP), _
-                    New ContainerItemDefinition(RedBP), _
-                    New ContainerItemDefinition(BlueBP), _
-                    New ContainerItemDefinition(PurpleBP), _
-                    New ContainerItemDefinition(GrayBP), _
-                    New ContainerItemDefinition(BrownBP)}
+                Dim StarBag As UShort = Core.Client.Items.GetItemID("Star Bag")
+                Dim TreasureChest As UShort = Core.Client.Items.GetItemID("Treasure Chest With Gold")
+                Dim BotanistContainer As UShort = Core.Client.Items.GetItemID("Botanist's Container")
+                Dim GoldenBP As UShort = Core.Client.Items.GetItemID("Golden Backpack")
+                Dim GreenBP As UShort = Core.Client.Items.GetItemID("Green Backpack")
+                Dim RedBP As UShort = Core.Client.Items.GetItemID("Red Backpack")
+                Dim BlueBP As UShort = Core.Client.Items.GetItemID("Blue Backpack")
+                Dim PurpleBP As UShort = Core.Client.Items.GetItemID("Purple Backpack")
+                Dim GrayBP As UShort = Core.Client.Items.GetItemID("Gray Backpack")
+                Dim JungleBP As UShort = Core.Client.Items.GetItemID("Jungle Backpack")
+                Dim BrownBP As UShort = Core.Client.Items.GetItemID("Brown Backpack")
+                Dim StarBP As UShort = Core.Client.Items.GetItemID("Star Backpack")
+                Dim PirateBP As UShort = Core.Client.Items.GetItemID("Pirate Backpack")
+                Dim ItemsList() As Scripting.IContainer.ContainerItemDefinition = { _
+                    New Scripting.IContainer.ContainerItemDefinition(TreasureChest), _
+                    New Scripting.IContainer.ContainerItemDefinition(BotanistContainer), _
+                    New Scripting.IContainer.ContainerItemDefinition(JungleBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(PirateBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(StarBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(GoldenBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(GreenBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(RedBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(BlueBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(PurpleBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(GrayBP), _
+                    New Scripting.IContainer.ContainerItemDefinition(BrownBP)}
                 Core.LooterCurrentCategory = 0
-                Core.Proxy.SendPacketToClient(CreateContainer(StarBag, &HF, "Loot Categories", &H24, ItemsList, False))
+                Dim CP As New ClientPacketBuilder(Core.Proxy)
+                CP.CreateContainer(StarBag, &HF, "Loot Categories", &H24, ItemsList, False)
+                'Core.Proxy.SendPacketToClient(CreateContainer(StarBag, &HF, "Loot Categories", &H24, ItemsList, False))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End

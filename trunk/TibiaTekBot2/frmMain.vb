@@ -80,9 +80,9 @@ Public Class frmMain
             End If
             'Changers
             'CHANGE THIS WTF!
-            For Each Item As ItemDefinition In Definitions.ItemsList
-                If Definitions.IsRing(Item.ItemID) Then ChangerRingType.Items.Add(Item.Name)
-                If Definitions.IsNeck(Item.ItemID) Then ChangerAmuletType.Items.Add(Item.Name)
+            For Each Item As IItems.ItemDefinition In Core.Client.Items.ItemsList
+                If Core.Client.Items.IsRing(Item.ItemID) Then ChangerRingType.Items.Add(Item.Name)
+                If Core.Client.Items.IsNeck(Item.ItemID) Then ChangerAmuletType.Items.Add(Item.Name)
             Next
             If ChangerRingType.Items.Count > 0 Then ChangerRingType.SelectedIndex = 0
             If ChangerAmuletType.Items.Count > 0 Then ChangerAmuletType.SelectedIndex = 0
@@ -132,7 +132,7 @@ Public Class frmMain
             If ManaPotionName.Items.Count > 0 Then ManaPotionName.SelectedIndex = 0
             HealRuneUseHp.Checked = True
             HealPotionUseHp.Checked = True
-            HealSpellUseHp.Checked = True
+            HealSpellUseHP.Checked = True
             'Friend-Healer
             If HealFType.Items.Count > 0 Then HealFType.SelectedIndex = 0
             'Party Healer
@@ -181,10 +181,10 @@ Public Class frmMain
         End Try
     End Sub
 
-	Private Sub frmMain_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
-		Try
+    Private Sub frmMain_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
+        Try
             If Core.Client.IsConnected Then
-                Me.Text = "TibiaTek Bot - " & Core.Proxy.CharacterName
+                Me.Text = "TibiaTek Bot - " & Core.Client.CharacterName
                 FunctionsToolStripMenuItem.Enabled = True
                 AboutToolStripMenuItem.Enabled = True
                 RefreshControls()
@@ -199,11 +199,11 @@ Public Class frmMain
                 AboutToolStripMenuItem.Enabled = False
                 MainTabControl.Enabled = False
             End If
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 #Region " Refresh Controls "
 
     Private Sub RefreshControls()
@@ -290,13 +290,13 @@ Public Class frmMain
             AmuletChangerTrigger.Checked = Core.AmuletChangerTimerObj.State = ThreadTimerState.Running
 
             If RingChangerTrigger.Checked Then
-                ChangerRingType.Text = Definitions.GetItemName(Core.RingID)
+                ChangerRingType.Text = Core.Client.Items.GetItemName(Core.RingID)
                 ChangerRingType.Enabled = False
             Else
                 ChangerRingType.Enabled = True
             End If
             If AmuletChangerTrigger.Checked Then
-                ChangerAmuletType.Text = Definitions.GetItemName(Core.AmuletID)
+                ChangerAmuletType.Text = Core.Client.Items.GetItemName(Core.AmuletID)
                 ChangerAmuletType.Enabled = False
             Else
                 ChangerAmuletType.Enabled = True
@@ -505,7 +505,7 @@ Public Class frmMain
             Dim MaxHitPoints As Integer = 0
             Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
             If HealWithRune.Checked Then
-                Select Case Definitions.GetItemName(Core.UHId)
+                Select Case Core.Client.Items.GetItemName(Core.UHId)
                     Case "Ultimate Healing"
                         HealRuneType.Text = "UH Rune"
                     Case "Intense Healing"
@@ -577,7 +577,7 @@ Public Class frmMain
             End If
 
             If HealWithPotion.Checked Then
-                Select Case Definitions.GetItemName(Core.PotionID)
+                Select Case Core.Client.Items.GetItemName(Core.PotionID)
                     Case "Health Potion"
                         HealPotionName.Text = "Health Potion"
                     Case "Strong Health Potion"
@@ -744,27 +744,27 @@ Public Class frmMain
             LightEffectsTrigger.Checked = Core.LightTimerObj.State = ThreadTimerState.Running
             If LightEffectsTrigger.Checked Then
                 Select Case Core.LightI
-                    Case LightIntensity.Huge
+                    Case ITibia.LightIntensity.Huge
                         LightEffect.SelectedItem = "Ultimate Torch"
-                    Case LightIntensity.Large
-                        If Core.LightC = LightColor.UtevoLux Then
+                    Case ITibia.LightIntensity.Large
+                        If Core.LightC = ITibia.LightColor.UtevoLux Then
                             LightEffect.SelectedItem = "Utevo Gran Lux"
                         Else
                             LightEffect.SelectedItem = "Light Wand"
                         End If
-                    Case LightIntensity.Medium
-                        If Core.LightC = LightColor.Torch Then
+                    Case ITibia.LightIntensity.Medium
+                        If Core.LightC = ITibia.LightColor.Torch Then
                             LightEffect.SelectedItem = "Torch"
                         Else
                             LightEffect.SelectedItem = "Utevo Lux"
                         End If
-                    Case LightIntensity.VeryLarge
-                        If Core.LightC = LightColor.Torch Then
+                    Case ITibia.LightIntensity.VeryLarge
+                        If Core.LightC = ITibia.LightColor.Torch Then
                             LightEffect.SelectedItem = "Great Torch"
                         Else
                             LightEffect.SelectedItem = "Utevo Vis Lux"
                         End If
-                    Case LightIntensity.Huge + 2
+                    Case ITibia.LightIntensity.Huge + 2
                         LightEffect.SelectedItem = "On"
                     Case Else
                         LightEffect.SelectedIndex = -1
@@ -934,8 +934,6 @@ Public Class frmMain
             End If
             Core.Client.InjectDLL(Application.StartupPath & "\TibiaTekBot Injected DLL.dll")
             Core.Proxy = New PProxy2(Core.Client)
-            DatInfo = New DatReader(strDirectory & "\tibia.dat")
-
 
             System.Threading.Thread.Sleep(1000)
             Core.WindowTimerObj.StartTimer()
@@ -1295,6 +1293,8 @@ Public Class frmMain
             End
         End Try
     End Sub
+#Region " Form Stuff "
+
 
     Private Sub SpellCasterTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SpellCasterTrigger.CheckedChanged
         Try
@@ -1513,29 +1513,29 @@ Public Class frmMain
                 If Core.LightTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 Select Case LightEffect.Text.ToLower
                     Case "on"
-                        Core.LightC = LightColor.BrightSword
-                        Core.LightI = LightIntensity.Huge + 2
+                        Core.LightC = ITibia.LightColor.BrightSword
+                        Core.LightI = ITibia.LightIntensity.Huge + 2
                     Case "torch"
-                        Core.LightI = LightIntensity.Medium
-                        Core.LightC = LightColor.Torch
+                        Core.LightI = ITibia.LightIntensity.Medium
+                        Core.LightC = ITibia.LightColor.Torch
                     Case "great torch"
-                        Core.LightI = LightIntensity.VeryLarge
-                        Core.LightC = LightColor.Torch
+                        Core.LightI = ITibia.LightIntensity.VeryLarge
+                        Core.LightC = ITibia.LightColor.Torch
                     Case "ultimate torch"
-                        Core.LightI = LightIntensity.Huge
-                        Core.LightC = LightColor.Torch
+                        Core.LightI = ITibia.LightIntensity.Huge
+                        Core.LightC = ITibia.LightColor.Torch
                     Case "utevo lux"
-                        Core.LightI = LightIntensity.Medium
-                        Core.LightC = LightColor.UtevoLux
+                        Core.LightI = ITibia.LightIntensity.Medium
+                        Core.LightC = ITibia.LightColor.UtevoLux
                     Case "utevo gran lux"
-                        Core.LightI = LightIntensity.Large
-                        Core.LightC = LightColor.UtevoLux
+                        Core.LightI = ITibia.LightIntensity.Large
+                        Core.LightC = ITibia.LightColor.UtevoLux
                     Case "utevo vis lux"
-                        Core.LightI = LightIntensity.VeryLarge
-                        Core.LightC = LightColor.UtevoLux
+                        Core.LightI = ITibia.LightIntensity.VeryLarge
+                        Core.LightC = ITibia.LightColor.UtevoLux
                     Case "light wand"
-                        Core.LightI = LightIntensity.Large
-                        Core.LightC = LightColor.LightWand
+                        Core.LightI = ITibia.LightIntensity.Large
+                        Core.LightC = ITibia.LightColor.LightWand
                     Case Else
                         MessageBox.Show("You must select a Light Effect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         LightEffectsTrigger.Checked = False
@@ -1543,7 +1543,7 @@ Public Class frmMain
                 End Select
                 Core.LightTimerObj.StartTimer()
             Else
-                Core.SetLight(LightIntensity.Small, LightColor.UtevoLux)
+                Core.SetLight(ITibia.LightIntensity.Small, ITibia.LightColor.UtevoLux)
                 Core.LightTimerObj.StopTimer()
             End If
             RefreshLightEffectsControls()
@@ -1559,9 +1559,9 @@ Public Class frmMain
                 If Core.AmmoRestackerTimerObj.State = ThreadTimerState.Running Then Exit Sub
                 Dim ItemID As Integer
                 Dim ItemCount As Integer
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
-                If ItemID = 0 OrElse Not DatInfo.GetInfo(ItemID).IsStackable Then
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
+                If ItemID = 0 OrElse Not Core.Client.Dat.GetInfo(ItemID).IsStackable Then
                     MessageBox.Show("You must place some of your ammunition on the Belt/Arrow Slot first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
@@ -1631,6 +1631,7 @@ Public Class frmMain
 
     Private Sub CavebotTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CavebotTrigger.CheckedChanged
         Try
+            Dim SP As New ServerPacketBuilder(Core.Proxy)
             If CavebotTrigger.Checked Then
                 Core.WaypointIndex = SelectNearestWaypoint(Core.Walker_Waypoints)
                 If Core.WaypointIndex = -1 Then
@@ -1651,7 +1652,9 @@ Public Class frmMain
                 Core.CBCreatureDied = False
                 Core.WaypointIndex = 0
                 Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
-                Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+
+                SP.ChangeChasingMode(ITibia.ChasingMode.Chasing)
+                'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                 Core.CBState = CavebotState.Walking
             Else
                 Core.LooterTimerObj.StopTimer()
@@ -1661,7 +1664,8 @@ Public Class frmMain
                 Core.EaterTimerObj.Interval = 0
                 Core.WaypointIndex = 0
                 Core.IsOpeningReady = True
-                Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(0))
+                SP.StopEverything()
+                'Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(0))
                 Core.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
             End If
             RefreshCavebotControls()
@@ -1915,7 +1919,7 @@ Public Class frmMain
 
     Private Sub MiscReloadItemsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadItemsButton.Click
         Try
-            Definitions.LoadItems()
+            Core.Client.Items.Refresh()
             MessageBox.Show("Done loading the Items configuration file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1943,7 +1947,7 @@ Public Class frmMain
 
     Private Sub MiscReloadTibiaDatButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadTibiaDatButton.Click
         Try
-            DatInfo.ReadDatFile(Core.Client.Directory & "\tibia.dat")
+            Core.Client.Dat.Refresh()
             MessageBox.Show("Done loading the Tibia.dat file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1970,7 +1974,7 @@ Public Class frmMain
                 Core.Client.Title = FakeTitle.Text
             Else
                 Core.FakingTitle = False
-                Core.Client.Title = BotName & " - " & Core.Proxy.CharacterName
+                Core.Client.Title = BotName & " - " & Core.Client.CharacterName
             End If
 
         Catch Ex As Exception
@@ -2076,7 +2080,7 @@ Public Class frmMain
                 Core.ShowCreaturesUntilNextLevel = False
                 Core.ExpCheckerActivated = False
                 Core.LastExperience = 0
-                Core.Client.Title = BotName & " - " & Core.Proxy.CharacterName
+                Core.Client.Title = BotName & " - " & Core.Client.CharacterName
             End If
             RefreshExpCheckerControls()
         Catch ex As Exception
@@ -2317,25 +2321,31 @@ Public Class frmMain
 
     Private Sub AutoAttackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoAttackerTrigger.CheckedChanged
         Try
+            Dim SP As New ServerPacketBuilder(Core.Proxy)
             If AutoAttackerTrigger.Checked Then
+
                 Select Case AttackerFightingMode.Text.ToLower
                     Case "offensive"
-                        Core.Client.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Offensive, 1)
-                        Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Offensive))
+                        Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Offensive, 1)
+                        SP.ChangeFightingMode(ITibia.FightingMode.Offensive)
                     Case "balanced"
-                        Core.Client.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Balanced, 1)
-                        Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Balanced))
+                        Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Balanced, 1)
+                        SP.ChangeFightingMode(ITibia.FightingMode.Balanced)
+                        'Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Balanced))
                     Case "defensive"
-                        Core.Client.WriteMemory(Consts.ptrFightingMode, PacketUtils.FightingMode.Defensive, 1)
-                        Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Defensive))
+                        Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Defensive, 1)
+                        SP.ChangeFightingMode(ITibia.FightingMode.Defensive)
+                        'Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Defensive))
                 End Select
                 Select Case AttackChasingMode.Text.ToLower
                     Case "chase"
                         Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
-                        Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
+                        SP.ChangeChasingMode(ITibia.ChasingMode.Chasing)
+                        'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                     Case "stand"
                         Core.Client.WriteMemory(Consts.ptrChasingMode, 0, 1)
-                        Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Standing))
+                        SP.ChangeChasingMode(ITibia.ChasingMode.Standing)
+                        'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Standing))
                 End Select
                 If AttackAutomatically.Checked Then
                     Core.AutoAttackerTimerObj.StartTimer()
@@ -2356,8 +2366,8 @@ Public Class frmMain
         Try
             If PickuperTrigger.Checked Then
                 Dim RightHandItemID As Integer
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                If RightHandItemID = 0 OrElse Not Definitions.IsThrowable(RightHandItemID) Then
+                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                If RightHandItemID = 0 OrElse Not Core.Client.Items.IsThrowable(RightHandItemID) Then
                     MessageBox.Show("You must have a throwable item in your right hand, like a spear, throwing knife, etc.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
@@ -2402,8 +2412,8 @@ Public Class frmMain
     Private Sub RingChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RingChangerTrigger.CheckedChanged
         Try
             If RingChangerTrigger.Checked Then
-                Core.RingID = Definitions.GetItemID(ChangerRingType.Text)
-                If Core.RingID = 0 Then 'AndAlso Definitions.IsRing(Core.RingID) Then <-- WTF O.o
+                Core.RingID = Core.Client.Items.GetItemID(ChangerRingType.Text)
+                If Core.RingID = 0 Then 'AndAlso Core.Client.Items.IsRing(Core.RingID) Then <-- WTF O.o
                     MessageBox.Show("Invalid Ring Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshChangerControls()
                     Exit Sub
@@ -2422,8 +2432,8 @@ Public Class frmMain
     Private Sub AmuletChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmuletChangerTrigger.CheckedChanged
         Try
             If AmuletChangerTrigger.Checked Then
-                Core.AmuletID = Definitions.GetItemID(ChangerAmuletType.Text)
-                If Core.AmuletID = 0 Then ' AndAlso Definitions.IsNeck(Core.AmuletID) Then <-- WTF O.o
+                Core.AmuletID = Core.Client.Items.GetItemID(ChangerAmuletType.Text)
+                If Core.AmuletID = 0 Then ' AndAlso Core.Client.Items.IsNeck(Core.AmuletID) Then <-- WTF O.o
                     MessageBox.Show("Invalid Amulet/Necklace Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshChangerControls()
                     Exit Sub
@@ -2465,11 +2475,11 @@ Public Class frmMain
                 End If
                 Select Case HealPotionName.Text
                     Case "Health Potion"
-                        Core.PotionID = Definitions.GetItemID("Health Potion")
+                        Core.PotionID = Core.Client.Items.GetItemID("Health Potion")
                     Case "Strong Health Potion"
-                        Core.PotionID = Definitions.GetItemID("Strong Health Potion")
+                        Core.PotionID = Core.Client.Items.GetItemID("Strong Health Potion")
                     Case "Great Health Potion"
-                        Core.PotionID = Definitions.GetItemID("Great Health Potion")
+                        Core.PotionID = Core.Client.Items.GetItemID("Great Health Potion")
                     Case Else
                         MessageBox.Show("You must select the Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
@@ -2509,9 +2519,9 @@ Public Class frmMain
                 End If
                 Select Case HealRuneType.Text
                     Case "UH Rune"
-                        Core.UHId = Definitions.GetItemID("Ultimate Healing")
+                        Core.UHId = Core.Client.Items.GetItemID("Ultimate Healing")
                     Case "IH Rune"
-                        Core.UHId = Definitions.GetItemID("Intense Healing")
+                        Core.UHId = Core.Client.Items.GetItemID("Intense Healing")
                     Case Else
                         MessageBox.Show("You must select the Rune.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
@@ -2593,11 +2603,11 @@ Public Class frmMain
                 End If
                 Select Case ManaPotionName.Text
                     Case "Mana Potion"
-                        Core.ManaPotionID = Definitions.GetItemID("Mana Potion")
+                        Core.ManaPotionID = Core.Client.Items.GetItemID("Mana Potion")
                     Case "Strong Mana Potion"
-                        Core.ManaPotionID = Definitions.GetItemID("Strong Mana Potion")
+                        Core.ManaPotionID = Core.Client.Items.GetItemID("Strong Mana Potion")
                     Case "Great Mana Potion"
-                        Core.ManaPotionID = Definitions.GetItemID("Great Mana Potion")
+                        Core.ManaPotionID = Core.Client.Items.GetItemID("Great Mana Potion")
                     Case Else
                         MessageBox.Show("You must select the Mana Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
@@ -2691,4 +2701,5 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+#End Region
 End Class

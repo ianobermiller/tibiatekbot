@@ -198,131 +198,88 @@ Module PacketUtils
 
 #Region " Speak "
 
-    Public Function Speak(ByVal Message As String, ByVal ChannelID As ChannelType) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &H96)
-            AddByte(bytBuffer, MessageType.Channel)
-            AddWord(bytBuffer, ChannelID)
-            AddString(bytBuffer, Message)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
+    'Public Function Speak(ByVal Message As String, ByVal ChannelID As ITibia.Channel) As Byte()
+    '    Try
+    '        Dim bytBuffer(1) As Byte
+    '        AddByte(bytBuffer, &H96)
+    '        AddByte(bytBuffer, MessageType.Channel)
+    '        AddWord(bytBuffer, ChannelID)
+    '        AddString(bytBuffer, Message)
+    '        Return bytBuffer
+    '    Catch Ex As Exception
+    '        MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        End
+    '    End Try
+    'End Function
 
-    Public Function Speak(ByVal Destinatary As String, ByVal Message As String) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &H96)
-            AddByte(bytBuffer, MessageType.PM)
-            AddString(bytBuffer, Destinatary)
-            AddString(bytBuffer, Message)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
+    'Public Function Speak(ByVal Destinatary As String, ByVal Message As String) As Byte()
+    '    Try
+    '        Dim bytBuffer(1) As Byte
+    '        AddByte(bytBuffer, &H96)
+    '        AddByte(bytBuffer, MessageType.PM)
+    '        AddString(bytBuffer, Destinatary)
+    '        AddString(bytBuffer, Message)
+    '        Return bytBuffer
+    '    Catch Ex As Exception
+    '        MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        End
+    '    End Try
+    'End Function
 
-    Public Function Speak(ByVal Message As String, Optional ByVal Type As MessageType = MessageType.Normal) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &H96)
-            AddByte(bytBuffer, Type)
-            AddString(bytBuffer, Message)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
-
-#End Region
-
-#Region " FYI Box "
-
-    Public Function FYIBox(ByVal Message As String) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &H15)
-            AddString(bytBuffer, Message)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
+    'Public Function Speak(ByVal Message As String, Optional ByVal Type As MessageType = MessageType.Normal) As Byte()
+    '    Try
+    '        Dim bytBuffer(1) As Byte
+    '        AddByte(bytBuffer, &H96)
+    '        AddByte(bytBuffer, Type)
+    '        AddString(bytBuffer, Message)
+    '        Return bytBuffer
+    '    Catch Ex As Exception
+    '        MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        End
+    '    End Try
+    'End Function
 
 #End Region
 
-#Region " CreatureSpeak "
-
-    Public Function CreatureSpeak(ByVal Name As String, ByVal SpeakType As MessageType, ByVal Level As Integer, ByVal Message As String, Optional ByVal X As UInt16 = 0, Optional ByVal Y As UInt16 = 0, Optional ByVal Z As Byte = 0, Optional ByVal Channel As ChannelType = ChannelType.Console) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &HAA)
-            AddDWord(bytBuffer, 0)
-            AddString(bytBuffer, Name)
-            AddWord(bytBuffer, Level)
-            AddByte(bytBuffer, SpeakType)
-            Select Case SpeakType
-                Case MessageType.Normal, MessageType.Whisper, MessageType.Yell, MessageType.MonsterSay, MessageType.MonsterYell
-                    AddWord(bytBuffer, X)
-                    AddWord(bytBuffer, Y)
-                    AddByte(bytBuffer, Z)
-                Case MessageType.Channel, MessageType.ChannelCounsellor, MessageType.ChannelGM, MessageType.ChannelTutor
-                    AddWord(bytBuffer, Channel)
-            End Select
-            AddString(bytBuffer, Message)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
-
-#End Region
 
 #Region " OpenChannel "
 
-    Public Sub OpenChannel(ByVal ChannelName As String, ByVal ChannelID As ChannelType)
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &HAC)
-            AddByte(bytBuffer, MessageType.Channel)
-            AddByte(bytBuffer, ChannelID)
-            AddString(bytBuffer, ChannelName)
-            Core.Proxy.SendPacketToClient(bytBuffer)
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
+    'Public Sub OpenChannel(ByVal ChannelName As String, ByVal ChannelID As ChannelType)
+    '    Try
+    '        Dim bytBuffer(1) As Byte
+    '        AddByte(bytBuffer, &HAC)
+    '        AddByte(bytBuffer, MessageType.Channel)
+    '        AddByte(bytBuffer, ChannelID)
+    '        AddString(bytBuffer, ChannelName)
+    '        Core.Proxy.SendPacketToClient(bytBuffer)
+    '    Catch Ex As Exception
+    '        MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        End
+    '    End Try
+    'End Sub
 
-    Public Function OpenPrivate(ByVal PlayerName As String) As Byte()
-        Dim bytbuffer(1) As Byte
-        AddByte(bytbuffer, &HAD)
-        AddString(bytbuffer, PlayerName)
-        Return bytbuffer
-    End Function
+    'Public Function OpenPrivate(ByVal PlayerName As String) As Byte()
+    '    Dim bytbuffer(1) As Byte
+    '    AddByte(bytbuffer, &HAD)
+    '    AddString(bytbuffer, PlayerName)
+    '    Return bytbuffer
+    'End Function
 
-    Public Sub OpenChannel()
-        Dim bytBuffer(1) As Byte
-        AddByte(bytBuffer, &HAC)
-        AddWord(bytBuffer, ConsoleChannelID)
-        AddString(bytBuffer, ConsoleName)
-        Core.Proxy.SendPacketToClient(bytBuffer)
-    End Sub
+    'Public Sub OpenChannel()
+    '    Dim bytBuffer(1) As Byte
+    '    AddByte(bytBuffer, &HAC)
+    '    AddWord(bytBuffer, ConsoleChannelID)
+    '    AddString(bytBuffer, ConsoleName)
+    '    Core.Proxy.SendPacketToClient(bytBuffer)
+    'End Sub
 
-    Public Sub OpenIrcChannel(ByVal Channel As String, ByVal ChannelID As Short)
-        Dim bytBuffer(1) As Byte
-        AddByte(bytBuffer, &HAC)
-        AddWord(bytBuffer, ChannelID)
-        AddString(bytBuffer, Channel)
-        Core.Proxy.SendPacketToClient(bytBuffer)
-    End Sub
+    'Public Sub OpenIrcChannel(ByVal Channel As String, ByVal ChannelID As Short)
+    '    Dim bytBuffer(1) As Byte
+    '    AddByte(bytBuffer, &HAC)
+    '    AddWord(bytBuffer, ChannelID)
+    '    AddString(bytBuffer, Channel)
+    '    Core.Proxy.SendPacketToClient(bytBuffer)
+    'End Sub
 
 #End Region
 
@@ -388,196 +345,32 @@ Module PacketUtils
 	'Return bytBuffer
 	'End Function
 
-	Public Function MoveObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, ByVal Destination As ITibia.LocationDefinition, ByVal Count As Integer) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H78)
-			AddWord(bytBuffer, Source.X)
-			AddWord(bytBuffer, Source.Y)
-			AddByte(bytBuffer, Source.Z)
-			AddWord(bytBuffer, ItemID)
-			AddByte(bytBuffer, Source.Z)
-			AddWord(bytBuffer, Destination.X)
-			AddWord(bytBuffer, Destination.Y)
-			AddByte(bytBuffer, Destination.Z)
-			AddByte(bytBuffer, CByte(Count))
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
 
-	Public Function MoveObject(ByVal Item As ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition, ByVal Count As Integer) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H78)
-			AddWord(bytBuffer, Item.Location.X)
-			AddWord(bytBuffer, Item.Location.Y)
-			AddByte(bytBuffer, Item.Location.Z)
-			AddWord(bytBuffer, Item.ID)
-			AddByte(bytBuffer, Item.Location.Z)
-			AddWord(bytBuffer, Destination.X)
-			AddWord(bytBuffer, Destination.Y)
-			AddByte(bytBuffer, Destination.Z)
-			AddByte(bytBuffer, CByte(Count))
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
 
-	Public Function MoveObject(ByVal Item As ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H78)
-			AddWord(bytBuffer, &HFFFF)
-			AddWord(bytBuffer, &H40 + Item.ContainerIndex)
-			AddByte(bytBuffer, Item.Slot)
-			AddWord(bytBuffer, Item.ID)
-			AddByte(bytBuffer, Item.Slot)
-			AddWord(bytBuffer, Destination.X)
-			AddWord(bytBuffer, Destination.Y)
-			AddByte(bytBuffer, Destination.Z)
-			Dim Count As Byte = Item.Count
-			If Count = 0 Then Count = 1
-			AddByte(bytBuffer, Count)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    'Public Function MoveObject(ByVal Item As ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition) As Byte()
+    '    Try
+    '        Dim bytBuffer(1) As Byte
+    '        AddByte(bytBuffer, &H78)
+    '        AddWord(bytBuffer, &HFFFF)
+    '        AddWord(bytBuffer, &H40 + Item.ContainerIndex)
+    '        AddByte(bytBuffer, Item.Slot)
+    '        AddWord(bytBuffer, Item.ID)
+    '        AddByte(bytBuffer, Item.Slot)
+    '        AddWord(bytBuffer, Destination.X)
+    '        AddWord(bytBuffer, Destination.Y)
+    '        AddByte(bytBuffer, Destination.Z)
+    '        Dim Count As Byte = Item.Count
+    '        If Count = 0 Then Count = 1
+    '        AddByte(bytBuffer, Count)
+    '        Return bytBuffer
+    '    Catch Ex As Exception
+    '        MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        End
+    '    End Try
+    'End Function
 
 #End Region
 
-#Region " UseObject "
-
-	Public Function UseObject(ByVal InventorySlot As InventorySlots, ByVal ContainerIndex As Byte) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			Dim ID As Integer = 0
-			Core.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (InventorySlot - 1)), ID, 2)
-			AddByte(bytBuffer, &H82)
-			AddWord(bytBuffer, &HFFFF)
-			AddWord(bytBuffer, InventorySlot)
-			AddByte(bytBuffer, 0)
-			AddWord(bytBuffer, ID)
-			AddByte(bytBuffer, 0)
-			AddByte(bytBuffer, ContainerIndex)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-	Public Function UseObject(ByVal Item As ContainerItemDefinition) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H82)
-			AddWord(bytBuffer, &HFFFF)
-			AddWord(bytBuffer, &H40 + Item.ContainerIndex)
-			AddByte(bytBuffer, Item.Slot)
-			AddWord(bytBuffer, Item.ID)
-			AddByte(bytBuffer, Item.Slot)
-			AddByte(bytBuffer, &HF)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-	Public Function UseObjectOnGround(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, Optional ByVal OpenLoc As Byte = 1) As Byte()
-		Try
-			Dim bytBuffer(&H1) As Byte
-			AddByte(bytBuffer, &H82)
-			AddWord(bytBuffer, Source.X)
-			AddWord(bytBuffer, Source.Y)
-			AddByte(bytBuffer, Source.Z)
-			AddWord(bytBuffer, ItemID)
-			Dim X As Integer = Source.X - Core.CharacterLoc.X + 8
-			Dim Y As Integer = Source.Y - Core.CharacterLoc.Y + 6
-			Dim Z As Integer = MapReader.WorldZToClientZ(Core.CharacterLoc.Z)
-			Dim TileObj As TileObject
-			If Core.Map.FindObjectInTile(TileObj, ItemID, X, Y, Z) Then
-				AddByte(bytBuffer, TileObj.GetStackPosition)
-			Else
-				AddByte(bytBuffer, 1)
-			End If
-			AddByte(bytBuffer, OpenLoc)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-	Public Function UseObjectWithObjectOnGround(ByVal ItemID As UShort, ByVal Destination As ITibia.LocationDefinition, Optional ByVal TileId As UShort = 0) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H83)
-			AddWord(bytBuffer, &HFFFF)
-			AddWord(bytBuffer, 0)
-			AddByte(bytBuffer, 0)
-			AddWord(bytBuffer, ItemID)
-			AddByte(bytBuffer, &H0)
-			AddWord(bytBuffer, Destination.X)
-			AddWord(bytBuffer, Destination.Y)
-			AddByte(bytBuffer, Destination.Z)
-
-			Dim X As Integer = Destination.X - Core.CharacterLoc.X + 8
-			Dim Y As Integer = Destination.Y - Core.CharacterLoc.Y + 6
-			Dim Z As Integer = MapReader.WorldZToClientZ(Core.CharacterLoc.Z)
-
-			Dim TileObjects() As TileObject = Core.Map.GetTileObjects(X, Y, Z)
-			If TileObjects.Length = 1 Then 'just the ground tile
-				AddWord(bytBuffer, TileObjects(0).GetObjectID)
-				AddByte(bytBuffer, 0)
-			ElseIf TileObjects.Length > 1 Then
-				If TileId > 0 Then
-					Dim Found As Boolean = False
-					Dim StackPos As Byte = 0
-					For Each TileObj As TileObject In TileObjects
-						If TileObj.GetObjectID = TileId Then
-							Found = True
-							StackPos = TileObj.GetStackPosition
-							Exit For
-						End If
-					Next
-					If Found Then
-						AddWord(bytBuffer, TileId)
-						AddByte(bytBuffer, StackPos)
-					Else
-						AddWord(bytBuffer, TileId)
-						AddByte(bytBuffer, 0)
-					End If
-				Else
-					Dim TObj As TileObject = New TileObject(0, 0, 0, New ITibia.LocationDefinition(), New ClientCoordinates(), 0)
-					For Each TileObj As TileObject In TileObjects
-						If TileObj.GetObjectID = &H63 Then
-							TObj = TileObj
-							Exit For
-						End If
-					Next
-					If TObj.GetObjectID = 0 Then
-						TObj = TileObjects(TileObjects.Length - 1)
-					End If
-					AddWord(bytBuffer, TObj.GetObjectID)
-					AddByte(bytBuffer, TObj.GetStackPosition)
-				End If
-			End If
-			'            Trace.WriteLine("UseObjectWithObjectOnGround>" & BytesToStr(bytBuffer))
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-#End Region
 
 #Region " StopEverthing "
 
@@ -594,469 +387,141 @@ Module PacketUtils
 
 #End Region
 
-#Region " SystemMessage "
 
-	Public Function SystemMessage(ByVal Type As SysMessageType, ByVal Message As String) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &HB4)
-			AddByte(bytBuffer, Type) '&h12
-			AddString(bytBuffer, Message)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    '#Region " AddObjectToContainer "
 
-#End Region
+    '    Public Function AddObjectToContainer(ByVal ItemID As UShort, ByVal ContainerIndex As Byte, Optional ByVal Count As Byte = 0) As Byte()
+    '        Try
+    '            Dim bytBuffer(1) As Byte
+    '            AddByte(bytBuffer, &H70)
+    '            AddByte(bytBuffer, ContainerIndex)
+    '            AddWord(bytBuffer, ItemID)
+    '            If Dat.GetInfo(ItemID).HasExtraByte OrElse Client.Items.IsRune(ItemID) Then
+    '                AddByte(bytBuffer, Count)
+    '            End If
+    '            Return bytBuffer
+    '        Catch Ex As Exception
+    '            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '            End
+    '        End Try
+    '    End Function
 
-#Region " Change Combat Modes "
+    '#End Region
 
-	Enum FightingMode
-		Offensive = 1
-		Balanced = 2
-		Defensive = 3
-	End Enum
+    '#Region " RemoveObjectFromContainer "
 
-	Enum ChasingMode
-		Standing
-		Chasing
-	End Enum
+    '    Public Function RemoveObjectFromContainer(ByVal Slot As Byte, ByVal ContainerIndex As Byte) As Byte()
+    '        Try
+    '            Dim bytBuffer(1) As Byte
+    '            AddByte(bytBuffer, &H72)
+    '            AddByte(bytBuffer, ContainerIndex)
+    '            AddByte(bytBuffer, Slot)
+    '            Return bytBuffer
+    '        Catch Ex As Exception
+    '            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '            End
+    '        End Try
+    '    End Function
 
-	Enum SecureMode
-		Normal
-		Secure
-	End Enum
-
-
-	Public Function ChangeFightingMode(ByVal Mode As FightingMode) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			Dim ChasingMode As Integer = 0
-			Dim SecureMode As Integer = 0
-			Core.Client.ReadMemory(Consts.ptrChasingMode, ChasingMode, 1)
-			Core.Client.ReadMemory(Consts.ptrSecureMode, SecureMode, 1)
-			AddByte(bytBuffer, &HA0)
-			AddByte(bytBuffer, CByte(Mode))
-			AddByte(bytBuffer, ChasingMode)
-			AddByte(bytBuffer, SecureMode)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-	Public Function ChangeChasingMode(ByVal Mode As ChasingMode) As Byte()
-		Dim bytBuffer(1) As Byte
-		Dim FightingMode As Integer = 0
-		Dim SecureMode As Integer = 0
-		Core.Client.ReadMemory(Consts.ptrFightingMode, FightingMode, 1)
-		Core.Client.ReadMemory(Consts.ptrSecureMode, SecureMode, 1)
-		AddByte(bytBuffer, &HA0)
-		AddByte(bytBuffer, FightingMode)
-		AddByte(bytBuffer, CByte(Mode))
-		AddByte(bytBuffer, SecureMode)
-		Return bytBuffer
-	End Function
-
-	Public Function ChangeSecureMode(ByVal Mode As SecureMode) As Byte()
-		Dim bytBuffer(1) As Byte
-		Dim FightingMode As Integer = 0
-		Dim ChasingMode As Integer = 0
-		Core.Client.ReadMemory(Consts.ptrFightingMode, FightingMode, 1)
-		Core.Client.ReadMemory(Consts.ptrChasingMode, ChasingMode, 1)
-		AddByte(bytBuffer, &HA0)
-		AddByte(bytBuffer, FightingMode)
-		AddByte(bytBuffer, ChasingMode)
-		AddByte(bytBuffer, CByte(Mode))
-		Return bytBuffer
-	End Function
-
-	Public Function ChangeCombatModes(ByVal Fighting As FightingMode, ByVal Chasing As ChasingMode, ByVal Secure As SecureMode) As Byte()
-		Dim bytBuffer(1) As Byte
-		AddByte(bytBuffer, &HA0)
-		AddByte(bytBuffer, CByte(Fighting))
-		AddByte(bytBuffer, CByte(Chasing))
-		AddByte(bytBuffer, CByte(Secure))
-		Return bytBuffer
-	End Function
-
-#End Region
-
-#Region " Change Outfit"
-	Public Function ChangeOutfit(ByVal OutfitID As Integer, ByVal HeadColor As Integer, ByVal BodyColor As Integer, ByVal LegsColor As Integer, ByVal FeetColor As Integer, ByVal Addons As Integer) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &HD3)
-			AddWord(bytBuffer, OutfitID)
-			AddByte(bytBuffer, HeadColor)
-			AddByte(bytBuffer, BodyColor)
-			AddByte(bytBuffer, LegsColor)
-			AddByte(bytBuffer, FeetColor)
-			AddByte(bytBuffer, Addons)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-#End Region
-
-#Region " HouseSpellEdit "
-
-	Public Function HouseSpellEdit(ByVal SpellID As Byte, ByVal Time As UInteger, ByVal Content As String) As Byte()
-		Dim bytBuffer(1) As Byte
-		AddByte(bytBuffer, &H97)
-		AddByte(bytBuffer, SpellID)
-		AddDWord(bytBuffer, Time)
-		AddString(bytBuffer, Content)
-		Return bytBuffer
-	End Function
-
-#End Region
-
-	Public Function UseFishingRodOnLocation(ByVal FishingRod As ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition, ByVal Sprite As Int32) As Byte()
-		Try
-			Dim bytBuffer(&H1) As Byte
-			AddByte(bytBuffer, &H83)
-			AddWord(bytBuffer, &HFFFF)
-			AddWord(bytBuffer, &H40 + FishingRod.ContainerIndex)
-			AddByte(bytBuffer, FishingRod.Slot)
-			AddWord(bytBuffer, FishingRod.ID)
-			AddByte(bytBuffer, FishingRod.Slot)
-			AddWord(bytBuffer, Destination.X)
-			AddWord(bytBuffer, Destination.Y)
-			AddByte(bytBuffer, Destination.Z)
-			AddWord(bytBuffer, Sprite)
-			AddByte(bytBuffer, &H0)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-	Public Function UseObjectOnPlayer(ByVal Item As ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition) As Byte()
-		Try
-			Dim bytBuffer(&H1) As Byte
-			AddByte(bytBuffer, &H83)
-			AddWord(bytBuffer, &HFFFF)
-			AddWord(bytBuffer, &H40 + Item.ContainerIndex)
-			AddByte(bytBuffer, Item.Slot)
-			AddWord(bytBuffer, Item.ID)
-			AddByte(bytBuffer, Item.Slot)
-			AddWord(bytBuffer, Destination.X)
-			AddWord(bytBuffer, Destination.Y)
-			AddByte(bytBuffer, Destination.Z)
-			AddByte(bytBuffer, &H63) '
-			AddByte(bytBuffer, &H0)	'
-			AddByte(bytBuffer, &H1)	'
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-	Public Function UseObjectOnPlayerAsHotkey(ByVal ItemID As UShort, ByVal Destination As ITibia.LocationDefinition, Optional ByVal ExtraByte As Byte = 0) As Byte()
-		Try
-			Dim bytBuffer(&H1) As Byte
-			AddByte(bytBuffer, &H83)
-			AddWord(bytBuffer, &HFFFF)
-			AddWord(bytBuffer, 0)
-			AddByte(bytBuffer, 0)
-			AddWord(bytBuffer, ItemID)
-			AddByte(bytBuffer, 0)
-			AddWord(bytBuffer, Destination.X)
-			AddWord(bytBuffer, Destination.Y)
-			AddByte(bytBuffer, Destination.Z)
-			AddByte(bytBuffer, &H63) '
-			AddByte(bytBuffer, &H0)	'
-			AddByte(bytBuffer, &H1)	'
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-	Public Function UseObjectOnPlayerAsHotkey(ByVal ItemId As UShort, ByVal PlayerID As UInt32) As Byte()
-		Try
-			Dim bytBuffer(&H1) As Byte
-			AddByte(bytBuffer, &H84)
-			AddWord(bytBuffer, &HFFFF)
-			AddWord(bytBuffer, 0)
-			AddByte(bytBuffer, 0)
-			AddWord(bytBuffer, ItemId)
-			AddByte(bytBuffer, 0)
-			AddDWord(bytBuffer, PlayerID)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-#Region " AddObjectToContainer "
-
-	Public Function AddObjectToContainer(ByVal ItemID As UShort, ByVal ContainerIndex As Byte, Optional ByVal Count As Byte = 0) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H70)
-			AddByte(bytBuffer, ContainerIndex)
-			AddWord(bytBuffer, ItemID)
-			If DatInfo.GetInfo(ItemID).HasExtraByte OrElse Definitions.IsRune(ItemID) Then
-				AddByte(bytBuffer, Count)
-			End If
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-#End Region
-
-#Region " RemoveObjectFromContainer "
-
-	Public Function RemoveObjectFromContainer(ByVal Slot As Byte, ByVal ContainerIndex As Byte) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H72)
-			AddByte(bytBuffer, ContainerIndex)
-			AddByte(bytBuffer, Slot)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-#End Region
+    '#End Region
 
 #Region " CreateContainer "
 
-	Public Function CreateContainer(ByVal ItemID As UShort, ByVal ContainerIndex As Byte, ByVal Name As String, ByVal Size As Byte, ByVal Items() As ContainerItemDefinition, Optional ByVal HasParent As Boolean = False) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H6E)
-			AddByte(bytBuffer, ContainerIndex)
-			AddWord(bytBuffer, ItemID)
-			AddString(bytBuffer, Name)
-			AddByte(bytBuffer, Size)
-			AddByte(bytBuffer, HasParent)
-			AddByte(bytBuffer, Items.Length)
-			For Each Item As ContainerItemDefinition In Items
-				AddWord(bytBuffer, Item.ID)
-				If DatInfo.GetInfo(Item.ID).HasExtraByte OrElse Definitions.IsRune(Item.ID) Then
-					AddByte(bytBuffer, Item.Count)
-				End If
-			Next
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-#End Region
-
-#Region " AnimatedText "
-
-    Public Function AnimatedText(ByRef Color As TextColors, ByRef Loc As ITibia.LocationDefinition, ByRef ShortText As String) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &H84)
-            AddWord(bytBuffer, Loc.X)
-            AddWord(bytBuffer, Loc.Y)
-            AddByte(bytBuffer, Loc.Z)
-            AddByte(bytBuffer, Color)
-            AddString(bytBuffer, ShortText)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
+ 
 
 #End Region
 
 #Region " OpenContainer "
 
-	Public Function OpenContainer(ByRef Loc As ITibia.LocationDefinition, ByRef ItemID As UShort, ByRef ContainerIndex As Byte) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H82)
-			AddWord(bytBuffer, Loc.X)
-			AddWord(bytBuffer, Loc.Y)
-			AddByte(bytBuffer, Loc.Z)
-			AddWord(bytBuffer, ItemID)
-			AddByte(bytBuffer, 1)
-			AddByte(bytBuffer, ContainerIndex)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
-
-	Public Function OpenContainer(ByRef Item As ContainerItemDefinition, ByRef ContainerIndex As Byte) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H82)
-			AddWord(bytBuffer, Item.Location.X)
-			AddWord(bytBuffer, Item.Location.Y)
-			AddByte(bytBuffer, Item.Location.Z)
-			AddWord(bytBuffer, Item.ID)
-			AddByte(bytBuffer, Item.Location.Z)
-			AddByte(bytBuffer, ContainerIndex)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    'Public Function OpenContainer(ByRef Loc As ITibia.LocationDefinition, ByRef ItemID As UShort, ByRef ContainerIndex As Byte) As Byte()
+    '    Try
+    '        Dim bytBuffer(1) As Byte
+    '        AddByte(bytBuffer, &H82)
+    '        AddWord(bytBuffer, Loc.X)
+    '        AddWord(bytBuffer, Loc.Y)
+    '        AddByte(bytBuffer, Loc.Z)
+    '        AddWord(bytBuffer, ItemID)
+    '        AddByte(bytBuffer, 1)
+    '        AddByte(bytBuffer, ContainerIndex)
+    '        Return bytBuffer
+    '    Catch Ex As Exception
+    '        MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '        End
+    '    End Try
+    'End Function
 
 #End Region
 
 #Region " CloseContainer "
 
-	Public Function CloseContainer(ByRef ContainerIndex As Byte) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H6F)
-			AddByte(bytBuffer, ContainerIndex)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    Public Function CloseContainer(ByRef ContainerIndex As Byte) As Byte()
+        Try
+            Dim bytBuffer(1) As Byte
+            AddByte(bytBuffer, &H6F)
+            AddByte(bytBuffer, ContainerIndex)
+            Return bytBuffer
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
 
 #End Region
 
-#Region " AnimateOnLocation "
+    '#Region " AnimateOnLocation "
 
-	Public Function MagicEffect(ByVal Loc As ITibia.LocationDefinition, ByVal Animation As MagicEffects) As Byte()
-		Try
-			Dim bytBuffer(1) As Byte
-			AddByte(bytBuffer, &H83)
-			AddWord(bytBuffer, Loc.X)
-			AddWord(bytBuffer, Loc.Y)
-			AddByte(bytBuffer, Loc.Z)
-			AddByte(bytBuffer, CByte(Animation))
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    '    Public Function MagicEffect(ByVal Loc As ITibia.LocationDefinition, ByVal Animation As AnimationEffects) As Byte()
+    '        Try
+    '            Dim bytBuffer(1) As Byte
+    '            AddByte(bytBuffer, &H83)
+    '            AddWord(bytBuffer, Loc.X)
+    '            AddWord(bytBuffer, Loc.Y)
+    '            AddByte(bytBuffer, Loc.Z)
+    '            AddByte(bytBuffer, CByte(Animation))
+    '            Return bytBuffer
+    '        Catch Ex As Exception
+    '            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    '            End
+    '        End Try
+    '    End Function
 
-#End Region
+    '#End Region
 
 #Region " LookAtObject "
 
-	'Public Function LookAtObject(ByVal Item As Int16, ByVal Source As locInventory) As Byte()
-	'    Dim bytBuffer(&H1) As Byte
-	'AddByte(bytBuffer, &H8C)
-	'AddWord(bytBuffer, &HFFFF)
-	'AddWord(bytBuffer, Source.Location)
-	'AddByte(bytBuffer, Source.Slot)
-	'AddWord(bytBuffer, Item)
-	'AddByte(bytBuffer, Source.Slot)
-	'Return bytBuffer
-	'End Function
+    'Public Function LookAtObject(ByVal Item As Int16, ByVal Source As locInventory) As Byte()
+    '    Dim bytBuffer(&H1) As Byte
+    'AddByte(bytBuffer, &H8C)
+    'AddWord(bytBuffer, &HFFFF)
+    'AddWord(bytBuffer, Source.Location)
+    'AddByte(bytBuffer, Source.Slot)
+    'AddWord(bytBuffer, Item)
+    'AddByte(bytBuffer, Source.Slot)
+    'Return bytBuffer
+    'End Function
 
-	Public Function LookAtObject(ByVal Item As Int16, ByVal Source As ITibia.LocationDefinition) As Byte()
-		Try
-			Dim bytBuffer(&H1) As Byte
-			AddByte(bytBuffer, &H8C)
-			AddWord(bytBuffer, Source.X)
-			AddWord(bytBuffer, Source.Y)
-			AddByte(bytBuffer, Source.Z)
-			AddWord(bytBuffer, Item)
-			AddByte(bytBuffer, &H1)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    Public Function LookAtObject(ByVal Item As Int16, ByVal Source As ITibia.LocationDefinition) As Byte()
+        Try
+            Dim bytBuffer(&H1) As Byte
+            AddByte(bytBuffer, &H8C)
+            AddWord(bytBuffer, Source.X)
+            AddWord(bytBuffer, Source.Y)
+            AddByte(bytBuffer, Source.Z)
+            AddWord(bytBuffer, Item)
+            AddByte(bytBuffer, &H1)
+            Return bytBuffer
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
 
 #End Region
 
 #Region " AttackEntity "
 
-    Public Function AttackEntity(ByVal EntityID As Int32) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &HA1)
-            AddDWord(bytBuffer, EntityID)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
 
 #End Region
 
-#Region " PlayerLogout "
 
-    Public Function PlayerLogout() As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &H14)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
-
-#End Region
-
-#Region " Use Hotkey "
-    Public Function UseHotkey(ByVal ItemId As Int32, Optional ByVal ExtraByte As Integer = 0) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            AddByte(bytBuffer, &H84)
-            AddWord(bytBuffer, &HFFFF)
-            AddWord(bytBuffer, &H0)
-            AddByte(bytBuffer, &H0)
-            AddWord(bytBuffer, ItemId)
-            If DatInfo.GetInfo(ItemId).HasExtraByte Then AddByte(bytBuffer, ExtraByte)
-            AddDWord(bytBuffer, Core.CharacterID)
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
-#End Region
-
-#Region " Turn Character "
-    Public Function CharacterTurn(ByVal Direction As Directions) As Byte()
-        Try
-            Dim bytBuffer(1) As Byte
-            Select Case Direction
-                Case Directions.Up
-                    AddByte(bytBuffer, &H6F)
-                Case Directions.Down
-                    AddByte(bytBuffer, &H71)
-                Case Directions.Right
-                    AddByte(bytBuffer, &H70)
-                Case Directions.Left
-                    AddByte(bytBuffer, &H72)
-            End Select
-            Return bytBuffer
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Function
-#End Region
 End Module

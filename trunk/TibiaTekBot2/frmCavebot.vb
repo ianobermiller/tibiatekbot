@@ -22,10 +22,10 @@ Public Class frmCavebot
     Private Sub frmCavebot_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
         Try
 			If Core.Client.IsConnected Then
-				Me.Text = "Cavebot/Walker for " & Core.Proxy.CharacterName
-			Else
-				Me.Text = "Cavebot/Walker"
-			End If
+                Me.Text = "Cavebot/Walker for " & Core.Client.CharacterName
+            Else
+                Me.Text = "Cavebot/Walker"
+            End If
             Waypointslst.SuspendLayout()
             Waypointslst.Items.Clear()
             WalkerModule.UpdateList()
@@ -248,7 +248,7 @@ Public Class frmCavebot
             Dim WalkerChar As New Walker
             With SaveDlg
                 .InitialDirectory = GetWaypointsDirectory() & "\"
-                .FileName = Core.Proxy.CharacterName & ".Waypoints.xml"
+                .FileName = Core.Client.CharacterName & ".Waypoints.xml"
                 .DefaultExt = "xml"
                 .Title = BotName & " - Save Cavebot Waypoints"
                 .Filter = "Xml File|*.xml"

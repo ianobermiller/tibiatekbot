@@ -21,7 +21,7 @@ Imports System.xml
 
 Public Module OutfitsModule
 
-    Public OutfitDefinitions As New OutfitDefinition
+    'Public OutfitDefinitions As New OutfitDefinition
 
     Public Structure OutfitDefinition
         Dim ID As UShort
