@@ -24,35 +24,22 @@ Public Class Packet
 
 #Region " Variables "
 
-    Private bytBuffer() As Byte
-    Private _Flags As IPacket.PacketFlags
+    Private Buffer() As Byte = New Byte() {0, 0}
 
 #End Region
 
 #Region " Properties "
-    Public ReadOnly Property GetBytes() Implements IPacket.GetBytes
+    Public ReadOnly Property GetBytes() Implements Scripting.IPacket.GetBytes
         Get
-            Return bytBuffer
+            Return Buffer
         End Get
     End Property
 
-    Public Property Flags() As IPacket.PacketFlags Implements IPacket.Flags
-        Get
-            Return _Flags
-        End Get
-        Set(ByVal value As IPacket.PacketFlags)
-            _Flags = value
-        End Set
-    End Property
 #End Region
 
 #Region " Methods "
-    Public Sub New(Optional ByVal Flags As IPacket.PacketFlags = IPacket.PacketFlags.None)
-        _Flags = Flags
-        bytBuffer = New Byte() {0, 0}
-    End Sub
 
-    Private Sub AddByte(ByVal bytBuffer() As Byte, ByVal bytByte As Byte)
+    Private Sub AddByte(ByRef bytBuffer() As Byte, ByVal bytByte As Byte)
         Try
             Dim intTemp As Integer
             Dim bytTemp() As Byte
@@ -67,7 +54,7 @@ Public Class Packet
         End Try
     End Sub
 
-    Private Sub AddWord(ByVal bytBuffer() As Byte, ByVal intInteger As UInt16)
+    Private Sub AddWord(ByRef bytBuffer() As Byte, ByVal intInteger As UInt16)
         Try
             Dim intTemp As Integer
             Dim bytTemp() As Byte
@@ -84,7 +71,7 @@ Public Class Packet
         End Try
     End Sub
 
-    Private Sub AddDWord(ByVal bytBuffer() As Byte, ByVal intInteger As UInt32)
+    Private Sub AddDWord(ByRef bytBuffer() As Byte, ByVal intInteger As UInt32)
         Try
             Dim intTemp As Integer
             Dim bytTemp() As Byte
@@ -103,7 +90,7 @@ Public Class Packet
         End Try
     End Sub
 
-    Private Sub AddString(ByVal bytBuffer() As Byte, ByVal strString As String)
+    Private Sub AddString(ByRef bytBuffer() As Byte, ByVal strString As String)
         Try
             If strString Is Nothing Then Exit Sub
             Dim intTemp As Integer
@@ -126,19 +113,19 @@ Public Class Packet
     End Sub
 
     Public Sub AddString(ByVal str As String) Implements IPacket.AddString
-        AddString(bytBuffer, str)
+        AddString(Buffer, str)
     End Sub
 
     Public Sub AddByte(ByVal Value As Byte) Implements IPacket.AddByte
-        AddByte(bytBuffer, Value)
+        AddByte(Buffer, Value)
     End Sub
 
     Public Sub AddWord(ByVal Value As UInt16) Implements IPacket.AddWord
-        AddWord(bytBuffer, Value)
+        AddWord(Buffer, Value)
     End Sub
 
     Public Sub AddDWord(ByVal Value As UInt32) Implements IPacket.AddDWord
-        AddDWord(bytBuffer, Value)
+        AddDWord(Buffer, Value)
     End Sub
 
     Public Sub AddLocation(ByVal Location As ITibia.LocationDefinition) Implements IPacket.AddLocation
@@ -150,7 +137,7 @@ Public Class Packet
     Public Property GetByte(ByVal Offset As UInteger) As Byte Implements IPacket.GetByte
         Get
             Try
-                Return bytBuffer(Offset)
+                Return Buffer(Offset)
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -158,7 +145,7 @@ Public Class Packet
         End Get
         Set(ByVal value As Byte)
             Try
-                bytBuffer(Offset) = value
+                Buffer(Offset) = value
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
