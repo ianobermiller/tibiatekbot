@@ -40,7 +40,7 @@ Public Class frmMain
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             Dim R As New Random(System.DateTime.Now.Millisecond)
-            Select Case R.Next(0, 5)
+            Select Case R.Next(0, 7)
                 Case 0
                     Me.PictureBox1.Image = My.Resources.ttb_splash0
                 Case 1
@@ -51,6 +51,11 @@ Public Class frmMain
                     Me.PictureBox1.Image = My.Resources.ttb_splash3
                 Case 4
                     Me.PictureBox1.Image = My.Resources.ttb_splash4
+                Case 5
+                    Me.PictureBox1.Image = My.Resources.ttb_splash5
+                Case 6
+                    Me.PictureBox1.Image = My.Resources.ttb_splash6
+
             End Select
             'MsgBox(System.Text.Encoding.GetEncoding("iso-8859-1").EncodingName)
             'For Each Encoding As System.Text.EncodingInfo In System.Text.Encoding.GetEncodings
