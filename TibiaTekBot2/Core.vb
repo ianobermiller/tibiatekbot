@@ -3959,7 +3959,7 @@ Public Module CoreModule
                             Walker_Waypoints.Add(WalkerChar)
                         End If
                     Case &H84 'Use hotkey
-                        Send = False
+                        'Send = False
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Pos += 13
