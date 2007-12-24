@@ -29,7 +29,7 @@ Public Interface IBattlelist
     ReadOnly Property GetName() As String
     ReadOnly Property GetHPPercentage() As Integer
     ReadOnly Property IsOnScreen() As Boolean
-    ReadOnly Property GetDirection() As Integer
+    ReadOnly Property GetDirection() As Directions
     ReadOnly Property GetDistance(Optional ByVal IncludeFloor As Boolean = False) As Double
 	ReadOnly Property GetDistanceFromLocation(ByVal Loc As ITibia.LocationDefinition, Optional ByVal IncludeFloor As Boolean = False, Optional ByVal CurrentIndex As Boolean = False) As Double
     ReadOnly Property IsMyself() As Boolean
@@ -98,6 +98,17 @@ Public Interface IBattlelist
         Myself
         Attacked
         Followed
+    End Enum
+
+    Enum Directions As Int32
+        Up
+        Right
+        Down
+        Left
+        UpRight
+        DownRight
+        DownLeft
+        UpLeft
     End Enum
 
 #End Region
