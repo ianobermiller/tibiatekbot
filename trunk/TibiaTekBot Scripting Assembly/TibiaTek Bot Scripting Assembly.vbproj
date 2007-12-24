@@ -53,6 +53,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -68,8 +69,16 @@
     <Compile Include="Classes\ServerPacketBuilder.vb" />
     <Compile Include="Classes\Packet.vb" />
     <Compile Include="Classes\ClientPacketBuilder.vb" />
+    <Compile Include="Interfaces\IClientPacketBuilder.vb" />
+    <Compile Include="Interfaces\IConstants.vb" />
+    <Compile Include="Interfaces\IContainer.vb" />
+    <Compile Include="Interfaces\IDatFile.vb" />
+    <Compile Include="Interfaces\IItems.vb" />
+    <Compile Include="Interfaces\IMapTiles.vb" />
+    <Compile Include="Interfaces\IServerPacketBuilder.vb" />
     <Compile Include="Interfaces\IPacket.vb" />
     <Compile Include="Interfaces\IPacketBuilder.vb" />
+    <Compile Include="Interfaces\IProxy.vb" />
     <Compile Include="Interfaces\ITibia.vb" />
     <Compile Include="Interfaces\IBattlelist.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
