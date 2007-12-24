@@ -17,114 +17,81 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.IO
+Imports System.IO, Scripting
 
 Public Module DatReaderModule
 
-    Public DatInfo As DatReader
+    Public Class DatFile
+        Implements IDatFile
+        Private _Filename As String = ""
+        Private DatObjects(7921) As IDatFile.DatObject
 
-    Public Structure DatTile
-        Public IsContainer As Boolean
-        Dim ReadWriteInfo As Integer
-        Dim IsFluidContainer As Boolean
-        Dim IsStackable As Boolean
-        Dim MultiType As Boolean
-        Dim Useable As Boolean
-        Dim IsNotMovable As Boolean
-        Dim AlwaysOnTop As Boolean
-        Dim IsGroundTile As Boolean
-        Dim IsPickupable As Boolean
-        Dim Blocking As Boolean
-        Dim BlockPickupable As Boolean
-        Dim IsWalkable As Boolean
-        'Dim NoFloorChange As Boolean
-        Dim IsDoor As Boolean
-        Dim IsDoorWithLock As Boolean
-        Dim Speed As Byte
-        Dim CanDecay As Boolean
-        Dim HasExtraByte As Boolean
-        'Dim IsWater As Boolean
-        Dim StackPriority As Integer
-        'Dim HasFish As Boolean
-        'Dim FloorChangeUp As Boolean
-        'Dim FloorChangeDown As Boolean
-        'Dim RequiresRightClick As Boolean
-        'Dim RequiresRope As Boolean
-        'Dim RequiresShovel As Boolean
-        'Dim IsFood As Boolean
-        Dim IsField As Boolean
-        Dim IsDepot As Boolean
-        Dim MoreAlwaysOnTop As Boolean
-        Dim Usable2 As Boolean
-
-        'Dim MultiCharge As Boolean
-    End Structure
-
-    Public Class DatReader
-        Private DatTiles(7921) As DatTile
-
-        Public ReadOnly Property Length() As Integer
+        Public ReadOnly Property Length() As Integer Implements IDatFile.Length
             Get
-                Return DatTiles.Length
+                Return DatObjects.Length
             End Get
         End Property
 
-        Public Function GetInfo(ByVal ItemID As Integer) As DatTile
-            If ItemID >= DatTiles.Length Then Return Nothing
-            Return DatTiles(ItemID)
+        Public Function GetInfo(ByVal ItemID As Integer) As IDatFile.DatObject Implements IDatFile.GetInfo
+            If ItemID >= DatObjects.Length Then Return Nothing
+            Return DatObjects(ItemID)
         End Function
 
         Public Sub New(ByVal Filename As String)
             ReadDatFile(Filename)
         End Sub
 
-        Public Sub ReadDatFile(ByVal Filename As String)
+        Public Sub Refresh() Implements IDatFile.Refresh
+            ReadDatFile(_Filename)
+        End Sub
 
+        Public Sub ReadDatFile(ByVal Filename As String)
+            _Filename = Filename
             Dim I As Integer
             Dim B1 As Byte
             For I = 0 To 7921
-                DatTiles(I).IsContainer = False
-                DatTiles(I).ReadWriteInfo = 0
-                DatTiles(I).IsFluidContainer = False
-                DatTiles(I).IsStackable = False
-                DatTiles(I).MultiType = False
-                DatTiles(I).Useable = False
-                DatTiles(I).IsNotMovable = False
-                DatTiles(I).AlwaysOnTop = False
-                DatTiles(I).IsGroundTile = False
-                DatTiles(I).Blocking = False
-                DatTiles(I).IsPickupable = False
+                DatObjects(I).IsContainer = False
+                DatObjects(I).ReadWriteInfo = 0
+                DatObjects(I).IsFluidContainer = False
+                DatObjects(I).IsStackable = False
+                DatObjects(I).MultiType = False
+                DatObjects(I).Useable = False
+                DatObjects(I).IsNotMovable = False
+                DatObjects(I).AlwaysOnTop = False
+                DatObjects(I).IsGroundTile = False
+                DatObjects(I).Blocking = False
+                DatObjects(I).IsPickupable = False
                 'DatTiles(I).isblockingProjectile = False
-                DatTiles(I).IsWalkable = False
+                DatObjects(I).IsWalkable = False
                 'DatTiles(I).NoFloorChange = False
-                DatTiles(I).BlockPickupable = True
+                DatObjects(I).BlockPickupable = True
                 'DatTiles(I).IsDoor = False
                 'DatTiles(I).IsDoorWithLock = False
-                DatTiles(I).Speed = 0
-                DatTiles(I).CanDecay = True
-                DatTiles(I).HasExtraByte = False 'custom flag
+                DatObjects(I).Speed = 0
+                DatObjects(I).CanDecay = True
+                DatObjects(I).HasExtraByte = False 'custom flag
                 'DatTiles(I).FloorChangeUp = False 'custom flag
                 'DatTiles(I).FloorChangeDown = False 'custom flag
                 'DatTiles(I).requireRightClick = False 'custom flag
                 'DatTiles(I).requireRope = False 'custom flag
                 'DatTiles(I).requireShovel = False 'custom flag
                 'DatTiles(I).IsWater = False ' custom flag
-                DatTiles(I).StackPriority = 1 ' custom flag, higher number, higher priority
+                DatObjects(I).StackPriority = 1 ' custom flag, higher number, higher priority
                 'DatTiles(I).HasFish = False
                 'DatTiles(I).IsFood = False
-                DatTiles(I).IsField = False
-                DatTiles(I).IsDepot = False
-                DatTiles(I).MoreAlwaysOnTop = False
-                DatTiles(I).Usable2 = False
+                DatObjects(I).IsField = False
+                DatObjects(I).IsDepot = False
+                DatObjects(I).MoreAlwaysOnTop = False
+                DatObjects(I).Usable2 = False
                 'DatTiles(I).MultiCharge = False
             Next
-            DatTiles(0).StackPriority = 0
-            DatTiles(97).StackPriority = 2
-            DatTiles(98).StackPriority = 2
-            DatTiles(99).StackPriority = 2
-            DatTiles(97).Blocking = True
-            DatTiles(98).Blocking = True
-            DatTiles(99).Blocking = True
+            DatObjects(0).StackPriority = 0
+            DatObjects(97).StackPriority = 2
+            DatObjects(98).StackPriority = 2
+            DatObjects(99).StackPriority = 2
+            DatObjects(97).Blocking = True
+            DatObjects(98).Blocking = True
+            DatObjects(99).Blocking = True
 
             I = 100
             Dim FS As New FileStream(Filename, FileMode.Open, FileAccess.Read)
@@ -141,54 +108,54 @@ Public Module DatReaderModule
                     While Opt <> &HFF
                         Select Case Opt
                             Case &H0 'ground tile
-                                DatTiles(I).IsGroundTile = True
-                                DatTiles(I).Speed = Reader.ReadByte
-                                If DatTiles(I).Speed = 0 Then
-                                    DatTiles(I).Blocking = True
+                                DatObjects(I).IsGroundTile = True
+                                DatObjects(I).Speed = Reader.ReadByte
+                                If DatObjects(I).Speed = 0 Then
+                                    DatObjects(I).Blocking = True
                                 End If
                                 Reader.ReadByte() 'ignore one byte
                             Case &H1 'always on top
-                                DatTiles(I).MoreAlwaysOnTop = True
+                                DatObjects(I).MoreAlwaysOnTop = True
                             Case &H2
-                                DatTiles(I).AlwaysOnTop = True
+                                DatObjects(I).AlwaysOnTop = True
                             Case &H3
                                 'can walk through, open doors
-                                DatTiles(I).AlwaysOnTop = True
-                                DatTiles(I).IsWalkable = True
+                                DatObjects(I).AlwaysOnTop = True
+                                DatObjects(I).IsWalkable = True
                             Case &H4
                                 ' is container
-                                DatTiles(I).IsContainer = True
+                                DatObjects(I).IsContainer = True
                             Case &H5
                                 ' is stackable
-                                DatTiles(I).IsStackable = True
+                                DatObjects(I).IsStackable = True
                             Case &H6
                                 ' is useable
-                                DatTiles(I).Useable = True
+                                DatObjects(I).Useable = True
                             Case &H7
                                 ' writtable objects
-                                DatTiles(I).Usable2 = True
+                                DatObjects(I).Usable2 = True
                             Case &H8
                                 'DatTiles(I).multicharge=true
                             Case &H9
-                                DatTiles(I).ReadWriteInfo = 3 ' can writen + can be read
+                                DatObjects(I).ReadWriteInfo = 3 ' can writen + can be read
                                 Reader.ReadByte() 'max chars, 0 is unlimited
                                 Reader.ReadByte() 'max new lines
                             Case &HA
-                                DatTiles(I).ReadWriteInfo = 1 ' can writen, cant be edited
+                                DatObjects(I).ReadWriteInfo = 1 ' can writen, cant be edited
                                 Reader.ReadByte() 'max chars, 0 is unlimited
                                 Reader.ReadByte() 'max new lines
                             Case &HB
                                 ' is fluid container
-                                DatTiles(I).IsFluidContainer = True
+                                DatObjects(I).IsFluidContainer = True
                             Case &HC
                                 ' multitype
-                                DatTiles(I).MultiType = True
+                                DatObjects(I).MultiType = True
                             Case &HD
                                 ' is blocking
-                                DatTiles(I).Blocking = True
+                                DatObjects(I).Blocking = True
                             Case &HE
                                 ' not moveable
-                                DatTiles(I).IsNotMovable = True
+                                DatObjects(I).IsNotMovable = True
                             Case &HF
                                 ' block missiles
                                 'DatTiles(I).isblockingProjectile = True
@@ -197,7 +164,7 @@ Public Module DatReaderModule
                                 ' I prefer to don't consider a generic obstable and
                                 ' do special cases for fields and ignore the boxes
                             Case &H11
-                                DatTiles(I).IsPickupable = True
+                                DatObjects(I).IsPickupable = True
                             Case &H16
                                 ' makes light -- skip bytes
                                 Reader.ReadUInt16() 'radius
@@ -216,7 +183,7 @@ Public Module DatReaderModule
                                 'DatTiles(I).noFloorChange = True
                             Case &H1A
                                 ' mostly blocking items, but also items that can pile up in level (boxes, chairs etc)
-                                DatTiles(I).BlockPickupable = False
+                                DatObjects(I).BlockPickupable = False
                                 Reader.ReadByte() 'always 8
                                 Reader.ReadByte() 'always 0
                             Case &H15
@@ -228,7 +195,7 @@ Public Module DatReaderModule
                                 Reader.ReadUInt16() 'two bytes for color
                             Case &H1B
                                 ' corpses that don't decay
-                                DatTiles(I).CanDecay = False
+                                DatObjects(I).CanDecay = False
                             Case &H19
                                 'unknown
                                 Reader.ReadUInt16() '?
@@ -249,17 +216,17 @@ Public Module DatReaderModule
                                         'switch
                                     Case &H50
                                         'doors
-                                        DatTiles(I).IsDoor = True
+                                        DatObjects(I).IsDoor = True
                                     Case &H51
                                         'doors with locks
-                                        DatTiles(I).IsDoorWithLock = True
+                                        DatObjects(I).IsDoorWithLock = True
                                     Case &H52
                                         'stairs
                                     Case &H53
                                         'mailbox
                                     Case &H54
                                         'depot
-                                        DatTiles(I).IsDepot = True
+                                        DatObjects(I).IsDepot = True
                                     Case &H55
                                         'trash
                                     Case &H56
@@ -268,7 +235,7 @@ Public Module DatReaderModule
                                         'items with special description?
                                     Case &H58
                                         'writtable?
-                                        DatTiles(I).ReadWriteInfo = 1 ' read only
+                                        DatObjects(I).ReadWriteInfo = 1 ' read only
                                     Case Else
                                         'debugByte = optByte
                                         ' ignore
@@ -281,18 +248,18 @@ Public Module DatReaderModule
                         Opt = Reader.ReadByte
                     End While
 
-                    If DatTiles(I).IsStackable OrElse DatTiles(I).MultiType = True OrElse DatTiles(I).IsFluidContainer Then
-                        DatTiles(I).HasExtraByte = True
+                    If DatObjects(I).IsStackable OrElse DatObjects(I).MultiType = True OrElse DatObjects(I).IsFluidContainer Then
+                        DatObjects(I).HasExtraByte = True
                     End If
-                    If DatTiles(I).AlwaysOnTop = True Then
-                        DatTiles(I).StackPriority = 3 ' max priority
+                    If DatObjects(I).AlwaysOnTop = True Then
+                        DatObjects(I).StackPriority = 3 ' max priority
                     End If
-                    If DatTiles(I).MoreAlwaysOnTop = True Then
-                        DatTiles(I).AlwaysOnTop = True
-                        DatTiles(I).StackPriority = 4
+                    If DatObjects(I).MoreAlwaysOnTop = True Then
+                        DatObjects(I).AlwaysOnTop = True
+                        DatObjects(I).StackPriority = 4
                     End If
                     If (I >= &H4608 AndAlso I <= &H4F08) OrElse (I >= &H5308 AndAlso I <= &H5A08) Then
-                        DatTiles(I).IsField = True
+                        DatObjects(I).IsField = True
                     End If
                     ' to skip graph \/
                     Dim Width As Integer = Reader.ReadByte()

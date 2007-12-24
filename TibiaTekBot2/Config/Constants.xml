@@ -64,6 +64,8 @@
   <Const Name="FPSWhenHidden" Value="1" />
   <Const Name="FlashTaskbarWhenMessaged" Value="True" />
   <Const Name="FlashTaskbarWhenAlarmFires" Value="True" />
+  <Const Name="FlashTaskbarWhenPMOnly" Value="False" />
+  <Const Name="FlashTaskbarWhenSpell" Value="False" />
   <Const Name="StatsUploaderSaveOnDiskOnly" Value="False" />
   <Const Name="StatsUploaderUrl" Value="ftp.server.com" />
   <Const Name="StatsUploaderPath" Value="/" />

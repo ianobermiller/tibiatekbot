@@ -17,11 +17,14 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.ComponentModel, TibiaTekBot.Constants, TibiaTekBot.Winsock
+Imports System.ComponentModel, TibiaTekBot.Constants, TibiaTekBot.Winsock, _
+    Scripting
 
 Public Class PProxy2
-	Private WithEvents Client As Tibia
-	Private GamePort As UInt16
+    Implements IProxy
+
+    Private WithEvents ClientProcess As Tibia
+    Private GamePort As UInt16
 
     Public LastAction As Long
 
@@ -51,44 +54,18 @@ Public Class PProxy2
 
     Public Event PacketFromClient(ByRef bytArray() As Byte, ByRef Block As Boolean)
     Public Event PacketFromServer(ByRef bytArray() As Byte, ByRef Block As Boolean)
-    Public Event ConnectionGained()
-    Public Event ConnectionLost()
+    Public Event ConnectionGained() Implements IProxy.ConnectionGained
+    Public Event ConnectionLost() Implements IProxy.ConnectionLost
 
+    Public Sub SendToServer(ByVal Packet As Packet) Implements IProxy.SendPacketToServer
+        SendPacketToServer(Packet.GetBytes, False)
+    End Sub
 
-#Region "Properties"
-    Public ReadOnly Property CharacterWorld() As String
-        Get
-            Try
-                Dim CharacterListBegin As Integer = 0
-                Dim _CharacterWorld As String = String.Empty
-				Client.ReadMemory(Consts.ptrCharacterSelectionIndex, CharacterIndex, 1)
-				Client.ReadMemory(Consts.ptrCharacterListBegin, CharacterListBegin, 4)
-				Client.ReadMemory(CharacterListBegin + (CharacterIndex * Consts.CharacterListDist) + Consts.CharacterListWorldOffset, _CharacterWorld)
-				Return _CharacterWorld
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Get
-    End Property
-    Public ReadOnly Property CharacterName() As String
-        Get
-            Try
-                Dim CharacterListBegin As Integer = 0
-                Dim _CharacterName As String = String.Empty
-				Client.ReadMemory(Consts.ptrCharacterSelectionIndex, CharacterIndex, 1)
-				Client.ReadMemory(Consts.ptrCharacterListBegin, CharacterListBegin, 4)
-				Client.ReadMemory(CharacterListBegin + (CharacterIndex * Consts.CharacterListDist), _CharacterName)
-                Return _CharacterName
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Get
-    End Property
-#End Region
+    Public Sub SendToClient(ByVal Packet As Packet) Implements IProxy.SendPacketToClient
+        SendPacketToClient(Packet.GetBytes)
+    End Sub
 
-    Public Sub SendPacketToServer(ByVal bytBuffer() As Byte, Optional ByVal DirectTransfer As Boolean = True)
+    Private Sub SendPacketToServer(ByVal bytBuffer() As Byte, Optional ByVal DirectTransfer As Boolean = True)
         Try
             If DirectTransfer = False Then
                 SyncLock Me
@@ -112,7 +89,7 @@ Public Class PProxy2
         End Try
     End Sub
 
-    Public Sub SendPacketToClient(ByVal bytBuffer() As Byte)
+    Private Sub SendPacketToClient(ByVal bytBuffer() As Byte)
         Try
             If sckGC.GetState = Winsock.WinsockStates.Connected Then
                 If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
@@ -126,75 +103,81 @@ Public Class PProxy2
         End Try
     End Sub
 
-	Public Sub New(ByRef Client As Tibia)
-		Try
+    Public ReadOnly Property Client() As ITibia Implements IProxy.Client
+        Get
+            Return ClientProcess
+        End Get
+    End Property
 
-			Dim strTemp As String = ""
-			Dim Rnd As New Random(Date.Now.Millisecond * Date.Now.Minute)
-			sckLListen = New Winsock(CLng(Rnd.Next(2000, 10000)))
-			sckGListen = New Winsock(CLng(Rnd.Next(2000, 10000)))
+    Public Sub New(ByRef Client As Tibia)
+        Try
 
-			sckLC = New Winsock
-			sckGC = New Winsock
-			sckLS = New Winsock
-			sckGS = New Winsock
+            Dim strTemp As String = ""
+            Dim Rnd As New Random(Date.Now.Millisecond * Date.Now.Minute)
+            sckLListen = New Winsock(CLng(Rnd.Next(2000, 10000)))
+            sckGListen = New Winsock(CLng(Rnd.Next(2000, 10000)))
 
-			phLC = New PacketHandler
-			phGC = New PacketHandler
-			phLS = New PacketHandler
-			phGS = New PacketHandler
+            sckLC = New Winsock
+            sckGC = New Winsock
+            sckLS = New Winsock
+            sckGS = New Winsock
 
-			sckLListen.Listen()
-			sckGListen.Listen()
+            phLC = New PacketHandler
+            phGC = New PacketHandler
+            phLS = New PacketHandler
+            phGS = New PacketHandler
 
-			Me.Client = Client
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+            sckLListen.Listen()
+            sckGListen.Listen()
+
+            Me.ClientProcess = Client
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 
 #Region " Disconnected "
-	Private Sub sckGC_Disconnected(ByVal sender As Winsock) Handles sckGC.Disconnected
-		Try
-			sckGC.Close()
-			sckGS.Close()
-			RaiseEvent ConnectionLost()
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+    Private Sub sckGC_Disconnected(ByVal sender As Winsock) Handles sckGC.Disconnected
+        Try
+            sckGC.Close()
+            sckGS.Close()
+            RaiseEvent ConnectionLost()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 
-	Private Sub sckGS_Disconnected(ByVal sender As Winsock) Handles sckGS.Disconnected
-		Try
-			sckGS.Close()
-			sckGC.Close()
-			RaiseEvent ConnectionLost()
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+    Private Sub sckGS_Disconnected(ByVal sender As Winsock) Handles sckGS.Disconnected
+        Try
+            sckGS.Close()
+            sckGC.Close()
+            RaiseEvent ConnectionLost()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 
-	Private Sub sckLC_Disconnected(ByVal sender As Winsock) Handles sckLC.Disconnected
-		Try
-			sckLC.Close()
-			sckLS.Close()
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+    Private Sub sckLC_Disconnected(ByVal sender As Winsock) Handles sckLC.Disconnected
+        Try
+            sckLC.Close()
+            sckLS.Close()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 
-	Private Sub sckLS_Disconnected(ByVal sender As Winsock) Handles sckLS.Disconnected
-		Try
-			sckLS.Close()
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+    Private Sub sckLS_Disconnected(ByVal sender As Winsock) Handles sckLS.Disconnected
+        Try
+            sckLS.Close()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 #End Region
 
 #Region " Connection Request "
@@ -396,98 +379,98 @@ Public Class PProxy2
             Dim intTemp As Integer = 0
 
             If Fix(((bytArray.Length - 2) / 8)) <> ((bytArray.Length - 2) / 8) Then
-				Core.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
-				CharacterIndex = intTemp
-				sckGS.Close()
-				'Dim IP As New Net.IPAddress(CharacterIPs(intTemp))
-				sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
-				'strCharName = CharacterNames(intTemp)
-				RaiseEvent ConnectionGained()
-			Else
-				bytArray = xTeaDecrypt(bytArray)
-				Select Case bytArray(2)
-					Case &HA
-						Core.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
-						CharacterIndex = intTemp
-						sckGS.Close()
-						sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
-						'strCharName = CharacterNames(intTemp)
-					Case Else
-				End Select
+                Core.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
+                CharacterIndex = intTemp
+                sckGS.Close()
+                'Dim IP As New Net.IPAddress(CharacterIPs(intTemp))
+                sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
+                'strCharName = CharacterNames(intTemp)
+                RaiseEvent ConnectionGained()
+            Else
+                bytArray = xTeaDecrypt(bytArray)
+                Select Case bytArray(2)
+                    Case &HA
+                        Core.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
+                        CharacterIndex = intTemp
+                        sckGS.Close()
+                        sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
+                        'strCharName = CharacterNames(intTemp)
+                    Case Else
+                End Select
 
-				RaiseEvent PacketFromClient(bytArray, Send)
+                RaiseEvent PacketFromClient(bytArray, Send)
 
-				If Not Send Then Exit Sub
+                If Not Send Then Exit Sub
 
-				bytArray = xTeaEncrypt(bytArray)
+                bytArray = xTeaEncrypt(bytArray)
 
-			End If
-			Do Until sckGS.GetState = Winsock.WinsockStates.Connected
-				System.Threading.Thread.Sleep(10)
-			Loop
-			Try
-				sckGS.Send(bytArray)
-			Catch ex As Exception
-				sckGS.Close()
-				sckGC.Close()
-			End Try
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+            End If
+            Do Until sckGS.GetState = Winsock.WinsockStates.Connected
+                System.Threading.Thread.Sleep(10)
+            Loop
+            Try
+                sckGS.Send(bytArray)
+            Catch ex As Exception
+                sckGS.Close()
+                sckGC.Close()
+            End Try
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 #End Region
 
 #Region " xTea Stuff "
-	Private Function GetKey() As Byte()
-		Try
-			Dim bytBuffer() As Byte = {}
+    Private Function GetKey() As Byte()
+        Try
+            Dim bytBuffer() As Byte = {}
 
-			Core.Client.ReadMemory(Consts.ptrEncryptionKey, bytBuffer, 16)
-			Return bytBuffer
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+            Core.Client.ReadMemory(Consts.ptrEncryptionKey, bytBuffer, 16)
+            Return bytBuffer
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
 
-	Private Function xTeaDecrypt(ByVal bytBuffer() As Byte) As Byte()
-		Try
-			Dim bytTemp() As Byte
-			Dim bytTemp2() As Byte
-			Dim Key() As Byte = GetKey()
-			Dim intCount As Integer
-			Dim intCount2 As Integer
-			ReDim bytTemp2(UBound(bytBuffer) - 2)
-			For intCount = 0 To ((UBound(bytBuffer) - 1) / 8) - 1
-				bytTemp = Crypt.XTEADecrypt(bytBuffer, 2 + (8 * intCount), 8, Key)
-				For intCount2 = 0 To 7
-					bytTemp2((8 * intCount) + intCount2) = bytTemp(intCount2)
-				Next
-			Next
-			Return bytTemp2
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    Private Function xTeaDecrypt(ByVal bytBuffer() As Byte) As Byte()
+        Try
+            Dim bytTemp() As Byte
+            Dim bytTemp2() As Byte
+            Dim Key() As Byte = GetKey()
+            Dim intCount As Integer
+            Dim intCount2 As Integer
+            ReDim bytTemp2(UBound(bytBuffer) - 2)
+            For intCount = 0 To ((UBound(bytBuffer) - 1) / 8) - 1
+                bytTemp = Crypt.XTEADecrypt(bytBuffer, 2 + (8 * intCount), 8, Key)
+                For intCount2 = 0 To 7
+                    bytTemp2((8 * intCount) + intCount2) = bytTemp(intCount2)
+                Next
+            Next
+            Return bytTemp2
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
 
-	Private Function xTeaEncrypt(ByVal bytBuffer() As Byte) As Byte()
-		Try
-			Dim bytTemp() As Byte
-			Dim bytTemp2(1) As Byte
-			Dim Key() As Byte = GetKey()
-			Dim intCount As Integer
-			For intCount = 0 To ((UBound(bytBuffer) + 1) / 8) - 1
-				bytTemp = Crypt.XTEAEncrypt(bytBuffer, (8 * intCount), 8, Key)
-				AddByteArray(bytTemp2, bytTemp)
-			Next
-			Return bytTemp2
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    Private Function xTeaEncrypt(ByVal bytBuffer() As Byte) As Byte()
+        Try
+            Dim bytTemp() As Byte
+            Dim bytTemp2(1) As Byte
+            Dim Key() As Byte = GetKey()
+            Dim intCount As Integer
+            For intCount = 0 To ((UBound(bytBuffer) + 1) / 8) - 1
+                bytTemp = Crypt.XTEAEncrypt(bytBuffer, (8 * intCount), 8, Key)
+                AddByteArray(bytTemp2, bytTemp)
+            Next
+            Return bytTemp2
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
 
 #End Region
 
@@ -530,12 +513,12 @@ Public Class PProxy2
                 AddWord(bytBuffer, sckGListen.LocalPort)
             Next
             AddWord(bytBuffer, PremDays)
-			If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
-				ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
-			End If
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
+            If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then
+                ReDim Preserve bytBuffer((Fix(bytBuffer.Length / 8) + 1) * 8)
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         End Try
     End Sub
 
@@ -611,4 +594,5 @@ Public Class PProxy2
             End Try
         End Function
     End Class
+
 End Class

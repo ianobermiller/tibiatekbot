@@ -555,7 +555,8 @@ Public Class frmAlarms
 				If BattlelistMessagePlayer.Checked Then
 					If BLMessagePlayerInterval = 0 Then
 						ChatMessage.Destinatary = BattlelistMessagePlayerInput.Text
-						ChatMessage.MessageType = MessageType.PM
+                        ChatMessage.MessageType = ITibia.MessageType.PrivateMessage
+                        ChatMessage.PrivateMessageType = ITibia.PrivateMessageType.Normal
 						ChatMessage.Message = Output
 						Core.ChatMessageQueueList.Insert(0, ChatMessage)
 						BLMessagePlayerInterval += 1
@@ -565,11 +566,18 @@ Public Class frmAlarms
 						BLMessagePlayerInterval = 0
 					End If
 				End If
-				If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesRed))
+                If Consts.MusicalNotesOnAlarm Then
+                    Dim CP As New ClientPacketBuilder(Core.Proxy)
+                    CP.AnimationEffect(Core.CharacterLoc, ITibia.AnimationEffects.MusicalNotesRed)
+                    'Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesRed))
+                End If
+
 				If BattlelistLogout.Checked Then
 					Log("Battlelist Alarm", Output)
-					Log("Battlelist Alarm", "Logging out.")
-					Core.Proxy.SendPacketToServer(PacketUtils.PlayerLogout)
+                    Log("Battlelist Alarm", "Logging out.")
+                    Dim SP As New ServerPacketBuilder(Core.Proxy)
+                    SP.PlayerLogout()
+                    'Core.Proxy.SendPacketToServer(PacketUtils.PlayerLogout)
 				End If
 			End If
 		Catch Ex As Exception
@@ -679,7 +687,12 @@ Public Class frmAlarms
 				If Core.TibiaWindowState <> ITibia.WindowStates.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
 					Core.Client.FlashWindow()
 				End If
-				If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesYellow))
+                If Consts.MusicalNotesOnAlarm Then
+                    Dim CP As New ClientPacketBuilder(Core.Proxy)
+                    CP.AnimationEffect(Core.CharacterLoc, ITibia.AnimationEffects.MusicalNotesYellow)
+                    'Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesYellow))
+                End If
+
 				If StatusPlaySound.Checked Then
 					Dim Sound As New Audio
 					Try
@@ -689,7 +702,8 @@ Public Class frmAlarms
 				End If
 				Dim ChatMessage As ChatMessageDefinition
 				ChatMessage.Message = Output
-				ChatMessage.MessageType = MessageType.PM
+                ChatMessage.MessageType = ITibia.MessageType.PrivateMessage
+                ChatMessage.PrivateMessageType = ITibia.PrivateMessageType.Normal
 				If StatusMessagePlayer.Checked Then
 					If STMessagePlayerInterval = 0 Then
 						If Not String.IsNullOrEmpty(StatusMessagePlayerName.Text) Then
@@ -705,8 +719,10 @@ Public Class frmAlarms
 				End If
 				If StatusLogOut.Checked Then
 					Log("Status Alarm", Output)
-					Log("Status Alarm", "Logging out.")
-					Core.Proxy.SendPacketToServer(PlayerLogout())
+                    Log("Status Alarm", "Logging out.")
+                    Dim SP As New ServerPacketBuilder(Core.Proxy)
+                    SP.PlayerLogout()
+                    'Core.Proxy.SendPacketToServer(PlayerLogout())
 				End If
 
 			End If
@@ -831,7 +847,7 @@ Public Class frmAlarms
 	Private Sub ItemsTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItemsAlarmTimer.Tick
 		Try
 			Dim MyContainer As New Container
-			Dim Item As ContainerItemDefinition
+            Dim Item As Scripting.IContainer.ContainerItemDefinition
 			Dim ContainerItemCount As Integer
 			Dim Found As Boolean = False
 			Dim FoodCount As Integer = 0
@@ -848,139 +864,144 @@ Public Class frmAlarms
 						ContainerItemCount = MyContainer.GetItemCount
 						For I As Integer = 0 To ContainerItemCount - 1
 							Item = MyContainer.Items(I)
-							If Definitions.IsFood(Item.ID) Then
-								If Item.Count = 0 Then
-									FoodCount += 1
-								Else
-									FoodCount += Item.Count
-								End If
-							End If
-						Next
-					End If
-				Loop While MyContainer.NextContainer
-				Select Case FoodCond.Condition
-					Case LogicConditions.Equal
-						If FoodCount = FoodCond.Count Then Alert = True
-					Case LogicConditions.LessOrEqualThan
-						If FoodCount <= FoodCond.Count Then Alert = True
-					Case LogicConditions.LessThan
-						If FoodCount < FoodCond.Count Then Alert = True
-					Case LogicConditions.MoreOrEqualThan
-						If FoodCount >= FoodCond.Count Then Alert = True
-					Case LogicConditions.MoreThan
-						If FoodCount > FoodCond.Count Then Alert = True
-					Case LogicConditions.NotEqual
-						If FoodCount <> FoodCond.Count Then Alert = True
-				End Select
-				If Alert Then Output = "Your alarm has fired because you have " & FoodCount & " food items."
-			End If
-			If Not Alert AndAlso BlankRunesCond.Active Then
-				BlankRunesCount = ContainerModule.Container.GetItemCountByItemID(Definitions.GetItemID("Blank"))
-				Select Case BlankRunesCond.Condition
-					Case LogicConditions.Equal
-						If BlankRunesCount = BlankRunesCond.Count Then Alert = True
-					Case LogicConditions.LessOrEqualThan
-						If BlankRunesCount <= BlankRunesCond.Count Then Alert = True
-					Case LogicConditions.LessThan
-						If BlankRunesCount < BlankRunesCond.Count Then Alert = True
-					Case LogicConditions.MoreOrEqualThan
-						If BlankRunesCount >= BlankRunesCond.Count Then Alert = True
-					Case LogicConditions.MoreThan
-						If BlankRunesCount > BlankRunesCond.Count Then Alert = True
-					Case LogicConditions.NotEqual
-						If BlankRunesCount <> BlankRunesCond.Count Then Alert = True
-				End Select
-				If Alert Then Output = "Your alarm has fired because you have " & BlankRunesCount & " blank runes."
-			End If
-			If Not Alert AndAlso WormsCond.Active Then
-				WormsCount = ContainerModule.Container.GetItemCountByItemID(Definitions.GetItemID("Worm"))
-				Select Case WormsCond.Condition
-					Case LogicConditions.Equal
-						If WormsCount = WormsCond.Count Then Alert = True
-					Case LogicConditions.LessOrEqualThan
-						If WormsCount <= WormsCond.Count Then Alert = True
-					Case LogicConditions.LessThan
-						If WormsCount < WormsCond.Count Then Alert = True
-					Case LogicConditions.MoreOrEqualThan
-						If WormsCount >= WormsCond.Count Then Alert = True
-					Case LogicConditions.MoreThan
-						If WormsCount > WormsCond.Count Then Alert = True
-					Case LogicConditions.NotEqual
-						If WormsCount <> WormsCond.Count Then Alert = True
-				End Select
-				If Alert Then Output = "Your alarm has fired because you have " & WormsCount & " worms."
-			End If
-			If Not Alert AndAlso ThrowablesCond.Active Then
-				MyContainer.Reset()
-				Do
-					If MyContainer.IsOpened Then
-						ContainerItemCount = MyContainer.GetItemCount
-						For I As Integer = 0 To ContainerItemCount - 1
-							Item = MyContainer.Items(I)
-							If Definitions.IsThrowable(Item.ID) Then
-								If Item.Count = 0 Then
-									ThrowablesCount += 1
-								Else
-									ThrowablesCount += Item.Count
-								End If
-							End If
-						Next
-					End If
-				Loop While MyContainer.NextContainer
-				Select Case ThrowablesCond.Condition
-					Case LogicConditions.Equal
-						If ThrowablesCount = ThrowablesCond.Count Then Alert = True
-					Case LogicConditions.LessOrEqualThan
-						If ThrowablesCount <= ThrowablesCond.Count Then Alert = True
-					Case LogicConditions.LessThan
-						If ThrowablesCount < ThrowablesCond.Count Then Alert = True
-					Case LogicConditions.MoreOrEqualThan
-						If ThrowablesCount >= ThrowablesCond.Count Then Alert = True
-					Case LogicConditions.MoreThan
-						If ThrowablesCount > ThrowablesCond.Count Then Alert = True
-					Case LogicConditions.NotEqual
-						If ThrowablesCount <> ThrowablesCond.Count Then Alert = True
-				End Select
-				If Alert Then Output = "Your alarm has fired because you have " & ThrowablesCount & " throwables."
-			End If
-			If Not Alert AndAlso AmmunitionCond.Active Then
-				MyContainer.Reset()
-				Do
-					If MyContainer.IsOpened Then
-						ContainerItemCount = MyContainer.GetItemCount
-						For I As Integer = 0 To ContainerItemCount - 1
-							Item = MyContainer.Items(I)
-							If Definitions.IsAmmunition(Item.ID) Then
-								If Item.Count = 0 Then
-									AmmunitionCount += 1
-								Else
-									AmmunitionCount += Item.Count
-								End If
-							End If
-						Next
-					End If
-				Loop While MyContainer.NextContainer
-				Select Case AmmunitionCond.Condition
-					Case LogicConditions.Equal
-						If AmmunitionCount = AmmunitionCond.Count Then Alert = True
-					Case LogicConditions.LessOrEqualThan
-						If AmmunitionCount <= AmmunitionCond.Count Then Alert = True
-					Case LogicConditions.LessThan
-						If AmmunitionCount < AmmunitionCond.Count Then Alert = True
-					Case LogicConditions.MoreOrEqualThan
-						If AmmunitionCount >= AmmunitionCond.Count Then Alert = True
-					Case LogicConditions.MoreThan
-						If AmmunitionCount > AmmunitionCond.Count Then Alert = True
-					Case LogicConditions.NotEqual
-						If AmmunitionCount <> AmmunitionCond.Count Then Alert = True
-				End Select
-				If Alert Then Output = "Your alarm has fired because you have " & AmmunitionCount & " items of ammunition."
-			End If
+                            If Core.Client.Items.IsFood(Item.ID) Then
+                                If Item.Count = 0 Then
+                                    FoodCount += 1
+                                Else
+                                    FoodCount += Item.Count
+                                End If
+                            End If
+                        Next
+                    End If
+                Loop While MyContainer.NextContainer
+                Select Case FoodCond.Condition
+                    Case LogicConditions.Equal
+                        If FoodCount = FoodCond.Count Then Alert = True
+                    Case LogicConditions.LessOrEqualThan
+                        If FoodCount <= FoodCond.Count Then Alert = True
+                    Case LogicConditions.LessThan
+                        If FoodCount < FoodCond.Count Then Alert = True
+                    Case LogicConditions.MoreOrEqualThan
+                        If FoodCount >= FoodCond.Count Then Alert = True
+                    Case LogicConditions.MoreThan
+                        If FoodCount > FoodCond.Count Then Alert = True
+                    Case LogicConditions.NotEqual
+                        If FoodCount <> FoodCond.Count Then Alert = True
+                End Select
+                If Alert Then Output = "Your alarm has fired because you have " & FoodCount & " food items."
+            End If
+            If Not Alert AndAlso BlankRunesCond.Active Then
+                BlankRunesCount = ContainerModule.Container.GetItemCountByItemID(Core.Client.Items.GetItemID("Blank"))
+                Select Case BlankRunesCond.Condition
+                    Case LogicConditions.Equal
+                        If BlankRunesCount = BlankRunesCond.Count Then Alert = True
+                    Case LogicConditions.LessOrEqualThan
+                        If BlankRunesCount <= BlankRunesCond.Count Then Alert = True
+                    Case LogicConditions.LessThan
+                        If BlankRunesCount < BlankRunesCond.Count Then Alert = True
+                    Case LogicConditions.MoreOrEqualThan
+                        If BlankRunesCount >= BlankRunesCond.Count Then Alert = True
+                    Case LogicConditions.MoreThan
+                        If BlankRunesCount > BlankRunesCond.Count Then Alert = True
+                    Case LogicConditions.NotEqual
+                        If BlankRunesCount <> BlankRunesCond.Count Then Alert = True
+                End Select
+                If Alert Then Output = "Your alarm has fired because you have " & BlankRunesCount & " blank runes."
+            End If
+            If Not Alert AndAlso WormsCond.Active Then
+                WormsCount = ContainerModule.Container.GetItemCountByItemID(Core.Client.Items.GetItemID("Worm"))
+                Select Case WormsCond.Condition
+                    Case LogicConditions.Equal
+                        If WormsCount = WormsCond.Count Then Alert = True
+                    Case LogicConditions.LessOrEqualThan
+                        If WormsCount <= WormsCond.Count Then Alert = True
+                    Case LogicConditions.LessThan
+                        If WormsCount < WormsCond.Count Then Alert = True
+                    Case LogicConditions.MoreOrEqualThan
+                        If WormsCount >= WormsCond.Count Then Alert = True
+                    Case LogicConditions.MoreThan
+                        If WormsCount > WormsCond.Count Then Alert = True
+                    Case LogicConditions.NotEqual
+                        If WormsCount <> WormsCond.Count Then Alert = True
+                End Select
+                If Alert Then Output = "Your alarm has fired because you have " & WormsCount & " worms."
+            End If
+            If Not Alert AndAlso ThrowablesCond.Active Then
+                MyContainer.Reset()
+                Do
+                    If MyContainer.IsOpened Then
+                        ContainerItemCount = MyContainer.GetItemCount
+                        For I As Integer = 0 To ContainerItemCount - 1
+                            Item = MyContainer.Items(I)
+                            If Core.Client.Items.IsThrowable(Item.ID) Then
+                                If Item.Count = 0 Then
+                                    ThrowablesCount += 1
+                                Else
+                                    ThrowablesCount += Item.Count
+                                End If
+                            End If
+                        Next
+                    End If
+                Loop While MyContainer.NextContainer
+                Select Case ThrowablesCond.Condition
+                    Case LogicConditions.Equal
+                        If ThrowablesCount = ThrowablesCond.Count Then Alert = True
+                    Case LogicConditions.LessOrEqualThan
+                        If ThrowablesCount <= ThrowablesCond.Count Then Alert = True
+                    Case LogicConditions.LessThan
+                        If ThrowablesCount < ThrowablesCond.Count Then Alert = True
+                    Case LogicConditions.MoreOrEqualThan
+                        If ThrowablesCount >= ThrowablesCond.Count Then Alert = True
+                    Case LogicConditions.MoreThan
+                        If ThrowablesCount > ThrowablesCond.Count Then Alert = True
+                    Case LogicConditions.NotEqual
+                        If ThrowablesCount <> ThrowablesCond.Count Then Alert = True
+                End Select
+                If Alert Then Output = "Your alarm has fired because you have " & ThrowablesCount & " throwables."
+            End If
+            If Not Alert AndAlso AmmunitionCond.Active Then
+                MyContainer.Reset()
+                Do
+                    If MyContainer.IsOpened Then
+                        ContainerItemCount = MyContainer.GetItemCount
+                        For I As Integer = 0 To ContainerItemCount - 1
+                            Item = MyContainer.Items(I)
+                            If Core.Client.Items.IsAmmunition(Item.ID) Then
+                                If Item.Count = 0 Then
+                                    AmmunitionCount += 1
+                                Else
+                                    AmmunitionCount += Item.Count
+                                End If
+                            End If
+                        Next
+                    End If
+                Loop While MyContainer.NextContainer
+                Select Case AmmunitionCond.Condition
+                    Case LogicConditions.Equal
+                        If AmmunitionCount = AmmunitionCond.Count Then Alert = True
+                    Case LogicConditions.LessOrEqualThan
+                        If AmmunitionCount <= AmmunitionCond.Count Then Alert = True
+                    Case LogicConditions.LessThan
+                        If AmmunitionCount < AmmunitionCond.Count Then Alert = True
+                    Case LogicConditions.MoreOrEqualThan
+                        If AmmunitionCount >= AmmunitionCond.Count Then Alert = True
+                    Case LogicConditions.MoreThan
+                        If AmmunitionCount > AmmunitionCond.Count Then Alert = True
+                    Case LogicConditions.NotEqual
+                        If AmmunitionCount <> AmmunitionCond.Count Then Alert = True
+                End Select
+                If Alert Then Output = "Your alarm has fired because you have " & AmmunitionCount & " items of ammunition."
+            End If
 			If Alert Then
 				If Core.TibiaWindowState <> ITibia.WindowStates.Active AndAlso Consts.FlashTaskbarWhenAlarmFires Then
 					Core.Client.FlashWindow()
 				End If
-				If Consts.MusicalNotesOnAlarm Then Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesGreen))
+                If Consts.MusicalNotesOnAlarm Then
+                    Dim CP As New ClientPacketBuilder(Core.Proxy)
+                    CP.AnimationEffect(Core.CharacterLoc, ITibia.AnimationEffects.MusicalNotesGreen)
+                    'Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, MagicEffects.MusicalNotesGreen))
+                End If
+
 				If ItemsPlaySound.Checked Then
 					Dim Sound As New Audio
 					Try
@@ -990,7 +1011,8 @@ Public Class frmAlarms
 				End If
 				Dim ChatMessage As ChatMessageDefinition
 				ChatMessage.Message = Output
-				ChatMessage.MessageType = MessageType.PM
+                ChatMessage.MessageType = ITibia.MessageType.PrivateMessage
+                ChatMessage.PrivateMessageType = ITibia.PrivateMessageType.Normal
 				If ItemsMessagePlayer.Checked Then
 					If ITMessagePlayerInterval = 0 Then
 						If Not String.IsNullOrEmpty(ItemsMessagePlayerName.Text) Then
@@ -1006,8 +1028,10 @@ Public Class frmAlarms
 				End If
 				If ItemsLogOut.Checked Then
 					Log("Items Alarm", Output)
-					Log("Items Alarm", "Logging out.")
-					Core.Proxy.SendPacketToServer(PlayerLogout())
+                    Log("Items Alarm", "Logging out.")
+                    Dim SP As New ServerPacketBuilder(Core.Proxy)
+                    SP.PlayerLogout()
+                    'Core.Proxy.SendPacketToServer(PlayerLogout())
 				End If
 			End If
 		Catch Ex As Exception
@@ -1034,7 +1058,7 @@ Public Class frmAlarms
 
     Private Sub frmAlarms_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
         Try
-            Me.Text = "Alarms for " & Core.Proxy.CharacterName
+            Me.Text = "Alarms for " & Core.Client.CharacterName
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End

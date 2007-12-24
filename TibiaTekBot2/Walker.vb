@@ -60,7 +60,8 @@ Public Module WalkerModule
 				Core.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
 				Core.Client.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
 				Core.Client.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
-				Core.Client.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 1)
+                Core.Client.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 1)
+                Dim SP As New ServerPacketBuilder(Core.Proxy)
 				If StatusText = "There is no way." And StatusTimer <> 0 Then
 					'BL.JumpToEntity(SpecialEntity.Myself)
 					If BL.IsWalking = False Then
@@ -102,8 +103,9 @@ Public Module WalkerModule
                                 Return False
                             End If
                             For i As Integer = 0 To TD.Count - 1 'CHECK THIS
-                                If Definitions.GetItemKind(TD.ObjectId(i)) = ItemKind.UsableTeleport Then
-                                    Core.Proxy.SendPacketToServer(UseObjectOnGround(TD.ObjectId(i), Coordinates))
+                                If Core.Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport Then
+                                    SP.UseObject(TD.ObjectId(i), Coordinates)
+                                    'Core.Proxy.SendPacketToServer(UseObject(TD.ObjectId(i), Coordinates))
                                     IsReady = False
                                     Return False
                                 End If
@@ -128,8 +130,10 @@ Public Module WalkerModule
                             BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                             Dim Container As New Container
                             'Dim Rope As ContainerItemDefinition
-                            Dim RopeId As UShort = Definitions.GetItemID("Rope")
-                            Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(RopeId, BL.GetLocation, TD.TileId))
+                            Dim RopeId As UShort = Core.Client.Items.GetItemID("Rope")
+                            Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
+                            ServerPacket.UseObjectWithObjectOnGround(RopeId, BL.GetLocation, TD.TileId)
+                            ServerPacket.Send()
                             System.Threading.Thread.Sleep(2000)
                             If Core.CharacterLoc.Z <> Coordinates.Z Then
                                 IsReady = True
@@ -164,7 +168,8 @@ Public Module WalkerModule
                         If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
                             Dim CM As New ChatMessageDefinition
                             System.Threading.Thread.Sleep(1000)
-                            CM.MessageType = MessageType.Normal
+                            CM.MessageType = ITibia.MessageType.Default
+                            CM.DefaultMessageType = ITibia.DefaultMessageType.Normal
                             CM.Prioritize = True
                             CM.Message = Info
                             Core.ChatMessageQueueList.Add(CM)
@@ -199,8 +204,10 @@ Public Module WalkerModule
                             Dim SewerId As Integer = 0
                             Dim SewerStackPos As Integer = 0
                             For i As Integer = 0 To TD.Count
-                                If Definitions.GetItemKind(TD.ObjectId(i)) = ItemKind.UsableTeleport2 Then
-                                    Core.Proxy.SendPacketToServer(UseObjectOnGround(TD.ObjectId(i), Core.CharacterLoc))
+                                If Core.Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport2 Then
+                                    Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
+                                    ServerPacket.UseObject(TD.ObjectId(i), Core.CharacterLoc)
+                                    'Core.Proxy.SendPacketToServer(UseObject(TD.ObjectId(i), Core.CharacterLoc))
                                     If Core.CharacterLoc.Z <> Coordinates.Z Then
                                         IsReady = True
                                         Return True
@@ -233,16 +240,19 @@ Public Module WalkerModule
                                     HoleLoc.Y += 1
                             End Select
                             'Finding Shovel
-                            Dim Shovel As ContainerItemDefinition
-                            If Container.FindItem(Shovel, Definitions.GetItemID("Shovel")) = False Then
-                                If Container.FindItem(Shovel, Definitions.GetItemID("Light Shovel")) = False Then
+                            Dim Shovel As Scripting.IContainer.ContainerItemDefinition
+                            If Container.FindItem(Shovel, Core.Client.Items.GetItemID("Shovel")) = False Then
+                                If Container.FindItem(Shovel, Core.Client.Items.GetItemID("Light Shovel")) = False Then
                                     Core.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
                                     System.Threading.Thread.Sleep(10000)
                                     IsReady = False
                                     Return False
                                 End If
                             End If
-                            Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(Shovel.ID, HoleLoc))
+                            Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
+                            ServerPacket.UseObjectWithObjectOnGround(Shovel.ID, HoleLoc)
+                            ServerPacket.Send()
+                            'Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(Shovel.ID, HoleLoc))
                             System.Threading.Thread.Sleep(1000)
                             Core.Client.WriteMemory(Consts.ptrGoToX, HoleLoc.X, 2)
                             Core.Client.WriteMemory(Consts.ptrGoToY, HoleLoc.Y, 2)

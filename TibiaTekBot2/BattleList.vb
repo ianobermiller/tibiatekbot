@@ -124,18 +124,18 @@ Public Module BattleListModule
 			End Get
 		End Property
 
-		Public ReadOnly Property GetDirection() As Integer Implements IBattlelist.GetDirection
-			Get
-				Try
-					Dim Dir As Integer
-					Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLDirectionOffset, Dir, 1)
-					Return Dir
-				Catch Ex As Exception
-					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-					End
-				End Try
-			End Get
-		End Property
+        Public ReadOnly Property GetDirection() As IBattlelist.Directions Implements IBattlelist.GetDirection
+            Get
+                Try
+                    Dim Dir As Integer
+                    Core.Client.ReadMemory(Consts.ptrBattleListBegin + (IndexPosition * Consts.BLDist) + Consts.BLDirectionOffset, Dir, 1)
+                    Return Dir
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
 
 		Public ReadOnly Property GetDistance(Optional ByVal IncludeFloor As Boolean = False) As Double Implements IBattlelist.GetDistance
 			Get
@@ -677,8 +677,11 @@ Public Module BattleListModule
 		Public Sub Attack() Implements IBattlelist.Attack
 			Try
 				Dim ID As Integer = GetEntityID
-				Core.Client.WriteMemory(Consts.ptrAttackedEntityID, ID, 4)
-				Core.Proxy.SendPacketToServer(AttackEntity(CUInt(ID)))
+                Core.Client.WriteMemory(Consts.ptrAttackedEntityID, ID, 4)
+                Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
+                ServerPacket.AttackEntity(ID)
+                ServerPacket.Send()
+                'Core.Proxy.SendPacketToServer(AttackEntity(CUInt(ID)))
 			Catch Ex As Exception
 				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 				End

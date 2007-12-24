@@ -127,10 +127,91 @@ Public NotInheritable Class Tibia
     Private _Directory As String
     Private _Filename As String
     Private _Arguments As String
+    Private _MapTiles As IMapTiles
+    Private _Dat As IDatFile
+    Private _Items As IItems
 
 #End Region
 
 #Region " Properties "
+
+    Public ReadOnly Property Items() As IItems Implements ITibia.Items
+        Get
+            Return _Items
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterWorld() As String Implements ITibia.CharacterWorld
+        Get
+            Try
+                Dim CharacterIndex As Integer = 0, CharacterListBegin As Integer = 0
+                Dim _CharacterWorld As String = String.Empty
+                ReadMemory(Consts.ptrCharacterSelectionIndex, CharacterIndex, 1)
+                ReadMemory(Consts.ptrCharacterListBegin, CharacterListBegin, 4)
+                ReadMemory(CharacterListBegin + (CharacterIndex * Consts.CharacterListDist) + Consts.CharacterListWorldOffset, _CharacterWorld)
+                Return _CharacterWorld
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterName() As String Implements ITibia.CharacterName
+        Get
+            Try
+                Dim CharacterIndex As Integer = 0, CharacterListBegin As Integer = 0
+                Dim _CharacterName As String = String.Empty
+                ReadMemory(Consts.ptrCharacterSelectionIndex, CharacterIndex, 1)
+                ReadMemory(Consts.ptrCharacterListBegin, CharacterListBegin, 4)
+                ReadMemory(CharacterListBegin + (CharacterIndex * Consts.CharacterListDist), _CharacterName)
+                Return _CharacterName
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterFightingMode() As ITibia.FightingMode Implements ITibia.CharacterFightingMode
+        Get
+            Dim FightingMode As Integer = 0
+            ReadMemory(Consts.ptrFightingMode, FightingMode, 1)
+            Return CByte(FightingMode)
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterSecureMode() As ITibia.SecureMode Implements ITibia.CharacterSecureMode
+        Get
+            Dim SecureMode As Integer = 0
+            ReadMemory(Consts.ptrSecureMode, SecureMode, 1)
+            Return CByte(SecureMode)
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterChasingMode() As ITibia.ChasingMode Implements ITibia.CharacterChasingMode
+        Get
+            Dim ChasingMode As Integer = 0
+            ReadMemory(Consts.ptrChasingMode, ChasingMode, 1)
+            Return CByte(ChasingMode)
+        End Get
+    End Property
+
+    Public ReadOnly Property MapTiles() As IMapTiles Implements ITibia.MapTiles
+        Get
+            Return _MapTiles
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterLocation() As ITibia.LocationDefinition Implements ITibia.CharacterLocation
+        Get
+            Dim Loc As New ITibia.LocationDefinition
+            ReadMemory(Consts.ptrCoordX, Loc.X, 2)
+            ReadMemory(Consts.ptrCoordY, Loc.Y, 2)
+            ReadMemory(Consts.ptrCoordZ, Loc.Z, 1)
+            Return Loc
+        End Get
+    End Property
 
     Public Property Title() As String Implements ITibia.Title
         Get
@@ -272,6 +353,12 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
+    Public ReadOnly Property Dat() As IDatFile Implements ITibia.Dat
+        Get
+            Return _Dat
+        End Get
+    End Property
+
 #End Region
 
 #Region " Methods "
@@ -281,6 +368,9 @@ Public NotInheritable Class Tibia
             _Filename = Filename
             _Directory = Directory
             _Arguments = Arguments
+            _MapTiles = New MapTiles
+            _Dat = New DatFile(Directory & "\Tibia.dat")
+            _Items = New Items()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
