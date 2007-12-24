@@ -17,23 +17,13 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Public Interface IPacket
+Public Interface IProxy
+    Event ConnectionGained()
+    Event ConnectionLost()
 
-#Region " Properties "
+    ReadOnly Property Client() As ITibia
 
-    ReadOnly Property GetBytes()
-    Property GetByte(ByVal Offset As UInteger) As Byte
-
-#End Region
-
-#Region " Methods "
-
-    Sub AddString(ByVal str As String)
-    Sub AddByte(ByVal Value As Byte)
-    Sub AddWord(ByVal Value As UInt16)
-    Sub AddDWord(ByVal Value As UInt32)
-    Sub AddLocation(ByVal Location As ITibia.LocationDefinition)
-
-#End Region
+    Sub SendPacketToServer(ByVal Packet As Packet)
+    Sub SendPacketToClient(ByVal Packet As Packet)
 
 End Interface
