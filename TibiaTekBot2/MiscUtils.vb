@@ -17,7 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports TibiaTekBot.CoreModule, System.IO, System.Math, Scripting
+Imports TibiaTekBot.CoreModule, System.IO, System.Math, Scripting, System.Text.RegularExpressions
 
 Module MiscUtils
 
@@ -46,6 +46,19 @@ Module MiscUtils
         Else
             Return Time.Hours & "h" & Time.Minutes & "m" & Time.Seconds & "s"
         End If
+    End Function
+
+    Public Function MessageIsSpell(ByVal Message As String) As Boolean
+        Dim Group1() As String = {"ad", "al", "ex", "ut"}
+        Dim Group2() As String = {"amo", "ana", "ani", "eta", "evo", "ito", "iva", "ori", "ura"}
+        For Each Gr1 As String In Group1
+            For Each Gr2 As String In Group2
+                If Regex.IsMatch(Message, "^" & Gr1 & "\s*" & Gr2, RegexOptions.IgnoreCase) Then
+                    Return True
+                End If
+            Next
+        Next
+        Return False
     End Function
 
     Public Function GetWaypointsDirectory() As String
@@ -126,18 +139,18 @@ Module MiscUtils
         End Try
     End Function
 
-	Public Function GetInventorySlotAsLocation(ByVal Slot As InventorySlots) As ITibia.LocationDefinition
-		Try
-			Dim Result As New ITibia.LocationDefinition
-			Result.X = &HFFFF
-			Result.Y = CShort(Slot)
-			Result.Z = 0
-			Return Result
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+    Public Function GetInventorySlotAsLocation(ByVal Slot As ITibia.InventorySlots) As ITibia.LocationDefinition
+        Try
+            Dim Result As New ITibia.LocationDefinition
+            Result.X = &HFFFF
+            Result.Y = CShort(Slot)
+            Result.Z = 0
+            Return Result
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Function
 
     Public Sub Log(ByVal Source As String, ByVal Text As String)
         If Core.LoggingEnabled OrElse Consts.DebugOnLog Then
@@ -156,7 +169,9 @@ Module MiscUtils
             BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
             BL.IsWalking = False
             'Core.ConsoleWrite("Stop Player: STOP")
-            Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
+            Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
+            ServerPacket.StopEverything()
+            'Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
             Core.Client.WriteMemory(Consts.ptrGoToX, 0, 4)
             Core.Client.WriteMemory(Consts.ptrGoToY, 0, 4)
             Core.Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
