@@ -356,6 +356,7 @@ Public Module CoreModule
         Public Sub New()
             Try
                 Consts = New Constants()
+                LS = New Levelspy()
 
                 Outfits = New Outfits()
                 Spells = New Spells()

@@ -190,6 +190,10 @@
   <Const Name="ptrNameSpy2" Value="H4DF473" /> 
   <Const Name="NameSpyDefault" Value="H4A75" /> 
   <Const Name="NameSpy2Default" Value="H4075" />
+  <Const Name="LevelSpy1" Value="H4E115A" />
+  <Const Name="LevelSpy2" Value="H4E125F" />
+  <Const Name="LevelSpy3" Value="H4E12E0" />
+  <Const Name="ptrLevelSpy" Value="H61B608" />
   <Const Name="CavebotAttackerShrinkRadius" Value="1.0" />
   <Const Name="WaypointMaxDistance" Value="100" />
   <Const Name="MCPatchOffset" Value="1018180" />

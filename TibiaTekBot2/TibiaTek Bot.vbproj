@@ -213,6 +213,7 @@
     <Compile Include="HotkeySettings.vb" />
     <Compile Include="IrcClient.vb" />
     <Compile Include="Items.vb" />
+    <Compile Include="Levelspy.vb" />
     <Compile Include="LootItems.vb" />
     <Compile Include="MapTiles.vb" />
     <Compile Include="MiscUtils.vb" />

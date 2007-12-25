@@ -206,6 +206,11 @@ Public Module ConstantsModule
         Public LootWithCavebot As Boolean = True
         Public CavebotLootMinCap As Integer = 0
 
+        Public LevelSpy1 As Integer = &H4E115A
+        Public LevelSpy2 As Integer = &H4E125F
+        Public LevelSpy3 As Integer = &H4E12E0
+        Public ptrLevelSpy As Integer = &H61B608
+
         Public ptrStatusMessage As Integer = &H768458
         Public ptrStatusMessageTimer As Integer = &H768454
 
@@ -344,7 +349,6 @@ Public Module ConstantsModule
                                                     ptrCharacterID = CInt(Value)
                                                 Case "ptrBattleListBegin"
                                                     ptrBattleListBegin = CInt(Value)
-
                                                 Case "ptrFirstContainer"
                                                     ptrFirstContainer = CInt(Value)
                                                 Case "ptrInventoryBegin"
@@ -583,7 +587,6 @@ Public Module ConstantsModule
                                                     MCPatchReplacement = CInt(Value)
                                                 Case "MCPatchOriginal"
                                                     MCPatchOriginal = CInt(Value)
-
                                                 Case "SpellCasterInterval"
                                                     SpellCasterInterval = CInt(Value)
                                                 Case "SpellCasterDelay"
@@ -600,7 +603,6 @@ Public Module ConstantsModule
                                                     IRCNickname = Value
                                                 Case "IRCPassword"
                                                     IRCPassword = Value
-
                                                 Case "AntiLogoutInterval"
                                                     AntiLogoutInterval = CInt(Value)
                                                 Case "AutoOpenBackpack"
@@ -609,13 +611,20 @@ Public Module ConstantsModule
                                                     CharacterListDist = CInt(Value)
                                                 Case "CharacterListWorldOffset"
                                                     CharacterListWorldOffset = CInt(Value)
-
                                                 Case "TTMessagesEnabled"
                                                     TTMessagesEnabled = System.Boolean.Parse(Value)
                                                 Case "TTMessagesInterval"
                                                     TTMessagesInterval = CInt(Value)
                                                 Case "ptrForYourInformation"
                                                     ptrForYourInformation = CInt(Value)
+                                                Case "LevelSpy1"
+                                                    LevelSpy1 = CInt(Value)
+                                                Case "LevelSpy2"
+                                                    LevelSpy2 = CInt(Value)
+                                                Case "LevelSpy3"
+                                                    LevelSpy3 = CInt(Value)
+                                                Case "ptrLevelSpy"
+                                                    ptrLevelSpy = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
