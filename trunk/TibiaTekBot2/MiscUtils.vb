@@ -261,4 +261,15 @@ Module MiscUtils
         End Try
     End Function
 
+    Public Function InjectCode(ByVal Address As Integer, ByVal OpCodes() As Byte) As Boolean
+        Try
+            For I As Integer = 0 To OpCodes.Length - 1
+                Core.Client.WriteMemory(Address + I, OpCodes(I), 1)
+            Next
+            Return True
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Function
+
 End Module

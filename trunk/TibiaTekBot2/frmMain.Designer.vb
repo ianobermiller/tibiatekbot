@@ -2680,6 +2680,7 @@ Partial Class frmMain
         'HealFType
         '
         Me.HealFType.FormattingEnabled = True
+        Me.HealFType.Items.AddRange(New Object() {resources.GetString("HealFType.Items"), resources.GetString("HealFType.Items1"), resources.GetString("HealFType.Items2")})
         resources.ApplyResources(Me.HealFType, "HealFType")
         Me.HealFType.Name = "HealFType"
         '
@@ -2721,6 +2722,7 @@ Partial Class frmMain
         'HealPType
         '
         Me.HealPType.FormattingEnabled = True
+        Me.HealPType.Items.AddRange(New Object() {resources.GetString("HealPType.Items"), resources.GetString("HealPType.Items1"), resources.GetString("HealPType.Items2")})
         resources.ApplyResources(Me.HealPType, "HealPType")
         Me.HealPType.Name = "HealPType"
         '

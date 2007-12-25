@@ -222,6 +222,9 @@ Public Class frmCavebot
 
     Private Sub WPClearcmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles WPClearcmd.Click
         Try
+            If MessageBox.Show("Are you sure you want to clear you waypoints?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
+                Exit Sub
+            End If
             If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
                 MessageBox.Show("Cavebot/Walker is currently running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub

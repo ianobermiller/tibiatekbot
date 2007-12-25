@@ -40,7 +40,7 @@ Public Class frmMain
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             Dim R As New Random(System.DateTime.Now.Millisecond)
-            Select Case R.Next(0, 7)
+            Select Case R.Next(0, 5)
                 Case 0
                     Me.PictureBox1.Image = My.Resources.ttb_splash0
                 Case 1
@@ -51,11 +51,6 @@ Public Class frmMain
                     Me.PictureBox1.Image = My.Resources.ttb_splash3
                 Case 4
                     Me.PictureBox1.Image = My.Resources.ttb_splash4
-                Case 5
-                    Me.PictureBox1.Image = My.Resources.ttb_splash5
-                Case 6
-                    Me.PictureBox1.Image = My.Resources.ttb_splash6
-
             End Select
             'MsgBox(System.Text.Encoding.GetEncoding("iso-8859-1").EncodingName)
             'For Each Encoding As System.Text.EncodingInfo In System.Text.Encoding.GetEncodings
@@ -1850,69 +1845,6 @@ Public Class frmMain
         End Select
     End Sub
 
-    Private Sub HealFriendTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
-            If HealFriendTrigger.Checked Then
-                If Core.HealFriendTimerObj.State = ThreadTimerState.Running Then Exit Sub
-                If String.IsNullOrEmpty(HealFName.Text) Then
-                    MessageBox.Show("You must enter the friend's name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    RefreshHealFriendControls()
-                    Exit Sub
-                End If
-                Core.HealFriendHealthPercentage = HealFHp.Value
-                Select Case HealFType.Text
-                    Case "Ultimate Healing Rune"
-                        Core.HealFriendHealType = HealTypes.UltimateHealingRune
-                    Case "Exura Sio - Spell"
-                        Core.HealFriendHealType = HealTypes.ExuraSio
-                    Case "Both"
-                        Core.HealFriendHealType = HealTypes.Both
-                    Case Else
-                        MessageBox.Show("You must select the type for healer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        Exit Sub
-                End Select
-                Core.HealFriendCharacterName = HealFName.Text
-                Core.HealFriendTimerObj.StartTimer()
-            Else
-                Core.HealFriendCharacterName = ""
-                Core.HealFriendHealthPercentage = 0
-                Core.HealFriendTimerObj.StopTimer()
-            End If
-            RefreshHealFriendControls()
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
-
-    Private Sub HealPartyTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
-            If HealPartyTrigger.Checked Then
-                If Core.HealPartyTimerObj.State = ThreadTimerState.Running Then Exit Sub
-                Core.HealPartyMinimumHPPercentage = HealPHp.Value
-                Select Case HealPType.Text
-                    Case "Ultimate Healing Rune"
-                        Core.HealPartyHealType = HealTypes.UltimateHealingRune
-                    Case "Exura Sio - Spell"
-                        Core.HealPartyHealType = HealTypes.ExuraSio
-                    Case "Both"
-                        Core.HealPartyHealType = HealTypes.Both
-                    Case Else
-                        MessageBox.Show("You must select the type for healer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        Exit Sub
-                End Select
-                Core.HealPartyTimerObj.StartTimer()
-            Else
-                Core.HealPartyMinimumHPPercentage = 0
-                Core.HealPartyTimerObj.StopTimer()
-            End If
-            RefreshHealPartyControls()
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
-
     Private Sub MiscReloadSpellsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadSpellsButton.Click
         Try
             CoreModule.Spells.LoadSpells()
@@ -2704,6 +2636,69 @@ Public Class frmMain
             RefreshAmmoMakerControls()
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub HealFriendTrigger_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealFriendTrigger.CheckedChanged
+        Try
+            If HealFriendTrigger.Checked Then
+                If Core.HealFriendTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If String.IsNullOrEmpty(HealFName.Text) Then
+                    MessageBox.Show("You must enter the friend's name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    RefreshHealFriendControls()
+                    Exit Sub
+                End If
+                Core.HealFriendHealthPercentage = HealFHp.Value
+                Select Case HealFType.Text
+                    Case "Ultimate Healing Rune"
+                        Core.HealFriendHealType = HealTypes.UltimateHealingRune
+                    Case "Exura Sio - Spell"
+                        Core.HealFriendHealType = HealTypes.ExuraSio
+                    Case "Both"
+                        Core.HealFriendHealType = HealTypes.Both
+                    Case Else
+                        MessageBox.Show("You must select the type for healer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                End Select
+                Core.HealFriendCharacterName = HealFName.Text
+                Core.HealFriendTimerObj.StartTimer()
+            Else
+                Core.HealFriendCharacterName = ""
+                Core.HealFriendHealthPercentage = 0
+                Core.HealFriendTimerObj.StopTimer()
+            End If
+            RefreshHealFriendControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub HealPartyTrigger_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealPartyTrigger.CheckedChanged
+        Try
+            If HealPartyTrigger.Checked Then
+                If Core.HealPartyTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                Core.HealPartyMinimumHPPercentage = HealPHp.Value
+                Select Case HealPType.Text
+                    Case "Ultimate Healing Rune"
+                        Core.HealPartyHealType = HealTypes.UltimateHealingRune
+                    Case "Exura Sio - Spell"
+                        Core.HealPartyHealType = HealTypes.ExuraSio
+                    Case "Both"
+                        Core.HealPartyHealType = HealTypes.Both
+                    Case Else
+                        MessageBox.Show("You must select the type for healer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Exit Sub
+                End Select
+                Core.HealPartyTimerObj.StartTimer()
+            Else
+                Core.HealPartyMinimumHPPercentage = 0
+                Core.HealPartyTimerObj.StopTimer()
+            End If
+            RefreshHealPartyControls()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
         End Try
     End Sub
 #End Region
