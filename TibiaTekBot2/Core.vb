@@ -3043,7 +3043,7 @@ Public Module CoreModule
             Try
                 If Not Client.IsConnected Then Exit Sub
                 Dim IdleTime As TimeSpan = Date.Now.Subtract(LastActivity)
-                If IdleTime.TotalMinutes <= 14 Then Exit Sub
+                If IdleTime.TotalMinutes < 13 Then Exit Sub
                 Dim BL As New BattleList
                 Dim MyLastDirection As Integer
                 Dim RandNum As New Random(Date.Now.Millisecond)
