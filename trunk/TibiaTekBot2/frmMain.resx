@@ -333,13 +333,7 @@
     <value>235, 22</value>
   </data>
   <data name="ClosePopupItem.Text" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 20</value>
-  </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
-    <value>TibiaTek Bot Menu</value>
+    <value>&amp;Exit</value>
   </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>236, 226</value>
@@ -356,6 +350,12 @@
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 20</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
+    <value>TibiaTek Bot Menu</value>
   </data>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
@@ -1302,15 +1302,126 @@
   <data name="LicenseToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;License</value>
   </data>
-  <data name="ExitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="ExitToolStripMenuItem.Text" xml:space="preserve">
-    <value>E&amp;xit</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MainTabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;TabPage10.Name" xml:space="preserve">
+    <value>TabPage10</value>
+  </data>
+  <data name="&gt;&gt;TabPage10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage10.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage10.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Name" xml:space="preserve">
+    <value>TabPage1</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Name" xml:space="preserve">
+    <value>TabPage2</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Name" xml:space="preserve">
+    <value>TabPage3</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Name" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Name" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Name" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Name" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="MainTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 27</value>
+  </data>
+  <data name="MainTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 365</value>
+  </data>
+  <data name="MainTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Name" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;LinkLabel1.Name" xml:space="preserve">
     <value>LinkLabel1</value>
@@ -1363,870 +1474,6 @@
   <data name="&gt;&gt;TabPage10.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;GeneralTabControl.Name" xml:space="preserve">
-    <value>GeneralTabControl</value>
-  </data>
-  <data name="&gt;&gt;GeneralTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GeneralTabControl.Parent" xml:space="preserve">
-    <value>TabPage1</value>
-  </data>
-  <data name="&gt;&gt;GeneralTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="TabPage1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="TabPage1.Text" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="&gt;&gt;TabPage1.Name" xml:space="preserve">
-    <value>TabPage1</value>
-  </data>
-  <data name="&gt;&gt;TabPage1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage1.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AFKTabControl.Name" xml:space="preserve">
-    <value>AFKTabControl</value>
-  </data>
-  <data name="&gt;&gt;AFKTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AFKTabControl.Parent" xml:space="preserve">
-    <value>TabPage2</value>
-  </data>
-  <data name="&gt;&gt;AFKTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="TabPage2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="TabPage2.Text" xml:space="preserve">
-    <value>AFK</value>
-  </data>
-  <data name="&gt;&gt;TabPage2.Name" xml:space="preserve">
-    <value>TabPage2</value>
-  </data>
-  <data name="&gt;&gt;TabPage2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage2.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;HealerBox.Name" xml:space="preserve">
-    <value>HealerBox</value>
-  </data>
-  <data name="&gt;&gt;HealerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealerBox.Parent" xml:space="preserve">
-    <value>HealingTab1</value>
-  </data>
-  <data name="&gt;&gt;HealerBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;DrinkerBox.Name" xml:space="preserve">
-    <value>DrinkerBox</value>
-  </data>
-  <data name="&gt;&gt;DrinkerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DrinkerBox.Parent" xml:space="preserve">
-    <value>HealingTab1</value>
-  </data>
-  <data name="&gt;&gt;DrinkerBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="HealingTab1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="HealingTab1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="HealingTab1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>395, 313</value>
-  </data>
-  <data name="HealingTab1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="HealingTab1.Text" xml:space="preserve">
-    <value>Part I</value>
-  </data>
-  <data name="&gt;&gt;HealingTab1.Name" xml:space="preserve">
-    <value>HealingTab1</value>
-  </data>
-  <data name="&gt;&gt;HealingTab1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealingTab1.Parent" xml:space="preserve">
-    <value>HealingTabControl</value>
-  </data>
-  <data name="&gt;&gt;HealingTab1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="HealFriendTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
-    <value>Button</value>
-  </data>
-  <data name="HealFriendTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HealFriendTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 95</value>
-  </data>
-  <data name="HealFriendTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 24</value>
-  </data>
-  <data name="HealFriendTrigger.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="HealFriendTrigger.Text" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="HealFriendTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;HealFriendTrigger.Name" xml:space="preserve">
-    <value>HealFriendTrigger</value>
-  </data>
-  <data name="&gt;&gt;HealFriendTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealFriendTrigger.Parent" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;HealFriendTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="HealFHp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>107, 69</value>
-  </data>
-  <data name="HealFHp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 20</value>
-  </data>
-  <data name="HealFHp.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;HealFHp.Name" xml:space="preserve">
-    <value>HealFHp</value>
-  </data>
-  <data name="&gt;&gt;HealFHp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealFHp.Parent" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;HealFHp.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="HealFHplbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="HealFHplbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HealFHplbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 71</value>
-  </data>
-  <data name="HealFHplbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 13</value>
-  </data>
-  <data name="HealFHplbl.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="HealFHplbl.Text" xml:space="preserve">
-    <value>Hit Points Percent:</value>
-  </data>
-  <data name="&gt;&gt;HealFHplbl.Name" xml:space="preserve">
-    <value>HealFHplbl</value>
-  </data>
-  <data name="&gt;&gt;HealFHplbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealFHplbl.Parent" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;HealFHplbl.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="HealFName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 16</value>
-  </data>
-  <data name="HealFName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>139, 20</value>
-  </data>
-  <data name="HealFName.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;HealFName.Name" xml:space="preserve">
-    <value>HealFName</value>
-  </data>
-  <data name="&gt;&gt;HealFName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealFName.Parent" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;HealFName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="HealFNamelbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="HealFNamelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HealFNamelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="HealFNamelbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 13</value>
-  </data>
-  <data name="HealFNamelbl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="HealFNamelbl.Text" xml:space="preserve">
-    <value>Name:</value>
-  </data>
-  <data name="&gt;&gt;HealFNamelbl.Name" xml:space="preserve">
-    <value>HealFNamelbl</value>
-  </data>
-  <data name="&gt;&gt;HealFNamelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealFNamelbl.Parent" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;HealFNamelbl.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="HealFType.Items" xml:space="preserve">
-    <value>Ultimate Healing Rune</value>
-  </data>
-  <data name="HealFType.Items1" xml:space="preserve">
-    <value>Exura Sio - Spell</value>
-  </data>
-  <data name="HealFType.Items2" xml:space="preserve">
-    <value>Both</value>
-  </data>
-  <data name="HealFType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 42</value>
-  </data>
-  <data name="HealFType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 21</value>
-  </data>
-  <data name="HealFType.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;HealFType.Name" xml:space="preserve">
-    <value>HealFType</value>
-  </data>
-  <data name="&gt;&gt;HealFType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealFType.Parent" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;HealFType.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="HealFTypelbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="HealFTypelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HealFTypelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 45</value>
-  </data>
-  <data name="HealFTypelbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 13</value>
-  </data>
-  <data name="HealFTypelbl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="HealFTypelbl.Text" xml:space="preserve">
-    <value>Heal with:</value>
-  </data>
-  <data name="&gt;&gt;HealFTypelbl.Name" xml:space="preserve">
-    <value>HealFTypelbl</value>
-  </data>
-  <data name="&gt;&gt;HealFTypelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealFTypelbl.Parent" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;HealFTypelbl.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="GroupBox17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 118</value>
-  </data>
-  <data name="GroupBox17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 130</value>
-  </data>
-  <data name="GroupBox17.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="GroupBox17.Text" xml:space="preserve">
-    <value>Friend Healer</value>
-  </data>
-  <data name="&gt;&gt;GroupBox17.Name" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;GroupBox17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox17.Parent" xml:space="preserve">
-    <value>HealingTab2</value>
-  </data>
-  <data name="&gt;&gt;GroupBox17.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="HealPartyTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
-    <value>Button</value>
-  </data>
-  <data name="HealPartyTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HealPartyTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 72</value>
-  </data>
-  <data name="HealPartyTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 24</value>
-  </data>
-  <data name="HealPartyTrigger.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="HealPartyTrigger.Text" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="HealPartyTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;HealPartyTrigger.Name" xml:space="preserve">
-    <value>HealPartyTrigger</value>
-  </data>
-  <data name="&gt;&gt;HealPartyTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealPartyTrigger.Parent" xml:space="preserve">
-    <value>GroupBox19</value>
-  </data>
-  <data name="&gt;&gt;HealPartyTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="HealPHp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>107, 43</value>
-  </data>
-  <data name="HealPHp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
-  </data>
-  <data name="HealPHp.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;HealPHp.Name" xml:space="preserve">
-    <value>HealPHp</value>
-  </data>
-  <data name="&gt;&gt;HealPHp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealPHp.Parent" xml:space="preserve">
-    <value>GroupBox19</value>
-  </data>
-  <data name="&gt;&gt;HealPHp.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="HealP.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="HealP.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HealP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 46</value>
-  </data>
-  <data name="HealP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 13</value>
-  </data>
-  <data name="HealP.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="HealP.Text" xml:space="preserve">
-    <value>Hit Points Percent:</value>
-  </data>
-  <data name="&gt;&gt;HealP.Name" xml:space="preserve">
-    <value>HealP</value>
-  </data>
-  <data name="&gt;&gt;HealP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealP.Parent" xml:space="preserve">
-    <value>GroupBox19</value>
-  </data>
-  <data name="&gt;&gt;HealP.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="HealPType.Items" xml:space="preserve">
-    <value>Ultimate Healing Rune</value>
-  </data>
-  <data name="HealPType.Items1" xml:space="preserve">
-    <value>Exura Sio - Spell</value>
-  </data>
-  <data name="HealPType.Items2" xml:space="preserve">
-    <value>Both</value>
-  </data>
-  <data name="HealPType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 13</value>
-  </data>
-  <data name="HealPType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 21</value>
-  </data>
-  <data name="HealPType.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;HealPType.Name" xml:space="preserve">
-    <value>HealPType</value>
-  </data>
-  <data name="&gt;&gt;HealPType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealPType.Parent" xml:space="preserve">
-    <value>GroupBox19</value>
-  </data>
-  <data name="&gt;&gt;HealPType.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="HealPlbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="HealPlbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HealPlbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="HealPlbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 13</value>
-  </data>
-  <data name="HealPlbl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="HealPlbl.Text" xml:space="preserve">
-    <value>Heal with:</value>
-  </data>
-  <data name="&gt;&gt;HealPlbl.Name" xml:space="preserve">
-    <value>HealPlbl</value>
-  </data>
-  <data name="&gt;&gt;HealPlbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealPlbl.Parent" xml:space="preserve">
-    <value>GroupBox19</value>
-  </data>
-  <data name="&gt;&gt;HealPlbl.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="GroupBox19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="GroupBox19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 106</value>
-  </data>
-  <data name="GroupBox19.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="GroupBox19.Text" xml:space="preserve">
-    <value>Party Healer</value>
-  </data>
-  <data name="&gt;&gt;GroupBox19.Name" xml:space="preserve">
-    <value>GroupBox19</value>
-  </data>
-  <data name="&gt;&gt;GroupBox19.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox19.Parent" xml:space="preserve">
-    <value>HealingTab2</value>
-  </data>
-  <data name="&gt;&gt;GroupBox19.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="HealingTab2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="HealingTab2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="HealingTab2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>395, 313</value>
-  </data>
-  <data name="HealingTab2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="HealingTab2.Text" xml:space="preserve">
-    <value>Part II</value>
-  </data>
-  <data name="&gt;&gt;HealingTab2.Name" xml:space="preserve">
-    <value>HealingTab2</value>
-  </data>
-  <data name="&gt;&gt;HealingTab2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealingTab2.Parent" xml:space="preserve">
-    <value>HealingTabControl</value>
-  </data>
-  <data name="&gt;&gt;HealingTab2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="HealingTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="HealingTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>403, 339</value>
-  </data>
-  <data name="HealingTabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;HealingTabControl.Name" xml:space="preserve">
-    <value>HealingTabControl</value>
-  </data>
-  <data name="&gt;&gt;HealingTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealingTabControl.Parent" xml:space="preserve">
-    <value>TabPage3</value>
-  </data>
-  <data name="&gt;&gt;HealingTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="TabPage3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage3.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="TabPage3.Text" xml:space="preserve">
-    <value>Healing</value>
-  </data>
-  <data name="&gt;&gt;TabPage3.Name" xml:space="preserve">
-    <value>TabPage3</value>
-  </data>
-  <data name="&gt;&gt;TabPage3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage3.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage3.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;MCPatcherBox.Name" xml:space="preserve">
-    <value>MCPatcherBox</value>
-  </data>
-  <data name="&gt;&gt;MCPatcherBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MCPatcherBox.Parent" xml:space="preserve">
-    <value>TabPage7</value>
-  </data>
-  <data name="&gt;&gt;MCPatcherBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.Name" xml:space="preserve">
-    <value>GroupBox1</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.Parent" xml:space="preserve">
-    <value>TabPage7</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TabPage7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage7.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage7.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="TabPage7.Text" xml:space="preserve">
-    <value>Misc.</value>
-  </data>
-  <data name="&gt;&gt;TabPage7.Name" xml:space="preserve">
-    <value>TabPage7</value>
-  </data>
-  <data name="&gt;&gt;TabPage7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage7.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage7.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;SendLocationBox.Name" xml:space="preserve">
-    <value>SendLocationBox</value>
-  </data>
-  <data name="&gt;&gt;SendLocationBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SendLocationBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;SendLocationBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsiteBox.Name" xml:space="preserve">
-    <value>OpenWebsiteBox</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsiteBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsiteBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsiteBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;NameSpyBox.Name" xml:space="preserve">
-    <value>NameSpyBox</value>
-  </data>
-  <data name="&gt;&gt;NameSpyBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NameSpyBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;NameSpyBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;FloorLookBox.Name" xml:space="preserve">
-    <value>FloorLookBox</value>
-  </data>
-  <data name="&gt;&gt;FloorLookBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FloorLookBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;FloorLookBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerBox.Name" xml:space="preserve">
-    <value>ExpCheckerBox</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="TabPage4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage4.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="TabPage4.Text" xml:space="preserve">
-    <value>Info.</value>
-  </data>
-  <data name="&gt;&gt;TabPage4.Name" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;TabPage4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage4.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage4.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Name" xml:space="preserve">
-    <value>PickuperBox</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Name" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.Name" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="TabPage5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage5.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="TabPage5.Text" xml:space="preserve">
-    <value>Training</value>
-  </data>
-  <data name="&gt;&gt;TabPage5.Name" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;TabPage5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage5.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage5.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Name" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Parent" xml:space="preserve">
-    <value>TabPage6</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Name" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Parent" xml:space="preserve">
-    <value>TabPage6</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TabPage6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage6.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage6.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="TabPage6.Text" xml:space="preserve">
-    <value>Fun</value>
-  </data>
-  <data name="&gt;&gt;TabPage6.Name" xml:space="preserve">
-    <value>TabPage6</value>
-  </data>
-  <data name="&gt;&gt;TabPage6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage6.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage6.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="MainTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 27</value>
-  </data>
-  <data name="MainTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 365</value>
-  </data>
-  <data name="MainTabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Name" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="LinkLabel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2273,6 +1520,45 @@
     <value>TabPage10</value>
   </data>
   <data name="&gt;&gt;PictureBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Name" xml:space="preserve">
+    <value>GeneralTabControl</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Parent" xml:space="preserve">
+    <value>TabPage1</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabPage1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TabPage1.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Name" xml:space="preserve">
+    <value>TabPage1</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="&gt;&gt;GeneralTab1.Name" xml:space="preserve">
@@ -4086,6 +3372,45 @@
   </data>
   <data name="&gt;&gt;AutoLooterTrigger.ZOrder" xml:space="preserve">
     <value>7</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Name" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Parent" xml:space="preserve">
+    <value>TabPage2</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabPage2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="TabPage2.Text" xml:space="preserve">
+    <value>AFK</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Name" xml:space="preserve">
+    <value>TabPage2</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="AFKTabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -7213,6 +6538,141 @@
   <data name="&gt;&gt;StatsUploaderUrl.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="&gt;&gt;HealingTabControl.Name" xml:space="preserve">
+    <value>HealingTabControl</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.Parent" xml:space="preserve">
+    <value>TabPage3</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="TabPage3.Text" xml:space="preserve">
+    <value>Healing</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Name" xml:space="preserve">
+    <value>TabPage3</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HealingTab1.Name" xml:space="preserve">
+    <value>HealingTab1</value>
+  </data>
+  <data name="&gt;&gt;HealingTab1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealingTab1.Parent" xml:space="preserve">
+    <value>HealingTabControl</value>
+  </data>
+  <data name="&gt;&gt;HealingTab1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;HealingTab2.Name" xml:space="preserve">
+    <value>HealingTab2</value>
+  </data>
+  <data name="&gt;&gt;HealingTab2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealingTab2.Parent" xml:space="preserve">
+    <value>HealingTabControl</value>
+  </data>
+  <data name="&gt;&gt;HealingTab2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealingTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="HealingTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>403, 339</value>
+  </data>
+  <data name="HealingTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.Name" xml:space="preserve">
+    <value>HealingTabControl</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.Parent" xml:space="preserve">
+    <value>TabPage3</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;HealerBox.Name" xml:space="preserve">
+    <value>HealerBox</value>
+  </data>
+  <data name="&gt;&gt;HealerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealerBox.Parent" xml:space="preserve">
+    <value>HealingTab1</value>
+  </data>
+  <data name="&gt;&gt;HealerBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DrinkerBox.Name" xml:space="preserve">
+    <value>DrinkerBox</value>
+  </data>
+  <data name="&gt;&gt;DrinkerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DrinkerBox.Parent" xml:space="preserve">
+    <value>HealingTab1</value>
+  </data>
+  <data name="&gt;&gt;DrinkerBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealingTab1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="HealingTab1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="HealingTab1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>395, 313</value>
+  </data>
+  <data name="HealingTab1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="HealingTab1.Text" xml:space="preserve">
+    <value>Part I</value>
+  </data>
+  <data name="&gt;&gt;HealingTab1.Name" xml:space="preserve">
+    <value>HealingTab1</value>
+  </data>
+  <data name="&gt;&gt;HealingTab1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealingTab1.Parent" xml:space="preserve">
+    <value>HealingTabControl</value>
+  </data>
+  <data name="&gt;&gt;HealingTab1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;HealPotionHpPanel.Name" xml:space="preserve">
     <value>HealPotionHpPanel</value>
   </data>
@@ -8221,6 +7681,639 @@
   <data name="&gt;&gt;DrinkerManalbl.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="&gt;&gt;GroupBox17.Name" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;GroupBox17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox17.Parent" xml:space="preserve">
+    <value>HealingTab2</value>
+  </data>
+  <data name="&gt;&gt;GroupBox17.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBox19.Name" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;GroupBox19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox19.Parent" xml:space="preserve">
+    <value>HealingTab2</value>
+  </data>
+  <data name="&gt;&gt;GroupBox19.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealingTab2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="HealingTab2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="HealingTab2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>395, 313</value>
+  </data>
+  <data name="HealingTab2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="HealingTab2.Text" xml:space="preserve">
+    <value>Part II</value>
+  </data>
+  <data name="&gt;&gt;HealingTab2.Name" xml:space="preserve">
+    <value>HealingTab2</value>
+  </data>
+  <data name="&gt;&gt;HealingTab2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealingTab2.Parent" xml:space="preserve">
+    <value>HealingTabControl</value>
+  </data>
+  <data name="&gt;&gt;HealingTab2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Name" xml:space="preserve">
+    <value>HealFriendTrigger</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Name" xml:space="preserve">
+    <value>HealFHp</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Name" xml:space="preserve">
+    <value>HealFHplbl</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Name" xml:space="preserve">
+    <value>HealFName</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Name" xml:space="preserve">
+    <value>HealFNamelbl</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Name" xml:space="preserve">
+    <value>HealFType</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFType.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Name" xml:space="preserve">
+    <value>HealFTypelbl</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="GroupBox17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 118</value>
+  </data>
+  <data name="GroupBox17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 130</value>
+  </data>
+  <data name="GroupBox17.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="GroupBox17.Text" xml:space="preserve">
+    <value>Friend Healer</value>
+  </data>
+  <data name="&gt;&gt;GroupBox17.Name" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;GroupBox17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox17.Parent" xml:space="preserve">
+    <value>HealingTab2</value>
+  </data>
+  <data name="&gt;&gt;GroupBox17.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="HealFriendTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="HealFriendTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealFriendTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 95</value>
+  </data>
+  <data name="HealFriendTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="HealFriendTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="HealFriendTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="HealFriendTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Name" xml:space="preserve">
+    <value>HealFriendTrigger</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFriendTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="HealFHp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>107, 69</value>
+  </data>
+  <data name="HealFHp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 20</value>
+  </data>
+  <data name="HealFHp.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Name" xml:space="preserve">
+    <value>HealFHp</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFHp.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealFHplbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealFHplbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealFHplbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 71</value>
+  </data>
+  <data name="HealFHplbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 13</value>
+  </data>
+  <data name="HealFHplbl.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="HealFHplbl.Text" xml:space="preserve">
+    <value>Hit Points Percent:</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Name" xml:space="preserve">
+    <value>HealFHplbl</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFHplbl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="HealFName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 16</value>
+  </data>
+  <data name="HealFName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 20</value>
+  </data>
+  <data name="HealFName.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Name" xml:space="preserve">
+    <value>HealFName</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFName.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="HealFNamelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealFNamelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealFNamelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="HealFNamelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="HealFNamelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="HealFNamelbl.Text" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Name" xml:space="preserve">
+    <value>HealFNamelbl</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFNamelbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="HealFType.Items" xml:space="preserve">
+    <value>Ultimate Healing Rune</value>
+  </data>
+  <data name="HealFType.Items1" xml:space="preserve">
+    <value>Exura Sio - Spell</value>
+  </data>
+  <data name="HealFType.Items2" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="HealFType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>65, 42</value>
+  </data>
+  <data name="HealFType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 21</value>
+  </data>
+  <data name="HealFType.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Name" xml:space="preserve">
+    <value>HealFType</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFType.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFType.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="HealFTypelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealFTypelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealFTypelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 45</value>
+  </data>
+  <data name="HealFTypelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="HealFTypelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="HealFTypelbl.Text" xml:space="preserve">
+    <value>Heal with:</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Name" xml:space="preserve">
+    <value>HealFTypelbl</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;HealFTypelbl.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Name" xml:space="preserve">
+    <value>HealPartyTrigger</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Name" xml:space="preserve">
+    <value>HealPHp</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;HealP.Name" xml:space="preserve">
+    <value>HealP</value>
+  </data>
+  <data name="&gt;&gt;HealP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealP.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealP.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Name" xml:space="preserve">
+    <value>HealPType</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealPType.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Name" xml:space="preserve">
+    <value>HealPlbl</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="GroupBox19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="GroupBox19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 106</value>
+  </data>
+  <data name="GroupBox19.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="GroupBox19.Text" xml:space="preserve">
+    <value>Party Healer</value>
+  </data>
+  <data name="&gt;&gt;GroupBox19.Name" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;GroupBox19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox19.Parent" xml:space="preserve">
+    <value>HealingTab2</value>
+  </data>
+  <data name="&gt;&gt;GroupBox19.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealPartyTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="HealPartyTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealPartyTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 72</value>
+  </data>
+  <data name="HealPartyTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="HealPartyTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="HealPartyTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="HealPartyTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Name" xml:space="preserve">
+    <value>HealPartyTrigger</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealPartyTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="HealPHp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>107, 43</value>
+  </data>
+  <data name="HealPHp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 20</value>
+  </data>
+  <data name="HealPHp.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Name" xml:space="preserve">
+    <value>HealPHp</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealPHp.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealP.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealP.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 46</value>
+  </data>
+  <data name="HealP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 13</value>
+  </data>
+  <data name="HealP.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="HealP.Text" xml:space="preserve">
+    <value>Hit Points Percent:</value>
+  </data>
+  <data name="&gt;&gt;HealP.Name" xml:space="preserve">
+    <value>HealP</value>
+  </data>
+  <data name="&gt;&gt;HealP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealP.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealP.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="HealPType.Items" xml:space="preserve">
+    <value>Ultimate Healing Rune</value>
+  </data>
+  <data name="HealPType.Items1" xml:space="preserve">
+    <value>Exura Sio - Spell</value>
+  </data>
+  <data name="HealPType.Items2" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="HealPType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>65, 13</value>
+  </data>
+  <data name="HealPType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 21</value>
+  </data>
+  <data name="HealPType.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Name" xml:space="preserve">
+    <value>HealPType</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPType.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealPType.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="HealPlbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealPlbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="HealPlbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="HealPlbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="HealPlbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="HealPlbl.Text" xml:space="preserve">
+    <value>Heal with:</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Name" xml:space="preserve">
+    <value>HealPlbl</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;HealPlbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.Name" xml:space="preserve">
+    <value>MCPatcherBox</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.Parent" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Name" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Parent" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TabPage7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage7.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage7.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="TabPage7.Text" xml:space="preserve">
+    <value>Misc.</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Name" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="&gt;&gt;MCPatcherButton.Name" xml:space="preserve">
     <value>MCPatcherButton</value>
   </data>
@@ -8496,6 +8589,93 @@
   </data>
   <data name="&gt;&gt;MiscReloadSpellsButton.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Name" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Name" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Name" xml:space="preserve">
+    <value>NameSpyBox</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Name" xml:space="preserve">
+    <value>FloorLookBox</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Name" xml:space="preserve">
+    <value>ExpCheckerBox</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="TabPage4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage4.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="TabPage4.Text" xml:space="preserve">
+    <value>Info.</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Name" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="&gt;&gt;SendLocationTo.Name" xml:space="preserve">
     <value>SendLocationTo</value>
@@ -9198,6 +9378,69 @@
   </data>
   <data name="&gt;&gt;ExpShowNext.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Name" xml:space="preserve">
+    <value>PickuperBox</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Name" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Name" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TabPage5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage5.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="TabPage5.Text" xml:space="preserve">
+    <value>Training</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Name" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="&gt;&gt;PickuperTrigger.Name" xml:space="preserve">
     <value>PickuperTrigger</value>
@@ -9909,6 +10152,57 @@
   </data>
   <data name="&gt;&gt;FightingModelbl.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBox.Name" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBox.Parent" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Name" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Parent" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TabPage6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage6.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage6.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="TabPage6.Text" xml:space="preserve">
+    <value>Fun</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Name" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="&gt;&gt;ChameleonPlayer.Name" xml:space="preserve">
     <value>ChameleonPlayer</value>
@@ -13097,12 +13391,6 @@
     <value>LicenseToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;LicenseToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ExitToolStripMenuItem.Name" xml:space="preserve">
-    <value>ExitToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ExitToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Timer1.Name" xml:space="preserve">

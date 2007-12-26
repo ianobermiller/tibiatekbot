@@ -28,15 +28,6 @@ Public Class frmMain
     Dim IsVisible As Boolean = True
     Public LoginServer As String
 
-    Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        Try
-            NotifyIcon.Visible = False
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
-
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             Dim R As New Random(System.DateTime.Now.Millisecond)
@@ -1267,7 +1258,7 @@ Public Class frmMain
 
 #Region " Tool Menu "
 
-    Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
+    Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
             Try
                 If Not Core.Proxy Is Nothing Then
@@ -1766,6 +1757,7 @@ Public Class frmMain
                 Core.Client.Close()
             End If
         End If
+        NotifyIcon.Visible = False
     End Sub
 
     Private Sub FpsChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FpsChangerTrigger.CheckedChanged
