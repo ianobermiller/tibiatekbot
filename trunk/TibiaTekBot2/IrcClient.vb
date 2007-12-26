@@ -499,10 +499,12 @@ Public Class IrcClient
                                                     UserInfo.UserLevel = 1
                                                     Nick = Nick.Remove(0, 1)
                                             End Select
-                                            If Channels(Channel).Users.ContainsKey(Nick) Then
-                                                Channels(Channel).Users.Remove(Nick)
+                                            If Channels.ContainsKey(Channel) Then
+                                                If Channels(Channel).Users.ContainsKey(Nick) Then
+                                                    Channels(Channel).Users.Remove(Nick)
+                                                End If
+                                                Channels(Channel).Users.Add(Nick, UserInfo)
                                             End If
-                                            Channels(Channel).Users.Add(Nick, UserInfo)
                                         Next
                                         RaiseEvent EventChannelNamesList()
                                     End If

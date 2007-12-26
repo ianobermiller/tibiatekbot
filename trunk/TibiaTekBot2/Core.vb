@@ -2635,11 +2635,7 @@ Public Module CoreModule
                             If BL.GetDistance < Consts.CavebotAttackerRadius Then
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
-                                        For Each CreatureName As String In Core.AutoAttackerList
-                                            If Not String.Equals(CreatureName.ToLower, BL.GetName.ToLower) Then
-                                                Exit Sub
-                                            End If
-                                        Next
+                                        If Not AutoAttackerList.Contains(BL.GetName.ToLower) Then Exit Sub
                                     End If
                                     If Not AttackerMonsters.ContainsKey(BL.GetDistance) Then 'If list doesn't contain Distance add it
                                         AttackerMonsters.Add(BL.GetDistance, BL.GetEntityID) 'Add distance
@@ -2680,9 +2676,7 @@ Public Module CoreModule
                             If BL.GetDistance < Consts.CavebotAttackerRadius Then
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
-                                        If Not Core.AutoAttackerList.Contains(BL.GetName) Then
-                                            Exit Sub
-                                        End If
+                                        If Not AutoAttackerList.Contains(BL.GetName.ToLower) Then Exit Sub
                                     End If
                                     If CaveBotTimerObj.State = ThreadTimerState.Running Then
                                         CBState = CavebotState.None
