@@ -1719,6 +1719,7 @@ Partial Class frmMain
         '
         'GeneralTab2
         '
+        Me.GeneralTab2.Controls.Add(Me.GroupBox9)
         Me.GeneralTab2.Controls.Add(Me.DancerBox)
         Me.GeneralTab2.Controls.Add(Me.ChangersBox)
         Me.GeneralTab2.Controls.Add(Me.AutoLooterBox)
@@ -2086,7 +2087,6 @@ Partial Class frmMain
         'TabPage17
         '
         Me.TabPage17.Controls.Add(Me.TradeChannelAdvertiserGroup)
-        Me.TabPage17.Controls.Add(Me.GroupBox9)
         Me.TabPage17.Controls.Add(Me.GroupBox8)
         Me.TabPage17.Controls.Add(Me.GroupBox7)
         resources.ApplyResources(Me.TabPage17, "TabPage17")

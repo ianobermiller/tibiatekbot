@@ -882,6 +882,7 @@ Public Module CommandParserModule
                             "  Light Effect -> &light." & Ret & _
                             "  Ammunition Restacker -> &ammorestacker." & Ret & _
                             "  Commands Lister -> &list" & Ret & _
+                            "  FPS Changer -> &fpschanger." & Ret & _
                             "  Walker -> &walker" & Ret & _
                             "  Amulet Changer -> &amuletchanger" & Ret & _
                             "  Ring Changer -> &ringchanger" & Ret & _
@@ -906,7 +907,6 @@ Public Module CommandParserModule
                             "  Trade Channel Watcher -> &watch." & Ret & _
                             "  Events Logging -> &logger." & Ret & _
                             "  Cavebot -> &cavebot." & Ret & _
-                            "  FPS Changer -> &fpschanger." & Ret & _
                             "  Stats Uploader -> &statsuploader." & Ret & _
                             "  Ammo Maker -> &ammomaker." & Ret & _
                             "  Anti-Logout -> &antilogout.") ' & Ret & _
