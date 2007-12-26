@@ -9,7 +9,7 @@ Constants editor lets you modify the Constants.xml file which is located at TTB_
 
 Constants.xml file contains every data that [TibiaTek Bot] uses. You can find the very memory addresses, *but what's more important: you can find the options of the bot.* In case you want to use FPS Changer you can define the FPS for the changer. These are the default values for the FPS changer:
 {{{
-FPSWhenActive: 10
+FPSWhenActive: 100
 FPSWhenInactive: 1
 FPSWhenMinimized: 1
 FPSWhenHidden: 1
