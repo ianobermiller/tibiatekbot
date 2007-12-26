@@ -227,6 +227,7 @@ Public Class frmMain
             RefreshChangerControls()
             RefreshDancerControls()
             RefreshAmmoMakerControls()
+            RefreshAntiIdlerControls()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -2486,7 +2487,7 @@ Public Class frmMain
                 If HealSpellUseHP.Checked Then
                     Core.HealMinimumHP = HealSpellHp.Value
                 Else
-                    Core.HealMinimumHP = MaxHitPoints * (HealSpellHp.Value / 100)
+                    Core.HealMinimumHP = MaxHitPoints * (HealSpellPercent.Value / 100)
                 End If
                 For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
                     If Spell.Name.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) Then
