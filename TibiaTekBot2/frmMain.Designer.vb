@@ -210,7 +210,6 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
         Me.TabPage10 = New System.Windows.Forms.TabPage
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
@@ -692,7 +691,7 @@ Partial Class frmMain
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
         Me.MenuStrip1.Name = "MenuStrip1"
@@ -1505,11 +1504,6 @@ Partial Class frmMain
         '
         Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
         resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        resources.ApplyResources(Me.ExitToolStripMenuItem, "ExitToolStripMenuItem")
         '
         'MainTabControl
         '
@@ -3650,7 +3644,6 @@ Partial Class frmMain
     Friend WithEvents CavebotMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents FunctionsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GeneralToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AFKToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ConfigurationManagerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
