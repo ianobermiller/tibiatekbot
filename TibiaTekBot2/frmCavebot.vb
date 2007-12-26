@@ -313,7 +313,7 @@ Public Class frmCavebot
         Try
             Dim Monster As String = InputBox("Enter the monster name exactly as it's shown on the screen. Example: Rotworm")
             MonsterList.Items.Add(Monster)
-            Core.AutoAttackerList.Add(Monster)
+            Core.AutoAttackerList.Add(Monster.ToLower)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -326,7 +326,7 @@ Public Class frmCavebot
                 Beep()
                 Exit Sub
             End If
-            Core.AutoAttackerList.RemoveAt(MonsterList.SelectedIndex)
+            Core.AutoAttackerList.RemoveAt(MonsterList.SelectedIndex.ToString.ToLower)
             MonsterList.Items.RemoveAt(MonsterList.SelectedIndex)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
