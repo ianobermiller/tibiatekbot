@@ -2492,7 +2492,7 @@ Public Class frmMain
                 For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
                     If Spell.Name.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) Then
                         Select Case Spell.Name.ToLower
-                            Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing", "devine healing", "wound cleansing"
+                            Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing", "divine healing", "wound cleansing"
                                 Core.HealSpell = Spell
                                 Exit For
                             Case Else
