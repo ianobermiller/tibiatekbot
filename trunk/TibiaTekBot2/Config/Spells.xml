@@ -71,7 +71,7 @@
 	<Spell Name="Sniper Arrow"			Words="exevo con hur"		ManaPoints="160"	SoulPoints="3"	Kind="Ammunition"/>
 	<Spell Name="Divine Caldera"		Words="exevo mas san"		ManaPoints="160"	SoulPoints="0"	Kind="Offensive"/>
 	<Spell Name="Divine Healing"		Words="exura san"			ManaPoints="210"	SoulPoints="0"	Kind="Healing"/>
-	<Spell Name="Devine Missile"		Words="exori san"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive"/>
+	<Spell Name="Divine Missile"		Words="exori san"			ManaPoints="20"		SoulPoints="0"	Kind="Offensive"/>
 	<Spell Name="Berserk"				Words="exori"				ManaPoints="115"	SoulPoints="0"	Kind="Offensive" />
 	<Spell Name="Challenge"				Words="exeta res"			ManaPoints="30"		SoulPoints="0"	Kind="Support"/>
 	<Spell Name="Fierce Berserk"		Words="exori gran"			ManaPoints="340"	SoulPoints="0"	Kind="Offensive" />
