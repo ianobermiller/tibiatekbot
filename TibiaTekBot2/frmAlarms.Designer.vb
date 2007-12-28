@@ -49,7 +49,6 @@ Partial Class frmAlarms
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim tablalala As System.Windows.Forms.TabPage
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlarms))
         Me.GroupBox13 = New System.Windows.Forms.GroupBox
         Me.GroupBox15 = New System.Windows.Forms.GroupBox
         Me.Label8 = New System.Windows.Forms.Label
@@ -73,7 +72,6 @@ Partial Class frmAlarms
         Me.BattlelistMultiFloorAbove = New System.Windows.Forms.CheckBox
         Me.BattlelistMultiFloorBelow = New System.Windows.Forms.CheckBox
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.BattlelistMultiFloor = New System.Windows.Forms.CheckBox
         Me.BattlelistMonsterNPC = New System.Windows.Forms.CheckBox
         Me.BattlelistPlayerKiller = New System.Windows.Forms.CheckBox
         Me.BattlelistPlayer = New System.Windows.Forms.CheckBox
@@ -135,6 +133,7 @@ Partial Class frmAlarms
         Me.BattlelistAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StatusAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ItemsAlarmTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.BattlelistGMCM = New System.Windows.Forms.CheckBox
         tablalala = New System.Windows.Forms.TabPage
         tablalala.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -381,7 +380,6 @@ Partial Class frmAlarms
         '
         Me.MultiFloorGroupBox.Controls.Add(Me.BattlelistMultiFloorAbove)
         Me.MultiFloorGroupBox.Controls.Add(Me.BattlelistMultiFloorBelow)
-        Me.MultiFloorGroupBox.Enabled = False
         Me.MultiFloorGroupBox.Location = New System.Drawing.Point(175, 65)
         Me.MultiFloorGroupBox.Name = "MultiFloorGroupBox"
         Me.MultiFloorGroupBox.Size = New System.Drawing.Size(167, 49)
@@ -413,7 +411,7 @@ Partial Class frmAlarms
         '
         'GroupBox6
         '
-        Me.GroupBox6.Controls.Add(Me.BattlelistMultiFloor)
+        Me.GroupBox6.Controls.Add(Me.BattlelistGMCM)
         Me.GroupBox6.Controls.Add(Me.BattlelistMonsterNPC)
         Me.GroupBox6.Controls.Add(Me.BattlelistPlayerKiller)
         Me.GroupBox6.Controls.Add(Me.BattlelistPlayer)
@@ -423,16 +421,6 @@ Partial Class frmAlarms
         Me.GroupBox6.TabIndex = 16
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Activate Alarm If"
-        '
-        'BattlelistMultiFloor
-        '
-        Me.BattlelistMultiFloor.AutoSize = True
-        Me.BattlelistMultiFloor.Location = New System.Drawing.Point(249, 17)
-        Me.BattlelistMultiFloor.Name = "BattlelistMultiFloor"
-        Me.BattlelistMultiFloor.Size = New System.Drawing.Size(74, 17)
-        Me.BattlelistMultiFloor.TabIndex = 7
-        Me.BattlelistMultiFloor.Text = "Multi-Floor"
-        Me.BattlelistMultiFloor.UseVisualStyleBackColor = True
         '
         'BattlelistMonsterNPC
         '
@@ -1028,6 +1016,16 @@ Partial Class frmAlarms
         '
         Me.ItemsAlarmTimer.Interval = 1000
         '
+        'BattlelistGMCM
+        '
+        Me.BattlelistGMCM.AutoSize = True
+        Me.BattlelistGMCM.Location = New System.Drawing.Point(260, 17)
+        Me.BattlelistGMCM.Name = "BattlelistGMCM"
+        Me.BattlelistGMCM.Size = New System.Drawing.Size(64, 17)
+        Me.BattlelistGMCM.TabIndex = 7
+        Me.BattlelistGMCM.Text = "GM/CM"
+        Me.BattlelistGMCM.UseVisualStyleBackColor = True
+        '
         'frmAlarms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1121,7 +1119,6 @@ Partial Class frmAlarms
     Friend WithEvents MessageIgnoredPlayers As System.Windows.Forms.ListBox
     Friend WithEvents AlarmsActivate As System.Windows.Forms.Button
     Friend WithEvents BattlelistAlarmTimer As System.Windows.Forms.Timer
-    Friend WithEvents BattlelistMultiFloor As System.Windows.Forms.CheckBox
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
@@ -1168,4 +1165,5 @@ Partial Class frmAlarms
     Friend WithEvents MultiFloorGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents BattlelistMultiFloorAbove As System.Windows.Forms.CheckBox
     Friend WithEvents BattlelistMultiFloorBelow As System.Windows.Forms.CheckBox
+    Friend WithEvents BattlelistGMCM As System.Windows.Forms.CheckBox
 End Class
