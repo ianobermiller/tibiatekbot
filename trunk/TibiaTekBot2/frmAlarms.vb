@@ -90,10 +90,9 @@ Public Class frmAlarms
             BattlelistPlayer.Checked = CBool(BattlelistNode.Item("ActivateIfPlayer").InnerText)
             BattlelistMonsterNPC.Checked = CBool(BattlelistNode.Item("ActivateIfMonsterNPC").InnerText)
             BattlelistPlayerKiller.Checked = CBool(BattlelistNode.Item("ActivateIfPlayerKiller").InnerText)
-            BattlelistMultiFloor.Checked = CBool(BattlelistNode.Item("MultiFloor").InnerText)
-            BattlelistMultiFloorBelow.Checked = BattlelistNode.Item("MultiFloor").GetAttribute("Below").Equals("True")
-            BattlelistMultiFloorAbove.Checked = BattlelistNode.Item("MultiFloor").GetAttribute("Above").Equals("True")
-            MultiFloorGroupBox.Enabled = BattlelistMultiFloor.Checked
+            BattlelistGMCM.Checked = CBool(BattlelistNode.Item("ActivateIfGMCM").InnerText)
+            BattlelistMultiFloorBelow.Checked = CBool(BattlelistNode.Item("MultiFloorBelow").InnerText)
+            BattlelistMultiFloorAbove.Checked = CBool(BattlelistNode.Item("MultiFloorAbove").InnerText)
             BattlelistPlaySound.Checked = CBool(BattlelistNode.Item("PlaySound").InnerText)
             BattlelistLogout.Checked = CBool(BattlelistNode.Item("LogOut").InnerText)
             BattlelistMessagePlayerInput.Text = BattlelistNode.Item("MessagePlayer").GetAttribute("Player")
@@ -223,9 +222,9 @@ Public Class frmAlarms
             Dim xmlBLActivateIfPlayer As XmlElement = xmlFile.CreateElement("ActivateIfPlayer")
             Dim xmlBLActivateIfMonsterNPC As XmlElement = xmlFile.CreateElement("ActivateIfMonsterNPC")
             Dim xmlBLActivateIfPlayerKiller As XmlElement = xmlFile.CreateElement("ActivateIfPlayerKiller")
-            Dim xmlBLMultiFloor As XmlElement = xmlFile.CreateElement("MultiFloor")
-            Dim xmlBLMultiFloorBelow As XmlAttribute = xmlFile.CreateAttribute("Below")
-            Dim xmlBLMultiFloorAbove As XmlAttribute = xmlFile.CreateAttribute("Above")
+            Dim xmlBLActivateIfGMCM As XmlElement = xmlFile.CreateElement("ActivateIfGMCM")
+            Dim xmlBLMultiFloorBelow As XmlElement = xmlFile.CreateElement("MultiFloorBelow")
+            Dim xmlBLMultiFloorAbove As XmlElement = xmlFile.CreateElement("MultiFloorAbove")
             Dim xmlBLAlertRemoteAdmins As XmlElement = xmlFile.CreateElement("AlertRemoteAdmins")
             Dim xmlBLPlaySound As XmlElement = xmlFile.CreateElement("PlaySound")
             Dim xmlBLLogOut As XmlElement = xmlFile.CreateElement("LogOut")
@@ -236,7 +235,7 @@ Public Class frmAlarms
             xmlBLActivateIfPlayer.InnerText = BattlelistPlayer.Checked
             xmlBLActivateIfMonsterNPC.InnerText = BattlelistMonsterNPC.Checked
             xmlBLActivateIfPlayerKiller.InnerText = BattlelistPlayerKiller.Checked
-            xmlBLMultiFloor.InnerText = BattlelistMultiFloor.Checked
+            xmlBLActivateIfGMCM.InnerText = BattlelistGMCM.Checked
             xmlBLMultiFloorBelow.InnerText = BattlelistMultiFloorBelow.Checked
             xmlBLMultiFloorAbove.InnerText = BattlelistMultiFloorAbove.Checked
             xmlBLPlaySound.InnerText = BattlelistPlaySound.Checked
@@ -254,9 +253,9 @@ Public Class frmAlarms
             xmlBattlelist.AppendChild(xmlBLActivateIfPlayer)
             xmlBattlelist.AppendChild(xmlBLActivateIfMonsterNPC)
             xmlBattlelist.AppendChild(xmlBLActivateIfPlayerKiller)
-            xmlBLMultiFloor.Attributes.Append(xmlBLMultiFloorBelow)
-            xmlBLMultiFloor.Attributes.Append(xmlBLMultiFloorAbove)
-            xmlBattlelist.AppendChild(xmlBLMultiFloor)
+            xmlBattlelist.AppendChild(xmlBLActivateIfGMCM)
+            xmlBattlelist.AppendChild(xmlBLMultiFloorBelow)
+            xmlBattlelist.AppendChild(xmlBLMultiFloorAbove)
             xmlBattlelist.AppendChild(xmlBLAlertRemoteAdmins)
             xmlBattlelist.AppendChild(xmlBLPlaySound)
             xmlBattlelist.AppendChild(xmlBLLogOut)
@@ -489,6 +488,9 @@ Public Class frmAlarms
     Private Sub BattlelistAlarm_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BattlelistAlarmTimer.Tick
         Try
             Dim BL As New BattleList
+            Dim Outfit As New Outfits
+            Dim GMOutfit As New OutfitDefinition
+            Dim CMOutfit As New OutfitDefinition
             Dim Name As String = ""
             Dim BattleListIgnoredPlayersCount As Integer
             Dim Alert As Boolean = False
@@ -499,12 +501,18 @@ Public Class frmAlarms
             BL.Reset()
             Do
                 If BL.IsOnScreen AndAlso Not BL.IsMyself Then
-                    If BattlelistMultiFloor.Checked Then
-                        If BL.GetFloor < Core.CharacterLoc.Z AndAlso Not BattlelistMultiFloorAbove.Checked Then Continue Do
-                        If BL.GetFloor > Core.CharacterLoc.Z AndAlso Not BattlelistMultiFloorBelow.Checked Then Continue Do
-                    Else
-                        If BL.GetFloor <> Core.CharacterLoc.Z Then Continue Do
+                    If BL.GetFloor < Core.CharacterLoc.Z AndAlso Not BattlelistMultiFloorAbove.Checked Then Continue Do
+                    If BL.GetFloor > Core.CharacterLoc.Z AndAlso Not BattlelistMultiFloorBelow.Checked Then Continue Do
+
+                    Outfit.GetOutfitByName("Game Master", GMOutfit)
+                    Outfit.GetOutfitByName("Community Manager", CMOutfit)
+
+                    If BattlelistGMCM.Checked AndAlso (BL.OutfitID = CMOutfit.ID OrElse BL.OutfitID = GMOutfit.ID OrElse BL.GetName.StartsWith("GM ") OrElse BL.GetName.StartsWith("CM ")) Then
+                        Output = "GM/CM "
+                        Alert = True
+                        Exit Do
                     End If
+
                     Name = BL.GetName
                     If Not BL.IsPlayer Then 'Is a monster
                         If BattlelistMonsterNPC.Checked Then
@@ -1059,15 +1067,6 @@ Public Class frmAlarms
     Private Sub frmAlarms_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
         Try
             Me.Text = "Alarms for " & Core.Client.CharacterName
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
-    End Sub
-
-    Private Sub BattlelistMultiFloor_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BattlelistMultiFloor.CheckedChanged
-        Try
-            MultiFloorGroupBox.Enabled = BattlelistMultiFloor.Checked
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
