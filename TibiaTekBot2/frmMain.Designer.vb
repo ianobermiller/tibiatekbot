@@ -241,6 +241,18 @@ Partial Class frmMain
         Me.AntiLogoutBox = New System.Windows.Forms.GroupBox
         Me.AntiIdlerTrigger = New System.Windows.Forms.CheckBox
         Me.GeneralTab2 = New System.Windows.Forms.TabPage
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox
+        Me.FpsChangerTrigger = New System.Windows.Forms.CheckBox
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
+        Me.Label10 = New System.Windows.Forms.Label
+        Me.Label11 = New System.Windows.Forms.Label
+        Me.Label12 = New System.Windows.Forms.Label
+        Me.Label13 = New System.Windows.Forms.Label
+        Me.FpsActive = New System.Windows.Forms.NumericUpDown
+        Me.FpsInactive = New System.Windows.Forms.NumericUpDown
+        Me.FpsMinimized = New System.Windows.Forms.NumericUpDown
+        Me.FPSHiddenlbl = New System.Windows.Forms.Label
+        Me.FPSHidden = New System.Windows.Forms.NumericUpDown
         Me.DancerBox = New System.Windows.Forms.GroupBox
         Me.DancerSpeed = New System.Windows.Forms.ComboBox
         Me.DancerSpeedlbl = New System.Windows.Forms.Label
@@ -298,23 +310,11 @@ Partial Class frmMain
         Me.TradeChannelAdvertiserTrigger = New System.Windows.Forms.CheckBox
         Me.TradeChannelAdvertiserAdvertisement = New System.Windows.Forms.TextBox
         Me.TradeChannelAdvertiserLabel = New System.Windows.Forms.Label
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.FpsChangerTrigger = New System.Windows.Forms.CheckBox
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.FpsActive = New System.Windows.Forms.NumericUpDown
-        Me.FpsInactive = New System.Windows.Forms.NumericUpDown
-        Me.FpsMinimized = New System.Windows.Forms.NumericUpDown
-        Me.FPSHiddenlbl = New System.Windows.Forms.Label
-        Me.FPSHidden = New System.Windows.Forms.NumericUpDown
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
         Me.CavebotTrigger = New System.Windows.Forms.CheckBox
         Me.CavebotConfigure = New System.Windows.Forms.Button
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.TradeChannelWatcherHelp = New System.Windows.Forms.Button
+        Me.TradeChannelWatcherBuilder = New System.Windows.Forms.Button
         Me.TradeChannelWatcherTrigger = New System.Windows.Forms.CheckBox
         Me.TradeChannelWatcherExpression = New System.Windows.Forms.TextBox
         Me.Label9 = New System.Windows.Forms.Label
@@ -516,6 +516,12 @@ Partial Class frmMain
         Me.ConfigManagerbox.SuspendLayout()
         Me.AntiLogoutBox.SuspendLayout()
         Me.GeneralTab2.SuspendLayout()
+        Me.GroupBox9.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        CType(Me.FpsActive, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FpsInactive, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FpsMinimized, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FPSHidden, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DancerBox.SuspendLayout()
         Me.ChangersBox.SuspendLayout()
         Me.AutoLooterBox.SuspendLayout()
@@ -536,12 +542,6 @@ Partial Class frmMain
         CType(Me.SpellCasterMinimumManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage17.SuspendLayout()
         Me.TradeChannelAdvertiserGroup.SuspendLayout()
-        Me.GroupBox9.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.FpsActive, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.FpsInactive, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.FpsMinimized, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.FPSHidden, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.TabPage9.SuspendLayout()
@@ -615,6 +615,7 @@ Partial Class frmMain
         '
         Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
+        Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
@@ -1727,6 +1728,79 @@ Partial Class frmMain
         Me.GeneralTab2.Name = "GeneralTab2"
         Me.GeneralTab2.UseVisualStyleBackColor = True
         '
+        'GroupBox9
+        '
+        Me.GroupBox9.Controls.Add(Me.FpsChangerTrigger)
+        Me.GroupBox9.Controls.Add(Me.TableLayoutPanel1)
+        resources.ApplyResources(Me.GroupBox9, "GroupBox9")
+        Me.GroupBox9.Name = "GroupBox9"
+        Me.GroupBox9.TabStop = False
+        '
+        'FpsChangerTrigger
+        '
+        resources.ApplyResources(Me.FpsChangerTrigger, "FpsChangerTrigger")
+        Me.FpsChangerTrigger.Name = "FpsChangerTrigger"
+        Me.FpsChangerTrigger.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel1
+        '
+        resources.ApplyResources(Me.TableLayoutPanel1, "TableLayoutPanel1")
+        Me.TableLayoutPanel1.Controls.Add(Me.Label10, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label11, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label12, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.FpsActive, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.FpsInactive, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.FpsMinimized, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.FPSHiddenlbl, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.FPSHidden, 1, 4)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        '
+        'Label10
+        '
+        resources.ApplyResources(Me.Label10, "Label10")
+        Me.Label10.Name = "Label10"
+        '
+        'Label11
+        '
+        resources.ApplyResources(Me.Label11, "Label11")
+        Me.Label11.Name = "Label11"
+        '
+        'Label12
+        '
+        resources.ApplyResources(Me.Label12, "Label12")
+        Me.Label12.Name = "Label12"
+        '
+        'Label13
+        '
+        resources.ApplyResources(Me.Label13, "Label13")
+        Me.Label13.Name = "Label13"
+        '
+        'FpsActive
+        '
+        resources.ApplyResources(Me.FpsActive, "FpsActive")
+        Me.FpsActive.Name = "FpsActive"
+        '
+        'FpsInactive
+        '
+        resources.ApplyResources(Me.FpsInactive, "FpsInactive")
+        Me.FpsInactive.Name = "FpsInactive"
+        '
+        'FpsMinimized
+        '
+        resources.ApplyResources(Me.FpsMinimized, "FpsMinimized")
+        Me.FpsMinimized.Name = "FpsMinimized"
+        '
+        'FPSHiddenlbl
+        '
+        resources.ApplyResources(Me.FPSHiddenlbl, "FPSHiddenlbl")
+        Me.FPSHiddenlbl.Name = "FPSHiddenlbl"
+        '
+        'FPSHidden
+        '
+        resources.ApplyResources(Me.FPSHidden, "FPSHidden")
+        Me.FPSHidden.Name = "FPSHidden"
+        '
         'DancerBox
         '
         Me.DancerBox.Controls.Add(Me.DancerSpeed)
@@ -2118,79 +2192,6 @@ Partial Class frmMain
         resources.ApplyResources(Me.TradeChannelAdvertiserLabel, "TradeChannelAdvertiserLabel")
         Me.TradeChannelAdvertiserLabel.Name = "TradeChannelAdvertiserLabel"
         '
-        'GroupBox9
-        '
-        Me.GroupBox9.Controls.Add(Me.FpsChangerTrigger)
-        Me.GroupBox9.Controls.Add(Me.TableLayoutPanel1)
-        resources.ApplyResources(Me.GroupBox9, "GroupBox9")
-        Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.TabStop = False
-        '
-        'FpsChangerTrigger
-        '
-        resources.ApplyResources(Me.FpsChangerTrigger, "FpsChangerTrigger")
-        Me.FpsChangerTrigger.Name = "FpsChangerTrigger"
-        Me.FpsChangerTrigger.UseVisualStyleBackColor = True
-        '
-        'TableLayoutPanel1
-        '
-        resources.ApplyResources(Me.TableLayoutPanel1, "TableLayoutPanel1")
-        Me.TableLayoutPanel1.Controls.Add(Me.Label10, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label11, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label12, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.FpsActive, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.FpsInactive, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.FpsMinimized, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.FPSHiddenlbl, 0, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.FPSHidden, 1, 4)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        '
-        'Label10
-        '
-        resources.ApplyResources(Me.Label10, "Label10")
-        Me.Label10.Name = "Label10"
-        '
-        'Label11
-        '
-        resources.ApplyResources(Me.Label11, "Label11")
-        Me.Label11.Name = "Label11"
-        '
-        'Label12
-        '
-        resources.ApplyResources(Me.Label12, "Label12")
-        Me.Label12.Name = "Label12"
-        '
-        'Label13
-        '
-        resources.ApplyResources(Me.Label13, "Label13")
-        Me.Label13.Name = "Label13"
-        '
-        'FpsActive
-        '
-        resources.ApplyResources(Me.FpsActive, "FpsActive")
-        Me.FpsActive.Name = "FpsActive"
-        '
-        'FpsInactive
-        '
-        resources.ApplyResources(Me.FpsInactive, "FpsInactive")
-        Me.FpsInactive.Name = "FpsInactive"
-        '
-        'FpsMinimized
-        '
-        resources.ApplyResources(Me.FpsMinimized, "FpsMinimized")
-        Me.FpsMinimized.Name = "FpsMinimized"
-        '
-        'FPSHiddenlbl
-        '
-        resources.ApplyResources(Me.FPSHiddenlbl, "FPSHiddenlbl")
-        Me.FPSHiddenlbl.Name = "FPSHiddenlbl"
-        '
-        'FPSHidden
-        '
-        resources.ApplyResources(Me.FPSHidden, "FPSHidden")
-        Me.FPSHidden.Name = "FPSHidden"
-        '
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.CavebotTrigger)
@@ -2213,7 +2214,7 @@ Partial Class frmMain
         '
         'GroupBox7
         '
-        Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherHelp)
+        Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherBuilder)
         Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherTrigger)
         Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherExpression)
         Me.GroupBox7.Controls.Add(Me.Label9)
@@ -2221,11 +2222,11 @@ Partial Class frmMain
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.TabStop = False
         '
-        'TradeChannelWatcherHelp
+        'TradeChannelWatcherBuilder
         '
-        resources.ApplyResources(Me.TradeChannelWatcherHelp, "TradeChannelWatcherHelp")
-        Me.TradeChannelWatcherHelp.Name = "TradeChannelWatcherHelp"
-        Me.TradeChannelWatcherHelp.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.TradeChannelWatcherBuilder, "TradeChannelWatcherBuilder")
+        Me.TradeChannelWatcherBuilder.Name = "TradeChannelWatcherBuilder"
+        Me.TradeChannelWatcherBuilder.UseVisualStyleBackColor = True
         '
         'TradeChannelWatcherTrigger
         '
@@ -3506,6 +3507,14 @@ Partial Class frmMain
         Me.ConfigManagerbox.ResumeLayout(False)
         Me.AntiLogoutBox.ResumeLayout(False)
         Me.GeneralTab2.ResumeLayout(False)
+        Me.GroupBox9.ResumeLayout(False)
+        Me.GroupBox9.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        CType(Me.FpsActive, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FpsInactive, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FpsMinimized, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FPSHidden, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DancerBox.ResumeLayout(False)
         Me.DancerBox.PerformLayout()
         Me.ChangersBox.ResumeLayout(False)
@@ -3534,14 +3543,6 @@ Partial Class frmMain
         Me.TabPage17.ResumeLayout(False)
         Me.TradeChannelAdvertiserGroup.ResumeLayout(False)
         Me.TradeChannelAdvertiserGroup.PerformLayout()
-        Me.GroupBox9.ResumeLayout(False)
-        Me.GroupBox9.PerformLayout()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.FpsActive, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.FpsInactive, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.FpsMinimized, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.FPSHidden, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
@@ -4034,7 +4035,7 @@ Partial Class frmMain
     Friend WithEvents AmuletChangerTypelbl As System.Windows.Forms.Label
     Friend WithEvents AmuletChangerTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents ChangerRingType As System.Windows.Forms.ComboBox
-    Friend WithEvents TradeChannelWatcherHelp As System.Windows.Forms.Button
+    Friend WithEvents TradeChannelWatcherBuilder As System.Windows.Forms.Button
     Friend WithEvents DancerBox As System.Windows.Forms.GroupBox
     Friend WithEvents DancerSpeed As System.Windows.Forms.ComboBox
     Friend WithEvents DancerSpeedlbl As System.Windows.Forms.Label
