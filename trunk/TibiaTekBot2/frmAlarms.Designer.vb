@@ -72,6 +72,7 @@ Partial Class frmAlarms
         Me.BattlelistMultiFloorAbove = New System.Windows.Forms.CheckBox
         Me.BattlelistMultiFloorBelow = New System.Windows.Forms.CheckBox
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
+        Me.BattlelistGMCM = New System.Windows.Forms.CheckBox
         Me.BattlelistMonsterNPC = New System.Windows.Forms.CheckBox
         Me.BattlelistPlayerKiller = New System.Windows.Forms.CheckBox
         Me.BattlelistPlayer = New System.Windows.Forms.CheckBox
@@ -133,7 +134,6 @@ Partial Class frmAlarms
         Me.BattlelistAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StatusAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ItemsAlarmTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.BattlelistGMCM = New System.Windows.Forms.CheckBox
         tablalala = New System.Windows.Forms.TabPage
         tablalala.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -422,6 +422,16 @@ Partial Class frmAlarms
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Activate Alarm If"
         '
+        'BattlelistGMCM
+        '
+        Me.BattlelistGMCM.AutoSize = True
+        Me.BattlelistGMCM.Location = New System.Drawing.Point(250, 17)
+        Me.BattlelistGMCM.Name = "BattlelistGMCM"
+        Me.BattlelistGMCM.Size = New System.Drawing.Size(64, 17)
+        Me.BattlelistGMCM.TabIndex = 7
+        Me.BattlelistGMCM.Text = "GM/CM"
+        Me.BattlelistGMCM.UseVisualStyleBackColor = True
+        '
         'BattlelistMonsterNPC
         '
         Me.BattlelistMonsterNPC.AutoSize = True
@@ -435,7 +445,7 @@ Partial Class frmAlarms
         'BattlelistPlayerKiller
         '
         Me.BattlelistPlayerKiller.AutoSize = True
-        Me.BattlelistPlayerKiller.Location = New System.Drawing.Point(169, 17)
+        Me.BattlelistPlayerKiller.Location = New System.Drawing.Point(164, 17)
         Me.BattlelistPlayerKiller.Name = "BattlelistPlayerKiller"
         Me.BattlelistPlayerKiller.Size = New System.Drawing.Size(80, 17)
         Me.BattlelistPlayerKiller.TabIndex = 5
@@ -1015,16 +1025,6 @@ Partial Class frmAlarms
         'ItemsAlarmTimer
         '
         Me.ItemsAlarmTimer.Interval = 1000
-        '
-        'BattlelistGMCM
-        '
-        Me.BattlelistGMCM.AutoSize = True
-        Me.BattlelistGMCM.Location = New System.Drawing.Point(260, 17)
-        Me.BattlelistGMCM.Name = "BattlelistGMCM"
-        Me.BattlelistGMCM.Size = New System.Drawing.Size(64, 17)
-        Me.BattlelistGMCM.TabIndex = 7
-        Me.BattlelistGMCM.Text = "GM/CM"
-        Me.BattlelistGMCM.UseVisualStyleBackColor = True
         '
         'frmAlarms
         '
