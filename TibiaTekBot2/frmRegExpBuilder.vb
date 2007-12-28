@@ -24,9 +24,18 @@
         Dim Output As String = "("
 
         'Actions:
-        If Sell.Checked Then Output += "sell|"
-        If Buy.Checked Then Output += "buy|"
-        If Trade.Checked Then Output += "trade"
+        If Sell.Checked Then
+            Output += "sell"
+        End If
+        If Buy.Checked Then
+            If Sell.Checked Then Output += "|"
+            Output += "buy"
+        End If
+        If Trade.Checked Then
+            If Sell.Checked Or Buy.Checked Then Output += "|"
+            Output += "trade"
+        End If
+
 
         If Output = "(" Then
             MessageBox.Show("No actions were selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

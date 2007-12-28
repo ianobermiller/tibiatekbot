@@ -1686,8 +1686,8 @@ Public Class frmMain
                     Core.TradeWatcherActive = True
                     Core.ConsoleWrite("Make sure you have the Trade-Channel opened.")
                 Catch exep As Exception
-                    Core.ConsoleError("Sorry, but this is not a valid regular expression." & Ret & _
-                    "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.")
+                    MessageBox.Show("Sorry, but this is not a valid regular expression." & ControlChars.NewLine & _
+                    "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
             Else
                 Core.TradeWatcherActive = False
