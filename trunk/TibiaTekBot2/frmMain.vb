@@ -2385,8 +2385,9 @@ Public Class frmMain
         StatsUploaderUrl.Enabled = Not StatsUploaderSaveToDisk.Checked
     End Sub
 
-    Private Sub TradeChannelWatcherHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChannelWatcherHelp.Click
-        System.Diagnostics.Process.Start("http://www.regular-expressions.info/quickstart.html")
+    Private Sub TradeChannelWatcherHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChannelWatcherBuilder.Click
+        Dim RegExpForm As New frmRegExpBuilder
+        RegExpForm.Show()
     End Sub
 
     Private Sub HealWithPotion_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithPotion.CheckedChanged
