@@ -1685,7 +1685,7 @@ Public Module CommandParserModule
                         Case "erig"
                             Prepend = "http://www.erig.net/xphist.php?player="
                         Case "wiki"
-                            Prepend = "http://tibia.erig.net/Special:Search?search="
+                            Prepend = "http://tibia.wikia.com/wiki/"
                         Case "character"
                             Prepend = "http://www.tibia.com/community/?subtopic=character&name="
                         Case "guild"
@@ -1696,7 +1696,11 @@ Public Module CommandParserModule
                             Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                             Exit Sub
                     End Select
-                    Core.OpenCommand = Prepend & MatchObj.Groups(2).ToString
+                    If Type.ToLower = "wiki" Then
+                        Core.OpenCommand = Prepend & MatchObj.Groups(2).ToString.Replace(" ", "_")
+                    Else
+                        Core.OpenCommand = Prepend & MatchObj.Groups(2).ToString
+                    End If
                     If Not Core.BGWOpenCommand.IsBusy Then
                         Core.ConsoleWrite("Please Wait...")
                         Core.BGWOpenCommand.RunWorkerAsync()
