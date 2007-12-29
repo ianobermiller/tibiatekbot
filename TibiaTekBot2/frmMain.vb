@@ -858,7 +858,11 @@ Public Class frmMain
         Try
             AutoEaterTrigger.Checked = Core.EaterTimerObj.State = ThreadTimerState.Running
             If AutoEaterTrigger.Checked Then
-                AutoEaterSmart.Checked = Core.AutoEaterSmart > 0
+                If Core.AutoEaterSmart > 0 Then
+                    AutoEaterSmart.Checked = True
+                Else
+                    AutoEaterSmart.Checked = False
+                End If
                 If AutoEaterSmart.Checked Then
                     AutoEaterMinimumHitPoints.Value = Core.AutoEaterSmart
                     'AutoEaterDelay.Value = Consts.AutoEaterSmartInterval
@@ -2111,7 +2115,7 @@ Public Class frmMain
                         MessageBox.Show("Please enter search criteria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Exit Sub
                     End If
-                    Prepend = "http://tibia.erig.net/Special:Search?search="
+                    Prepend = "http://tibia.wikia.com/wiki/"
                 Case "tibia.com character"
                     If String.IsNullOrEmpty(SearchFor.Text) Then
                         MessageBox.Show("Please enter search criteria", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2138,7 +2142,7 @@ Public Class frmMain
                     Prepend = "http://www.google.com/search?q="
                 Case Else
                     Core.OpenCommand = WebsiteName.Text
-                    If Not String.IsNullOrEmpty(SearchFor.Text) Then MessageBox.Show("Note: Search criteria work only with pre-defined urls.")
+                    If Not String.IsNullOrEmpty(SearchFor.Text) Then MessageBox.Show("Note: Search criteria works only with pre-defined urls.")
                     If Not Core.BGWOpenCommand.IsBusy Then
                         Core.BGWOpenCommand.RunWorkerAsync()
                         Exit Sub
@@ -2147,7 +2151,11 @@ Public Class frmMain
                         Exit Sub
                     End If
             End Select
-            Core.OpenCommand = Prepend & SearchFor.Text
+            If WebsiteName.Text.ToLower = "tibia wiki" Then
+                Core.OpenCommand = Prepend & SearchFor.Text.Replace(" ", "_")
+            Else
+                Core.OpenCommand = Prepend & SearchFor.Text
+            End If
             If Not Core.BGWOpenCommand.IsBusy Then
                 Core.BGWOpenCommand.RunWorkerAsync()
             Else
