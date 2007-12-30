@@ -66,15 +66,18 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\PipePacketBuilder.vb" />
     <Compile Include="Classes\ServerPacketBuilder.vb" />
     <Compile Include="Classes\Packet.vb" />
     <Compile Include="Classes\ClientPacketBuilder.vb" />
+    <Compile Include="Interfaces\IPipePacketBuilder.vb" />
     <Compile Include="Interfaces\IClientPacketBuilder.vb" />
     <Compile Include="Interfaces\IConstants.vb" />
     <Compile Include="Interfaces\IContainer.vb" />
     <Compile Include="Interfaces\IDatFile.vb" />
     <Compile Include="Interfaces\IItems.vb" />
     <Compile Include="Interfaces\IMapTiles.vb" />
+    <Compile Include="Interfaces\IPipe.vb" />
     <Compile Include="Interfaces\IServerPacketBuilder.vb" />
     <Compile Include="Interfaces\IPacket.vb" />
     <Compile Include="Interfaces\IPacketBuilder.vb" />

@@ -518,10 +518,6 @@ Module PacketUtils
 
 #End Region
 
-#Region " AttackEntity "
-
-
-#End Region
 
 
 End Module

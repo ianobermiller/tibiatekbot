@@ -335,7 +335,7 @@ Public Class IrcClient
     Public Sub SpeakToServer(ByVal Message As String, ByVal Server As String)
         Try
             If Not WasConnected Then Exit Sub
-            WriteLine(String.Format("{0} :{1}", Server, Message))
+            WriteLine(String.Format("PRIVMSG {0} :{1}", Server, Message))
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
