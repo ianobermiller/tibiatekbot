@@ -43,10 +43,6 @@ Public Class frmMain
                 Case 4
                     Me.PictureBox1.Image = My.Resources.ttb_splash4
             End Select
-            'MsgBox(System.Text.Encoding.GetEncoding("iso-8859-1").EncodingName)
-            'For Each Encoding As System.Text.EncodingInfo In System.Text.Encoding.GetEncodings
-            'MsgBox(Encoding.Name)
-            'Next
             SC = New frmSplashScreen
             SC.ShowDialog()
             LoadTibiaEXE()
@@ -161,7 +157,7 @@ Public Class frmMain
     Private Sub frmMain_Closing(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
             If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
-                Me.NotifyIcon.Visible = False
+                'Me.NotifyIcon.Visible = False
                 e.Cancel = False
             Else
                 e.Cancel = True
@@ -187,8 +183,8 @@ Public Class frmMain
                     Me.Text = "TibiaTek Bot"
                 End If
                 FunctionsToolStripMenuItem.Enabled = False
-                AboutToolStripMenuItem.Enabled = False
-                MainTabControl.Enabled = False
+                'AboutToolStripMenuItem.Enabled = False
+                'MainTabControl.Enabled = False
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -928,8 +924,29 @@ Public Class frmMain
             If Not File.Exists(Application.StartupPath & "\TibiaTekBot Injected DLL.dll") Then
                 Throw New Exception("Unable to locate """ & Application.StartupPath & "\TibiaTekBot Injected DLL.dll"". Please re-install the application.")
             End If
+            'pipes
+            'Dim PipeStream As New System.IO.Pipes.NamedPipeServerStream("ttb2", Pipes.PipeDirection.InOut)
+
             Core.Client.InjectDLL(Application.StartupPath & "\TibiaTekBot Injected DLL.dll")
+
+
+            'MsgBox("waiting for connection VB")
+            'PipeStream.WaitForConnection()
+
+            'MsgBox("writing to stream VB")
+            'Dim SR As New StreamReader(PipeStream, System.Text.Encoding.ASCII)
+            'Dim Response As String = SR.ReadLine()
+
+            'SR.DiscardBufferedData()
+            'SR.Close()
+            'PipeStream.Seek(0, SeekOrigin.Begin)
+            'MsgBox(Response)
+            'Dim SW As New StreamWriter(PipeStream, System.Text.Encoding.ASCII)
+            'SW.WriteLine("This is the message from vb")
+            'SW.Flush()
+
             Core.Proxy = New PProxy2(Core.Client)
+
 
             System.Threading.Thread.Sleep(1000)
             Core.WindowTimerObj.StartTimer()
@@ -950,6 +967,8 @@ Public Class frmMain
                 Core.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
                 Core.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
             End If
+
+
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1255,7 +1274,6 @@ Public Class frmMain
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
 
@@ -2704,4 +2722,5 @@ Public Class frmMain
         End Try
     End Sub
 #End Region
+
 End Class

@@ -21,8 +21,8 @@ Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, S
   System.Net, System.Net.Sockets, System.Text, System.Globalization, _
   System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, _
   System.Drawing.Imaging, TibiaTekBot.PProxy2, TibiaTekBot.ThreadTimer, _
-  System.ComponentModel, System.Runtime.InteropServices, TibiaTekBot.IrcClient, _
-  Scripting
+  System.Runtime.InteropServices, TibiaTekBot.IrcClient, System.Windows.Forms, _
+  Scripting, System.ComponentModel
 
 #Region " To Do "
 
@@ -3612,11 +3612,11 @@ Public Module CoreModule
                 ConsoleWrite("Successfully connected to IRC. Opening channels, please wait...")
                 If Not String.IsNullOrEmpty(IRCClient.Nick) AndAlso Not String.IsNullOrEmpty(Consts.IRCPassword) Then
                     IRCClient.Password = Consts.IRCPassword
-                    IRCClient.SpeakToServer(String.Format("GHOST {0} {1}", IRCClient.Nick, IRCClient.Password), "NICKSERV")
+                    IRCClient.Speak(String.Format("GHOST {0} {1}", IRCClient.Nick, IRCClient.Password), "NICKSERV")
                 End If
                 IRCClient.Identify()
                 If Not String.IsNullOrEmpty(IRCClient.Password) Then
-                    IRCClient.SpeakToServer(String.Format("IDENTIFY {0}", IRCClient.Password), "NICKSERV")
+                    IRCClient.Speak(String.Format("IDENTIFY {0}", IRCClient.Password), "NICKSERV")
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3652,7 +3652,34 @@ Public Module CoreModule
         Private Sub IrcClient_EndMOTD() Handles IRCClient.EventEndMOTD
             Try
                 If Consts.IRCJoinAfterConnected Then
-                    IRCClient.Join(IRCChannel)
+                    Dim _Channels() As String = Consts.IRCJoinChannels.Split(","c)
+                    For Each _Channel As String In _Channels
+                        If Not String.IsNullOrEmpty(_Channel) Then
+                            IRCClient.Join(_Channel)
+                            Thread.Sleep(500)
+                        End If
+                    Next
+                    Thread.Sleep(500)
+                    Dim CI As CultureInfo = CultureInfo.CurrentCulture
+                    Dim Name As String = CI.Name.Substring(0, 2)
+                    Select Case Name.ToLower
+                        Case "de"
+                            IRCClient.Join("#ttbdeutsch")
+                        Case "nl"
+                            IRCClient.Join("#ttbnederlands")
+                        Case "sv"
+                            IRCClient.Join("#ttbsvenska")
+                        Case "fi"
+                            IRCClient.Join("#ttbsuomi")
+                        Case "es"
+                            IRCClient.Join("#ttbespanol")
+                        Case "pt"
+                            IRCClient.Join("#ttbportugues")
+                        Case "pl"
+                            IRCClient.Join("#ttbpolacy")
+                        Case Else
+                            IRCClient.Join("#tibiatekbot")
+                    End Select
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -4064,16 +4091,6 @@ Public Module CoreModule
                                                     IRCClient.Speak(Chr(1) & "ACTION " & Match.Groups(2).Value & Chr(1), Channel)
                                                 End If
                                                 IrcChannelSpeakUnknown(IRCClient.Nick & " " & Match.Groups(2).Value, IrcChannelNameToID(Channel))
-                                            Case "nickserv"
-                                                Dim Match2 As Match = Regex.Match(Match.Groups(2).Value, "(?:(identify)\s([^\s]+)|(register)\s([^\s]+)\s([^\s]+))", RegexOptions.IgnoreCase)
-                                                If Match2.Success Then
-                                                    Select Case Match2.Groups(1).Value.ToLower
-                                                        Case "identify"
-                                                            IRCClient.SpeakToServer(String.Format("IDENTIFY {0}", Match2.Groups(2).Value), "NICKSERV")
-                                                        Case "register"
-                                                            IRCClient.SpeakToServer(String.Format("REGISTER {0} {1}", Match2.Groups(2).Value, Match2.Groups(3).Value), "NICKSERV")
-                                                    End Select
-                                                End If
                                             Case "msg"
                                                 Dim Match2 As Match = Regex.Match(Match.Groups(2).Value, "([^\s]+)\s([^\n]+)", RegexOptions.IgnoreCase)
                                                 If Match2.Success Then
@@ -4123,7 +4140,7 @@ Public Module CoreModule
                                     If MessageIsSpell(ChatMessage.Message) Then
                                         SP.Speak(ChatMessage.Message)
                                         SP.Send()
-                                        'MsgBox(Message)
+                                        Send = False
                                         Exit Sub
                                     End If
                                     If ChatMessage.Message.StartsWith("&") Then
@@ -4137,46 +4154,58 @@ Public Module CoreModule
                                             Exit Sub
                                         End If
                                     ElseIf Regex.IsMatch(ChatMessage.Destinatary, "^(.+)@irc$", RegexOptions.IgnoreCase) Then
+                                        If ChatMessage.Message.StartsWith("/") Then
+                                            Dim Match As Match = Regex.Match(ChatMessage.Message.TrimEnd(" "c), "^/(join|nick|users|me|nickserv|msg)(?:\s(.+))?", RegexOptions.IgnoreCase)
+                                            If Match.Success Then
+                                                Select Case Match.Groups(1).Value.ToLower
+                                                    Case "join", "j"
+                                                        IRCClient.Join(Match.Groups(2).Value)
+                                                    Case "nick", "n"
+                                                        IRCClient.Nick = Match.Groups(2).Value
+                                                        IRCClient.ChangeNick(IRCClient.Nick)
+                                                End Select
+                                            End If
+                                        End If
                                         CP.SystemMessage(SysMessageType.StatusSmall, "Message sent to " & ChatMessage.Destinatary & ".")
                                         IRCClient.Speak(ChatMessage.Message, ChatMessage.Destinatary.Substring(0, ChatMessage.Destinatary.Length - 4))
                                         Send = False
                                         Exit Sub
-                                    End If
-                                    SP.Speak(ChatMessage.Destinatary, ChatMessage.Message, ChatMessage.PrivateMessageType)
-                                    'bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
+                                        End If
+                                        SP.Speak(ChatMessage.Destinatary, ChatMessage.Message, ChatMessage.PrivateMessageType)
+                                        'bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
                                 Case ITibia.MessageType.Channel
-                                    ChatMessage.ChannelMessageType = ChannelMessageType
-                                    ChatMessage.Channel = GetWord(bytBuffer, Pos)
-                                    ChatMessage.Message = GetString(bytBuffer, Pos)
-                                    If ChatMessage.Message.StartsWith("&") Then
-                                        MCollection = RegExp.Matches(ChatMessage.Message)
-                                        For Each GroupMatch In MCollection
-                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                            CommandParser(GroupMatch.Groups(1).ToString)
-                                        Next
-                                        If MCollection.Count > 0 Then
-                                            Send = False
-                                            Exit Sub
+                                        ChatMessage.ChannelMessageType = ChannelMessageType
+                                        ChatMessage.Channel = GetWord(bytBuffer, Pos)
+                                        ChatMessage.Message = GetString(bytBuffer, Pos)
+                                        If ChatMessage.Message.StartsWith("&") Then
+                                            MCollection = RegExp.Matches(ChatMessage.Message)
+                                            For Each GroupMatch In MCollection
+                                                ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                                CommandParser(GroupMatch.Groups(1).ToString)
+                                            Next
+                                            If MCollection.Count > 0 Then
+                                                Send = False
+                                                Exit Sub
+                                            End If
                                         End If
-                                    End If
-                                    SP.Speak(ChatMessage.Message, ChatMessage.Channel, ChatMessage.ChannelMessageType)
-                                    'bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
+                                        SP.Speak(ChatMessage.Message, ChatMessage.Channel, ChatMessage.ChannelMessageType)
+                                        'bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
                                 Case Else
-                                    ChatMessage.DefaultMessageType = DefaultMessageType
-                                    ChatMessage.Message = GetString(bytBuffer, Pos)
-                                    If ChatMessage.Message.StartsWith("&") Then
-                                        MCollection = RegExp.Matches(ChatMessage.Message)
-                                        For Each GroupMatch In MCollection
-                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                            CommandParser(GroupMatch.Groups(1).ToString)
-                                        Next
-                                        If MCollection.Count > 0 Then
-                                            Send = False
-                                            Exit Sub
+                                        ChatMessage.DefaultMessageType = DefaultMessageType
+                                        ChatMessage.Message = GetString(bytBuffer, Pos)
+                                        If ChatMessage.Message.StartsWith("&") Then
+                                            MCollection = RegExp.Matches(ChatMessage.Message)
+                                            For Each GroupMatch In MCollection
+                                                ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                                CommandParser(GroupMatch.Groups(1).ToString)
+                                            Next
+                                            If MCollection.Count > 0 Then
+                                                Send = False
+                                                Exit Sub
+                                            End If
                                         End If
-                                    End If
-                                    SP.Speak(ChatMessage.Message, ChatMessage.DefaultMessageType)
-                                    'bytNewBuffer = Speak(ChatMessage.Message, MessageType)
+                                        SP.Speak(ChatMessage.Message, ChatMessage.DefaultMessageType)
+                                        'bytNewBuffer = Speak(ChatMessage.Message, MessageType)
                             End Select
                             Dim TimeElapsed As TimeSpan = Date.Now.Subtract(ChatMessageLastSent)
                             If ChatMessageLastSent = Date.MinValue OrElse TimeElapsed.TotalSeconds >= 3 Then
@@ -4224,7 +4253,6 @@ Public Module CoreModule
                         Else
                             If Regex.IsMatch(ChannelName, "^(.+)@IRC$", RegexOptions.IgnoreCase) Then
                                 CP.OpenPrivate(ChannelName)
-                                'Proxy.SendPacketToClient(OpenPrivate(ChannelName))
                                 Send = False
                             End If
                         End If
@@ -4613,7 +4641,6 @@ Public Module CoreModule
                         Case &HD4 'viplogout
                             Pos += 4
                         Case Else
-
 #If TRACE Then
                             'Trace.WriteLine("FromServer: " & Hex(PacketID) & " @ Pos " & (Pos - 1) & vbCrLf & "->" & BytesToStr(bytBuffer, Pos - 1))
 #End If
@@ -4642,6 +4669,9 @@ Public Module CoreModule
                     Case ITibia.MessageType.Default
                         If Consts.FlashTaskbarWhenMessaged AndAlso Not Consts.FlashTaskbarWhenPMOnly Then
                             If Not (Not Consts.FlashTaskbarWhenSpell AndAlso MessageIsSpell(Message)) Then
+                                Dim CP As New ClientPacketBuilder(Proxy)
+                                CP.SystemMessage(ITibia.SysMessageType.EventAdvance, "Flashed window!")
+                                CP.SystemMessage(ITibia.SysMessageType.StatusConsoleBlue, "Flashed window!")
                                 Client.FlashWindow()
                             End If
                         End If
@@ -4722,7 +4752,7 @@ Public Module CoreModule
             Try
                 Log("ConsoleRead", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(ConsoleName, 2008, ITibia.ChannelMessageType.Tutor, strString)
+                CP.Speak(ConsoleName, System.DateTime.Now.Year, ITibia.ChannelMessageType.Tutor, strString)
                 'Proxy.SendPacketToClient(CreatureSpeak(Core.Client.CharacterName, MessageType.ChannelTutor, Level, strString, 0, 0, 0, ChannelType.Console))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -4734,7 +4764,7 @@ Public Module CoreModule
                 Log("ConsoleWrite", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)
                 CP.SystemMessage(SysMessageType.StatusSmall, strString)
-                CP.Speak(ConsoleName, 2008, ITibia.ChannelMessageType.Normal, strString)
+                CP.Speak(ConsoleName, System.DateTime.Now.Year, ITibia.ChannelMessageType.Normal, strString)
                 'Proxy.SendPacketToClient(CreatureSpeak(ConsoleName, MessageType.Channel, ConsoleLevel, strString, 0, 0, 0, ChannelType.Console))
                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, strString))
             Catch Ex As Exception
@@ -4747,7 +4777,7 @@ Public Module CoreModule
                 Log("ConsoleError", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)
                 CP.SystemMessage(SysMessageType.StatusSmall, strString)
-                CP.Speak(ConsoleName, 2008, ITibia.ChannelMessageType.GameMaster, strString)
+                CP.Speak(ConsoleName, System.DateTime.Now.Year, ITibia.ChannelMessageType.GameMaster, strString)
                 'Proxy.SendPacketToClient(CreatureSpeak(ConsoleName, MessageType.ChannelGM, ConsoleLevel, strString, 0, 0, 0, ChannelType.Console))
                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, strString))
             Catch Ex As Exception

@@ -27,6 +27,8 @@ Public Module ConstantsModule
     Public Class Constants
         Implements IConstants
 
+        Public IRCJoinChannels As String = ""
+
         Public LatestVersionUrl As String = "http://www.tibiatek.com/version.php"
         Public MusicalNotesOnAlarm As Boolean = True
         Public EatFromFloor As Boolean = True
@@ -108,6 +110,7 @@ Public Module ConstantsModule
         Public ptrLevelPercent As Integer = &H60EAB8
         Public ptrMagicLevel As Integer = &H60EABC
         Public ptrMagicLevelPercent As Integer = &H60EAB4
+        Public ptrWASDPopup As Integer = 0
 
         Public WindowLeftOffset As Integer = &H14
         Public WindowTopOffset As Integer = &H18
@@ -405,6 +408,8 @@ Public Module ConstantsModule
                                                     ptrGoToZ = CInt(Value)
                                                 Case "ptrGo"
                                                     ptrGo = CInt(Value)
+                                                Case "ptrWASDPopup"
+                                                    ptrWASDPopup = CInt(Value)
                                                 Case "ptrWindowBegin"
                                                     ptrWindowBegin = CInt(Value)
                                                 Case "ptrLevelPercent"
@@ -595,6 +600,7 @@ Public Module ConstantsModule
                                                     AutoEaterInterval = CInt(Value)
                                                 Case "AutoEaterSmartInterval"
                                                     AutoEaterSmartInterval = CInt(Value)
+
                                                 Case "IRCConnectOnStartUp"
                                                     IRCConnectOnStartUp = System.Boolean.Parse(Value)
                                                 Case "IRCJoinAfterConnected"
@@ -603,6 +609,8 @@ Public Module ConstantsModule
                                                     IRCNickname = Value
                                                 Case "IRCPassword"
                                                     IRCPassword = Value
+                                                Case "IRCJoinChannels"
+                                                    IRCJoinChannels = Value
                                                 Case "AntiLogoutInterval"
                                                     AntiLogoutInterval = CInt(Value)
                                                 Case "AutoOpenBackpack"

@@ -1225,27 +1225,7 @@ Public Module CommandParserModule
 
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
-            'Core.ConsoleWrite("Begin Test")
-            'Dim SPB As New ServerPacketBuilder(Core.Proxy)
-            'SPB.CharacterTurn(IBattlelist.Directions.Up)
-            'SPB.CharacterTurn(IBattlelist.Directions.Down)
-            'SPB.CharacterTurn(IBattlelist.Directions.Left)
-            'SPB.CharacterTurn(IBattlelist.Directions.Right)
-            'SPB.Send()
-            Select Case Arguments(2).ToString.ToLower
-                Case "enable"
-                    Core.ConsoleWrite("Succeed: " & LS.Enable)
-                Case "up"
-                    Core.ConsoleWrite("Succeed: " & LS.GoUp)
-                Case "down"
-                    Core.ConsoleWrite("Succeed: " & LS.GoDown)
-                Case "disable"
-                    Core.ConsoleWrite("Succeed: " & LS.Disable)
-                Case "reset"
-                    LS.Reset()
-                Case "level"
-                    Core.ConsoleWrite("Level: " & LS.GetLevel)
-            End Select
+            Core.ConsoleWrite("Begin Test")
             Core.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

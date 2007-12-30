@@ -31,7 +31,6 @@ Partial Class frmMain
     End Sub
 
     'Required by the Windows Form Designer
-    Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
@@ -210,6 +209,7 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
         Me.TabPage10 = New System.Windows.Forms.TabPage
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
@@ -692,6 +692,7 @@ Partial Class frmMain
         '
         'MenuStrip1
         '
+
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
@@ -1505,6 +1506,11 @@ Partial Class frmMain
         '
         Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
         resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
+        '
+        'TestToolStripMenuItem
+        '
+        Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
+        resources.ApplyResources(Me.TestToolStripMenuItem, "TestToolStripMenuItem")
         '
         'MainTabControl
         '
@@ -4093,4 +4099,6 @@ Partial Class frmMain
     Friend WithEvents AmmoMakerMinManalbl As System.Windows.Forms.Label
     Friend WithEvents AmmoMakerSpell As System.Windows.Forms.ComboBox
     Friend WithEvents AmmoMakerSpelllbl As System.Windows.Forms.Label
+    Private components As System.ComponentModel.IContainer
+    Friend WithEvents TestToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

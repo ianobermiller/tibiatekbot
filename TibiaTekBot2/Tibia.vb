@@ -17,11 +17,11 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports Scripting, System.Runtime.InteropServices, System.Windows.Forms, System.Math, System.Text
+Imports Scripting, System.Runtime.InteropServices, System.Windows.Forms, System.Math, _
+    System.Text, System.IO, System.Drawing, System.Threading, System.IO.Pipes
 
 Public NotInheritable Class Tibia
     Implements ITibia
-
 
 #Region " Windows API Declarations "
     Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As Int32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
@@ -130,6 +130,8 @@ Public NotInheritable Class Tibia
     Private _MapTiles As IMapTiles
     Private _Dat As IDatFile
     Private _Items As IItems
+    Private _PipeName As String = ""
+    Public WithEvents Pipe As Pipe
 
 #End Region
 
@@ -137,6 +139,7 @@ Public NotInheritable Class Tibia
 
     Public ReadOnly Property Items() As IItems Implements ITibia.Items
         Get
+
             Return _Items
         End Get
     End Property
@@ -172,6 +175,8 @@ Public NotInheritable Class Tibia
             End Try
         End Get
     End Property
+
+
 
     Public ReadOnly Property CharacterFightingMode() As ITibia.FightingMode Implements ITibia.CharacterFightingMode
         Get
@@ -371,6 +376,12 @@ Public NotInheritable Class Tibia
             _MapTiles = New MapTiles
             _Dat = New DatFile(Directory & "\Tibia.dat")
             _Items = New Items()
+
+            Dim PipeNum As Integer = (New Random(System.DateTime.Now.Millisecond)).Next(10000, 100000)
+            _PipeName = "ttb" & PipeNum
+            Pipe = New Pipe(_PipeName)
+
+            '_Pipe = New NamedPipeServerStream(_PipeName, Pipes.PipeDirection.InOut)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -383,17 +394,34 @@ Public NotInheritable Class Tibia
             PSI.FileName = _Filename
             PSI.WorkingDirectory = _Directory
             PSI.UseShellExecute = True
-            PSI.Arguments = _Arguments
+
+            PSI.Arguments = _Arguments & " -pipe:" & _PipeName.Substring(3)
             ClientProcess = Process.Start(PSI)
             RaiseEvent Starting()
             ClientProcess.EnableRaisingEvents = True
             ClientProcess.Refresh()
             ClientProcess.WaitForInputIdle()
+            '_PipeThread = New Thread(New ThreadStart(AddressOf Me.PipeThreadProc))
+            '_PipeThread.Start()
             RaiseEvent Started()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         End Try
+    End Sub
+
+    Private Sub Pipe_OnRead(ByVal Buffer() As Byte) Handles Pipe.OnReceive
+        'MsgBox(System.Text.ASCIIEncoding.ASCII.GetString(Buffer))
+    End Sub
+
+    Private Sub Pipe_OnConnected() Handles Pipe.OnConnected
+        MsgBox("pipe connected")
+        Dim PPB As New PipePacketBuilder(Pipe, False)
+        PPB.SetConstant("ptrInGame", Consts.ptrInGame)
+        PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
+        PPB.SetConstant("TibiaWindowHandle", GetWindowHandle)
+        PPB.HookWndProc(True)
+        PPB.Send()
     End Sub
 
     Public Function InjectDLL(ByVal Filename As String) As Boolean

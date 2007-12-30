@@ -22,10 +22,11 @@
 <Constants>
   <Const Name="IRCConnectOnStartUp" Value="True" />
   <Const Name="IRCJoinAfterConnected" Value="True" />
-  <Const Name="TTMessagesEnabled" Value="True" />
-  <Const Name="TTMessagesInterval" Value="3600000" />
+  <Const Name="IRCJoinChannels" Value="#tibiatekbot," />
   <Const Name="IRCNickname" Value="" />
   <Const Name="IRCPassword" Value="" />
+  <Const Name="TTMessagesEnabled" Value="True" />
+  <Const Name="TTMessagesInterval" Value="3600000" />
   <Const Name="LatestVersionUrl" Value="http://www.tibiatek.com/version.php" />
   <Const Name="AutoPublishLocation" Value="False" />
   <Const Name="AutoPublishLocationInterval" Value="600000" />
@@ -133,6 +134,7 @@
   <Const Name="ptrStatusMessage" Value="H76d928" /> 
   <Const Name="ptrStatusMessageTimer" Value="H76d924" /> 
   <Const Name="ptrCharacterListBegin" Value="H76C28C" />
+  <Const Name="ptrWASDPopup" Value="H76C328" />
   <Const Name="CharacterListDist" Value="H54" />
   <Const Name="CharacterListWorldOffset" Value="H1E" />
   <Const Name="HotkeyMax" Value="H24" />

@@ -29,7 +29,7 @@ Public Class Packet
 #End Region
 
 #Region " Properties "
-    Public ReadOnly Property GetBytes() Implements Scripting.IPacket.GetBytes
+    Public ReadOnly Property GetBytes() As Byte() Implements Scripting.IPacket.GetBytes
         Get
             Return Buffer
         End Get
@@ -38,6 +38,14 @@ Public Class Packet
 #End Region
 
 #Region " Methods "
+
+    Private Sub AddDouble(ByRef bytBuffer() As Byte, ByVal bytDouble As Double)
+        Dim DoubleBuffer(0 To 7) As Byte
+        DoubleBuffer = BitConverter.GetBytes(bytDouble)
+        For B As Integer = 7 To 0 Step -1
+            AddByte(bytBuffer, DoubleBuffer(B))
+        Next
+    End Sub
 
     Private Sub AddByte(ByRef bytBuffer() As Byte, ByVal bytByte As Byte)
         Try
@@ -132,6 +140,10 @@ Public Class Packet
         AddWord(Location.X)
         AddWord(Location.Y)
         AddByte(Location.Z)
+    End Sub
+
+    Public Sub AddDouble(ByVal Value As Double) Implements IPacket.AddDouble
+        AddDouble(Buffer, Value)
     End Sub
 
     Public Property GetByte(ByVal Offset As UInteger) As Byte Implements IPacket.GetByte
