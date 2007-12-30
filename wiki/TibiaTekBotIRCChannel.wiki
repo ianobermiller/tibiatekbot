@@ -31,7 +31,9 @@ This is a reference table of the 3 different user types in the IRC Channel.
   * *Main (English):* #tibiatekbot
 
 == Language Channels ==
+  * *Deutsch (German):* #ttbdeutsch
   * *Español (Spanish):* #ttbespanol
+  * *Nederlands (Netherlands):* #ttbnederlands
   * *Suomi (Finnish):* #ttbsuomi
   * *Svenska (Swedish):* #ttbsvenska
   * *Polski (Polish):* #ttbpolacy
