@@ -30,7 +30,7 @@ Public Module VipListModule
             Get
                 Try
                     Dim ID As Integer = 0
-					Core.Client.ReadMemory(Consts.ptrVipListBegin + (Position * Consts.VipDist), ID, 4)
+                    Kernel.Client.ReadMemory(Consts.ptrVipListBegin + (Position * Consts.VipDist), ID, 4)
                     Return CUInt(ID)
                 Catch Ex As Exception
                     MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -44,27 +44,27 @@ Public Module VipListModule
                 Try
                     Dim Name As String = ""
                     Dim Address As Integer = Consts.ptrVipListBegin + (Position * Consts.VipDist) + Consts.VipNameOffset
-					Core.Client.ReadMemory(Address, Name)
-					Return Name
-				Catch Ex As Exception
-					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-					End
-				End Try
-			End Get
-		End Property
+                    Kernel.Client.ReadMemory(Address, Name)
+                    Return Name
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
 
-		Public ReadOnly Property IsOnline() As Boolean
-			Get
-				Try
-					Dim Online As Integer = 0
-					Core.Client.ReadMemory(Consts.ptrVipListBegin + (Position * Consts.VipDist) + Consts.VipStatusOffset, Online, 1)
-					Return (Online > 0)
-				Catch Ex As Exception
-					MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-					End
-				End Try
-			End Get
-		End Property
+        Public ReadOnly Property IsOnline() As Boolean
+            Get
+                Try
+                    Dim Online As Integer = 0
+                    Kernel.Client.ReadMemory(Consts.ptrVipListBegin + (Position * Consts.VipDist) + Consts.VipStatusOffset, Online, 1)
+                    Return (Online > 0)
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End
+                End Try
+            End Get
+        End Property
 
         Public Function Find(ByVal Name As String, Optional ByVal MustBeOnline As Boolean = False, Optional ByVal Offset As Integer = 0) As Boolean
             Try

@@ -18,7 +18,6 @@
 '    Boston, MA 02111-1307, USA.
 
 Public Interface IItems
-
 #Region " Enumerations "
 
 
@@ -77,7 +76,6 @@ Public Interface IItems
 
 #Region " Properties "
     ReadOnly Property ItemsList As List(of ItemDefinition) 
-
 #End Region
 
 #Region " Methods "
@@ -92,5 +90,4 @@ Public Interface IItems
     Function GetItemID(ByVal Name As String) As Integer
     Sub Refresh()
 #End Region
-
 End Interface

@@ -56,68 +56,68 @@ Public Module WalkerModule
                 TD.JumpToTile(TileData.SpecialTile.Myself)
                 Dim StatusText As String = ""
                 Dim StatusTimer As Integer = 0
-				Core.Client.ReadMemory(Consts.ptrStatusMessage, StatusText)
-				Core.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
-				Core.Client.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
-				Core.Client.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
-                Core.Client.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 1)
-                Dim SP As New ServerPacketBuilder(Core.Proxy)
-				If StatusText = "There is no way." And StatusTimer <> 0 Then
-					'BL.JumpToEntity(SpecialEntity.Myself)
-					If BL.IsWalking = False Then
-						Core.Client.WriteMemory(Consts.ptrGoToX, BL.GetLocation.X, 2)
-						Core.Client.WriteMemory(Consts.ptrGoToY, BL.GetLocation.Y, 2)
-						Core.Client.WriteMemory(Consts.ptrGoToZ, BL.GetLocation.Z, 1)
-						BL.IsWalking = True
-						IsReady = False
-						Return False
-					End If
-				End If
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessage, StatusText)
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
+                Kernel.Client.ReadMemory(Consts.ptrCoordX, Kernel.CharacterLoc.X, 4)
+                Kernel.Client.ReadMemory(Consts.ptrCoordY, Kernel.CharacterLoc.Y, 4)
+                Kernel.Client.ReadMemory(Consts.ptrCoordZ, Kernel.CharacterLoc.Z, 1)
+                Dim SP As New ServerPacketBuilder(Kernel.Proxy)
+                If StatusText = "There is no way." And StatusTimer <> 0 Then
+                    'BL.JumpToEntity(SpecialEntity.Myself)
+                    If BL.IsWalking = False Then
+                        Kernel.Client.WriteMemory(Consts.ptrGoToX, BL.GetLocation.X, 2)
+                        Kernel.Client.WriteMemory(Consts.ptrGoToY, BL.GetLocation.Y, 2)
+                        Kernel.Client.WriteMemory(Consts.ptrGoToZ, BL.GetLocation.Z, 1)
+                        BL.IsWalking = True
+                        IsReady = False
+                        Return False
+                    End If
+                End If
 
-				Select Case Type
-					Case WaypointType.Walk
-						If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
-							IsReady = True
-							Return True
-						Else
-							If BL.IsWalking = False Then
-								Core.Client.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
-								Core.Client.WriteMemory(Consts.ptrGoToY, CInt(Coordinates.Y), 2)
-								Core.Client.WriteMemory(Consts.ptrGoToZ, CInt(Coordinates.Z), 1)
-								BL.IsWalking = True
-								IsReady = False
-								Return False
-							End If
-						End If
+                Select Case Type
+                    Case WaypointType.Walk
+                        If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
+                            IsReady = True
+                            Return True
+                        Else
+                            If BL.IsWalking = False Then
+                                Kernel.Client.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToY, CInt(Coordinates.Y), 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToZ, CInt(Coordinates.Z), 1)
+                                BL.IsWalking = True
+                                IsReady = False
+                                Return False
+                            End If
+                        End If
                     Case WaypointType.Ladder
-                        If Core.CharacterLoc.Z <> Coordinates.Z Then
+                        If Kernel.CharacterLoc.Z <> Coordinates.Z Then
                             IsReady = True
                             Return True
                         End If
-                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                        If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
                             'TD.JumpToTile(TileData.SpecialTile.Myself)
                             TD.Get_TileInfo()
                             If TD.Count = 0 Then
-                                Core.ConsoleError("Theres no objects in the tile you're standing.")
+                                Kernel.ConsoleError("Theres no objects in the tile you're standing.")
                                 IsReady = False
                                 Return False
                             End If
                             For i As Integer = 0 To TD.Count - 1 'CHECK THIS
-                                If Core.Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport Then
+                                If Kernel.Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport Then
                                     SP.UseObject(TD.ObjectId(i), Coordinates)
                                     'Core.Proxy.SendPacketToServer(UseObject(TD.ObjectId(i), Coordinates))
                                     IsReady = False
                                     Return False
                                 End If
                             Next
-                            Core.ConsoleWrite("Couldn't find Ladders from the tile you are standing.")
+                            Kernel.ConsoleWrite("Couldn't find Ladders from the tile you are standing.")
                             IsReady = False
                             Return False
                         Else
                             If BL.IsWalking = False Then
-                                Core.Client.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToY, CInt(Coordinates.Y), 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToZ, CInt(Coordinates.Z), 1)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToX, CInt(Coordinates.X), 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToY, CInt(Coordinates.Y), 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToZ, CInt(Coordinates.Z), 1)
                                 BL.IsWalking = True
                                 IsReady = False
                                 Return False
@@ -125,90 +125,90 @@ Public Module WalkerModule
                         End If
 
                     Case WaypointType.Rope
-                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                        If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
                             'TD.JumpToTile(TileData.SpecialTile.Myself)
                             BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                             Dim Container As New Container
                             'Dim Rope As ContainerItemDefinition
-                            Dim RopeId As UShort = Core.Client.Items.GetItemID("Rope")
-                            Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
+                            Dim RopeId As UShort = Kernel.Client.Items.GetItemID("Rope")
+                            Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
                             ServerPacket.UseObjectWithObjectOnGround(RopeId, BL.GetLocation, TD.TileId)
                             ServerPacket.Send()
                             System.Threading.Thread.Sleep(2000)
-                            If Core.CharacterLoc.Z <> Coordinates.Z Then
+                            If Kernel.CharacterLoc.Z <> Coordinates.Z Then
                                 IsReady = True
                                 Return True
                             End If
-                        ElseIf Core.CharacterLoc.Z <> Coordinates.Z Then
+                        ElseIf Kernel.CharacterLoc.Z <> Coordinates.Z Then
                             IsReady = True
                             Return True
                         ElseIf BL.IsWalking = False Then
-                            Core.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                            Core.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                            Core.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
                             BL.IsWalking = True
                             IsReady = False
                             Return False
                         End If
                     Case WaypointType.StairsOrHole
-                        If Core.CharacterLoc.Z <> Coordinates.Z Then
+                        If Kernel.CharacterLoc.Z <> Coordinates.Z Then
                             IsReady = True
                             Return True
                         Else
                             If BL.IsWalking = False Then
-                                Core.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
                                 BL.IsWalking = True
                                 IsReady = False
                                 Return False
                             End If
                         End If
                     Case WaypointType.Say
-                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                        If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
                             Dim CM As New ChatMessageDefinition
                             System.Threading.Thread.Sleep(1000)
                             CM.MessageType = ITibia.MessageType.Default
                             CM.DefaultMessageType = ITibia.DefaultMessageType.Normal
                             CM.Prioritize = True
                             CM.Message = Info
-                            Core.ChatMessageQueueList.Add(CM)
+                            Kernel.ChatMessageQueueList.Add(CM)
                             System.Threading.Thread.Sleep(1000)
                             'Core.Proxy.SendPacketToServer(Speak())
                             IsReady = True
                             Return True
                         Else
                             If BL.IsWalking = False Then
-                                Core.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
                                 BL.IsWalking = True
                                 IsReady = False
                                 Return False
                             End If
                         End If
                     Case WaypointType.Wait
-                        If Core.WalkerWaitUntil < Date.Now Then
+                        If Kernel.WalkerWaitUntil < Date.Now Then
                             IsReady = True
-                            Core.WalkerFirstTime = True
+                            Kernel.WalkerFirstTime = True
                             Return True
                         Else
                             IsReady = False
-                            Core.WalkerFirstTime = False
+                            Kernel.WalkerFirstTime = False
                             Return False
                         End If
                     Case WaypointType.Sewer
-                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                        If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
                             'Let's get Sewer's id and position
                             TD.Get_TileInfo()
                             Dim SewerId As Integer = 0
                             Dim SewerStackPos As Integer = 0
                             For i As Integer = 0 To TD.Count
-                                If Core.Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport2 Then
-                                    Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
-                                    ServerPacket.UseObject(TD.ObjectId(i), Core.CharacterLoc)
+                                If Kernel.Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport2 Then
+                                    Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
+                                    ServerPacket.UseObject(TD.ObjectId(i), Kernel.CharacterLoc)
                                     'Core.Proxy.SendPacketToServer(UseObject(TD.ObjectId(i), Core.CharacterLoc))
-                                    If Core.CharacterLoc.Z <> Coordinates.Z Then
+                                    If Kernel.CharacterLoc.Z <> Coordinates.Z Then
                                         IsReady = True
                                         Return True
                                     End If
@@ -216,19 +216,19 @@ Public Module WalkerModule
                             Next
                         Else
                             If BL.IsWalking = False Then
-                                Core.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
                                 BL.IsWalking = True
                                 IsReady = False
                                 Return False
                             End If
                         End If
                     Case WaypointType.Shovel
-                        If Core.CharacterLoc.X = Coordinates.X AndAlso Core.CharacterLoc.Y = Coordinates.Y AndAlso Core.CharacterLoc.Z = Coordinates.Z Then
+                        If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
                             Dim HoleLoc As New ITibia.LocationDefinition
                             'Finding hole location
-                            HoleLoc = Core.CharacterLoc
+                            HoleLoc = Kernel.CharacterLoc
                             Select Case CType(Info, Directions)
                                 Case Directions.Left
                                     HoleLoc.X -= 1
@@ -241,72 +241,72 @@ Public Module WalkerModule
                             End Select
                             'Finding Shovel
                             Dim Shovel As Scripting.IContainer.ContainerItemDefinition
-                            If Container.FindItem(Shovel, Core.Client.Items.GetItemID("Shovel")) = False Then
-                                If Container.FindItem(Shovel, Core.Client.Items.GetItemID("Light Shovel")) = False Then
-                                    Core.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
+                            If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Shovel")) = False Then
+                                If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Light Shovel")) = False Then
+                                    Kernel.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
                                     System.Threading.Thread.Sleep(10000)
                                     IsReady = False
                                     Return False
                                 End If
                             End If
-                            Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
+                            Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
                             ServerPacket.UseObjectWithObjectOnGround(Shovel.ID, HoleLoc)
                             ServerPacket.Send()
                             'Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(Shovel.ID, HoleLoc))
                             System.Threading.Thread.Sleep(1000)
-                            Core.Client.WriteMemory(Consts.ptrGoToX, HoleLoc.X, 2)
-                            Core.Client.WriteMemory(Consts.ptrGoToY, HoleLoc.Y, 2)
-                            Core.Client.WriteMemory(Consts.ptrGoToZ, HoleLoc.Z, 1)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToX, HoleLoc.X, 2)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToY, HoleLoc.Y, 2)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToZ, HoleLoc.Z, 1)
                             System.Threading.Thread.Sleep(2000)
                             BL.IsWalking = True
-                            If Core.CharacterLoc.Z <> HoleLoc.Z Then
+                            If Kernel.CharacterLoc.Z <> HoleLoc.Z Then
                                 IsReady = True
                                 Return True
                             End If
                         Else
                             If BL.IsWalking = False Then
-                                Core.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
-                                Core.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
                                 BL.IsWalking = True
                                 IsReady = False
                                 Return False
                             End If
                         End If
                 End Select
-			Catch Ex As Exception
-				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-				End
-			End Try
-		End Function
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Function
 
-		Public Shared Function CheckDistance() As Boolean
-			Try
-				Dim BL As New BattleList
-				Dim PrevWp As New ITibia.LocationDefinition
+        Public Shared Function CheckDistance() As Boolean
+            Try
+                Dim BL As New BattleList
+                Dim PrevWp As New ITibia.LocationDefinition
 
-				If Core.Walker_Waypoints.Count = 0 Then Return True
-				PrevWp = Core.Walker_Waypoints(Core.Walker_Waypoints.Count - 1).Coordinates
+                If Kernel.Walker_Waypoints.Count = 0 Then Return True
+                PrevWp = Kernel.Walker_Waypoints(Kernel.Walker_Waypoints.Count - 1).Coordinates
 
-				BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
-				If BL.GetDistanceFromLocation(PrevWp) > Consts.WaypointMaxDistance Then
-					Core.ConsoleError("The waypoint is too far.")
-					Return False
-				Else
-					Return True
-				End If
-			Catch Ex As Exception
-				MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-				End
-			End Try
-		End Function
+                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                If BL.GetDistanceFromLocation(PrevWp) > Consts.WaypointMaxDistance Then
+                    Kernel.ConsoleError("The waypoint is too far.")
+                    Return False
+                Else
+                    Return True
+                End If
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Function
     End Class
 
     Public Sub Save(ByVal Path As String)
         Try
             Dim Document As New XmlDocument
             Dim xmlWayPoints As XmlElement = Document.CreateElement("Waypoints")
-            For Each WayPoint As Walker In Core.Walker_Waypoints
+            For Each WayPoint As Walker In Kernel.Walker_Waypoints
                 Dim xmlWayPoint As XmlElement = Document.CreateElement("WayPoint")
                 Dim xmlPosX As XmlAttribute = Document.CreateAttribute("PosX")
                 xmlPosX.InnerText = WayPoint.Coordinates.X
@@ -342,7 +342,7 @@ Public Module WalkerModule
             Document.Load(Path)
             Dim TempStr As String = ""
 
-            Core.Walker_Waypoints.Clear()
+            Kernel.Walker_Waypoints.Clear()
 
             For Each Element As XmlElement In Document.Item("Waypoints")
                 Dim Walker_Char As New Walker
@@ -356,22 +356,22 @@ Public Module WalkerModule
                 If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Type = CInt(TempStr)
                 TempStr = Element.GetAttribute("Info")
                 If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Info = TempStr
-                Core.Walker_Waypoints.Add(Walker_Char)
+                Kernel.Walker_Waypoints.Add(Walker_Char)
             Next
             UpdateList()
         Catch
             MessageBox.Show("Unable to load waypoints.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Core.Walker_Waypoints.Clear()
+            Kernel.Walker_Waypoints.Clear()
             UpdateList()
         End Try
     End Sub
     Public Sub UpdateList()
         Try
-            Core.CavebotForm.Waypointslst.Items.Clear()
-            If Core.Walker_Waypoints.Count = 0 Then Exit Sub
+            Kernel.CavebotForm.Waypointslst.Items.Clear()
+            If Kernel.Walker_Waypoints.Count = 0 Then Exit Sub
             Dim Character As Walker
             Dim WPType As String
-            For Each Character In Core.Walker_Waypoints
+            For Each Character In Kernel.Walker_Waypoints
                 Select Case Character.Type
                     Case Walker.WaypointType.Ladder
                         WPType = "L"
@@ -394,11 +394,11 @@ Public Module WalkerModule
                 End Select
 
                 If Character.Type = Walker.WaypointType.Wait Then
-                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
+                    Kernel.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
 
                 Else
 
-                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
+                    Kernel.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
             & ":" & Character.Coordinates.Y _
             & ":" & Character.Coordinates.Z & " " & Character.Info)
                 End If

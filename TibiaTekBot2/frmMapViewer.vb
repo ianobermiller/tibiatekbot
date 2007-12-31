@@ -17,7 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.Drawing, System.Drawing.Imaging, TibiaTekBot.CoreModule, _
+Imports System.Drawing, System.Drawing.Imaging, TibiaTekBot.KernelModule, _
  TibiaTekBot.Constants, Scripting
 
 
@@ -46,7 +46,7 @@ Public Class frmMapViewer
     End Enum
 
     Private Sub Timer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer.Tick
-        If Core.Client.MapTiles.IsBusy Then Exit Sub
+        If Kernel.Client.MapTiles.IsBusy Then Exit Sub
         'Me.SuspendLayout()
         Dim g As Graphics = Me.PictureBox1.CreateGraphics()
         Try
@@ -61,26 +61,26 @@ Public Class frmMapViewer
             Dim Address As Integer = 0
             For Left As Integer = 0 To 17
                 For Top As Integer = 0 To 13
-                    Address = Core.Client.MapTiles.GetAddress(Left, Top, Floor.Value)
-					Core.Client.ReadMemory(Address, StackCount, 1)
-					If StackCount = 0 Then
-						Images(Left, Top) = ImageTiles.Void
-					Else
-						Images(Left, Top) = ImageTiles.NotWalkable
-						For I As Integer = 0 To StackCount - 1
-							Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ObjectID, 2)
-							If ObjectID = &H63 Then
-								Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-								If Data = Core.CharacterID Then
-									Images(Left, Top) = ImageTiles.Player
-								ElseIf Data < &H40000000 Then 'player
-									Images(Left, Top) = ImageTiles.OtherPlayer
-								Else 'monster/npc
-									Images(Left, Top) = ImageTiles.Creature
-								End If
-								Exit For
-							Else
-                                Dim ItemName As String = Core.Client.Items.GetItemName(ObjectID)
+                    Address = Kernel.Client.MapTiles.GetAddress(Left, Top, Floor.Value)
+                    Kernel.Client.ReadMemory(Address, StackCount, 1)
+                    If StackCount = 0 Then
+                        Images(Left, Top) = ImageTiles.Void
+                    Else
+                        Images(Left, Top) = ImageTiles.NotWalkable
+                        For I As Integer = 0 To StackCount - 1
+                            Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ObjectID, 2)
+                            If ObjectID = &H63 Then
+                                Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+                                If Data = Kernel.CharacterID Then
+                                    Images(Left, Top) = ImageTiles.Player
+                                ElseIf Data < &H40000000 Then 'player
+                                    Images(Left, Top) = ImageTiles.OtherPlayer
+                                Else 'monster/npc
+                                    Images(Left, Top) = ImageTiles.Creature
+                                End If
+                                Exit For
+                            Else
+                                Dim ItemName As String = Kernel.Client.Items.GetItemName(ObjectID)
                                 Select Case ItemName
                                     Case "Teleport"
                                         Images(Left, Top) = ImageTiles.Teleport
@@ -106,11 +106,11 @@ Public Class frmMapViewer
                                         Images(Left, Top) = ImageTiles.Depot
                                     Case Else
                                         Try
-                                            If ObjectID >= Core.Client.Dat.Length Then
+                                            If ObjectID >= Kernel.Client.Dat.Length Then
                                                 Images(Left, Top) = ImageTiles.Swamp
-                                            ElseIf Core.Client.Dat.GetInfo(ObjectID).IsGroundTile Then
+                                            ElseIf Kernel.Client.Dat.GetInfo(ObjectID).IsGroundTile Then
                                                 Images(Left, Top) = ImageTiles.Walkable
-                                            ElseIf Core.Client.Dat.GetInfo(ObjectID).Blocking Then
+                                            ElseIf Kernel.Client.Dat.GetInfo(ObjectID).Blocking Then
                                                 Images(Left, Top) = ImageTiles.NotWalkable
                                             End If
                                         Catch
@@ -193,9 +193,9 @@ Public Class frmMapViewer
             Dim Left As Integer = Math.Floor(e.X / 25)
             Dim Top As Integer = Math.Floor(e.Y / 25)
             Dim Loc As ITibia.LocationDefinition
-            Loc.X = Core.CharacterLoc.X + (Left - 8)
-            Loc.Y = Core.CharacterLoc.Y + (Top - 6)
-            Loc.Z = Core.CharacterLoc.Z
+            Loc.X = Kernel.CharacterLoc.X + (Left - 8)
+            Loc.Y = Kernel.CharacterLoc.Y + (Top - 6)
+            Loc.Z = Kernel.CharacterLoc.Z
             ToolTip1.SetToolTip(PictureBox1, "(" & Loc.X & "," & Loc.Y & "," & Loc.Z & ")")
             If Left >= 18 OrElse Top >= 14 Then Exit Sub
             Dim StackCount As Integer = 0
@@ -204,7 +204,7 @@ Public Class frmMapViewer
             Dim BL As New BattleList
             Dim Output As String = ""
             Dim ItemName As String = ""
-            Dim TileObjects() As IMapTiles.TileObject = Core.Client.MapTiles.GetTileObjects(Left, Top, Floor.Value)
+            Dim TileObjects() As IMapTiles.TileObject = Kernel.Client.MapTiles.GetTileObjects(Left, Top, Floor.Value)
             StackCount = TileObjects.Length
             For Each TileObj As IMapTiles.TileObject In TileObjects
                 ObjectID = TileObj.GetObjectID
@@ -213,7 +213,7 @@ Public Class frmMapViewer
                     BL.Find(Data)
                     Output = BL.GetName & " (H" & Hex(Data) & ")"
                 Else
-                    ItemName = Core.Client.Items.GetItemName(ObjectID)
+                    ItemName = Kernel.Client.Items.GetItemName(ObjectID)
                     Output = ItemName & " (H" & Hex(ObjectID) & ")"
                 End If
                 TileObjectsList.Items.Add(Output)
@@ -225,25 +225,25 @@ Public Class frmMapViewer
         End Try
     End Sub
 
-	Public Sub PictureBox1_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseDown
-		Try
-			Dim Left As Integer = Math.Floor(e.X / 25)
-			Dim Top As Integer = Math.Floor(e.Y / 25)
-			Dim Loc As ITibia.LocationDefinition
-			Loc.X = Core.CharacterLoc.X + (Left - 8)
-			Loc.Y = Core.CharacterLoc.Y + (Top - 6)
-			Loc.Z = Core.CharacterLoc.Z
-			Core.Client.WriteMemory(Consts.ptrGoToX, CInt(Loc.X), 2)
-			Core.Client.WriteMemory(Consts.ptrGoToY, CInt(Loc.Y), 2)
-			Core.Client.WriteMemory(Consts.ptrGoToZ, CInt(Loc.Z), 1)
-			Dim bl As New BattleList
-			bl.JumpToEntity(IBattlelist.SpecialEntity.Myself)
-			bl.IsWalking = True
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+    Public Sub PictureBox1_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PictureBox1.MouseDown
+        Try
+            Dim Left As Integer = Math.Floor(e.X / 25)
+            Dim Top As Integer = Math.Floor(e.Y / 25)
+            Dim Loc As ITibia.LocationDefinition
+            Loc.X = Kernel.CharacterLoc.X + (Left - 8)
+            Loc.Y = Kernel.CharacterLoc.Y + (Top - 6)
+            Loc.Z = Kernel.CharacterLoc.Z
+            Kernel.Client.WriteMemory(Consts.ptrGoToX, CInt(Loc.X), 2)
+            Kernel.Client.WriteMemory(Consts.ptrGoToY, CInt(Loc.Y), 2)
+            Kernel.Client.WriteMemory(Consts.ptrGoToZ, CInt(Loc.Z), 1)
+            Dim bl As New BattleList
+            bl.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+            bl.IsWalking = True
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 
     Private Sub ToolTip1_Popup(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PopupEventArgs) Handles ToolTip1.Popup
         Try

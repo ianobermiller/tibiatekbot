@@ -44,7 +44,7 @@ Public Class frmConstantsEditor
             xmlDocument.Save(GetConfigurationDirectory() + "\Constants.xml")
             LoadConstants()
             Consts.LoadConstants()
-            Core.ConsoleWrite("New Constants Loaded.")
+            Kernel.ConsoleWrite("New Constants Loaded.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End

@@ -25,14 +25,14 @@ Public Class frmConfigEdit
         'Dim DataArray() As String
         Try
             Dim Reader As IO.StreamReader
-            Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
+            Reader = IO.File.OpenText(Kernel.GetProfileDirectory() & "\config.txt")
             Data = Reader.ReadToEnd
             Reader.Close()
             'DataArray = Data.Split(Ret)
             'Configs.Lines = DataArray
             Configs.Text = Data.Replace(vbLf, vbCrLf)
         Catch
-            If IO.File.Exists(Core.GetProfileDirectory() & "\config.txt") Then
+            If IO.File.Exists(Kernel.GetProfileDirectory() & "\config.txt") Then
                 MessageBox.Show("Unable to load your configuration file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Me.Close()
             End If
@@ -41,7 +41,7 @@ Public Class frmConfigEdit
 
     Private Sub Save_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Save.Click
         Try
-            Dim Writer As StreamWriter = IO.File.CreateText(Core.GetProfileDirectory() & "\config.txt")
+            Dim Writer As StreamWriter = IO.File.CreateText(Kernel.GetProfileDirectory() & "\config.txt")
             Writer.Write(Configs.Text.Replace(vbCrLf, vbLf))
             Writer.Close()
             Me.DialogResult = Forms.DialogResult.OK

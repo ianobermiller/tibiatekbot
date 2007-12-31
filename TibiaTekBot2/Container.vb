@@ -24,8 +24,6 @@ Public Module ContainerModule
     Public Class Container
         Implements IContainer
 
-        
-
         Private ContainerIndex As Integer = 0
         Private ContainerItemCount As Integer = 0
         Private ContainerIsOpened As Boolean = False
@@ -34,11 +32,11 @@ Public Module ContainerModule
             ContainerIndex = 0
         End Sub
 
-        Public Function Reset() As Boolean
+        Public Function Reset() As Boolean Implements IContainer.Reset
             Try
                 ContainerIndex = 0
                 Dim IsOpened As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrFirstContainer, IsOpened, 1)
+                Kernel.Client.ReadMemory(Consts.ptrFirstContainer, IsOpened, 1)
                 If CBool(IsOpened) Then
                     ContainerItemCount = Me.GetItemCount()
                     Me.ContainerIsOpened = True
@@ -50,7 +48,7 @@ Public Module ContainerModule
             End Try
         End Function
 
-        Public Function JumpToContainer(ByVal NewContainerIndex As Integer) As Boolean
+        Public Function JumpToContainer(ByVal NewContainerIndex As Integer) As Boolean Implements IContainer.JumpToContainer
             Try
                 If NewContainerIndex > Consts.MaxContainers Then NewContainerIndex = Consts.MaxContainers
                 If Container.IsOpened(NewContainerIndex) Then
@@ -67,7 +65,7 @@ Public Module ContainerModule
             End Try
         End Function
 
-        Public Shared Function FindItem(ByRef Item As IContainer.ContainerItemDefinition, ByVal ItemID As Integer, Optional ByVal ContainerIndexOffset As Integer = 0, Optional ByVal IndexOffset As Integer = 0, Optional ByVal ContainerIndexMax As Integer = 0, Optional ByVal MinCount As Integer = 0, Optional ByVal MaxCount As Integer = 100) As Boolean
+        Public Function FindItem(ByRef Item As IContainer.ContainerItemDefinition, ByVal ItemID As Integer, Optional ByVal ContainerIndexOffset As Integer = 0, Optional ByVal IndexOffset As Integer = 0, Optional ByVal ContainerIndexMax As Integer = 0, Optional ByVal MinCount As Integer = 0, Optional ByVal MaxCount As Integer = 100) As Boolean Implements IContainer.FindItem
             Try
                 Dim mIsOpened As Integer = 0
                 Dim mContainerItemCount As Integer = 0
@@ -78,8 +76,8 @@ Public Module ContainerModule
                 If ContainerIndexMax >= Consts.MaxContainers Then ContainerIndexMax = Consts.MaxContainers - 1
                 If ContainerIndexOffset > (Consts.MaxContainers - 1) Then ContainerIndexOffset = Consts.MaxContainers - 1
                 For I As Integer = ContainerIndexOffset To ContainerIndexMax
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + Consts.ContainerItemCountOffset, mContainerItemCount, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + Consts.ContainerItemCountOffset, mContainerItemCount, 1)
                     If CBool(mIsOpened) Then
                         Dim ItemIndexStart As Integer
                         If FirstLoop Then
@@ -90,8 +88,8 @@ Public Module ContainerModule
                         End If
                         If ItemIndexStart >= mContainerItemCount Then Continue For
                         For E As Integer = ItemIndexStart To mContainerItemCount - 1
-                            Core.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + (Consts.ItemDist * E) + Consts.ContainerFirstItemOffset, mItemID, 2)
-                            Core.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + (Consts.ItemDist * E) + Consts.ContainerFirstItemOffset + Consts.ItemCountOffset, mItemCount, 1)
+                            Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + (Consts.ItemDist * E) + Consts.ContainerFirstItemOffset, mItemID, 2)
+                            Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist) + (Consts.ItemDist * E) + Consts.ContainerFirstItemOffset + Consts.ItemCountOffset, mItemCount, 1)
                             If ItemID = mItemID AndAlso mItemCount >= MinCount AndAlso mItemCount <= MaxCount Then 'found!
                                 Item.ID = ItemID
                                 Item.Count = mItemCount
@@ -109,11 +107,11 @@ Public Module ContainerModule
             End Try
         End Function
 
-        Public Function NextContainer() As Boolean
+        Public Function NextContainer() As Boolean Implements IContainer.NextContainer
             Try
                 Dim mIsOpened As Integer = 0
                 For I As Integer = Me.ContainerIndex + 1 To Consts.MaxContainers - 1
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
                     If CBool(mIsOpened) Then
                         ContainerIndex = I
                         ContainerItemCount = GetItemCount()
@@ -127,7 +125,7 @@ Public Module ContainerModule
                 End
             End Try
         End Function
-        Public Shared Function ContainerCount() As Integer
+        Public Function ContainerCount() As Integer Implements IContainer.ContainerCount
             Try
                 Dim ContCount As Integer = 0
                 Dim Cont As New Container
@@ -147,7 +145,7 @@ Public Module ContainerModule
         Public Shared Function IsOpened(ByVal Index As Integer) As Boolean
             Try
                 Dim mIsOpened As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrFirstContainer + (Index * Consts.ContainerDist), mIsOpened, 1)
+                Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (Index * Consts.ContainerDist), mIsOpened, 1)
                 Return CBool(mIsOpened)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -155,10 +153,10 @@ Public Module ContainerModule
             End Try
         End Function
 
-        Public Function IsOpened() As Boolean
+        Public Function IsOpened() As Boolean Implements IContainer.IsOpened
             Try
                 Dim mIsOpened As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist), mIsOpened, 1)
+                Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist), mIsOpened, 1)
                 Return CBool(mIsOpened)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -166,11 +164,11 @@ Public Module ContainerModule
             End Try
         End Function
 
-        Public ReadOnly Property GetName() As String
+        Public ReadOnly Property GetName() As String Implements IContainer.GetName
             Get
                 Try
                     Dim Name As String = ""
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerNameOffset, Name)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerNameOffset, Name)
                     Return Name
                 Catch Ex As Exception
                     MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -179,11 +177,11 @@ Public Module ContainerModule
             End Get
         End Property
 
-        Public Function PrevContainer() As Boolean
+        Public Function PrevContainer() As Boolean Implements IContainer.PrevContainer
             Try
                 Dim mIsOpened As Integer = 0
                 For I As Integer = ContainerIndex To 0 Step -1
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (I * Consts.ContainerDist), mIsOpened, 1)
                     If CBool(mIsOpened) Then
                         ContainerIndex = I
                         Me.ContainerItemCount = GetItemCount()
@@ -198,7 +196,7 @@ Public Module ContainerModule
             End Try
         End Function
 
-        Public Shared Function GetItemCountByItemID(ByVal ItemID As UShort) As Integer
+        Public Function GetItemCountByItemID(ByVal ItemID As UShort) As Integer Implements IContainer.GetItemCountByItemID
             Try
                 Dim Item As IContainer.ContainerItemDefinition
                 Dim Count As Integer = 0
@@ -227,11 +225,11 @@ Public Module ContainerModule
             End Try
         End Function
 
-        Public ReadOnly Property GetItemCount() As Integer
+        Public ReadOnly Property GetItemCount() As Integer Implements IContainer.GetItemCount
             Get
                 Try
                     Dim ItemCount As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerItemCountOffset, ItemCount, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerItemCountOffset, ItemCount, 1)
                     Return CInt(ItemCount)
                 Catch Ex As Exception
                     MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -240,11 +238,11 @@ Public Module ContainerModule
             End Get
         End Property
 
-        Public ReadOnly Property GetContainerSize() As Integer
+        Public ReadOnly Property GetContainerSize() As Integer Implements IContainer.GetContainerSize
             Get
                 Try
                     Dim Size As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerSizeOffset, Size, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerSizeOffset, Size, 1)
                     Return CInt(Size)
                 Catch Ex As Exception
                     MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -253,11 +251,11 @@ Public Module ContainerModule
             End Get
         End Property
 
-        Public ReadOnly Property GetContainerID() As Integer
+        Public ReadOnly Property GetContainerID() As Integer Implements IContainer.GetContainerID
             Get
                 Try
                     Dim ID As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerIDOffset, ID, 4)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerIDOffset, ID, 4)
                     Return CInt(ID)
                 Catch Ex As Exception
                     MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -269,7 +267,7 @@ Public Module ContainerModule
         Public Shared Function ContainerHasParent(ByVal CIndex As Byte) As Boolean
             Try
                 Dim HasP As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrFirstContainer + (CIndex * Consts.ContainerDist) + Consts.ContainerHasParentOffset, HasP, 1)
+                Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (CIndex * Consts.ContainerDist) + Consts.ContainerHasParentOffset, HasP, 1)
                 Return (HasP = 1)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -277,11 +275,11 @@ Public Module ContainerModule
             End Try
         End Function
 
-        Public ReadOnly Property HasParent() As Boolean
+        Public ReadOnly Property HasParent() As Boolean Implements IContainer.HasParent
             Get
                 Try
                     Dim HasP As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerHasParentOffset, HasP, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerHasParentOffset, HasP, 1)
                     Return (HasP = 1)
                 Catch Ex As Exception
                     MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -290,21 +288,21 @@ Public Module ContainerModule
             End Get
         End Property
 
-        Public ReadOnly Property GetContainerIndex() As Integer
+        Public ReadOnly Property GetContainerIndex() As Integer Implements IContainer.GetContainerIndex
             Get
                 Return ContainerIndex
             End Get
         End Property
 
-        Public ReadOnly Property Items(ByVal Index As Integer) As IContainer.ContainerItemDefinition
+        Public ReadOnly Property Items(ByVal Index As Integer) As IContainer.ContainerItemDefinition Implements IContainer.Items
             Get
                 Try
                     Dim Item As IContainer.ContainerItemDefinition
                     Dim ItemID As Integer
                     Dim ItemCount As Integer
                     If Index < Me.ContainerItemCount Then
-                        Core.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerFirstItemOffset + (Index * Consts.ItemDist), ItemID, 4)
-                        Core.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerFirstItemOffset + (Index * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
+                        Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerFirstItemOffset + (Index * Consts.ItemDist), ItemID, 4)
+                        Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerFirstItemOffset + (Index * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
                         Item.ID = CUShort(ItemID)
                         Item.Count = CInt(ItemCount)
                         Item.ContainerIndex = CInt(ContainerIndex)

@@ -17,7 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports TibiaTekBot.CoreModule, System.IO, System.Math, Scripting, System.Text.RegularExpressions
+Imports TibiaTekBot.KernelModule, System.IO, System.Math, Scripting, System.Text.RegularExpressions
 
 Module MiscUtils
 
@@ -153,9 +153,9 @@ Module MiscUtils
     End Function
 
     Public Sub Log(ByVal Source As String, ByVal Text As String)
-        If Core.LoggingEnabled OrElse Consts.DebugOnLog Then
+        If Kernel.LoggingEnabled OrElse Consts.DebugOnLog Then
             Try
-                Dim TextFile As New StreamWriter(Core.ExecutablePath & "\Log.txt", True)
+                Dim TextFile As New StreamWriter(Kernel.ExecutablePath & "\Log.txt", True)
                 TextFile.WriteLine("(" & Source & ") " & Date.Now.ToLongDateString & ": " & Text)
                 TextFile.Close()
             Catch
@@ -169,17 +169,17 @@ Module MiscUtils
             BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
             BL.IsWalking = False
             'Core.ConsoleWrite("Stop Player: STOP")
-            Dim ServerPacket As New ServerPacketBuilder(Core.Proxy)
+            Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
             ServerPacket.StopEverything()
             'Core.Proxy.SendPacketToServer(PacketUtils.StopEverything)
-            Core.Client.WriteMemory(Consts.ptrGoToX, 0, 4)
-            Core.Client.WriteMemory(Consts.ptrGoToY, 0, 4)
-            Core.Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
+            Kernel.Client.WriteMemory(Consts.ptrGoToX, 0, 4)
+            Kernel.Client.WriteMemory(Consts.ptrGoToY, 0, 4)
+            Kernel.Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
             BL.IsWalking = True
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-	End Sub
+    End Sub
 
     Public Sub InjectLastAttackedId()
         Try
@@ -194,32 +194,32 @@ Module MiscUtils
             '                CodeCave: 5920B3
             '                Continue Old Code: 450DC9
             'Offset 450DC3 . The place where Tibia puts attacked Id to the memory (adr: 60EA9C)
-            Core.Client.WriteMemory(&H451803, &H145432E9, 5) ' JMP 596c3a
-            Core.Client.WriteMemory(&H451808, &H90, 1) 'NOP
+            Kernel.Client.WriteMemory(&H451803, &H145432E9, 5) ' JMP 596c3a
+            Kernel.Client.WriteMemory(&H451808, &H90, 1) 'NOP
             'Offset 592040 . Our codecaves
-            Core.Client.WriteMemory(CodeCave, &HFE83, 3) : CodeCave += 3 'CMP ESI,0
-            Core.Client.WriteMemory(CodeCave, &H674, 2) : CodeCave += 2 'JE 59204B
-            Core.Client.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [0076DA10],ESI
-            Core.Client.WriteMemory(CodeCave, &H76DA10, 4) : CodeCave += 4 '---------"--------
-            Core.Client.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [613B3C],ESI
-            Core.Client.WriteMemory(CodeCave, &H613B3C, 4) : CodeCave += 4 '------"---------
-            Core.Client.WriteMemory(CodeCave, &HE9, 1) : CodeCave += 1 'JMP 450DC9
-            Core.Client.WriteMemory(CodeCave, &HFFEBABB9, 4) ' ---"----
+            Kernel.Client.WriteMemory(CodeCave, &HFE83, 3) : CodeCave += 3 'CMP ESI,0
+            Kernel.Client.WriteMemory(CodeCave, &H674, 2) : CodeCave += 2 'JE 59204B
+            Kernel.Client.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [0076DA10],ESI
+            Kernel.Client.WriteMemory(CodeCave, &H76DA10, 4) : CodeCave += 4 '---------"--------
+            Kernel.Client.WriteMemory(CodeCave, &H3589, 2) : CodeCave += 2 'MOV [613B3C],ESI
+            Kernel.Client.WriteMemory(CodeCave, &H613B3C, 4) : CodeCave += 4 '------"---------
+            Kernel.Client.WriteMemory(CodeCave, &HE9, 1) : CodeCave += 1 'JMP 450DC9
+            Kernel.Client.WriteMemory(CodeCave, &HFFEBABB9, 4) ' ---"----
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-	Public Sub UpdatePlayerPos()
-		Try
-			Core.Client.ReadMemory(Consts.ptrCoordX, Core.CharacterLoc.X, 4)
-			Core.Client.ReadMemory(Consts.ptrCoordY, Core.CharacterLoc.Y, 4)
-			Core.Client.ReadMemory(Consts.ptrCoordZ, Core.CharacterLoc.Z, 1)
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Sub
+    Public Sub UpdatePlayerPos()
+        Try
+            Kernel.Client.ReadMemory(Consts.ptrCoordX, Kernel.CharacterLoc.X, 4)
+            Kernel.Client.ReadMemory(Consts.ptrCoordY, Kernel.CharacterLoc.Y, 4)
+            Kernel.Client.ReadMemory(Consts.ptrCoordZ, Kernel.CharacterLoc.Z, 1)
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
 
     Public Function SelectNearestWaypoint(ByVal Waypoints As List(Of Walker)) As Integer
         Try
@@ -227,7 +227,7 @@ Module MiscUtils
             Dim WaypointBuffer As New List(Of Walker)
             Dim NearestDist As Double = 999999.0
             Dim Dist As Double = 0.0
-            Z = Core.CharacterLoc.Z
+            Z = Kernel.CharacterLoc.Z
 
             'Let's find every waypoint which is at the same floor
             For Each Waypoint As Walker In Waypoints
@@ -245,8 +245,8 @@ Module MiscUtils
                 If Z <> Waypoints(I).Coordinates.Z Then
                     Continue For
                 End If
-                X = Abs(Waypoints(I).Coordinates.X - Core.CharacterLoc.X)
-                Y = Abs(Waypoints(I).Coordinates.Y - Core.CharacterLoc.Y)
+                X = Abs(Waypoints(I).Coordinates.X - Kernel.CharacterLoc.X)
+                Y = Abs(Waypoints(I).Coordinates.Y - Kernel.CharacterLoc.Y)
                 Dist = Sqrt(Pow(X, 2) + Pow(Y, 2))
 
                 If Dist < NearestDist Then
@@ -264,7 +264,7 @@ Module MiscUtils
     Public Function InjectCode(ByVal Address As Integer, ByVal OpCodes() As Byte) As Boolean
         Try
             For I As Integer = 0 To OpCodes.Length - 1
-                Core.Client.WriteMemory(Address + I, OpCodes(I), 1)
+                Kernel.Client.WriteMemory(Address + I, OpCodes(I), 1)
             Next
             Return True
         Catch Ex As Exception

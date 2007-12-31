@@ -19,7 +19,7 @@
 
 Imports System.Text.RegularExpressions, TibiaTekBot.frmMain, _
  TibiaTekBot.Constants, _
- TibiaTekBot.CoreModule, System.Diagnostics, System.Runtime.InteropServices, _
+ TibiaTekBot.KernelModule, System.Diagnostics, System.Runtime.InteropServices, _
  System.ComponentModel, TibiaTekBot.MiscUtils, TibiaTekBot.DatFile, Scripting, System.Net, _
  System.Xml
 
@@ -28,7 +28,7 @@ Public Module CommandParserModule
 
     Public Sub CommandParser(ByVal Message As String)
         Try
-            If Not Core.Client.IsConnected Then Exit Sub
+            If Not Kernel.Client.IsConnected Then Exit Sub
             Dim MatchObj As Match = Regex.Match(Message, "^([a-zA-Z]+)\s*([^;]*)$")
             If MatchObj.Success Then
                 Select Case MatchObj.Groups(1).Value.ToLower
@@ -141,11 +141,11 @@ Public Module CommandParserModule
                     Case "ammomaker", "ammocreater", "makeammo", "ammunitionmaker", "makeammunition"
                         CmdAmmoMaker(MatchObj.Groups)
                     Case Else
-                        Core.ConsoleError("This command does not exist." & Ret & _
+                        Kernel.ConsoleError("This command does not exist." & Ret & _
                             "  For a list of available commands type: &help.")
                 End Select
             Else
-                Core.ConsoleError("Invalid command syntax.")
+                Kernel.ConsoleError("Invalid command syntax.")
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -156,30 +156,30 @@ Public Module CommandParserModule
 
     Private Sub CmdViewMessage()
 
-        If Core.TTMessages = 0 Then
-            Core.ConsoleError("You have no messages from the TibiaTek Development Team.")
+        If Kernel.TTMessages = 0 Then
+            Kernel.ConsoleError("You have no messages from the TibiaTek Development Team.")
         Else
             Try
                 Dim Temp As Integer = 0
-				Core.Client.UnprotectMemory(Consts.ptrForYourInformation, 20)
-				Core.Client.WriteMemory(Consts.ptrForYourInformation, "Viewing Message")
-				Dim WClient As New WebClient
-				WClient.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded")
-                Dim XMLResponse As String = WClient.UploadString(BotWebsite & "/viewmessages.php", "POST", "name=" & Web.HttpUtility.UrlEncode(Core.Client.CharacterName) & "&world=" & Web.HttpUtility.UrlEncode(Core.Client.CharacterWorld))
+                Kernel.Client.UnprotectMemory(Consts.ptrForYourInformation, 20)
+                Kernel.Client.WriteMemory(Consts.ptrForYourInformation, "Viewing Message")
+                Dim WClient As New WebClient
+                WClient.Headers.Add(HttpRequestHeader.ContentType, "application/x-www-form-urlencoded")
+                Dim XMLResponse As String = WClient.UploadString(BotWebsite & "/viewmessages.php", "POST", "name=" & Web.HttpUtility.UrlEncode(Kernel.Client.CharacterName) & "&world=" & Web.HttpUtility.UrlEncode(Kernel.Client.CharacterWorld))
                 Dim Document As New XmlDocument()
                 Document.LoadXml(XMLResponse)
                 Dim Messages As XmlElement = Document.Item("Messages")
                 For Each Message As XmlElement In Messages
                     If Not String.IsNullOrEmpty(Message.InnerText) Then
-                        Dim ClientPacket As New ClientPacketBuilder(Core.Proxy)
+                        Dim ClientPacket As New ClientPacketBuilder(Kernel.Proxy)
                         ClientPacket.FYIBox(Message.InnerText)
                         ClientPacket.Send()
                         'Core.Proxy.SendPacketToClient(FYIBox(Message.InnerText))
                     End If
                 Next
-                Core.ConsoleWrite("Successfully fetched all messages.")
+                Kernel.ConsoleWrite("Successfully fetched all messages.")
             Catch Ex As Exception
-                Core.ConsoleError("Unable to fetch the messages.")
+                Kernel.ConsoleError("Unable to fetch the messages.")
             End Try
         End If
     End Sub
@@ -189,36 +189,36 @@ Public Module CommandParserModule
 #Region " Irc Command "
     Private Sub CmdIrc(ByVal Arguments As GroupCollection)
         Try
-            If Not Core.IRCClient.IsConnected Then
-                Core.ConsoleError("You are not connected to IRC.")
+            If Not Kernel.IRCClient.IsConnected Then
+                Kernel.ConsoleError("You are not connected to IRC.")
                 Exit Sub
             End If
             Dim Match As Match = Regex.Match(Arguments(2).Value, "(join|nick|users)\s""?([^""]+)""?", RegexOptions.IgnoreCase)
             If Match.Success Then
-                Dim CP As New ClientPacketBuilder(Core.Proxy)
+                Dim CP As New ClientPacketBuilder(Kernel.Proxy)
                 Select Case Match.Groups(1).Value.ToLower
                     Case "join"
-                        If Core.IrcChannelIsOpened(Match.Groups(2).Value) Then
-                            CP.OpenChannel(Match.Groups(2).Value, Core.IrcChannelNameToID(Match.Groups(2).Value))
+                        If Kernel.IrcChannelIsOpened(Match.Groups(2).Value) Then
+                            CP.OpenChannel(Match.Groups(2).Value, Kernel.IrcChannelNameToID(Match.Groups(2).Value))
                             'OpenIrcChannel(Match.Groups(2).Value, Core.IrcChannelNameToID(Match.Groups(2).Value))
                         Else
-                            Core.IRCClient.Join(Match.Groups(2).Value)
-                            Core.ConsoleWrite("You are now joining the channel " & Match.Groups(2).Value & ".")
+                            Kernel.IRCClient.Join(Match.Groups(2).Value)
+                            Kernel.ConsoleWrite("You are now joining the channel " & Match.Groups(2).Value & ".")
                         End If
                     Case "nick"
-                        If Core.IRCClient.Nick.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) Then
-                            Core.ConsoleError("Your current nickname is the same.")
+                        If Kernel.IRCClient.Nick.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) Then
+                            Kernel.ConsoleError("Your current nickname is the same.")
                         Else
-                            Core.IRCClient.Nick = Match.Groups(2).Value
-                            Core.IRCClient.WriteLine("NICK " & Core.IRCClient.Nick)
-                            Core.ConsoleWrite("Trying to change your IRC nickname...")
+                            Kernel.IRCClient.Nick = Match.Groups(2).Value
+                            Kernel.IRCClient.WriteLine("NICK " & Kernel.IRCClient.Nick)
+                            Kernel.ConsoleWrite("Trying to change your IRC nickname...")
                         End If
                     Case "users"
                         Dim Channel As String = Match.Groups(2).Value
-                        If Core.IrcChannelIsOpened(Channel) Then
+                        If Kernel.IrcChannelIsOpened(Channel) Then
                             Dim TempNick As String = ""
-                            For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
-                                Select Case Core.IRCClient.GetUserLevel(Nick, Channel)
+                            For Each Nick As String In Kernel.IRCClient.Channels(Channel).Users.Keys
+                                Select Case Kernel.IRCClient.GetUserLevel(Nick, Channel)
                                     Case 4
                                         TempNick = "~" & Nick
                                     Case 3
@@ -230,142 +230,142 @@ Public Module CommandParserModule
                                     Case Else
                                         TempNick = Nick
                                 End Select
-                                Core.ConsoleWrite(TempNick)
+                                Kernel.ConsoleWrite(TempNick)
                             Next
                         Else
-                            Core.ConsoleError("You are not in this channel.")
+                            Kernel.ConsoleError("You are not in this channel.")
                         End If
                 End Select
             Else
                 Select Case Arguments(2).Value.ToLower
                     Case "quit"
-                        Core.IRCClient.Quit()
+                        Kernel.IRCClient.Quit()
                     Case Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                 End Select
             End If
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-		End Try
-	End Sub
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
 #End Region
 
 #Region " Website Command "
 
-	Private Sub CmdWebsite()
-		Try
-			System.Diagnostics.Process.Start(ConstantsModule.BotWebsite)
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-		End Try
-	End Sub
+    Private Sub CmdWebsite()
+        Try
+            System.Diagnostics.Process.Start(ConstantsModule.BotWebsite)
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
 #End Region
 
 #Region " Name Spy Command "
 
-	Private Sub CmdNameSpy(ByVal Arguments As GroupCollection)
-		Try
-			Select Case StrToShort(Arguments(2).Value)
-				Case 0
-					Core.Client.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
-					Core.Client.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
-					Core.ConsoleWrite("Name Spy is now Disabled.")
-				Case 1
-					Core.Client.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
-					Core.Client.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
-					Core.NameSpyActivated = True
-					Core.ConsoleWrite("Name Spy is now Enabled.")
-				Case Else
-					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-			End Select
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-		End Try
-	End Sub
+    Private Sub CmdNameSpy(ByVal Arguments As GroupCollection)
+        Try
+            Select Case StrToShort(Arguments(2).Value)
+                Case 0
+                    Kernel.Client.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
+                    Kernel.Client.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
+                    Kernel.ConsoleWrite("Name Spy is now Disabled.")
+                Case 1
+                    Kernel.Client.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
+                    Kernel.Client.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
+                    Kernel.NameSpyActivated = True
+                    Kernel.ConsoleWrite("Name Spy is now Enabled.")
+                Case Else
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+            End Select
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
 #End Region
 
 #Region " FPS Changer Command "
 
-	Private Sub CmdFpsChanger(ByVal Arguments As GroupCollection)
-		Try
-			Core.FrameRateActive = Consts.FPSWhenActive
-			Core.FrameRateInactive = Consts.FPSWhenInactive
-			Core.FrameRateMinimized = Consts.FPSWhenMinimized
-			Core.FrameRateHidden = Consts.FPSWhenHidden
-			Select Case StrToShort(Arguments(2).Value)
-				Case 0
-					Core.FPSChangerTimerObj.StopTimer()
-					Core.Client.SetFramesPerSecond(Core.FrameRateActive)
-					Core.ConsoleWrite("FPS Changer is now Disabled.")
-				Case 1
-					Core.FPSChangerTimerObj.StartTimer()
-					Core.ConsoleWrite("FPS Changer is now Enabled.")
-				Case Else
-					Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-			End Select
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-		End Try
-	End Sub
+    Private Sub CmdFpsChanger(ByVal Arguments As GroupCollection)
+        Try
+            Kernel.FrameRateActive = Consts.FPSWhenActive
+            Kernel.FrameRateInactive = Consts.FPSWhenInactive
+            Kernel.FrameRateMinimized = Consts.FPSWhenMinimized
+            Kernel.FrameRateHidden = Consts.FPSWhenHidden
+            Select Case StrToShort(Arguments(2).Value)
+                Case 0
+                    Kernel.FPSChangerTimerObj.StopTimer()
+                    Kernel.Client.SetFramesPerSecond(Kernel.FrameRateActive)
+                    Kernel.ConsoleWrite("FPS Changer is now Disabled.")
+                Case 1
+                    Kernel.FPSChangerTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("FPS Changer is now Enabled.")
+                Case Else
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+            End Select
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
 #End Region
 
 #Region " Send Location Command "
 
-	Private Sub CmdSendLocation(ByVal Arguments As GroupCollection)
-		Try
-			Dim Value As String = Arguments(2).Value.ToLower
-			Dim MatchObj As Match = Regex.Match(Value, """([^""]+)""?")
-			If MatchObj.Success Then
-				If Not Core.BGWSendLocation.IsBusy Then
-					Core.ConsoleWrite("Please wait...")
-					Core.SendLocationDestinatary = MatchObj.Groups(1).Value
-					Core.BGWSendLocation.RunWorkerAsync()
-				Else
-					Core.ConsoleError("Busy.")
-				End If
-			Else
-				Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-			End If
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-		End Try
-	End Sub
+    Private Sub CmdSendLocation(ByVal Arguments As GroupCollection)
+        Try
+            Dim Value As String = Arguments(2).Value.ToLower
+            Dim MatchObj As Match = Regex.Match(Value, """([^""]+)""?")
+            If MatchObj.Success Then
+                If Not Kernel.BGWSendLocation.IsBusy Then
+                    Kernel.ConsoleWrite("Please wait...")
+                    Kernel.SendLocationDestinatary = MatchObj.Groups(1).Value
+                    Kernel.BGWSendLocation.RunWorkerAsync()
+                Else
+                    Kernel.ConsoleError("Busy.")
+                End If
+            Else
+                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
 #End Region
 
 #Region " Reload Data Command "
 
-	Private Sub CmdReload(ByVal Arguments As GroupCollection)
-		Try
-			Dim Value As String = Arguments(2).Value.ToLower
-			Try
-				Select Case Value
-					Case "spells", "spell"
-						Core.ConsoleWrite("Please wait...")
-						CoreModule.Spells.LoadSpells()
-					Case "outfits", "outfit"
-						Core.ConsoleWrite("Please wait...")
-						CoreModule.Outfits.LoadOutfits()
-					Case "items", "item"
-						Core.ConsoleWrite("Please wait...")
-                        Core.Client.Items.Refresh()
+    Private Sub CmdReload(ByVal Arguments As GroupCollection)
+        Try
+            Dim Value As String = Arguments(2).Value.ToLower
+            Try
+                Select Case Value
+                    Case "spells", "spell"
+                        Kernel.ConsoleWrite("Please wait...")
+                        KernelModule.Spells.LoadSpells()
+                    Case "outfits", "outfit"
+                        Kernel.ConsoleWrite("Please wait...")
+                        KernelModule.Outfits.LoadOutfits()
+                    Case "items", "item"
+                        Kernel.ConsoleWrite("Please wait...")
+                        Kernel.Client.Items.Refresh()
                     Case "constants", "constant", "consts", "const"
-                        Core.ConsoleWrite("Please wait...")
+                        Kernel.ConsoleWrite("Please wait...")
                         Consts.LoadConstants()
                     Case "tiles", "tile", "dat"
-                        Core.ConsoleWrite("Please wait...")
-                        Core.Client.Dat.Refresh()
+                        Kernel.ConsoleWrite("Please wait...")
+                        Kernel.Client.Dat.Refresh()
                     Case Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         Exit Sub
                 End Select
-                Core.ConsoleWrite("Done reloading.")
+                Kernel.ConsoleWrite("Done reloading.")
             Catch
-                Core.ConsoleError("Failed reloading.")
+                Kernel.ConsoleError("Failed reloading.")
             End Try
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -402,10 +402,10 @@ Public Module CommandParserModule
                     BL2.BodyColor = BL.BodyColor
                     BL2.LegsColor = BL.LegsColor
                     BL2.FeetColor = BL.FeetColor
-                    Dim SP As New ServerPacketBuilder(Core.Proxy)
+                    Dim SP As New ServerPacketBuilder(Kernel.Proxy)
                     SP.ChangeOutfit(BL2.OutfitID, CByte(BL2.HeadColor), CByte(BL2.BodyColor), CByte(BL2.LegsColor), CByte(BL2.FeetColor), CByte(BL2.OutfitAddons))
                     'Core.Proxy.SendPacketToServer(ChangeOutfit(BL2.OutfitID, CByte(BL2.HeadColor), CByte(BL2.BodyColor), CByte(BL2.LegsColor), CByte(BL2.FeetColor), CByte(BL2.OutfitAddons)))
-                    Core.ConsoleWrite("Your outfit has been changed to " & BL.GetName & ".")
+                    Kernel.ConsoleWrite("Your outfit has been changed to " & BL.GetName & ".")
                 End If
             Else
                 MatchObj = Regex.Match(Arguments(2).ToString, """([^""]+)(?:""\s+(\d))?")
@@ -413,9 +413,9 @@ Public Module CommandParserModule
                     Dim Request As String = MatchObj.Groups(1).Value
                     Dim Outfit As New OutfitDefinition
                     If Regex.IsMatch(Request, "^\d+$") Then
-                        Found = CoreModule.Outfits.GetOutfitByID(CUShort(Request), Outfit)
+                        Found = KernelModule.Outfits.GetOutfitByID(CUShort(Request), Outfit)
                     Else
-                        Found = CoreModule.Outfits.GetOutfitByName(Request, Outfit)
+                        Found = KernelModule.Outfits.GetOutfitByName(Request, Outfit)
                     End If
                     If Found Then
                         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -425,12 +425,12 @@ Public Module CommandParserModule
                             If CInt(MatchObj.Groups(2).Value) > 3 Then Exit Sub
                             BL.OutfitAddons = CType(CInt(MatchObj.Groups(2).Value), IBattlelist.OutfitAddons)
                         End If
-                        Core.ConsoleWrite("Your outfit has been changed to " & Outfit.Name & ".")
+                        Kernel.ConsoleWrite("Your outfit has been changed to " & Outfit.Name & ".")
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                 End If
             End If
         Catch Ex As Exception
@@ -448,65 +448,65 @@ Public Module CommandParserModule
             Dim Match As Match = Regex.Match(Arguments(2).Value.ToLower, "([1-9]\d{0,2})%?\s+([1-9]\d{0,2})%?")
             If Match.Success Then
                 If CInt(Match.Groups(1).Value) > 99 Then
-                    Core.ConsoleError("Minimum Health Percent has to be less than 99%.")
+                    Kernel.ConsoleError("Minimum Health Percent has to be less than 99%.")
                     Exit Sub
                 ElseIf CInt(Match.Groups(2).Value) > 100 Then
-                    Core.ConsoleError("Maximum Health Percent has to be less than 100%.")
+                    Kernel.ConsoleError("Maximum Health Percent has to be less than 100%.")
                     Exit Sub
                 ElseIf CInt(Match.Groups(1).Value) >= CInt(Match.Groups(2).Value) Then
-                    Core.ConsoleError("Maximum Health Percent has to be higher than Minimum Health Percent.")
+                    Kernel.ConsoleError("Maximum Health Percent has to be higher than Minimum Health Percent.")
                     Exit Sub
                 End If
-                If Core.AutoTrainerEntities.Count = 0 Then
-                    Core.ConsoleError("You have to add entities to the training list.")
+                If Kernel.AutoTrainerEntities.Count = 0 Then
+                    Kernel.ConsoleError("You have to add entities to the training list.")
                     Exit Sub
                 End If
-                Core.AutoTrainerMinHPPercent = CInt(Match.Groups(1).Value)
-                Core.AutoTrainerMaxHPPercent = CInt(Match.Groups(2).Value)
-                Core.AutoTrainerTimerObj.StartTimer()
-                Core.ConsoleWrite("Auto Trainer will now attack the entities until " & Core.AutoTrainerMinHPPercent & "% of their health " & _
-                 "and after their recover " & Core.AutoTrainerMaxHPPercent & "% of their health.")
+                Kernel.AutoTrainerMinHPPercent = CInt(Match.Groups(1).Value)
+                Kernel.AutoTrainerMaxHPPercent = CInt(Match.Groups(2).Value)
+                Kernel.AutoTrainerTimerObj.StartTimer()
+                Kernel.ConsoleWrite("Auto Trainer will now attack the entities until " & Kernel.AutoTrainerMinHPPercent & "% of their health " & _
+                 "and after their recover " & Kernel.AutoTrainerMaxHPPercent & "% of their health.")
             Else
                 Select Case StrToShort(Arguments(2).Value)
                     Case 0
-                        Core.AutoTrainerMinHPPercent = 0
-                        Core.AutoTrainerMaxHPPercent = 0
-                        Core.AutoTrainerTimerObj.StopTimer()
-                        Core.ConsoleWrite("Auto Trainer is now Disabled.")
+                        Kernel.AutoTrainerMinHPPercent = 0
+                        Kernel.AutoTrainerMaxHPPercent = 0
+                        Kernel.AutoTrainerTimerObj.StopTimer()
+                        Kernel.ConsoleWrite("Auto Trainer is now Disabled.")
                     Case Else
                         Dim BL As New BattleList
                         Select Case Arguments(2).Value
                             Case "add", "agregar", "a"
                                 If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
                                     If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
-                                        Core.ConsoleError("You must be attacking or following something.")
+                                        Kernel.ConsoleError("You must be attacking or following something.")
                                         Exit Sub
                                     End If
                                 End If
-                                If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
-                                    Core.ConsoleError("This entity is already in your list.")
+                                If Kernel.AutoTrainerEntities.Contains(BL.GetEntityID) Then
+                                    Kernel.ConsoleError("This entity is already in your list.")
                                 Else
-                                    Core.AutoTrainerEntities.Add(BL.GetEntityID)
-                                    Core.ConsoleWrite("This entity has been added to your list.")
+                                    Kernel.AutoTrainerEntities.Add(BL.GetEntityID)
+                                    Kernel.ConsoleWrite("This entity has been added to your list.")
                                 End If
                             Case "remove", "r", "remover", "quitar"
                                 If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
                                     If Not BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
-                                        Core.ConsoleError("You must be attacking or following something.")
+                                        Kernel.ConsoleError("You must be attacking or following something.")
                                         Exit Sub
                                     End If
                                 End If
-                                If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
-                                    Core.AutoTrainerEntities.Remove(BL.GetEntityID)
-                                    Core.ConsoleWrite("This entity has been removed from your list.")
+                                If Kernel.AutoTrainerEntities.Contains(BL.GetEntityID) Then
+                                    Kernel.AutoTrainerEntities.Remove(BL.GetEntityID)
+                                    Kernel.ConsoleWrite("This entity has been removed from your list.")
                                 Else
-                                    Core.ConsoleError("This entity is not on your list.")
+                                    Kernel.ConsoleError("This entity is not on your list.")
                                 End If
                             Case "clear"
-                                Core.AutoTrainerEntities.Clear()
-                                Core.ConsoleWrite("Auto Trainer entities list cleared.")
+                                Kernel.AutoTrainerEntities.Clear()
+                                Kernel.ConsoleWrite("Auto Trainer entities list cleared.")
                             Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         End Select
                 End Select
             End If
@@ -524,7 +524,7 @@ Public Module CommandParserModule
             Dim Topic As String = Arguments(2).ToString.ToLower
             Select Case Topic
                 Case "light"
-                    Core.ConsoleWrite("첣ight Effect�" & Ret & _
+                    Kernel.ConsoleWrite("첣ight Effect�" & Ret & _
                     "Usage: &light <on | off | torch | great torch | ultimate tor" & _
                     "ch | utevo lux | utevo gran lux | utevo vis lux | light wand>." & Ret & _
                     "Example: &light utevo lux." & Ret & _
@@ -533,7 +533,7 @@ Public Module CommandParserModule
                     "f to be very handy." & Ret & _
                     "Note: This command <<does not>> cast any spells whatsoever.")
                 Case "exp"
-                    Core.ConsoleWrite("첚xperience Checker�" & Ret & _
+                    Kernel.ConsoleWrite("첚xperience Checker�" & Ret & _
                     "Usage: &exp <on | creatures <on | off> | off>." & Ret & _
                     "Example: &exp on." & Ret & _
                     "Example: &exp creatures on." & Ret & _
@@ -542,7 +542,7 @@ Public Module CommandParserModule
                     "nce you need until the next level!. With the new show creatures feature, you'll find out how many creatures you have left to kill." & Ret & _
                     "Note: The experience is shown on the title of the Tibia Client.")
                 Case "trainer"
-                    Core.ConsoleWrite("첔uto Trainer�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Trainer�" & Ret & _
                     "Usage: &trainer <add | remove | clear | stop |<minimum hp %> <maximum hp %>>>." & Ret & _
                     "Example: &trainer 50% 90%." & Ret & _
                     "Comment:" & Ret & _
@@ -550,7 +550,7 @@ Public Module CommandParserModule
                     "To start training type &trainer <min hp %> <max hp %>, and you will hurt the creatures until <min hp%> and continue attacking after <max hp%>. " & _
                     "To stop, &trainer stop.")
                 Case "attack"
-                    Core.ConsoleWrite("첔uto Attacker�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Attacker�" & Ret & _
                     "Usage: &attack <on | off | auto | stand | follow | offensive | balanced | " & _
                     "defensive | ""Player Name"" >." & Ret & _
                     "Example: &attack on." & Ret & _
@@ -558,14 +558,14 @@ Public Module CommandParserModule
                     " Automatically attack any monsters that attack you, or if set to auto attacks monsters that are in screen (not touching to another player's creatures though)." & Ret & _
                     " To train with slimes, put the slime on follow when issuing &attack on.")
                 Case "spell"
-                    Core.ConsoleWrite("첯pell Caster�" & Ret & _
+                    Kernel.ConsoleWrite("첯pell Caster�" & Ret & _
                     "Usage: &spell <off | <minimum mana points> <spell words>>." & Ret & _
                     "Example: &spell 400 exura vita """"Magic Level Plx!!." & Ret & _
                     "Comment:" & Ret & _
                     " Never be bothered again because you forgot to cast a spell and you " & _
                     "wasted mana!")
                 Case "eat"
-                    Core.ConsoleWrite("첔uto Eater/Smart Eater�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Eater/Smart Eater�" & Ret & _
                     "Usage: &eat <on | off | time in seconds | <smart <minimum hit points>> >." & Ret & _
                     "Example: &eat on." & Ret & _
                     "Example: &eat smart 600." & Ret & _
@@ -574,14 +574,14 @@ Public Module CommandParserModule
                     " Auto Eater will make sure you bloat, but will also keep yo" & _
                     "u in a strict diet using the Smart option.")
                 Case "uh"
-                    Core.ConsoleWrite("첔uto UHer�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto UHer�" & Ret & _
                     "Usage: &uh <hit points | off>." & Ret & _
                     "Example: &uh 120." & Ret & _
                     "Comment:" & Ret & _
                     "  Feel safe because you will always UH yourself before it h" & _
                     "appens!")
                 Case "look"
-                    Core.ConsoleWrite("첛loor Explorer�" & Ret & _
+                    Kernel.ConsoleWrite("첛loor Explorer�" & Ret & _
                    "Usage: &look <around | up | above | down | below>." & Ret & _
                    "Example: &look below." & Ret & _
                    "Command:" & Ret & _
@@ -590,7 +590,7 @@ Public Module CommandParserModule
                    " are on the ground level, and it won't tell you what's ab" & _
                    "ove you if you are one level below ground.")
                 Case "fisher"
-                    Core.ConsoleWrite("첔uto Fisher�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Fisher�" & Ret & _
                     "Usage: &fisher <off  | <<minimum capacity> <normal | turbo>>>." & Ret & _
                     "Example: &fisher 6 normal." & Ret & _
                     "Comment:" & Ret & _
@@ -598,7 +598,7 @@ Public Module CommandParserModule
                     "oring and tiresome it gets? Well, now this is the solution " & _
                     "for you! Normal speed and turbo speed selector included ;).")
                 Case "runemaker"
-                    Core.ConsoleWrite("첮unemaker�" & Ret & _
+                    Kernel.ConsoleWrite("첮unemaker�" & Ret & _
                     "Usage: &runemaker <minimum mana points> <minimum soul points> ""<spell words or spell name>""." & Ret & _
                     "Example: &runemaker 400 2 ""ultimate healing""." & Ret & _
                     "Comment:" & Ret & _
@@ -607,14 +607,14 @@ Public Module CommandParserModule
                     "Note: You must have the arrow slot empty, and there must at" & _
                     " least one container open with blank runes on it.")
                 Case "char"
-                    Core.ConsoleWrite("첖haracter Information Lookup�" & Ret & _
+                    Kernel.ConsoleWrite("첖haracter Information Lookup�" & Ret & _
                     "Usage: &char ""<Player Name>""." & Ret & _
                     "Example: &char ""eternal oblivion""." & Ret & _
                     "Comment:" & Ret & _
                     " This command will let you retrieve the information of a character" & _
                     "without you having to open Tibia.com and search for it yourself.")
                 Case "open"
-                    Core.ConsoleWrite("첦pen File/Website�" & Ret & _
+                    Kernel.ConsoleWrite("첦pen File/Website�" & Ret & _
                     "Usage: &open <""Local File or URL"" | <wiki | character | guild | erig | google | mytibia> ""<search terms>"" >." & Ret & _
                     "Example: &open ""notepad""." & Ret & _
                     "Example: &open wiki ""Banuta Quest""." & Ret & _
@@ -632,7 +632,7 @@ Public Module CommandParserModule
                     '"private message to the player running TibiaTek Bot the command name " & _
                     '"followed by the password, example: admin iRownz0rx.")
                 Case "pickup"
-                    Core.ConsoleWrite("첔uto Pickup�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Pickup�" & Ret & _
                     "Usage: &pickup <on | off>" & Ret & _
                     "Example: &pickup on." & Ret & _
                     "Comment:" & Ret & _
@@ -640,7 +640,7 @@ Public Module CommandParserModule
                     "put them in your right hand. If you accidentally put another object in " & _
                     "your right hand it will be moved to your backpack.")
                 Case "ammorestacker"
-                    Core.ConsoleWrite("첔uto Ammunition Restacker�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Ammunition Restacker�" & Ret & _
                     "Usage: &ammorestacker <minimum ammunition | off>" & Ret & _
                     "Example: &ammorestacker 50." & Ret & _
                     "Comment:" & Ret & _
@@ -648,7 +648,7 @@ Public Module CommandParserModule
                     "and activate this command, and you'll always be fully equipped." & Ret & _
                     "Note: You will be warned when you are running out of items to restack.")
                 Case "log"
-                    Core.ConsoleWrite("첚vents Logging�" & Ret & _
+                    Kernel.ConsoleWrite("첚vents Logging�" & Ret & _
                     "Usage: &log <on | off>" & Ret & _
                     "Example: &log on." & Ret & _
                     "Comment:" & Ret & _
@@ -656,69 +656,69 @@ Public Module CommandParserModule
                     "what really happened." & Ret & _
                     "Note: To be used only when you are Away From Keyboard (AFK).")
                 Case "healfriend"
-                    Core.ConsoleWrite("첔uto Heal Friend�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Heal Friend�" & Ret & _
                     "Usage: &healfriend <minimum hit points percent>% ""<uh | sio | both>"" ""<player name>""." & Ret & _
                     "Example: &healfriend 50% ""sio"" ""Cameri deDurp""." & Ret & _
                     "Comment:" & Ret & _
                     "  Auto Heal Friend keeps your friend safe before it''s too late." & Ret & _
                     "Note: You can only heal one friend at a time, if you need to heal more people, use ""healparty"".")
                 Case "guild"
-                    Core.ConsoleWrite("첝uild Members Lookup�" & Ret & _
+                    Kernel.ConsoleWrite("첝uild Members Lookup�" & Ret & _
                     "Usage: &guild <online | both> ""<guild name>""." & Ret & _
                     "Example: &guild online ""Mercenaries""." & Ret & _
                     "Comment:" & Ret & _
                     "  Find out which guild members are online and which aren't." & Ret & _
                     "Note: Guild name is case-sensitive.")
                 Case "faketitle"
-                    Core.ConsoleWrite("첛ake Title�" & Ret & _
+                    Kernel.ConsoleWrite("첛ake Title�" & Ret & _
                     "Usage: &faketitle <off | ""<new title>"">." & Ret & _
                     "Example: &faketitle ""Firefox""." & Ret & _
                     "Comment:" & Ret & _
                     "  Never get caught again by your parents playing Tibia!.")
                 Case "advertise"
-                    Core.ConsoleWrite("첰rade Channel Advertiser�" & Ret & _
+                    Kernel.ConsoleWrite("첰rade Channel Advertiser�" & Ret & _
                     "Usage: &advertise ""<advertisement>""." & Ret & _
                     "Example: &advertise ""Sell Giant Sword, Wand of Plage ~ msg me""." & Ret & _
                     "Comment:" & Ret & _
                     "  This command advertises in the trade channel for you every 2 minutes.")
                 Case "heal"
-                    Core.ConsoleWrite("첔uto Healer�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Healer�" & Ret & _
                     "Usage: &heal <minimum hit points percent | minimum hit points> ""<healing spell words or spell name>"" [""""<comment>]." & Ret & _
                     "Example: &heal 70% ""Intense Healing"" """"I never die~." & Ret & _
                     "Comment:" & Ret & _
                     "  Keep yourself healthy at all times!.")
                 Case "healparty"
-                    Core.ConsoleWrite("첔uto Heal Party�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Heal Party�" & Ret & _
                     "Usage: &healparty <minimum hit points percent>% ""<sio | uh | both>""." & Ret & _
                     "Example: &healparty 30% ""sio""." & Ret & _
                     "Comment:" & Ret & _
                     "  Keep your party members safe, protect them because you could be next!.")
                 Case "loot"
-                    Core.ConsoleWrite("첔uto Looter�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Looter�" & Ret & _
                     "Usage: &loot <on | minimum capacity | off>." & Ret & _
                     "Example: &loot 100." & Ret & _
                     "Comment:" & Ret & _
                     "  Tired of having to open the corpses? With this command you won't have to do anything.")
                 Case "statsuploader"
-                    Core.ConsoleWrite("첯tats Uploader�" & Ret & _
+                    Kernel.ConsoleWrite("첯tats Uploader�" & Ret & _
                     "Usage: &statsuploader <on | off>." & Ret & _
                     "Example: &statsuploader on." & Ret & _
                     "Comment:" & Ret & _
                     "  Generate an XML file with the stats of your character, upload it to the web or save it on your hard disk.")
                 Case "mapviewer"
-                    Core.ConsoleWrite("첤ap Viewer�" & Ret & _
+                    Kernel.ConsoleWrite("첤ap Viewer�" & Ret & _
                     "Usage: &mapviewer." & Ret & _
                     "Example: &mapviewer." & Ret & _
                     "Comment:" & Ret & _
                     "  Show an <<experimental>> map viewer of your current Tibia. For informational purposes only.")
                 Case "stacker"
-                    Core.ConsoleWrite("첔uto Stacker�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Stacker�" & Ret & _
                     "Usage: &stacker <on | off>." & Ret & _
                     "Example: &stacker on." & Ret & _
                     "Comment:" & Ret & _
                     "  Automatically organize your backpacks with this auto stacker.")
                 Case "config"
-                    Core.ConsoleWrite("첖onfiguration Manager�" & Ret & _
+                    Kernel.ConsoleWrite("첖onfiguration Manager�" & Ret & _
                     "Usage: &config <load | edit | clear>." & Ret & _
                     "Example: &config edit." & Ret & _
                     "Comment:" & Ret & _
@@ -726,53 +726,53 @@ Public Module CommandParserModule
                     "right after you log in? Type in the configuration manager the commands " & _
                     "as you would type them normally, each on one line or separated by semi-colons.")
                 Case "hotkeys"
-                    Core.ConsoleWrite("첞otkey Settings Manager�" & Ret & _
+                    Kernel.ConsoleWrite("첞otkey Settings Manager�" & Ret & _
                     "Usage: &hotkeys <save | load>." & Ret & _
                     "Example: &hotkeys save." & Ret & _
                     "Comment:" & Ret & _
                     "  Keep separate hotkey settings for each of your characters!")
                 Case "feedback"
-                    Core.ConsoleWrite("첛eedback, Comments, Bug reports�" & Ret & _
+                    Kernel.ConsoleWrite("첛eedback, Comments, Bug reports�" & Ret & _
                     "Usage: &feedback." & Ret & _
                     "Example: &feedback." & Ret & _
                     "Comment:" & Ret & _
                     "  With this command, you can send me comments, bug reports and anything considered as feedback." & Ret & _
                     "Communication between the users and developers is very important! This is completely anonymous.")
                 Case "chameleon"
-                    Core.ConsoleWrite("첖hameleon�" & Ret & _
+                    Kernel.ConsoleWrite("첖hameleon�" & Ret & _
                     "Usage: &chameleon <""<outfit name or id>"" [addons 0-3] | copy ""<player name>"">." & Ret & _
                     "Example: &chameleon ""male citizen"" 3." & Ret & _
                     "Example: &chameleon ""dworc voodoomaster""." & Ret & _
                     "Comment:" & Ret & _
                     "  Use this command to change your outfit to whatever you want, even copy your friend's outfit!")
                 Case "watch"
-                    Core.ConsoleWrite("첰rade Channel Watcher�" & Ret & _
+                    Kernel.ConsoleWrite("첰rade Channel Watcher�" & Ret & _
                     "Usage: &watch <regular expression pattern | off>." & Ret & _
                     "Example: &watch ^.*bps*\s+of\s+uh.*$." & Ret & _
                     "Comment:" & Ret & _
                     "  This command will inform you of any offer in the trade channel that matches the pattern." & Ret & _
                     "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.")
                 Case "reload"
-                    Core.ConsoleWrite("첮eload Data�" & Ret & _
+                    Kernel.ConsoleWrite("첮eload Data�" & Ret & _
                     "Usage: &reload <spells | outfits | items | constants | dat>." & Ret & _
                     "Example: &reload items." & Ret & _
                     "Comment:" & Ret & _
                     "  Use this command to reload the files from the Data folder.")
                 Case "list"
-                    Core.ConsoleWrite("첖ommands List�" & Ret & _
+                    Kernel.ConsoleWrite("첖ommands List�" & Ret & _
                     "Usage: &list." & Ret & _
                     "Example: &list." & Ret & _
                     "Comment:" & Ret & _
                     "  Use this command to view all the bot's commands (In alphaphetical order).")
                 Case "sendlocation"
-                    Core.ConsoleWrite("첯end Location�" & Ret & _
+                    Kernel.ConsoleWrite("첯end Location�" & Ret & _
                     "Usage: &sendlocation ""<player name>""." & Ret & _
                     "Example: &sendlocation ""Cameri de'Durp." & Ret & _
                     "Comment:" & Ret & _
                     "  Use this command to send other players a link to a map of your current position." & Ret & _
                     "The link points to a page that has the map of tibia, and a cursor pointing to your current location.")
                 Case "rainbow"
-                    Core.ConsoleWrite("첮ainbow Outfit�" & Ret & _
+                    Kernel.ConsoleWrite("첮ainbow Outfit�" & Ret & _
                     "Usage: &rainbow <on | off | fast | slow>." & Ret & _
                     "Example: &rainbow fast." & Ret & _
                     "Comment:" & Ret & _
@@ -780,7 +780,7 @@ Public Module CommandParserModule
                     "It changes your outfit color repately." & Ret & _
                     "Note: Everyone will see your outfit changing.")
                 Case "fpschanger"
-                    Core.ConsoleWrite("첛PS Changer�" & Ret & _
+                    Kernel.ConsoleWrite("첛PS Changer�" & Ret & _
                     "Usage: &fpschanger <on | off>." & Ret & _
                     "Example: &fpschanger on." & Ret & _
                     "Comment: " & Ret & _
@@ -788,26 +788,26 @@ Public Module CommandParserModule
                     " this command is right for you, it will enable you to lower/increase the FPS when your Tibia is " & _
                     "active, inactive, minimized and hidden.")
                 Case "namespy"
-                    Core.ConsoleWrite("첥ame Spy�" & Ret & _
+                    Kernel.ConsoleWrite("첥ame Spy�" & Ret & _
                     "Usage: &namespy <on | off>." & Ret & _
                     "Example: &namespy on." & Ret & _
                     "Comment: " & Ret & _
                     "  See the names/health bar of creatures or other players on a different floor than yours.")
                 Case "website"
-                    Core.ConsoleWrite("첳ebsite�" & Ret & _
+                    Kernel.ConsoleWrite("첳ebsite�" & Ret & _
                     "Usage: &website." & Ret & _
                     "Example: &website." & Ret & _
                     "Comment: " & Ret & _
                     "  Opens up TibiaTek Bot's website.")
                 Case "drinker"
-                    Core.ConsoleWrite("첔uto Manafluid Drinker�" & Ret & _
+                    Kernel.ConsoleWrite("첔uto Manafluid Drinker�" & Ret & _
                     "Usage: &drinker <minimum mana points | off>." & Ret & _
                     "Example: &drinker 350." & Ret & _
                     "Comment: " & Ret & _
                     "  Drinks vials with mana fluid from backpack when mana is lower than given mana." & Ret & _
                     "Note: Uses same delays as auto healer.")
                 Case "cavebot"
-                    Core.ConsoleWrite("첖avebot�" & Ret & _
+                    Kernel.ConsoleWrite("첖avebot�" & Ret & _
                     "Usage: &cavebot <on | off | continue | add <walk | rope | ladder | sewer> <hole | stairs | shovel <up | down | left | right>>" & Ret & _
                     "Example: &cavebot on." & Ret & _
                     "Example: &cavebot add stairs up." & Ret & _
@@ -816,7 +816,7 @@ Public Module CommandParserModule
                     "Note: Cavebot looting/eating uses same dealays as auto looter/eater." & Ret & _
                     "Note: Check Constants for more options.")
                 Case "walker"
-                    Core.ConsoleWrite("첳alker�" & Ret & _
+                    Kernel.ConsoleWrite("첳alker�" & Ret & _
                     "Usage: &walker <on | off | continue>" & Ret & _
                     "Example: &walker on." & Ret & _
                     "Comment: " & Ret & _
@@ -825,46 +825,46 @@ Public Module CommandParserModule
                     "Note: Walker uses same waypoints as Cavebot, and you can add them with commands &walker add or &cavebot add. " & Ret & _
                     "  (type &help cavebot for more info about adding)")
                 Case "combobot", "combo"
-                    Core.ConsoleWrite("첖ombobot�" & Ret & _
+                    Kernel.ConsoleWrite("첖ombobot�" & Ret & _
                     "Usage: &combobot <""Leader Name"" | off>." & Ret & _
                     "Example: &combobot ""Jokuperkele""." & Ret & _
                     "  Makes comboshots even easier (and more effective) what they are normally. " & Ret & _
                     "Note: Combobot fires rune when <leader name> shoots rune and to the same target" & Ret & _
                     "Note: At this point combobot works only with Sudden Death runes.")
                 Case "amuletchanger"
-                    Core.ConsoleWrite("첔mulet Changer�" & Ret & _
+                    Kernel.ConsoleWrite("첔mulet Changer�" & Ret & _
                     "Usage: &amuletchanger <on | off | ""Amulet name"">." & Ret & _
                     "Example: &amuletchanger ""Stone Skin Amulet""." & Ret & _
                     "  Times when you died because you didn't have time to change amulet are now over." & Ret & _
                     "Note: &amuletchanger on is using the amulet you have in your amulet-slot." & Ret & _
                     "Note: Names of amulets are case-sensitive (e.g stone skin amuet <> Stone Skin Amulet)")
                 Case "antilogout", "anti-logout"
-                    Core.ConsoleWrite("첔nti-Logout�" & Ret & _
+                    Kernel.ConsoleWrite("첔nti-Logout�" & Ret & _
                     "Usage: &antilogout <on | off>." & Ret & _
                     "Example: &antilogout on." & Ret & _
                     "Comment: " & Ret & _
                     "  Protects yourself from getting kicked because of inactivity.")
                 Case "irc"
-                    Core.ConsoleWrite("첟RC�" & Ret & _
+                    Kernel.ConsoleWrite("첟RC�" & Ret & _
                     "Usage: &irc <<users | join> ""<channel>"" | nick ""new nick"" | quit>." & Ret & _
                     "Example: &irc join ""#TibiaTekBot""." & Ret & _
                     "Example: &irc quit." & Ret & _
                     "Comment: " & Ret & _
                     "  Allows you to execute some of the common IRC commands.")
                 Case "viewmsg"
-                    Core.ConsoleWrite("첲iew Message�" & Ret & _
+                    Kernel.ConsoleWrite("첲iew Message�" & Ret & _
                     "Usage: &viewmsg." & Ret & _
                     "Example: &viewmsg." & Ret & _
                     "Comment: " & Ret & _
                     "  Let's you read any messages sent to you by the TibiaTek Development Team.")
                 Case "dancer"
-                    Core.ConsoleWrite("첗ancer�" & Ret & _
+                    Kernel.ConsoleWrite("첗ancer�" & Ret & _
                     "Usage: &dancer slow|fast|turbo|on|off." & Ret & _
                     "Example: &dancer on." & Ret & _
                     "Comment " & Ret & _
                     "  Now you can proof that you are not using Multi Client.. Even if you really are.")
                 Case "ammomaker", "ammunitionmaker"
-                    Core.ConsoleWrite("첔mmunition Maker�" & Ret & _
+                    Kernel.ConsoleWrite("첔mmunition Maker�" & Ret & _
                     "Usage: <minimum mana points> <minimum capacity> ""<spell words or spell name>""." & Ret & _
                     "Example: &ammomaker 250 100 ""bolt""." & Ret & _
                     "Comment " & Ret & _
@@ -873,7 +873,7 @@ Public Module CommandParserModule
                 Case Else
                     Select Case Topic.ToLower
                         Case "general", "general tools", "a"
-                            Core.ConsoleWrite("General Tools:" & Ret & _
+                            Kernel.ConsoleWrite("General Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
                             "  Configuration Manager -> &config." & Ret & _
                             "  Hotkeys Settings Manager -> &hotkeys." & Ret & _
@@ -889,7 +889,7 @@ Public Module CommandParserModule
                             "  Combobot -> &combobot" & Ret & _
                             "  Dancer -> &dancer")
                         Case "healing", "healing tools", "b"
-                            Core.ConsoleWrite("Healing Tools:" & Ret & _
+                            Kernel.ConsoleWrite("Healing Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
                             "  Auto UHer -> &uh." & Ret & _
                             "  Auto Healer -> &heal." & Ret & _
@@ -897,7 +897,7 @@ Public Module CommandParserModule
                             "  Auto Heal Party -> &healparty." & Ret & _
                             "  Mana Fluid Drinker -> &drinker")
                         Case "afking", "afking tools", "afk tools", "afk", "c"
-                            Core.ConsoleWrite("AFKing Tools:" & Ret & _
+                            Kernel.ConsoleWrite("AFKing Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
                             "  Spell Caster -> &spell." & Ret & _
                             "  Auto Eater -> &eat." & Ret & _
@@ -912,7 +912,7 @@ Public Module CommandParserModule
                             "  Anti-Logout -> &antilogout.") ' & Ret & _
                             '"  Remote Administration -> &admin.") ' & Ret & _
                         Case "info tools", "info", "d"
-                            Core.ConsoleWrite("Info Tools:" & Ret & _
+                            Kernel.ConsoleWrite("Info Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
                             "  Experience Checker -> &exp." & Ret & _
                             "  Character Information Lookup -> &char." & Ret & _
@@ -924,19 +924,19 @@ Public Module CommandParserModule
                             "  Send Location -> &sendlocation." & Ret & _
                             "  Get Item IDs -> &getitemid.")
                         Case "training tools", "trainer tools", "trainer", "train", "train tools", "trainers", "e"
-                            Core.ConsoleWrite("Training Tools:" & Ret & _
+                            Kernel.ConsoleWrite("Training Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
                             "  Auto Attacker -> &attack." & Ret & _
                             "  Auto Trainer -> &trainer." & Ret & _
                             "  Auto Pickup -> &pickup.")
                         Case "fun tools", "fun", "f"
-                            Core.ConsoleWrite("Fun Tools:" & Ret & _
+                            Kernel.ConsoleWrite("Fun Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
                             "  Fake Title -> &faketitle." & Ret & _
                             "  Chameleon -> &chameleon." & Ret & _
                             "  Rainbow Outfit -> &rainbow")
                         Case "miscellaneous tools", "misc", "miscellanoeus", "g"
-                            Core.ConsoleWrite("Miscellaneous Tools:" & Ret & _
+                            Kernel.ConsoleWrite("Miscellaneous Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
                             "  Feedback -> &feedback." & Ret & _
                             "  Reload Data -> &reload." & Ret & _
@@ -945,7 +945,7 @@ Public Module CommandParserModule
                             "  Website -> &website." & Ret & _
                             "  Version -> &version.")
                         Case Else
-                            Core.ConsoleWrite("There are many command categories available, type help followed by the category to get a listing:" & Ret & _
+                            Kernel.ConsoleWrite("There are many command categories available, type help followed by the category to get a listing:" & Ret & _
                             "  A. General Tools." & Ret & _
                             "  B. Healing Tools." & Ret & _
                             "  C. AFKing Tools." & Ret & _
@@ -966,13 +966,13 @@ Public Module CommandParserModule
 
     Private Sub CmdFeedback(ByVal Arguments As GroupCollection)
         Try
-            Core.Client.UnprotectMemory(CType(Consts.ptrEnterOneNamePerLine, System.IntPtr), CType(24, UIntPtr))
-            Core.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Thank you for using TTB!")
-            Dim CP As New ClientPacketBuilder(Core.Proxy)
+            Kernel.Client.UnprotectMemory(CType(Consts.ptrEnterOneNamePerLine, System.IntPtr), CType(24, UIntPtr))
+            Kernel.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Thank you for using TTB!")
+            Dim CP As New ClientPacketBuilder(Kernel.Proxy)
             CP.HouseSpellEdit(&HFE, 0, "")
             'Core.Proxy.SendPacketToClient(HouseSpellEdit(&HFE, 0, ""))
             System.Threading.Thread.Sleep(500)
-            Core.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Enter one name per line.")
+            Kernel.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Enter one name per line.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -987,17 +987,17 @@ Public Module CommandParserModule
             Dim Argument As String = Arguments(2).Value.ToLower
             Select Case Argument
                 Case "save"
-                    Core.HotkeySettings.LoadFromMemory()
-                    If Core.HotkeySettings.Save() Then
-                        Core.ConsoleWrite("Hotkeys saved.")
+                    Kernel.HotkeySettings.LoadFromMemory()
+                    If Kernel.HotkeySettings.Save() Then
+                        Kernel.ConsoleWrite("Hotkeys saved.")
                     Else
-                        Core.ConsoleError("Unable to save hotkeys.")
+                        Kernel.ConsoleError("Unable to save hotkeys.")
                     End If
                 Case "load", "reload"
-                    Core.HotkeySettings.Load()
-                    Core.ConsoleWrite("Hotkeys loaded.")
+                    Kernel.HotkeySettings.Load()
+                    Kernel.ConsoleWrite("Hotkeys loaded.")
                 Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1014,37 +1014,37 @@ Public Module CommandParserModule
                 Case "edit", "modify", "change"
                     Dim Data As String = ""
                     Try
-                        Core.ConsoleWrite("Please wait...")
+                        Kernel.ConsoleWrite("Please wait...")
                         Dim Reader As IO.StreamReader
-                        Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
+                        Reader = IO.File.OpenText(Kernel.GetProfileDirectory() & "\config.txt")
                         Data = Reader.ReadToEnd
                         Reader.Close()
                     Catch
                     Finally
                         Dim Temp As UInteger = 0
-                        Core.Client.UnprotectMemory(Consts.ptrEnterOneNamePerLine, CType(24, UIntPtr))
-                        Core.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Configuration Manager")
-                        Dim CP As New ClientPacketBuilder(Core.Proxy)
+                        Kernel.Client.UnprotectMemory(Consts.ptrEnterOneNamePerLine, CType(24, UIntPtr))
+                        Kernel.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Configuration Manager")
+                        Dim CP As New ClientPacketBuilder(Kernel.Proxy)
                         CP.HouseSpellEdit(&HFF, 0, Data)
                         'Core.Proxy.SendPacketToClient(HouseSpellEdit(&HFF, 0, Data))
                         System.Threading.Thread.Sleep(500)
-                        Core.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Enter one name per line.")
+                        Kernel.Client.WriteMemory(Consts.ptrEnterOneNamePerLine, "Enter one name per line.")
                     End Try
                 Case "clear", "delete", "del", "cls"
                     Try
-                        Core.ConsoleWrite("Please wait...")
-                        IO.File.Delete(Core.GetProfileDirectory() & "\config.txt")
+                        Kernel.ConsoleWrite("Please wait...")
+                        IO.File.Delete(Kernel.GetProfileDirectory() & "\config.txt")
                     Catch
-                        Core.ConsoleError("Unable to clear your configuration.")
+                        Kernel.ConsoleError("Unable to clear your configuration.")
                     Finally
-                        Core.ConsoleWrite("Cleared.")
+                        Kernel.ConsoleWrite("Cleared.")
                     End Try
                 Case "load", "execute"
                     Try
-                        Core.ConsoleWrite("Please wait...")
+                        Kernel.ConsoleWrite("Please wait...")
                         Dim Data As String = ""
                         Dim Reader As IO.StreamReader
-                        Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
+                        Reader = IO.File.OpenText(Kernel.GetProfileDirectory() & "\config.txt")
                         Data = Reader.ReadToEnd
                         Dim MCollection As MatchCollection
                         Dim GroupMatch As Match
@@ -1052,12 +1052,12 @@ Public Module CommandParserModule
                         For Each GroupMatch In MCollection
                             CommandParser(GroupMatch.Groups(1).Value)
                         Next
-                        Core.ConsoleWrite("Done loading your configuration.")
+                        Kernel.ConsoleWrite("Done loading your configuration.")
                     Catch
-                        Core.ConsoleError("Unable to load your configuration.")
+                        Kernel.ConsoleError("Unable to load your configuration.")
                     End Try
                 Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1072,14 +1072,14 @@ Public Module CommandParserModule
         Try
             Select Case StrToShort(Arguments(2).ToString)
                 Case 0
-                    Core.StackerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Stacker is now Disabled.")
+                    Kernel.StackerTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Auto Stacker is now Disabled.")
                 Case 1
-                    Core.StackerTimerObj.Interval = Consts.AutoStackerDelay
-                    Core.StackerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Auto Stacker is now Enabled.")
+                    Kernel.StackerTimerObj.Interval = Consts.AutoStackerDelay
+                    Kernel.StackerTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Auto Stacker is now Enabled.")
                 Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1092,11 +1092,11 @@ Public Module CommandParserModule
 
     Private Sub CmdMapViewer()
         Try
-            If Not Core.BGWMapViewer.IsBusy Then
-                Core.ConsoleWrite("Map Viewer is opening. Please wait...")
-                Core.BGWMapViewer.RunWorkerAsync()
+            If Not Kernel.BGWMapViewer.IsBusy Then
+                Kernel.ConsoleWrite("Map Viewer is opening. Please wait...")
+                Kernel.BGWMapViewer.RunWorkerAsync()
             Else
-                Core.ConsoleError("Map Viewer is already opened.")
+                Kernel.ConsoleError("Map Viewer is already opened.")
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1109,36 +1109,36 @@ Public Module CommandParserModule
 
     Private Sub CmdLoot(ByVal Arguments As GroupCollection)
         Try
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
-                Core.ConsoleError("Cavebot is currently running.")
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                Kernel.ConsoleError("Cavebot is currently running.")
                 Exit Sub
             End If
             Select Case StrToShort(Arguments(2).ToString)
                 Case 0
-                    Core.LooterMinimumCapacity = 0
-                    Core.LooterTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Looter is now Disabled.")
+                    Kernel.LooterMinimumCapacity = 0
+                    Kernel.LooterTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Auto Looter is now Disabled.")
                 Case 1
-                    Core.LooterMinimumCapacity = 0
-                    Core.LooterTimerObj.StartTimer()
-                    Core.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches 0.")
+                    Kernel.LooterMinimumCapacity = 0
+                    Kernel.LooterTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches 0.")
                 Case Else
                     Select Case Arguments(2).Value.ToLower
                         Case "edit"
-                            If Core.LooterTimerObj.State = ThreadTimerState.Running Then
-                                Core.ConsoleError("Auto Looter must not be Enabled to edit the Loot Items.")
+                            If Kernel.LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                Kernel.ConsoleError("Auto Looter must not be Enabled to edit the Loot Items.")
                                 Exit Sub
                             End If
-                            Core.ConsoleWrite("Please wait...")
-                            CoreModule.LootItems.ShowLootCategories()
+                            Kernel.ConsoleWrite("Please wait...")
+                            KernelModule.LootItems.ShowLootCategories()
                         Case Else
                             Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]{0,4})")
                             If MatchObj.Success Then
-                                Core.LooterMinimumCapacity = CUShort(MatchObj.Groups(1).Value)
-                                Core.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches " & Core.LooterMinimumCapacity & ".")
-                                Core.LooterTimerObj.StartTimer()
+                                Kernel.LooterMinimumCapacity = CUShort(MatchObj.Groups(1).Value)
+                                Kernel.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches " & Kernel.LooterMinimumCapacity & ".")
+                                Kernel.LooterTimerObj.StartTimer()
                             Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                             End If
                     End Select
             End Select
@@ -1156,44 +1156,44 @@ Public Module CommandParserModule
         Try
             Select Case StrToShort(Arguments(2).ToString)
                 Case 0
-                    Core.StatsUploaderTimerObj.StopTimer()
-                    Core.ConsoleWrite("Stats Uploader is now Disabled.")
+                    Kernel.StatsUploaderTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Stats Uploader is now Disabled.")
                 Case 1
                     If Consts.StatsUploaderSaveOnDiskOnly Then
                         If Consts.StatsUploaderPath.Length = 0 OrElse Consts.StatsUploaderFilename.Length = 0 Then
-                            Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
+                            Kernel.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
                             Exit Sub
                         End If
-                        Core.UploaderUrl = Consts.StatsUploaderUrl
-                        Core.UploaderFilename = Consts.StatsUploaderFilename
-                        Core.UploaderPath = Consts.StatsUploaderPath
-                        Core.UploaderUserId = Consts.StatsUploaderUserID
-                        Core.UploaderPassword = Consts.StatsUploaderPassword
-                        Core.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
-                        Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
-                        Core.StatsUploaderTimerObj.StartTimer()
-                        Core.ConsoleWrite("Stats Uploader is now Enabled.")
+                        Kernel.UploaderUrl = Consts.StatsUploaderUrl
+                        Kernel.UploaderFilename = Consts.StatsUploaderFilename
+                        Kernel.UploaderPath = Consts.StatsUploaderPath
+                        Kernel.UploaderUserId = Consts.StatsUploaderUserID
+                        Kernel.UploaderPassword = Consts.StatsUploaderPassword
+                        Kernel.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
+                        Kernel.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
+                        Kernel.StatsUploaderTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Stats Uploader is now Enabled.")
                     Else
 
                         If Consts.StatsUploaderUrl.Length = 0 _
                          OrElse Consts.StatsUploaderUserID.Length = 0 _
                          OrElse Consts.StatsUploaderPassword.Length = 0 _
                          OrElse Consts.StatsUploaderFrequency = 0 Then
-                            Core.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
+                            Kernel.ConsoleError("Please edit your Constants.xml file accordingly to use the Stats Uploader.")
                             Exit Sub
                         End If
-                        Core.UploaderUrl = Consts.StatsUploaderUrl
-                        Core.UploaderFilename = Consts.StatsUploaderFilename
-                        Core.UploaderPath = Consts.StatsUploaderPath
-                        Core.UploaderUserId = Consts.StatsUploaderUserID
-                        Core.UploaderPassword = Consts.StatsUploaderPassword
-                        Core.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
-                        Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
-                        Core.StatsUploaderTimerObj.StartTimer()
-                        Core.ConsoleWrite("Stats Uploader is now Enabled.")
+                        Kernel.UploaderUrl = Consts.StatsUploaderUrl
+                        Kernel.UploaderFilename = Consts.StatsUploaderFilename
+                        Kernel.UploaderPath = Consts.StatsUploaderPath
+                        Kernel.UploaderUserId = Consts.StatsUploaderUserID
+                        Kernel.UploaderPassword = Consts.StatsUploaderPassword
+                        Kernel.UploaderSaveToDiskOnly = Consts.StatsUploaderSaveOnDiskOnly
+                        Kernel.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
+                        Kernel.StatsUploaderTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Stats Uploader is now Enabled.")
                     End If
                 Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1209,10 +1209,10 @@ Public Module CommandParserModule
             If Regex.IsMatch(Arguments(2).ToString, "^([1-9]\d?)$") Then
                 Dim Num As Integer = CInt(Arguments(2).ToString)
                 If Num < 0 OrElse Num > 31 Then Num = 31
-                Dim CP As New ClientPacketBuilder(Core.Proxy)
-                CP.AnimationEffect(Core.CharacterLoc, CType(Num, ITibia.AnimationEffects))
+                Dim CP As New ClientPacketBuilder(Kernel.Proxy)
+                CP.AnimationEffect(Kernel.CharacterLoc, CType(Num, ITibia.AnimationEffects))
                 'Core.Proxy.SendPacketToClient(MagicEffect(Core.CharacterLoc, CType(Num, MagicEffects)))
-                Core.ConsoleWrite("Animation: " & Num & ".")
+                Kernel.ConsoleWrite("Animation: " & Num & ".")
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1225,8 +1225,8 @@ Public Module CommandParserModule
 
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
-            Core.ConsoleWrite("Begin Test")
-            Core.ConsoleWrite("End Test")
+            Kernel.ConsoleWrite("Begin Test")
+            Kernel.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -1240,33 +1240,33 @@ Public Module CommandParserModule
         Try
             Select Case StrToShort(Arguments(2).ToString)
                 Case 0
-                    Core.HealPartyMinimumHPPercentage = 0
-                    Core.HealPartyTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Heal Party is now Disabled.")
+                    Kernel.HealPartyMinimumHPPercentage = 0
+                    Kernel.HealPartyTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Auto Heal Party is now Disabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""?([^""]+)""?")
                     If MatchObj.Success Then
-                        Core.HealPartyMinimumHPPercentage = CInt(MatchObj.Groups(1).Value)
+                        Kernel.HealPartyMinimumHPPercentage = CInt(MatchObj.Groups(1).Value)
                         Dim HealthType As String = ""
                         Select Case MatchObj.Groups(2).Value.ToLower
                             Case "ultimate healing", "uh", "adura vita"
-                                Core.HealPartyHealType = HealTypes.UltimateHealingRune
+                                Kernel.HealPartyHealType = HealTypes.UltimateHealingRune
                                 HealthType = "Ultimate Healing."
                             Case "exura sio", "heal friend", "sio"
-                                Core.HealPartyHealType = HealTypes.ExuraSio
+                                Kernel.HealPartyHealType = HealTypes.ExuraSio
                                 HealthType = "Exura Sio."
                             Case "both"
-                                Core.HealPartyHealType = HealTypes.Both
+                                Kernel.HealPartyHealType = HealTypes.Both
                                 HealthType = "both Exura Sio and Ultimate Healing."
                             Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                 Exit Sub
                         End Select
-                        Core.HealPartyTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Heal Party is now Enabled." & Ret & _
-                         "Healing party members when their hit points are less than " & Core.HealPartyMinimumHPPercentage & "% with " & HealthType)
+                        Kernel.HealPartyTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Auto Heal Party is now Enabled." & Ret & _
+                         "Healing party members when their hit points are less than " & Kernel.HealPartyMinimumHPPercentage & "% with " & HealthType)
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -1283,10 +1283,10 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString.ToLower
             Select Case StrToShort(Value)
                 Case 0
-                    Core.HealTimerObj.StopTimer()
-                    Core.HealMinimumHP = 0
-                    Core.HealComment = ""
-                    Core.ConsoleWrite("Auto Healer is now Disabled.")
+                    Kernel.HealTimerObj.StopTimer()
+                    Kernel.HealMinimumHP = 0
+                    Kernel.HealComment = ""
+                    Kernel.ConsoleWrite("Auto Healer is now Disabled.")
                 Case Else
                     Dim RegExp As New Regex("([1-9][0-9]{0,4}%?)\s+""([^""]+)(?:""?(?:\s*""""([^""]+))?)?")
                     Dim Match As Match = RegExp.Match(Value)
@@ -1294,32 +1294,32 @@ Public Module CommandParserModule
                         Dim Match2 As Match = Regex.Match(Match.Groups(1).Value, "([1-9][0-9]?)%")
                         If Match2.Success Then
                             Dim MaxHitPoints As Integer = 0
-                            Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
-                            Core.HealMinimumHP = MaxHitPoints * (CInt(Match2.Groups(1).Value) / 100)
+                            Kernel.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                            Kernel.HealMinimumHP = MaxHitPoints * (CInt(Match2.Groups(1).Value) / 100)
                         Else
-                            Core.HealMinimumHP = CInt(Match.Groups(1).Value)
+                            Kernel.HealMinimumHP = CInt(Match.Groups(1).Value)
                         End If
-                        For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                        For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                             If Spell.Name.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) Then
                                 Select Case Spell.Name.ToLower
                                     Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing"
-                                        Core.HealSpell = Spell
+                                        Kernel.HealSpell = Spell
                                         Exit For
                                     Case Else
-                                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                         Exit Sub
                                 End Select
                             End If
                         Next
                         If Match.Groups(3).Value.Length > 0 Then
-                            Core.HealComment = Match.Groups(3).Value
+                            Kernel.HealComment = Match.Groups(3).Value
                         Else
-                            Core.HealComment = ""
+                            Kernel.HealComment = ""
                         End If
-                        Core.HealTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Healer is now Enabled.")
+                        Kernel.HealTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Auto Healer is now Enabled.")
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -1336,25 +1336,25 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).Value
             Select Case StrToShort(Value)
                 Case 0
-                    Core.FakingTitle = False
+                    Kernel.FakingTitle = False
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
-                    Core.Client.Title = BotName & " - " & BL.GetName
-                    Core.ConsoleWrite("Client title restored.")
+                    Kernel.Client.Title = BotName & " - " & BL.GetName
+                    Kernel.ConsoleWrite("Client title restored.")
                 Case Else
                     Dim Regexp As New Regex("""([^""]+)""?")
                     Dim Match As Match = Regexp.Match(Value)
                     If Match.Success Then
-                        Core.LastExperience = 0
-                        If Core.ExpCheckerActivated Then
-                            Core.ExpCheckerActivated = False
-                            Core.ConsoleWrite("Experience Checker is now Disabled. Fake Title is now Enabled.")
+                        Kernel.LastExperience = 0
+                        If Kernel.ExpCheckerActivated Then
+                            Kernel.ExpCheckerActivated = False
+                            Kernel.ConsoleWrite("Experience Checker is now Disabled. Fake Title is now Enabled.")
                         End If
-                        Core.FakingTitle = True
-                        Core.Client.Title = Match.Groups(1).Value
-                        Core.ConsoleWrite("Client title changed to '" & Match.Groups(1).Value & "'.")
+                        Kernel.FakingTitle = True
+                        Kernel.Client.Title = Match.Groups(1).Value
+                        Kernel.ConsoleWrite("Client title changed to '" & Match.Groups(1).Value & "'.")
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -1371,13 +1371,13 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.LoggingEnabled = False
-                    Core.ConsoleWrite("Logging is now Disabled.")
+                    Kernel.LoggingEnabled = False
+                    Kernel.ConsoleWrite("Logging is now Disabled.")
                 Case 1
-                    Core.LoggingEnabled = True
-                    Core.ConsoleWrite("Logging is now Enabled.")
+                    Kernel.LoggingEnabled = True
+                    Kernel.ConsoleWrite("Logging is now Enabled.")
                 Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1393,26 +1393,26 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    With Core
+                    With Kernel
                         .PickUpItemID = 0
                         .PickUpTimerObj.StopTimer()
                         .ConsoleWrite("Auto Pickup is now Disabled.")
                     End With
                 Case 1
                     Dim RightHandItemID As Integer
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                    If RightHandItemID = 0 OrElse Not Core.Client.Items.IsThrowable(RightHandItemID) Then
-                        Core.ConsoleError("You must have a throwable item in your right hand, like a spear, throwing knife, etc.")
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                    If RightHandItemID = 0 OrElse Not Kernel.Client.Items.IsThrowable(RightHandItemID) Then
+                        Kernel.ConsoleError("You must have a throwable item in your right hand, like a spear, throwing knife, etc.")
                         Exit Sub
                     End If
-                    With Core
+                    With Kernel
                         .PickUpItemID = CUShort(RightHandItemID)
                         .PickUpTimerObj.Interval = Consts.AutoPickUpDelay
                         .PickUpTimerObj.StartTimer()
                         .ConsoleWrite("Auto Pickup is now Enabled.")
                     End With
                 Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1429,17 +1429,17 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.RunemakerManaPoints = 0
-                    Core.RunemakerSoulPoints = 0
-                    Core.RunemakerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Runemaker is now Disabled.")
+                    Kernel.RunemakerManaPoints = 0
+                    Kernel.RunemakerSoulPoints = 0
+                    Kernel.RunemakerTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Runemaker is now Disabled.")
                 Case Else
                     Dim RegExp As New Regex("([1-9][0-9]{1,4})\s+([0-9]{0,3})\s+""([^""]+)""?")
                     Dim Match As Match = RegExp.Match(Value)
                     If Match.Success Then
                         Dim Found As Boolean = False
                         Dim S As New SpellDefinition
-                        For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                        For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                             If (Spell.Name.Equals(Match.Groups(3).Value, StringComparison.CurrentCultureIgnoreCase) _
                             OrElse Spell.Words.Equals(Match.Groups(3).ToString, StringComparison.CurrentCultureIgnoreCase)) _
                             AndAlso Spell.Kind = SpellKind.Rune Then
@@ -1449,17 +1449,17 @@ Public Module CommandParserModule
                             End If
                         Next
                         If Found Then
-                            Core.RunemakerSpell = S
-                            Core.RunemakerManaPoints = CInt(Match.Groups(1).Value)
-                            Core.RunemakerSoulPoints = CInt(Match.Groups(2).Value)
-                            Core.RunemakerTimerObj.StartTimer()
-                            Core.ConsoleWrite("Runemaker will now make " & S.Name & " when you have more than " & _
-                             Core.RunemakerManaPoints & " mana points and more than " & Core.RunemakerSoulPoints & " soul points.")
+                            Kernel.RunemakerSpell = S
+                            Kernel.RunemakerManaPoints = CInt(Match.Groups(1).Value)
+                            Kernel.RunemakerSoulPoints = CInt(Match.Groups(2).Value)
+                            Kernel.RunemakerTimerObj.StartTimer()
+                            Kernel.ConsoleWrite("Runemaker will now make " & S.Name & " when you have more than " & _
+                             Kernel.RunemakerManaPoints & " mana points and more than " & Kernel.RunemakerSoulPoints & " soul points.")
                         Else
-                            Core.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
+                            Kernel.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
                         End If
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -1477,32 +1477,32 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.FisherMinimumCapacity = 0
-                    Core.FisherSpeed = 0
-                    Core.FisherTurbo = False
-                    Core.FisherTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Fisher is now Disabled.")
+                    Kernel.FisherMinimumCapacity = 0
+                    Kernel.FisherSpeed = 0
+                    Kernel.FisherTurbo = False
+                    Kernel.FisherTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Auto Fisher is now Disabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Value, "^(\d{1,3})(?:\s+(\S+))?$")
                     If MatchObj.Success Then
                         Select Case MatchObj.Groups(2).Value.ToLower
                             Case "normal", "default", ""
-                                Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
-                                Core.FisherSpeed = 0
-                                Core.FisherTurbo = False
-                                Core.FisherTimerObj.StartTimer()
-                                Core.ConsoleWrite("Auto Fisher is now Enabled.")
+                                Kernel.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
+                                Kernel.FisherSpeed = 0
+                                Kernel.FisherTurbo = False
+                                Kernel.FisherTimerObj.StartTimer()
+                                Kernel.ConsoleWrite("Auto Fisher is now Enabled.")
                             Case "turbo", "nitro", "fast", "faster", "fastest"
-                                Core.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
-                                Core.FisherSpeed = 500
-                                Core.FisherTurbo = True
-                                Core.FisherTimerObj.StartTimer()
-                                Core.ConsoleWrite("Auto Fisher (Turbo Mode) is now Enabled.")
+                                Kernel.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
+                                Kernel.FisherSpeed = 500
+                                Kernel.FisherTurbo = True
+                                Kernel.FisherTimerObj.StartTimer()
+                                Kernel.ConsoleWrite("Auto Fisher (Turbo Mode) is now Enabled.")
                             Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         End Select
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -1519,22 +1519,22 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.TradeWatcherActive = False
-                    Core.TradeWatcherRegex = ""
-                    Core.ConsoleWrite("Trade Channel Watcher is now Disabled.")
+                    Kernel.TradeWatcherActive = False
+                    Kernel.TradeWatcherRegex = ""
+                    Kernel.ConsoleWrite("Trade Channel Watcher is now Disabled.")
                 Case Else
                     If String.IsNullOrEmpty(Value) Then
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         Exit Sub
                     End If
                     Dim RegExp As Regex
                     Try
                         RegExp = New Regex(Value)
-                        Core.TradeWatcherRegex = Value
-                        Core.TradeWatcherActive = True
-                        Core.ConsoleWrite("Trade Channel Watcher will now match advertisements with the following pattern '" & Core.TradeWatcherRegex & "'. Make sure the Trade channel is opened.")
+                        Kernel.TradeWatcherRegex = Value
+                        Kernel.TradeWatcherActive = True
+                        Kernel.ConsoleWrite("Trade Channel Watcher will now match advertisements with the following pattern '" & Kernel.TradeWatcherRegex & "'. Make sure the Trade channel is opened.")
                     Catch ex As Exception
-                        Core.ConsoleError("Sorry, but this is not a valid regular expression." & Ret & _
+                        Kernel.ConsoleError("Sorry, but this is not a valid regular expression." & Ret & _
                         "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.")
                     End Try
             End Select
@@ -1552,33 +1552,33 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).Value
             Select Case StrToShort(Value)
                 Case 0
-                    Core.ExpCheckerActivated = False
-                    Core.LastExperience = 0
-                    Core.Client.Title = BotName & " - " & Core.Client.CharacterName
-                    Core.ConsoleWrite("Experience Checker is now Disabled.")
+                    Kernel.ExpCheckerActivated = False
+                    Kernel.LastExperience = 0
+                    Kernel.Client.Title = BotName & " - " & Kernel.Client.CharacterName
+                    Kernel.ConsoleWrite("Experience Checker is now Disabled.")
                 Case 1
-                    If Core.FakingTitle Then
-                        Core.FakingTitle = False
-                        Core.ConsoleWrite("Fake Title is now Disabled.")
+                    If Kernel.FakingTitle Then
+                        Kernel.FakingTitle = False
+                        Kernel.ConsoleWrite("Fake Title is now Disabled.")
                     End If
-                    Core.LastExperience = 0
-                    Core.ExpCheckerActivated = True
-                    Core.ConsoleWrite("Experience Checker is now Enabled.")
+                    Kernel.LastExperience = 0
+                    Kernel.ExpCheckerActivated = True
+                    Kernel.ConsoleWrite("Experience Checker is now Enabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Value, "creatures?\s+([a-zA-Z]+)", RegexOptions.IgnoreCase)
                     If MatchObj.Success Then
                         Select Case StrToShort(MatchObj.Groups(1).Value.ToLower)
                             Case 0
-                                Core.ShowCreaturesUntilNextLevel = False
-                                Core.ConsoleWrite("Showing creatures until next level is now Disabled.")
+                                Kernel.ShowCreaturesUntilNextLevel = False
+                                Kernel.ConsoleWrite("Showing creatures until next level is now Disabled.")
                             Case 1
-                                Core.ShowCreaturesUntilNextLevel = True
-                                Core.ConsoleWrite("Showing creatures until next level is now Enabled.")
+                                Kernel.ShowCreaturesUntilNextLevel = True
+                                Kernel.ConsoleWrite("Showing creatures until next level is now Enabled.")
                             Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         End Select
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -1595,19 +1595,19 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Dim MatchObj As Match = Regex.Match(Value, "(online|both)\s+""([^""]+)")
             If MatchObj.Success Then
-                Core.GuildMembersCommand = MatchObj.Groups(2).ToString
-                Core.GuildMembersOnlineOnly = False
+                Kernel.GuildMembersCommand = MatchObj.Groups(2).ToString
+                Kernel.GuildMembersOnlineOnly = False
                 If String.Compare(MatchObj.Groups(1).Value, "online", True) = 0 Then
-                    Core.GuildMembersOnlineOnly = True
+                    Kernel.GuildMembersOnlineOnly = True
                 End If
-                If Not Core.BGWGuildMembersCommand.IsBusy Then
-                    Core.ConsoleWrite("Please Wait...")
-                    Core.BGWGuildMembersCommand.RunWorkerAsync()
+                If Not Kernel.BGWGuildMembersCommand.IsBusy Then
+                    Kernel.ConsoleWrite("Please Wait...")
+                    Kernel.BGWGuildMembersCommand.RunWorkerAsync()
                 Else
-                    Core.ConsoleError("Busy.")
+                    Kernel.ConsoleError("Busy.")
                 End If
             Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1623,15 +1623,15 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
             If MatchObj.Success Then
-                Core.CharCommand = MatchObj.Groups(1).ToString
-                If Not Core.BGWCharCommand.IsBusy Then
-                    Core.ConsoleWrite("Please Wait...")
-                    Core.BGWCharCommand.RunWorkerAsync()
+                Kernel.CharCommand = MatchObj.Groups(1).ToString
+                If Not Kernel.BGWCharCommand.IsBusy Then
+                    Kernel.ConsoleWrite("Please Wait...")
+                    Kernel.BGWCharCommand.RunWorkerAsync()
                 Else
-                    Core.ConsoleError("Busy.")
+                    Kernel.ConsoleError("Busy.")
                 End If
             Else
-                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1647,12 +1647,12 @@ Public Module CommandParserModule
         Try
             Dim MatchObj As Match = Regex.Match(Value, "^""([^""]+)""?")
             If MatchObj.Success Then
-                Core.OpenCommand = MatchObj.Groups(1).ToString
-                If Not Core.BGWOpenCommand.IsBusy Then
-                    Core.ConsoleWrite("Please Wait...")
-                    Core.BGWOpenCommand.RunWorkerAsync()
+                Kernel.OpenCommand = MatchObj.Groups(1).ToString
+                If Not Kernel.BGWOpenCommand.IsBusy Then
+                    Kernel.ConsoleWrite("Please Wait...")
+                    Kernel.BGWOpenCommand.RunWorkerAsync()
                 Else
-                    Core.ConsoleError("Busy.")
+                    Kernel.ConsoleError("Busy.")
                 End If
             Else
                 MatchObj = Regex.Match(Value, "([a-zA-Z]+)\s+""([^""]+)")
@@ -1673,27 +1673,27 @@ Public Module CommandParserModule
                         Case "mytibia"
                             Prepend = "http://www.mytibia.com/"
                         Case Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                             Exit Sub
                     End Select
                     If Type.ToLower = "wiki" Then
-                        Core.OpenCommand = Prepend & MatchObj.Groups(2).ToString.Replace(" ", "_")
+                        Kernel.OpenCommand = Prepend & MatchObj.Groups(2).ToString.Replace(" ", "_")
                     Else
-                        Core.OpenCommand = Prepend & MatchObj.Groups(2).ToString
+                        Kernel.OpenCommand = Prepend & MatchObj.Groups(2).ToString
                     End If
-                    If Not Core.BGWOpenCommand.IsBusy Then
-                        Core.ConsoleWrite("Please Wait...")
-                        Core.BGWOpenCommand.RunWorkerAsync()
+                    If Not Kernel.BGWOpenCommand.IsBusy Then
+                        Kernel.ConsoleWrite("Please Wait...")
+                        Kernel.BGWOpenCommand.RunWorkerAsync()
                     Else
-                        Core.ConsoleError("Busy.")
+                        Kernel.ConsoleError("Busy.")
                     End If
 
                 Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                 End If
             End If
         Catch e As Win32Exception
-            Core.ConsoleWrite("Error opening """ & Value & """ with message """ & e.Message & """.")
+            Kernel.ConsoleWrite("Error opening """ & Value & """ with message """ & e.Message & """.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -1708,29 +1708,29 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.AmmoRestackerItemID = 0
-                    Core.AmmoRestackerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Ammunition Restacker is now Disabled.")
+                    Kernel.AmmoRestackerItemID = 0
+                    Kernel.AmmoRestackerTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Ammunition Restacker is now Disabled.")
                 Case Else
                     Dim ItemID As Integer
                     Dim ItemCount As Integer
                     Dim RegExp As New Regex("([1-9]\d)")
                     Dim Match As Match = RegExp.Match(Value)
                     If Not Match.Success Then
-                        Core.ConsoleError("You must specify the minimum ammunition count between 1 and 99, inclusive.")
+                        Kernel.ConsoleError("You must specify the minimum ammunition count between 1 and 99, inclusive.")
                         Exit Sub
                     End If
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
-                    If ItemID = 0 OrElse Not Core.Client.Dat.GetInfo(ItemID).IsStackable Then
-                        Core.ConsoleError("You must place some of your ammunition on the Belt/Arrow Slot first.")
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
+                    If ItemID = 0 OrElse Not Kernel.Client.Dat.GetInfo(ItemID).IsStackable Then
+                        Kernel.ConsoleError("You must place some of your ammunition on the Belt/Arrow Slot first.")
                         Exit Sub
                     End If
-                    Core.AmmoRestackerItemID = ItemID
-                    Core.AmmoRestackerOutOfAmmo = False
-                    Core.AmmoRestackerMinimumItemCount = CInt(Match.Groups(1).Value)
-                    Core.AmmoRestackerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Ammunition Restacker is now Enabled.")
+                    Kernel.AmmoRestackerItemID = ItemID
+                    Kernel.AmmoRestackerOutOfAmmo = False
+                    Kernel.AmmoRestackerMinimumItemCount = CInt(Match.Groups(1).Value)
+                    Kernel.AmmoRestackerTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Ammunition Restacker is now Enabled.")
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1746,50 +1746,50 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.SetLight(ITibia.LightIntensity.Small, ITibia.LightColor.UtevoLux)
-                    Core.LightTimerObj.StopTimer()
-                    Core.ConsoleWrite("Light Effect is now Disabled.")
+                    Kernel.SetLight(ITibia.LightIntensity.Small, ITibia.LightColor.UtevoLux)
+                    Kernel.LightTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Light Effect is now Disabled.")
                 Case 1
-                    Core.LightC = ITibia.LightColor.BrightSword
-                    Core.LightI = ITibia.LightIntensity.Huge + 2
-                    Core.ConsoleWrite("Full Light Effect is now Enabled.")
-                    Core.LightTimerObj.StartTimer()
+                    Kernel.LightC = ITibia.LightColor.BrightSword
+                    Kernel.LightI = ITibia.LightIntensity.Huge + 2
+                    Kernel.ConsoleWrite("Full Light Effect is now Enabled.")
+                    Kernel.LightTimerObj.StartTimer()
                 Case Else
                     Dim strOutput As String = "{0} Light Effect is now Enabled."
                     Select Case Value.ToLower()
                         Case "torch"
-                            Core.LightI = ITibia.LightIntensity.Medium
-                            Core.LightC = ITibia.LightColor.Torch
-                            Core.ConsoleWrite("Torch Light Effect is now Enabled.")
+                            Kernel.LightI = ITibia.LightIntensity.Medium
+                            Kernel.LightC = ITibia.LightColor.Torch
+                            Kernel.ConsoleWrite("Torch Light Effect is now Enabled.")
                         Case "great torch"
-                            Core.LightI = ITibia.LightIntensity.VeryLarge
-                            Core.LightC = ITibia.LightColor.Torch
-                            Core.ConsoleWrite("Great Torch Light Effect is now Enabled.")
+                            Kernel.LightI = ITibia.LightIntensity.VeryLarge
+                            Kernel.LightC = ITibia.LightColor.Torch
+                            Kernel.ConsoleWrite("Great Torch Light Effect is now Enabled.")
                         Case "ultimate torch"
-                            Core.LightI = ITibia.LightIntensity.Huge
-                            Core.LightC = ITibia.LightColor.Torch
-                            Core.ConsoleWrite("Ultimate Torch Light Effect is now Enabled.")
+                            Kernel.LightI = ITibia.LightIntensity.Huge
+                            Kernel.LightC = ITibia.LightColor.Torch
+                            Kernel.ConsoleWrite("Ultimate Torch Light Effect is now Enabled.")
                         Case "utevo lux"
-                            Core.LightI = ITibia.LightIntensity.Medium
-                            Core.LightC = ITibia.LightColor.UtevoLux
-                            Core.ConsoleWrite("Utevo Lux Light Effect is now Enabled.")
+                            Kernel.LightI = ITibia.LightIntensity.Medium
+                            Kernel.LightC = ITibia.LightColor.UtevoLux
+                            Kernel.ConsoleWrite("Utevo Lux Light Effect is now Enabled.")
                         Case "utevo gran lux"
-                            Core.LightI = ITibia.LightIntensity.Large
-                            Core.LightC = ITibia.LightColor.UtevoLux
-                            Core.ConsoleWrite("Utevo Gran Lux Light Effect is now Enabled.")
+                            Kernel.LightI = ITibia.LightIntensity.Large
+                            Kernel.LightC = ITibia.LightColor.UtevoLux
+                            Kernel.ConsoleWrite("Utevo Gran Lux Light Effect is now Enabled.")
                         Case "utevo vis lux"
-                            Core.LightI = ITibia.LightIntensity.VeryLarge
-                            Core.LightC = ITibia.LightColor.UtevoLux
-                            Core.ConsoleWrite("Utevo Vis Lux Light Effect is now Enabled.")
+                            Kernel.LightI = ITibia.LightIntensity.VeryLarge
+                            Kernel.LightC = ITibia.LightColor.UtevoLux
+                            Kernel.ConsoleWrite("Utevo Vis Lux Light Effect is now Enabled.")
                         Case "light wand"
-                            Core.LightI = ITibia.LightIntensity.Large
-                            Core.LightC = ITibia.LightColor.LightWand
-                            Core.ConsoleWrite("Light Wand Light Effect is now Enabled.")
+                            Kernel.LightI = ITibia.LightIntensity.Large
+                            Kernel.LightC = ITibia.LightColor.LightWand
+                            Kernel.ConsoleWrite("Light Wand Light Effect is now Enabled.")
                         Case Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                             Exit Sub
                     End Select
-                    Core.LightTimerObj.StartTimer()
+                    Kernel.LightTimerObj.StartTimer()
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1805,25 +1805,25 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Dim EntityName As String = ""
             Dim BL As BattleList = New BattleList
-            Dim SP As New ServerPacketBuilder(Core.Proxy)
+            Dim SP As New ServerPacketBuilder(Kernel.Proxy)
             Select Case StrToShort(Value)
                 Case 0
-                    Core.AutoAttackerActivated = False
-                    Core.AutoAttackerIgnoredID = 0
-                    Core.AutoAttackerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Attacker is now Disabled.")
+                    Kernel.AutoAttackerActivated = False
+                    Kernel.AutoAttackerIgnoredID = 0
+                    Kernel.AutoAttackerTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Auto Attacker is now Disabled.")
                 Case 1
                     If BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) OrElse BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
-                        Core.AutoAttackerIgnoredID = BL.GetEntityID
+                        Kernel.AutoAttackerIgnoredID = BL.GetEntityID
                         EntityName = BL.GetName
-                        If Core.AutoAttackerIgnoredID < &H40000000 Then Core.AutoAttackerIgnoredID = 0
+                        If Kernel.AutoAttackerIgnoredID < &H40000000 Then Kernel.AutoAttackerIgnoredID = 0
                     Else
-                        Core.AutoAttackerIgnoredID = 0
+                        Kernel.AutoAttackerIgnoredID = 0
                     End If
-                    Core.AutoAttackerActivated = True
-                    Core.ConsoleWrite("Auto Attacker is now Enabled.")
-                    If Core.AutoAttackerIgnoredID > 0 Then
-                        Core.ConsoleWrite("  Ignoring: " & EntityName & " (" & Core.AutoAttackerIgnoredID & ").")
+                    Kernel.AutoAttackerActivated = True
+                    Kernel.ConsoleWrite("Auto Attacker is now Enabled.")
+                    If Kernel.AutoAttackerIgnoredID > 0 Then
+                        Kernel.ConsoleWrite("  Ignoring: " & EntityName & " (" & Kernel.AutoAttackerIgnoredID & ").")
                     End If
                 Case Else
                     Dim RegExp As New Regex("""([^""]+)""?")
@@ -1840,53 +1840,53 @@ Public Module CommandParserModule
                             End If
                         Loop While BL.NextEntity(True)
                         If Found Then
-                            Core.Client.WriteMemory(Consts.ptrSecureMode, 0, 1)
+                            Kernel.Client.WriteMemory(Consts.ptrSecureMode, 0, 1)
                             SP.ChangeSecureMode(ITibia.SecureMode.Normal)
                             'Core.Proxy.SendPacketToServer(ChangeSecureMode(ITibia.SecureMode.Normal))
                             System.Threading.Thread.Sleep(1000)
                             BL.Attack()
-                            Core.ConsoleWrite(String.Format("Attacking entity '{0}'.", BL.GetName))
+                            Kernel.ConsoleWrite(String.Format("Attacking entity '{0}'.", BL.GetName))
                         Else
-                            Core.ConsoleWrite(String.Format("Entity '{0}' not found.", Match.Groups(1).Value))
+                            Kernel.ConsoleWrite(String.Format("Entity '{0}' not found.", Match.Groups(1).Value))
                         End If
                     Else
                         Select Case Value.ToLower
                             Case "stop", "s"
-                                Core.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
-                                Core.Client.WriteMemory(Consts.ptrFollowedEntityID, 0, 4)
+                                Kernel.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
+                                Kernel.Client.WriteMemory(Consts.ptrFollowedEntityID, 0, 4)
                                 SP.StopEverything()
                                 'Core.Proxy.SendPacketToServer(StopEverything())
-                                Core.ConsoleWrite("Stopped everything.")
+                                Kernel.ConsoleWrite("Stopped everything.")
                             Case "follow", "chase", "chasing", "c", "f"
-                                Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
                                 SP.ChangeChasingMode(ITibia.ChasingMode.Chasing)
                                 'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
-                                Core.ConsoleWrite("Opponents will be chased.")
+                                Kernel.ConsoleWrite("Opponents will be chased.")
                             Case "stand", "s", "stay"
-                                Core.Client.WriteMemory(Consts.ptrChasingMode, 0, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrChasingMode, 0, 1)
                                 SP.ChangeChasingMode(ITibia.ChasingMode.Standing)
                                 'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Standing))
-                                Core.ConsoleWrite("Opponents will not be chased.")
+                                Kernel.ConsoleWrite("Opponents will not be chased.")
                             Case "offensive", "offense", "o"
-                                Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Offensive, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Offensive, 1)
                                 SP.ChangeFightingMode(ITibia.FightingMode.Offensive)
                                 'Core.Proxy.SendPacketToServer(ChangeFightingMode(ITibia.FightingMode.Offensive))
-                                Core.ConsoleWrite("Fighting in offensive mode.")
+                                Kernel.ConsoleWrite("Fighting in offensive mode.")
                             Case "balanced", "b", "middle"
-                                Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Balanced, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Balanced, 1)
                                 SP.ChangeFightingMode(ITibia.FightingMode.Balanced)
                                 'Core.Proxy.SendPacketToServer(ChangeFightingMode(ITibia.FightingMode.Balanced))
-                                Core.ConsoleWrite("Fighting in balanced mode.")
+                                Kernel.ConsoleWrite("Fighting in balanced mode.")
                             Case "defensive", "defense", "d"
-                                Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Defensive, 1)
+                                Kernel.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Defensive, 1)
                                 SP.ChangeFightingMode(ITibia.FightingMode.Defensive)
                                 'Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Defensive))
-                                Core.ConsoleWrite("Fighting in defensive mode.")
+                                Kernel.ConsoleWrite("Fighting in defensive mode.")
                             Case "auto", "automatic"
-                                Core.AutoAttackerTimerObj.StartTimer()
-                                Core.ConsoleWrite("Attacking creatures automatically.")
+                                Kernel.AutoAttackerTimerObj.StartTimer()
+                                Kernel.ConsoleWrite("Attacking creatures automatically.")
                             Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         End Select
                     End If
             End Select
@@ -1903,20 +1903,20 @@ Public Module CommandParserModule
         Try
             Select Case StrToShort(Arguments(2).ToString)
                 Case 0
-                    Core.SpellManaRequired = 0
-                    Core.SpellMsg = ""
-                    Core.SpellTimerObj.StopTimer()
-                    Core.ConsoleWrite("Spell Caster is now Disabled.")
+                    Kernel.SpellManaRequired = 0
+                    Kernel.SpellMsg = ""
+                    Kernel.SpellTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Spell Caster is now Disabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "^([1-9][0-9]{1,4})\s+""?(.+)$")
                     If MatchObj.Success Then
-                        Core.SpellManaRequired = CUInt(MatchObj.Groups(1).ToString)
-                        Core.SpellMsg = MatchObj.Groups(2).ToString
-                        Core.SpellTimerObj.StartTimer()
-                        Core.ConsoleWrite("Spell Caster is now Enabled." & Ret & _
-                         "Casting '" & Core.SpellMsg & "' with " & Core.SpellManaRequired & " or more mana points.")
+                        Kernel.SpellManaRequired = CUInt(MatchObj.Groups(1).ToString)
+                        Kernel.SpellMsg = MatchObj.Groups(2).ToString
+                        Kernel.SpellTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Spell Caster is now Enabled." & Ret & _
+                         "Casting '" & Kernel.SpellMsg & "' with " & Kernel.SpellManaRequired & " or more mana points.")
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -1930,7 +1930,7 @@ Public Module CommandParserModule
 
     Private Sub CmdAbout()
         Try
-            Core.ConsoleWrite(BotName & " v" & BotVersion & "." & Ret & _
+            Kernel.ConsoleWrite(BotName & " v" & BotVersion & "." & Ret & _
             "It is written by the TibiaTek Development Team, " & Ret & _
             "and held at http://tibiatekbot.googlecode.com/" & Ret & _
             "For versioning information, type: &version." & Ret & _
@@ -1949,30 +1949,30 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.AutoEaterSmart = 0
-                    Core.EaterTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Eater is now Disabled.")
+                    Kernel.AutoEaterSmart = 0
+                    Kernel.EaterTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Auto Eater is now Disabled.")
                 Case 1
-                    Core.AutoEaterSmart = 0
-                    Core.EaterTimerObj.Interval = Consts.AutoEaterInterval
-                    Core.EaterTimerObj.StartTimer()
-                    Core.ConsoleWrite("Auto Eater is now Enabled for every 30 seconds.")
+                    Kernel.AutoEaterSmart = 0
+                    Kernel.EaterTimerObj.Interval = Consts.AutoEaterInterval
+                    Kernel.EaterTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Auto Eater is now Enabled for every 30 seconds.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "smart\s+([1-9]\d{1,4})")
                     If MatchObj.Success Then
-                        Core.AutoEaterSmart = CInt(MatchObj.Groups(1).ToString)
-                        Core.EaterTimerObj.Interval = Consts.AutoEaterSmartInterval
-                        Core.EaterTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Eater will eat only when you are below " & Core.AutoEaterSmart & " hit points, once every minute.")
+                        Kernel.AutoEaterSmart = CInt(MatchObj.Groups(1).ToString)
+                        Kernel.EaterTimerObj.Interval = Consts.AutoEaterSmartInterval
+                        Kernel.EaterTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Auto Eater will eat only when you are below " & Kernel.AutoEaterSmart & " hit points, once every minute.")
                     Else
                         MatchObj = Regex.Match(Arguments(2).ToString, "([1-9]\d{0,2})")
                         If MatchObj.Success Then
-                            Core.AutoEaterSmart = 0
-                            Core.EaterTimerObj.Interval = CInt(MatchObj.Groups(1).Value) * 1000
-                            Core.EaterTimerObj.StartTimer()
-                            Core.ConsoleWrite("Auto Eater is now Enabled for every " & ((Core.EaterTimerObj.Interval / 1000) Mod 1000) & " second(s).")
+                            Kernel.AutoEaterSmart = 0
+                            Kernel.EaterTimerObj.Interval = CInt(MatchObj.Groups(1).Value) * 1000
+                            Kernel.EaterTimerObj.StartTimer()
+                            Kernel.ConsoleWrite("Auto Eater is now Enabled for every " & ((Kernel.EaterTimerObj.Interval / 1000) Mod 1000) & " second(s).")
                         Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         End If
                     End If
             End Select
@@ -1990,18 +1990,18 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.UHTimerObj.StopTimer()
-                    Core.UHHPRequired = 0
-                    Core.ConsoleWrite("Auto UHer is now Disabled.")
+                    Kernel.UHTimerObj.StopTimer()
+                    Kernel.UHHPRequired = 0
+                    Kernel.ConsoleWrite("Auto UHer is now Disabled.")
                 Case Else
                     If IsNumeric(Value) AndAlso CInt(Value) > 0 Then
-                        Core.UHHPRequired = CUInt(Value)
-                        Core.UHId = Core.Client.Items.GetItemID("Ultimate Healing")
-                        Core.UHTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto UHer will now 'UH' you if you are below " & Ret & _
-                        Core.UHHPRequired & " hit points.")
+                        Kernel.UHHPRequired = CUInt(Value)
+                        Kernel.UHId = Kernel.Client.Items.GetItemID("Ultimate Healing")
+                        Kernel.UHTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Auto UHer will now 'UH' you if you are below " & Ret & _
+                        Kernel.UHHPRequired & " hit points.")
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -2017,39 +2017,39 @@ Public Module CommandParserModule
         Try
             Select Case StrToShort(Arguments(2).ToString)
                 Case 0
-                    Core.HealFriendCharacterName = ""
-                    Core.HealFriendHealthPercentage = 0
-                    Core.HealFriendTimerObj.StopTimer()
-                    Core.ConsoleWrite("Auto Heal Friend is now Disabled.")
+                    Kernel.HealFriendCharacterName = ""
+                    Kernel.HealFriendHealthPercentage = 0
+                    Kernel.HealFriendTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Auto Heal Friend is now Disabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]?)%?\s+""([^""]+)""\s+""([^""]+)""?")
                     If MatchObj.Success Then
-                        Core.HealFriendHealthPercentage = CUShort(MatchObj.Groups(1).ToString)
-                        If Core.HealFriendHealthPercentage < 0 Or Core.HealFriendHealthPercentage > 99 Then
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.HealFriendHealthPercentage = CUShort(MatchObj.Groups(1).ToString)
+                        If Kernel.HealFriendHealthPercentage < 0 Or Kernel.HealFriendHealthPercentage > 99 Then
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                             Exit Sub
                         End If
                         Dim HealthType As String = ""
                         Select Case MatchObj.Groups(2).ToString.ToLower
                             Case "ultimate healing", "uh", "adura vita"
-                                Core.HealFriendHealType = HealTypes.UltimateHealingRune
+                                Kernel.HealFriendHealType = HealTypes.UltimateHealingRune
                                 HealthType = "Ultimate Healing."
                             Case "exura sio", "heal friend", "sio"
-                                Core.HealFriendHealType = HealTypes.ExuraSio
+                                Kernel.HealFriendHealType = HealTypes.ExuraSio
                                 HealthType = "Exura Sio."
                             Case "both"
-                                Core.HealFriendHealType = HealTypes.Both
+                                Kernel.HealFriendHealType = HealTypes.Both
                                 HealthType = "both Exura Sio and Ultimate Healing."
                             Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                 Exit Sub
                         End Select
-                        Core.HealFriendCharacterName = MatchObj.Groups(3).Value
-                        Core.HealFriendTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Heal Friend is now Enabled." & Ret & _
-                         "Healing '" & Core.HealFriendCharacterName & "' when his/her hit points are less than " & Core.HealFriendHealthPercentage & "% with " & HealthType)
+                        Kernel.HealFriendCharacterName = MatchObj.Groups(3).Value
+                        Kernel.HealFriendTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Auto Heal Friend is now Enabled." & Ret & _
+                         "Healing '" & Kernel.HealFriendCharacterName & "' when his/her hit points are less than " & Kernel.HealFriendHealthPercentage & "% with " & HealthType)
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -2063,8 +2063,8 @@ Public Module CommandParserModule
 
     Private Sub CmdVersion()
         Try
-            Core.ConsoleWrite(BotName & " v" & BotVersion & ".")
-            Core.ConsoleWrite("Powered By: PProxy v2.0 by CPargermer.")
+            Kernel.ConsoleWrite(BotName & " v" & BotVersion & ".")
+            Kernel.ConsoleWrite("Powered By: PProxy v2.0 by CPargermer.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -2094,12 +2094,12 @@ Public Module CommandParserModule
                 Case "around"
                     Floor = 0
                 Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     Exit Sub
             End Select
             BL.Reset(True)
             Do
-                If BL.IsMyself OrElse BL.GetFloor <> Core.CharacterLoc.Z + Floor Then Continue Do
+                If BL.IsMyself OrElse BL.GetFloor <> Kernel.CharacterLoc.Z + Floor Then Continue Do
                 EntityName = BL.GetName
                 EntityListIndex = EntityList.IndexOf(EntityName)
                 If EntityListIndex > -1 Then
@@ -2122,7 +2122,7 @@ Public Module CommandParserModule
                     End If
                 Next
             End If
-            Core.ConsoleWrite("Entities found: " & Output & ".")
+            Kernel.ConsoleWrite("Entities found: " & Output & ".")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -2137,18 +2137,18 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.AdvertiseMsg = ""
-                    Core.AdvertiseTimerObj.StopTimer()
-                    Core.ConsoleWrite("Trade Channel Advertiser is now Disabled.")
+                    Kernel.AdvertiseMsg = ""
+                    Kernel.AdvertiseTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Trade Channel Advertiser is now Disabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, """([^""]+)""?")
                     If MatchObj.Success Then
                         'OpenChannel("Trade", ChannelType.Trade)
-                        Core.AdvertiseMsg = MatchObj.Groups(1).ToString
-                        Core.ConsoleWrite("Trade Channel Advertiser is now Enabled. Make sure the Trade Channel is opened.")
-                        Core.AdvertiseTimerObj.StartTimer(1000)
+                        Kernel.AdvertiseMsg = MatchObj.Groups(1).ToString
+                        Kernel.ConsoleWrite("Trade Channel Advertiser is now Enabled. Make sure the Trade Channel is opened.")
+                        Kernel.AdvertiseTimerObj.StartTimer(1000)
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -2169,40 +2169,40 @@ Public Module CommandParserModule
             Dim Output As String = ""
             Dim ItemName As String
             Dim ID As Integer
-            Core.ConsoleWrite("Getting Item IDs, Please Wait...")
-            Core.ConsoleWrite("Inventory: ")
+            Kernel.ConsoleWrite("Getting Item IDs, Please Wait...")
+            Kernel.ConsoleWrite("Inventory: ")
             For E As ITibia.InventorySlots = ITibia.InventorySlots.Head To ITibia.InventorySlots.Belt
                 Output = E.ToString & ": "
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)), ID, 2)
-                ItemName = Core.Client.Items.GetItemName(ID)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)), ID, 2)
+                ItemName = Kernel.Client.Items.GetItemName(ID)
                 If String.Compare(ItemName, "Unknown") = 0 Then
                     Output &= "Unknown H" & Hex(ID)
                 Else
                     Output &= ItemName
                 End If
-                If Core.Client.Dat.GetInfo(ID).IsStackable Then
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)) + Consts.ItemCountOffset, ItemCount, 1)
+                If Kernel.Client.Dat.GetInfo(ID).IsStackable Then
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)) + Consts.ItemCountOffset, ItemCount, 1)
                     Output &= " (x" & ItemCount & ")"
                 End If
                 Output &= "."
-                Core.ConsoleWrite(Output)
+                Kernel.ConsoleWrite(Output)
             Next
 
             Container.Reset()
             Do
                 If Container.IsOpened Then
                     Output = ""
-                    Core.ConsoleWrite("Container #" & Hex(Container.GetContainerIndex + 1) & ": " & Container.GetName() & "")
+                    Kernel.ConsoleWrite("Container #" & Hex(Container.GetContainerIndex + 1) & ": " & Container.GetName() & "")
                     ItemCount = Container.GetItemCount()
                     For I = 0 To ItemCount - 1
                         Item = Container.Items(I)
-                        ItemName = Core.Client.Items.GetItemName(Item.ID)
+                        ItemName = Kernel.Client.Items.GetItemName(Item.ID)
                         If String.Compare(ItemName, "Unknown") = 0 Then
                             Output &= "Unknown H" & Hex(Item.ID)
                         Else
                             Output &= ItemName & " H" & Hex(Item.ID)
                         End If
-                        If Core.Client.Dat.GetInfo(Item.ID).IsStackable Then
+                        If Kernel.Client.Dat.GetInfo(Item.ID).IsStackable Then
                             Output &= " (x" & Item.Count & ")"
                         End If
                         If I < ItemCount - 1 Then
@@ -2211,10 +2211,10 @@ Public Module CommandParserModule
                             Output &= "."
                         End If
                     Next
-                    Core.ConsoleWrite(Output)
+                    Kernel.ConsoleWrite(Output)
                 End If
             Loop While Container.NextContainer()
-            Core.ConsoleWrite("Done.")
+            Kernel.ConsoleWrite("Done.")
             Exit Sub
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2227,7 +2227,7 @@ Public Module CommandParserModule
 
     Private Sub CmdCommands()
         Try
-            Core.ConsoleWrite("Listing all commands. Type &help <command> for help. Example: &help attack." & Ret & _
+            Kernel.ConsoleWrite("Listing all commands. Type &help <command> for help. Example: &help attack." & Ret & _
                 "&amuletchanger <on | off | ""Amulet Name"">" & Ret & _
                 "&advertise ""<advertisement>""" & Ret & _
                 "&ammorestacker <minimum ammunition | off>" & Ret & _
@@ -2239,7 +2239,7 @@ Public Module CommandParserModule
                 "&char ""<Player Name>""" & Ret & _
                 "&config <load | edit | clear>" & Ret & _
                 "&combobot ""<Leader Name>"" | Off")
-            Core.ConsoleWrite(" " & Ret & _
+            Kernel.ConsoleWrite(" " & Ret & _
                 "&drinker <minimum mana points | off>" & Ret & _
                 "&eat <on | off | time in seconds | <smart <minimum hit points>> >" & Ret & _
                 "&exp <on | creatures <on | off> | off>" & Ret & _
@@ -2251,7 +2251,7 @@ Public Module CommandParserModule
                 "&help <command>" & Ret & _
                 "&heal <minimum hit points percent | minimum hit points> ""<healing spell words or spell name>"" [""""<comment>]" & Ret & _
                 "&healfriend <hit points percent> ""<uh | sio | both>"" ""<player name>""")
-            Core.ConsoleWrite(" " & Ret & _
+            Kernel.ConsoleWrite(" " & Ret & _
                 "&healparty <minimum hit points percent>% ""<sio | uh | both>""" & Ret & _
                 "&hotkeys <save | load>" & Ret & _
                 "&irc" & Ret & _
@@ -2264,7 +2264,7 @@ Public Module CommandParserModule
                 "&namespy <on | off>" & Ret & _
                 "&open <""Local File or URL"" | <wiki | character | guild | erig | google | mytibia> ""<search terms>"" >" & Ret & _
                 "&pickup <on | off>")
-            Core.ConsoleWrite(" " & Ret & _
+            Kernel.ConsoleWrite(" " & Ret & _
                 "&rainbow <on | off | fast | slow>" & Ret & _
                 "&reload <spells | outfits | items | constants | dat>" & Ret & _
                 "&ringchanger <on | off | ""Ring Name"">" & Ret & _
@@ -2291,40 +2291,40 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.ConsoleWrite("Rainbow Outfit is now Disabled")
-                    Core.RainbowOutfitTimerObj.StopTimer()
-                    Core.RainbowOutfitBody = 0
-                    Core.RainbowOutfitFeet = 0
-                    Core.RainbowOutfitHead = 0
-                    Core.RainbowOutfitLegs = 0
+                    Kernel.ConsoleWrite("Rainbow Outfit is now Disabled")
+                    Kernel.RainbowOutfitTimerObj.StopTimer()
+                    Kernel.RainbowOutfitBody = 0
+                    Kernel.RainbowOutfitFeet = 0
+                    Kernel.RainbowOutfitHead = 0
+                    Kernel.RainbowOutfitLegs = 0
                 Case 1
-                    Core.ConsoleWrite("Rainbow Outfit is now Enabled")
-                    Core.RainbowOutfitBody = 0
-                    Core.RainbowOutfitFeet = 10
-                    Core.RainbowOutfitHead = 20
-                    Core.RainbowOutfitLegs = 30
-                    Core.RainbowOutfitTimerObj.Interval = 50
-                    Core.RainbowOutfitTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Rainbow Outfit is now Enabled")
+                    Kernel.RainbowOutfitBody = 0
+                    Kernel.RainbowOutfitFeet = 10
+                    Kernel.RainbowOutfitHead = 20
+                    Kernel.RainbowOutfitLegs = 30
+                    Kernel.RainbowOutfitTimerObj.Interval = 50
+                    Kernel.RainbowOutfitTimerObj.StartTimer()
                 Case Else
                     Select Case Value.ToLower
                         Case "fast"
-                            Core.RainbowOutfitBody = 0
-                            Core.RainbowOutfitFeet = 10
-                            Core.RainbowOutfitHead = 20
-                            Core.RainbowOutfitLegs = 30
-                            Core.RainbowOutfitTimerObj.Interval = 50
-                            Core.ConsoleWrite("Rainbow Outfit is now Enabled with fast speed.")
-                            Core.RainbowOutfitTimerObj.StartTimer()
+                            Kernel.RainbowOutfitBody = 0
+                            Kernel.RainbowOutfitFeet = 10
+                            Kernel.RainbowOutfitHead = 20
+                            Kernel.RainbowOutfitLegs = 30
+                            Kernel.RainbowOutfitTimerObj.Interval = 50
+                            Kernel.ConsoleWrite("Rainbow Outfit is now Enabled with fast speed.")
+                            Kernel.RainbowOutfitTimerObj.StartTimer()
                         Case "slow"
-                            Core.RainbowOutfitBody = 0
-                            Core.RainbowOutfitFeet = 10
-                            Core.RainbowOutfitHead = 20
-                            Core.RainbowOutfitLegs = 30
-                            Core.RainbowOutfitTimerObj.Interval = 100
-                            Core.ConsoleWrite("Rainbow Outfit is now Enabled with low speed.")
-                            Core.RainbowOutfitTimerObj.StartTimer()
+                            Kernel.RainbowOutfitBody = 0
+                            Kernel.RainbowOutfitFeet = 10
+                            Kernel.RainbowOutfitHead = 20
+                            Kernel.RainbowOutfitLegs = 30
+                            Kernel.RainbowOutfitTimerObj.Interval = 100
+                            Kernel.ConsoleWrite("Rainbow Outfit is now Enabled with low speed.")
+                            Kernel.RainbowOutfitTimerObj.StartTimer()
                         Case Else
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End Select
             End Select
         Catch Ex As Exception
@@ -2339,19 +2339,19 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString.ToLower
             Select Case StrToShort(Value)
                 Case 0
-                    Core.AutoDrinkerTimerObj.StopTimer()
-                    Core.DrinkerManaRequired = 0
-                    Core.ConsoleWrite("Auto Drinker is now Disabled.")
+                    Kernel.AutoDrinkerTimerObj.StopTimer()
+                    Kernel.DrinkerManaRequired = 0
+                    Kernel.ConsoleWrite("Auto Drinker is now Disabled.")
                 Case Else
                     Dim RegExp As New Regex("^[1-9]\d{1,3}$")
                     Dim Match As Match = RegExp.Match(Value)
                     If Match.Success Then
-                        Core.DrinkerManaRequired = Value
-                        Core.AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
-                        Core.AutoDrinkerTimerObj.StartTimer()
-                        Core.ConsoleWrite("Auto Drinker is now Enabled.")
+                        Kernel.DrinkerManaRequired = Value
+                        Kernel.AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
+                        Kernel.AutoDrinkerTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Auto Drinker is now Enabled.")
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -2364,69 +2364,69 @@ Public Module CommandParserModule
     Private Sub CmdCaveBot(ByVal Arguments As GroupCollection)
         Try
             Dim value As String = Arguments(2).ToString.ToLower
-            Dim SP As New ServerPacketBuilder(Core.Proxy)
+            Dim SP As New ServerPacketBuilder(Kernel.Proxy)
             Select Case StrToShort(value)
                 Case 0
-                    Core.LooterTimerObj.StopTimer()
-                    Core.AutoAttackerTimerObj.StopTimer()
-                    Core.CaveBotTimerObj.StopTimer()
-                    Core.EaterTimerObj.StopTimer()
-                    Core.EaterTimerObj.Interval = 0
-                    Core.WaypointIndex = 0
-                    Core.IsOpeningReady = True
+                    Kernel.LooterTimerObj.StopTimer()
+                    Kernel.AutoAttackerTimerObj.StopTimer()
+                    Kernel.CaveBotTimerObj.StopTimer()
+                    Kernel.EaterTimerObj.StopTimer()
+                    Kernel.EaterTimerObj.Interval = 0
+                    Kernel.WaypointIndex = 0
+                    Kernel.IsOpeningReady = True
                     SP.StopEverything()
                     'Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(0))
-                    Core.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
-                    Core.ConsoleWrite("Cavebot is now Disabled.")
+                    Kernel.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
+                    Kernel.ConsoleWrite("Cavebot is now Disabled.")
                 Case 1
-                    If Core.Walker_Waypoints.Count = 0 Then
-                        Core.ConsoleWrite("No waypoints found.")
+                    If Kernel.Walker_Waypoints.Count = 0 Then
+                        Kernel.ConsoleWrite("No waypoints found.")
                         Exit Sub
                     End If
                     If Consts.LootWithCavebot Then
-                        Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
-                        Core.LooterTimerObj.StartTimer()
+                        Kernel.LooterMinimumCapacity = Consts.CavebotLootMinCap
+                        Kernel.LooterTimerObj.StartTimer()
                     End If
-                    Core.AutoAttackerTimerObj.StartTimer()
-                    Core.CaveBotTimerObj.StartTimer()
-                    Core.AutoEaterSmart = 0
-                    Core.EaterTimerObj.Interval = 20000
-                    Core.EaterTimerObj.StartTimer()
-                    Core.IsOpeningReady = True
-                    Core.CBCreatureDied = False
-                    Core.WaypointIndex = 0
-                    Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                    Kernel.AutoAttackerTimerObj.StartTimer()
+                    Kernel.CaveBotTimerObj.StartTimer()
+                    Kernel.AutoEaterSmart = 0
+                    Kernel.EaterTimerObj.Interval = 20000
+                    Kernel.EaterTimerObj.StartTimer()
+                    Kernel.IsOpeningReady = True
+                    Kernel.CBCreatureDied = False
+                    Kernel.WaypointIndex = 0
+                    Kernel.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
                     SP.ChangeChasingMode(ITibia.ChasingMode.Chasing)
                     'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
-                    Core.ConsoleWrite("Cavebot is now Enabled.")
-                    Core.CBState = CavebotState.Walking
+                    Kernel.ConsoleWrite("Cavebot is now Enabled.")
+                    Kernel.CBState = CavebotState.Walking
                 Case Else 'ADD or Continue
                     If Arguments(2).ToString = "continue" Then
-                        If Core.Walker_Waypoints.Count = 0 Then
-                            Core.ConsoleWrite("No waypoints found.")
+                        If Kernel.Walker_Waypoints.Count = 0 Then
+                            Kernel.ConsoleWrite("No waypoints found.")
                             Exit Sub
                         End If
-                        Core.WaypointIndex = SelectNearestWaypoint(Core.Walker_Waypoints)
-                        If Core.WaypointIndex = -1 Then
-                            Core.ConsoleError("No waypoints found on this floor.")
+                        Kernel.WaypointIndex = SelectNearestWaypoint(Kernel.Walker_Waypoints)
+                        If Kernel.WaypointIndex = -1 Then
+                            Kernel.ConsoleError("No waypoints found on this floor.")
                             Exit Sub
                         End If
                         If Consts.LootWithCavebot Then
-                            Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
-                            Core.LooterTimerObj.StartTimer()
+                            Kernel.LooterMinimumCapacity = Consts.CavebotLootMinCap
+                            Kernel.LooterTimerObj.StartTimer()
                         End If
-                        Core.AutoAttackerTimerObj.StartTimer()
-                        Core.CaveBotTimerObj.StartTimer()
-                        Core.AutoEaterSmart = 0
-                        Core.EaterTimerObj.Interval = 20000
-                        Core.EaterTimerObj.StartTimer()
-                        Core.IsOpeningReady = True
-                        Core.CBCreatureDied = False
-                        Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                        Kernel.AutoAttackerTimerObj.StartTimer()
+                        Kernel.CaveBotTimerObj.StartTimer()
+                        Kernel.AutoEaterSmart = 0
+                        Kernel.EaterTimerObj.Interval = 20000
+                        Kernel.EaterTimerObj.StartTimer()
+                        Kernel.IsOpeningReady = True
+                        Kernel.CBCreatureDied = False
+                        Kernel.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
                         SP.ChangeChasingMode(ITibia.ChasingMode.Chasing)
                         'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
-                        Core.ConsoleWrite("Cavebot is now Enabled.")
-                        Core.CBState = CavebotState.Walking
+                        Kernel.ConsoleWrite("Cavebot is now Enabled.")
+                        Kernel.CBState = CavebotState.Walking
                         Exit Sub
                     End If
                     Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase)
@@ -2442,25 +2442,25 @@ Public Module CommandParserModule
                             Case "walk", "w"
                                 Character.Type = Walker.WaypointType.Walk
                                 WPType = "W"
-                                Core.ConsoleWrite("Walking waypoint added.")
+                                Kernel.ConsoleWrite("Walking waypoint added.")
                             Case "ladder", "l"
                                 Character.Type = Walker.WaypointType.Ladder
                                 WPType = "L"
-                                Core.ConsoleWrite("Ladder waypoint added.")
+                                Kernel.ConsoleWrite("Ladder waypoint added.")
                             Case "rope", "r"
                                 Character.Type = Walker.WaypointType.Rope
                                 WPType = "R"
-                                Core.ConsoleWrite("Rope waypoint added.")
+                                Kernel.ConsoleWrite("Rope waypoint added.")
                             Case "sewer", "s"
                                 Character.Type = Walker.WaypointType.Sewer
                                 WPType = "SE"
-                                Core.ConsoleWrite("Sewer waypoint added.")
+                                Kernel.ConsoleWrite("Sewer waypoint added.")
                             Case Else
-                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                 Exit Sub
                         End Select
 
-                        Core.Walker_Waypoints.Add(Character)
+                        Kernel.Walker_Waypoints.Add(Character)
                     Else
                         MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
                         If MatchObj.Success Then
@@ -2483,12 +2483,12 @@ Public Module CommandParserModule
                                 Case "right", "east"
                                     Character.Coordinates.X += 1
                                 Case Else
-                                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                     Exit Sub
                             End Select
 
-                            Core.Walker_Waypoints.Add(Character)
-                            Core.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
+                            Kernel.Walker_Waypoints.Add(Character)
+                            Kernel.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
                         Else
                             MatchObj = Regex.Match(Arguments(2).ToString, "add\swait\s(\d{1,5})")
                             If MatchObj.Success Then
@@ -2501,8 +2501,8 @@ Public Module CommandParserModule
                                 Character.Type = Walker.WaypointType.Wait
                                 Character.Info = MatchObj.Groups(1).ToString
                                 WPType = "WT"
-                                Core.Walker_Waypoints.Add(Character)
-                                Core.ConsoleWrite("Wait waypoint added.")
+                                Kernel.Walker_Waypoints.Add(Character)
+                                Kernel.ConsoleWrite("Wait waypoint added.")
                             Else
                                 MatchObj = Regex.Match(Arguments(2).ToString, "add\ssay\s+""?(.+)$")
                                 If MatchObj.Success Then
@@ -2516,8 +2516,8 @@ Public Module CommandParserModule
                                     Character.Info = MatchObj.Groups(1).ToString
                                     WPType = "S"
 
-                                    Core.Walker_Waypoints.Add(Character)
-                                    Core.ConsoleWrite("Say waypoint added.")
+                                    Kernel.Walker_Waypoints.Add(Character)
+                                    Kernel.ConsoleWrite("Say waypoint added.")
                                 Else
                                     MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
                                     If MatchObj.Success Then
@@ -2540,28 +2540,28 @@ Public Module CommandParserModule
                                             Case "right", "east"
                                                 Character.Info = Walker.Directions.Up
                                             Case Else
-                                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                                 Exit Sub
                                         End Select
-                                        Core.Walker_Waypoints.Add(Character)
+                                        Kernel.Walker_Waypoints.Add(Character)
                                     Else
                                         MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
                                         If MatchObj.Success Then
                                             UpdatePlayerPos()
                                             Select Case StrToShort(MatchObj.Groups(2).ToString)
                                                 Case 1
-                                                    Core.LearningMode = True
+                                                    Kernel.LearningMode = True
                                                     'AutoAddTime = Now.AddSeconds(10)
-                                                    Core.LastFloor = Core.CharacterLoc.Z
-                                                    Core.AutoAddTimerObj.StartTimer()
-                                                    Core.ConsoleWrite("Adding waypoints automatically.")
+                                                    Kernel.LastFloor = Kernel.CharacterLoc.Z
+                                                    Kernel.AutoAddTimerObj.StartTimer()
+                                                    Kernel.ConsoleWrite("Adding waypoints automatically.")
                                                 Case 0
-                                                    Core.LearningMode = False
-                                                    Core.AutoAddTimerObj.StopTimer()
-                                                    Core.ConsoleWrite("Stopped adding waypoints automatically.")
+                                                    Kernel.LearningMode = False
+                                                    Kernel.AutoAddTimerObj.StopTimer()
+                                                    Kernel.ConsoleWrite("Stopped adding waypoints automatically.")
                                             End Select
                                         Else
-                                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                         End If
                                     End If
                                 End If
@@ -2581,25 +2581,25 @@ Public Module CommandParserModule
             Dim value As String = Arguments(2).ToString.ToLower
             Select Case StrToShort(value)
                 Case 0
-                    Core.WalkerTimerObj.StopTimer()
-                    Core.WalkerLoop = False
-                    Core.WaypointIndex = 0
-                    Core.ConsoleWrite("Walker is now Disabled.")
+                    Kernel.WalkerTimerObj.StopTimer()
+                    Kernel.WalkerLoop = False
+                    Kernel.WaypointIndex = 0
+                    Kernel.ConsoleWrite("Walker is now Disabled.")
                 Case 1
-                    If Core.Walker_Waypoints.Count = 0 Then
-                        Core.ConsoleError("No Waypoints Found")
+                    If Kernel.Walker_Waypoints.Count = 0 Then
+                        Kernel.ConsoleError("No Waypoints Found")
                         Exit Sub
                     End If
-                    Core.WaypointIndex = 0
-                    Core.WalkerTimerObj.StartTimer()
-                    Core.WalkerLoop = False
-                    Core.ConsoleWrite("Walker is now Enabled.")
+                    Kernel.WaypointIndex = 0
+                    Kernel.WalkerTimerObj.StartTimer()
+                    Kernel.WalkerLoop = False
+                    Kernel.ConsoleWrite("Walker is now Enabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "continue", RegexOptions.IgnoreCase)
                     If MatchObj.Success Then
-                        Core.WalkerTimerObj.StartTimer()
-                        Core.WalkerLoop = True
-                        Core.ConsoleWrite("Walker On With Continue Mode")
+                        Kernel.WalkerTimerObj.StartTimer()
+                        Kernel.WalkerLoop = True
+                        Kernel.ConsoleWrite("Walker On With Continue Mode")
                     Else
                         MatchObj = (Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase))
                         If MatchObj.Success Then
@@ -2614,25 +2614,25 @@ Public Module CommandParserModule
                                 Case "walk", "w"
                                     Character.Type = Walker.WaypointType.Walk
                                     WPType = "W"
-                                    Core.ConsoleWrite("Walking waypoint added.")
+                                    Kernel.ConsoleWrite("Walking waypoint added.")
                                 Case "ladder", "l"
                                     Character.Type = Walker.WaypointType.Ladder
                                     WPType = "L"
-                                    Core.ConsoleWrite("Ladder waypoint added.")
+                                    Kernel.ConsoleWrite("Ladder waypoint added.")
                                 Case "rope", "r"
                                     Character.Type = Walker.WaypointType.Rope
                                     WPType = "R"
-                                    Core.ConsoleWrite("Rope waypoint added.")
+                                    Kernel.ConsoleWrite("Rope waypoint added.")
                                 Case "sewer", "s"
                                     Character.Type = Walker.WaypointType.Sewer
                                     WPType = "SE"
-                                    Core.ConsoleWrite("Sewer waypoint added.")
+                                    Kernel.ConsoleWrite("Sewer waypoint added.")
                                 Case Else
-                                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                     Exit Sub
                             End Select
 
-                            Core.Walker_Waypoints.Add(Character)
+                            Kernel.Walker_Waypoints.Add(Character)
                         Else
                             MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
                             If MatchObj.Success Then
@@ -2655,12 +2655,12 @@ Public Module CommandParserModule
                                     Case "right", "east"
                                         Character.Coordinates.X += 1
                                     Case Else
-                                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                         Exit Sub
                                 End Select
 
-                                Core.Walker_Waypoints.Add(Character)
-                                Core.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
+                                Kernel.Walker_Waypoints.Add(Character)
+                                Kernel.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
                             Else
                                 MatchObj = Regex.Match(Arguments(2).ToString, "add\swait\s(\d{1,5})")
                                 If MatchObj.Success Then
@@ -2673,9 +2673,9 @@ Public Module CommandParserModule
                                     Character.Type = Walker.WaypointType.Wait
                                     Character.Info = MatchObj.Groups(1).ToString
                                     WPType = "WT"
-                                    Core.Walker_Waypoints.Add(Character)
-                                    Core.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
-                                    Core.ConsoleWrite("Wait waypoint added.")
+                                    Kernel.Walker_Waypoints.Add(Character)
+                                    Kernel.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
+                                    Kernel.ConsoleWrite("Wait waypoint added.")
                                 Else
                                     MatchObj = Regex.Match(Arguments(2).ToString, "add\ssay\s+""?(.+)$")
                                     If MatchObj.Success Then
@@ -2689,8 +2689,8 @@ Public Module CommandParserModule
                                         Character.Info = MatchObj.Groups(1).ToString
                                         WPType = "S"
 
-                                        Core.Walker_Waypoints.Add(Character)
-                                        Core.ConsoleWrite("Say waypoint added.")
+                                        Kernel.Walker_Waypoints.Add(Character)
+                                        Kernel.ConsoleWrite("Say waypoint added.")
                                     Else
                                         MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
                                         If MatchObj.Success Then
@@ -2713,28 +2713,28 @@ Public Module CommandParserModule
                                                 Case "right", "east"
                                                     Character.Info = Walker.Directions.Up
                                                 Case Else
-                                                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                                     Exit Sub
                                             End Select
-                                            Core.Walker_Waypoints.Add(Character)
+                                            Kernel.Walker_Waypoints.Add(Character)
                                         Else
                                             MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
                                             If MatchObj.Success Then
                                                 UpdatePlayerPos()
                                                 Select Case StrToShort(MatchObj.Groups(2).ToString)
                                                     Case 1
-                                                        Core.LastFloor = Core.CharacterLoc.Z
-                                                        Core.LearningMode = True
+                                                        Kernel.LastFloor = Kernel.CharacterLoc.Z
+                                                        Kernel.LearningMode = True
                                                         'AutoAddTime = Now.AddSeconds(10)
-                                                        Core.AutoAddTimerObj.StartTimer()
-                                                        Core.ConsoleWrite("Adding waypoints automatically.")
+                                                        Kernel.AutoAddTimerObj.StartTimer()
+                                                        Kernel.ConsoleWrite("Adding waypoints automatically.")
                                                     Case 0
-                                                        Core.LearningMode = False
-                                                        Core.AutoAddTimerObj.StopTimer()
-                                                        Core.ConsoleWrite("Stopped adding waypoints automatically.")
+                                                        Kernel.LearningMode = False
+                                                        Kernel.AutoAddTimerObj.StopTimer()
+                                                        Kernel.ConsoleWrite("Stopped adding waypoints automatically.")
                                                 End Select
                                             Else
-                                                Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                                             End If
                                         End If
                                     End If
@@ -2755,14 +2755,14 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.ComboBotEnabled = False
-                    Core.ConsoleWrite("Combobot is now Disabled.")
+                    Kernel.ComboBotEnabled = False
+                    Kernel.ConsoleWrite("Combobot is now Disabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
                     If MatchObj.Success Then
-                        Core.ComboBotLeader = MatchObj.Groups(1).ToString
-                        Core.ComboBotEnabled = True
-                        Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
+                        Kernel.ComboBotLeader = MatchObj.Groups(1).ToString
+                        Kernel.ComboBotEnabled = True
+                        Kernel.ConsoleWrite("Combobot is now Enabled with Leader: " & Kernel.ComboBotLeader)
                         Exit Sub
                     Else
                         If Value = "leader" Then
@@ -2770,19 +2770,19 @@ Public Module CommandParserModule
                             BL.Reset()
                             If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) OrElse BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
                                 If BL.IsPlayer Then
-                                    Core.ComboBotLeader = BL.GetName
-                                    Core.ComboBotEnabled = True
-                                    Core.ConsoleWrite("Combobot is now Enabled with Leader: " & Core.ComboBotLeader)
+                                    Kernel.ComboBotLeader = BL.GetName
+                                    Kernel.ComboBotEnabled = True
+                                    Kernel.ConsoleWrite("Combobot is now Enabled with Leader: " & Kernel.ComboBotLeader)
                                     Exit Sub
                                 Else
-                                    Core.ConsoleError("You can only set players as leader.")
+                                    Kernel.ConsoleError("You can only set players as leader.")
                                     Exit Sub
                                 End If
                             Else
-                                Core.ConsoleError("You need to Attack/Follow player to set him/her as leader.")
+                                Kernel.ConsoleError("You need to Attack/Follow player to set him/her as leader.")
                                 Exit Sub
                             End If
-                            Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         End If
                     End If
             End Select
@@ -2798,31 +2798,31 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).Value
             Select Case StrToShort(Value)
                 Case 0
-                    Core.AmuletChangerTimerObj.StopTimer()
-                    Core.AmuletID = 0
-                    Core.ConsoleWrite("Amulet/Necklace Changer is now Disabled.")
+                    Kernel.AmuletChangerTimerObj.StopTimer()
+                    Kernel.AmuletID = 0
+                    Kernel.ConsoleWrite("Amulet/Necklace Changer is now Disabled.")
                 Case 1
                     Dim ItemID As Integer
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Neck - 1) * Consts.ItemDist), ItemID, 2)
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Neck - 1) * Consts.ItemDist), ItemID, 2)
                     If ItemID = 0 Then
-                        Core.ConsoleError("You are not wearing any amulet. Please equip the amulet that you want to restack.")
+                        Kernel.ConsoleError("You are not wearing any amulet. Please equip the amulet that you want to restack.")
                         Exit Sub
                     End If
-                    Core.AmuletID = ItemID
-                    Core.AmuletChangerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
+                    Kernel.AmuletID = ItemID
+                    Kernel.AmuletChangerTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
                     If MatchObj.Success Then
-                        Core.AmuletID = Core.Client.Items.GetItemID(MatchObj.Groups(1).ToString)
-                        If Core.AmuletID = 0 AndAlso Core.Client.Items.IsNeck(Core.AmuletID) Then
-                            Core.ConsoleError("Invalid Amulet/Necklace Name.")
+                        Kernel.AmuletID = Kernel.Client.Items.GetItemID(MatchObj.Groups(1).ToString)
+                        If Kernel.AmuletID = 0 AndAlso Kernel.Client.Items.IsNeck(Kernel.AmuletID) Then
+                            Kernel.ConsoleError("Invalid Amulet/Necklace Name.")
                             Exit Sub
                         End If
-                        Core.AmuletChangerTimerObj.StartTimer()
-                        Core.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
+                        Kernel.AmuletChangerTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Amulet/Necklace Changer is now Enabled.")
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch Ex As Exception
@@ -2836,37 +2836,37 @@ Public Module CommandParserModule
         Try
             Select Case StrToShort(Arguments(2).Value)
                 Case 0
-                    Core.RingChangerTimerObj.StopTimer()
-                    Core.RingID = 0
-                    Core.ConsoleWrite("Ring Changer is now Disabled.")
+                    Kernel.RingChangerTimerObj.StopTimer()
+                    Kernel.RingID = 0
+                    Kernel.ConsoleWrite("Ring Changer is now Disabled.")
                 Case 1
                     Dim ItemID As Integer
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Finger - 1) * Consts.ItemDist), ItemID, 2)
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Finger - 1) * Consts.ItemDist), ItemID, 2)
                     If ItemID = 0 Then
-                        Core.ConsoleError("You are not wearing any ring. Please equip the ring that you want to change.")
+                        Kernel.ConsoleError("You are not wearing any ring. Please equip the ring that you want to change.")
                         Exit Sub
                     End If
-                    Core.RingID = ItemID
-                    Core.RingChangerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Ring Changer is now Enabled.")
+                    Kernel.RingID = ItemID
+                    Kernel.RingChangerTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Ring Changer is now Enabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).Value, """([^""]+)")
                     If MatchObj.Success Then
-                        Core.RingID = Core.Client.Items.GetItemID(MatchObj.Groups(1).ToString)
-                        If Core.RingID = 0 AndAlso Core.Client.Items.IsRing(Core.RingID) Then
-							Core.ConsoleError("Invalid Ring Name.")
-							Exit Sub
-						End If
-						Core.RingChangerTimerObj.StartTimer()
-						Core.ConsoleWrite("Ring Changer is now Enabled.")
-					Else
-						Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-					End If
-			End Select
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-		End Try
-	End Sub
+                        Kernel.RingID = Kernel.Client.Items.GetItemID(MatchObj.Groups(1).ToString)
+                        If Kernel.RingID = 0 AndAlso Kernel.Client.Items.IsRing(Kernel.RingID) Then
+                            Kernel.ConsoleError("Invalid Ring Name.")
+                            Exit Sub
+                        End If
+                        Kernel.RingChangerTimerObj.StartTimer()
+                        Kernel.ConsoleWrite("Ring Changer is now Enabled.")
+                    Else
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    End If
+            End Select
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 #End Region
 
 #Region " Anti-Logout"
@@ -2874,15 +2874,15 @@ Public Module CommandParserModule
         Try
             Select Case StrToShort(Arguments(2).Value)
                 Case 0
-                    Core.AntiLogoutObj.StopTimer()
-                    Core.ConsoleWrite("Anti-Logout is now Disabled.")
+                    Kernel.AntiLogoutObj.StopTimer()
+                    Kernel.ConsoleWrite("Anti-Logout is now Disabled.")
                 Case 1
-                    Core.LastActivity = Date.Now
-                    Core.AntiLogoutObj.Interval = Consts.AntiLogoutInterval
-                    Core.AntiLogoutObj.StartTimer()
-                    Core.ConsoleWrite("Anti-Logout is now Enabled.")
+                    Kernel.LastActivity = Date.Now
+                    Kernel.AntiLogoutObj.Interval = Consts.AntiLogoutInterval
+                    Kernel.AntiLogoutObj.StartTimer()
+                    Kernel.ConsoleWrite("Anti-Logout is now Enabled.")
                 Case Else
-                    Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2895,38 +2895,38 @@ Public Module CommandParserModule
         Try
             Select Case StrToShort(Arguments(2).Value)
                 Case 0
-                    Core.DancerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Dancer is now Disabled.")
+                    Kernel.DancerTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Dancer is now Disabled.")
                 Case 1
-                    Core.DancerTimerObj.Interval = 1000
-                    Core.DancerTimerObj.StartTimer()
-                    Core.ConsoleWrite("Dancer is now Enabled.")
+                    Kernel.DancerTimerObj.Interval = 1000
+                    Kernel.DancerTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Dancer is now Enabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "(\w+)")
                     If MatchObj.Success Then
                         Select Case MatchObj.Groups(1).ToString.ToLower
                             Case "random"
-                                Core.DancerTimerObj.Interval = (New Random()).Next(300, 1500)
-                                Core.DancerTimerObj.StartTimer()
-                                Core.ConsoleWrite("Dancer is now Enabled with Random Speed")
+                                Kernel.DancerTimerObj.Interval = (New Random()).Next(300, 1500)
+                                Kernel.DancerTimerObj.StartTimer()
+                                Kernel.ConsoleWrite("Dancer is now Enabled with Random Speed")
                             Case "slower"
-                                Core.DancerTimerObj.Interval = 1000
-                                Core.DancerTimerObj.StartTimer()
-                                Core.ConsoleWrite("Dancer is now Enabled with Slower Speed")
+                                Kernel.DancerTimerObj.Interval = 1000
+                                Kernel.DancerTimerObj.StartTimer()
+                                Kernel.ConsoleWrite("Dancer is now Enabled with Slower Speed")
                             Case "slow"
-                                Core.DancerTimerObj.Interval = 500
-                                Core.DancerTimerObj.StartTimer()
-                                Core.ConsoleWrite("Dancer is now Enabled with Slow Speed")
+                                Kernel.DancerTimerObj.Interval = 500
+                                Kernel.DancerTimerObj.StartTimer()
+                                Kernel.ConsoleWrite("Dancer is now Enabled with Slow Speed")
                             Case "fast"
-                                Core.DancerTimerObj.Interval = 300
-                                Core.DancerTimerObj.StartTimer()
-                                Core.ConsoleWrite("Dancer is now Enabled with Fast Speed.")
+                                Kernel.DancerTimerObj.Interval = 300
+                                Kernel.DancerTimerObj.StartTimer()
+                                Kernel.ConsoleWrite("Dancer is now Enabled with Fast Speed.")
                             Case "turbo"
-                                Core.DancerTimerObj.Interval = 200
-                                Core.DancerTimerObj.StartTimer()
-                                Core.ConsoleWrite("Dancer is now Enabled with Turbo Mode")
+                                Kernel.DancerTimerObj.Interval = 200
+                                Kernel.DancerTimerObj.StartTimer()
+                                Kernel.ConsoleWrite("Dancer is now Enabled with Turbo Mode")
                             Case Else
-                                Core.ConsoleWrite("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Kernel.ConsoleWrite("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         End Select
                     End If
             End Select
@@ -2942,16 +2942,16 @@ Public Module CommandParserModule
             Dim Value As String = Arguments(2).ToString
             Select Case StrToShort(Value)
                 Case 0
-                    Core.AmmoMakerMinMana = 0
-                    Core.AmmoMakerMinCap = 0
-                    Core.AmmoMakerTimerObj.StopTimer()
-                    Core.ConsoleWrite("Ammunition Maker is now Disabled.")
+                    Kernel.AmmoMakerMinMana = 0
+                    Kernel.AmmoMakerMinCap = 0
+                    Kernel.AmmoMakerTimerObj.StopTimer()
+                    Kernel.ConsoleWrite("Ammunition Maker is now Disabled.")
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Value, "([1-9][0-9]{1,4})\s+([0-9]{0,3})\s+""([^""]+)""?")
                     If MatchObj.Success Then
                         Dim Found As Boolean = False
                         Dim S As New SpellDefinition
-                        For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                        For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                             If (Spell.Name.Equals(MatchObj.Groups(3).Value, StringComparison.CurrentCultureIgnoreCase) _
                             OrElse Spell.Words.Equals(MatchObj.Groups(3).ToString, StringComparison.CurrentCultureIgnoreCase)) _
                             AndAlso (Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation) Then
@@ -2961,16 +2961,16 @@ Public Module CommandParserModule
                             End If
                         Next
                         If Found Then
-                            Core.AmmoMakerSpell = S
-                            Core.AmmoMakerMinMana = CInt(MatchObj.Groups(1).Value)
-                            Core.AmmoMakerMinCap = CInt(MatchObj.Groups(2).Value)
-                            Core.AmmoMakerTimerObj.StartTimer()
-                            Core.ConsoleWrite("Ammo Maker is now Enabled.")
+                            Kernel.AmmoMakerSpell = S
+                            Kernel.AmmoMakerMinMana = CInt(MatchObj.Groups(1).Value)
+                            Kernel.AmmoMakerMinCap = CInt(MatchObj.Groups(2).Value)
+                            Kernel.AmmoMakerTimerObj.StartTimer()
+                            Kernel.ConsoleWrite("Ammo Maker is now Enabled.")
                         Else
-                            Core.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
+                            Kernel.ConsoleError("Invalid Conjure: Spell Name or Spell Words .")
                         End If
                     Else
-                        Core.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                     End If
             End Select
         Catch ex As Exception

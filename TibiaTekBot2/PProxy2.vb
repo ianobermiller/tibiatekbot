@@ -197,7 +197,7 @@ Public Class PProxy2
             sckLC.Close()
             sckLC.Accept(requestID)
             sckLS.Close()
-            sckLS.Connect(Core.LoginServer, LoginPort)
+            sckLS.Connect(Kernel.LoginServer, LoginPort)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -379,7 +379,7 @@ Public Class PProxy2
             Dim intTemp As Integer = 0
 
             If Fix(((bytArray.Length - 2) / 8)) <> ((bytArray.Length - 2) / 8) Then
-                Core.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
+                Kernel.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
                 CharacterIndex = intTemp
                 sckGS.Close()
                 'Dim IP As New Net.IPAddress(CharacterIPs(intTemp))
@@ -390,7 +390,7 @@ Public Class PProxy2
                 bytArray = xTeaDecrypt(bytArray)
                 Select Case bytArray(2)
                     Case &HA
-                        Core.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
+                        Kernel.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
                         CharacterIndex = intTemp
                         sckGS.Close()
                         sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
@@ -426,7 +426,7 @@ Public Class PProxy2
         Try
             Dim bytBuffer() As Byte = {}
 
-            Core.Client.ReadMemory(Consts.ptrEncryptionKey, bytBuffer, 16)
+            Kernel.Client.ReadMemory(Consts.ptrEncryptionKey, bytBuffer, 16)
             Return bytBuffer
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

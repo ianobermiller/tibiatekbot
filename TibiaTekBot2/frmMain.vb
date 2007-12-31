@@ -57,7 +57,7 @@ Public Class frmMain
     Private Sub InitializeControls()
         Try
             ' Spell Caster
-            For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+            For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                 If Spell.Kind <> SpellKind.Rune Then
                     SpellCasterSpell.Items.Add(Spell.Words)
                 End If
@@ -67,14 +67,14 @@ Public Class frmMain
             End If
             'Changers
             'CHANGE THIS WTF!
-            For Each Item As IItems.ItemDefinition In Core.Client.Items.ItemsList
-                If Core.Client.Items.IsRing(Item.ItemID) Then ChangerRingType.Items.Add(Item.Name)
-                If Core.Client.Items.IsNeck(Item.ItemID) Then ChangerAmuletType.Items.Add(Item.Name)
+            For Each Item As IItems.ItemDefinition In Kernel.Client.Items.ItemsList
+                If Kernel.Client.Items.IsRing(Item.ItemID) Then ChangerRingType.Items.Add(Item.Name)
+                If Kernel.Client.Items.IsNeck(Item.ItemID) Then ChangerAmuletType.Items.Add(Item.Name)
             Next
             If ChangerRingType.Items.Count > 0 Then ChangerRingType.SelectedIndex = 0
             If ChangerAmuletType.Items.Count > 0 Then ChangerAmuletType.SelectedIndex = 0
             ' Runemaker
-            For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+            For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                 If Spell.Kind = SpellKind.Rune Then
                     RunemakerSpell.Items.Add(Spell.Name)
                 End If
@@ -108,7 +108,7 @@ Public Class frmMain
             StatsUploaderPassword.Text = Consts.StatsUploaderPassword
             StatsUploaderSaveToDisk.Checked = Consts.StatsUploaderSaveOnDiskOnly
             'Healer
-            For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+            For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                 If Spell.Kind = SpellKind.Healing Then
                     HealSpellName.Items.Add(Spell.Words)
                 End If
@@ -125,7 +125,7 @@ Public Class frmMain
             'Party Healer
             If HealPType.Items.Count > 0 Then HealPType.SelectedIndex = 0
             'Chameleon
-            Dim Outfits() As OutfitDefinition = CoreModule.Outfits.GetOutfits
+            Dim Outfits() As OutfitDefinition = KernelModule.Outfits.GetOutfits
             For Each Outfit As OutfitDefinition In Outfits
                 If Not String.IsNullOrEmpty(Outfit.Name) Then
                     ChameleonOutfit.Items.Add(Outfit.Name)
@@ -142,7 +142,7 @@ Public Class frmMain
             'Dancer
             If DancerSpeed.Items.Count > 0 Then DancerSpeed.SelectedIndex = 0
             'Ammo Maker
-            For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+            For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                 If Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation Then
                     AmmoMakerSpell.Items.Add(Spell.Words)
                 End If
@@ -170,15 +170,15 @@ Public Class frmMain
 
     Private Sub frmMain_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
         Try
-            If Core.Client.IsConnected Then
-                Me.Text = "TibiaTek Bot - " & Core.Client.CharacterName
+            If Kernel.Client.IsConnected Then
+                Me.Text = "TibiaTek Bot - " & Kernel.Client.CharacterName
                 FunctionsToolStripMenuItem.Enabled = True
                 AboutToolStripMenuItem.Enabled = True
                 RefreshControls()
                 MainTabControl.Enabled = True
             Else
-                If Not (Core.Proxy Is Nothing OrElse Core.Client Is Nothing) Then
-                    Me.Text = "TibiaTek Bot - " & Hex(Core.Client.GetWindowHandle)
+                If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
+                    Me.Text = "TibiaTek Bot - " & Hex(Kernel.Client.GetWindowHandle)
                 Else
                     Me.Text = "TibiaTek Bot"
                 End If
@@ -230,12 +230,12 @@ Public Class frmMain
     End Sub
     Private Sub RefreshAmmoMakerControls()
         Try
-            AmmoMakerTrigger.Checked = Core.AmmoMakerTimerObj.State = ThreadTimerState.Running
+            AmmoMakerTrigger.Checked = Kernel.AmmoMakerTimerObj.State = IThreadTimer.ThreadTimerState.Running
 
             If AmmoMakerTrigger.Checked Then
-                AmmoMakerSpell.Text = Core.AmmoMakerSpell.Words
-                AmmoMakerMinCap.Value = Core.AmmoMakerMinCap
-                AmmoMakerMinMana.Value = Core.AmmoMakerMinMana
+                AmmoMakerSpell.Text = Kernel.AmmoMakerSpell.Words
+                AmmoMakerMinCap.Value = Kernel.AmmoMakerMinCap
+                AmmoMakerMinMana.Value = Kernel.AmmoMakerMinMana
 
                 AmmoMakerSpell.Enabled = False
                 AmmoMakerMinCap.Enabled = False
@@ -251,10 +251,10 @@ Public Class frmMain
     End Sub
     Private Sub RefreshDancerControls()
         Try
-            DancerTrigger.Checked = Core.DancerTimerObj.State = ThreadTimerState.Running
+            DancerTrigger.Checked = Kernel.DancerTimerObj.State = IThreadTimer.ThreadTimerState.Running
 
             If DancerTrigger.Checked Then
-                Select Case Core.DancerTimerObj.Interval
+                Select Case Kernel.DancerTimerObj.Interval
                     Case 500
                         DancerSpeed.Text = "Slow"
                     Case 100
@@ -274,17 +274,17 @@ Public Class frmMain
     End Sub
     Private Sub RefreshChangerControls()
         Try
-            RingChangerTrigger.Checked = Core.RingChangerTimerObj.State = ThreadTimerState.Running
-            AmuletChangerTrigger.Checked = Core.AmuletChangerTimerObj.State = ThreadTimerState.Running
+            RingChangerTrigger.Checked = Kernel.RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running
+            AmuletChangerTrigger.Checked = Kernel.AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running
 
             If RingChangerTrigger.Checked Then
-                ChangerRingType.Text = Core.Client.Items.GetItemName(Core.RingID)
+                ChangerRingType.Text = Kernel.Client.Items.GetItemName(Kernel.RingID)
                 ChangerRingType.Enabled = False
             Else
                 ChangerRingType.Enabled = True
             End If
             If AmuletChangerTrigger.Checked Then
-                ChangerAmuletType.Text = Core.Client.Items.GetItemName(Core.AmuletID)
+                ChangerAmuletType.Text = Kernel.Client.Items.GetItemName(Kernel.AmuletID)
                 ChangerAmuletType.Enabled = False
             Else
                 ChangerAmuletType.Enabled = True
@@ -294,24 +294,24 @@ Public Class frmMain
         End Try
     End Sub
     Private Sub RefreshAntiIdlerControls()
-        AntiIdlerTrigger.Checked = Core.AntiLogoutObj.State = ThreadTimerState.Running
+        AntiIdlerTrigger.Checked = Kernel.AntiLogoutObj.State = IThreadTimer.ThreadTimerState.Running
     End Sub
     Private Sub RefreshPickuperControls()
         Try
-            PickuperTrigger.Checked = Core.PickUpTimerObj.State = ThreadTimerState.Running
+            PickuperTrigger.Checked = Kernel.PickUpTimerObj.State = IThreadTimer.ThreadTimerState.Running
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
     Private Sub RefreshAutoAttackerControls()
         Try
-            If Core.AutoAttackerTimerObj.State = ThreadTimerState.Running Or Core.AutoAttackerActivated Then
+            If Kernel.AutoAttackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Or Kernel.AutoAttackerActivated Then
                 AutoAttackerTrigger.Checked = True
             Else
                 AutoAttackerTrigger.Checked = False
             End If
             If AutoAttackerTrigger.Checked Then
-                If Core.AutoAttackerTimerObj.State = ThreadTimerState.Running Then
+                If Kernel.AutoAttackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                     AttackAutomatically.Checked = True
                 Else
                     AttackAutomatically.Checked = False
@@ -330,11 +330,11 @@ Public Class frmMain
     End Sub
     Private Sub RefreshTrainerControls()
         Try
-            TrainerTrigger.Checked = Core.AutoTrainerTimerObj.State = ThreadTimerState.Running
+            TrainerTrigger.Checked = Kernel.AutoTrainerTimerObj.State = IThreadTimer.ThreadTimerState.Running
 
             If TrainerTrigger.Checked Then
-                MinPercentageHP.Value = Core.AutoTrainerMinHPPercent
-                MaxPercentageHP.Value = Core.AutoTrainerMaxHPPercent
+                MinPercentageHP.Value = Kernel.AutoTrainerMinHPPercent
+                MaxPercentageHP.Value = Kernel.AutoTrainerMaxHPPercent
                 TrainerAdd.Enabled = False
                 TrainerRemove.Enabled = False
                 TrainerClear.Enabled = False
@@ -356,7 +356,7 @@ Public Class frmMain
             Dim BL As New BattleList
             BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
             Dim OD As New OutfitDefinition
-            Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
+            Dim ODFound As Boolean = KernelModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
             If ODFound Then
                 ChameleonOutfit.SelectedIndex = ChameleonOutfit.Items.IndexOf(OD.Name)
             End If
@@ -377,7 +377,7 @@ Public Class frmMain
     End Sub
     Private Sub RefreshFakeTitleControls()
         Try
-            FakeTitleTrigger.Checked = Core.FakingTitle
+            FakeTitleTrigger.Checked = Kernel.FakingTitle
             If FakeTitleTrigger.Checked Then
                 FakeTitle.Enabled = False
             Else
@@ -390,7 +390,7 @@ Public Class frmMain
     End Sub
     Private Sub RefreshNameSpyControls()
         Try
-            If Core.NameSpyActivated Then
+            If Kernel.NameSpyActivated Then
                 NameSpyTrigger.Checked = True
             Else
                 NameSpyTrigger.Checked = False
@@ -401,14 +401,14 @@ Public Class frmMain
     End Sub
     Private Sub RefreshExpCheckerControls()
         Try
-            If Core.ExpCheckerActivated Or Core.ShowCreaturesUntilNextLevel Then
+            If Kernel.ExpCheckerActivated Or Kernel.ShowCreaturesUntilNextLevel Then
                 ExpCheckerTrigger.Checked = True
             Else
                 ExpCheckerTrigger.Checked = False
             End If
             If ExpCheckerTrigger.Checked Then
-                ExpShowNext.Checked = Core.ExpCheckerActivated = True
-                ExpShowCreatures.Checked = Core.ShowCreaturesUntilNextLevel = True
+                ExpShowNext.Checked = Kernel.ExpCheckerActivated = True
+                ExpShowCreatures.Checked = Kernel.ShowCreaturesUntilNextLevel = True
 
                 ExpShowNext.Enabled = False
                 ExpShowCreatures.Enabled = False
@@ -425,7 +425,7 @@ Public Class frmMain
         Try
             ' DrinkerTrigger.Checked = Core.AutoDrinkerTimerObj.State = ThreadTimerState.Running
             '  If DrinkerTrigger.Checked Then
-            DrinkerManaPoints.Value = Core.DrinkerManaRequired
+            DrinkerManaPoints.Value = Kernel.DrinkerManaRequired
             'DrinkerManaPoints.Enabled = True
             '  Else
             '  DrinkerManaPoints.Enabled = True
@@ -437,9 +437,9 @@ Public Class frmMain
     End Sub
     Private Sub RefreshHealPartyControls()
         Try
-            HealPartyTrigger.Checked = Core.HealPartyTimerObj.State = ThreadTimerState.Running
+            HealPartyTrigger.Checked = Kernel.HealPartyTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If HealPartyTrigger.Checked Then
-                Select Case Core.HealPartyHealType
+                Select Case Kernel.HealPartyHealType
                     Case HealTypes.UltimateHealingRune
                         HealPType.Text = "Ultimate Healing Rune"
                     Case HealTypes.ExuraSio
@@ -447,7 +447,7 @@ Public Class frmMain
                     Case HealTypes.Both
                         HealPType.Text = "Both"
                 End Select
-                HealPHp.Value = Core.HealPartyMinimumHPPercentage
+                HealPHp.Value = Kernel.HealPartyMinimumHPPercentage
                 HealPType.Enabled = False
                 HealPHp.Enabled = False
             Else
@@ -461,10 +461,10 @@ Public Class frmMain
     End Sub
     Private Sub RefreshHealFriendControls()
         Try
-            HealFriendTrigger.Checked = Core.HealFriendTimerObj.State = ThreadTimerState.Running
+            HealFriendTrigger.Checked = Kernel.HealFriendTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If HealFriendTrigger.Checked Then
-                HealFName.Text = Core.HealFriendCharacterName
-                Select Case Core.HealFriendHealType
+                HealFName.Text = Kernel.HealFriendCharacterName
+                Select Case Kernel.HealFriendHealType
                     Case HealTypes.UltimateHealingRune
                         HealFType.Text = "Ultimate Healing Rune"
                     Case HealTypes.ExuraSio
@@ -472,7 +472,7 @@ Public Class frmMain
                     Case HealTypes.Both
                         HealFType.Text = "Both"
                 End Select
-                HealFHp.Value = Core.HealFriendHealthPercentage
+                HealFHp.Value = Kernel.HealFriendHealthPercentage
                 HealFName.Enabled = False
                 HealFType.Enabled = False
                 HealFHp.Enabled = False
@@ -488,20 +488,20 @@ Public Class frmMain
     End Sub
     Private Sub RefreshHealerControls()
         Try
-            HealWithRune.Checked = Core.UHTimerObj.State = ThreadTimerState.Running
-            HealWithSpell.Checked = Core.HealTimerObj.State = ThreadTimerState.Running
+            HealWithRune.Checked = Kernel.UHTimerObj.State = IThreadTimer.ThreadTimerState.Running
+            HealWithSpell.Checked = Kernel.HealTimerObj.State = IThreadTimer.ThreadTimerState.Running
             Dim MaxHitPoints As Integer = 0
-            Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
+            Kernel.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
             If HealWithRune.Checked Then
-                Select Case Core.Client.Items.GetItemName(Core.UHId)
+                Select Case Kernel.Client.Items.GetItemName(Kernel.UHId)
                     Case "Ultimate Healing"
                         HealRuneType.Text = "UH Rune"
                     Case "Intense Healing"
                         HealRuneType.Text = "IH Rune"
                 End Select
-                HealRuneHP.Value = Core.UHHPRequired
-                If Core.UHHPRequired <= MaxHitPoints Then
-                    HealRunePercent.Value = CInt((Core.UHHPRequired / MaxHitPoints) * 100)
+                HealRuneHP.Value = Kernel.UHHPRequired
+                If Kernel.UHHPRequired <= MaxHitPoints Then
+                    HealRunePercent.Value = CInt((Kernel.UHHPRequired / MaxHitPoints) * 100)
                 Else
                     HealRunePercent.Value = 100
                 End If
@@ -525,12 +525,12 @@ Public Class frmMain
                 End If
             End If
             If HealWithSpell.Checked Then
-                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
-                HealSpellName.Text = Core.HealSpell.Words
-                HealSpellHp.Value = Core.HealMinimumHP
+                Kernel.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
+                HealSpellName.Text = Kernel.HealSpell.Words
+                HealSpellHp.Value = Kernel.HealMinimumHP
 
-                If (Core.HealMinimumHP <= MaxHitPoints) Then
-                    HealSpellPercent.Value = CInt((Core.HealMinimumHP / MaxHitPoints) * 100)
+                If (Kernel.HealMinimumHP <= MaxHitPoints) Then
+                    HealSpellPercent.Value = CInt((Kernel.HealMinimumHP / MaxHitPoints) * 100)
                 Else
                     HealSpellPercent.Value = 100
                 End If
@@ -565,7 +565,7 @@ Public Class frmMain
             End If
 
             If HealWithPotion.Checked Then
-                Select Case Core.Client.Items.GetItemName(Core.PotionID)
+                Select Case Kernel.Client.Items.GetItemName(Kernel.PotionID)
                     Case "Health Potion"
                         HealPotionName.Text = "Health Potion"
                     Case "Strong Health Potion"
@@ -573,9 +573,9 @@ Public Class frmMain
                     Case "Great Health Potion"
                         HealPotionName.Text = "Great Health Potion"
                 End Select
-                HealRuneHP.Value = Core.PotionHPRequired
-                If Core.PotionHPRequired <= MaxHitPoints Then
-                    HealPotionPercent.Value = CInt((Core.PotionHPRequired / MaxHitPoints) * 100)
+                HealRuneHP.Value = Kernel.PotionHPRequired
+                If Kernel.PotionHPRequired <= MaxHitPoints Then
+                    HealPotionPercent.Value = CInt((Kernel.PotionHPRequired / MaxHitPoints) * 100)
                 Else
                     HealPotionPercent.Value = 100
                 End If
@@ -605,9 +605,9 @@ Public Class frmMain
     End Sub
     Private Sub RefreshAdvertiserControls()
         Try
-            TradeChannelAdvertiserTrigger.Checked = Core.AdvertiseTimerObj.State = ThreadTimerState.Running
+            TradeChannelAdvertiserTrigger.Checked = Kernel.AdvertiseTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If TradeChannelAdvertiserTrigger.Checked Then
-                TradeChannelAdvertiserAdvertisement.Text = Core.AdvertiseMsg
+                TradeChannelAdvertiserAdvertisement.Text = Kernel.AdvertiseMsg
                 TradeChannelAdvertiserAdvertisement.Enabled = False
             Else
                 TradeChannelAdvertiserAdvertisement.Enabled = True
@@ -618,12 +618,12 @@ Public Class frmMain
     End Sub
     Private Sub RefreshFpsChangerControls()
         Try
-            FpsChangerTrigger.Checked = Core.FPSChangerTimerObj.State = ThreadTimerState.Running
+            FpsChangerTrigger.Checked = Kernel.FPSChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If FpsChangerTrigger.Checked Then
-                FpsActive.Value = Core.FrameRateActive
-                FpsInactive.Value = Core.FrameRateInactive
-                FpsMinimized.Value = Core.FrameRateMinimized
-                FPSHidden.Value = Core.FrameRateHidden
+                FpsActive.Value = Kernel.FrameRateActive
+                FpsInactive.Value = Kernel.FrameRateInactive
+                FpsMinimized.Value = Kernel.FrameRateMinimized
+                FPSHidden.Value = Kernel.FrameRateHidden
                 FpsActive.Enabled = False
                 FpsInactive.Enabled = False
                 FpsMinimized.Enabled = False
@@ -641,7 +641,7 @@ Public Class frmMain
     End Sub
     Private Sub RefreshStatsUploaderControls()
         Try
-            StatsUploaderTrigger.Checked = Core.StatsUploaderTimerObj.State = ThreadTimerState.Running
+            StatsUploaderTrigger.Checked = Kernel.StatsUploaderTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If StatsUploaderTrigger.Checked Then
                 StatsUploaderUrl.Enabled = False
                 StatsUploaderFilename.Enabled = False
@@ -667,9 +667,9 @@ Public Class frmMain
     End Sub
     Private Sub RefreshTradeChannelWatcherControls()
         Try
-            TradeChannelWatcherTrigger.Checked = Core.TradeWatcherActive = True
+            TradeChannelWatcherTrigger.Checked = Kernel.TradeWatcherActive = True
             If TradeChannelWatcherTrigger.Checked Then
-                TradeChannelWatcherExpression.Text = Core.TradeWatcherRegex
+                TradeChannelWatcherExpression.Text = Kernel.TradeWatcherRegex
                 TradeChannelWatcherExpression.Enabled = False
             Else
                 TradeChannelWatcherExpression.Enabled = True
@@ -681,7 +681,7 @@ Public Class frmMain
     End Sub
     Private Sub RefreshCavebotControls()
         Try
-            CavebotTrigger.Checked = Core.CaveBotTimerObj.State = ThreadTimerState.Running
+            CavebotTrigger.Checked = Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If CavebotTrigger.Checked Then
                 CavebotConfigure.Enabled = False
             Else
@@ -694,10 +694,10 @@ Public Class frmMain
     End Sub
     Private Sub RefreshAutoFisherControls()
         Try
-            AutoFisherTrigger.Checked = Core.FisherTimerObj.State = ThreadTimerState.Running
+            AutoFisherTrigger.Checked = Kernel.FisherTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If AutoFisherTrigger.Checked Then
-                AutoFisherMinimumCapacity.Value = Core.FisherMinimumCapacity
-                If Core.FisherTurbo Then
+                AutoFisherMinimumCapacity.Value = Kernel.FisherMinimumCapacity
+                If Kernel.FisherTurbo Then
                     AutoFisherTurbo.Checked = True
                 Else
                     AutoFisherTurbo.Checked = False
@@ -715,9 +715,9 @@ Public Class frmMain
     End Sub
     Private Sub RefreshComboBotControls()
         Try
-            ComboBotTrigger.Checked = Core.ComboBotEnabled = True
+            ComboBotTrigger.Checked = Kernel.ComboBotEnabled = True
             If ComboBotTrigger.Checked Then
-                ComboLeader.Text = Core.ComboBotLeader
+                ComboLeader.Text = Kernel.ComboBotLeader
                 ComboLeader.Enabled = False
             Else
                 ComboLeader.Enabled = True
@@ -729,25 +729,25 @@ Public Class frmMain
     End Sub
     Private Sub RefreshLightEffectsControls()
         Try
-            LightEffectsTrigger.Checked = Core.LightTimerObj.State = ThreadTimerState.Running
+            LightEffectsTrigger.Checked = Kernel.LightTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If LightEffectsTrigger.Checked Then
-                Select Case Core.LightI
+                Select Case Kernel.LightI
                     Case ITibia.LightIntensity.Huge
                         LightEffect.SelectedItem = "Ultimate Torch"
                     Case ITibia.LightIntensity.Large
-                        If Core.LightC = ITibia.LightColor.UtevoLux Then
+                        If Kernel.LightC = ITibia.LightColor.UtevoLux Then
                             LightEffect.SelectedItem = "Utevo Gran Lux"
                         Else
                             LightEffect.SelectedItem = "Light Wand"
                         End If
                     Case ITibia.LightIntensity.Medium
-                        If Core.LightC = ITibia.LightColor.Torch Then
+                        If Kernel.LightC = ITibia.LightColor.Torch Then
                             LightEffect.SelectedItem = "Torch"
                         Else
                             LightEffect.SelectedItem = "Utevo Lux"
                         End If
                     Case ITibia.LightIntensity.VeryLarge
-                        If Core.LightC = ITibia.LightColor.Torch Then
+                        If Kernel.LightC = ITibia.LightColor.Torch Then
                             LightEffect.SelectedItem = "Great Torch"
                         Else
                             LightEffect.SelectedItem = "Utevo Vis Lux"
@@ -768,10 +768,10 @@ Public Class frmMain
     End Sub
     Private Sub RefreshSpellCasterControls()
         Try
-            SpellCasterTrigger.Checked = Core.SpellTimerObj.State = ThreadTimerState.Running
+            SpellCasterTrigger.Checked = Kernel.SpellTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If SpellCasterTrigger.Checked Then
-                SpellCasterSpell.Text = Core.SpellMsg
-                SpellCasterMinimumManaPoints.Value = Core.SpellManaRequired
+                SpellCasterSpell.Text = Kernel.SpellMsg
+                SpellCasterMinimumManaPoints.Value = Kernel.SpellManaRequired
                 SpellCasterSpell.Enabled = False
                 SpellCasterMinimumManaPoints.Enabled = False
             Else
@@ -785,9 +785,9 @@ Public Class frmMain
     End Sub
     Private Sub RefreshAutoLooterControls()
         Try
-            AutoLooterTrigger.Checked = Core.LooterTimerObj.State = ThreadTimerState.Running
+            AutoLooterTrigger.Checked = Kernel.LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If AutoLooterTrigger.Checked Then
-                AutoLooterMinCap.Value = Core.LooterMinimumCapacity
+                AutoLooterMinCap.Value = Kernel.LooterMinimumCapacity
                 AutoLooterMinCap.Enabled = False
                 AutoLooterConfigure.Enabled = False
                 AutoLooterDelay.Enabled = False
@@ -805,9 +805,9 @@ Public Class frmMain
     End Sub
     Private Sub RefreshAmmoRestackerControls()
         Try
-            AmmunitionRestackerTrigger.Checked = Core.AmmoRestackerTimerObj.State = ThreadTimerState.Running
+            AmmunitionRestackerTrigger.Checked = Kernel.AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If AmmunitionRestackerTrigger.Checked Then
-                AmmunitionRestackerMinAmmo.Value = Core.AmmoRestackerMinimumItemCount
+                AmmunitionRestackerMinAmmo.Value = Kernel.AmmoRestackerMinimumItemCount
                 AmmunitionRestackerMinAmmo.Enabled = False
             Else
                 AmmunitionRestackerMinAmmo.Enabled = True
@@ -819,7 +819,7 @@ Public Class frmMain
     End Sub
     Private Sub RefreshAutoStackerControls()
         Try
-            AutoStackerTrigger.Checked = Core.StackerTimerObj.State = ThreadTimerState.Running
+            AutoStackerTrigger.Checked = Kernel.StackerTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If AutoStackerTrigger.Checked Then
                 AutoStackerDelay.Enabled = False
             Else
@@ -832,11 +832,11 @@ Public Class frmMain
     End Sub
     Private Sub RefreshRunemakerControls()
         Try
-            RunemakerTrigger.Checked = Core.RunemakerTimerObj.State = ThreadTimerState.Running
+            RunemakerTrigger.Checked = Kernel.RunemakerTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If RunemakerTrigger.Checked Then
-                RunemakerSpell.Text = Core.RunemakerSpell.Name
-                RunemakerMinimumManaPoints.Value = Core.RunemakerManaPoints
-                RunemakerMinimumSoulPoints.Value = Core.RunemakerSoulPoints
+                RunemakerSpell.Text = Kernel.RunemakerSpell.Name
+                RunemakerMinimumManaPoints.Value = Kernel.RunemakerManaPoints
+                RunemakerMinimumSoulPoints.Value = Kernel.RunemakerSoulPoints
                 RunemakerSpell.Enabled = False
                 RunemakerMinimumManaPoints.Enabled = False
                 RunemakerMinimumSoulPoints.Enabled = False
@@ -852,15 +852,15 @@ Public Class frmMain
     End Sub
     Private Sub RefreshAutoEaterControls()
         Try
-            AutoEaterTrigger.Checked = Core.EaterTimerObj.State = ThreadTimerState.Running
+            AutoEaterTrigger.Checked = Kernel.EaterTimerObj.State = IThreadTimer.ThreadTimerState.Running
             If AutoEaterTrigger.Checked Then
-                If Core.AutoEaterSmart > 0 Then
+                If Kernel.AutoEaterSmart > 0 Then
                     AutoEaterSmart.Checked = True
                 Else
                     AutoEaterSmart.Checked = False
                 End If
                 If AutoEaterSmart.Checked Then
-                    AutoEaterMinimumHitPoints.Value = Core.AutoEaterSmart
+                    AutoEaterMinimumHitPoints.Value = Kernel.AutoEaterSmart
                     'AutoEaterDelay.Value = Consts.AutoEaterSmartInterval
                 Else
                     AutoEaterMinimumHitPoints.Value = 0
@@ -871,7 +871,7 @@ Public Class frmMain
                 AutoEaterSmart.Enabled = False
                 AutoEaterMinimumHitPoints.Enabled = False
                 AutoEaterInterval.Enabled = False
-                AutoEaterInterval.Value = CInt(Core.EaterTimerObj.Interval)
+                AutoEaterInterval.Value = CInt(Kernel.EaterTimerObj.Interval)
             Else
                 AutoEaterEatFromFloor.Enabled = True
                 AutoEaterEatFromFloorFirst.Enabled = True
@@ -898,7 +898,7 @@ Public Class frmMain
         Try
             For I As Integer = Application.ExecutablePath.Length - 1 To 0 Step -1
                 If Application.ExecutablePath.Chars(I) = "\" Then
-                    Core.ExecutablePath = Strings.Left(Application.ExecutablePath, I)
+                    Kernel.ExecutablePath = Strings.Left(Application.ExecutablePath, I)
                     Exit For
                 End If
             Next
@@ -919,15 +919,15 @@ Public Class frmMain
             'Me.NotifyIcon.Visible = False
             LoginSelectForm = New frmLoginSelectDialog()
             If LoginSelectForm.ShowDialog() <> Forms.DialogResult.OK Then End
-            Core.Client = New Tibia(strFilename, strDirectory)
-            Core.Client.Start()
+            Kernel.Client = New Tibia(strFilename, strDirectory)
+            Kernel.Client.Start()
             If Not File.Exists(Application.StartupPath & "\TibiaTekBot Injected DLL.dll") Then
                 Throw New Exception("Unable to locate """ & Application.StartupPath & "\TibiaTekBot Injected DLL.dll"". Please re-install the application.")
             End If
             'pipes
             'Dim PipeStream As New System.IO.Pipes.NamedPipeServerStream("ttb2", Pipes.PipeDirection.InOut)
 
-            Core.Client.InjectDLL(Application.StartupPath & "\TibiaTekBot Injected DLL.dll")
+            Kernel.Client.InjectDLL(Application.StartupPath & "\TibiaTekBot Injected DLL.dll")
 
 
             'MsgBox("waiting for connection VB")
@@ -945,27 +945,27 @@ Public Class frmMain
             'SW.WriteLine("This is the message from vb")
             'SW.Flush()
 
-            Core.Proxy = New PProxy2(Core.Client)
+            Kernel.Proxy = New PProxy2(Kernel.Client)
 
 
             System.Threading.Thread.Sleep(1000)
-            Core.WindowTimerObj.StartTimer()
+            Kernel.WindowTimerObj.StartTimer()
             Dim TempInt As Integer = 0
             Do
-                Core.Client.ReadMemory(Consts.ptrServerAddressBegin, TempInt, 1)
+                Kernel.Client.ReadMemory(Consts.ptrServerAddressBegin, TempInt, 1)
             Loop Until TempInt <> 0
             For I As Integer = 0 To Consts.ServerAddressCount - 1
-                Core.Client.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "127.0.0.1")
-                Core.Client.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Core.Proxy.sckLListen.LocalPort, 2)
+                Kernel.Client.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "127.0.0.1")
+                Kernel.Client.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Kernel.Proxy.sckLListen.LocalPort, 2)
             Next
             Me.NotifyIcon.Visible = True
-            Core.Proxy.LoginPort = Core.LoginPort
-            Core.TibiaClientStateTimerObj.StartTimer()
-            Core.Client.ReadMemory(Consts.ptrFrameRateBegin, Core.FrameRateBegin, 4)
+            Kernel.Proxy.LoginPort = Kernel.LoginPort
+            Kernel.TibiaClientStateTimerObj.StartTimer()
+            Kernel.Client.ReadMemory(Consts.ptrFrameRateBegin, Kernel.FrameRateBegin, 4)
             InjectLastAttackedId()
-            If Core.IsOpenTibiaServer Then
-                Core.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
-                Core.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
+            If Kernel.IsOpenTibiaServer Then
+                Kernel.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
+                Kernel.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
             End If
 
 
@@ -1087,12 +1087,12 @@ Public Class frmMain
 
     Private Sub PopupMenu_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles PopupMenu.Opening
         Try
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                 CavebotMenuItem.Enabled = False
             Else
                 CavebotMenuItem.Enabled = True
             End If
-            If Core.TibiaClientIsVisible Then
+            If Kernel.TibiaClientIsVisible Then
                 ShowHideTibiaWindow.Name = "Hide Tibia Window"
             Else
                 ShowHideTibiaWindow.Name = "Show Tibia Window"
@@ -1107,9 +1107,9 @@ Public Class frmMain
         Try
             If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
                 Try
-                    If Not Core.Proxy Is Nothing Then
-                        If Not Core.Client Is Nothing Then
-                            Core.Client.Close()
+                    If Not Kernel.Proxy Is Nothing Then
+                        If Not Kernel.Client Is Nothing Then
+                            Kernel.Client.Close()
                             Me.NotifyIcon.Visible = False
                         End If
                     End If
@@ -1126,11 +1126,11 @@ Public Class frmMain
 
     Private Sub AlarmsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AlarmsToolStripMenuItem.Click
         Try
-            If Not Core.Client.IsConnected Then
+            If Not Kernel.Client.IsConnected Then
                 Beep()
                 Exit Sub
             End If
-            Core.AlarmsForm.Show()
+            Kernel.AlarmsForm.Show()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1139,17 +1139,17 @@ Public Class frmMain
 
     Private Sub ShowHideTibiaWindow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowHideTibiaWindow.Click
         Try
-            If Not Core.Proxy Is Nothing Then
-                If Not Core.Client Is Nothing Then
-                    If Core.Client.GetWindowHandle = 0 Then Exit Sub
-                    If Core.TibiaClientIsVisible Then
-                        Core.Client.Hide()
+            If Not Kernel.Proxy Is Nothing Then
+                If Not Kernel.Client Is Nothing Then
+                    If Kernel.Client.GetWindowHandle = 0 Then Exit Sub
+                    If Kernel.TibiaClientIsVisible Then
+                        Kernel.Client.Hide()
                         'Win32API.ShowWindow(Core.Client.GetWindowHandle, Win32API.ShowState.SW_HIDE)
                     Else
-                        Core.Client.Show()
+                        Kernel.Client.Show()
                         'Win32API.ShowWindow(Core.Client.GetWindowHandle, Win32API.ShowState.SW_SHOW)
                     End If
-                    Core.TibiaClientIsVisible = Not Core.TibiaClientIsVisible
+                    Kernel.TibiaClientIsVisible = Not Kernel.TibiaClientIsVisible
                 End If
             End If
         Catch
@@ -1159,7 +1159,7 @@ Public Class frmMain
 
     Private Sub ConstantsEditorMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConstantsEditorMenuItem.Click
         Try
-            Core.ConstantsEditorForm.Show()
+            Kernel.ConstantsEditorForm.Show()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1168,9 +1168,9 @@ Public Class frmMain
 
     Public Sub MCPatcher()
         Try
-            System.IO.File.Copy(Core.Client.Directory & "\" & Core.Client.Filename, Core.Client.Directory & "\_Tibia.exe.tmp")
-            Dim FSR As New FileStream(Core.Client.Directory & "\_Tibia.exe.tmp", FileMode.Open, FileAccess.Read)
-            Dim FSW As New FileStream(Core.Client.Directory & "\TibiaMC.exe", FileMode.OpenOrCreate, FileAccess.Write)
+            System.IO.File.Copy(Kernel.Client.Directory & "\" & Kernel.Client.Filename, Kernel.Client.Directory & "\_Tibia.exe.tmp")
+            Dim FSR As New FileStream(Kernel.Client.Directory & "\_Tibia.exe.tmp", FileMode.Open, FileAccess.Read)
+            Dim FSW As New FileStream(Kernel.Client.Directory & "\TibiaMC.exe", FileMode.OpenOrCreate, FileAccess.Write)
             Dim Reader As New BinaryReader(FSR)
             Dim Writer As New BinaryWriter(FSW)
             Dim CurrentByte As Byte = 0
@@ -1188,7 +1188,7 @@ Public Class frmMain
             Reader.Close()
             FSR.Close()
             FSW.Close()
-            MessageBox.Show("The new Tibia Client with Multi-Client is now saved at: " & Core.Client.Directory & "\" & "TibiaMC.exe")
+            MessageBox.Show("The new Tibia Client with Multi-Client is now saved at: " & Kernel.Client.Directory & "\" & "TibiaMC.exe")
 
             Dim Result As DialogResult = MessageBox.Show("Would you like to use the patched Tibia Client the next time you open TibiaTek Bot?", "Information", MessageBoxButtons.YesNo)
             If Result = Forms.DialogResult.Yes Then
@@ -1201,8 +1201,8 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         Finally
-            If System.IO.File.Exists(Core.Client.Directory & "\_Tibia.exe.tmp") Then
-                System.IO.File.Delete(Core.Client.Directory & "\_Tibia.exe.tmp")
+            If System.IO.File.Exists(Kernel.Client.Directory & "\_Tibia.exe.tmp") Then
+                System.IO.File.Delete(Kernel.Client.Directory & "\_Tibia.exe.tmp")
             End If
         End Try
     End Sub
@@ -1213,15 +1213,15 @@ Public Class frmMain
 
     Private Sub CavebotMenuItem_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles CavebotMenuItem.Click
         Try
-            If Not Core.Client.IsConnected Then
+            If Not Kernel.Client.IsConnected Then
                 Beep()
                 Exit Sub
             End If
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                 MessageBox.Show("Cavebot is currently running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
-            Core.CavebotForm.Show()
+            Kernel.CavebotForm.Show()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1230,11 +1230,11 @@ Public Class frmMain
 
     Private Sub CharacterStatisticsMenuItem_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles CharacterStatisticsMenuItem.Click
         Try
-            If Not Core.Client.IsConnected Then
+            If Not Kernel.Client.IsConnected Then
                 Beep()
                 Exit Sub
             End If
-            Core.CharacterStatisticsForm.Show()
+            Kernel.CharacterStatisticsForm.Show()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1258,16 +1258,16 @@ Public Class frmMain
 
     Private Sub changeloginserver_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChangeLoginServerPopupItem.Click
         Try
-            If Not Core.Client.IsConnected Then
+            If Not Kernel.Client.IsConnected Then
                 LoginSelectForm = New frmLoginSelectDialog()
                 If LoginSelectForm.ShowDialog() <> Forms.DialogResult.OK Then Exit Sub
                 For I As Integer = 0 To 3
-                    Core.Client.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "localhost")
-                    Core.Client.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Core.Proxy.sckLListen.LocalPort, 2)
+                    Kernel.Client.WriteMemory(Consts.ptrServerAddressBegin + (Consts.ServerAddressDist * I), "localhost")
+                    Kernel.Client.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Kernel.Proxy.sckLListen.LocalPort, 2)
                 Next
-                If Core.IsOpenTibiaServer Then
-                    Core.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
-                    Core.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
+                If Kernel.IsOpenTibiaServer Then
+                    Kernel.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
+                    Kernel.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
                 End If
             Else
                 MessageBox.Show("You must be logged out to change the login server.")
@@ -1284,9 +1284,9 @@ Public Class frmMain
     Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         If MessageBox.Show("Are you sure to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Forms.DialogResult.Yes Then
             Try
-                If Not Core.Proxy Is Nothing Then
-                    If Not Core.Client Is Nothing Then
-                        Core.Client.Close()
+                If Not Kernel.Proxy Is Nothing Then
+                    If Not Kernel.Client Is Nothing Then
+                        Kernel.Client.Close()
                         Me.NotifyIcon.Visible = False
                     End If
                 End If
@@ -1313,7 +1313,7 @@ Public Class frmMain
     Private Sub SpellCasterTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SpellCasterTrigger.CheckedChanged
         Try
             If SpellCasterTrigger.Checked Then
-                If Core.SpellTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.SpellTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 If String.IsNullOrEmpty(SpellCasterSpell.Text) Then
                     SpellCasterTrigger.Checked = False
                     MessageBox.Show("The spell must not be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1324,13 +1324,13 @@ Public Class frmMain
                     MessageBox.Show("The spell minimum mana points must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
-                Core.SpellMsg = SpellCasterSpell.Text
-                Core.SpellManaRequired = SpellCasterMinimumManaPoints.Value
-                Core.SpellTimerObj.StartTimer()
+                Kernel.SpellMsg = SpellCasterSpell.Text
+                Kernel.SpellManaRequired = SpellCasterMinimumManaPoints.Value
+                Kernel.SpellTimerObj.StartTimer()
             Else
-                Core.SpellTimerObj.StopTimer()
-                Core.SpellMsg = String.Empty
-                Core.SpellManaRequired = 0
+                Kernel.SpellTimerObj.StopTimer()
+                Kernel.SpellMsg = String.Empty
+                Kernel.SpellManaRequired = 0
             End If
             RefreshSpellCasterControls()
         Catch Ex As Exception
@@ -1342,7 +1342,7 @@ Public Class frmMain
     Private Sub RunemakerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RunemakerTrigger.CheckedChanged
         Try
             If RunemakerTrigger.Checked Then
-                If Core.RunemakerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.RunemakerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 If String.IsNullOrEmpty(RunemakerSpell.Text) Then
                     RunemakerTrigger.Checked = False
                     MessageBox.Show("The spell must not be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1354,9 +1354,9 @@ Public Class frmMain
                     Exit Sub
                 End If
                 Dim Found As Boolean = False
-                For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                     If Spell.Name.Equals(RunemakerSpell.Text) Then
-                        Core.RunemakerSpell = Spell
+                        Kernel.RunemakerSpell = Spell
                         Found = True
                         Exit For
                     End If
@@ -1366,14 +1366,14 @@ Public Class frmMain
                     MessageBox.Show("The runemaker spell was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
-                Core.RunemakerManaPoints = RunemakerMinimumManaPoints.Value
-                Core.RunemakerSoulPoints = RunemakerMinimumSoulPoints.Value
-                Core.RunemakerTimerObj.StartTimer()
+                Kernel.RunemakerManaPoints = RunemakerMinimumManaPoints.Value
+                Kernel.RunemakerSoulPoints = RunemakerMinimumSoulPoints.Value
+                Kernel.RunemakerTimerObj.StartTimer()
             Else
-                Core.RunemakerTimerObj.StopTimer()
-                Core.RunemakerManaPoints = 0
-                Core.RunemakerSoulPoints = 0
-                Core.RunemakerSpell = Nothing
+                Kernel.RunemakerTimerObj.StopTimer()
+                Kernel.RunemakerManaPoints = 0
+                Kernel.RunemakerSoulPoints = 0
+                Kernel.RunemakerSpell = Nothing
             End If
             RefreshRunemakerControls()
         Catch Ex As Exception
@@ -1394,27 +1394,27 @@ Public Class frmMain
     Private Sub AutoEaterTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterTrigger.CheckedChanged
         Try
             If AutoEaterTrigger.Checked Then
-                If Core.EaterTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.EaterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 If AutoEaterSmart.Checked Then
                     If AutoEaterMinimumHitPoints.Value = 0 Then
                         AutoEaterTrigger.Checked = False
                         MessageBox.Show("The minimum hit points when the Auto Smart Eater feature is on must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Exit Sub
                     End If
-                    Core.AutoEaterSmart = AutoEaterMinimumHitPoints.Value
+                    Kernel.AutoEaterSmart = AutoEaterMinimumHitPoints.Value
                 Else
-                    Core.AutoEaterSmart = 0
+                    Kernel.AutoEaterSmart = 0
                 End If
                 If AutoEaterInterval.Value = 0 Then
                     AutoEaterTrigger.Checked = False
                     MessageBox.Show("The auto eater delay must not be zero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
-                Core.EaterTimerObj.Interval = AutoEaterInterval.Value
-                Core.EaterTimerObj.StartTimer()
+                Kernel.EaterTimerObj.Interval = AutoEaterInterval.Value
+                Kernel.EaterTimerObj.StartTimer()
             Else
-                Core.AutoEaterSmart = 0
-                Core.EaterTimerObj.StopTimer()
+                Kernel.AutoEaterSmart = 0
+                Kernel.EaterTimerObj.StopTimer()
             End If
             RefreshAutoEaterControls()
         Catch Ex As Exception
@@ -1448,7 +1448,7 @@ Public Class frmMain
             'Core.ConsoleWrite("Please wait...")
             Dim Data As String = ""
             Dim Reader As IO.StreamReader
-            Reader = IO.File.OpenText(Core.GetProfileDirectory() & "\config.txt")
+            Reader = IO.File.OpenText(Kernel.GetProfileDirectory() & "\config.txt")
             Data = Reader.ReadToEnd
             Dim MCollection As MatchCollection
             Dim GroupMatch As Match
@@ -1474,7 +1474,7 @@ Public Class frmMain
 
     Private Sub ClearConfig_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConfigClear.Click
         Try
-            IO.File.Delete(Core.GetProfileDirectory() & "\config.txt")
+            IO.File.Delete(Kernel.GetProfileDirectory() & "\config.txt")
             MessageBox.Show("Your configuration file has been cleared.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch
             MessageBox.Show("Unable to clear your configuration.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1489,11 +1489,11 @@ Public Class frmMain
             'Exit Sub
             'End If
             If AutoLooterTrigger.Checked Then
-                Core.LooterMinimumCapacity = AutoLooterMinCap.Value
-                Core.LooterTimerObj.StartTimer()
+                Kernel.LooterMinimumCapacity = AutoLooterMinCap.Value
+                Kernel.LooterTimerObj.StartTimer()
             Else
-                Core.LooterTimerObj.StopTimer()
-                Core.LooterMinimumCapacity = 0
+                Kernel.LooterTimerObj.StopTimer()
+                Kernel.LooterMinimumCapacity = 0
             End If
             RefreshAutoLooterControls()
         Catch Ex As Exception
@@ -1503,16 +1503,16 @@ Public Class frmMain
     End Sub
 
     Private Sub AutoLooterEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterConfigure.Click
-        CoreModule.LootItems.ShowLootCategories()
+        KernelModule.LootItems.ShowLootCategories()
     End Sub
 
     Private Sub AutoStackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoStackerTrigger.CheckedChanged
         Try
             If AutoStackerTrigger.Checked Then
-                Core.StackerTimerObj.Interval = Consts.AutoStackerDelay
-                Core.StackerTimerObj.StartTimer()
+                Kernel.StackerTimerObj.Interval = Consts.AutoStackerDelay
+                Kernel.StackerTimerObj.StartTimer()
             Else
-                Core.StackerTimerObj.StopTimer()
+                Kernel.StackerTimerObj.StopTimer()
             End If
             RefreshAutoStackerControls()
         Catch Ex As Exception
@@ -1524,41 +1524,41 @@ Public Class frmMain
     Private Sub LightEffectsTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LightEffectsTrigger.CheckedChanged
         Try
             If LightEffectsTrigger.Checked Then
-                If Core.LightTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.LightTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 Select Case LightEffect.Text.ToLower
                     Case "on"
-                        Core.LightC = ITibia.LightColor.BrightSword
-                        Core.LightI = ITibia.LightIntensity.Huge + 2
+                        Kernel.LightC = ITibia.LightColor.BrightSword
+                        Kernel.LightI = ITibia.LightIntensity.Huge + 2
                     Case "torch"
-                        Core.LightI = ITibia.LightIntensity.Medium
-                        Core.LightC = ITibia.LightColor.Torch
+                        Kernel.LightI = ITibia.LightIntensity.Medium
+                        Kernel.LightC = ITibia.LightColor.Torch
                     Case "great torch"
-                        Core.LightI = ITibia.LightIntensity.VeryLarge
-                        Core.LightC = ITibia.LightColor.Torch
+                        Kernel.LightI = ITibia.LightIntensity.VeryLarge
+                        Kernel.LightC = ITibia.LightColor.Torch
                     Case "ultimate torch"
-                        Core.LightI = ITibia.LightIntensity.Huge
-                        Core.LightC = ITibia.LightColor.Torch
+                        Kernel.LightI = ITibia.LightIntensity.Huge
+                        Kernel.LightC = ITibia.LightColor.Torch
                     Case "utevo lux"
-                        Core.LightI = ITibia.LightIntensity.Medium
-                        Core.LightC = ITibia.LightColor.UtevoLux
+                        Kernel.LightI = ITibia.LightIntensity.Medium
+                        Kernel.LightC = ITibia.LightColor.UtevoLux
                     Case "utevo gran lux"
-                        Core.LightI = ITibia.LightIntensity.Large
-                        Core.LightC = ITibia.LightColor.UtevoLux
+                        Kernel.LightI = ITibia.LightIntensity.Large
+                        Kernel.LightC = ITibia.LightColor.UtevoLux
                     Case "utevo vis lux"
-                        Core.LightI = ITibia.LightIntensity.VeryLarge
-                        Core.LightC = ITibia.LightColor.UtevoLux
+                        Kernel.LightI = ITibia.LightIntensity.VeryLarge
+                        Kernel.LightC = ITibia.LightColor.UtevoLux
                     Case "light wand"
-                        Core.LightI = ITibia.LightIntensity.Large
-                        Core.LightC = ITibia.LightColor.LightWand
+                        Kernel.LightI = ITibia.LightIntensity.Large
+                        Kernel.LightC = ITibia.LightColor.LightWand
                     Case Else
                         MessageBox.Show("You must select a Light Effect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         LightEffectsTrigger.Checked = False
                         Exit Sub
                 End Select
-                Core.LightTimerObj.StartTimer()
+                Kernel.LightTimerObj.StartTimer()
             Else
-                Core.SetLight(ITibia.LightIntensity.Small, ITibia.LightColor.UtevoLux)
-                Core.LightTimerObj.StopTimer()
+                Kernel.SetLight(ITibia.LightIntensity.Small, ITibia.LightColor.UtevoLux)
+                Kernel.LightTimerObj.StopTimer()
             End If
             RefreshLightEffectsControls()
         Catch Ex As Exception
@@ -1570,22 +1570,22 @@ Public Class frmMain
     Private Sub AmmoRestackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmmunitionRestackerTrigger.CheckedChanged
         Try
             If AmmunitionRestackerTrigger.Checked Then
-                If Core.AmmoRestackerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 Dim ItemID As Integer
                 Dim ItemCount As Integer
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
-                If ItemID = 0 OrElse Not Core.Client.Dat.GetInfo(ItemID).IsStackable Then
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
+                If ItemID = 0 OrElse Not Kernel.Client.Dat.GetInfo(ItemID).IsStackable Then
                     MessageBox.Show("You must place some of your ammunition on the Belt/Arrow Slot first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
-                Core.AmmoRestackerItemID = ItemID
-                Core.AmmoRestackerOutOfAmmo = False
-                Core.AmmoRestackerMinimumItemCount = AmmunitionRestackerMinAmmo.Value
-                Core.AmmoRestackerTimerObj.StartTimer()
+                Kernel.AmmoRestackerItemID = ItemID
+                Kernel.AmmoRestackerOutOfAmmo = False
+                Kernel.AmmoRestackerMinimumItemCount = AmmunitionRestackerMinAmmo.Value
+                Kernel.AmmoRestackerTimerObj.StartTimer()
             Else
-                Core.AmmoRestackerItemID = 0
-                Core.AmmoRestackerTimerObj.StopTimer()
+                Kernel.AmmoRestackerItemID = 0
+                Kernel.AmmoRestackerTimerObj.StopTimer()
             End If
             RefreshAmmoRestackerControls()
         Catch Ex As Exception
@@ -1597,11 +1597,11 @@ Public Class frmMain
     Private Sub ComboBotTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBotTrigger.CheckedChanged
         Try
             If ComboBotTrigger.Checked Then
-                If Core.ComboBotEnabled = True Then Exit Sub
-                Core.ComboBotLeader = ComboLeader.Text
-                Core.ComboBotEnabled = True
+                If Kernel.ComboBotEnabled = True Then Exit Sub
+                Kernel.ComboBotLeader = ComboLeader.Text
+                Kernel.ComboBotEnabled = True
             Else
-                Core.ComboBotEnabled = False
+                Kernel.ComboBotEnabled = False
             End If
             RefreshComboBotControls()
         Catch Ex As Exception
@@ -1613,28 +1613,28 @@ Public Class frmMain
     Private Sub AutoFisherTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoFisherTrigger.CheckedChanged
         Try
             If AutoFisherTrigger.Checked Then
-                If Core.FisherTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.FisherTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 If AutoFisherMinimumCapacity.Value = vbNull Then
                     MessageBox.Show("Please give the minimium capacity for fisher.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     AutoFisherTrigger.Checked = False
                     Exit Sub
                 End If
                 If AutoFisherTurbo.Checked Then
-                    Core.FisherMinimumCapacity = AutoFisherMinimumCapacity.Value
-                    Core.FisherTurbo = True
-                    Core.FisherSpeed = 500
-                    Core.FisherTimerObj.StartTimer()
+                    Kernel.FisherMinimumCapacity = AutoFisherMinimumCapacity.Value
+                    Kernel.FisherTurbo = True
+                    Kernel.FisherSpeed = 500
+                    Kernel.FisherTimerObj.StartTimer()
                 Else
-                    Core.FisherMinimumCapacity = AutoFisherMinimumCapacity.Value
-                    Core.FisherSpeed = 0
-                    Core.FisherTurbo = False
-                    Core.FisherTimerObj.StartTimer()
+                    Kernel.FisherMinimumCapacity = AutoFisherMinimumCapacity.Value
+                    Kernel.FisherSpeed = 0
+                    Kernel.FisherTurbo = False
+                    Kernel.FisherTimerObj.StartTimer()
                 End If
             Else
-                Core.FisherMinimumCapacity = 0
-                Core.FisherSpeed = 0
-                Core.FisherTurbo = False
-                Core.FisherTimerObj.StopTimer()
+                Kernel.FisherMinimumCapacity = 0
+                Kernel.FisherSpeed = 0
+                Kernel.FisherTurbo = False
+                Kernel.FisherTimerObj.StopTimer()
             End If
             RefreshAutoFisherControls()
         Catch ex As Exception
@@ -1645,42 +1645,42 @@ Public Class frmMain
 
     Private Sub CavebotTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CavebotTrigger.CheckedChanged
         Try
-            Dim SP As New ServerPacketBuilder(Core.Proxy)
+            Dim SP As New ServerPacketBuilder(Kernel.Proxy)
             If CavebotTrigger.Checked Then
-                Core.WaypointIndex = SelectNearestWaypoint(Core.Walker_Waypoints)
-                If Core.WaypointIndex = -1 Then
+                Kernel.WaypointIndex = SelectNearestWaypoint(Kernel.Walker_Waypoints)
+                If Kernel.WaypointIndex = -1 Then
                     MessageBox.Show("No waypoints found or they are not in current floor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     CavebotTrigger.Checked = False
                     Exit Sub
                 End If
                 If Consts.LootWithCavebot Then
-                    Core.LooterMinimumCapacity = Consts.CavebotLootMinCap
-                    Core.LooterTimerObj.StartTimer()
+                    Kernel.LooterMinimumCapacity = Consts.CavebotLootMinCap
+                    Kernel.LooterTimerObj.StartTimer()
                 End If
-                Core.AutoAttackerTimerObj.StartTimer()
-                Core.CaveBotTimerObj.StartTimer()
-                Core.AutoEaterSmart = 0
-                Core.EaterTimerObj.Interval = 20000
-                Core.EaterTimerObj.StartTimer()
-                Core.IsOpeningReady = True
-                Core.CBCreatureDied = False
-                Core.WaypointIndex = 0
-                Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                Kernel.AutoAttackerTimerObj.StartTimer()
+                Kernel.CaveBotTimerObj.StartTimer()
+                Kernel.AutoEaterSmart = 0
+                Kernel.EaterTimerObj.Interval = 20000
+                Kernel.EaterTimerObj.StartTimer()
+                Kernel.IsOpeningReady = True
+                Kernel.CBCreatureDied = False
+                Kernel.WaypointIndex = 0
+                Kernel.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
 
                 SP.ChangeChasingMode(ITibia.ChasingMode.Chasing)
                 'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
-                Core.CBState = CavebotState.Walking
+                Kernel.CBState = CavebotState.Walking
             Else
-                Core.LooterTimerObj.StopTimer()
-                Core.AutoAttackerTimerObj.StopTimer()
-                Core.CaveBotTimerObj.StopTimer()
-                Core.EaterTimerObj.StopTimer()
-                Core.EaterTimerObj.Interval = 0
-                Core.WaypointIndex = 0
-                Core.IsOpeningReady = True
+                Kernel.LooterTimerObj.StopTimer()
+                Kernel.AutoAttackerTimerObj.StopTimer()
+                Kernel.CaveBotTimerObj.StopTimer()
+                Kernel.EaterTimerObj.StopTimer()
+                Kernel.EaterTimerObj.Interval = 0
+                Kernel.WaypointIndex = 0
+                Kernel.IsOpeningReady = True
                 SP.StopEverything()
                 'Core.Proxy.SendPacketToServer(PacketUtils.AttackEntity(0))
-                Core.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
+                Kernel.Client.WriteMemory(Consts.ptrAttackedEntityID, 0, 4)
             End If
             RefreshCavebotControls()
         Catch ex As Exception
@@ -1690,13 +1690,13 @@ Public Class frmMain
     End Sub
 
     Private Sub CavebotConfigure_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CavebotConfigure.Click
-        Core.CavebotForm.Show()
+        Kernel.CavebotForm.Show()
     End Sub
 
     Private Sub TradeChannelWatcherTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChannelWatcherTrigger.CheckedChanged
         Try
             If TradeChannelWatcherTrigger.Checked Then
-                If Core.TradeWatcherActive = True Then Exit Sub
+                If Kernel.TradeWatcherActive = True Then Exit Sub
                 If String.IsNullOrEmpty(TradeChannelWatcherExpression.Text) Then
                     MessageBox.Show("Please give Expression!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
@@ -1704,16 +1704,16 @@ Public Class frmMain
                 Dim RegExp As Regex
                 Try
                     RegExp = New Regex(TradeChannelWatcherExpression.Text)
-                    Core.TradeWatcherRegex = TradeChannelWatcherExpression.Text
-                    Core.TradeWatcherActive = True
-                    Core.ConsoleWrite("Make sure you have the Trade-Channel opened.")
+                    Kernel.TradeWatcherRegex = TradeChannelWatcherExpression.Text
+                    Kernel.TradeWatcherActive = True
+                    Kernel.ConsoleWrite("Make sure you have the Trade-Channel opened.")
                 Catch exep As Exception
                     MessageBox.Show("Sorry, but this is not a valid regular expression." & ControlChars.NewLine & _
                     "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
             Else
-                Core.TradeWatcherActive = False
-                Core.TradeWatcherRegex = ""
+                Kernel.TradeWatcherActive = False
+                Kernel.TradeWatcherRegex = ""
             End If
             RefreshTradeChannelWatcherControls()
         Catch ex As Exception
@@ -1725,21 +1725,21 @@ Public Class frmMain
     Private Sub StatsUploaderTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatsUploaderTrigger.CheckedChanged
         Try
             If StatsUploaderTrigger.Checked Then
-                If Core.StatsUploaderTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.StatsUploaderTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 If StatsUploaderSaveToDisk.Checked Then
                     If StatsUploaderPath.Text.Length = 0 OrElse StatsUploaderFilename.Text.Length = 0 Then
                         MessageBox.Show("Please don't leave empty values to text boxes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshStatsUploaderControls()
                         Exit Sub
                     End If
-                    Core.UploaderUrl = StatsUploaderUrl.Text
-                    Core.UploaderFilename = StatsUploaderFilename.Text
-                    Core.UploaderPath = StatsUploaderPath.Text
-                    Core.UploaderUserId = StatsUploaderUser.Text
-                    Core.UploaderPassword = StatsUploaderPassword.Text
-                    Core.UploaderSaveToDiskOnly = StatsUploaderSaveToDisk.Checked
-                    Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
-                    Core.StatsUploaderTimerObj.StartTimer()
+                    Kernel.UploaderUrl = StatsUploaderUrl.Text
+                    Kernel.UploaderFilename = StatsUploaderFilename.Text
+                    Kernel.UploaderPath = StatsUploaderPath.Text
+                    Kernel.UploaderUserId = StatsUploaderUser.Text
+                    Kernel.UploaderPassword = StatsUploaderPassword.Text
+                    Kernel.UploaderSaveToDiskOnly = StatsUploaderSaveToDisk.Checked
+                    Kernel.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
+                    Kernel.StatsUploaderTimerObj.StartTimer()
                 Else
                     If StatsUploaderUrl.Text.Length = 0 _
                      OrElse StatsUploaderUser.Text.Length = 0 _
@@ -1749,17 +1749,17 @@ Public Class frmMain
                         RefreshStatsUploaderControls()
                         Exit Sub
                     End If
-                    Core.UploaderUrl = StatsUploaderUrl.Text
-                    Core.UploaderFilename = StatsUploaderFilename.Text
-                    Core.UploaderPath = StatsUploaderPath.Text
-                    Core.UploaderUserId = StatsUploaderUser.Text
-                    Core.UploaderPassword = StatsUploaderPassword.Text
-                    Core.UploaderSaveToDiskOnly = StatsUploaderSaveToDisk.Checked
-                    Core.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
-                    Core.StatsUploaderTimerObj.StartTimer()
+                    Kernel.UploaderUrl = StatsUploaderUrl.Text
+                    Kernel.UploaderFilename = StatsUploaderFilename.Text
+                    Kernel.UploaderPath = StatsUploaderPath.Text
+                    Kernel.UploaderUserId = StatsUploaderUser.Text
+                    Kernel.UploaderPassword = StatsUploaderPassword.Text
+                    Kernel.UploaderSaveToDiskOnly = StatsUploaderSaveToDisk.Checked
+                    Kernel.StatsUploaderTimerObj.Interval = Consts.StatsUploaderFrequency
+                    Kernel.StatsUploaderTimerObj.StartTimer()
                 End If
             Else
-                Core.StatsUploaderTimerObj.StopTimer()
+                Kernel.StatsUploaderTimerObj.StopTimer()
             End If
             RefreshStatsUploaderControls()
         Catch ex As Exception
@@ -1769,15 +1769,15 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
-        If Not Core.IRCClient Is Nothing Then
-            If Core.IRCClient.IsConnected Then
-                Core.IRCClient.Quit()
+        If Not Kernel.IRCClient Is Nothing Then
+            If Kernel.IRCClient.IsConnected Then
+                Kernel.IRCClient.Quit()
             End If
-            If Not Core.IRCClient.DoMainLoopThread Is Nothing Then
-                Core.IRCClient.DoMainLoopThread.Abort()
+            If Not Kernel.IRCClient.DoMainLoopThread Is Nothing Then
+                Kernel.IRCClient.DoMainLoopThread.Abort()
             End If
-            If Not Core.Client Is Nothing Then
-                Core.Client.Close()
+            If Not Kernel.Client Is Nothing Then
+                Kernel.Client.Close()
             End If
         End If
         NotifyIcon.Visible = False
@@ -1786,15 +1786,15 @@ Public Class frmMain
     Private Sub FpsChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FpsChangerTrigger.CheckedChanged
         Try
             If FpsChangerTrigger.Checked Then
-                If Core.FPSChangerTimerObj.State = ThreadTimerState.Running Then Exit Sub
-                Core.FrameRateActive = FpsActive.Value
-                Core.FrameRateInactive = FpsInactive.Value
-                Core.FrameRateMinimized = FpsMinimized.Value
-                Core.FrameRateHidden = FPSHidden.Value
-                Core.FPSChangerTimerObj.StartTimer()
+                If Kernel.FPSChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
+                Kernel.FrameRateActive = FpsActive.Value
+                Kernel.FrameRateInactive = FpsInactive.Value
+                Kernel.FrameRateMinimized = FpsMinimized.Value
+                Kernel.FrameRateHidden = FPSHidden.Value
+                Kernel.FPSChangerTimerObj.StartTimer()
             Else
-                Core.FPSChangerTimerObj.StopTimer()
-                Core.Client.SetFramesPerSecond(Core.FrameRateActive)
+                Kernel.FPSChangerTimerObj.StopTimer()
+                Kernel.Client.SetFramesPerSecond(Kernel.FrameRateActive)
             End If
             RefreshFpsChangerControls()
         Catch ex As Exception
@@ -1806,14 +1806,14 @@ Public Class frmMain
     Private Sub TradeChannelAdvertiserTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChannelAdvertiserTrigger.CheckedChanged
         Try
             If TradeChannelAdvertiserTrigger.Checked Then
-                If Core.AdvertiseTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.AdvertiseTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 If String.IsNullOrEmpty(TradeChannelAdvertiserAdvertisement.Text) Then Exit Sub
                 'OpenChannel("Trade", ChannelType.Trade)
-                Core.AdvertiseMsg = TradeChannelAdvertiserAdvertisement.Text
-                Core.AdvertiseTimerObj.StartTimer(1000)
+                Kernel.AdvertiseMsg = TradeChannelAdvertiserAdvertisement.Text
+                Kernel.AdvertiseTimerObj.StartTimer(1000)
             Else
-                Core.AdvertiseMsg = ""
-                Core.AdvertiseTimerObj.StopTimer()
+                Kernel.AdvertiseMsg = ""
+                Kernel.AdvertiseTimerObj.StopTimer()
             End If
             RefreshAdvertiserControls()
         Catch Ex As Exception
@@ -1835,7 +1835,7 @@ Public Class frmMain
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-        If Core.Client.IsConnected Then
+        If Kernel.Client.IsConnected Then
             RefreshControls()
             MainTabControl.Enabled = True
         Else
@@ -1862,7 +1862,7 @@ Public Class frmMain
 
     Private Sub MiscReloadSpellsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadSpellsButton.Click
         Try
-            CoreModule.Spells.LoadSpells()
+            KernelModule.Spells.LoadSpells()
             MessageBox.Show("Done loading the Spells configuration file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1871,7 +1871,7 @@ Public Class frmMain
 
     Private Sub MiscReloadItemsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadItemsButton.Click
         Try
-            Core.Client.Items.Refresh()
+            Kernel.Client.Items.Refresh()
             MessageBox.Show("Done loading the Items configuration file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1881,7 +1881,7 @@ Public Class frmMain
     Private Sub MiscReloadOutfitsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadOutfitsButton.Click
         Try
 
-            CoreModule.Outfits.LoadOutfits()
+            KernelModule.Outfits.LoadOutfits()
             MessageBox.Show("Done loading the Outfits configuration file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1899,7 +1899,7 @@ Public Class frmMain
 
     Private Sub MiscReloadTibiaDatButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadTibiaDatButton.Click
         Try
-            Core.Client.Dat.Refresh()
+            Kernel.Client.Dat.Refresh()
             MessageBox.Show("Done loading the Tibia.dat file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1918,15 +1918,15 @@ Public Class frmMain
                     FakeTitleTrigger.Checked = False
                     Exit Sub
                 End If
-                Core.LastExperience = 0
-                If Core.ExpCheckerActivated Then
-                    Core.ExpCheckerActivated = False
+                Kernel.LastExperience = 0
+                If Kernel.ExpCheckerActivated Then
+                    Kernel.ExpCheckerActivated = False
                 End If
-                Core.FakingTitle = True
-                Core.Client.Title = FakeTitle.Text
+                Kernel.FakingTitle = True
+                Kernel.Client.Title = FakeTitle.Text
             Else
-                Core.FakingTitle = False
-                Core.Client.Title = BotName & " - " & Core.Client.CharacterName
+                Kernel.FakingTitle = False
+                Kernel.Client.Title = BotName & " - " & Kernel.Client.CharacterName
             End If
 
         Catch Ex As Exception
@@ -1948,7 +1948,7 @@ Public Class frmMain
             Loop While BL.NextEntity()
             If Found Then
                 Dim OD As New OutfitDefinition
-                Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
+                Dim ODFound As Boolean = KernelModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
                 If ODFound Then
                     ChameleonOutfit.SelectedIndex = ChameleonOutfit.Items.IndexOf(OD.Name)
                     Select Case BL.OutfitAddons
@@ -1982,7 +1982,7 @@ Public Class frmMain
         End If
         Try
             Dim OD As New OutfitDefinition
-            Dim ODFound As Boolean = CoreModule.Outfits.GetOutfitByName(ChameleonOutfit.Text, OD)
+            Dim ODFound As Boolean = KernelModule.Outfits.GetOutfitByName(ChameleonOutfit.Text, OD)
             If ODFound Then
                 Dim BL As New BattleList
                 BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -1996,7 +1996,7 @@ Public Class frmMain
     End Sub
 
     Private Sub ChameleonNone_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChameleonNone.CheckedChanged, ChameleonSecond.CheckedChanged, ChameleonFirst.CheckedChanged, ChameleonBoth.CheckedChanged
-        If Core.Client Is Nothing OrElse Not Core.Client.IsConnected Then Exit Sub
+        If Kernel.Client Is Nothing OrElse Not Kernel.Client.IsConnected Then Exit Sub
         Dim BL As New BattleList
         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
         If ChameleonFirst.Checked Then
@@ -2018,21 +2018,21 @@ Public Class frmMain
         Try
             If ExpCheckerTrigger.Checked Then
                 If ExpShowNext.Checked Then
-                    If Core.FakingTitle Then
-                        Core.FakingTitle = False
+                    If Kernel.FakingTitle Then
+                        Kernel.FakingTitle = False
                         MessageBox.Show("Fake Title is now Disabled.")
                     End If
-                    Core.LastExperience = 0
-                    Core.ExpCheckerActivated = True
+                    Kernel.LastExperience = 0
+                    Kernel.ExpCheckerActivated = True
                 End If
                 If ExpShowCreatures.Checked Then
-                    Core.ShowCreaturesUntilNextLevel = True
+                    Kernel.ShowCreaturesUntilNextLevel = True
                 End If
             Else
-                Core.ShowCreaturesUntilNextLevel = False
-                Core.ExpCheckerActivated = False
-                Core.LastExperience = 0
-                Core.Client.Title = BotName & " - " & Core.Client.CharacterName
+                Kernel.ShowCreaturesUntilNextLevel = False
+                Kernel.ExpCheckerActivated = False
+                Kernel.LastExperience = 0
+                Kernel.Client.Title = BotName & " - " & Kernel.Client.CharacterName
             End If
             RefreshExpCheckerControls()
         Catch ex As Exception
@@ -2062,7 +2062,7 @@ Public Class frmMain
             End Select
             BL.Reset(True)
             Do
-                If BL.IsMyself OrElse BL.GetFloor <> Core.CharacterLoc.Z + Floor Then Continue Do
+                If BL.IsMyself OrElse BL.GetFloor <> Kernel.CharacterLoc.Z + Floor Then Continue Do
                 EntityName = BL.GetName
                 EntityListIndex = EntityList.IndexOf(EntityName)
                 If EntityListIndex > -1 Then
@@ -2106,13 +2106,13 @@ Public Class frmMain
     Private Sub NameSpyTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NameSpyTrigger.CheckedChanged
         Try
             If NameSpyTrigger.Checked Then
-                Core.Client.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
-                Core.Client.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
-                Core.NameSpyActivated = True
+                Kernel.Client.WriteMemory(Consts.ptrNameSpy, &H9090, 2)
+                Kernel.Client.WriteMemory(Consts.ptrNameSpy2, &H9090, 2)
+                Kernel.NameSpyActivated = True
             Else
-                Core.Client.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
-                Core.Client.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
-                Core.NameSpyActivated = False
+                Kernel.Client.WriteMemory(Consts.ptrNameSpy, Consts.NameSpyDefault, 2)
+                Kernel.Client.WriteMemory(Consts.ptrNameSpy2, Consts.NameSpy2Default, 2)
+                Kernel.NameSpyActivated = False
             End If
             RefreshNameSpyControls()
         Catch ex As Exception
@@ -2159,10 +2159,10 @@ Public Class frmMain
                     End If
                     Prepend = "http://www.google.com/search?q="
                 Case Else
-                    Core.OpenCommand = WebsiteName.Text
+                    Kernel.OpenCommand = WebsiteName.Text
                     If Not String.IsNullOrEmpty(SearchFor.Text) Then MessageBox.Show("Note: Search criteria works only with pre-defined urls.")
-                    If Not Core.BGWOpenCommand.IsBusy Then
-                        Core.BGWOpenCommand.RunWorkerAsync()
+                    If Not Kernel.BGWOpenCommand.IsBusy Then
+                        Kernel.BGWOpenCommand.RunWorkerAsync()
                         Exit Sub
                     Else
                         MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2170,12 +2170,12 @@ Public Class frmMain
                     End If
             End Select
             If WebsiteName.Text.ToLower = "tibia wiki" Then
-                Core.OpenCommand = Prepend & SearchFor.Text.Replace(" ", "_")
+                Kernel.OpenCommand = Prepend & SearchFor.Text.Replace(" ", "_")
             Else
-                Core.OpenCommand = Prepend & SearchFor.Text
+                Kernel.OpenCommand = Prepend & SearchFor.Text
             End If
-            If Not Core.BGWOpenCommand.IsBusy Then
-                Core.BGWOpenCommand.RunWorkerAsync()
+            If Not Kernel.BGWOpenCommand.IsBusy Then
+                Kernel.BGWOpenCommand.RunWorkerAsync()
             Else
                 MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -2190,9 +2190,9 @@ Public Class frmMain
                 MessageBox.Show("Please enter the name of the player.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
-            If Not Core.BGWSendLocation.IsBusy Then
-                Core.SendLocationDestinatary = SendLocationTo.Text
-                Core.BGWSendLocation.RunWorkerAsync()
+            If Not Kernel.BGWSendLocation.IsBusy Then
+                Kernel.SendLocationDestinatary = SendLocationTo.Text
+                Kernel.BGWSendLocation.RunWorkerAsync()
             Else
                 MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -2210,10 +2210,10 @@ Public Class frmMain
                     Exit Sub
                 End If
             End If
-            If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
+            If Kernel.AutoTrainerEntities.Contains(BL.GetEntityID) Then
                 MessageBox.Show("This entity is already in your list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
-                Core.AutoTrainerEntities.Add(BL.GetEntityID)
+                Kernel.AutoTrainerEntities.Add(BL.GetEntityID)
                 MessageBox.Show("This entity has been added to your list.")
             End If
         Catch ex As Exception
@@ -2230,8 +2230,8 @@ Public Class frmMain
                     Exit Sub
                 End If
             End If
-            If Core.AutoTrainerEntities.Contains(BL.GetEntityID) Then
-                Core.AutoTrainerEntities.Remove(BL.GetEntityID)
+            If Kernel.AutoTrainerEntities.Contains(BL.GetEntityID) Then
+                Kernel.AutoTrainerEntities.Remove(BL.GetEntityID)
                 MessageBox.Show("This entity has been removed from your list.")
             Else
                 MessageBox.Show("This entity is not on your list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2243,7 +2243,7 @@ Public Class frmMain
 
     Private Sub TrainerClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerClear.Click
         Try
-            Core.AutoTrainerEntities.Clear()
+            Kernel.AutoTrainerEntities.Clear()
             MessageBox.Show("Auto Trainer entities list cleared.")
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2257,17 +2257,17 @@ Public Class frmMain
                     MessageBox.Show("Maximum Health Percent has to be higher than Minimum Health Percent.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
-                If Core.AutoTrainerEntities.Count = 0 Then
+                If Kernel.AutoTrainerEntities.Count = 0 Then
                     MessageBox.Show("You have to add entities to the training list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
-                Core.AutoTrainerMinHPPercent = MinPercentageHP.Value
-                Core.AutoTrainerMaxHPPercent = MaxPercentageHP.Value
-                Core.AutoTrainerTimerObj.StartTimer()
+                Kernel.AutoTrainerMinHPPercent = MinPercentageHP.Value
+                Kernel.AutoTrainerMaxHPPercent = MaxPercentageHP.Value
+                Kernel.AutoTrainerTimerObj.StartTimer()
             Else
-                Core.AutoTrainerMinHPPercent = 0
-                Core.AutoTrainerMaxHPPercent = 0
-                Core.AutoTrainerTimerObj.StopTimer()
+                Kernel.AutoTrainerMinHPPercent = 0
+                Kernel.AutoTrainerMaxHPPercent = 0
+                Kernel.AutoTrainerTimerObj.StopTimer()
             End If
             RefreshTrainerControls()
         Catch ex As Exception
@@ -2277,40 +2277,40 @@ Public Class frmMain
 
     Private Sub AutoAttackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoAttackerTrigger.CheckedChanged
         Try
-            Dim SP As New ServerPacketBuilder(Core.Proxy)
+            Dim SP As New ServerPacketBuilder(Kernel.Proxy)
             If AutoAttackerTrigger.Checked Then
 
                 Select Case AttackerFightingMode.Text.ToLower
                     Case "offensive"
-                        Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Offensive, 1)
+                        Kernel.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Offensive, 1)
                         SP.ChangeFightingMode(ITibia.FightingMode.Offensive)
                     Case "balanced"
-                        Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Balanced, 1)
+                        Kernel.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Balanced, 1)
                         SP.ChangeFightingMode(ITibia.FightingMode.Balanced)
                         'Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Balanced))
                     Case "defensive"
-                        Core.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Defensive, 1)
+                        Kernel.Client.WriteMemory(Consts.ptrFightingMode, ITibia.FightingMode.Defensive, 1)
                         SP.ChangeFightingMode(ITibia.FightingMode.Defensive)
                         'Core.Proxy.SendPacketToServer(ChangeFightingMode(FightingMode.Defensive))
                 End Select
                 Select Case AttackChasingMode.Text.ToLower
                     Case "chase"
-                        Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                        Kernel.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
                         SP.ChangeChasingMode(ITibia.ChasingMode.Chasing)
                         'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                     Case "stand"
-                        Core.Client.WriteMemory(Consts.ptrChasingMode, 0, 1)
+                        Kernel.Client.WriteMemory(Consts.ptrChasingMode, 0, 1)
                         SP.ChangeChasingMode(ITibia.ChasingMode.Standing)
                         'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Standing))
                 End Select
                 If AttackAutomatically.Checked Then
-                    Core.AutoAttackerTimerObj.StartTimer()
+                    Kernel.AutoAttackerTimerObj.StartTimer()
                 End If
-                Core.AutoAttackerActivated = True
+                Kernel.AutoAttackerActivated = True
             Else
-                Core.AutoAttackerActivated = False
-                Core.AutoAttackerIgnoredID = 0
-                Core.AutoAttackerTimerObj.StopTimer()
+                Kernel.AutoAttackerActivated = False
+                Kernel.AutoAttackerIgnoredID = 0
+                Kernel.AutoAttackerTimerObj.StopTimer()
             End If
             RefreshAutoAttackerControls()
         Catch ex As Exception
@@ -2322,18 +2322,18 @@ Public Class frmMain
         Try
             If PickuperTrigger.Checked Then
                 Dim RightHandItemID As Integer
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                If RightHandItemID = 0 OrElse Not Core.Client.Items.IsThrowable(RightHandItemID) Then
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                If RightHandItemID = 0 OrElse Not Kernel.Client.Items.IsThrowable(RightHandItemID) Then
                     MessageBox.Show("You must have a throwable item in your right hand, like a spear, throwing knife, etc.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
-                With Core
+                With Kernel
                     .PickUpItemID = CUShort(RightHandItemID)
                     .PickUpTimerObj.Interval = Consts.AutoPickUpDelay
                     .PickUpTimerObj.StartTimer()
                 End With
             Else
-                With Core
+                With Kernel
                     .PickUpItemID = 0
                     .PickUpTimerObj.StopTimer()
                 End With
@@ -2352,12 +2352,12 @@ Public Class frmMain
     Private Sub AntiIdlerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AntiIdlerTrigger.CheckedChanged
         Try
             If AntiIdlerTrigger.Checked Then
-                If Core.AntiLogoutObj.State = ThreadTimerState.Running Then Exit Sub
-                Core.LastActivity = Date.Now
-                Core.AntiLogoutObj.Interval = Consts.AntiLogoutInterval
-                Core.AntiLogoutObj.StartTimer()
+                If Kernel.AntiLogoutObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
+                Kernel.LastActivity = Date.Now
+                Kernel.AntiLogoutObj.Interval = Consts.AntiLogoutInterval
+                Kernel.AntiLogoutObj.StartTimer()
             Else
-                Core.AntiLogoutObj.StopTimer()
+                Kernel.AntiLogoutObj.StopTimer()
             End If
             RefreshAntiIdlerControls()
         Catch ex As Exception
@@ -2368,16 +2368,16 @@ Public Class frmMain
     Private Sub RingChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RingChangerTrigger.CheckedChanged
         Try
             If RingChangerTrigger.Checked Then
-                Core.RingID = Core.Client.Items.GetItemID(ChangerRingType.Text)
-                If Core.RingID = 0 Then 'AndAlso Core.Client.Items.IsRing(Core.RingID) Then <-- WTF O.o
+                Kernel.RingID = Kernel.Client.Items.GetItemID(ChangerRingType.Text)
+                If Kernel.RingID = 0 Then 'AndAlso Core.Client.Items.IsRing(Core.RingID) Then <-- WTF O.o
                     MessageBox.Show("Invalid Ring Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshChangerControls()
                     Exit Sub
                 End If
-                Core.RingChangerTimerObj.StartTimer()
+                Kernel.RingChangerTimerObj.StartTimer()
             Else
-                Core.RingChangerTimerObj.StopTimer()
-                Core.RingID = 0
+                Kernel.RingChangerTimerObj.StopTimer()
+                Kernel.RingID = 0
             End If
             RefreshChangerControls()
         Catch ex As Exception
@@ -2388,16 +2388,16 @@ Public Class frmMain
     Private Sub AmuletChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmuletChangerTrigger.CheckedChanged
         Try
             If AmuletChangerTrigger.Checked Then
-                Core.AmuletID = Core.Client.Items.GetItemID(ChangerAmuletType.Text)
-                If Core.AmuletID = 0 Then ' AndAlso Core.Client.Items.IsNeck(Core.AmuletID) Then <-- WTF O.o
+                Kernel.AmuletID = Kernel.Client.Items.GetItemID(ChangerAmuletType.Text)
+                If Kernel.AmuletID = 0 Then ' AndAlso Core.Client.Items.IsNeck(Core.AmuletID) Then <-- WTF O.o
                     MessageBox.Show("Invalid Amulet/Necklace Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshChangerControls()
                     Exit Sub
                 End If
-                Core.AmuletChangerTimerObj.StartTimer()
+                Kernel.AmuletChangerTimerObj.StartTimer()
             Else
-                Core.AmuletChangerTimerObj.StopTimer()
-                Core.AmuletID = 0
+                Kernel.AmuletChangerTimerObj.StopTimer()
+                Kernel.AmuletID = 0
             End If
             RefreshChangerControls()
         Catch ex As Exception
@@ -2419,40 +2419,40 @@ Public Class frmMain
     Private Sub HealWithPotion_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithPotion.CheckedChanged
         Try
             If HealWithPotion.Checked Then
-                If Core.PotionTimerObj.State = ThreadTimerState.Running Then
+                If Kernel.PotionTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                     RefreshHealerControls()
                     Exit Sub
                 End If
                 Dim MaxHitPoints As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Kernel.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
                 If HealPotionUseHp.Checked Then
-                    Core.PotionHPRequired = HealPotionHp.Value
+                    Kernel.PotionHPRequired = HealPotionHp.Value
                 Else
-                    Core.PotionHPRequired = MaxHitPoints * (HealRunePercent.Value / 100)
+                    Kernel.PotionHPRequired = MaxHitPoints * (HealRunePercent.Value / 100)
                 End If
                 Select Case HealPotionName.Text
                     Case "Health Potion"
-                        Core.PotionID = Core.Client.Items.GetItemID("Health Potion")
+                        Kernel.PotionID = Kernel.Client.Items.GetItemID("Health Potion")
                     Case "Strong Health Potion"
-                        Core.PotionID = Core.Client.Items.GetItemID("Strong Health Potion")
+                        Kernel.PotionID = Kernel.Client.Items.GetItemID("Strong Health Potion")
                     Case "Great Health Potion"
-                        Core.PotionID = Core.Client.Items.GetItemID("Great Health Potion")
+                        Kernel.PotionID = Kernel.Client.Items.GetItemID("Great Health Potion")
                     Case Else
                         MessageBox.Show("You must select the Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
                         Exit Sub
                 End Select
-                If Core.PotionID = 0 Then
+                If Kernel.PotionID = 0 Then
                     MessageBox.Show("Unknown error occured selecting Potion Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshHealerControls()
                     Exit Sub
                 Else
-                    Core.PotionTimerObj.StartTimer()
+                    Kernel.PotionTimerObj.StartTimer()
                 End If
             Else
-                Core.PotionTimerObj.StopTimer()
-                Core.PotionHPRequired = 0
-                Core.PotionID = 0
+                Kernel.PotionTimerObj.StopTimer()
+                Kernel.PotionHPRequired = 0
+                Kernel.PotionID = 0
             End If
             RefreshHealerControls()
         Catch ex As Exception
@@ -2463,38 +2463,38 @@ Public Class frmMain
     Private Sub HealWithRune_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithRune.CheckedChanged
         Try
             If HealWithRune.Checked Then
-                If Core.UHTimerObj.State = ThreadTimerState.Running Then
+                If Kernel.UHTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                     RefreshHealerControls()
                     Exit Sub
                 End If
                 Dim MaxHitPoints As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Kernel.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
                 If HealRuneUseHp.Checked Then
-                    Core.UHHPRequired = HealRuneHP.Value
+                    Kernel.UHHPRequired = HealRuneHP.Value
                 Else
-                    Core.UHHPRequired = MaxHitPoints * (HealRunePercent.Value / 100)
+                    Kernel.UHHPRequired = MaxHitPoints * (HealRunePercent.Value / 100)
                 End If
                 Select Case HealRuneType.Text
                     Case "UH Rune"
-                        Core.UHId = Core.Client.Items.GetItemID("Ultimate Healing")
+                        Kernel.UHId = Kernel.Client.Items.GetItemID("Ultimate Healing")
                     Case "IH Rune"
-                        Core.UHId = Core.Client.Items.GetItemID("Intense Healing")
+                        Kernel.UHId = Kernel.Client.Items.GetItemID("Intense Healing")
                     Case Else
                         MessageBox.Show("You must select the Rune.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
                         Exit Sub
                 End Select
-                If Core.UHId = 0 Then
+                If Kernel.UHId = 0 Then
                     MessageBox.Show("Unknown error occured selecting Rune Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshHealerControls()
                     Exit Sub
                 Else
-                    Core.UHTimerObj.StartTimer()
+                    Kernel.UHTimerObj.StartTimer()
                 End If
             Else
-                Core.UHTimerObj.StopTimer()
-                Core.UHHPRequired = 0
-                Core.UHId = 0
+                Kernel.UHTimerObj.StopTimer()
+                Kernel.UHHPRequired = 0
+                Kernel.UHId = 0
             End If
             RefreshHealerControls()
         Catch ex As Exception
@@ -2505,22 +2505,22 @@ Public Class frmMain
     Private Sub HealWithSpell_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealWithSpell.CheckedChanged
         Try
             If HealWithSpell.Checked Then
-                If Core.HealTimerObj.State = ThreadTimerState.Running Then
+                If Kernel.HealTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                     RefreshHealerControls()
                     Exit Sub
                 End If
                 Dim MaxHitPoints As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Kernel.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
                 If HealSpellUseHP.Checked Then
-                    Core.HealMinimumHP = HealSpellHp.Value
+                    Kernel.HealMinimumHP = HealSpellHp.Value
                 Else
-                    Core.HealMinimumHP = MaxHitPoints * (HealSpellPercent.Value / 100)
+                    Kernel.HealMinimumHP = MaxHitPoints * (HealSpellPercent.Value / 100)
                 End If
-                For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                     If Spell.Name.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) Then
                         Select Case Spell.Name.ToLower
                             Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing", "divine healing", "wound cleansing"
-                                Core.HealSpell = Spell
+                                Kernel.HealSpell = Spell
                                 Exit For
                             Case Else
                                 MessageBox.Show("Please select a healing spell.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2529,11 +2529,11 @@ Public Class frmMain
                         End Select
                     End If
                 Next
-                Core.HealComment = ""
-                Core.HealTimerObj.StartTimer()
+                Kernel.HealComment = ""
+                Kernel.HealTimerObj.StartTimer()
             Else
-                Core.HealTimerObj.StopTimer()
-                Core.HealMinimumHP = 0
+                Kernel.HealTimerObj.StopTimer()
+                Kernel.HealMinimumHP = 0
             End If
             RefreshHealerControls()
         Catch ex As Exception
@@ -2547,40 +2547,40 @@ Public Class frmMain
     Private Sub RestoreManaWith_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RestoreManaWith.CheckedChanged
         Try
             If RestoreManaWith.Checked Then
-                If Core.ManaPotionTimerObj.State = ThreadTimerState.Running Then
+                If Kernel.ManaPotionTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                     RefreshHealerControls()
                     Exit Sub
                 End If
                 Dim MaxHitPoints As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
+                Kernel.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 2)
                 If RestoreManaWith.Checked Then
-                    Core.DrinkerManaRequired = DrinkerManaPoints.Value
+                    Kernel.DrinkerManaRequired = DrinkerManaPoints.Value
                 Else
-                    Core.DrinkerManaRequired = MaxHitPoints * (HealRunePercent.Value / 100)
+                    Kernel.DrinkerManaRequired = MaxHitPoints * (HealRunePercent.Value / 100)
                 End If
                 Select Case ManaPotionName.Text
                     Case "Mana Potion"
-                        Core.ManaPotionID = Core.Client.Items.GetItemID("Mana Potion")
+                        Kernel.ManaPotionID = Kernel.Client.Items.GetItemID("Mana Potion")
                     Case "Strong Mana Potion"
-                        Core.ManaPotionID = Core.Client.Items.GetItemID("Strong Mana Potion")
+                        Kernel.ManaPotionID = Kernel.Client.Items.GetItemID("Strong Mana Potion")
                     Case "Great Mana Potion"
-                        Core.ManaPotionID = Core.Client.Items.GetItemID("Great Mana Potion")
+                        Kernel.ManaPotionID = Kernel.Client.Items.GetItemID("Great Mana Potion")
                     Case Else
                         MessageBox.Show("You must select the Mana Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
                         Exit Sub
                 End Select
-                If Core.ManaPotionID = 0 Then
+                If Kernel.ManaPotionID = 0 Then
                     MessageBox.Show("Unknown error occured selecting Potion Type. Please notify the Development Team", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshHealerControls()
                     Exit Sub
                 Else
-                    Core.ManaPotionTimerObj.StartTimer()
+                    Kernel.ManaPotionTimerObj.StartTimer()
                 End If
             Else
-                Core.ManaPotionTimerObj.StopTimer()
-                Core.DrinkerManaRequired = 0
-                Core.ManaPotionID = 0
+                Kernel.ManaPotionTimerObj.StopTimer()
+                Kernel.DrinkerManaRequired = 0
+                Kernel.ManaPotionID = 0
             End If
             RefreshHealerControls()
         Catch ex As Exception
@@ -2604,18 +2604,18 @@ Public Class frmMain
     Private Sub DancerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DancerTrigger.CheckedChanged
         Try
             If DancerTrigger.Checked Then
-                If Core.DancerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.DancerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 Select Case DancerSpeed.Text
                     Case "Slow"
-                        Core.DancerTimerObj.Interval = 500
+                        Kernel.DancerTimerObj.Interval = 500
                     Case "Fast"
-                        Core.DancerTimerObj.Interval = 100
+                        Kernel.DancerTimerObj.Interval = 100
                     Case "Turbo"
-                        Core.DancerTimerObj.Interval = 10
+                        Kernel.DancerTimerObj.Interval = 10
                 End Select
-                Core.DancerTimerObj.StartTimer()
+                Kernel.DancerTimerObj.StartTimer()
             Else
-                Core.DancerTimerObj.StopTimer()
+                Kernel.DancerTimerObj.StopTimer()
             End If
             RefreshDancerControls()
         Catch ex As Exception
@@ -2626,11 +2626,11 @@ Public Class frmMain
     Private Sub AmmoMakerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmmoMakerTrigger.CheckedChanged
         Try
             If AmmoMakerTrigger.Checked Then
-                If Core.AmmoMakerTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.AmmoMakerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
 
                 Dim Found As Boolean = False
                 Dim S As New SpellDefinition
-                For Each Spell As SpellDefinition In CoreModule.Spells.SpellsList
+                For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
                     If (Spell.Name.Equals(AmmoMakerSpell.Text, StringComparison.CurrentCultureIgnoreCase) _
                     OrElse Spell.Words.Equals(AmmoMakerSpell.Text.ToString, StringComparison.CurrentCultureIgnoreCase)) _
                     AndAlso (Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation) Then
@@ -2640,18 +2640,18 @@ Public Class frmMain
                     End If
                 Next
                 If Found Then
-                    Core.AmmoMakerSpell = S
-                    Core.AmmoMakerMinMana = AmmoMakerMinMana.Value
-                    Core.AmmoMakerMinCap = AmmoMakerMinCap.Value
-                    Core.AmmoMakerTimerObj.StartTimer()
+                    Kernel.AmmoMakerSpell = S
+                    Kernel.AmmoMakerMinMana = AmmoMakerMinMana.Value
+                    Kernel.AmmoMakerMinCap = AmmoMakerMinCap.Value
+                    Kernel.AmmoMakerTimerObj.StartTimer()
                 Else
                     MessageBox.Show("You cant make ammunitions with the selected spell. Please choose another spell.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
             Else
-                Core.AmmoMakerMinMana = 0
-                Core.AmmoMakerMinCap = 0
-                Core.AmmoMakerTimerObj.StopTimer()
+                Kernel.AmmoMakerMinMana = 0
+                Kernel.AmmoMakerMinCap = 0
+                Kernel.AmmoMakerTimerObj.StopTimer()
             End If
             RefreshAmmoMakerControls()
         Catch ex As Exception
@@ -2662,30 +2662,30 @@ Public Class frmMain
     Private Sub HealFriendTrigger_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealFriendTrigger.CheckedChanged
         Try
             If HealFriendTrigger.Checked Then
-                If Core.HealFriendTimerObj.State = ThreadTimerState.Running Then Exit Sub
+                If Kernel.HealFriendTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
                 If String.IsNullOrEmpty(HealFName.Text) Then
                     MessageBox.Show("You must enter the friend's name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshHealFriendControls()
                     Exit Sub
                 End If
-                Core.HealFriendHealthPercentage = HealFHp.Value
+                Kernel.HealFriendHealthPercentage = HealFHp.Value
                 Select Case HealFType.Text
                     Case "Ultimate Healing Rune"
-                        Core.HealFriendHealType = HealTypes.UltimateHealingRune
+                        Kernel.HealFriendHealType = HealTypes.UltimateHealingRune
                     Case "Exura Sio - Spell"
-                        Core.HealFriendHealType = HealTypes.ExuraSio
+                        Kernel.HealFriendHealType = HealTypes.ExuraSio
                     Case "Both"
-                        Core.HealFriendHealType = HealTypes.Both
+                        Kernel.HealFriendHealType = HealTypes.Both
                     Case Else
                         MessageBox.Show("You must select the type for healer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Exit Sub
                 End Select
-                Core.HealFriendCharacterName = HealFName.Text
-                Core.HealFriendTimerObj.StartTimer()
+                Kernel.HealFriendCharacterName = HealFName.Text
+                Kernel.HealFriendTimerObj.StartTimer()
             Else
-                Core.HealFriendCharacterName = ""
-                Core.HealFriendHealthPercentage = 0
-                Core.HealFriendTimerObj.StopTimer()
+                Kernel.HealFriendCharacterName = ""
+                Kernel.HealFriendHealthPercentage = 0
+                Kernel.HealFriendTimerObj.StopTimer()
             End If
             RefreshHealFriendControls()
         Catch Ex As Exception
@@ -2697,23 +2697,23 @@ Public Class frmMain
     Private Sub HealPartyTrigger_CheckedChanged_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HealPartyTrigger.CheckedChanged
         Try
             If HealPartyTrigger.Checked Then
-                If Core.HealPartyTimerObj.State = ThreadTimerState.Running Then Exit Sub
-                Core.HealPartyMinimumHPPercentage = HealPHp.Value
+                If Kernel.HealPartyTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
+                Kernel.HealPartyMinimumHPPercentage = HealPHp.Value
                 Select Case HealPType.Text
                     Case "Ultimate Healing Rune"
-                        Core.HealPartyHealType = HealTypes.UltimateHealingRune
+                        Kernel.HealPartyHealType = HealTypes.UltimateHealingRune
                     Case "Exura Sio - Spell"
-                        Core.HealPartyHealType = HealTypes.ExuraSio
+                        Kernel.HealPartyHealType = HealTypes.ExuraSio
                     Case "Both"
-                        Core.HealPartyHealType = HealTypes.Both
+                        Kernel.HealPartyHealType = HealTypes.Both
                     Case Else
                         MessageBox.Show("You must select the type for healer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         Exit Sub
                 End Select
-                Core.HealPartyTimerObj.StartTimer()
+                Kernel.HealPartyTimerObj.StartTimer()
             Else
-                Core.HealPartyMinimumHPPercentage = 0
-                Core.HealPartyTimerObj.StopTimer()
+                Kernel.HealPartyMinimumHPPercentage = 0
+                Kernel.HealPartyTimerObj.StopTimer()
             End If
             RefreshHealPartyControls()
         Catch Ex As Exception
@@ -2723,4 +2723,7 @@ Public Class frmMain
     End Sub
 #End Region
 
+    Private Sub ScriptsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ScriptsToolStripMenuItem.Click
+        Kernel.ScriptsForm.Show()
+    End Sub
 End Class

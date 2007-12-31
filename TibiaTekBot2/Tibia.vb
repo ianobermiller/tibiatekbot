@@ -494,7 +494,7 @@ Public NotInheritable Class Tibia
 
     Public Sub ConsoleError(ByVal Message As String) Implements Scripting.ITibia.ConsoleError
         Try
-            Core.ConsoleError(Message)
+            Kernel.ConsoleError(Message)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -502,7 +502,7 @@ Public NotInheritable Class Tibia
 
     Public Sub ConsoleRead(ByVal Message As String) Implements Scripting.ITibia.ConsoleRead
         Try
-            Core.ConsoleRead(Message)
+            Kernel.ConsoleRead(Message)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -510,7 +510,7 @@ Public NotInheritable Class Tibia
 
     Public Sub ConsoleWrite(ByVal Message As String) Implements Scripting.ITibia.ConsoleWrite
         Try
-            Core.ConsoleWrite(Message)
+            Kernel.ConsoleWrite(Message)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try

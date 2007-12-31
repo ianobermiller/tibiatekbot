@@ -20,7 +20,7 @@
 Imports System.Windows.Forms
 
 Public Interface IContainer
-
+#Region " Structures "
     Structure ContainerItemDefinition
         Dim ID As Integer
         Dim Count As Integer
@@ -87,5 +87,26 @@ Public Interface IContainer
             End Set
         End Property
     End Structure
+#End Region
 
+#Region " Properties "
+    ReadOnly Property GetName() As String
+    ReadOnly Property GetItemCount() As Integer
+    ReadOnly Property GetContainerSize() As Integer
+    ReadOnly Property GetContainerID() As Integer
+    ReadOnly Property HasParent() As Boolean
+    ReadOnly Property GetContainerIndex() As Integer
+    ReadOnly Property Items(ByVal Index As Integer) As IContainer.ContainerItemDefinition
+#End Region
+
+#Region " Methods "
+    Function Reset() As Boolean
+    Function JumpToContainer(ByVal NewContainerIndex As Integer) As Boolean
+    Function NextContainer() As Boolean
+    Function IsOpened() As Boolean
+    Function PrevContainer() As Boolean
+    Function FindItem(ByRef Item As IContainer.ContainerItemDefinition, ByVal ItemID As Integer, Optional ByVal ContainerIndexOffset As Integer = 0, Optional ByVal IndexOffset As Integer = 0, Optional ByVal ContainerIndexMax As Integer = 0, Optional ByVal MinCount As Integer = 0, Optional ByVal MaxCount As Integer = 100) As Boolean
+    Function ContainerCount() As Integer
+    Function GetItemCountByItemID(ByVal ItemID As UShort) As Integer
+#End Region
 End Interface
