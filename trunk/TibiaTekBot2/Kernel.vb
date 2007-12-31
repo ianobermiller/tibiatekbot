@@ -20,8 +20,8 @@
 Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, System.Math, _
   System.Net, System.Net.Sockets, System.Text, System.Globalization, _
   System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, _
-  System.Drawing.Imaging, TibiaTekBot.PProxy2, TibiaTekBot.ThreadTimer, _
-  System.Runtime.InteropServices, TibiaTekBot.IrcClient, System.Windows.Forms, _
+  System.Drawing.Imaging, TibiaTekBot.PProxy2, System.Runtime.InteropServices, _
+  TibiaTekBot.IrcClient, System.Windows.Forms, _
   Scripting, System.ComponentModel
 
 #Region " To Do "
@@ -79,7 +79,7 @@ Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, S
 
 #End Region
 
-Public Module CoreModule
+Public Module KernelModule
 
 #Region " Structures "
     Public Structure MagicWallDefinition
@@ -100,13 +100,27 @@ Public Module CoreModule
         Dim Message As String
     End Structure
 
+    Public Structure ScriptDefinition
+        Dim Script As IScript
+        Dim Filename As String
+        Dim SafeFileName As String
+    End Structure
+
 #End Region
-    Public Core As New CoreClass
+    Public Kernel As New KernelClass
     Public Outfits As Outfits
     Public Spells As Spells
     Public LootItems As LootItems
     Public Creatures As Creatures
-    Public Class CoreClass
+
+    Public Class KernelClass
+        Implements IKernel
+
+#Region " Events "
+        Public Event OnConnected() Implements IKernel.OnConnected
+        Public Event OnDisconnected() Implements IKernel.OnDisconnected
+#End Region
+
 #Region " Objects "
         Public WithEvents Client As Tibia
         Public WithEvents Proxy As PProxy2
@@ -144,6 +158,8 @@ Public Module CoreModule
         Public WithEvents AlarmsForm As New frmAlarms
         Public WithEvents MapViewerForm As New frmMapViewer
         Public WithEvents CavebotForm As New frmCavebot
+        Public WithEvents ScriptsForm As New frmScripts
+
         'Public Map As MapTiles
         Public WithEvents ConstantsEditorForm As New frmConstantsEditor
         Public WithEvents BGWSendLocation As BackgroundWorker
@@ -168,6 +184,8 @@ Public Module CoreModule
         Public WithEvents MagicWallTimerObj As ThreadTimer
         Public WithEvents DancerTimerObj As ThreadTimer
         Public WithEvents AmmoMakerTimerObj As ThreadTimer
+        Public Scripts As List(Of ScriptDefinition)
+
 #End Region
 
 #Region " Variables "
@@ -357,11 +375,11 @@ Public Module CoreModule
             Try
                 Consts = New Constants()
                 LS = New Levelspy()
-
                 Outfits = New Outfits()
                 Spells = New Spells()
                 LootItems = New LootItems()
                 Creatures = New Creatures()
+                Scripts = New List(Of ScriptDefinition)
                 HotkeySettings = New HotkeySettings()
                 BGWOpenCommand = New BackgroundWorker()
                 BGWCharCommand = New BackgroundWorker()
@@ -423,6 +441,21 @@ Public Module CoreModule
 
 #End Region
 
+#Region " Properties "
+
+        Public ReadOnly Property GetClient() As ITibia Implements IKernel.Client
+            Get
+                Try
+                    Return Client
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
+            End Get
+        End Property
+
+#End Region
+
 #Region " Background Workers "
 
 #Region " Looter BG Worker "
@@ -440,7 +473,8 @@ Public Module CoreModule
                 Dim ServerPacket As New ServerPacketBuilder(Proxy)
                 ServerPacket.UseObject(LooterItemID, LooterLoc, N)
                 'buffer = UseObject(LooterItemID, LooterLoc, N)
-                If N - 1 = Container.ContainerCount Then
+                Static Cont As New Container
+                If N - 1 = Cont.ContainerCount Then
                     ReplacedContainer = True
                 Else
                     ReplacedContainer = False
@@ -448,7 +482,7 @@ Public Module CoreModule
                 'ConsoleWrite(BytesToStr(buffer))
                 'Proxy.SendPacketToServer(buffer)
                 LooterItemID = 0
-                If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+                If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                     WaitTime = Date.Now.AddSeconds(5)
                     IsOpeningReady = True
                     CBCreatureDied = False
@@ -639,7 +673,7 @@ Public Module CoreModule
                         Line = Reader.ReadLine()
                     End While
                     If String.IsNullOrEmpty(Output) Then
-                        Core.ConsoleWrite("The character does not exist.")
+                        Kernel.ConsoleWrite("The character does not exist.")
                     Else
                         Dim ClientPacket As New ClientPacketBuilder(Proxy)
                         ClientPacket.SystemMessage(SysMessageType.Information, Output)
@@ -649,17 +683,17 @@ Public Module CoreModule
                     If Comment.Length > 0 Then
                         Dim RegExp As New Regex("&[^;]+;")
                         Comment = RegExp.Replace(Comment, "")
-                        Core.ConsoleWrite("Comment: " & Comment.Replace("<br />", ""))
+                        Kernel.ConsoleWrite("Comment: " & Comment.Replace("<br />", ""))
                     Else
-                        Core.ConsoleWrite("Comment not available.")
+                        Kernel.ConsoleWrite("Comment not available.")
                     End If
                     If OnDeath Then
-                        Core.ConsoleWrite("Last 5 Deaths:" & Death)
+                        Kernel.ConsoleWrite("Last 5 Deaths:" & Death)
                     End If
                     Reader.Close()
                     Data.Close()
                 Catch Exception As WebException
-                    Core.ConsoleWrite("Error while fetching URL with message """ & Exception.Message & """.")
+                    Kernel.ConsoleWrite("Error while fetching URL with message """ & Exception.Message & """.")
                 End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -716,7 +750,7 @@ Public Module CoreModule
                         Line = Reader.ReadLine()
                     End While
                     If World.Length = 0 Then
-                        Core.ConsoleWrite("This guild does not exist, make sure you typed it correctly (case-sensitive).")
+                        Kernel.ConsoleWrite("This guild does not exist, make sure you typed it correctly (case-sensitive).")
                     Else
                         WClient2 = New WebClient
                         Data2 = WClient2.OpenRead("http://www.tibia.com/community/?subtopic=whoisonline&world=" & World & "&order=level")
@@ -725,12 +759,12 @@ Public Module CoreModule
                         While (Not Line Is Nothing)
                             MCollection = RegExp.Matches(Line)
                             If MCollection.Count > 0 Then
-                                Core.ConsoleWrite("~~~~~~~Online Players~~~~~~~")
+                                Kernel.ConsoleWrite("~~~~~~~Online Players~~~~~~~")
                                 For I = 0 To MCollection.Count - 1
                                     CurrentPlayer = MCollection(I).Groups(1).ToString
                                     Index = Players.IndexOf(CurrentPlayer)
                                     If Index > -1 Then
-                                        Core.ConsoleWrite(CurrentPlayer.Replace("&#160;", " "))
+                                        Kernel.ConsoleWrite(CurrentPlayer.Replace("&#160;", " "))
                                         Players.RemoveAt(Index)
                                     End If
                                 Next
@@ -738,10 +772,10 @@ Public Module CoreModule
                             Line = Reader2.ReadLine
                         End While
                         If Not GuildMembersOnlineOnly AndAlso Players.Count > 0 Then
-                            Core.ConsoleWrite("~~~~~~~Offline Players~~~~~~~")
+                            Kernel.ConsoleWrite("~~~~~~~Offline Players~~~~~~~")
                             Players.Sort()
                             For I = 0 To Players.Count - 1
-                                Core.ConsoleWrite(Players(I).Replace("&#160;", " "))
+                                Kernel.ConsoleWrite(Players(I).Replace("&#160;", " "))
                             Next
                         End If
                         Reader2.Close()
@@ -750,7 +784,7 @@ Public Module CoreModule
                     Reader.Close()
                     Data.Close()
                 Catch Exception As WebException
-                    Core.ConsoleWrite("Error while fetching URL with message """ & Exception.Message & """.")
+                    Kernel.ConsoleWrite("Error while fetching URL with message """ & Exception.Message & """.")
                 End Try
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -914,8 +948,8 @@ Public Module CoreModule
                 Client.ReadMemory(Consts.ptrWindowBegin, WindowBegin, 4)
                 If WindowBegin = 0 Then 'no window opened
                     If Not Client.IsConnected() Then
-                        If Not (Core.Proxy Is Nothing OrElse Core.Client Is Nothing) Then
-                            Title = BotName & " - " & Hex(Core.Client.GetProcessHandle) & " - Not Logged In"
+                        If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
+                            Title = BotName & " - " & Hex(Kernel.Client.GetProcessHandle) & " - Not Logged In"
                         Else
                             Title = BotName & " - Not Logged In"
                         End If
@@ -933,8 +967,8 @@ Public Module CoreModule
                 Else
                     Client.ReadMemory(WindowBegin + Consts.WindowCaptionOffset, WindowCaption)
                     If Not Client.IsConnected() Then
-                        If Not (Core.Proxy Is Nothing OrElse Core.Client Is Nothing) Then
-                            Title = BotName & " - " & Hex(Core.Client.GetProcessHandle) & " - " & WindowCaption
+                        If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
+                            Title = BotName & " - " & Hex(Kernel.Client.GetProcessHandle) & " - " & WindowCaption
                         Else
                             Title = BotName & " - " & WindowCaption
                         End If
@@ -1061,7 +1095,7 @@ Public Module CoreModule
                         For I As Integer = 0 To ContainerItemCount - 1
                             Item = MyContainer.Items(I)
                             If Client.Dat.GetInfo(Item.ID).IsStackable AndAlso Item.Count < 100 Then
-                                If Container.FindItem(Item2, Item.ID, ContainerIndex, I + 1, ContainerIndex, 1, 99) Then
+                                If MyContainer.FindItem(Item2, Item.ID, ContainerIndex, I + 1, ContainerIndex, 1, 99) Then
                                     Dim ServerPacket As New ServerPacketBuilder(Proxy)
                                     ServerPacket.MoveObject(Item, Item2.Location)
                                     'Proxy.SendPacketToServer(MoveObject(Item, Item2.Location))
@@ -1118,7 +1152,7 @@ Public Module CoreModule
                 Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
 
                 'If all loot conditions are fulfilled, start looting
-                If CaveBotTimerObj.State = ThreadTimerState.Stopped AndAlso _
+                If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Stopped AndAlso _
                 (Consts.UnlimitedCapacity OrElse Capacity > LooterMinimumCapacity) OrElse _
                 (CavebotForm.LootFromCorpses.Checked AndAlso _
                 (Consts.UnlimitedCapacity OrElse Capacity > CInt(CavebotForm.LootMinimumCap.Value))) Then
@@ -1225,9 +1259,9 @@ Public Module CoreModule
                     Next ActualIndex
                 End If
                 'Eating comes afterward, so the loot item positions don't get invalid
-                If (CaveBotTimerObj.State = ThreadTimerState.Running AndAlso _
+                If (CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running AndAlso _
                 CavebotForm.EatFromCorpses.Checked) OrElse _
-                (CaveBotTimerObj.State = ThreadTimerState.Stopped AndAlso Consts.LootEatFromCorpse) Then
+                (CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Stopped AndAlso Consts.LootEatFromCorpse) Then
                     For ActualIndex = 0 To 15
                         If Containers(ActualIndex).ID = 0 Then Continue For
                         If Not Containers(ActualIndex).GetName.StartsWith("Dead") _
@@ -1297,12 +1331,12 @@ Public Module CoreModule
 
                     Dim xmlMagicLevel As XmlElement = xmlFile.CreateElement("MagicLevel")
                     Dim MagicLevel As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrMagicLevel, MagicLevel, 4)
+                    Kernel.Client.ReadMemory(Consts.ptrMagicLevel, MagicLevel, 4)
                     xmlMagicLevel.InnerText = MagicLevel.ToString
 
                     Dim xmlMagicLevelP As XmlAttribute = xmlFile.CreateAttribute("MagicLevel")
                     Dim MagicLevelP As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrMagicLevelPercent, MagicLevelP, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrMagicLevelPercent, MagicLevelP, 1)
                     xmlMagicLevelP.InnerText = MagicLevelP.ToString
                     xmlMagicLevel.Attributes.Append(xmlMagicLevelP)
 
@@ -1317,12 +1351,12 @@ Public Module CoreModule
 
                     Dim xmlCapacity As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Capacity", "")
                     Dim Capacity As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                    Kernel.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
                     xmlCapacity.InnerText = CStr(Capacity)
 
                     Dim xmlStamina As XmlNode = xmlFile.CreateNode(Xml.XmlNodeType.Element, "Stamina", "")
                     Dim Stamina As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrStamina, Stamina, 4)
+                    Kernel.Client.ReadMemory(Consts.ptrStamina, Stamina, 4)
                     Dim StaminaTime As TimeSpan = TimeSpan.FromSeconds(Stamina)
                     xmlStamina.InnerText = StaminaTime.ToString
 
@@ -1332,8 +1366,8 @@ Public Module CoreModule
 
                     Dim xmlFistFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "FistFighting", "")
                     Dim xmlFistFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.FistFighting * Consts.SkillsDist), Skill, 1)
-                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.FistFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlFistFighting.InnerText = CStr(Skill)
                     xmlFistFightingP.InnerText = CStr(SkillPercent)
                     xmlFistFighting.Attributes.Append(xmlFistFightingP)
@@ -1341,8 +1375,8 @@ Public Module CoreModule
 
                     Dim xmlClubFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "ClubFighting", "")
                     Dim xmlClubFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.ClubFighting * Consts.SkillsDist), Skill, 1)
-                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.ClubFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlClubFighting.InnerText = CStr(Skill)
                     xmlClubFightingP.InnerText = CStr(SkillPercent)
                     xmlClubFighting.Attributes.Append(xmlClubFightingP)
@@ -1350,8 +1384,8 @@ Public Module CoreModule
 
                     Dim xmlSwordFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "SwordFighting", "")
                     Dim xmlSwordFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.SwordFighting * Consts.SkillsDist), Skill, 1)
-                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.SwordFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlSwordFighting.InnerText = CStr(Skill)
                     xmlSwordFightingP.InnerText = CStr(SkillPercent)
                     xmlSwordFighting.Attributes.Append(xmlSwordFightingP)
@@ -1359,8 +1393,8 @@ Public Module CoreModule
 
                     Dim xmlAxeFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "AxeFighting", "")
                     Dim xmlAxeFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.AxeFighting * Consts.SkillsDist), Skill, 1)
-                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.AxeFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlAxeFighting.InnerText = CStr(Skill)
                     xmlAxeFightingP.InnerText = CStr(SkillPercent)
                     xmlAxeFighting.Attributes.Append(xmlAxeFightingP)
@@ -1368,8 +1402,8 @@ Public Module CoreModule
 
                     Dim xmlDistanceFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "DistanceFighting", "")
                     Dim xmlDistanceFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.DistanceFighting * Consts.SkillsDist), Skill, 1)
-                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.DistanceFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlDistanceFighting.InnerText = CStr(Skill)
                     xmlDistanceFightingP.InnerText = CStr(SkillPercent)
                     xmlDistanceFighting.Attributes.Append(xmlDistanceFightingP)
@@ -1377,8 +1411,8 @@ Public Module CoreModule
 
                     Dim xmlShielding As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Shielding", "")
                     Dim xmlShieldingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Shielding * Consts.SkillsDist), Skill, 1)
-                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Shielding * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), SkillPercent, 1)
                     xmlShielding.InnerText = CStr(Skill)
                     xmlShieldingP.InnerText = CStr(SkillPercent)
                     xmlShielding.Attributes.Append(xmlShieldingP)
@@ -1386,8 +1420,8 @@ Public Module CoreModule
 
                     Dim xmlFishing As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Fishing", "")
                     Dim xmlFishingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Core.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Fishing * Consts.SkillsDist), Skill, 1)
-                    Core.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Fishing * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), SkillPercent, 1)
                     xmlFishing.InnerText = CStr(Skill)
                     xmlFishingP.InnerText = CStr(SkillPercent)
                     xmlFishing.Attributes.Append(xmlFishingP)
@@ -1586,8 +1620,8 @@ Public Module CoreModule
                 'If PickUpTimerObj.Interval > 500 Then PickUpTimerObj.Interval = 500
                 Dim RightHandItemID As Integer = 0
                 Dim RightHandItemCount As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandItemCount, 1)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandItemCount, 1)
                 Dim ServerPacket As New ServerPacketBuilder(Proxy)
                 If RightHandItemID > 0 AndAlso RightHandItemID <> PickUpItemID Then
                     If RightHandItemCount = 0 Then RightHandItemCount = 1
@@ -1614,12 +1648,12 @@ Public Module CoreModule
                     For X As Short = 7 To 9
                         For Y As Short = 5 To 7
                             Address = Client.MapTiles.GetAddress(X, Y, Client.MapTiles.WorldZToClientZ(CharacterLoc.Z))
-                            Core.Client.ReadMemory(Address, StackSize, 1)
+                            Kernel.Client.ReadMemory(Address, StackSize, 1)
                             If StackSize > 1 Then 'look for spear plx
                                 For I As Integer = 0 To StackSize - 1
-                                    Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ItemID, 2)
+                                    Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ItemID, 2)
                                     If ItemID = PickUpItemID Then
-                                        Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, ItemCount, 1)
+                                        Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, ItemCount, 1)
                                         If ItemCount = 0 Then ItemCount = 1
                                         Source = CharacterLoc
                                         Source.X += X - 8
@@ -1634,9 +1668,9 @@ Public Module CoreModule
                     Next
                 End If
                 'System.Threading.Thread.Sleep(300)
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandItemCount, 1)
-                Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandItemCount, 1)
+                Kernel.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
                 MaxItemsToPickUp = CInt(Fix(Capacity / 20))
                 If RightHandItemID = 0 And RightHandItemCount = 0 Then
                     'Dim MyContainer As New Container
@@ -1644,7 +1678,7 @@ Public Module CoreModule
                     Dim Item As Scripting.IContainer.ContainerItemDefinition
                     Dim Found As Boolean = False
 
-                    If Container.FindItem(Item, PickUpItemID, 0, 0) Then
+                    If (New Container).FindItem(Item, PickUpItemID, 0, 0) Then
                         If MaxItemsToPickUp > 0 Then
                             ServerPacket.MoveObject(PickUpItemID, Item.Location, GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), Min(MaxItemsToPickUp, Item.Count))
                             'Proxy.SendPacketToServer(MoveObject(PickUpItemID, Item.Location, GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), Min(MaxItemsToPickUp, Item.Count)))
@@ -1676,8 +1710,8 @@ Public Module CoreModule
                 Dim TotalAmmo As Integer = 0
                 If AmmoRestackerItemID = 0 OrElse AmmoRestackerMinimumItemCount = 0 Then Exit Sub
                 'find out of we really need more ammo
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), AmmoItemID, 2)
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, AmmoItemCount, 1)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), AmmoItemID, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, AmmoItemCount, 1)
                 If AmmoItemID = AmmoRestackerItemID AndAlso AmmoItemCount > AmmoRestackerMinimumItemCount Then
                     Exit Sub
                 End If
@@ -1733,7 +1767,7 @@ Public Module CoreModule
                 End If
                 Dim BL As New BattleList
                 Dim AttackedEntityID As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrAttackedEntityID, AttackedEntityID, 4)
+                Kernel.Client.ReadMemory(Consts.ptrAttackedEntityID, AttackedEntityID, 4)
                 If AttackedEntityID > 0 Then
                     If AutoTrainerEntities.Contains(AttackedEntityID) Then
                         If BL.Find(AttackedEntityID, True) Then
@@ -1791,7 +1825,7 @@ Public Module CoreModule
                     ConsoleError("You ran out of Soul Points, therefore the Runemaker is now Disabled.")
                     Exit Sub
                 End If
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
                 'check that there are no items occupying the belt slot
                 Dim SP As New ServerPacketBuilder(Proxy)
                 If BeltSlot > 0 Then
@@ -1808,7 +1842,7 @@ Public Module CoreModule
                         SP.MoveObject(BeltSlot, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), GetInventorySlotAsLocation(ITibia.InventorySlots.Backpack), 100)
                         'Proxy.SendPacketToServer(MoveObject(BeltSlot, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), GetInventorySlotAsLocation(ITibia.InventorySlots.Backpack), 100))
                         System.Threading.Thread.Sleep(1000)
-                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
                     Loop While BeltSlot <> 0
                 End If
 
@@ -1839,8 +1873,8 @@ Public Module CoreModule
                 End If
 
                 'move any object in right hand to arrow slot
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandSlotCount, 1)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist) + Consts.ItemCountOffset, RightHandSlotCount, 1)
                 If RightHandSlot > 0 Then
                     FirstRightHandSlot = RightHandSlot
                     FirstRightHandSlotCount = RightHandSlotCount
@@ -1859,7 +1893,7 @@ Public Module CoreModule
                         SP.MoveObject(RightHandSlot, GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Count)
                         'Proxy.SendPacketToServer(MoveObject(RightHandSlot, GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Count))
                         System.Threading.Thread.Sleep(1000)
-                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), BeltSlot, 2)
                     Loop Until FirstRightHandSlot = BeltSlot
                 End If
 
@@ -1877,7 +1911,7 @@ Public Module CoreModule
                     SP.MoveObject(BlankRune.ID, BlankRune.Location, GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), 1)
                     'Proxy.SendPacketToServer(MoveObject(BlankRune.ID, BlankRune.Location, GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), 1))
                     System.Threading.Thread.Sleep(1000)
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                 Loop Until RightHandSlot = BlankRune.ID
 
                 'cast conjure
@@ -1894,7 +1928,7 @@ Public Module CoreModule
                     SP.Speak(RunemakerSpell.Words)
                     'Proxy.SendPacketToServer(Speak(RunemakerSpell.Words))
                     System.Threading.Thread.Sleep(1000)
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                 Loop Until RightHandSlot <> BlankRuneID
 
                 'move magical rune to backpack
@@ -1911,7 +1945,7 @@ Public Module CoreModule
                     SP.MoveObject(RightHandSlot, GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), BlankRune.Location, 1)
                     'Proxy.SendPacketToServer(MoveObject(RightHandSlot, GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), BlankRune.Location, 1))
                     System.Threading.Thread.Sleep(1000)
-                    Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                 Loop Until RightHandSlot = 0
                 'move any object that was in arrow slot to right hand
                 If FirstRightHandSlot > 0 Then
@@ -1930,7 +1964,7 @@ Public Module CoreModule
                         SP.MoveObject(FirstRightHandSlot, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), GetInventorySlotAsLocation(ITibia.InventorySlots.RightHand), Count)
                         'Proxy.SendPacketToServer(MoveObject(FirstRightHandSlot, GetInventorySlotAsLocation(InventorySlots.Belt), GetInventorySlotAsLocation(InventorySlots.RightHand), Count))
                         System.Threading.Thread.Sleep(1000)
-                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                     Loop Until RightHandSlot = FirstRightHandSlot
                 End If
                 System.Threading.Thread.Sleep(5000)
@@ -1945,7 +1979,7 @@ Public Module CoreModule
 
         Public Sub FisherTimerObj_OnExecute() Handles FisherTimerObj.OnExecute
             Try
-                If FisherTimerObj.State = ThreadTimerState.Stopped Then Exit Sub
+                If FisherTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
                 Dim Intervals() As UShort = {1000, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000}
                 If Not Client.IsConnected Then Exit Sub
                 If FisherTimerObj.Interval = 10000 Then FisherTimerObj.Interval = 1000
@@ -1957,12 +1991,12 @@ Public Module CoreModule
                 Dim WormItemData As Scripting.IContainer.ContainerItemDefinition
                 Dim Tiles As New List(Of IMapTiles.TileObject)
                 Dim Tile As IMapTiles.TileObject
-                If Not Container.FindItem(WormItemData, WormID, 0, 0, Consts.MaxContainers - 1) Then
+                If Not (New Container).FindItem(WormItemData, WormID, 0, 0, Consts.MaxContainers - 1) Then
                     ConsoleError("Auto Fisher couldn't find any worms, it is now Disabled.")
                     FisherTimerObj.StopTimer()
                     Exit Sub
                 End If
-                If Not Container.FindItem(FishingRodItemData, FishingRodID, 0, 0, Consts.MaxContainers - 1) Then
+                If Not (New Container).FindItem(FishingRodItemData, FishingRodID, 0, 0, Consts.MaxContainers - 1) Then
                     ConsoleError("Auto Fisher couldn't find any fishing rods, pausing for 10 seconds.")
                     FisherTimerObj.Interval = 10000
                     Exit Sub
@@ -2011,11 +2045,11 @@ Public Module CoreModule
             Try
                 If Not Client.IsConnected Then Exit Sub
                 Dim X, Y, Z As Integer
-                Core.Client.ReadMemory(Consts.ptrCoordX, X, 2)
+                Kernel.Client.ReadMemory(Consts.ptrCoordX, X, 2)
                 CharacterLoc.X = X
-                Core.Client.ReadMemory(Consts.ptrCoordY, Y, 2)
+                Kernel.Client.ReadMemory(Consts.ptrCoordY, Y, 2)
                 CharacterLoc.Y = Y
-                Core.Client.ReadMemory(Consts.ptrCoordZ, Z, 1)
+                Kernel.Client.ReadMemory(Consts.ptrCoordZ, Z, 1)
                 CharacterLoc.Z = Z
                 If CharacterLastLocation.X <> CharacterLoc.X OrElse _
                  CharacterLastLocation.Y <> CharacterLoc.Y OrElse _
@@ -2160,19 +2194,19 @@ Public Module CoreModule
             Try
                 If Not Client.IsConnected Then Exit Sub
                 Dim X, Y, Z As Integer
-                Core.Client.ReadMemory(Consts.ptrLevel, Level, 4)
-                Core.Client.ReadMemory(Consts.ptrExperience, Experience, 4)
-                Core.Client.ReadMemory(Consts.ptrHitPoints, HitPoints, 4)
-                Core.Client.ReadMemory(Consts.ptrManaPoints, ManaPoints, 4)
-                Core.Client.ReadMemory(Consts.ptrSoulPoints, SoulPoints, 4)
-                Core.Client.ReadMemory(Consts.ptrCoordX, X, 2)
+                Kernel.Client.ReadMemory(Consts.ptrLevel, Level, 4)
+                Kernel.Client.ReadMemory(Consts.ptrExperience, Experience, 4)
+                Kernel.Client.ReadMemory(Consts.ptrHitPoints, HitPoints, 4)
+                Kernel.Client.ReadMemory(Consts.ptrManaPoints, ManaPoints, 4)
+                Kernel.Client.ReadMemory(Consts.ptrSoulPoints, SoulPoints, 4)
+                Kernel.Client.ReadMemory(Consts.ptrCoordX, X, 2)
                 CharacterLoc.X = X
-                Core.Client.ReadMemory(Consts.ptrCoordY, Y, 2)
+                Kernel.Client.ReadMemory(Consts.ptrCoordY, Y, 2)
                 CharacterLoc.Y = Y
-                Core.Client.ReadMemory(Consts.ptrCoordZ, Z, 1)
+                Kernel.Client.ReadMemory(Consts.ptrCoordZ, Z, 1)
                 CharacterLoc.Z = Z
-                Core.Client.ReadMemory(Consts.ptrCharacterID, CharacterID, 4)
-                Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 4)
+                Kernel.Client.ReadMemory(Consts.ptrCharacterID, CharacterID, 4)
+                Kernel.Client.ReadMemory(Consts.ptrCapacity, Capacity, 4)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -2230,8 +2264,8 @@ Public Module CoreModule
                 NextLevelPercentageL = CLng(Floor((ExperienceL - CurrentLevelExpL) * 100 / (NextLevelExpL - CurrentLevelExpL)))
                 NextLevelPercentage = CInt(NextLevelPercentageL)
                 If ExpCheckerActivated Then
-                    If Not Client.Title.Equals(BotName & " - " & Core.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
-                        Client.Title = BotName & " - " & Core.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExpL - ExperienceL) & " (" & NextLevelPercentageL & "% completed)"
+                    If Not Client.Title.Equals(BotName & " - " & Kernel.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
+                        Client.Title = BotName & " - " & Kernel.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExpL - ExperienceL) & " (" & NextLevelPercentageL & "% completed)"
                     End If
                     LastExperienceL = ExperienceL
                     LastExperience = Experience
@@ -2361,7 +2395,7 @@ Public Module CoreModule
                 ChatMessage.Channel = ITibia.Channel.Trade
                 ChatMessage.ChannelMessageType = ITibia.ChannelMessageType.Normal
                 ChatMessage.Message = AdvertiseMsg
-                Core.ChatMessageQueueList.Add(ChatMessage)
+                Kernel.ChatMessageQueueList.Add(ChatMessage)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -2401,7 +2435,7 @@ Public Module CoreModule
                 ElseIf ManaPoints <= DrinkerManaRequired Then
                     Dim ItemID As Integer = 0
                     Dim SP As New ServerPacketBuilder(Proxy)
-                    If Core.IsOpenTibiaServer Then
+                    If Kernel.IsOpenTibiaServer Then
                         SP.UseHotkey(Client.Items.GetItemID("Vial"), CInt(Fluids.ManaOpenTibia))
                         'Proxy.SendPacketToServer(UseHotkey(Client.Items.GetItemID("Vial"), CInt(Fluids.ManaOpenTibia)))
                     Else
@@ -2451,9 +2485,9 @@ Public Module CoreModule
                 Dim StatusMessage As String = ""
                 Dim StatusTmr As Integer = 0
                 Container.Reset()
-                Core.Client.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
-                Core.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
-                Core.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
+                Kernel.Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
                 If Capacity < CInt(CavebotForm.LootMinimumCap.Value) Then Return True
                 If Capacity <= LooterMinimumCapacity Then Return True
                 If StatusMessage.Equals("This object is too heavy.") AndAlso StatusTmr <> 0 Then
@@ -2488,8 +2522,8 @@ Public Module CoreModule
                 Dim StatusMessage As String = ""
                 Dim StatusTmr As Integer = 0
                 Container.Reset()
-                Core.Client.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
-                Core.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessage, StatusMessage)
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTmr, 4)
                 If StatusMessage.Equals("You are full.") AndAlso StatusTmr <> 0 Then
                     Return True
                 End If
@@ -2517,7 +2551,7 @@ Public Module CoreModule
         Public Sub CaveBotTimerObj_Execute() Handles CaveBotTimerObj.OnExecute
             Try
                 Dim SP As New ServerPacketBuilder(Proxy)
-                If CaveBotTimerObj.State = ThreadTimerState.Stopped Then Exit Sub
+                If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
                 Dim BL As New BattleList
                 Dim MyselfBL As New BattleList
                 MyselfBL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -2525,18 +2559,18 @@ Public Module CoreModule
                 Dim CurrentContCount As Integer = 0
                 Dim StatusText As String = ""
                 Dim StatusTimer As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrCoordZ, PlayerZ, 4)
-                Core.Client.ReadMemory(Consts.ptrStatusMessage, StatusText)
-                Core.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
+                Kernel.Client.ReadMemory(Consts.ptrCoordZ, PlayerZ, 4)
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessage, StatusText)
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessageTimer, StatusTimer, 4)
                 If Not Client.IsConnected Then Exit Sub
                 Select Case CBState
                     Case CavebotState.Walking
                         CBCreatureDied = False
                         If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) AndAlso (BL.IsOnScreen Or BL.CreaturesOnScreen) Then
                             CBState = CavebotState.Attacking
-                            Core.Client.WriteMemory(Consts.ptrGoToX, 0, 4)
-                            Core.Client.WriteMemory(Consts.ptrGoToY, 0, 4)
-                            Core.Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToX, 0, 4)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToY, 0, 4)
+                            Kernel.Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
                             BL.IsWalking = True
                             Exit Sub
                         End If
@@ -2557,7 +2591,7 @@ Public Module CoreModule
                     Case CavebotState.Attacking
                         If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
                             If BL.GetHPPercentage = 0 Then
-                                Core.CBState = CavebotState.OpeningBody
+                                Kernel.CBState = CavebotState.OpeningBody
                                 Exit Select
                             End If
                         End If
@@ -2568,9 +2602,9 @@ Public Module CoreModule
                             CBState = CavebotState.Walking
                         End If
                         Dim Chase As Integer
-                        Core.Client.ReadMemory(Consts.ptrChasingMode, Chase, 1)
+                        Kernel.Client.ReadMemory(Consts.ptrChasingMode, Chase, 1)
                         If Chase <> 1 Then
-                            Core.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
+                            Kernel.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)
                             SP.ChangeChasingMode(ITibia.ChasingMode.Chasing)
                             'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                         End If
@@ -2585,7 +2619,8 @@ Public Module CoreModule
                     Case CavebotState.OpeningBody
                         CBCreatureDied = False
                         If IsOpeningReady = True Then
-                            CurrentContCount = Container.ContainerCount
+                            Static Cont As New Container
+                            CurrentContCount = Cont.ContainerCount
                             If CurrentContCount > CBContainerCount Then
                                 CBState = CavebotState.Looting ' : Core.ConsoleWrite("Looting state ->")
                             Else
@@ -2622,7 +2657,7 @@ Public Module CoreModule
                 Dim AttackerMonsters As New SortedList
                 Dim AttackBL As New BattleList
                 'MyBL.JumpToEntity(SpecialEntity.Myself)
-                If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                     If CBState <> CavebotState.Walking OrElse Walker_Waypoints(WaypointIndex).Type = Walker.WaypointType.Wait Then Exit Sub
                 End If
                 AttackerMonsters.Clear()
@@ -2631,7 +2666,7 @@ Public Module CoreModule
                     BL.Reset()
                     Do
                         If BL.IsMyself Then Continue Do
-                        If Not BL.IsPlayer AndAlso BL.IsOnScreen AndAlso BL.GetLocation.Z = Core.CharacterLoc.Z Then
+                        If Not BL.IsPlayer AndAlso BL.IsOnScreen AndAlso BL.GetLocation.Z = Kernel.CharacterLoc.Z Then
                             If BL.GetDistance < Consts.CavebotAttackerRadius Then
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
@@ -2649,7 +2684,7 @@ Public Module CoreModule
                     If AttackBL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) Then
                         If BL.GetEntityID.Equals(AttackerMonsters.GetByIndex(0)) Then Exit Sub
                     End If
-                    If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                    If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                         CBState = CavebotState.None
                         'Core.ConsoleWrite("AttackerTimer: STOP!")
                         sp.StopEverything()
@@ -2662,7 +2697,7 @@ Public Module CoreModule
                     Client.WriteMemory(Consts.ptrAttackedEntityID, AttackerMonsters.GetByIndex(0), 4)
                     sp.AttackEntity(AttackerMonsters.GetByIndex(0))
                     'Proxy.SendPacketToServer(AttackEntity(AttackerMonsters.GetByIndex(0)))
-                    If CaveBotTimerObj.State = ThreadTimerState.Running Then CBState = CavebotState.Attacking
+                    If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then CBState = CavebotState.Attacking
                     System.Threading.Thread.Sleep(2000)
                     Exit Sub
                 Else
@@ -2672,13 +2707,13 @@ Public Module CoreModule
                     'Looping trough battlelist
                     Do
                         If BL.IsMyself Then Continue Do
-                        If Not BL.IsPlayer AndAlso BL.IsOnScreen AndAlso BL.GetLocation.Z = Core.CharacterLoc.Z Then
+                        If Not BL.IsPlayer AndAlso BL.IsOnScreen AndAlso BL.GetLocation.Z = Kernel.CharacterLoc.Z Then
                             If BL.GetDistance < Consts.CavebotAttackerRadius Then
                                 If CheckRadius(BL.GetEntityID) = True Then
                                     If AutoAttackerListEnabled Then
                                         If Not AutoAttackerList.Contains(BL.GetName.ToLower) Then Exit Sub
                                     End If
-                                    If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                                    If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                         CBState = CavebotState.None
                                         'Core.ConsoleWrite("AttackerTimer: STOP!")
                                         sp.StopEverything()
@@ -2691,7 +2726,7 @@ Public Module CoreModule
                                     Client.WriteMemory(Consts.ptrAttackedEntityID, BL.GetEntityID, 4)
                                     sp.AttackEntity(BL.GetEntityID)
                                     'Proxy.SendPacketToServer(AttackEntity(BL.GetEntityID))
-                                    If CaveBotTimerObj.State = ThreadTimerState.Running Then CBState = CavebotState.Attacking
+                                    If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then CBState = CavebotState.Attacking
                                     System.Threading.Thread.Sleep(2000)
                                     Exit Sub
                                 End If
@@ -2788,8 +2823,8 @@ Public Module CoreModule
 #Region " Walker Timer "
         Public Sub WalkerTimerObj_Execute() Handles WalkerTimerObj.OnExecute
             Try
-                If CaveBotTimerObj.State = ThreadTimerState.Running Then
-                    Core.ConsoleError("You can't use Walker same time as Cavebot")
+                If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                    Kernel.ConsoleError("You can't use Walker same time as Cavebot")
                     WalkerTimerObj.StopTimer()
                     Exit Sub
                 End If
@@ -2801,7 +2836,7 @@ Public Module CoreModule
                     If WalkerLoop Then
                         WaypointIndex = 0
                     Else
-                        Core.ConsoleWrite("Arrived to Destination.")
+                        Kernel.ConsoleWrite("Arrived to Destination.")
                         WalkerTimerObj.StopTimer()
                         Exit Sub
                     End If
@@ -2888,8 +2923,8 @@ Public Module CoreModule
                         End Select
                         TD.FindTile(TempLocation, False)
                         TD.Get_TileInfo()
-                        Core.ConsoleWrite(TD.Count.ToString)
-                        Core.ConsoleWrite(TD.ObjectId(1).ToString)
+                        Kernel.ConsoleWrite(TD.Count.ToString)
+                        Kernel.ConsoleWrite(TD.ObjectId(1).ToString)
                         For i As Integer = 0 To TD.Count
                             If Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.Teleport Then
                                 ReturnLocation = TempLocation
@@ -2948,9 +2983,9 @@ Public Module CoreModule
                                 WalkerChar.Info = ""
                                 Walker_Waypoints.Add(WalkerChar)
                                 AutoAddTime = Now.AddSeconds(5) 'Don't add next right away
-                                Core.ConsoleWrite("Stairs/Hole waypoint added.")
+                                Kernel.ConsoleWrite("Stairs/Hole waypoint added.")
                             Else
-                                Core.ConsoleWrite("Error, can't add waypoint")
+                                Kernel.ConsoleWrite("Error, can't add waypoint")
                             End If
                         End If
                     End If
@@ -2964,18 +2999,18 @@ Public Module CoreModule
                         WalkerChar.Type = Walker.WaypointType.Walk
                         WalkerChar.Info = ""
                         Walker_Waypoints.Add(WalkerChar)
-                        Core.ConsoleWrite("Walking waypoint added.")
+                        Kernel.ConsoleWrite("Walking waypoint added.")
                         AutoAddTime = Now.AddSeconds(10)
                         Exit Sub
                     End If
-                    If Walker_Waypoints(Walker_Waypoints.Count - 1).Coordinates.X <> Core.CharacterLoc.X Or _
-                       Walker_Waypoints(Walker_Waypoints.Count - 1).Coordinates.Y <> Core.CharacterLoc.Y Then
+                    If Walker_Waypoints(Walker_Waypoints.Count - 1).Coordinates.X <> Kernel.CharacterLoc.X Or _
+                       Walker_Waypoints(Walker_Waypoints.Count - 1).Coordinates.Y <> Kernel.CharacterLoc.Y Then
                         WalkerChar.Coordinates = BL.GetLocation
                         WalkerChar.Type = Walker.WaypointType.Walk
                         WalkerChar.Info = ""
                         Walker_Waypoints.Add(WalkerChar)
                         AutoAddTime = Now.AddSeconds(10)
-                        Core.ConsoleWrite("Walking waypoint added.")
+                        Kernel.ConsoleWrite("Walking waypoint added.")
                         Exit Sub
                     End If
                     AutoAddTime = Now.AddSeconds(10)
@@ -2994,9 +3029,9 @@ Public Module CoreModule
                 Dim Cont As New Container
                 Dim Amulet As New Scripting.IContainer.ContainerItemDefinition
                 Dim NeckSlot As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Neck - 1) * Consts.ItemDist), NeckSlot, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Neck - 1) * Consts.ItemDist), NeckSlot, 2)
                 If NeckSlot = 0 Then 'No amulet, let's change there something :)
-                    If Not Container.FindItem(Amulet, AmuletID, 0, 0, Consts.MaxContainers - 1) Then
+                    If Not (New Container).FindItem(Amulet, AmuletID, 0, 0, Consts.MaxContainers - 1) Then
                         Exit Sub
                     End If
                     Dim SP As New ServerPacketBuilder(Proxy)
@@ -3017,9 +3052,9 @@ Public Module CoreModule
                 Dim Cont As New Container
                 Dim Ring As New Scripting.IContainer.ContainerItemDefinition
                 Dim FingerSlot As Integer = 0
-                Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Finger - 1) * Consts.ItemDist), FingerSlot, 2)
+                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Finger - 1) * Consts.ItemDist), FingerSlot, 2)
                 If FingerSlot = 0 Then 'No amulet, let's change there something :)
-                    If Not Container.FindItem(Ring, RingID, 0, 0, Consts.MaxContainers - 1) Then
+                    If Not (New Container).FindItem(Ring, RingID, 0, 0, Consts.MaxContainers - 1) Then
                         Exit Sub
                     End If
                     Dim SP As New ServerPacketBuilder(Proxy)
@@ -3172,7 +3207,7 @@ Public Module CoreModule
             ClientPacket.AnimatedText(ITibia.TextColors.Green, Position, "20s")
             ClientPacket.Send()
             'Proxy.SendPacketToClient(AnimatedText(ITibia.TextColors.Green, Position, "20s"))
-            If MagicWallTimerObj.State = ThreadTimerState.Stopped Then
+            If MagicWallTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then
                 MagicWallTimerObj.StartTimer()
             End If
         End Sub
@@ -3194,7 +3229,7 @@ Public Module CoreModule
                 'Core.Proxy.SendPacketToServer(CharacterTurn(Direction))
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Core.ConsoleError("Unkown Error occured during Dancer feature. Dancer is now disabled.")
+                Kernel.ConsoleError("Unkown Error occured during Dancer feature. Dancer is now disabled.")
                 DancerTimerObj.StopTimer()
             End Try
         End Sub
@@ -3246,22 +3281,22 @@ Public Module CoreModule
                         Dim Retries As Integer = 0
                         Dim TempSlot As Integer = 0
 
-                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.LeftHand - 1) * Consts.ItemDist), LeftHandSlot, 2)
-                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.LeftHand - 1) * Consts.ItemDist), LeftHandSlot, 2)
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
                         If LeftHandSlot = 0 Then
                             SlotToUse = ITibia.InventorySlots.LeftHand
                         ElseIf RightHandSlot = 0 Then
                             SlotToUse = ITibia.InventorySlots.RightHand
                         Else
-                            Core.ConsoleError("Both hands are already in use. Please keep one hand free so Ammo Maker can move the Spear there. Ammo Maker is now stopped.")
+                            Kernel.ConsoleError("Both hands are already in use. Please keep one hand free so Ammo Maker can move the Spear there. Ammo Maker is now stopped.")
                             AmmoMakerMinMana = 0
                             AmmoMakerMinCap = 0
                             AmmoMakerTimerObj.StopTimer()
                             Exit Sub
                         End If
 
-                        If Not Container.FindItem(Spear, Client.Items.GetItemID("Spear")) Then
-                            Core.ConsoleError("Ammo Maker couldn't find a spear. Ammo Maker is now stopped.")
+                        If Not (New Container).FindItem(Spear, Client.Items.GetItemID("Spear")) Then
+                            Kernel.ConsoleError("Ammo Maker couldn't find a spear. Ammo Maker is now stopped.")
                             AmmoMakerMinMana = 0
                             AmmoMakerMinCap = 0
                             AmmoMakerTimerObj.StopTimer()
@@ -3276,13 +3311,13 @@ Public Module CoreModule
                                 AmmoMakerMinMana = 0
                                 AmmoMakerMinCap = 0
                                 AmmoMakerTimerObj.StopTimer()
-                                Core.ConsoleError("Ammo Maker is stuck. Can't move Spear from Backpack to Hand. Ammo Maker is now stopped.")
+                                Kernel.ConsoleError("Ammo Maker is stuck. Can't move Spear from Backpack to Hand. Ammo Maker is now stopped.")
                                 Exit Sub
                             End If
                             SP.MoveObject(Spear.ID, Spear.Location, GetInventorySlotAsLocation(SlotToUse), 1)
                             'Core.Proxy.SendPacketToServer(PacketUtils.MoveObject(Spear.ID, Spear.Location, GetInventorySlotAsLocation(SlotToUse), 1))
                             System.Threading.Thread.Sleep(1000)
-                            Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
                         Loop Until TempSlot = Client.Items.GetItemID("Spear")
 
                         'Casting the spell
@@ -3294,13 +3329,13 @@ Public Module CoreModule
                                 AmmoMakerMinMana = 0
                                 AmmoMakerMinCap = 0
                                 AmmoMakerTimerObj.StopTimer()
-                                Core.ConsoleError("Ammo Maker couldn't cast the conjure spell. Ammo Maker is now stopped.")
+                                Kernel.ConsoleError("Ammo Maker couldn't cast the conjure spell. Ammo Maker is now stopped.")
                                 Exit Sub
                             End If
                             SP.Speak(AmmoMakerSpell.Words)
                             'Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
                             System.Threading.Thread.Sleep(1000)
-                            Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
                         Loop While TempSlot = Client.Items.GetItemID("Spear")
 
                         'Moving spear back to the backpack
@@ -3308,8 +3343,8 @@ Public Module CoreModule
                         TempSlot = 0
                         Dim EnchantedSpearId As Integer = 0
                         Dim MoveToSlot As New Scripting.IContainer.ContainerItemDefinition
-                        Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), EnchantedSpearId, 2)
-                        If Not Container.FindItem(MoveToSlot, EnchantedSpearId) Then 'Testing if theres already enchanted spears
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), EnchantedSpearId, 2)
+                        If Not (New Container).FindItem(MoveToSlot, EnchantedSpearId) Then 'Testing if theres already enchanted spears
                             MoveToSlot = Spear
                         End If
                         Do
@@ -3318,16 +3353,16 @@ Public Module CoreModule
                                 AmmoMakerMinMana = 0
                                 AmmoMakerMinCap = 0
                                 AmmoMakerTimerObj.StopTimer()
-                                Core.ConsoleError("Ammo Maker is stuck, couldn't move spear from hand to backpack. Ammo Maker is now stopped.")
+                                Kernel.ConsoleError("Ammo Maker is stuck, couldn't move spear from hand to backpack. Ammo Maker is now stopped.")
                                 Exit Sub
                             End If
                             SP.MoveObject(EnchantedSpearId, GetInventorySlotAsLocation(SlotToUse), MoveToSlot.Location, 1)
                             'Core.Proxy.SendPacketToServer(MoveObject(EnchantedSpearId, GetInventorySlotAsLocation(SlotToUse), MoveToSlot.Location, 1))
                             System.Threading.Thread.Sleep(1000)
-                            Core.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
                         Loop Until TempSlot = 0
                     Case Else
-                        Core.ConsoleError("The Spell cannot be used to create or enchant ammunation. Ammo Maker is now stopped.")
+                        Kernel.ConsoleError("The Spell cannot be used to create or enchant ammunation. Ammo Maker is now stopped.")
                         AmmoMakerTimerObj.StopTimer()
                         AmmoMakerMinMana = 0
                         AmmoMakerMinCap = 0
@@ -3733,7 +3768,7 @@ Public Module CoreModule
                 Client.Title = BotName & " - " & Client.CharacterName
                 ExpCheckerActivated = False
                 ExpCheckerTimerObj.StartTimer()
-                If StatsTimerObj.State = ThreadTimerState.Stopped Then
+                If StatsTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then
                     StatsTimerObj.StartTimer()
                     ChatMessageQueueList.Clear()
                     ChatMessageQueueTimerObj.StartTimer()
@@ -3894,7 +3929,7 @@ Public Module CoreModule
                         If Consts.HotkeysCanEquipItems AndAlso (Location.X = &HFFFF AndAlso Location.Y = 0 AndAlso Location.Z = 0) Then 'hotkey
                             If Client.Items.IsRing(ItemID) Then
                                 Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
-                                If Container.FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+                                If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
                                     SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger))
                                     'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger)))
                                 Else
@@ -3904,7 +3939,7 @@ Public Module CoreModule
                             End If
                             If Client.Items.IsNeck(ItemID) Then
                                 Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
-                                If Container.FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+                                If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
                                     SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck))
                                     'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck)))
                                     AmuletID = ItemID
@@ -3916,7 +3951,7 @@ Public Module CoreModule
                             If Client.Items.IsAmmunition(ItemID) Then
                                 Dim Ammodef As Scripting.IContainer.ContainerItemDefinition
                                 Dim Cont As New Container
-                                If Container.FindItem(Ammodef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+                                If (New Container).FindItem(Ammodef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
                                     AmmoRestackerItemID = ItemID
                                     SP.MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount)
                                     'Proxy.SendPacketToServer(MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount))
@@ -3949,7 +3984,7 @@ Public Module CoreModule
                                 WalkerChar.Type = Walker.WaypointType.Ladder
                                 WalkerChar.Info = ""
                                 Walker_Waypoints.Add(WalkerChar)
-                                Core.ConsoleWrite("Ladder waypoint added.")
+                                Kernel.ConsoleWrite("Ladder waypoint added.")
                             End If
                         End If
                     Case &H83 'Use Item With
@@ -3969,11 +4004,11 @@ Public Module CoreModule
                                 Case "Rope"
                                     WalkerChar.Type = Walker.WaypointType.Rope
                                     WalkerChar.Info = ""
-                                    Core.ConsoleWrite("Rope waypoint added.")
+                                    Kernel.ConsoleWrite("Rope waypoint added.")
                                 Case "Shovel", "Light Shovel"
                                     WalkerChar.Type = Walker.WaypointType.Shovel
                                     WalkerChar.Info = BL.GetDirection 'HAVE TO BE TESTED!
-                                    Core.ConsoleWrite("Shovel waypoint added.")
+                                    Kernel.ConsoleWrite("Shovel waypoint added.")
                                 Case Else
                                     Exit Sub
                             End Select
@@ -4097,12 +4132,12 @@ Public Module CoreModule
                                                     IRCClient.Speak(Match2.Groups(3).Value, Match2.Groups(2).Value)
                                                 End If
                                             Case "users", "u"
-                                                If Core.IRCClient.Channels.ContainsKey(Channel) Then
+                                                If Kernel.IRCClient.Channels.ContainsKey(Channel) Then
                                                     Dim TempNick As String = ""
-                                                    For Each Nick As String In Core.IRCClient.Channels(Channel).Users.Keys
+                                                    For Each Nick As String In Kernel.IRCClient.Channels(Channel).Users.Keys
                                                         Dim Temp() As String = {"", "+", "%", "@", "~"}
                                                         TempNick = Temp(IRCClient.GetUserLevel(Nick, Channel)) & Nick
-                                                        Core.IrcChannelSpeakNormal(Channel, TempNick, IrcChannelNameToID(Channel))
+                                                        Kernel.IrcChannelSpeakNormal(Channel, TempNick, IrcChannelNameToID(Channel))
                                                     Next
                                                 End If
                                         End Select
@@ -4170,42 +4205,42 @@ Public Module CoreModule
                                         IRCClient.Speak(ChatMessage.Message, ChatMessage.Destinatary.Substring(0, ChatMessage.Destinatary.Length - 4))
                                         Send = False
                                         Exit Sub
-                                        End If
-                                        SP.Speak(ChatMessage.Destinatary, ChatMessage.Message, ChatMessage.PrivateMessageType)
-                                        'bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
+                                    End If
+                                    SP.Speak(ChatMessage.Destinatary, ChatMessage.Message, ChatMessage.PrivateMessageType)
+                                    'bytNewBuffer = Speak(ChatMessage.Destinatary, ChatMessage.Message)
                                 Case ITibia.MessageType.Channel
-                                        ChatMessage.ChannelMessageType = ChannelMessageType
-                                        ChatMessage.Channel = GetWord(bytBuffer, Pos)
-                                        ChatMessage.Message = GetString(bytBuffer, Pos)
-                                        If ChatMessage.Message.StartsWith("&") Then
-                                            MCollection = RegExp.Matches(ChatMessage.Message)
-                                            For Each GroupMatch In MCollection
-                                                ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                                CommandParser(GroupMatch.Groups(1).ToString)
-                                            Next
-                                            If MCollection.Count > 0 Then
-                                                Send = False
-                                                Exit Sub
-                                            End If
+                                    ChatMessage.ChannelMessageType = ChannelMessageType
+                                    ChatMessage.Channel = GetWord(bytBuffer, Pos)
+                                    ChatMessage.Message = GetString(bytBuffer, Pos)
+                                    If ChatMessage.Message.StartsWith("&") Then
+                                        MCollection = RegExp.Matches(ChatMessage.Message)
+                                        For Each GroupMatch In MCollection
+                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                            CommandParser(GroupMatch.Groups(1).ToString)
+                                        Next
+                                        If MCollection.Count > 0 Then
+                                            Send = False
+                                            Exit Sub
                                         End If
-                                        SP.Speak(ChatMessage.Message, ChatMessage.Channel, ChatMessage.ChannelMessageType)
-                                        'bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
+                                    End If
+                                    SP.Speak(ChatMessage.Message, ChatMessage.Channel, ChatMessage.ChannelMessageType)
+                                    'bytNewBuffer = Speak(ChatMessage.Message, ChatMessage.Channel)
                                 Case Else
-                                        ChatMessage.DefaultMessageType = DefaultMessageType
-                                        ChatMessage.Message = GetString(bytBuffer, Pos)
-                                        If ChatMessage.Message.StartsWith("&") Then
-                                            MCollection = RegExp.Matches(ChatMessage.Message)
-                                            For Each GroupMatch In MCollection
-                                                ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                                CommandParser(GroupMatch.Groups(1).ToString)
-                                            Next
-                                            If MCollection.Count > 0 Then
-                                                Send = False
-                                                Exit Sub
-                                            End If
+                                    ChatMessage.DefaultMessageType = DefaultMessageType
+                                    ChatMessage.Message = GetString(bytBuffer, Pos)
+                                    If ChatMessage.Message.StartsWith("&") Then
+                                        MCollection = RegExp.Matches(ChatMessage.Message)
+                                        For Each GroupMatch In MCollection
+                                            ConsoleRead("&" & GroupMatch.Groups(1).Value)
+                                            CommandParser(GroupMatch.Groups(1).ToString)
+                                        Next
+                                        If MCollection.Count > 0 Then
+                                            Send = False
+                                            Exit Sub
                                         End If
-                                        SP.Speak(ChatMessage.Message, ChatMessage.DefaultMessageType)
-                                        'bytNewBuffer = Speak(ChatMessage.Message, MessageType)
+                                    End If
+                                    SP.Speak(ChatMessage.Message, ChatMessage.DefaultMessageType)
+                                    'bytNewBuffer = Speak(ChatMessage.Message, MessageType)
                             End Select
                             Dim TimeElapsed As TimeSpan = Date.Now.Subtract(ChatMessageLastSent)
                             If ChatMessageLastSent = Date.MinValue OrElse TimeElapsed.TotalSeconds >= 3 Then
@@ -4360,12 +4395,12 @@ Public Module CoreModule
                             ElseIf Client.Dat.GetInfo(ID).IsFluidContainer Then
                                 Pos += 1
                             ElseIf Client.Dat.GetInfo(ID).IsContainer Then
-                                If LooterTimerObj.State = ThreadTimerState.Running Then
+                                If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                     If Not ((Client.Items.GetItemKind(ID) And IItems.ItemKind.Container) = IItems.ItemKind.Container) Then 'if its known container, skip
                                         Dim BL As New BattleList
                                         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                                         If BL.GetDistanceFromLocation(Loc) <= Consts.LootMaxDistance Then
-                                            If CaveBotTimerObj.State = ThreadTimerState.Running Then
+                                            If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                                 If Not CavebotForm.LootFromCorpses.Checked AndAlso Not CavebotForm.EatFromCorpses.Checked Then
                                                     Continue While
                                                 End If
@@ -4373,7 +4408,7 @@ Public Module CoreModule
                                                 'WriteMemory(Consts.ptrGoToY, 0, 1)
                                                 'WriteMemory(Consts.ptrGoToZ, 0, 1)
                                                 BL.IsWalking = False
-                                                CBContainerCount = Container.ContainerCount
+                                                CBContainerCount = (New Container).ContainerCount
                                                 IsOpeningReady = False
                                                 WaitTime = Date.Now.AddSeconds(5)
                                                 CBCreatureDied = True
@@ -4590,7 +4625,7 @@ Public Module CoreModule
                                     Loc = GetLocation(bytBuffer, Pos)
                                     Message = GetString(bytBuffer, Pos)
                                     If DefaultMessageType <> ITibia.DefaultMessageType.MonsterSay AndAlso DefaultMessageType <> ITibia.DefaultMessageType.MonsterYell Then
-                                        MessageAlarm(DefaultMessageType, Name, Level, Loc, Message)
+                                        MessageAlarm(ITibia.MessageType.Default, Name, Level, Loc, Message)
                                     End If
                                 Case ITibia.MessageType.Channel
                                     Dim Channel As ITibia.Channel = CType(GetWord(bytBuffer, Pos), ITibia.Channel)
@@ -4601,9 +4636,10 @@ Public Module CoreModule
                                             'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message))
                                         End If
                                     End If
+                                    'MessageAlarm(ChannelMessageType, Name, Level, Loc, Message)
                                 Case ITibia.MessageType.PrivateMessage 'private message
                                     Message = GetString(bytBuffer, Pos)
-                                    MessageAlarm(PrivateMessageType, Name, Level, Loc, Message)
+                                    MessageAlarm(ITibia.MessageType.PrivateMessage, Name, Level, Loc, Message)
                             End Select
                         Case &HAB 'channel dialog
                             OneByte = GetByte(bytBuffer, Pos)
@@ -4669,9 +4705,9 @@ Public Module CoreModule
                     Case ITibia.MessageType.Default
                         If Consts.FlashTaskbarWhenMessaged AndAlso Not Consts.FlashTaskbarWhenPMOnly Then
                             If Not (Not Consts.FlashTaskbarWhenSpell AndAlso MessageIsSpell(Message)) Then
-                                Dim CP As New ClientPacketBuilder(Proxy)
-                                CP.SystemMessage(ITibia.SysMessageType.EventAdvance, "Flashed window!")
-                                CP.SystemMessage(ITibia.SysMessageType.StatusConsoleBlue, "Flashed window!")
+                                'Dim CP As New ClientPacketBuilder(Proxy)
+                                'CP.SystemMessage(ITibia.SysMessageType.EventAdvance, "Flashed window!")
+                                'CP.SystemMessage(ITibia.SysMessageType.StatusConsoleBlue, "Flashed window!")
                                 Client.FlashWindow()
                             End If
                         End If
@@ -4748,7 +4784,7 @@ Public Module CoreModule
 
 #Region " Console R/W "
 
-        Public Sub ConsoleRead(ByVal strString As String)
+        Public Sub ConsoleRead(ByVal strString As String) Implements IKernel.ConsoleRead
             Try
                 Log("ConsoleRead", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)
@@ -4759,7 +4795,7 @@ Public Module CoreModule
             End Try
         End Sub
 
-        Public Sub ConsoleWrite(ByVal strString As String)
+        Public Sub ConsoleWrite(ByVal strString As String) Implements IKernel.ConsoleWrite
             Try
                 Log("ConsoleWrite", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)
@@ -4772,7 +4808,7 @@ Public Module CoreModule
             End Try
         End Sub
 
-        Public Sub ConsoleError(ByVal strString As String)
+        Public Sub ConsoleError(ByVal strString As String) Implements IKernel.ConsoleError
             Try
                 Log("ConsoleError", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)

@@ -70,6 +70,8 @@
     <Compile Include="Classes\ServerPacketBuilder.vb" />
     <Compile Include="Classes\Packet.vb" />
     <Compile Include="Classes\ClientPacketBuilder.vb" />
+    <Compile Include="Classes\ThreadTimer.vb" />
+    <Compile Include="Interfaces\IKernel.vb" />
     <Compile Include="Interfaces\IPipePacketBuilder.vb" />
     <Compile Include="Interfaces\IClientPacketBuilder.vb" />
     <Compile Include="Interfaces\IConstants.vb" />
@@ -78,10 +80,12 @@
     <Compile Include="Interfaces\IItems.vb" />
     <Compile Include="Interfaces\IMapTiles.vb" />
     <Compile Include="Interfaces\IPipe.vb" />
+    <Compile Include="Interfaces\IScript.vb" />
     <Compile Include="Interfaces\IServerPacketBuilder.vb" />
     <Compile Include="Interfaces\IPacket.vb" />
     <Compile Include="Interfaces\IPacketBuilder.vb" />
     <Compile Include="Interfaces\IProxy.vb" />
+    <Compile Include="Interfaces\IThreadTimer.vb" />
     <Compile Include="Interfaces\ITibia.vb" />
     <Compile Include="Interfaces\IBattlelist.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

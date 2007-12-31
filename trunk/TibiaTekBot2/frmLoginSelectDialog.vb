@@ -17,7 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.Windows.Forms, TibiaTekBot.CoreModule, System.Xml, System.Text.RegularExpressions
+Imports System.Windows.Forms, TibiaTekBot.KernelModule, System.Xml, System.Text.RegularExpressions
 
 Public Class frmLoginSelectDialog
 
@@ -25,8 +25,8 @@ Public Class frmLoginSelectDialog
         Try
             Dim MatchObj As Match = Regex.Match(loginServers.Text, "^([^:]+):(\d+)$")
             If MatchObj.Success Then
-                Core.LoginServer = MatchObj.Groups(1).Value
-                Core.LoginPort = CInt(MatchObj.Groups(2).Value)
+                Kernel.LoginServer = MatchObj.Groups(1).Value
+                Kernel.LoginPort = CInt(MatchObj.Groups(2).Value)
                 Dim xmlDocument As New System.Xml.XmlDocument()
                 xmlDocument.Load(GetConfigurationDirectory() & "\Data.xml")
 
@@ -59,7 +59,7 @@ Public Class frmLoginSelectDialog
                     Exit Sub
                 End If
             End If
-            Core.IsOpenTibiaServer = privateServer.Checked
+            Kernel.IsOpenTibiaServer = privateServer.Checked
             Me.DialogResult = System.Windows.Forms.DialogResult.OK
             Me.Close()
         Catch Ex As Exception

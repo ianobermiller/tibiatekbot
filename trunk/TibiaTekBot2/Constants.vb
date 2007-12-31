@@ -665,7 +665,7 @@ Public Module ConstantsModule
         "http://www.xcreations.net/~tpforums/forum/"
     Public Const IRCServer As String = "pacifica.dairc.us"
     Public Const IRCPort As Integer = 6669
-    Public Const IRCChannel As String = "#TibiaTekBot"
+    'Public Const IRCChannel As String = "#TibiaTekBot"
     Public Const IRCClientVersion As String = "TibiaTek Integrated IRC Client (http://www.tibiatek.com/)"
     Public Const ConsoleChannelID As Integer = &H64
     Public Const ConsoleLevel As Integer = &H65
@@ -701,10 +701,7 @@ Public Module ConstantsModule
     '    MonsterYell = &H11
     'End Enum
 
-    Public Enum ThreadTimerState
-        Stopped
-        Running
-    End Enum
+
 
     Public Enum ItemSearchArgs
         Body = 1

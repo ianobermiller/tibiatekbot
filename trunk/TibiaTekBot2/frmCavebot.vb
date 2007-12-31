@@ -17,12 +17,14 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
+Imports Scripting
+
 Public Class frmCavebot
 
     Private Sub frmCavebot_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
         Try
-			If Core.Client.IsConnected Then
-                Me.Text = "Cavebot/Walker for " & Core.Client.CharacterName
+            If Kernel.Client.IsConnected Then
+                Me.Text = "Cavebot/Walker for " & Kernel.Client.CharacterName
             Else
                 Me.Text = "Cavebot/Walker"
             End If
@@ -30,7 +32,7 @@ Public Class frmCavebot
             Waypointslst.Items.Clear()
             WalkerModule.UpdateList()
             Waypointslst.ResumeLayout()
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                 'Me.Enabled = False '<-- Freezes whole thing
                 Me.AddWaypointcmd.Enabled = False
                 Me.Typecmb.Enabled = False
@@ -77,7 +79,7 @@ Public Class frmCavebot
 
     Private Sub AddWaypointcmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddWaypointcmd.Click
         Try
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                 MessageBox.Show("Cavebot/Walker is currently running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
@@ -85,7 +87,7 @@ Public Class frmCavebot
             Dim WpType As String = ""
             Dim Info As String = ""
             If Walker.CheckDistance = False Then Exit Sub
-            Character.Coordinates = Core.CharacterLoc
+            Character.Coordinates = Kernel.CharacterLoc
             Select Case CType(Typecmb.SelectedIndex, Walker.WaypointType)
                 Case Walker.WaypointType.Walk
                     Character.Type = Walker.WaypointType.Walk
@@ -161,7 +163,7 @@ Public Class frmCavebot
             End Select
 
 
-            Core.Walker_Waypoints.Add(Character)
+            Kernel.Walker_Waypoints.Add(Character)
             If Character.Type = Walker.WaypointType.Wait Then
                 Waypointslst.Items.Add(WpType & " " & Info)
             Else
@@ -204,15 +206,15 @@ Public Class frmCavebot
 
     Private Sub WPDeletecmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles WPDeletecmd.Click
         Try
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                 MessageBox.Show("Cavebot/Walker is currently running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
-            If Waypointslst.SelectedIndex = -1 OrElse Waypointslst.SelectedIndex >= Core.Walker_Waypoints.Count Then
+            If Waypointslst.SelectedIndex = -1 OrElse Waypointslst.SelectedIndex >= Kernel.Walker_Waypoints.Count Then
                 Beep()
                 Exit Sub
             End If
-            Core.Walker_Waypoints.RemoveAt(Waypointslst.SelectedIndex)
+            Kernel.Walker_Waypoints.RemoveAt(Waypointslst.SelectedIndex)
             Waypointslst.Items.RemoveAt(Waypointslst.SelectedIndex)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -225,15 +227,15 @@ Public Class frmCavebot
             If MessageBox.Show("Are you sure you want to clear you waypoints?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.No Then
                 Exit Sub
             End If
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                 MessageBox.Show("Cavebot/Walker is currently running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
-            If Core.Walker_Waypoints.Count = 0 Then
+            If Kernel.Walker_Waypoints.Count = 0 Then
                 Beep()
                 Exit Sub
             End If
-            Core.Walker_Waypoints.Clear()
+            Kernel.Walker_Waypoints.Clear()
             Waypointslst.Items.Clear()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -243,7 +245,7 @@ Public Class frmCavebot
 
     Private Sub Savecmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Savecmd.Click
         Try
-            If Core.Walker_Waypoints.Count = 0 Then
+            If Kernel.Walker_Waypoints.Count = 0 Then
                 MsgBox("No waypoints to save.", MsgBoxStyle.Question, "Cannot save waypoints")
                 Exit Sub
             End If
@@ -251,7 +253,7 @@ Public Class frmCavebot
             Dim WalkerChar As New Walker
             With SaveDlg
                 .InitialDirectory = GetWaypointsDirectory() & "\"
-                .FileName = Core.Client.CharacterName & ".Waypoints.xml"
+                .FileName = Kernel.Client.CharacterName & ".Waypoints.xml"
                 .DefaultExt = "xml"
                 .Title = BotName & " - Save Cavebot Waypoints"
                 .Filter = "Xml File|*.xml"
@@ -268,7 +270,7 @@ Public Class frmCavebot
 
     Private Sub Loadcmd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Loadcmd.Click
         Try
-            If Core.CaveBotTimerObj.State = ThreadTimerState.Running Then
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                 MessageBox.Show("Cavebot/Walker is currently running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
@@ -294,12 +296,12 @@ Public Class frmCavebot
         Try
             If EnableMonsterList.Checked Then
                 MonsterList.Enabled = True
-                Core.AutoAttackerListEnabled = True
+                Kernel.AutoAttackerListEnabled = True
                 AddMonster.Enabled = True
                 RemoveMonster.Enabled = True
             Else
                 MonsterList.Enabled = False
-                Core.AutoAttackerListEnabled = False
+                Kernel.AutoAttackerListEnabled = False
                 AddMonster.Enabled = False
                 RemoveMonster.Enabled = False
             End If
@@ -313,7 +315,7 @@ Public Class frmCavebot
         Try
             Dim Monster As String = InputBox("Enter the monster name exactly as it's shown on the screen. Example: Rotworm")
             MonsterList.Items.Add(Monster)
-            Core.AutoAttackerList.Add(Monster.ToLower)
+            Kernel.AutoAttackerList.Add(Monster.ToLower)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -326,7 +328,7 @@ Public Class frmCavebot
                 Beep()
                 Exit Sub
             End If
-            Core.AutoAttackerList.RemoveAt(MonsterList.SelectedIndex.ToString.ToLower)
+            Kernel.AutoAttackerList.RemoveAt(MonsterList.SelectedIndex.ToString.ToLower)
             MonsterList.Items.RemoveAt(MonsterList.SelectedIndex)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

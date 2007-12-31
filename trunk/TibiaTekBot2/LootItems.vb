@@ -48,7 +48,7 @@ Public Module LootItemsModule
                         If ContainerIndex < Integer.MaxValue AndAlso Item.GetContainerIndex <> ContainerIndex Then Continue For
                         ItemID = Item.GetID
                         Dim Count As Integer = 0
-                        If Core.Client.Dat.GetInfo(ItemID).HasExtraByte Then
+                        If Kernel.Client.Dat.GetInfo(ItemID).HasExtraByte Then
                             Count = 100
                         Else
                             Count = 0
@@ -209,19 +209,19 @@ Public Module LootItemsModule
 
         Public Sub ShowLootCategories()
             Try
-                Dim StarBag As UShort = Core.Client.Items.GetItemID("Star Bag")
-                Dim TreasureChest As UShort = Core.Client.Items.GetItemID("Treasure Chest With Gold")
-                Dim BotanistContainer As UShort = Core.Client.Items.GetItemID("Botanist's Container")
-                Dim GoldenBP As UShort = Core.Client.Items.GetItemID("Golden Backpack")
-                Dim GreenBP As UShort = Core.Client.Items.GetItemID("Green Backpack")
-                Dim RedBP As UShort = Core.Client.Items.GetItemID("Red Backpack")
-                Dim BlueBP As UShort = Core.Client.Items.GetItemID("Blue Backpack")
-                Dim PurpleBP As UShort = Core.Client.Items.GetItemID("Purple Backpack")
-                Dim GrayBP As UShort = Core.Client.Items.GetItemID("Gray Backpack")
-                Dim JungleBP As UShort = Core.Client.Items.GetItemID("Jungle Backpack")
-                Dim BrownBP As UShort = Core.Client.Items.GetItemID("Brown Backpack")
-                Dim StarBP As UShort = Core.Client.Items.GetItemID("Star Backpack")
-                Dim PirateBP As UShort = Core.Client.Items.GetItemID("Pirate Backpack")
+                Dim StarBag As UShort = Kernel.Client.Items.GetItemID("Star Bag")
+                Dim TreasureChest As UShort = Kernel.Client.Items.GetItemID("Treasure Chest With Gold")
+                Dim BotanistContainer As UShort = Kernel.Client.Items.GetItemID("Botanist's Container")
+                Dim GoldenBP As UShort = Kernel.Client.Items.GetItemID("Golden Backpack")
+                Dim GreenBP As UShort = Kernel.Client.Items.GetItemID("Green Backpack")
+                Dim RedBP As UShort = Kernel.Client.Items.GetItemID("Red Backpack")
+                Dim BlueBP As UShort = Kernel.Client.Items.GetItemID("Blue Backpack")
+                Dim PurpleBP As UShort = Kernel.Client.Items.GetItemID("Purple Backpack")
+                Dim GrayBP As UShort = Kernel.Client.Items.GetItemID("Gray Backpack")
+                Dim JungleBP As UShort = Kernel.Client.Items.GetItemID("Jungle Backpack")
+                Dim BrownBP As UShort = Kernel.Client.Items.GetItemID("Brown Backpack")
+                Dim StarBP As UShort = Kernel.Client.Items.GetItemID("Star Backpack")
+                Dim PirateBP As UShort = Kernel.Client.Items.GetItemID("Pirate Backpack")
                 Dim ItemsList() As Scripting.IContainer.ContainerItemDefinition = { _
                     New Scripting.IContainer.ContainerItemDefinition(TreasureChest), _
                     New Scripting.IContainer.ContainerItemDefinition(BotanistContainer), _
@@ -235,8 +235,8 @@ Public Module LootItemsModule
                     New Scripting.IContainer.ContainerItemDefinition(PurpleBP), _
                     New Scripting.IContainer.ContainerItemDefinition(GrayBP), _
                     New Scripting.IContainer.ContainerItemDefinition(BrownBP)}
-                Core.LooterCurrentCategory = 0
-                Dim CP As New ClientPacketBuilder(Core.Proxy)
+                Kernel.LooterCurrentCategory = 0
+                Dim CP As New ClientPacketBuilder(Kernel.Proxy)
                 CP.CreateContainer(StarBag, &HF, "Loot Categories", &H24, ItemsList, False)
                 'Core.Proxy.SendPacketToClient(CreateContainer(StarBag, &HF, "Loot Categories", &H24, ItemsList, False))
             Catch Ex As Exception

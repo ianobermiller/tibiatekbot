@@ -430,9 +430,9 @@ Public Class IrcClient
         Do
             Try
                 Do While IsConnected
-					If Not Core.Client.IsConnected Then
-						Disconnect()
-					End If
+                    If Not Kernel.Client.IsConnected Then
+                        Disconnect()
+                    End If
                     Try
                         Dim Message As String = ""
                         Dim SplitMessages() As String
@@ -509,7 +509,7 @@ Public Class IrcClient
                                         RaiseEvent EventChannelNamesList()
                                     End If
                                 Case "433", "432", "431", "436" 'nickname in use, erroneous nickname, no nickname, nick collision
-                                    Core.IrcGenerateNick()
+                                    Kernel.IrcGenerateNick()
                                     ChangeNick(Me.Nick)
                                 Case "471", "472", "473", "474", "475", "482"
                                     Temp = Command(1).Split(New Char() {" "c}, 3)
@@ -555,7 +555,7 @@ Public Class IrcClient
                                                                 End If
                                                         End Select
                                                     End If
-                                                    End If
+                                                End If
                                             Case "JOIN"
                                                 Match2 = Regex.Match(Arguments, ":?(.+)")
                                                 If Match2.Success Then

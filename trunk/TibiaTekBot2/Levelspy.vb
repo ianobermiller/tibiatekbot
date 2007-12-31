@@ -33,10 +33,10 @@ Module LevelspyModule
         Public ReadOnly Property GetLevel() As Integer
             Get
                 Try
-                    If Core.CharacterLoc.Z > 7 Then
+                    If Kernel.CharacterLoc.Z > 7 Then
                         Return CurrentLevel - 2
                     Else
-                        Return Core.CharacterLoc.Z - 7 + CurrentLevel
+                        Return Kernel.CharacterLoc.Z - 7 + CurrentLevel
                     End If
 
                 Catch ex As Exception
@@ -49,12 +49,12 @@ Module LevelspyModule
             Try
                 If LevelSpyPointer = 0 Then
                     Dim TempPointer As Integer = 0
-                    Core.Client.ReadMemory(Consts.ptrLevelSpy, TempPointer, 4)
+                    Kernel.Client.ReadMemory(Consts.ptrLevelSpy, TempPointer, 4)
                     TempPointer += 28
-                    Core.Client.ReadMemory(TempPointer, LevelSpyPointer, 4)
+                    Kernel.Client.ReadMemory(TempPointer, LevelSpyPointer, 4)
                     LevelSpyPointer += &H25D8
                 End If
-                Core.Client.ReadMemory(LevelSpyPointer, CurrentLevel, 4)
+                Kernel.Client.ReadMemory(LevelSpyPointer, CurrentLevel, 4)
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -78,7 +78,7 @@ Module LevelspyModule
 
         Public Function Disable() As Boolean
             Try
-                CurrentLevel = Core.CharacterLoc.Z
+                CurrentLevel = Kernel.CharacterLoc.Z
                 If InjectCode(Consts.LevelSpy1, Defaults) _
                  AndAlso InjectCode(Consts.LevelSpy2, Defaults) _
                  AndAlso InjectCode(Consts.LevelSpy3, Defaults) Then
@@ -97,7 +97,7 @@ Module LevelspyModule
                 If Not Enabled Then Return False
                 If CurrentLevel + 1 > 7 Then Return False
 
-                Core.Client.WriteMemory(LevelSpyPointer, CurrentLevel + 1, 4)
+                Kernel.Client.WriteMemory(LevelSpyPointer, CurrentLevel + 1, 4)
                 CurrentLevel += 1
                 Return True
             Catch ex As Exception
@@ -110,7 +110,7 @@ Module LevelspyModule
                 If Not Enabled Then Return False
                 If CurrentLevel - 1 < 0 Then Return False
 
-                Core.Client.WriteMemory(LevelSpyPointer, CurrentLevel - 1, 4)
+                Kernel.Client.WriteMemory(LevelSpyPointer, CurrentLevel - 1, 4)
                 CurrentLevel -= 1
                 Return True
             Catch ex As Exception

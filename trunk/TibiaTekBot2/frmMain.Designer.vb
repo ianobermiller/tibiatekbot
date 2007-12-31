@@ -499,6 +499,7 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ScriptsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -613,7 +614,7 @@ Partial Class frmMain
         '
         'PopupMenu
         '
-        Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
+        Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
         Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
@@ -692,7 +693,6 @@ Partial Class frmMain
         '
         'MenuStrip1
         '
-
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
@@ -3474,6 +3474,11 @@ Partial Class frmMain
         'Timer1
         '
         '
+        'ScriptsToolStripMenuItem
+        '
+        Me.ScriptsToolStripMenuItem.Name = "ScriptsToolStripMenuItem"
+        resources.ApplyResources(Me.ScriptsToolStripMenuItem, "ScriptsToolStripMenuItem")
+        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -4101,4 +4106,5 @@ Partial Class frmMain
     Friend WithEvents AmmoMakerSpelllbl As System.Windows.Forms.Label
     Private components As System.ComponentModel.IContainer
     Friend WithEvents TestToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ScriptsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

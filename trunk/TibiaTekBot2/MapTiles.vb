@@ -50,7 +50,7 @@ Public Module MapReaderModule
 
         Public Function ClientZToWorldZ(ByVal ClientZ As Integer) As Integer Implements IMapTiles.ClientZToWorldZ
             Try
-                Dim CharZ As Integer = Core.CharacterLoc.Z
+                Dim CharZ As Integer = Kernel.CharacterLoc.Z
                 If CharZ >= 0 AndAlso CharZ <= 7 Then 'above ground
                     Return 7 - ClientZ
                 ElseIf CharZ >= 8 AndAlso CharZ <= 15 Then 'below ground
@@ -81,10 +81,10 @@ Public Module MapReaderModule
                 ElseIf SomeY < 0 Then
                     SomeY += 14
                 End If
-                If Core.CharacterLoc.Z >= 0 AndAlso Core.CharacterLoc.Z <= 7 Then
-                    SomeZ = MapZ - WorldZToClientZ(Core.CharacterLoc.Z) + Z
-                ElseIf Core.CharacterLoc.Z >= 8 AndAlso Core.CharacterLoc.Z <= 15 Then
-                    SomeZ = MapZ + WorldZToClientZ(Core.CharacterLoc.Z) - Z
+                If Kernel.CharacterLoc.Z >= 0 AndAlso Kernel.CharacterLoc.Z <= 7 Then
+                    SomeZ = MapZ - WorldZToClientZ(Kernel.CharacterLoc.Z) + Z
+                ElseIf Kernel.CharacterLoc.Z >= 8 AndAlso Kernel.CharacterLoc.Z <= 15 Then
+                    SomeZ = MapZ + WorldZToClientZ(Kernel.CharacterLoc.Z) - Z
                 End If
                 If SomeZ < 0 Then
                     SomeZ += 8
@@ -101,7 +101,7 @@ Public Module MapReaderModule
 
         Public Sub RefreshMapBeginning() Implements IMapTiles.RefreshMapBeginning
             Try
-                Core.Client.ReadMemory(Consts.ptrMapPointer, MapBegins, 4)
+                Kernel.Client.ReadMemory(Consts.ptrMapPointer, MapBegins, 4)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -115,16 +115,16 @@ Public Module MapReaderModule
                 Dim Data As Integer = 0
                 Dim ExtraData As Integer = 0
                 Dim Address As Integer = GetAddress(X, Y, Z)
-                Core.Client.ReadMemory(Address, Count, 1)
+                Kernel.Client.ReadMemory(Address, Count, 1)
                 For I As Integer = 0 To Count - 1
-                    Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
+                    Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
                     If ID = ItemID Then
-                        Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                        Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
+                        Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+                        Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
                         Dim MapLocation As ITibia.LocationDefinition
                         Dim ClientCoords As IMapTiles.ClientCoordinates
-                        MapLocation.X = Core.CharacterLoc.X + X - 8
-                        MapLocation.Y = Core.CharacterLoc.Y + Y - 6
+                        MapLocation.X = Kernel.CharacterLoc.X + X - 8
+                        MapLocation.Y = Kernel.CharacterLoc.Y + Y - 6
                         MapLocation.Z = ClientZToWorldZ(Z)
                         ClientCoords.X = X
                         ClientCoords.Y = Y
@@ -149,18 +149,18 @@ Public Module MapReaderModule
                 Dim ExtraData As Integer = 0
                 Dim MapLocation As ITibia.LocationDefinition
                 Dim ClientCoords As IMapTiles.ClientCoordinates
-                MapLocation.X = Core.CharacterLoc.X + X - 8
-                MapLocation.Y = Core.CharacterLoc.Y + Y - 6
+                MapLocation.X = Kernel.CharacterLoc.X + X - 8
+                MapLocation.Y = Kernel.CharacterLoc.Y + Y - 6
                 MapLocation.Z = ClientZToWorldZ(Z)
                 ClientCoords.X = X
                 ClientCoords.Y = Y
                 ClientCoords.Z = Z
-                Core.Client.ReadMemory(Address, Count, 1)
+                Kernel.Client.ReadMemory(Address, Count, 1)
                 Dim TileObjects(Count - 1) As IMapTiles.TileObject
                 For I As Integer = 0 To Count - 1
-                    Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
-                    Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                    Core.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
+                    Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ID, 4)
+                    Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+                    Kernel.Client.ReadMemory(Address + (I * Consts.MapObjectDist) + Consts.MapObjectExtraDataOffset, ExtraData, 4)
                     TileObjects(I) = New IMapTiles.TileObject(ID, Data, ExtraData, MapLocation, ClientCoords, I)
                 Next
                 Return TileObjects
@@ -200,13 +200,13 @@ Public Module MapReaderModule
                 Dim ObjectID As Integer = 0
                 Dim Data As Integer = 0
                 For I As Integer = 0 To 2015
-                    Core.Client.ReadMemory(MapBegins + (Consts.MapTileDist * I), StackSize, 1)
+                    Kernel.Client.ReadMemory(MapBegins + (Consts.MapTileDist * I), StackSize, 1)
                     If StackSize < 2 Then Continue For ' there's got to be a tile, and another object, at least
                     For E As Integer = 0 To StackSize - 1
-                        Core.Client.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ObjectID, 2)
+                        Kernel.Client.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectIdOffset, ObjectID, 2)
                         If ObjectID = &H63 Then
-                            Core.Client.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
-                            If Data = Core.CharacterID Then
+                            Kernel.Client.ReadMemory(MapBegins + (I * Consts.MapTileDist) + (E * Consts.MapObjectDist) + Consts.MapObjectDataOffset, Data, 4)
+                            If Data = Kernel.CharacterID Then
                                 MapI = I
                                 MapZ = Fix(I / (14 * 18))
                                 MapY = Fix((I - MapZ * 14 * 18) / 18)
