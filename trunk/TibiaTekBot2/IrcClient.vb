@@ -571,9 +571,11 @@ Public Class IrcClient
                                                         Channels.Add(Channel, CI)
                                                         RaiseEvent EventChannelSelfJoin(Channel)
                                                     Else
-                                                        If Not Channels(Channel).Users.ContainsKey(From) Then
-                                                            Channels(Channel).Users.Add(From, New UserInformation())
-                                                            RaiseEvent EventChannelJoin(From, Channel)
+                                                        If Channels.ContainsKey(Channel) Then
+                                                            If Not Channels(Channel).Users.ContainsKey(From) Then
+                                                                Channels(Channel).Users.Add(From, New UserInformation())
+                                                                RaiseEvent EventChannelJoin(From, Channel)
+                                                            End If
                                                         End If
                                                     End If
                                                 End If
@@ -672,7 +674,7 @@ Public Class IrcClient
                                                     Dim Msg As String = Match2.Groups(2).Value
                                                     If Channels.ContainsKey(Channel) Then
                                                         If Channels(Channel).Users.ContainsKey(From) Then
-                                                            If Channels(Channel).Users(From).UserLevel >= 3 Then
+                                                            If Channels(Channel).Users(From).UserLevel >= 4 Then
                                                                 RaiseEvent EventChannelBroadcast(From, Msg, Channel)
                                                             End If
                                                         End If

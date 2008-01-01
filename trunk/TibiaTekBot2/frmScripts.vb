@@ -82,6 +82,7 @@ Public Class frmScripts
                         .IncludeDebugInformation = False
                         .ReferencedAssemblies.Add(Application.StartupPath & "\\TibiaTekBot Scripting Assembly.dll")
                         .ReferencedAssemblies.Add("System.Windows.Forms.dll")
+                        .ReferencedAssemblies.Add("Microsoft.VisualBasic.dll")
                         .ReferencedAssemblies.Add("System.dll")
                     End With
                     Dim TextFile As System.IO.FileStream = System.IO.File.Open(OpenScriptDialog.FileName, FileMode.Open)
@@ -94,17 +95,18 @@ Public Class frmScripts
                         For Each err As CompilerError In Results.Errors
                             Errors &= OpenScriptDialog.FileName & ":" & err.Line & ". Message: " & err.ErrorText & vbCrLf
                         Next
-                        MessageBox.Show(Errors & vbCrLf & "There were " & Results.Errors.Count.ToString() & " errors.", "Compiler Error", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                        MessageBox.Show(Errors & vbCrLf & "There were " & Results.Errors.Count.ToString() & " errors.", "Compiler Failed", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Else
                         Dim SD As New ScriptDefinition
                         SD.Filename = OpenScriptDialog.FileName
+                        SD.State = IScript.ScriptState.Running
                         SD.SafeFileName = OpenScriptDialog.SafeFileName
                         SD.Script = DirectCast(FindInterface(Results.CompiledAssembly, "IScript"), Scripting.IScript)
                         SD.Script.Initialize(Kernel)
                         Kernel.Scripts.Add(SD)
                         ScriptsView.Rows.Clear()
                         For Each SDD As ScriptDefinition In Kernel.Scripts
-                            ScriptsView.Rows.Add(SD.Filename)
+                            ScriptsView.Rows.Add(My.Resources.script_play, SDD.Filename)
                         Next
                     End If
                     Reader.Close()
@@ -119,10 +121,118 @@ Public Class frmScripts
 
     Private Sub ScriptsView_UserDeletedRow(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewRowEventArgs) Handles ScriptsView.UserDeletedRow
         For I As Integer = 0 To Kernel.Scripts.Count - 1
-            If Kernel.Scripts(I).Filename.Equals(e.Row.Cells(0).Value.ToString, StringComparison.CurrentCultureIgnoreCase) Then
+            If Kernel.Scripts(I).Filename = e.Row.Cells(1).Value.ToString Then
                 Kernel.Scripts(I).Script.Dispose()
                 Kernel.Scripts.RemoveAt(I)
+                Exit For
             End If
         Next
     End Sub
+
+    'Private Sub EditToolStripMenuItem_DropDownOpened(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditToolStripMenuItem.DropDownOpened
+    '    DeleteToolStripMenuItem.Enabled = ScriptsView.SelectedRows.Count > 0
+    'End Sub
+
+    'Private Sub DeleteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeleteToolStripMenuItem.Click
+    '    For I As Integer = 0 To Kernel.Scripts.Count - 1
+    '        If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
+    '            Kernel.Scripts(I).Script.Dispose()
+    '            Kernel.Scripts.RemoveAt(I)
+    '            ScriptsView.Rows.Remove(ScriptsView.SelectedRows(0))
+    '            Exit For
+    '        End If
+    '    Next
+    'End Sub
+
+    Private Sub frmScripts_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+        e.Cancel = True
+        Me.Hide()
+    End Sub
+
+    Private Sub AddToolStripMenuItem_DropDownOpened(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddToolStripMenuItem.DropDownOpened
+        RemoveToolStripMenuItem1.Enabled = ScriptsView.SelectedRows.Count > 0
+        EditToolStripMenuItem2.Enabled = ScriptsView.SelectedRows.Count > 0
+    End Sub
+
+    Private Sub StartToolStripMenuItem_DropDownOpened(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StartToolStripMenuItem.DropDownOpened
+        SelectedToolStripMenuItem.Enabled = ScriptsView.SelectedRows.Count > 0
+        AllToolStripMenuItem.Enabled = ScriptsView.RowCount > 0
+    End Sub
+
+    Private Sub ResumeToolStripMenuItem1_DropDownOpened(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ResumeToolStripMenuItem1.DropDownOpened
+        SelectedToolStripMenuItem1.Enabled = ScriptsView.SelectedRows.Count > 0
+        AllToolStripMenuItem1.Enabled = ScriptsView.RowCount > 0
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
+        Me.Close()
+    End Sub
+
+    Private Sub RemoveToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RemoveToolStripMenuItem1.Click
+        For I As Integer = 0 To Kernel.Scripts.Count - 1
+            If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
+                Kernel.Scripts(I).Script.Dispose()
+                Kernel.Scripts.RemoveAt(I)
+                ScriptsView.Rows.Remove(ScriptsView.SelectedRows(0))
+                Exit For
+            End If
+        Next
+    End Sub
+
+    Private Sub SelectedToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SelectedToolStripMenuItem.Click
+        For I As Integer = 0 To Kernel.Scripts.Count - 1
+            If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
+                Dim SD As ScriptDefinition
+                SD = Kernel.Scripts(I)
+                SD.Script.Pause()
+                SD.State = IScript.ScriptState.Paused
+                Kernel.Scripts(I) = SD
+                ScriptsView.SelectedRows(0).Cells(0).Value = My.Resources.script_pause
+            End If
+        Next
+    End Sub
+
+    Private Sub SelectedToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SelectedToolStripMenuItem1.Click
+        For I As Integer = 0 To Kernel.Scripts.Count - 1
+            If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
+                Dim SD As ScriptDefinition
+                SD = Kernel.Scripts(I)
+                SD.Script.Resume()
+                SD.State = IScript.ScriptState.Running
+                Kernel.Scripts(I) = SD
+                ScriptsView.SelectedRows(0).Cells(0).Value = My.Resources.script_play
+            End If
+        Next
+    End Sub
+
+    Private Sub EditToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditToolStripMenuItem2.Click
+        Process.Start("notepad", ScriptsView.SelectedRows(0).Cells(1).Value.ToString)
+    End Sub
+
+    Private Sub AllToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AllToolStripMenuItem.Click
+        For I As Integer = 0 To Kernel.Scripts.Count - 1
+            Dim SD As ScriptDefinition
+            SD = Kernel.Scripts(I)
+            If SD.State = IScript.ScriptState.Paused Then Continue For
+            SD.Script.Pause()
+            SD.State = IScript.ScriptState.Paused
+            Kernel.Scripts(I) = SD
+            ScriptsView.Rows(I).Cells(0).Value = My.Resources.script_pause
+        Next
+    End Sub
+
+    Private Sub AllToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AllToolStripMenuItem1.Click
+        For I As Integer = 0 To Kernel.Scripts.Count - 1
+
+            Dim SD As ScriptDefinition
+            SD = Kernel.Scripts(I)
+            If SD.State = IScript.ScriptState.Running Then Continue For
+
+            SD.Script.Pause()
+            SD.State = IScript.ScriptState.Running
+            Kernel.Scripts(I) = SD
+            ScriptsView.Rows(I).Cells(0).Value = My.Resources.script_play
+        Next
+    End Sub
+
 End Class

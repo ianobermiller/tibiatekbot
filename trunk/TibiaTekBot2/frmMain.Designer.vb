@@ -43,6 +43,7 @@ Partial Class frmMain
         Me.PopupMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ShowHideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator
+        Me.ScriptsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AlarmsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CavebotMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CharacterStatisticsMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -499,7 +500,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.ScriptsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -629,6 +629,12 @@ Partial Class frmMain
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
         resources.ApplyResources(Me.ToolStripSeparator4, "ToolStripSeparator4")
+        '
+        'ScriptsToolStripMenuItem
+        '
+        Me.ScriptsToolStripMenuItem.Image = Global.TibiaTekBot.My.Resources.Resources.script
+        resources.ApplyResources(Me.ScriptsToolStripMenuItem, "ScriptsToolStripMenuItem")
+        Me.ScriptsToolStripMenuItem.Name = "ScriptsToolStripMenuItem"
         '
         'AlarmsToolStripMenuItem
         '
@@ -3474,11 +3480,6 @@ Partial Class frmMain
         'Timer1
         '
         '
-        'ScriptsToolStripMenuItem
-        '
-        Me.ScriptsToolStripMenuItem.Name = "ScriptsToolStripMenuItem"
-        resources.ApplyResources(Me.ScriptsToolStripMenuItem, "ScriptsToolStripMenuItem")
-        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -3494,7 +3495,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
-        Me.TransparencyKey = System.Drawing.SystemColors.Info
+        Me.TransparencyKey = System.Drawing.Color.Lime
         Me.PopupMenu.ResumeLayout(False)
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

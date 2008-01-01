@@ -148,6 +148,9 @@
   <data name="ToolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 6</value>
   </data>
+  <data name="ScriptsToolStripMenuItem.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>White</value>
+  </data>
   <data name="ScriptsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>235, 22</value>
   </data>
@@ -4889,7 +4892,7 @@
     <value>119, 24</value>
   </data>
   <data name="HealPotionPercent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
+    <value>52, 20</value>
   </data>
   <data name="HealPotionPercent.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -4910,7 +4913,7 @@
     <value>119, 1</value>
   </data>
   <data name="HealPotionHp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
+    <value>52, 20</value>
   </data>
   <data name="HealPotionHp.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -4994,7 +4997,7 @@
     <value>7, 219</value>
   </data>
   <data name="HealPotionHpPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 53</value>
+    <value>173, 53</value>
   </data>
   <data name="HealPotionHpPanel.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -5015,7 +5018,7 @@
     <value>119, 24</value>
   </data>
   <data name="HealRunePercent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
+    <value>53, 20</value>
   </data>
   <data name="HealRunePercent.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -5036,7 +5039,7 @@
     <value>119, 1</value>
   </data>
   <data name="HealRuneHP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
+    <value>53, 20</value>
   </data>
   <data name="HealRuneHP.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -5120,7 +5123,7 @@
     <value>6, 40</value>
   </data>
   <data name="HealRuneHpPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 53</value>
+    <value>174, 53</value>
   </data>
   <data name="HealRuneHpPanel.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -5141,7 +5144,7 @@
     <value>119, 25</value>
   </data>
   <data name="HealSpellPercent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
+    <value>54, 20</value>
   </data>
   <data name="HealSpellPercent.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -5192,7 +5195,7 @@
     <value>119, 2</value>
   </data>
   <data name="HealSpellHp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
+    <value>54, 20</value>
   </data>
   <data name="HealSpellHp.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -5246,7 +5249,7 @@
     <value>5, 128</value>
   </data>
   <data name="HealSpellHPPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 56</value>
+    <value>175, 56</value>
   </data>
   <data name="HealSpellHPPanel.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -5306,7 +5309,7 @@
     <value>90, 192</value>
   </data>
   <data name="HealPotionName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 21</value>
+    <value>88, 21</value>
   </data>
   <data name="HealPotionName.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -5327,7 +5330,7 @@
     <value>89, 103</value>
   </data>
   <data name="HealSpellName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 21</value>
+    <value>89, 21</value>
   </data>
   <data name="HealSpellName.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -5384,7 +5387,7 @@
     <value>89, 16</value>
   </data>
   <data name="HealRuneType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 21</value>
+    <value>89, 21</value>
   </data>
   <data name="HealRuneType.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -5432,10 +5435,10 @@
     <value>8</value>
   </data>
   <data name="HealerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-1, -2</value>
+    <value>6, 6</value>
   </data>
   <data name="HealerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 287</value>
+    <value>187, 287</value>
   </data>
   <data name="HealerBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -5465,10 +5468,10 @@
     <value>Great Mana Potion</value>
   </data>
   <data name="ManaPotionName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 26</value>
+    <value>91, 18</value>
   </data>
   <data name="ManaPotionName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 21</value>
+    <value>89, 21</value>
   </data>
   <data name="ManaPotionName.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -5492,7 +5495,7 @@
     <value>NoControl</value>
   </data>
   <data name="RestoreManaWith.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 30</value>
+    <value>6, 19</value>
   </data>
   <data name="RestoreManaWith.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 17</value>
@@ -5516,7 +5519,7 @@
     <value>1</value>
   </data>
   <data name="DrinkerManaPoints.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 57</value>
+    <value>104, 45</value>
   </data>
   <data name="DrinkerManaPoints.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 20</value>
@@ -5546,7 +5549,7 @@
     <value>NoControl</value>
   </data>
   <data name="DrinkerManalbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 59</value>
+    <value>6, 47</value>
   </data>
   <data name="DrinkerManalbl.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 13</value>
@@ -5570,10 +5573,10 @@
     <value>3</value>
   </data>
   <data name="DrinkerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>196, 9</value>
+    <value>199, 6</value>
   </data>
   <data name="DrinkerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 113</value>
+    <value>190, 77</value>
   </data>
   <data name="DrinkerBox.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -9088,6 +9091,12 @@
   <data name="&gt;&gt;ToolStripSeparator4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;ScriptsToolStripMenuItem.Name" xml:space="preserve">
+    <value>ScriptsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ScriptsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;AlarmsToolStripMenuItem.Name" xml:space="preserve">
     <value>AlarmsToolStripMenuItem</value>
   </data>
@@ -10089,12 +10098,6 @@
   </data>
   <data name="&gt;&gt;Timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ScriptsToolStripMenuItem.Name" xml:space="preserve">
-    <value>ScriptsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ScriptsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>

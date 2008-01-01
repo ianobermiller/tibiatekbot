@@ -20,9 +20,15 @@
 Public Interface IScript
     Inherits System.IDisposable
 
+    Enum ScriptState
+        Running
+        Paused
+    End Enum
+
 #Region " Methods "
     Sub Initialize(ByVal Kernel As IKernel)
-
+    Sub Pause()
+    Sub [Resume]()
 #End Region
 
 End Interface

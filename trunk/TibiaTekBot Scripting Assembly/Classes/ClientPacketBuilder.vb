@@ -54,6 +54,7 @@ Public Class ClientPacketBuilder
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HAA)
+            _Packet.AddDWord(0)
             _Packet.AddString("Broadcast from " & Nick)
             _Packet.AddWord(0)
             _Packet.AddByte(9) ' Broacast message type

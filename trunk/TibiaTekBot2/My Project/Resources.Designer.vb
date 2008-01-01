@@ -186,6 +186,69 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property script() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property script_add() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script_add", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property script_delete() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script_delete", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property script_edit() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script_edit", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property script_pause() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script_pause", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property script_play() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script_play", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property script_save() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script_save", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property script_stop() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script_stop", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property script_warning() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("script_warning", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property stairsgodown() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("stairsgodown", resourceCulture)
