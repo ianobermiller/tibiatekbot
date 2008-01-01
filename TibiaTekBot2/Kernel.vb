@@ -104,6 +104,7 @@ Public Module KernelModule
         Dim Script As IScript
         Dim Filename As String
         Dim SafeFileName As String
+        Dim State As IScript.ScriptState
     End Structure
 
 #End Region
@@ -3415,7 +3416,7 @@ Public Module KernelModule
         Public Sub IrcChannelSpeakOwner(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(Nick, 5, ITibia.ChannelMessageType.GameMaster, Message, ChannelID)
+                CP.Speak(Nick, 4, ITibia.ChannelMessageType.GameMaster, Message, ChannelID)
                 'Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 5, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3425,7 +3426,7 @@ Public Module KernelModule
         Public Sub IrcChannelSpeakUnknown(ByVal Message As String, ByVal ChannelID As Integer)
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak("TibiaTekBot", 5, ITibia.ChannelMessageType.Anonymous, Message, ChannelID)
+                CP.Speak("TibiaTekBot", 0, ITibia.ChannelMessageType.Anonymous, Message, ChannelID)
                 'Proxy.SendPacketToClient(CreatureSpeak("TibiaTekBot", MessageType.ChannelCounsellor, 1, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3435,7 +3436,7 @@ Public Module KernelModule
         Public Sub IrcChannelSpeakOperator(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(Nick, 4, ITibia.ChannelMessageType.GameMaster, Message, ChannelID)
+                CP.Speak(Nick, 3, ITibia.ChannelMessageType.GameMaster, Message, ChannelID)
                 'Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 4, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3445,7 +3446,7 @@ Public Module KernelModule
         Public Sub IrcChannelSpeakHalfOperator(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(Nick, 3, ITibia.ChannelMessageType.Tutor, Message, ChannelID)
+                CP.Speak(Nick, 2, ITibia.ChannelMessageType.Tutor, Message, ChannelID)
                 ' Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelTutor, 3, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3455,7 +3456,7 @@ Public Module KernelModule
         Public Sub IrcChannelSpeakVoiced(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(Nick, 2, ITibia.ChannelMessageType.Tutor, Message, ChannelID)
+                CP.Speak(Nick, 1, ITibia.ChannelMessageType.Tutor, Message, ChannelID)
                 'Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelTutor, 2, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3465,7 +3466,7 @@ Public Module KernelModule
         Public Sub IrcChannelSpeakNormal(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(Nick, 1, ITibia.ChannelMessageType.Normal, Message, ChannelID)
+                CP.Speak(Nick, 0, ITibia.ChannelMessageType.Normal, Message, ChannelID)
                 ' Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.Channel, 1, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3662,7 +3663,7 @@ Public Module KernelModule
             Try
                 If Nick.StartsWith("dairc", StringComparison.CurrentCultureIgnoreCase) Then Exit Sub
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(Nick & "@IRC", 1, Message, ITibia.PrivateMessageType.Normal)
+                CP.Speak(Nick & "@IRC", 0, Message)
                 'Core.Proxy.SendPacketToClient(PacketUtils.CreatureSpeak(Nick & "@IRC", MessageType.PM, 5, Message, 0, 0, 0, ChannelType.Console))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3671,7 +3672,7 @@ Public Module KernelModule
 
         Private Sub IrcClient_PrivateMessage(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventPrivateMessage
             Dim CP As New ClientPacketBuilder(Proxy)
-            CP.Speak(Nick & "@IRC", 1, Message, ITibia.PrivateMessageType.Normal)
+            CP.Speak(Nick & "@IRC", 0, Message, ITibia.PrivateMessageType.Normal)
             'Core.Proxy.SendPacketToClient(PacketUtils.CreatureSpeak(Nick & "@IRC", MessageType.PM, 5, Message, 0, 0, 0, ChannelType.Console))
         End Sub
 
@@ -3773,6 +3774,7 @@ Public Module KernelModule
                     ChatMessageQueueList.Clear()
                     ChatMessageQueueTimerObj.StartTimer()
                 End If
+                RaiseEvent OnConnected()
                 System.GC.Collect()
                 Log("Event", "Connected to game server.")
             Catch Ex As Exception
@@ -3786,7 +3788,9 @@ Public Module KernelModule
                 IsGreetingSent = False
                 GreetingSentTry = 0
                 StopEverything()
+                RaiseEvent OnDisconnected()
                 System.GC.Collect()
+
                 Log("Event", "Disconnected from game server.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -4788,7 +4792,7 @@ Public Module KernelModule
             Try
                 Log("ConsoleRead", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(ConsoleName, System.DateTime.Now.Year, ITibia.ChannelMessageType.Tutor, strString)
+                CP.Speak(ConsoleName, 0, ITibia.ChannelMessageType.Tutor, strString)
                 'Proxy.SendPacketToClient(CreatureSpeak(Core.Client.CharacterName, MessageType.ChannelTutor, Level, strString, 0, 0, 0, ChannelType.Console))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -4800,7 +4804,7 @@ Public Module KernelModule
                 Log("ConsoleWrite", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)
                 CP.SystemMessage(SysMessageType.StatusSmall, strString)
-                CP.Speak(ConsoleName, System.DateTime.Now.Year, ITibia.ChannelMessageType.Normal, strString)
+                CP.Speak(ConsoleName, 0, ITibia.ChannelMessageType.Normal, strString)
                 'Proxy.SendPacketToClient(CreatureSpeak(ConsoleName, MessageType.Channel, ConsoleLevel, strString, 0, 0, 0, ChannelType.Console))
                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, strString))
             Catch Ex As Exception
@@ -4813,7 +4817,7 @@ Public Module KernelModule
                 Log("ConsoleError", strString)
                 Dim CP As New ClientPacketBuilder(Proxy)
                 CP.SystemMessage(SysMessageType.StatusSmall, strString)
-                CP.Speak(ConsoleName, System.DateTime.Now.Year, ITibia.ChannelMessageType.GameMaster, strString)
+                CP.Speak(ConsoleName, 0, ITibia.ChannelMessageType.GameMaster, strString)
                 'Proxy.SendPacketToClient(CreatureSpeak(ConsoleName, MessageType.ChannelGM, ConsoleLevel, strString, 0, 0, 0, ChannelType.Console))
                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, strString))
             Catch Ex As Exception
