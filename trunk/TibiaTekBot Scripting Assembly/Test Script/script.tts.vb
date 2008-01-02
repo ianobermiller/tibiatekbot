@@ -33,6 +33,7 @@ Public Class Script
     Public Sub ResumeScript() Implements IScript.Resume
         If Kernel.Client.IsConnected() Then
             Me.Timer.StartTimer()
+            Kernel.ConsoleWrite("Hello World! The Script is Started again!")
         End If
     End Sub
 

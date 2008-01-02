@@ -22,6 +22,7 @@ Partial Class frmKeyboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmKeyboard))
         Me.MainKeys = New System.Windows.Forms.Panel
         Me.HKeyFSlsh = New System.Windows.Forms.RadioButton
         Me.HKeyFStop = New System.Windows.Forms.RadioButton
@@ -75,11 +76,11 @@ Partial Class frmKeyboard
         Me.OutputPanel = New System.Windows.Forms.Panel
         Me.PressedLabel = New System.Windows.Forms.Label
         Me.ActionsPanel = New System.Windows.Forms.Panel
-        Me.IdentifierBox = New System.Windows.Forms.ComboBox
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox
-        Me.ComboBox4 = New System.Windows.Forms.ComboBox
         Me.ComboBox5 = New System.Windows.Forms.ComboBox
+        Me.ComboBox4 = New System.Windows.Forms.ComboBox
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox
+        Me.IdentifierBox = New System.Windows.Forms.ComboBox
         Me.MainKeys.SuspendLayout()
         Me.ModifiersPanel.SuspendLayout()
         Me.OutputPanel.SuspendLayout()
@@ -751,6 +752,38 @@ Partial Class frmKeyboard
         Me.ActionsPanel.Size = New System.Drawing.Size(415, 70)
         Me.ActionsPanel.TabIndex = 51
         '
+        'ComboBox5
+        '
+        Me.ComboBox5.FormattingEnabled = True
+        Me.ComboBox5.Location = New System.Drawing.Point(330, 23)
+        Me.ComboBox5.Name = "ComboBox5"
+        Me.ComboBox5.Size = New System.Drawing.Size(80, 21)
+        Me.ComboBox5.TabIndex = 4
+        '
+        'ComboBox4
+        '
+        Me.ComboBox4.FormattingEnabled = True
+        Me.ComboBox4.Location = New System.Drawing.Point(248, 23)
+        Me.ComboBox4.Name = "ComboBox4"
+        Me.ComboBox4.Size = New System.Drawing.Size(80, 21)
+        Me.ComboBox4.TabIndex = 3
+        '
+        'ComboBox3
+        '
+        Me.ComboBox3.FormattingEnabled = True
+        Me.ComboBox3.Location = New System.Drawing.Point(166, 23)
+        Me.ComboBox3.Name = "ComboBox3"
+        Me.ComboBox3.Size = New System.Drawing.Size(80, 21)
+        Me.ComboBox3.TabIndex = 2
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Location = New System.Drawing.Point(84, 23)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(80, 21)
+        Me.ComboBox2.TabIndex = 1
+        '
         'IdentifierBox
         '
         Me.IdentifierBox.FormattingEnabled = True
@@ -761,38 +794,6 @@ Partial Class frmKeyboard
         Me.IdentifierBox.Size = New System.Drawing.Size(80, 21)
         Me.IdentifierBox.TabIndex = 0
         '
-        'ComboBox2
-        '
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(84, 23)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(80, 21)
-        Me.ComboBox2.TabIndex = 1
-        '
-        'ComboBox3
-        '
-        Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(166, 23)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(80, 21)
-        Me.ComboBox3.TabIndex = 2
-        '
-        'ComboBox4
-        '
-        Me.ComboBox4.FormattingEnabled = True
-        Me.ComboBox4.Location = New System.Drawing.Point(248, 23)
-        Me.ComboBox4.Name = "ComboBox4"
-        Me.ComboBox4.Size = New System.Drawing.Size(80, 21)
-        Me.ComboBox4.TabIndex = 3
-        '
-        'ComboBox5
-        '
-        Me.ComboBox5.FormattingEnabled = True
-        Me.ComboBox5.Location = New System.Drawing.Point(330, 23)
-        Me.ComboBox5.Name = "ComboBox5"
-        Me.ComboBox5.Size = New System.Drawing.Size(80, 21)
-        Me.ComboBox5.TabIndex = 4
-        '
         'frmKeyboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -802,8 +803,9 @@ Partial Class frmKeyboard
         Me.Controls.Add(Me.OutputPanel)
         Me.Controls.Add(Me.ModifiersPanel)
         Me.Controls.Add(Me.MainKeys)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmKeyboard"
-        Me.Text = "frmKeyboard"
         Me.MainKeys.ResumeLayout(False)
         Me.ModifiersPanel.ResumeLayout(False)
         Me.OutputPanel.ResumeLayout(False)

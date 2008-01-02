@@ -833,4 +833,9 @@ Public Module ConstantsModule
         Incantation
     End Enum
 
+    Public Enum BotState As Integer
+        Running
+        Paused
+    End Enum
+
 End Module

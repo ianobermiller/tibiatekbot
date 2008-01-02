@@ -60,11 +60,11 @@ Partial Class frmAlarms
         Me.Label9 = New System.Windows.Forms.Label
         Me.ItemsList = New System.Windows.Forms.CheckedListBox
         Me.GroupBox14 = New System.Windows.Forms.GroupBox
+        Me.ItemsPauseBot = New System.Windows.Forms.CheckBox
         Me.ItemsMessagePlayer = New System.Windows.Forms.CheckBox
         Me.ItemsLogOut = New System.Windows.Forms.CheckBox
         Me.ItemsPlaySound = New System.Windows.Forms.CheckBox
         Me.ItemsMessagePlayerName = New System.Windows.Forms.TextBox
-        Me.fff = New System.Windows.Forms.Label
         Me.Tabs = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
@@ -82,11 +82,11 @@ Partial Class frmAlarms
         Me.BattlelistIgnoredPlayersInput = New System.Windows.Forms.TextBox
         Me.BattlelistIgnoredPlayers = New System.Windows.Forms.ListBox
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
+        Me.BattleListPauseBot = New System.Windows.Forms.CheckBox
         Me.BattlelistMessagePlayer = New System.Windows.Forms.CheckBox
         Me.BattlelistLogout = New System.Windows.Forms.CheckBox
         Me.BattlelistPlaySound = New System.Windows.Forms.CheckBox
         Me.BattlelistMessagePlayerInput = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
         Me.TabPage3 = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
@@ -99,7 +99,6 @@ Partial Class frmAlarms
         Me.MessageLogOut = New System.Windows.Forms.CheckBox
         Me.MessagePlaySound = New System.Windows.Forms.CheckBox
         Me.MessageForwardMessageInput = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
         Me.MessagePrivate = New System.Windows.Forms.CheckBox
         Me.MessagePublic = New System.Windows.Forms.CheckBox
@@ -113,11 +112,11 @@ Partial Class frmAlarms
         Me.StatusConditionBurnt = New System.Windows.Forms.CheckBox
         Me.StatusConditionPoisoned = New System.Windows.Forms.CheckBox
         Me.GroupBox11 = New System.Windows.Forms.GroupBox
+        Me.StatusPauseBot = New System.Windows.Forms.CheckBox
         Me.StatusMessagePlayer = New System.Windows.Forms.CheckBox
         Me.StatusLogOut = New System.Windows.Forms.CheckBox
         Me.StatusPlaySound = New System.Windows.Forms.CheckBox
         Me.StatusMessagePlayerName = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
         Me.GroupBox10 = New System.Windows.Forms.GroupBox
         Me.StatusCapacity = New System.Windows.Forms.NumericUpDown
         Me.Label7 = New System.Windows.Forms.Label
@@ -134,6 +133,7 @@ Partial Class frmAlarms
         Me.BattlelistAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StatusAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ItemsAlarmTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.MessagePauseBot = New System.Windows.Forms.CheckBox
         tablalala = New System.Windows.Forms.TabPage
         tablalala.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -282,11 +282,11 @@ Partial Class frmAlarms
         '
         'GroupBox14
         '
+        Me.GroupBox14.Controls.Add(Me.ItemsPauseBot)
         Me.GroupBox14.Controls.Add(Me.ItemsMessagePlayer)
         Me.GroupBox14.Controls.Add(Me.ItemsLogOut)
         Me.GroupBox14.Controls.Add(Me.ItemsPlaySound)
         Me.GroupBox14.Controls.Add(Me.ItemsMessagePlayerName)
-        Me.GroupBox14.Controls.Add(Me.fff)
         Me.GroupBox14.Location = New System.Drawing.Point(6, 159)
         Me.GroupBox14.Name = "GroupBox14"
         Me.GroupBox14.Size = New System.Drawing.Size(333, 72)
@@ -294,14 +294,24 @@ Partial Class frmAlarms
         Me.GroupBox14.TabStop = False
         Me.GroupBox14.Text = "Actions"
         '
+        'ItemsPauseBot
+        '
+        Me.ItemsPauseBot.AutoSize = True
+        Me.ItemsPauseBot.Location = New System.Drawing.Point(10, 42)
+        Me.ItemsPauseBot.Name = "ItemsPauseBot"
+        Me.ItemsPauseBot.Size = New System.Drawing.Size(75, 17)
+        Me.ItemsPauseBot.TabIndex = 13
+        Me.ItemsPauseBot.Text = "Pause Bot"
+        Me.ItemsPauseBot.UseVisualStyleBackColor = True
+        '
         'ItemsMessagePlayer
         '
         Me.ItemsMessagePlayer.AutoSize = True
-        Me.ItemsMessagePlayer.Location = New System.Drawing.Point(10, 44)
+        Me.ItemsMessagePlayer.Location = New System.Drawing.Point(184, 19)
         Me.ItemsMessagePlayer.Name = "ItemsMessagePlayer"
-        Me.ItemsMessagePlayer.Size = New System.Drawing.Size(101, 17)
+        Me.ItemsMessagePlayer.Size = New System.Drawing.Size(104, 17)
         Me.ItemsMessagePlayer.TabIndex = 12
-        Me.ItemsMessagePlayer.Text = "Message Player"
+        Me.ItemsMessagePlayer.Text = "Message Player:"
         Me.ItemsMessagePlayer.UseVisualStyleBackColor = True
         '
         'ItemsLogOut
@@ -330,15 +340,6 @@ Partial Class frmAlarms
         Me.ItemsMessagePlayerName.Name = "ItemsMessagePlayerName"
         Me.ItemsMessagePlayerName.Size = New System.Drawing.Size(123, 20)
         Me.ItemsMessagePlayerName.TabIndex = 9
-        '
-        'fff
-        '
-        Me.fff.AutoSize = True
-        Me.fff.Location = New System.Drawing.Point(181, 20)
-        Me.fff.Name = "fff"
-        Me.fff.Size = New System.Drawing.Size(123, 13)
-        Me.fff.TabIndex = 8
-        Me.fff.Text = "Player To Be Messaged:"
         '
         'Tabs
         '
@@ -511,11 +512,11 @@ Partial Class frmAlarms
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.BattleListPauseBot)
         Me.GroupBox4.Controls.Add(Me.BattlelistMessagePlayer)
         Me.GroupBox4.Controls.Add(Me.BattlelistLogout)
         Me.GroupBox4.Controls.Add(Me.BattlelistPlaySound)
         Me.GroupBox4.Controls.Add(Me.BattlelistMessagePlayerInput)
-        Me.GroupBox4.Controls.Add(Me.Label3)
         Me.GroupBox4.Location = New System.Drawing.Point(175, 120)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(167, 111)
@@ -523,14 +524,24 @@ Partial Class frmAlarms
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Actions"
         '
+        'BattleListPauseBot
+        '
+        Me.BattleListPauseBot.AutoSize = True
+        Me.BattleListPauseBot.Location = New System.Drawing.Point(10, 39)
+        Me.BattleListPauseBot.Name = "BattleListPauseBot"
+        Me.BattleListPauseBot.Size = New System.Drawing.Size(75, 17)
+        Me.BattleListPauseBot.TabIndex = 13
+        Me.BattleListPauseBot.Text = "Pause Bot"
+        Me.BattleListPauseBot.UseVisualStyleBackColor = True
+        '
         'BattlelistMessagePlayer
         '
         Me.BattlelistMessagePlayer.AutoSize = True
-        Me.BattlelistMessagePlayer.Location = New System.Drawing.Point(10, 42)
+        Me.BattlelistMessagePlayer.Location = New System.Drawing.Point(10, 59)
         Me.BattlelistMessagePlayer.Name = "BattlelistMessagePlayer"
-        Me.BattlelistMessagePlayer.Size = New System.Drawing.Size(101, 17)
+        Me.BattlelistMessagePlayer.Size = New System.Drawing.Size(104, 17)
         Me.BattlelistMessagePlayer.TabIndex = 12
-        Me.BattlelistMessagePlayer.Text = "Message Player"
+        Me.BattlelistMessagePlayer.Text = "Message Player:"
         Me.BattlelistMessagePlayer.UseVisualStyleBackColor = True
         '
         'BattlelistLogout
@@ -555,19 +566,10 @@ Partial Class frmAlarms
         '
         'BattlelistMessagePlayerInput
         '
-        Me.BattlelistMessagePlayerInput.Location = New System.Drawing.Point(10, 78)
+        Me.BattlelistMessagePlayerInput.Location = New System.Drawing.Point(10, 82)
         Me.BattlelistMessagePlayerInput.Name = "BattlelistMessagePlayerInput"
         Me.BattlelistMessagePlayerInput.Size = New System.Drawing.Size(120, 20)
         Me.BattlelistMessagePlayerInput.TabIndex = 9
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(7, 62)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(123, 13)
-        Me.Label3.TabIndex = 8
-        Me.Label3.Text = "Player To Be Messaged:"
         '
         'TabPage3
         '
@@ -640,11 +642,11 @@ Partial Class frmAlarms
         '
         'GroupBox9
         '
+        Me.GroupBox9.Controls.Add(Me.MessagePauseBot)
         Me.GroupBox9.Controls.Add(Me.MessageForwardMessage)
         Me.GroupBox9.Controls.Add(Me.MessageLogOut)
         Me.GroupBox9.Controls.Add(Me.MessagePlaySound)
         Me.GroupBox9.Controls.Add(Me.MessageForwardMessageInput)
-        Me.GroupBox9.Controls.Add(Me.Label2)
         Me.GroupBox9.Location = New System.Drawing.Point(175, 65)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(167, 166)
@@ -655,7 +657,7 @@ Partial Class frmAlarms
         'MessageForwardMessage
         '
         Me.MessageForwardMessage.AutoSize = True
-        Me.MessageForwardMessage.Location = New System.Drawing.Point(10, 59)
+        Me.MessageForwardMessage.Location = New System.Drawing.Point(10, 85)
         Me.MessageForwardMessage.Name = "MessageForwardMessage"
         Me.MessageForwardMessage.Size = New System.Drawing.Size(110, 17)
         Me.MessageForwardMessage.TabIndex = 12
@@ -684,19 +686,10 @@ Partial Class frmAlarms
         '
         'MessageForwardMessageInput
         '
-        Me.MessageForwardMessageInput.Location = New System.Drawing.Point(10, 95)
+        Me.MessageForwardMessageInput.Location = New System.Drawing.Point(10, 108)
         Me.MessageForwardMessageInput.Name = "MessageForwardMessageInput"
         Me.MessageForwardMessageInput.Size = New System.Drawing.Size(120, 20)
         Me.MessageForwardMessageInput.TabIndex = 9
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(7, 79)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(123, 13)
-        Me.Label2.TabIndex = 8
-        Me.Label2.Text = "Player To Be Messaged:"
         '
         'GroupBox7
         '
@@ -835,11 +828,11 @@ Partial Class frmAlarms
         '
         'GroupBox11
         '
+        Me.GroupBox11.Controls.Add(Me.StatusPauseBot)
         Me.GroupBox11.Controls.Add(Me.StatusMessagePlayer)
         Me.GroupBox11.Controls.Add(Me.StatusLogOut)
         Me.GroupBox11.Controls.Add(Me.StatusPlaySound)
         Me.GroupBox11.Controls.Add(Me.StatusMessagePlayerName)
-        Me.GroupBox11.Controls.Add(Me.Label1)
         Me.GroupBox11.Location = New System.Drawing.Point(189, 19)
         Me.GroupBox11.Name = "GroupBox11"
         Me.GroupBox11.Size = New System.Drawing.Size(153, 152)
@@ -847,14 +840,24 @@ Partial Class frmAlarms
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Actions"
         '
+        'StatusPauseBot
+        '
+        Me.StatusPauseBot.AutoSize = True
+        Me.StatusPauseBot.Location = New System.Drawing.Point(10, 62)
+        Me.StatusPauseBot.Name = "StatusPauseBot"
+        Me.StatusPauseBot.Size = New System.Drawing.Size(75, 17)
+        Me.StatusPauseBot.TabIndex = 13
+        Me.StatusPauseBot.Text = "Pause Bot"
+        Me.StatusPauseBot.UseVisualStyleBackColor = True
+        '
         'StatusMessagePlayer
         '
         Me.StatusMessagePlayer.AutoSize = True
-        Me.StatusMessagePlayer.Location = New System.Drawing.Point(10, 59)
+        Me.StatusMessagePlayer.Location = New System.Drawing.Point(10, 85)
         Me.StatusMessagePlayer.Name = "StatusMessagePlayer"
-        Me.StatusMessagePlayer.Size = New System.Drawing.Size(101, 17)
+        Me.StatusMessagePlayer.Size = New System.Drawing.Size(104, 17)
         Me.StatusMessagePlayer.TabIndex = 12
-        Me.StatusMessagePlayer.Text = "Message Player"
+        Me.StatusMessagePlayer.Text = "Message Player:"
         Me.StatusMessagePlayer.UseVisualStyleBackColor = True
         '
         'StatusLogOut
@@ -879,19 +882,10 @@ Partial Class frmAlarms
         '
         'StatusMessagePlayerName
         '
-        Me.StatusMessagePlayerName.Location = New System.Drawing.Point(10, 95)
+        Me.StatusMessagePlayerName.Location = New System.Drawing.Point(10, 108)
         Me.StatusMessagePlayerName.Name = "StatusMessagePlayerName"
         Me.StatusMessagePlayerName.Size = New System.Drawing.Size(120, 20)
         Me.StatusMessagePlayerName.TabIndex = 9
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(7, 79)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(123, 13)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "Player To Be Messaged:"
         '
         'GroupBox10
         '
@@ -1026,6 +1020,16 @@ Partial Class frmAlarms
         '
         Me.ItemsAlarmTimer.Interval = 1000
         '
+        'MessagePauseBot
+        '
+        Me.MessagePauseBot.AutoSize = True
+        Me.MessagePauseBot.Location = New System.Drawing.Point(10, 62)
+        Me.MessagePauseBot.Name = "MessagePauseBot"
+        Me.MessagePauseBot.Size = New System.Drawing.Size(72, 17)
+        Me.MessagePauseBot.TabIndex = 13
+        Me.MessagePauseBot.Text = "PauseBot"
+        Me.MessagePauseBot.UseVisualStyleBackColor = True
+        '
         'frmAlarms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1094,7 +1098,6 @@ Partial Class frmAlarms
     Friend WithEvents BattlelistLogout As System.Windows.Forms.CheckBox
     Friend WithEvents BattlelistPlaySound As System.Windows.Forms.CheckBox
     Friend WithEvents BattlelistMessagePlayerInput As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
     Friend WithEvents BattlelistIgnoredPlayerRemove As System.Windows.Forms.Button
     Friend WithEvents BattlelistIgnoredPlayerAdd As System.Windows.Forms.Button
@@ -1110,7 +1113,6 @@ Partial Class frmAlarms
     Friend WithEvents MessageLogOut As System.Windows.Forms.CheckBox
     Friend WithEvents MessagePlaySound As System.Windows.Forms.CheckBox
     Friend WithEvents MessageForwardMessageInput As System.Windows.Forms.TextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents MessagePrivate As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents MessageIgnoredPlayersRemove As System.Windows.Forms.Button
@@ -1127,7 +1129,6 @@ Partial Class frmAlarms
     Friend WithEvents StatusLogOut As System.Windows.Forms.CheckBox
     Friend WithEvents StatusPlaySound As System.Windows.Forms.CheckBox
     Friend WithEvents StatusMessagePlayerName As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents StatusSoulPoints As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents StatusManaPoints As System.Windows.Forms.NumericUpDown
@@ -1151,7 +1152,6 @@ Partial Class frmAlarms
     Friend WithEvents ItemsLogOut As System.Windows.Forms.CheckBox
     Friend WithEvents ItemsPlaySound As System.Windows.Forms.CheckBox
     Friend WithEvents ItemsMessagePlayerName As System.Windows.Forms.TextBox
-    Friend WithEvents fff As System.Windows.Forms.Label
     Friend WithEvents GroupBox15 As System.Windows.Forms.GroupBox
     Friend WithEvents ItemsList As System.Windows.Forms.CheckedListBox
     Friend WithEvents ItemsCondition As System.Windows.Forms.ComboBox
@@ -1166,4 +1166,8 @@ Partial Class frmAlarms
     Friend WithEvents BattlelistMultiFloorAbove As System.Windows.Forms.CheckBox
     Friend WithEvents BattlelistMultiFloorBelow As System.Windows.Forms.CheckBox
     Friend WithEvents BattlelistGMCM As System.Windows.Forms.CheckBox
+    Friend WithEvents BattleListPauseBot As System.Windows.Forms.CheckBox
+    Friend WithEvents StatusPauseBot As System.Windows.Forms.CheckBox
+    Friend WithEvents ItemsPauseBot As System.Windows.Forms.CheckBox
+    Friend WithEvents MessagePauseBot As System.Windows.Forms.CheckBox
 End Class

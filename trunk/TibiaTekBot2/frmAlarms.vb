@@ -468,6 +468,7 @@ Public Class frmAlarms
                 ItemsAlarmTimer.Stop()
                 Tabs.Enabled = True
                 AlarmsLoad.Enabled = True
+                Kernel.TTBState = BotState.Running
             Else
                 AlarmsActivate.Text = "Deactivate"
                 Kernel.AlarmsActivated = True
@@ -587,6 +588,11 @@ Public Class frmAlarms
                     SP.PlayerLogout()
                     'Core.Proxy.SendPacketToServer(PacketUtils.PlayerLogout)
                 End If
+                If BattleListPauseBot.Checked Then
+                    If Not Kernel.TTBState = BotState.Paused Then Kernel.TTBState = BotState.Paused
+                End If
+            Else
+                If Not Kernel.TTBState = BotState.Running Then Kernel.TTBState = BotState.Running
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -732,7 +738,11 @@ Public Class frmAlarms
                     SP.PlayerLogout()
                     'Core.Proxy.SendPacketToServer(PlayerLogout())
                 End If
-
+                If StatusPauseBot.Checked Then
+                    If Not Kernel.TTBState = BotState.Paused Then Kernel.TTBState = BotState.Paused
+                End If
+            Else
+                If Not Kernel.TTBState = BotState.Running Then Kernel.TTBState = BotState.Running
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1041,6 +1051,11 @@ Public Class frmAlarms
                     SP.PlayerLogout()
                     'Core.Proxy.SendPacketToServer(PlayerLogout())
                 End If
+                If ItemsPauseBot.Checked Then
+                    If Not Kernel.TTBState = BotState.Paused Then Kernel.TTBState = BotState.Paused
+                End If
+            Else
+                If Not Kernel.TTBState = BotState.Running Then Kernel.TTBState = BotState.Running
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1072,5 +1087,4 @@ Public Class frmAlarms
             End
         End Try
     End Sub
-
 End Class
