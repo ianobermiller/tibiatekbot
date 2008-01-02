@@ -186,6 +186,12 @@
     <Compile Include="frmConstantsEditor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmKeyboard.designer.vb">
+      <DependentUpon>frmKeyboard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmKeyboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmScripts.Designer.vb">
       <DependentUpon>frmScripts.vb</DependentUpon>
     </Compile>
@@ -283,6 +289,9 @@
     <EmbeddedResource Include="frmConstantsEditor.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmConstantsEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmKeyboard.resx">
+      <DependentUpon>frmKeyboard.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMapViewer.resx">
       <SubType>Designer</SubType>
