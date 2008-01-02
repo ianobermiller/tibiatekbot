@@ -368,6 +368,8 @@ Public Module KernelModule
         Public AmmoMakerMinCap As Integer = 0
         Public AmmoMakerMinMana As Integer = 0
         Public AmmoMakerSpell As SpellDefinition
+
+        Public TTBState As BotState = BotState.Running
 #End Region
 
 #Region " Initialization"
@@ -945,14 +947,17 @@ Public Module KernelModule
                 If Client Is Nothing Then Exit Sub
                 Dim WindowBegin As Integer = 0
                 Dim WindowCaption As String = ""
+                Dim BotNameStart As String = BotName
                 Dim Title As String
+
+                If TTBState = BotState.Paused Then BotNameStart += " [Paused]"
                 Client.ReadMemory(Consts.ptrWindowBegin, WindowBegin, 4)
                 If WindowBegin = 0 Then 'no window opened
                     If Not Client.IsConnected() Then
                         If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                            Title = BotName & " - " & Hex(Kernel.Client.GetProcessHandle) & " - Not Logged In"
+                            Title = BotNameStart & " - " & Hex(Kernel.Client.GetProcessHandle) & " - Not Logged In"
                         Else
-                            Title = BotName & " - Not Logged In"
+                            Title = BotNameStart & " - Not Logged In"
                         End If
                         If Not Client.Title.Equals(Title) Then
                             Client.Title = Title
@@ -964,21 +969,25 @@ Public Module KernelModule
                             ConsoleWrite("Your hotkeys have been saved.")
                             HotkeyWindowWasOpened = False
                         End If
+                        If Not Client.Title.Equals(BotNameStart) AndAlso Not ExpCheckerActivated AndAlso Not FakingTitle Then
+                            Client.Title = BotNameStart & " - " & Client.CharacterName
+                        End If
+
                     End If
                 Else
                     Client.ReadMemory(WindowBegin + Consts.WindowCaptionOffset, WindowCaption)
                     If Not Client.IsConnected() Then
                         If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                            Title = BotName & " - " & Hex(Kernel.Client.GetProcessHandle) & " - " & WindowCaption
+                            Title = BotNameStart & " - " & Hex(Kernel.Client.GetProcessHandle) & " - " & WindowCaption
                         Else
-                            Title = BotName & " - " & WindowCaption
+                            Title = BotNameStart & " - " & WindowCaption
                         End If
                         If Not Client.Title.Equals(Title) Then
                             Client.Title = Title
                         End If
                     Else
                         If Not ExpCheckerActivated AndAlso Not FakingTitle Then
-                            Title = BotName & " - " & Client.CharacterName
+                            Title = BotNameStart & " - " & Client.CharacterName
                             If Not Client.Title.Equals(Title) Then
                                 Client.Title = Title
                             End If
@@ -1080,6 +1089,7 @@ Public Module KernelModule
         Private Sub StackerTimerObj_Execute() Handles StackerTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim MyContainer As New Container
                 Dim SecondContainer As New Container
                 Dim ContainerIndex As Integer
@@ -1123,6 +1133,7 @@ Public Module KernelModule
                 End If
                 Static ServerPacket As New ServerPacketBuilder(Proxy)
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 LootHasChanged -= 1 'The looter has two tries to loot successfully
                 Dim ActualItem As Integer
                 Dim ActualIndex As Integer
@@ -1548,6 +1559,7 @@ Public Module KernelModule
         Private Sub HealPartyTimerObj_Execute() Handles HealPartyTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim BL As New BattleList
                 If HealPartyMinimumHPPercentage = 0 OrElse HealPartyHealType = HealTypes.None Then
                     HealPartyMinimumHPPercentage = 0
@@ -1591,6 +1603,7 @@ Public Module KernelModule
         Public Sub HealTimerObj_Execute() Handles HealTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If HealTimerObj.Interval > Consts.HealersCheckInterval Then HealTimerObj.Interval = Consts.HealersCheckInterval
                 If HealMinimumHP = 0 OrElse HitPoints > HealMinimumHP Then Exit Sub
                 Dim Output As String = HealSpell.Words
@@ -1617,6 +1630,7 @@ Public Module KernelModule
         Public Sub PickUpTimerObj_Execute() Handles PickUpTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If PickUpItemID = 0 Then Exit Sub
                 'If PickUpTimerObj.Interval > 500 Then PickUpTimerObj.Interval = 500
                 Dim RightHandItemID As Integer = 0
@@ -1702,6 +1716,7 @@ Public Module KernelModule
         Public Sub AmmoRestackerTimerObj_Execute() Handles AmmoRestackerTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim Container As New Container
                 Dim ContainerItemCount As Integer
                 Dim Item As Scripting.IContainer.ContainerItemDefinition
@@ -1760,6 +1775,7 @@ Public Module KernelModule
         Public Sub AutoTrainerTimerObj_Execute() Handles AutoTrainerTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If AutoTrainerMinHPPercent = 0 OrElse AutoTrainerMaxHPPercent = 0 Then
                     AutoTrainerEntities.Clear()
                     AutoTrainerMinHPPercent = 0
@@ -1801,6 +1817,7 @@ Public Module KernelModule
         Public Sub RunemakerTimerObj_Execute() Handles RunemakerTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim FirstRightHandSlot As Integer = 0
                 Dim FirstRightHandSlotCount As Integer = 0
                 Dim BeltSlot As Integer = 0
@@ -1983,6 +2000,7 @@ Public Module KernelModule
                 If FisherTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
                 Dim Intervals() As UShort = {1000, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000}
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If FisherTimerObj.Interval = 10000 Then FisherTimerObj.Interval = 1000
                 If Client.MapTiles.IsBusy Then Exit Sub
                 Dim FishingRodItemData As Scripting.IContainer.ContainerItemDefinition
@@ -2114,6 +2132,7 @@ Public Module KernelModule
         Public Sub EaterTimerObj_Execute() Handles EaterTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If AutoEaterSmart > 0 AndAlso HitPoints > AutoEaterSmart Then Exit Sub
                 Dim Ate As Boolean = False
                 If Consts.EatFromFloorFirst Then
@@ -2246,6 +2265,8 @@ Public Module KernelModule
         Public Sub ExpCheckerTimerObj_Execute() Handles ExpCheckerTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                Dim BotNameStart As String = BotName
+                If TTBState = BotState.Paused Then BotNameStart += " [Paused]"
                 Dim NextLevelExpL As Long = 0
                 Dim CurrentLevelExpL As Long = 0
                 Dim ExperienceL As Long = Experience
@@ -2265,8 +2286,8 @@ Public Module KernelModule
                 NextLevelPercentageL = CLng(Floor((ExperienceL - CurrentLevelExpL) * 100 / (NextLevelExpL - CurrentLevelExpL)))
                 NextLevelPercentage = CInt(NextLevelPercentageL)
                 If ExpCheckerActivated Then
-                    If Not Client.Title.Equals(BotName & " - " & Kernel.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
-                        Client.Title = BotName & " - " & Kernel.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExpL - ExperienceL) & " (" & NextLevelPercentageL & "% completed)"
+                    If Not Client.Title.Equals(BotNameStart & " - " & Kernel.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
+                        Client.Title = BotNameStart & " - " & Kernel.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExpL - ExperienceL) & " (" & NextLevelPercentageL & "% completed)"
                     End If
                     LastExperienceL = ExperienceL
                     LastExperience = Experience
@@ -2283,6 +2304,7 @@ Public Module KernelModule
         Private Sub SpellTimerObj_Execute() Handles SpellTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If SpellTimerObj.Interval = Consts.SpellCasterDelay Then SpellTimerObj.Interval = Consts.SpellCasterInterval
                 If SpellManaRequired = 0 OrElse String.IsNullOrEmpty(SpellMsg) Then Exit Sub
                 If ManaPoints = 0 Then
@@ -2305,6 +2327,7 @@ Public Module KernelModule
         Private Sub UHTimerObj_Execute() Handles UHTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If UHTimerObj.Interval > Consts.HealersCheckInterval Then UHTimerObj.Interval = Consts.HealersCheckInterval
                 If UHHPRequired = 0 Then
                     UHTimerObj.StopTimer()
@@ -2332,6 +2355,7 @@ Public Module KernelModule
         Private Sub HealFriendTimerObj_Execute() Handles HealFriendTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim BL As New BattleList
                 If HealFriendCharacterName.Length = 0 OrElse HealFriendHealthPercentage = 0 OrElse HealFriendHealType = HealTypes.None Then
                     HealFriendCharacterName = ""
@@ -2390,6 +2414,7 @@ Public Module KernelModule
         Public Sub AdvertiserTimerObj_OnExecute() Handles AdvertiseTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If AdvertiseMsg.Length = 0 Then Exit Sub
                 Dim ChatMessage As New ChatMessageDefinition
                 ChatMessage.MessageType = ITibia.MessageType.Channel
@@ -2408,6 +2433,7 @@ Public Module KernelModule
         Public Sub rainbowTimerObj_Execute() Handles RainbowOutfitTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim BL As New BattleList
                 If RainbowOutfitHead = 131 Then RainbowOutfitHead = 0 Else RainbowOutfitHead = RainbowOutfitHead + 1
                 If RainbowOutfitBody = 131 Then RainbowOutfitBody = 0 Else RainbowOutfitBody = RainbowOutfitBody + 1
@@ -2429,6 +2455,7 @@ Public Module KernelModule
         Public Sub AutoDrinkerTimerObj_Execute() Handles AutoDrinkerTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If AutoDrinkerTimerObj.Interval > Consts.HealersCheckInterval Then AutoDrinkerTimerObj.Interval = Consts.HealersCheckInterval
                 If DrinkerManaRequired = 0 Then Exit Sub
                 If ManaPoints = 0 Then
@@ -2457,6 +2484,8 @@ Public Module KernelModule
         Private Sub ManaPotionTimerObj_Execute() Handles ManaPotionTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If ManaPotionTimerObj.Interval > Consts.HealersCheckInterval Then ManaPotionTimerObj.Interval = Consts.HealersCheckInterval
                 If ManaPoints = 0 Then
                     ManaPotionTimerObj.StopTimer()
@@ -2553,6 +2582,7 @@ Public Module KernelModule
             Try
                 Dim SP As New ServerPacketBuilder(Proxy)
                 If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim BL As New BattleList
                 Dim MyselfBL As New BattleList
                 MyselfBL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -2661,6 +2691,7 @@ Public Module KernelModule
                 If CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                     If CBState <> CavebotState.Walking OrElse Walker_Waypoints(WaypointIndex).Type = Walker.WaypointType.Wait Then Exit Sub
                 End If
+                If TTBState = BotState.Paused Then Exit Sub
                 AttackerMonsters.Clear()
                 Dim sp As New ServerPacketBuilder(Proxy)
                 If Consts.SmartAttacker Then 'If Using Smart Attack (whole time attack the nearest creature)
@@ -2829,6 +2860,7 @@ Public Module KernelModule
                     WalkerTimerObj.StopTimer()
                     Exit Sub
                 End If
+                If TTBState = BotState.Paused Then Exit Sub
                 If Walker_Waypoints(WaypointIndex).MoveChar() Then
                     WaypointIndex += 1
                 End If
@@ -3027,6 +3059,7 @@ Public Module KernelModule
         Private Sub AmuletChangerTimerObj_Execute() Handles AmuletChangerTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim Cont As New Container
                 Dim Amulet As New Scripting.IContainer.ContainerItemDefinition
                 Dim NeckSlot As Integer = 0
@@ -3050,6 +3083,7 @@ Public Module KernelModule
         Private Sub RingChangerTimerObj_Execute() Handles RingChangerTimerObj.OnExecute
             Try
                 If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim Cont As New Container
                 Dim Ring As New Scripting.IContainer.ContainerItemDefinition
                 Dim FingerSlot As Integer = 0
@@ -3066,6 +3100,121 @@ Public Module KernelModule
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
+
+#End Region
+
+#Region " Ammo Maker Timer "
+        Private Sub AmmoMakerTimerObj_Execute() Handles AmmoMakerTimerObj.OnExecute
+            Try
+                If Not Client.IsConnected Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
+                If Capacity < AmmoMakerMinCap Then Exit Sub
+                If ManaPoints < AmmoMakerMinMana OrElse ManaPoints < AmmoMakerSpell.ManaPoints Then Exit Sub
+                Dim SP As New ServerPacketBuilder(Proxy)
+                Select Case AmmoMakerSpell.Kind
+                    Case SpellKind.Ammunition
+                        SP.Speak(AmmoMakerSpell.Words)
+                        'Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
+                    Case SpellKind.Incantation
+                        Dim SlotToUse As New ITibia.InventorySlots
+                        Dim LeftHandSlot As Integer = 0
+                        Dim RightHandSlot As Integer = 0
+                        Dim Spear As New Scripting.IContainer.ContainerItemDefinition
+                        Dim Retries As Integer = 0
+                        Dim TempSlot As Integer = 0
+
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.LeftHand - 1) * Consts.ItemDist), LeftHandSlot, 2)
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
+                        If LeftHandSlot = 0 Then
+                            SlotToUse = ITibia.InventorySlots.LeftHand
+                        ElseIf RightHandSlot = 0 Then
+                            SlotToUse = ITibia.InventorySlots.RightHand
+                        Else
+                            Kernel.ConsoleError("Both hands are already in use. Please keep one hand free so Ammo Maker can move the Spear there. Ammo Maker is now stopped.")
+                            AmmoMakerMinMana = 0
+                            AmmoMakerMinCap = 0
+                            AmmoMakerTimerObj.StopTimer()
+                            Exit Sub
+                        End If
+
+                        If Not (New Container).FindItem(Spear, Client.Items.GetItemID("Spear")) Then
+                            Kernel.ConsoleError("Ammo Maker couldn't find a spear. Ammo Maker is now stopped.")
+                            AmmoMakerMinMana = 0
+                            AmmoMakerMinCap = 0
+                            AmmoMakerTimerObj.StopTimer()
+                            Exit Sub
+                        End If
+                        'Moving spear to hand
+                        Retries = 0
+                        TempSlot = 0
+                        Do
+                            Retries += 1
+                            If Retries > 20 Then
+                                AmmoMakerMinMana = 0
+                                AmmoMakerMinCap = 0
+                                AmmoMakerTimerObj.StopTimer()
+                                Kernel.ConsoleError("Ammo Maker is stuck. Can't move Spear from Backpack to Hand. Ammo Maker is now stopped.")
+                                Exit Sub
+                            End If
+                            SP.MoveObject(Spear.ID, Spear.Location, GetInventorySlotAsLocation(SlotToUse), 1)
+                            'Core.Proxy.SendPacketToServer(PacketUtils.MoveObject(Spear.ID, Spear.Location, GetInventorySlotAsLocation(SlotToUse), 1))
+                            System.Threading.Thread.Sleep(1000)
+                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                        Loop Until TempSlot = Client.Items.GetItemID("Spear")
+
+                        'Casting the spell
+                        Retries = 0
+                        TempSlot = 0
+                        Do
+                            Retries += 1
+                            If Retries > 20 Then
+                                AmmoMakerMinMana = 0
+                                AmmoMakerMinCap = 0
+                                AmmoMakerTimerObj.StopTimer()
+                                Kernel.ConsoleError("Ammo Maker couldn't cast the conjure spell. Ammo Maker is now stopped.")
+                                Exit Sub
+                            End If
+                            SP.Speak(AmmoMakerSpell.Words)
+                            'Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
+                            System.Threading.Thread.Sleep(1000)
+                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                        Loop While TempSlot = Client.Items.GetItemID("Spear")
+
+                        'Moving spear back to the backpack
+                        Retries = 0
+                        TempSlot = 0
+                        Dim EnchantedSpearId As Integer = 0
+                        Dim MoveToSlot As New Scripting.IContainer.ContainerItemDefinition
+                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), EnchantedSpearId, 2)
+                        If Not (New Container).FindItem(MoveToSlot, EnchantedSpearId) Then 'Testing if theres already enchanted spears
+                            MoveToSlot = Spear
+                        End If
+                        Do
+                            Retries += 1
+                            If Retries > 20 Then
+                                AmmoMakerMinMana = 0
+                                AmmoMakerMinCap = 0
+                                AmmoMakerTimerObj.StopTimer()
+                                Kernel.ConsoleError("Ammo Maker is stuck, couldn't move spear from hand to backpack. Ammo Maker is now stopped.")
+                                Exit Sub
+                            End If
+                            SP.MoveObject(EnchantedSpearId, GetInventorySlotAsLocation(SlotToUse), MoveToSlot.Location, 1)
+                            'Core.Proxy.SendPacketToServer(MoveObject(EnchantedSpearId, GetInventorySlotAsLocation(SlotToUse), MoveToSlot.Location, 1))
+                            System.Threading.Thread.Sleep(1000)
+                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
+                        Loop Until TempSlot = 0
+                    Case Else
+                        Kernel.ConsoleError("The Spell cannot be used to create or enchant ammunation. Ammo Maker is now stopped.")
+                        AmmoMakerTimerObj.StopTimer()
+                        AmmoMakerMinMana = 0
+                        AmmoMakerMinCap = 0
+                        Exit Sub
+                End Select
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+#End Region
 
 #Region " Anti-Logout Timer "
 
@@ -3217,6 +3366,8 @@ Public Module KernelModule
 #Region " Dancer Timer "
         Private Sub DancerTimerObj_OnExecute() Handles DancerTimerObj.OnExecute
             Try
+                If Not Client.IsConnected() Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 Dim RandomNumber As New Random(Date.Now.Millisecond)
                 Dim BL As New BattleList(IBattlelist.SpecialEntity.Myself)
                 Dim Direction As IBattlelist.Directions
@@ -3242,6 +3393,7 @@ Public Module KernelModule
         Private Sub PotionTimerObj_Execute() Handles PotionTimerObj.OnExecute
             Try
                 If Not Client.IsConnected() Then Exit Sub
+                If TTBState = BotState.Paused Then Exit Sub
                 If PotionTimerObj.Interval > Consts.HealersCheckInterval Then PotionTimerObj.Interval = Consts.HealersCheckInterval
                 If PotionHPRequired = 0 Then
                     PotionTimerObj.StopTimer()
@@ -3259,120 +3411,6 @@ Public Module KernelModule
             End Try
         End Sub
 
-#End Region
-
-#End Region
-
-#Region " Ammo Maker Timer "
-        Private Sub AmmoMakerTimerObj_Execute() Handles AmmoMakerTimerObj.OnExecute
-            Try
-                If Not Client.IsConnected Then Exit Sub
-                If Capacity < AmmoMakerMinCap Then Exit Sub
-                If ManaPoints < AmmoMakerMinMana OrElse ManaPoints < AmmoMakerSpell.ManaPoints Then Exit Sub
-                Dim SP As New ServerPacketBuilder(Proxy)
-                Select Case AmmoMakerSpell.Kind
-                    Case SpellKind.Ammunition
-                        SP.Speak(AmmoMakerSpell.Words)
-                        'Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
-                    Case SpellKind.Incantation
-                        Dim SlotToUse As New ITibia.InventorySlots
-                        Dim LeftHandSlot As Integer = 0
-                        Dim RightHandSlot As Integer = 0
-                        Dim Spear As New Scripting.IContainer.ContainerItemDefinition
-                        Dim Retries As Integer = 0
-                        Dim TempSlot As Integer = 0
-
-                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.LeftHand - 1) * Consts.ItemDist), LeftHandSlot, 2)
-                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandSlot, 2)
-                        If LeftHandSlot = 0 Then
-                            SlotToUse = ITibia.InventorySlots.LeftHand
-                        ElseIf RightHandSlot = 0 Then
-                            SlotToUse = ITibia.InventorySlots.RightHand
-                        Else
-                            Kernel.ConsoleError("Both hands are already in use. Please keep one hand free so Ammo Maker can move the Spear there. Ammo Maker is now stopped.")
-                            AmmoMakerMinMana = 0
-                            AmmoMakerMinCap = 0
-                            AmmoMakerTimerObj.StopTimer()
-                            Exit Sub
-                        End If
-
-                        If Not (New Container).FindItem(Spear, Client.Items.GetItemID("Spear")) Then
-                            Kernel.ConsoleError("Ammo Maker couldn't find a spear. Ammo Maker is now stopped.")
-                            AmmoMakerMinMana = 0
-                            AmmoMakerMinCap = 0
-                            AmmoMakerTimerObj.StopTimer()
-                            Exit Sub
-                        End If
-                        'Moving spear to hand
-                        Retries = 0
-                        TempSlot = 0
-                        Do
-                            Retries += 1
-                            If Retries > 20 Then
-                                AmmoMakerMinMana = 0
-                                AmmoMakerMinCap = 0
-                                AmmoMakerTimerObj.StopTimer()
-                                Kernel.ConsoleError("Ammo Maker is stuck. Can't move Spear from Backpack to Hand. Ammo Maker is now stopped.")
-                                Exit Sub
-                            End If
-                            SP.MoveObject(Spear.ID, Spear.Location, GetInventorySlotAsLocation(SlotToUse), 1)
-                            'Core.Proxy.SendPacketToServer(PacketUtils.MoveObject(Spear.ID, Spear.Location, GetInventorySlotAsLocation(SlotToUse), 1))
-                            System.Threading.Thread.Sleep(1000)
-                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
-                        Loop Until TempSlot = Client.Items.GetItemID("Spear")
-
-                        'Casting the spell
-                        Retries = 0
-                        TempSlot = 0
-                        Do
-                            Retries += 1
-                            If Retries > 20 Then
-                                AmmoMakerMinMana = 0
-                                AmmoMakerMinCap = 0
-                                AmmoMakerTimerObj.StopTimer()
-                                Kernel.ConsoleError("Ammo Maker couldn't cast the conjure spell. Ammo Maker is now stopped.")
-                                Exit Sub
-                            End If
-                            SP.Speak(AmmoMakerSpell.Words)
-                            'Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
-                            System.Threading.Thread.Sleep(1000)
-                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
-                        Loop While TempSlot = Client.Items.GetItemID("Spear")
-
-                        'Moving spear back to the backpack
-                        Retries = 0
-                        TempSlot = 0
-                        Dim EnchantedSpearId As Integer = 0
-                        Dim MoveToSlot As New Scripting.IContainer.ContainerItemDefinition
-                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), EnchantedSpearId, 2)
-                        If Not (New Container).FindItem(MoveToSlot, EnchantedSpearId) Then 'Testing if theres already enchanted spears
-                            MoveToSlot = Spear
-                        End If
-                        Do
-                            Retries += 1
-                            If Retries > 20 Then
-                                AmmoMakerMinMana = 0
-                                AmmoMakerMinCap = 0
-                                AmmoMakerTimerObj.StopTimer()
-                                Kernel.ConsoleError("Ammo Maker is stuck, couldn't move spear from hand to backpack. Ammo Maker is now stopped.")
-                                Exit Sub
-                            End If
-                            SP.MoveObject(EnchantedSpearId, GetInventorySlotAsLocation(SlotToUse), MoveToSlot.Location, 1)
-                            'Core.Proxy.SendPacketToServer(MoveObject(EnchantedSpearId, GetInventorySlotAsLocation(SlotToUse), MoveToSlot.Location, 1))
-                            System.Threading.Thread.Sleep(1000)
-                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
-                        Loop Until TempSlot = 0
-                    Case Else
-                        Kernel.ConsoleError("The Spell cannot be used to create or enchant ammunation. Ammo Maker is now stopped.")
-                        AmmoMakerTimerObj.StopTimer()
-                        AmmoMakerMinMana = 0
-                        AmmoMakerMinCap = 0
-                        Exit Sub
-                End Select
-            Catch ex As Exception
-                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Sub
 #End Region
 
 #End Region
@@ -4399,6 +4437,7 @@ Public Module KernelModule
                             ElseIf Client.Dat.GetInfo(ID).IsFluidContainer Then
                                 Pos += 1
                             ElseIf Client.Dat.GetInfo(ID).IsContainer Then
+                                If TTBState = BotState.Paused Then Exit Sub
                                 If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                     If Not ((Client.Items.GetItemKind(ID) And IItems.ItemKind.Container) = IItems.ItemKind.Container) Then 'if its known container, skip
                                         Dim BL As New BattleList
@@ -4519,6 +4558,7 @@ Public Module KernelModule
                             Pos += Word
                         Case &H85 'projectile?
                             'Core.ConsoleWrite(BytesToStr(bytBuffer))
+                            If TTBState = BotState.Paused Then Exit Sub
                             Dim FromBL As New BattleList
                             Dim ToBl As New BattleList
                             Dim Type As Integer = 0
@@ -4536,6 +4576,7 @@ Public Module KernelModule
                                 End If
                             End If
                         Case &H86 'direct hit, black square
+                            If TTBState = BotState.Paused Then Exit Sub
                             Dim AttackedID As Integer = 0
                             Dim EntityID As Integer = 0
                             EntityID = GetDWord(bytBuffer, Pos)
@@ -4778,6 +4819,11 @@ Public Module KernelModule
                     ChatMessage.Destinatary = AlarmsForm.MessageForwardMessageInput.Text
                     ChatMessage.Prioritize = True
                     ChatMessageQueueList.Add(ChatMessage)
+                End If
+                If AlarmsForm.MessagePauseBot.Checked Then
+                    Kernel.ConsoleWrite("Message alarm was fired while Pause Bot action was enabled." & Ret & _
+                                        "Bot is now paused and you can unpause bot typing &state running or disabling Alarms")
+                    Kernel.TTBState = BotState.Paused
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

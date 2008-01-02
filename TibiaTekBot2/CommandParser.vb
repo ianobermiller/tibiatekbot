@@ -140,6 +140,8 @@ Public Module CommandParserModule
                         CmdDancer(MatchObj.Groups)
                     Case "ammomaker", "ammocreater", "makeammo", "ammunitionmaker", "makeammunition"
                         CmdAmmoMaker(MatchObj.Groups)
+                    Case "state", "botstate"
+                        CmdBotState(MatchObj.Groups)
                     Case Else
                         Kernel.ConsoleError("This command does not exist." & Ret & _
                             "  For a list of available commands type: &help.")
@@ -2971,6 +2973,37 @@ Public Module CommandParserModule
                         End If
                     Else
                         Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                    End If
+            End Select
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+#End Region
+
+#Region " Bot State "
+    Private Sub CmdBotState(ByVal Arguments As GroupCollection)
+        Try
+            Select Case StrToShort(Arguments(2).ToString)
+                Case 0
+                    Kernel.TTBState = BotState.Paused
+                    Kernel.ConsoleWrite("Tibia Tek Bot is now paused.")
+                Case 1
+                    Kernel.TTBState = BotState.Running
+                    Kernel.ConsoleWrite("Tibia Tek Bot is now running again.")
+                Case Else
+                    Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "(\w+)")
+                    If MatchObj.Success Then
+                        Select Case MatchObj.Groups(1).ToString.ToLower
+                            Case "pause", "stop", "paused", "stopped", "disable", "disabled"
+                                Kernel.TTBState = BotState.Paused
+                                Kernel.ConsoleWrite("Tibia Tek Bot is now paused.")
+                            Case "unpause", "running", "activate", "activated", "run"
+                                Kernel.TTBState = BotState.Running
+                                Kernel.ConsoleWrite("Tibia Tek Bot is now running again.")
+                            Case Else
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                        End Select
                     End If
             End Select
         Catch ex As Exception
