@@ -22,7 +22,7 @@ Imports System.Math, System.Xml, Scripting
 Public Module WalkerModule
 
     Public Class Walker
-		Public Coordinates As ITibia.LocationDefinition
+        Public Coordinates As ITibia.LocationDefinition
         Public Type As WaypointType
         Public Info As String
         Public IsReady As Boolean
@@ -52,7 +52,7 @@ Public Module WalkerModule
                 Dim TD As New TileData
                 BL.Reset()
                 TD.Reset()
-				BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 TD.JumpToTile(TileData.SpecialTile.Myself)
                 Dim StatusText As String = ""
                 Dim StatusTimer As Integer = 0
@@ -225,52 +225,88 @@ Public Module WalkerModule
                             End If
                         End If
                     Case WaypointType.Shovel
-                        If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
-                            Dim HoleLoc As New ITibia.LocationDefinition
-                            'Finding hole location
-                            HoleLoc = Kernel.CharacterLoc
-                            Select Case CType(Info, Directions)
-                                Case Directions.Left
-                                    HoleLoc.X -= 1
-                                Case Directions.Right
-                                    HoleLoc.X += 1
-                                Case Directions.Up
-                                    HoleLoc.Y -= 1
-                                Case Directions.Down
-                                    HoleLoc.Y += 1
-                            End Select
-                            'Finding Shovel
-                            Dim Shovel As Scripting.IContainer.ContainerItemDefinition
-                            If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Shovel")) = False Then
-                                If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Light Shovel")) = False Then
-                                    Kernel.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
-                                    System.Threading.Thread.Sleep(10000)
+                        If Not Info = "" Then 'Normal shovel waypoint
+                            If Kernel.CharacterLoc.Z <> Coordinates.Z Then
+                                IsReady = True
+                                Return True
+                            End If
+                            If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
+                                Dim HoleLoc As New ITibia.LocationDefinition
+                                'Finding hole location
+                                HoleLoc = Kernel.CharacterLoc
+                                Select Case CType(Info, Directions)
+                                    Case Directions.Left
+                                        HoleLoc.X -= 1
+                                    Case Directions.Right
+                                        HoleLoc.X += 1
+                                    Case Directions.Up
+                                        HoleLoc.Y -= 1
+                                    Case Directions.Down
+                                        HoleLoc.Y += 1
+                                End Select
+                                'Finding Shovel
+                                Dim Shovel As Scripting.IContainer.ContainerItemDefinition
+                                If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Shovel")) = False Then
+                                    If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Light Shovel")) = False Then
+                                        Kernel.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
+                                        System.Threading.Thread.Sleep(10000)
+                                        IsReady = False
+                                        Return False
+                                    End If
+                                End If
+                                Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
+                                ServerPacket.UseObjectWithObjectOnGround(Shovel.ID, HoleLoc)
+                                ServerPacket.Send()
+                                'Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(Shovel.ID, HoleLoc))
+                                System.Threading.Thread.Sleep(1000)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToX, HoleLoc.X, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToY, HoleLoc.Y, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToZ, HoleLoc.Z, 1)
+                                BL.IsWalking = True
+                            Else
+                                If BL.IsWalking = False Then
+                                    Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                    Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                    Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                    BL.IsWalking = True
                                     IsReady = False
                                     Return False
                                 End If
                             End If
-                            Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
-                            ServerPacket.UseObjectWithObjectOnGround(Shovel.ID, HoleLoc)
-                            ServerPacket.Send()
-                            'Core.Proxy.SendPacketToServer(UseObjectWithObjectOnGround(Shovel.ID, HoleLoc))
-                            System.Threading.Thread.Sleep(1000)
-                            Kernel.Client.WriteMemory(Consts.ptrGoToX, HoleLoc.X, 2)
-                            Kernel.Client.WriteMemory(Consts.ptrGoToY, HoleLoc.Y, 2)
-                            Kernel.Client.WriteMemory(Consts.ptrGoToZ, HoleLoc.Z, 1)
-                            System.Threading.Thread.Sleep(2000)
-                            BL.IsWalking = True
-                            If Kernel.CharacterLoc.Z <> HoleLoc.Z Then
+                        Else 'WPT Shovel waypoint
+                            If Kernel.CharacterLoc.Z <> Coordinates.Z Then
                                 IsReady = True
                                 Return True
                             End If
-                        Else
-                            If BL.IsWalking = False Then
+                            If Abs(Kernel.CharacterLoc.X - Coordinates.X) < 5 AndAlso Abs(Kernel.CharacterLoc.Y - Coordinates.Y) < 5 AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
+                                'Finding Shovel
+                                Dim Shovel As Scripting.IContainer.ContainerItemDefinition
+                                If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Shovel")) = False Then
+                                    If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Light Shovel")) = False Then
+                                        Kernel.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
+                                        System.Threading.Thread.Sleep(10000)
+                                        IsReady = False
+                                        Return False
+                                    End If
+                                End If
+                                Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
+                                ServerPacket.UseObjectWithObjectOnGround(Shovel.ID, Coordinates)
+                                ServerPacket.Send()
+                                System.Threading.Thread.Sleep(1000)
                                 Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
                                 Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
                                 Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
                                 BL.IsWalking = True
-                                IsReady = False
-                                Return False
+                                System.Threading.Thread.Sleep(2000)
+                            Else
+                                If BL.IsWalking = False Then
+                                    Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                    Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                    Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                    BL.IsWalking = True
+                                    IsReady = False
+                                    Return False
+                                End If
                             End If
                         End If
                 End Select
@@ -337,27 +373,82 @@ Public Module WalkerModule
     End Sub
 
     Public Sub Load(ByVal Path As String)
-        Dim Document As New XmlDocument
         Try
-            Document.Load(Path)
-            Dim TempStr As String = ""
-
             Kernel.Walker_Waypoints.Clear()
+            If Path.ToLower.EndsWith("xml") Then 'TTB Waypoints
 
-            For Each Element As XmlElement In Document.Item("Waypoints")
-                Dim Walker_Char As New Walker
-                TempStr = Element.GetAttribute("PosX")
-                If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Coordinates.X = CInt(TempStr)
-                TempStr = Element.GetAttribute("PosY")
-                If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Coordinates.Y = CInt(TempStr)
-                TempStr = Element.GetAttribute("PosZ")
-                If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Coordinates.Z = CInt(TempStr)
-                TempStr = Element.GetAttribute("Type")
-                If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Type = CInt(TempStr)
-                TempStr = Element.GetAttribute("Info")
-                If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Info = TempStr
-                Kernel.Walker_Waypoints.Add(Walker_Char)
-            Next
+                Dim Document As New XmlDocument
+                Document.Load(Path)
+                Dim TempStr As String = ""
+
+                For Each Element As XmlElement In Document.Item("Waypoints")
+                    Dim Walker_Char As New Walker
+                    TempStr = Element.GetAttribute("PosX")
+                    If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Coordinates.X = CInt(TempStr)
+                    TempStr = Element.GetAttribute("PosY")
+                    If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Coordinates.Y = CInt(TempStr)
+                    TempStr = Element.GetAttribute("PosZ")
+                    If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Coordinates.Z = CInt(TempStr)
+                    TempStr = Element.GetAttribute("Type")
+                    If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Type = CInt(TempStr)
+                    TempStr = Element.GetAttribute("Info")
+                    If Not String.IsNullOrEmpty(TempStr) Then Walker_Char.Info = TempStr
+                    Kernel.Walker_Waypoints.Add(Walker_Char)
+                Next
+            ElseIf Path.ToLower.EndsWith("wpt") Then 'WPT Waypoints. Thanks to Caxtor in this part!
+                Dim TempStrWPT(4) As String
+                Dim wptReader As New System.IO.StreamReader(Path)
+
+                Kernel.Walker_Waypoints.Clear()
+
+                Do While wptReader.Peek <> -1
+                    Dim Walker_Char As New Walker
+                    TempStrWPT(0) = wptReader.ReadLine 'X Coord
+                    TempStrWPT(1) = wptReader.ReadLine 'Y Coord
+                    TempStrWPT(2) = wptReader.ReadLine 'Z Coord
+                    TempStrWPT(3) = wptReader.ReadLine 'Type of Action
+
+                    If Not String.IsNullOrEmpty(TempStrWPT(3)) Then
+                        Walker_Char.Coordinates.X = CInt(TempStrWPT(0))
+                        Walker_Char.Coordinates.Y = CInt(TempStrWPT(1))
+                        Walker_Char.Coordinates.Z = CInt(TempStrWPT(2))
+                        Walker_Char.Info = ""
+                        Select Case CInt(TempStrWPT(3))
+                            Case 1 'Rope OK
+                                Walker_Char.Type = Walker.WaypointType.Rope
+                            Case 2 'Ladder OK
+                                Walker_Char.Type = Walker.WaypointType.Ladder
+                            Case 3 'Upstaris OK
+                                Walker_Char.Coordinates.Y = CInt(TempStrWPT(1)) + 1
+                                Walker_Char.Coordinates.Z = CInt(TempStrWPT(2)) + 1
+                                Walker_Char.Type = Walker.WaypointType.StairsOrHole
+                            Case 4 'Downstairs OK
+                                Walker_Char.Coordinates.Y = CInt(TempStrWPT(1)) - 1
+                                Walker_Char.Coordinates.Z = CInt(TempStrWPT(2)) - 1
+                                Walker_Char.Type = Walker.WaypointType.StairsOrHole
+                            Case 5 'Hole OK
+                                Walker_Char.Coordinates.Z = CInt(TempStrWPT(2)) - 1
+                                Walker_Char.Type = Walker.WaypointType.StairsOrHole
+                            Case 6 'Ground OK
+                                Walker_Char.Type = Walker.WaypointType.Walk
+                            Case 7 'Shovel Revise...
+                                Walker_Char.Coordinates.Z -= 1
+                                Walker_Char.Type = Walker.WaypointType.Shovel
+                            Case 8 'Ramp OK
+                                Walker_Char.Type = Walker.WaypointType.StairsOrHole
+                            Case 9 'Delay OK
+                                Walker_Char.Info = CInt(TempStrWPT(0))
+                                Walker_Char.Type = Walker.WaypointType.Wait
+                            Case Else
+                        End Select
+                    End If
+                    Kernel.Walker_Waypoints.Add(Walker_Char)
+                Loop
+                wptReader.Close()
+            Else
+                MessageBox.Show("TibiaTek Bot doesn't support the waypoint file", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
             UpdateList()
         Catch
             MessageBox.Show("Unable to load waypoints.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

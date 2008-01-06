@@ -17,7 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports TibiaTekBot.KernelModule, System.IO, System.Math, Scripting, System.Text.RegularExpressions
+Imports TibiaTekBot.KernelModule, System.IO, System.Math, Scripting, System.Text.RegularExpressions, System.Xml
 
 Module MiscUtils
 
@@ -271,5 +271,4 @@ Module MiscUtils
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
-
 End Module

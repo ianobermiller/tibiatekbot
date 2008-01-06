@@ -1228,6 +1228,7 @@ Public Module CommandParserModule
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Kernel.ConsoleWrite("Begin Test")
+            Kernel.ConsoleWrite(Kernel.CharacterLoc.X & ":" & Kernel.CharacterLoc.Y & ":" & Kernel.CharacterLoc.Z)
             Kernel.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2431,7 +2432,7 @@ Public Module CommandParserModule
                         Kernel.CBState = CavebotState.Walking
                         Exit Sub
                     End If
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase)
+                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|se)", RegexOptions.IgnoreCase)
                     If MatchObj.Success Then
                         Dim BL As New BattleList
                         Dim Character As New Walker
@@ -2453,7 +2454,7 @@ Public Module CommandParserModule
                                 Character.Type = Walker.WaypointType.Rope
                                 WPType = "R"
                                 Kernel.ConsoleWrite("Rope waypoint added.")
-                            Case "sewer", "s"
+                            Case "sewer", "se"
                                 Character.Type = Walker.WaypointType.Sewer
                                 WPType = "SE"
                                 Kernel.ConsoleWrite("Sewer waypoint added.")
@@ -2521,7 +2522,7 @@ Public Module CommandParserModule
                                     Kernel.Walker_Waypoints.Add(Character)
                                     Kernel.ConsoleWrite("Say waypoint added.")
                                 Else
-                                    MatchObj = Regex.Match(Arguments(2).ToString, "add/sshovel\s+(up|down|left|right|north|south|east|west)")
+                                    MatchObj = Regex.Match(Arguments(2).ToString, "add\sshovel\s+(up|down|left|right|north|south|east|west)")
                                     If MatchObj.Success Then
                                         If Walker.CheckDistance = False Then Exit Sub
                                         Dim BL As New BattleList
@@ -2532,7 +2533,7 @@ Public Module CommandParserModule
 
                                         Character.Type = Walker.WaypointType.Shovel
                                         WPType = "SH"
-                                        Select Case MatchObj.Groups(2).ToString
+                                        Select Case MatchObj.Groups(1).ToString
                                             Case "up", "north"
                                                 Character.Info = Walker.Directions.Up
                                             Case "left", "west"
@@ -2546,6 +2547,7 @@ Public Module CommandParserModule
                                                 Exit Sub
                                         End Select
                                         Kernel.Walker_Waypoints.Add(Character)
+                                        Kernel.ConsoleWrite("Shovel waypoint added to direction " & MatchObj.Groups(1).ToString)
                                     Else
                                         MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(learn|auto|automatic|automatically|learning|l)\s(on|off)")
                                         If MatchObj.Success Then
@@ -2603,7 +2605,7 @@ Public Module CommandParserModule
                         Kernel.WalkerLoop = True
                         Kernel.ConsoleWrite("Walker On With Continue Mode")
                     Else
-                        MatchObj = (Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|s)", RegexOptions.IgnoreCase))
+                        MatchObj = (Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|se)", RegexOptions.IgnoreCase))
                         If MatchObj.Success Then
                             Dim BL As New BattleList
                             Dim Character As New Walker
@@ -2705,7 +2707,7 @@ Public Module CommandParserModule
 
                                             Character.Type = Walker.WaypointType.Shovel
                                             WPType = "SH"
-                                            Select Case MatchObj.Groups(2).ToString
+                                            Select Case MatchObj.Groups(1).ToString
                                                 Case "up", "north"
                                                     Character.Info = Walker.Directions.Up
                                                 Case "left", "west"
