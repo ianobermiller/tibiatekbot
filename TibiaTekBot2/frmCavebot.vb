@@ -28,11 +28,13 @@ Public Class frmCavebot
             Else
                 Me.Text = "Cavebot/Walker"
             End If
+            Dim WPLstPos As Integer = Waypointslst.SelectedIndex
             Waypointslst.SuspendLayout()
             Waypointslst.Items.Clear()
             WalkerModule.UpdateList()
             Waypointslst.ResumeLayout()
-            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+            Waypointslst.SelectedIndex = WPLstPos
+            If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Or Kernel.WalkerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                 'Me.Enabled = False '<-- Freezes whole thing
                 Me.AddWaypointcmd.Enabled = False
                 Me.Typecmb.Enabled = False
@@ -52,7 +54,6 @@ Public Class frmCavebot
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
         End Try
     End Sub
     Private Sub frmCavebot_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -280,7 +281,7 @@ Public Class frmCavebot
                 .InitialDirectory = GetWaypointsDirectory() & "\"
                 .Title = BotName & " - Load Cavebot Waypoints"
                 .DefaultExt = "xml"
-                .Filter = "Xml Files|*.xml"
+                .Filter = ".xml Files|*.xml|" & ".wpt Files|*.wpt|" & "Supported Files|*.xml;*.wpt"
             End With
             If OpenDlg.ShowDialog = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
