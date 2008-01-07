@@ -235,6 +235,7 @@ Public Interface ITibia
     ReadOnly Property CharacterFightingMode() As FightingMode
     ReadOnly Property Dat() As IDatFile
     ReadOnly Property Items() As IItems
+    WriteOnly Property TopMost() As Boolean
 
 #End Region
 
