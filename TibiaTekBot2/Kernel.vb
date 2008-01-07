@@ -2522,7 +2522,8 @@ Public Module KernelModule
                     Return True
                 End If
                 Do
-                    If Not Container.GetName.StartsWith("Dead") And Not Container.GetName.StartsWith("Slain") And Not Container.GetName.StartsWith("Remains") Then Continue Do
+                    If Not Container.GetName.StartsWith("Dead") And Not Container.GetName.StartsWith("Slain") And Not Container.GetName.StartsWith("Remains") And Not Container.GetName.StartsWith("Bag") Then Continue Do
+                    If Not Container.HasParent Then Continue Do
                     If Container.IsOpened Then
                         ContainerItemCount = Container.GetItemCount
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1

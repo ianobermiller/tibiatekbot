@@ -19,7 +19,7 @@ Public Class frmScripts
         Return Nothing
     End Function
 
-    Private Sub AddScriptToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddScriptToolStripMenuItem.Click
+    Private Sub AddScriptToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddScriptToolStripMenuItem.Click, AddToolStripMenuItem1.Click
         Try
             Dim CanClose As Boolean = False
             Do
@@ -56,7 +56,7 @@ Public Class frmScripts
                     CP.ReferencedAssemblies.Add("System.Windows.Forms.dll")
                     CP.ReferencedAssemblies.Add("Microsoft.VisualBasic.dll")
                     CP.ReferencedAssemblies.Add("System.dll")
-                    
+
 
                     Dim TextFile As System.IO.FileStream = System.IO.File.Open(OpenScriptDialog.FileName, FileMode.Open)
                     Dim Reader As New System.IO.StreamReader(TextFile)
@@ -149,7 +149,7 @@ Public Class frmScripts
         Me.Close()
     End Sub
 
-    Private Sub RemoveToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RemoveToolStripMenuItem1.Click
+    Private Sub RemoveToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RemoveToolStripMenuItem1.Click, RemoveToolStripMenuItem.Click
         For I As Integer = 0 To Kernel.Scripts.Count - 1
             If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
                 Kernel.Scripts(I).Script.Dispose()
@@ -188,7 +188,7 @@ Public Class frmScripts
         Next
     End Sub
 
-    Private Sub EditToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditToolStripMenuItem2.Click
+    Private Sub EditToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditToolStripMenuItem2.Click, EditToolStripMenuItem.Click
         Process.Start("notepad", ScriptsView.SelectedRows(0).Cells(1).Value.ToString)
     End Sub
 
@@ -210,11 +210,88 @@ Public Class frmScripts
             Dim SD As ScriptDefinition
             SD = Kernel.Scripts(I)
             If SD.State = IScript.ScriptState.Running Then Continue For
-
             SD.Script.Pause()
             SD.State = IScript.ScriptState.Running
             Kernel.Scripts(I) = SD
             ScriptsView.Rows(I).Cells(0).Value = My.Resources.script_play
         Next
+    End Sub
+
+    Private Sub ReloadToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReloadToolStripMenuItem.Click
+        'Structure: First Compile, then remove selected from scripts (not from window), then add compiled back to scripts
+        Try
+            Dim CanClose As Boolean = False
+            Do
+                If String.IsNullOrEmpty(ScriptsView.SelectedRows(0).Cells(1).Value.ToString) Then
+                    Beep()
+                    Exit Sub
+                End If
+                'Compiling
+                Dim FI As System.IO.FileInfo = New FileInfo(ScriptsView.SelectedRows(0).Cells(1).Value.ToString)
+                Dim P As CodeDomProvider
+                Select Case FI.Extension.ToLower
+                    Case ".cs"
+                        P = New Microsoft.CSharp.CSharpCodeProvider
+                    Case ".vb"
+                        P = New Microsoft.VisualBasic.VBCodeProvider
+                    Case Else
+                        If MessageBox.Show("Invalid extension.", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) <> Windows.Forms.DialogResult.Retry Then Exit Sub
+                        Continue Do
+                End Select
+                '                    Dim C As ICodeCompiler = P.CreateCompiler()
+                Dim CP As New CompilerParameters()
+
+                CP.GenerateExecutable = False
+                CP.GenerateInMemory = True
+                CP.IncludeDebugInformation = False
+                'CP.CompilerOptions = "/optimize"
+                'CP.TreatWarningsAsErrors = False
+
+                CP.ReferencedAssemblies.Add(Application.StartupPath & "\\TibiaTekBot Scripting Assembly.dll")
+                CP.ReferencedAssemblies.Add("System.Windows.Forms.dll")
+                CP.ReferencedAssemblies.Add("Microsoft.VisualBasic.dll")
+                CP.ReferencedAssemblies.Add("System.dll")
+
+
+                Dim TextFile As System.IO.FileStream = System.IO.File.Open(OpenScriptDialog.FileName, FileMode.Open)
+                Dim Reader As New System.IO.StreamReader(TextFile)
+                Dim Source As String = Reader.ReadToEnd()
+
+                Dim Results As CompilerResults = P.CompileAssemblyFromSource(CP, Source)
+
+                If Results.Errors.Count > 0 Then
+                    Dim Errors As String = ""
+                    For Each err As CompilerError In Results.Errors
+                        Errors &= OpenScriptDialog.FileName & ":" & err.Line & ". Message: " & err.ErrorText & vbCrLf
+                    Next
+                    MessageBox.Show(Errors & vbCrLf & "There were " & Results.Errors.Count.ToString() & " errors." & vbCrLf & "Using the old script file.", "Compiler Failed", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                Else
+                    'First remove...
+                    Dim TempSD As New ScriptDefinition
+                    For I As Integer = 0 To Kernel.Scripts.Count - 1
+                        If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
+                            TempSD = Kernel.Scripts(I)
+                            Kernel.Scripts(I).Script.Dispose()
+                            Kernel.Scripts.RemoveAt(I)
+                            Exit For
+                        End If
+                    Next
+                    '... then add again
+                    Dim SD As New ScriptDefinition
+                    SD.Filename = TempSD.Filename
+                    SD.State = IScript.ScriptState.Running
+                    SD.SafeFileName = TempSD.SafeFileName
+                    SD.CompilerResults = Results
+                    SD.Script = DirectCast(FindInterface(Results.CompiledAssembly, "IScript"), Scripting.IScript)
+                    SD.Script.Initialize(Kernel)
+                    Kernel.Scripts.Add(SD)
+                End If
+                Reader.Close()
+                TextFile.Close()
+                CanClose = True
+            Loop While Not CanClose
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class
