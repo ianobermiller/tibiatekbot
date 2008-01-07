@@ -76,6 +76,7 @@
     <Item Name="Magic Light Wand" Kind="Tool,LightSource" ID="HBE6"/>
     <Item Name="Light Shovel" Kind="Tool" ID="H164E"/>
     <Item Name="Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCCD"/>
+	<Item Name="Enchanted Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CC7"/>
 	<Item Name="Royal Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CD2"/>
     <Item Name="Small Stone" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H6F5"/>
     <Item Name="Throwing Star" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCD7"/>
@@ -237,6 +238,7 @@
     <Item Name="Royal Helmet" Kind="Equipment,Helmet" ID="HD40"/>
     <Item Name="Golden Armor" Kind="Armor" ID="HD20"/>
 	<Item Name="Krimhorn Helmet" Kind="Equipment,Helmet" ID="H198"/>
+	<Item Name="Dagger" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCC3"/>
 	<Item Name="Giant Sword" Kind="Equipment,DoubleHandedWeapon,Tool" ID="HCD1"/>
     <Item Name="Crown Legs" Kind="Equipment,Leg" ID="HD36"/>
     <Item Name="Boots Of Haste" Kind="Equipment,Footwear" ID="HC07"/>
@@ -257,6 +259,7 @@
     <Item Name="Crown Armor" Kind="Equipment,Armor" ID="HD35"/>
     <Item Name="Crown Helmet" Kind="Equipment,Helmet" ID="HD1D"/>
     <Item Name="Chain Legs" Kind="Equipment,Leg" ID="HDE6"/>
+	<Item Name="Blue Legs" Kind="Equipment,Leg" ID="H285"/>
     <Item Name="Cream Cake" Kind="Valuable" ID="H18F9"/>
     <Item Name="Sandals" Kind="Equipment,Footwear" ID="HDDF"/>
     <Item Name="Pot" Kind="FluidContainer,FullBlocking" ID="HD89"/>
