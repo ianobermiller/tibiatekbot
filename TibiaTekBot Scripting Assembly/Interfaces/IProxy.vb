@@ -18,8 +18,8 @@
 '    Boston, MA 02111-1307, USA.
 
 Public Interface IProxy
-    Event ConnectionGained()
-    Event ConnectionLost()
+    Event Connected()
+    Event Disconnected()
 
     ReadOnly Property Client() As ITibia
 

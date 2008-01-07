@@ -57,8 +57,8 @@ Public Class frmMain
     Private Sub InitializeControls()
         Try
             ' Spell Caster
-            For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
-                If Spell.Kind <> SpellKind.Rune Then
+            For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
+                If Spell.Kind <> ISpells.SpellKind.Rune Then
                     SpellCasterSpell.Items.Add(Spell.Words)
                 End If
             Next
@@ -74,8 +74,8 @@ Public Class frmMain
             If ChangerRingType.Items.Count > 0 Then ChangerRingType.SelectedIndex = 0
             If ChangerAmuletType.Items.Count > 0 Then ChangerAmuletType.SelectedIndex = 0
             ' Runemaker
-            For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
-                If Spell.Kind = SpellKind.Rune Then
+            For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
+                If Spell.Kind = ISpells.SpellKind.Rune Then
                     RunemakerSpell.Items.Add(Spell.Name)
                 End If
             Next
@@ -108,8 +108,8 @@ Public Class frmMain
             StatsUploaderPassword.Text = Consts.StatsUploaderPassword
             StatsUploaderSaveToDisk.Checked = Consts.StatsUploaderSaveOnDiskOnly
             'Healer
-            For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
-                If Spell.Kind = SpellKind.Healing Then
+            For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
+                If Spell.Kind = ISpells.SpellKind.Healing Then
                     HealSpellName.Items.Add(Spell.Words)
                 End If
             Next
@@ -125,8 +125,8 @@ Public Class frmMain
             'Party Healer
             If HealPType.Items.Count > 0 Then HealPType.SelectedIndex = 0
             'Chameleon
-            Dim Outfits() As OutfitDefinition = KernelModule.Outfits.GetOutfits
-            For Each Outfit As OutfitDefinition In Outfits
+            Dim Outfits() As IOutfits.OutfitDefinition = Kernel.Outfits.GetOutfits
+            For Each Outfit As IOutfits.OutfitDefinition In Outfits
                 If Not String.IsNullOrEmpty(Outfit.Name) Then
                     ChameleonOutfit.Items.Add(Outfit.Name)
                 End If
@@ -142,8 +142,8 @@ Public Class frmMain
             'Dancer
             If DancerSpeed.Items.Count > 0 Then DancerSpeed.SelectedIndex = 0
             'Ammo Maker
-            For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
-                If Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation Then
+            For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
+                If Spell.Kind = ISpells.SpellKind.Ammunition Or Spell.Kind = ISpells.SpellKind.Incantation Then
                     AmmoMakerSpell.Items.Add(Spell.Words)
                 End If
             Next
@@ -178,7 +178,7 @@ Public Class frmMain
                 MainTabControl.Enabled = True
             Else
                 If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                    Me.Text = "TibiaTek Bot - " & Hex(Kernel.Client.GetWindowHandle)
+                    Me.Text = "TibiaTek Bot - " & Hex(Kernel.Client.GetProcessHandle)
                 Else
                     Me.Text = "TibiaTek Bot"
                 End If
@@ -355,8 +355,8 @@ Public Class frmMain
         Try
             Dim BL As New BattleList
             BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
-            Dim OD As New OutfitDefinition
-            Dim ODFound As Boolean = KernelModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
+            Dim OD As New IOutfits.OutfitDefinition
+            Dim ODFound As Boolean = Kernel.Outfits.GetOutfitByID(BL.OutfitID, OD)
             If ODFound Then
                 ChameleonOutfit.SelectedIndex = ChameleonOutfit.Items.IndexOf(OD.Name)
             End If
@@ -1354,7 +1354,7 @@ Public Class frmMain
                     Exit Sub
                 End If
                 Dim Found As Boolean = False
-                For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
+                For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
                     If Spell.Name.Equals(RunemakerSpell.Text) Then
                         Kernel.RunemakerSpell = Spell
                         Found = True
@@ -1454,7 +1454,8 @@ Public Class frmMain
             Dim GroupMatch As Match
             MCollection = [Regex].Matches(Data, "&([^\n;]+)[;]?")
             For Each GroupMatch In MCollection
-                CommandParser(GroupMatch.Groups(1).Value)
+                'Kernel.CommandParser.
+                Kernel.CommandParser.Invoke(GroupMatch.Groups(1).Value)
             Next
             MessageBox.Show("Done loading your configuration.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch
@@ -1503,7 +1504,7 @@ Public Class frmMain
     End Sub
 
     Private Sub AutoLooterEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterConfigure.Click
-        KernelModule.LootItems.ShowLootCategories()
+        Kernel.LootItems.ShowLootCategories()
     End Sub
 
     Private Sub AutoStackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoStackerTrigger.CheckedChanged
@@ -1862,7 +1863,7 @@ Public Class frmMain
 
     Private Sub MiscReloadSpellsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadSpellsButton.Click
         Try
-            KernelModule.Spells.LoadSpells()
+            Kernel.Spells.LoadSpells()
             MessageBox.Show("Done loading the Spells configuration file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1881,7 +1882,7 @@ Public Class frmMain
     Private Sub MiscReloadOutfitsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadOutfitsButton.Click
         Try
 
-            KernelModule.Outfits.LoadOutfits()
+            Kernel.Outfits.LoadOutfits()
             MessageBox.Show("Done loading the Outfits configuration file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1947,8 +1948,8 @@ Public Class frmMain
                 End If
             Loop While BL.NextEntity()
             If Found Then
-                Dim OD As New OutfitDefinition
-                Dim ODFound As Boolean = KernelModule.Outfits.GetOutfitByID(BL.OutfitID, OD)
+                Dim OD As New IOutfits.OutfitDefinition
+                Dim ODFound As Boolean = Kernel.Outfits.GetOutfitByID(BL.OutfitID, OD)
                 If ODFound Then
                     ChameleonOutfit.SelectedIndex = ChameleonOutfit.Items.IndexOf(OD.Name)
                     Select Case BL.OutfitAddons
@@ -1981,8 +1982,8 @@ Public Class frmMain
             Exit Sub
         End If
         Try
-            Dim OD As New OutfitDefinition
-            Dim ODFound As Boolean = KernelModule.Outfits.GetOutfitByName(ChameleonOutfit.Text, OD)
+            Dim OD As New IOutfits.OutfitDefinition
+            Dim ODFound As Boolean = Kernel.Outfits.GetOutfitByName(ChameleonOutfit.Text, OD)
             If ODFound Then
                 Dim BL As New BattleList
                 BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -2516,7 +2517,7 @@ Public Class frmMain
                 Else
                     Kernel.HealMinimumHP = MaxHitPoints * (HealSpellPercent.Value / 100)
                 End If
-                For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
+                For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
                     If Spell.Name.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(HealSpellName.Text, StringComparison.CurrentCultureIgnoreCase) Then
                         Select Case Spell.Name.ToLower
                             Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing", "divine healing", "wound cleansing"
@@ -2629,11 +2630,11 @@ Public Class frmMain
                 If Kernel.AmmoMakerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
 
                 Dim Found As Boolean = False
-                Dim S As New SpellDefinition
-                For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
+                Dim S As New ISpells.SpellDefinition
+                For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
                     If (Spell.Name.Equals(AmmoMakerSpell.Text, StringComparison.CurrentCultureIgnoreCase) _
                     OrElse Spell.Words.Equals(AmmoMakerSpell.Text.ToString, StringComparison.CurrentCultureIgnoreCase)) _
-                    AndAlso (Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation) Then
+                    AndAlso (Spell.Kind = ISpells.SpellKind.Ammunition Or Spell.Kind = ISpells.SpellKind.Incantation) Then
                         S = Spell
                         Found = True
                         Exit For
@@ -2725,5 +2726,9 @@ Public Class frmMain
 
     Private Sub ScriptsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ScriptsToolStripMenuItem.Click
         Kernel.ScriptsForm.Show()
+    End Sub
+
+    Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
+        Kernel.Client.BringToFront()
     End Sub
 End Class

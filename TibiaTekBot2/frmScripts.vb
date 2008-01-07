@@ -1,4 +1,4 @@
-﻿Imports System.CodeDom, System.CodeDom.Compiler, System.IO, Scripting
+﻿Imports System.CodeDom, System.CodeDom.Compiler, System.IO, Scripting, System.Reflection
 
 Public Class frmScripts
     'Configure parameters
@@ -9,54 +9,13 @@ Public Class frmScripts
     End Sub
 
 
-    ' Private Sub AddToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddToolStripMenuItem.Click
-
-    'Dim a As CodeDomProvider = New Microsoft.VisualBasic.VBCodeProvider()
-    'Dim Compiler As ICodeCompiler = a.CreateCompiler()
-    'Dim Params As New CompilerParameters()
-    'Dim Results As CompilerResults
-    'With Params
-    '    .GenerateExecutable = False
-    '    .GenerateInMemory = True
-    '    .IncludeDebugInformation = False
-    '    .ReferencedAssemblies.Add("TibiaTekBot Scripting Assembly.dll")
-    '    .ReferencedAssemblies.Add("System.Windows.Forms.dll")
-    '    .ReferencedAssemblies.Add("System.dll")
-    'End With
-    'Dim TextFile As System.IO.FileStream = System.IO.File.Open("c:\defaultscript.txt", FileMode.Open)
-    'Dim Reader As New System.IO.StreamReader(TextFile)
-    'Dim Source As String = Reader.ReadToEnd()
-    ''MsgBox(Source)
-    'Results = Compiler.CompileAssemblyFromSource(Params, Source)
-
-    'If Results.Errors.Count > 0 Then
-    '    For Each err As CompilerError In Results.Errors
-    '        MessageBox.Show("Line: " & err.Line & ". Message: " & err.ErrorText)
-    '    Next
-    '    MessageBox.Show("Compile failed with " & Results.Errors.Count.ToString() & " errors.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-    'Else
-    '    Dim Script As IScript = DirectCast(FindInterface(Results.CompiledAssembly, "IScript"), Scripting.IScript)
-    '    'Script.Initialize(Kernel)
-    '    'Script.Method1()
-    '    Threading.Thread.Sleep(5000)
-    '    Script.Dispose()
-    '    Script = Nothing
-    'End If
-    'Reader.Close()
-    'TextFile.Close()
-
-    ' End Sub
-
     Public Shared Function FindInterface(ByVal DLL As Reflection.Assembly, ByVal InterfaceName As String) As Object
-        Dim t As Type
-
         'Loop through types looking for one that implements the given interface
-        For Each t In DLL.GetTypes()
+        For Each t As Type In DLL.GetTypes()
             If Not (t.GetInterface(InterfaceName, True) Is Nothing) Then
                 Return DLL.CreateInstance(t.FullName)
             End If
         Next
-
         Return Nothing
     End Function
 
@@ -72,23 +31,38 @@ Public Class frmScripts
                             Continue Do
                         End If
                     Next
-                    Dim a As CodeDomProvider = New Microsoft.VisualBasic.VBCodeProvider()
-                    Dim Compiler As ICodeCompiler = a.CreateCompiler()
-                    Dim Params As New CompilerParameters()
-                    Dim Results As CompilerResults
-                    With Params
-                        .GenerateExecutable = False
-                        .GenerateInMemory = True
-                        .IncludeDebugInformation = False
-                        .ReferencedAssemblies.Add(Application.StartupPath & "\\TibiaTekBot Scripting Assembly.dll")
-                        .ReferencedAssemblies.Add("System.Windows.Forms.dll")
-                        .ReferencedAssemblies.Add("Microsoft.VisualBasic.dll")
-                        .ReferencedAssemblies.Add("System.dll")
-                    End With
+
+                    Dim FI As System.IO.FileInfo = New FileInfo(OpenScriptDialog.FileName)
+                    Dim P As CodeDomProvider
+                    Select Case FI.Extension.ToLower
+                        Case ".cs"
+                            P = New Microsoft.CSharp.CSharpCodeProvider
+                        Case ".vb"
+                            P = New Microsoft.VisualBasic.VBCodeProvider
+                        Case Else
+                            If MessageBox.Show("Invalid extension.", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) <> Windows.Forms.DialogResult.Retry Then Exit Sub
+                            Continue Do
+                    End Select
+                    '                    Dim C As ICodeCompiler = P.CreateCompiler()
+                    Dim CP As New CompilerParameters()
+
+                    CP.GenerateExecutable = False
+                    CP.GenerateInMemory = True
+                    CP.IncludeDebugInformation = False
+                    'CP.CompilerOptions = "/optimize"
+                    'CP.TreatWarningsAsErrors = False
+
+                    CP.ReferencedAssemblies.Add(Application.StartupPath & "\\TibiaTekBot Scripting Assembly.dll")
+                    CP.ReferencedAssemblies.Add("System.Windows.Forms.dll")
+                    CP.ReferencedAssemblies.Add("Microsoft.VisualBasic.dll")
+                    CP.ReferencedAssemblies.Add("System.dll")
+                    
+
                     Dim TextFile As System.IO.FileStream = System.IO.File.Open(OpenScriptDialog.FileName, FileMode.Open)
                     Dim Reader As New System.IO.StreamReader(TextFile)
                     Dim Source As String = Reader.ReadToEnd()
-                    Results = Compiler.CompileAssemblyFromSource(Params, Source)
+
+                    Dim Results As CompilerResults = P.CompileAssemblyFromSource(CP, Source)
 
                     If Results.Errors.Count > 0 Then
                         Dim Errors As String = ""
@@ -101,6 +75,7 @@ Public Class frmScripts
                         SD.Filename = OpenScriptDialog.FileName
                         SD.State = IScript.ScriptState.Running
                         SD.SafeFileName = OpenScriptDialog.SafeFileName
+                        SD.CompilerResults = Results
                         SD.Script = DirectCast(FindInterface(Results.CompiledAssembly, "IScript"), Scripting.IScript)
                         SD.Script.Initialize(Kernel)
                         Kernel.Scripts.Add(SD)
@@ -160,6 +135,12 @@ Public Class frmScripts
     End Sub
 
     Private Sub ResumeToolStripMenuItem1_DropDownOpened(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ResumeToolStripMenuItem1.DropDownOpened
+        For I As Integer = 0 To Kernel.Scripts.Count - 1
+            If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
+
+                Exit For
+            End If
+        Next
         SelectedToolStripMenuItem1.Enabled = ScriptsView.SelectedRows.Count > 0
         AllToolStripMenuItem1.Enabled = ScriptsView.RowCount > 0
     End Sub
@@ -184,6 +165,7 @@ Public Class frmScripts
             If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
                 Dim SD As ScriptDefinition
                 SD = Kernel.Scripts(I)
+                If SD.State = IScript.ScriptState.Paused Then Exit Sub
                 SD.Script.Pause()
                 SD.State = IScript.ScriptState.Paused
                 Kernel.Scripts(I) = SD
@@ -197,6 +179,7 @@ Public Class frmScripts
             If Kernel.Scripts(I).Filename = ScriptsView.SelectedRows(0).Cells(1).Value.ToString Then
                 Dim SD As ScriptDefinition
                 SD = Kernel.Scripts(I)
+                If SD.State = IScript.ScriptState.Running Then Exit For
                 SD.Script.Resume()
                 SD.State = IScript.ScriptState.Running
                 Kernel.Scripts(I) = SD

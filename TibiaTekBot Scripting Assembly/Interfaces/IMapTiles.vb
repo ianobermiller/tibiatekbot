@@ -19,6 +19,10 @@
 
 Public Interface IMapTiles
 
+#Region " Events "
+    Event AfterRefreshed()
+#End Region
+
 #Region " Structures "
 
     Structure ClientCoordinates

@@ -490,8 +490,8 @@ Public Class frmAlarms
         Try
             Dim BL As New BattleList
             Dim Outfit As New Outfits
-            Dim GMOutfit As New OutfitDefinition
-            Dim CMOutfit As New OutfitDefinition
+            Dim GMOutfit As New IOutfits.OutfitDefinition
+            Dim CMOutfit As New IOutfits.OutfitDefinition
             Dim Name As String = ""
             Dim BattleListIgnoredPlayersCount As Integer
             Dim Alert As Boolean = False

@@ -161,6 +161,7 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandParser.vb" />
     <Compile Include="Creatures.vb" />
     <Compile Include="frmCavebot.Designer.vb">
       <DependentUpon>frmCavebot.vb</DependentUpon>
@@ -198,7 +199,9 @@
     <Compile Include="frmScripts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Kernel.vb" />
+    <Compile Include="Kernel.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="BattleList.vb" />
     <Compile Include="Constants.vb" />
     <Compile Include="Container.vb" />
@@ -256,7 +259,6 @@
     </Compile>
     <Compile Include="Outfits.vb" />
     <Compile Include="PacketUtils.vb" />
-    <Compile Include="CommandParser.vb" />
     <Compile Include="frmSplashScreen.Designer.vb">
       <DependentUpon>frmSplashScreen.vb</DependentUpon>
     </Compile>

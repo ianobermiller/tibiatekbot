@@ -25,6 +25,8 @@ Public Module MapReaderModule
     Public Class MapTiles
         Implements IMapTiles
 
+        Public Event AfterRefreshed() Implements IMapTiles.AfterRefreshed
+
         Public MapBegins As Integer = 0
         Public MapX As Integer = 0
         Public MapY As Integer = 0
@@ -182,7 +184,7 @@ Public Module MapReaderModule
                 If MapBegins = 0 Then RefreshMapBeginning()
                 SyncLock Me
                     FindYourSelf()
-                    'WriteMap()
+                    RaiseEvent AfterRefreshed()
                 End SyncLock
                 Busy = False
             Catch Ex As Exception

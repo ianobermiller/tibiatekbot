@@ -54,8 +54,8 @@ Public Class PProxy2
 
     Public Event PacketFromClient(ByRef bytArray() As Byte, ByRef Block As Boolean)
     Public Event PacketFromServer(ByRef bytArray() As Byte, ByRef Block As Boolean)
-    Public Event ConnectionGained() Implements IProxy.ConnectionGained
-    Public Event ConnectionLost() Implements IProxy.ConnectionLost
+    Public Event ConnectionGained() Implements IProxy.Connected
+    Public Event ConnectionLost() Implements IProxy.Disconnected
 
     Public Sub SendToServer(ByVal Packet As Packet) Implements IProxy.SendPacketToServer
         SendPacketToServer(Packet.GetBytes, False)
