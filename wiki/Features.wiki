@@ -2,9 +2,9 @@
 #labels Featured,Phase-Design,Phase-Implementation
 
 = For v2.3 (Not yet released) =
- * Improved Auto Looter (Faster)
+ * Fastest Auto Looter (8 items looted in 1 second)
  * Scripting (VB .NET and C#)
- * WASD Keyboard System
+ * Advanced Keyboard System
  * Regular Expression Builder for Trade Channel Watcher
  * .WPT File Support for Cavebot
  * The TTB Tray Icon Menu can be found on the GUI
