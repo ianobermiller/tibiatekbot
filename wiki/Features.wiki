@@ -66,3 +66,4 @@
  * Trade Channel Advertiser
  * Trade Channel Watcher
  * When your Magic Shield runs out, you are notified
+ * By default, invisible creatures become visible
