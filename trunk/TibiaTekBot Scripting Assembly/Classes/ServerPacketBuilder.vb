@@ -20,7 +20,7 @@
 Imports System.Windows.Forms
 
 Public Class ServerPacketBuilder
-    Implements IPacketBuilder
+    Implements IServerPacketBuilder
     Private Packets As New Queue(Of Packet)
     Private _AutoSend As Boolean = True
     Private _Proxy As IProxy
@@ -39,7 +39,7 @@ Public Class ServerPacketBuilder
         _AutoSend = AutoSend
     End Sub
 
-    Public Sub PlayerLogout()
+    Public Sub PlayerLogout() Implements IServerPacketBuilder.PlayerLogout
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H14)
@@ -50,7 +50,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub ChangeFightingMode(ByVal FightingMode As ITibia.FightingMode)
+    Public Sub ChangeFightingMode(ByVal FightingMode As ITibia.FightingMode) Implements IServerPacketBuilder.ChangeFightingMode
         Try
             Dim _Packet As New Packet
             Dim SecureMode As ITibia.SecureMode = _Proxy.Client.CharacterSecureMode
@@ -67,7 +67,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub ChangeChasingMode(ByVal ChasingMode As ITibia.ChasingMode)
+    Public Sub ChangeChasingMode(ByVal ChasingMode As ITibia.ChasingMode) Implements IServerPacketBuilder.ChangeChasingMode
         Try
             Dim _Packet As New Packet
             Dim FightingMode As ITibia.FightingMode = _Proxy.Client.CharacterFightingMode
@@ -83,7 +83,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub ChangeSecureMode(ByVal SecureMode As ITibia.SecureMode)
+    Public Sub ChangeSecureMode(ByVal SecureMode As ITibia.SecureMode) Implements IServerPacketBuilder.ChangeSecureMode
         Try
             Dim _Packet As New Packet
             Dim FightingMode As ITibia.FightingMode = _Proxy.Client.CharacterFightingMode
@@ -99,7 +99,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub ChangeCombatModes(ByVal Fighting As ITibia.FightingMode, ByVal Chasing As ITibia.ChasingMode, ByVal Secure As ITibia.SecureMode)
+    Public Sub ChangeCombatModes(ByVal Fighting As ITibia.FightingMode, ByVal Chasing As ITibia.ChasingMode, ByVal Secure As ITibia.SecureMode) Implements IServerPacketBuilder.ChangeCombatModes
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HA0)
@@ -113,7 +113,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub ChangeOutfit(ByVal OutfitID As Integer, ByVal HeadColor As Integer, ByVal BodyColor As Integer, ByVal LegsColor As Integer, ByVal FeetColor As Integer, ByVal Addons As Integer)
+    Public Sub ChangeOutfit(ByVal OutfitID As Integer, ByVal HeadColor As Integer, ByVal BodyColor As Integer, ByVal LegsColor As Integer, ByVal FeetColor As Integer, ByVal Addons As Integer) Implements IServerPacketBuilder.ChangeOutfit
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HD3)
@@ -130,7 +130,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub Speak(ByVal Message As String, Optional ByVal DefaultMessageType As ITibia.DefaultMessageType = ITibia.DefaultMessageType.Normal)
+    Public Sub Speak(ByVal Message As String, Optional ByVal DefaultMessageType As ITibia.DefaultMessageType = ITibia.DefaultMessageType.Normal) Implements IServerPacketBuilder.Speak
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H96)
@@ -143,7 +143,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub Speak(ByVal Destinatary As String, ByVal Message As String, Optional ByVal PrivateMessageType As ITibia.PrivateMessageType = ITibia.PrivateMessageType.Normal)
+    Public Sub Speak(ByVal Destinatary As String, ByVal Message As String, Optional ByVal PrivateMessageType As ITibia.PrivateMessageType = ITibia.PrivateMessageType.Normal) Implements IServerPacketBuilder.Speak
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H96)
@@ -157,7 +157,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub Speak(ByVal Message As String, ByVal ChannelID As ITibia.Channel, ByVal ChannelType As ITibia.ChannelMessageType)
+    Public Sub Speak(ByVal Message As String, ByVal ChannelID As ITibia.Channel, ByVal ChannelType As ITibia.ChannelMessageType) Implements IServerPacketBuilder.Speak
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H96)
@@ -171,7 +171,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub AttackEntity(ByVal EntityID As Int32)
+    Public Sub AttackEntity(ByVal EntityID As Int32) Implements IServerPacketBuilder.AttackEntity
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HA1)
@@ -183,7 +183,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub CharacterTurn(ByVal Direction As IBattlelist.Directions)
+    Public Sub CharacterTurn(ByVal Direction As IBattlelist.Directions) Implements IServerPacketBuilder.CharacterTurn
         Try
             If Direction >= IBattlelist.Directions.Up AndAlso Direction <= IBattlelist.Directions.Left Then
                 Dim _Packet As New Packet
@@ -196,7 +196,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub UseObjectWithObjectOnGround(ByVal ItemID As UShort, ByVal Destination As ITibia.LocationDefinition, Optional ByVal TileId As UShort = 0)
+    Public Sub UseObjectWithObjectOnGround(ByVal ItemID As UShort, ByVal Destination As ITibia.LocationDefinition, Optional ByVal TileId As UShort = 0) Implements IServerPacketBuilder.UseObjectWithObjectOnGround
         Try
             Dim _Packet As New Packet
             Dim bytBuffer(1) As Byte
@@ -260,7 +260,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub UseObject(ByVal ItemID As Int16, ByVal InventorySlot As ITibia.InventorySlots, ByVal ContainerIndex As Byte)
+    Public Sub UseObject(ByVal ItemID As Int16, ByVal InventorySlot As ITibia.InventorySlots, ByVal ContainerIndex As Byte) Implements IServerPacketBuilder.UseObject
         Try
             Dim _Packet As New Packet
             'Dim bytBuffer(1) As Byte
@@ -280,7 +280,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub UseObject(ByVal Item As IContainer.ContainerItemDefinition, Optional ByVal ContainerIndex As Byte = &HF)
+    Public Sub UseObject(ByVal Item As IContainer.ContainerItemDefinition, Optional ByVal ContainerIndex As Byte = &HF) Implements IServerPacketBuilder.UseObject
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H82)
@@ -310,7 +310,7 @@ Public Class ServerPacketBuilder
     '    End Try
     'End Sub
 
-    Public Sub UseHotkey(ByVal ItemID As Int32, ByVal CharacterID As Int32, Optional ByVal ExtraByte As Integer = 0)
+    Public Sub UseHotkey(ByVal ItemID As Int32, ByVal CharacterID As Int32, Optional ByVal ExtraByte As Integer = 0) Implements IServerPacketBuilder.UseHotkey
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H84)
@@ -327,7 +327,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub StopEverything()
+    Public Sub StopEverything() Implements IServerPacketBuilder.StopEverything
         Try
             Dim _Packet As New Packet
 
@@ -339,7 +339,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub MoveObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, ByVal Destination As ITibia.LocationDefinition, Optional ByVal Count As Byte = &HFF)
+    Public Sub MoveObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, ByVal Destination As ITibia.LocationDefinition, Optional ByVal Count As Byte = &HFF) Implements IServerPacketBuilder.MoveObject
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H78)
@@ -360,7 +360,7 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
-    Public Sub MoveObject(ByVal Item As IContainer.ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition, Optional ByVal Count As Byte = &HFF)
+    Public Sub MoveObject(ByVal Item As IContainer.ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition, Optional ByVal Count As Byte = &HFF) Implements IServerPacketBuilder.MoveObject
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H78)
@@ -408,7 +408,7 @@ Public Class ServerPacketBuilder
     '    End Try
     'End Sub
 
-    Public Sub UseObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, Optional ByVal ContainerIndex As Byte = 1)
+    Public Sub UseObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, Optional ByVal ContainerIndex As Byte = 1) Implements IServerPacketBuilder.UseObject
         Try
             Dim _Packet As New Packet
             'Dim bytBuffer(&H1) As Byte

@@ -21,10 +21,9 @@ Imports System.Xml, Scripting
 
 Public Module ItemsModule
 
-
-
     Public Class Items
         Implements IItems
+
         Public _ItemsList As New List(Of IItems.ItemDefinition)
 
         Public Sub New()

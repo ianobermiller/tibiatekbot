@@ -17,24 +17,34 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Public Interface IKernel
+Public Interface ISpells
 
-#Region " Properties "
-    ReadOnly Property Client() As ITibia
-    ReadOnly Property Spells() As ISpells
-    ReadOnly Property CommandParser() As ICommandParser
+#Region " Enumerations "
+    Enum SpellKind As Integer
+        Rune
+        Food
+        Ammunition
+        Support
+        Offensive
+        Healing
+        Incantation
+    End Enum
+#End Region
+
+#Region " Structures "
+    Structure SpellDefinition
+        Dim Name As String
+        Dim Words As String
+        Dim ManaPoints As UShort
+        Dim SoulPoints As Integer
+        Dim Kind As SpellKind
+    End Structure
 #End Region
 
 #Region " Methods "
-    Function NewBattlelist() As IBattlelist
-    Function NewBattlelist(ByVal SE As IBattlelist.SpecialEntity) As IBattlelist
-    Function NewBattlelist(ByVal Position As Integer) As IBattlelist
-
-    Function NewContainer() As IContainer
-
-    Sub ConsoleRead(ByVal strString As String)
-    Sub ConsoleWrite(ByVal strString As String)
-    Sub ConsoleError(ByVal strString As String)
+    Function ConjuresMagicalRune(ByVal SpellName As String) As Boolean
+    Function GetSpellWords(ByVal Name As String) As String
+    Function GetSpellMana(ByVal Name As String) As UShort
 #End Region
 
 End Interface

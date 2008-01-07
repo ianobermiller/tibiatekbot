@@ -17,24 +17,22 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Public Interface IKernel
+Public Interface IOutfits
+#Region " Structures "
+    Structure OutfitDefinition
+        Dim ID As UShort
+        Dim Name As String
+    End Structure
+#End Region
 
 #Region " Properties "
-    ReadOnly Property Client() As ITibia
-    ReadOnly Property Spells() As ISpells
-    ReadOnly Property CommandParser() As ICommandParser
+    ReadOnly Property GetOutfits() As IOutfits.OutfitDefinition()
 #End Region
 
 #Region " Methods "
-    Function NewBattlelist() As IBattlelist
-    Function NewBattlelist(ByVal SE As IBattlelist.SpecialEntity) As IBattlelist
-    Function NewBattlelist(ByVal Position As Integer) As IBattlelist
-
-    Function NewContainer() As IContainer
-
-    Sub ConsoleRead(ByVal strString As String)
-    Sub ConsoleWrite(ByVal strString As String)
-    Sub ConsoleError(ByVal strString As String)
+    Function GetOutfitByName(ByVal Name As String, ByRef Outfit As IOutfits.OutfitDefinition) As Boolean
+    Function GetOutfitByID(ByVal ID As UShort, ByRef Outfit As IOutfits.OutfitDefinition) As Boolean
 #End Region
 
 End Interface
+

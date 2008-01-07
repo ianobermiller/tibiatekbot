@@ -31,7 +31,7 @@ Public Class PipePacketBuilder
         _AutoSend = AutoSend
     End Sub
 
-    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As UInteger)
+    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As UInteger) Implements IPipePacketBuilder.SetConstant
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(1)
@@ -44,7 +44,7 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As UShort)
+    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As UShort) Implements IPipePacketBuilder.SetConstant
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(1)
@@ -57,7 +57,7 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As Byte)
+    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As Byte) Implements IPipePacketBuilder.SetConstant
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(1)
@@ -70,7 +70,7 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As String)
+    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As String) Implements IPipePacketBuilder.SetConstant
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(1)
@@ -83,7 +83,7 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As Integer)
+    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As Integer) Implements IPipePacketBuilder.SetConstant
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(1)
@@ -96,7 +96,7 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As Double)
+    Public Sub SetConstant(ByVal ConstantName As String, ByVal Value As Double) Implements IPipePacketBuilder.SetConstant
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(1)
@@ -109,7 +109,7 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub HookWndProc(ByVal Hook As Boolean)
+    Public Sub HookWndProc(ByVal Hook As Boolean) Implements IPipePacketBuilder.HookWndProc
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(2)

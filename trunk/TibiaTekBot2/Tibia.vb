@@ -57,7 +57,7 @@ Public NotInheritable Class Tibia
 
     Public Event Starting() Implements ITibia.Starting
     Public Event Started() Implements ITibia.Started
-    Public Event Exited() Implements ITibia.Exited
+    Public Event Closed() Implements ITibia.Closed
     Public Event Connected() Implements ITibia.Connected
     Public Event Disconnected() Implements ITibia.Disconnected
 
@@ -139,7 +139,6 @@ Public NotInheritable Class Tibia
 
     Public ReadOnly Property Items() As IItems Implements ITibia.Items
         Get
-
             Return _Items
         End Get
     End Property
@@ -175,8 +174,6 @@ Public NotInheritable Class Tibia
             End Try
         End Get
     End Property
-
-
 
     Public ReadOnly Property CharacterFightingMode() As ITibia.FightingMode Implements ITibia.CharacterFightingMode
         Get
@@ -415,7 +412,6 @@ Public NotInheritable Class Tibia
     End Sub
 
     Private Sub Pipe_OnConnected() Handles Pipe.OnConnected
-        MsgBox("pipe connected")
         Dim PPB As New PipePacketBuilder(Pipe, False)
         PPB.SetConstant("ptrInGame", Consts.ptrInGame)
         PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
@@ -438,8 +434,8 @@ Public NotInheritable Class Tibia
         End Try
     End Function
 
-    Private Sub ClientExited(ByVal Sender As Object, ByVal e As System.EventArgs) Handles ClientProcess.Exited
-        RaiseEvent Exited()
+    Private Sub ClientProcess_Closed() Handles ClientProcess.Exited
+        RaiseEvent Closed()
     End Sub
 
     Public Sub Minimize() Implements Scripting.ITibia.Minimize
@@ -564,6 +560,10 @@ Public NotInheritable Class Tibia
 
     Public Function SendMessage(ByVal MessageID As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer Implements Scripting.ITibia.SendMessage
         SendMessage(GetWindowHandle, MessageID, wParam, lParam)
+    End Function
+
+    Public Function BringToFront() As Boolean Implements ITibia.BringToFront
+        Return SetForegroundWindow(GetWindowHandle)
     End Function
 
     Public Sub WriteMemory(ByVal Address As Integer, ByVal Value As Integer, ByVal Size As Integer)

@@ -823,16 +823,6 @@ Public Module ConstantsModule
         None
     End Enum
 
-    Public Enum SpellKind As Integer
-        Rune
-        Food
-        Ammunition
-        Support
-        Offensive
-        Healing
-        Incantation
-    End Enum
-
     Public Enum BotState As Integer
         Running
         Paused

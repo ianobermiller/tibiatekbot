@@ -21,8 +21,8 @@ Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, S
   System.Net, System.Net.Sockets, System.Text, System.Globalization, _
   System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, _
   System.Drawing.Imaging, TibiaTekBot.PProxy2, System.Runtime.InteropServices, _
-  TibiaTekBot.IrcClient, System.Windows.Forms, _
-  Scripting, System.ComponentModel
+  TibiaTekBot.IrcClient, System.Windows.Forms, Scripting, System.ComponentModel, _
+  System.CodeDom, System.CodeDom.Compiler
 
 #Region " To Do "
 
@@ -105,26 +105,22 @@ Public Module KernelModule
         Dim Filename As String
         Dim SafeFileName As String
         Dim State As IScript.ScriptState
+        Dim CompilerResults As CompilerResults
     End Structure
 
 #End Region
     Public Kernel As New KernelClass
-    Public Outfits As Outfits
-    Public Spells As Spells
-    Public LootItems As LootItems
-    Public Creatures As Creatures
 
     Public Class KernelClass
         Implements IKernel
 
-#Region " Events "
-        Public Event OnConnected() Implements IKernel.OnConnected
-        Public Event OnDisconnected() Implements IKernel.OnDisconnected
-#End Region
-
 #Region " Objects "
         Public WithEvents Client As Tibia
         Public WithEvents Proxy As PProxy2
+        Public Spells As Spells
+        Public Outfits As Outfits
+        Public LootItems As LootItems
+        Public Creatures As Creatures
         'Dim MyLua As New LuaInterface.Lua
         Public WithEvents BGWOpenCommand As BackgroundWorker
         Public WithEvents BGWCharCommand As BackgroundWorker
@@ -186,7 +182,7 @@ Public Module KernelModule
         Public WithEvents DancerTimerObj As ThreadTimer
         Public WithEvents AmmoMakerTimerObj As ThreadTimer
         Public Scripts As List(Of ScriptDefinition)
-
+        Public CommandParser As CommandParser
 #End Region
 
 #Region " Variables "
@@ -241,7 +237,7 @@ Public Module KernelModule
         Public FisherMinimumCapacity As Integer = 0
         Public FisherTurbo As Boolean = False
 
-        Public RunemakerSpell As SpellDefinition = Nothing
+        Public RunemakerSpell As ISpells.SpellDefinition = Nothing
         Public RunemakerManaPoints As Integer = 0
         Public RunemakerSoulPoints As Integer = 0
 
@@ -260,7 +256,7 @@ Public Module KernelModule
         Public PickUpItemID As UShort = 0
 
         Public HealMinimumHP As UShort = 0
-        Public HealSpell As SpellDefinition
+        Public HealSpell As ISpells.SpellDefinition
         Public HealComment As String = ""
 
         Public HealPartyMinimumHPPercentage As Integer = 0
@@ -367,7 +363,7 @@ Public Module KernelModule
 
         Public AmmoMakerMinCap As Integer = 0
         Public AmmoMakerMinMana As Integer = 0
-        Public AmmoMakerSpell As SpellDefinition
+        Public AmmoMakerSpell As ISpells.SpellDefinition
 
         Public TTBState As BotState = BotState.Running
 #End Region
@@ -383,6 +379,7 @@ Public Module KernelModule
                 LootItems = New LootItems()
                 Creatures = New Creatures()
                 Scripts = New List(Of ScriptDefinition)
+                CommandParser = New CommandParser()
                 HotkeySettings = New HotkeySettings()
                 BGWOpenCommand = New BackgroundWorker()
                 BGWCharCommand = New BackgroundWorker()
@@ -417,7 +414,6 @@ Public Module KernelModule
                 ShowInvisibleCreaturesTimerObj = New ThreadTimer(500)
                 AutoPublishLocationTimerObj = New ThreadTimer(Consts.AutoPublishLocationInterval)
                 RainbowOutfitTimerObj = New ThreadTimer(50)
-                'Map = New MapTiles()
                 FPSChangerTimerObj = New ThreadTimer(1000)
                 TibiaClientStateTimerObj = New ThreadTimer(500)
                 AutoDrinkerTimerObj = New ThreadTimer(300)
@@ -972,7 +968,6 @@ Public Module KernelModule
                         If Not Client.Title.Equals(BotNameStart) AndAlso Not ExpCheckerActivated AndAlso Not FakingTitle Then
                             Client.Title = BotNameStart & " - " & Client.CharacterName
                         End If
-
                     End If
                 Else
                     Client.ReadMemory(WindowBegin + Consts.WindowCaptionOffset, WindowCaption)
@@ -1051,7 +1046,7 @@ Public Module KernelModule
                 BL.Reset(True)
                 Do
                     If BL.IsOnScreen AndAlso BL.OutfitID = 0 AndAlso Not BL.IsMyself AndAlso Not BL.IsPlayer Then
-                        Dim Outfit As New OutfitDefinition
+                        Dim Outfit As New IOutfits.OutfitDefinition
                         If Outfits.GetOutfitByName("Male Druid", Outfit) Then
                             BL.OutfitID = Outfit.ID
                             BL.HeadColor = 0
@@ -2839,7 +2834,7 @@ Public Module KernelModule
                 MCollection = [Regex].Matches(Data, "&([^\n;]+)")
                 For Each GroupMatch In MCollection
                     ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                    CommandParser(GroupMatch.Groups(1).Value)
+                    Kernel.CommandParser.Invoke(GroupMatch.Groups(1).Value)
                 Next
                 Reader.Close()
                 ConsoleWrite("Configuration loaded.")
@@ -3112,10 +3107,10 @@ Public Module KernelModule
                 If ManaPoints < AmmoMakerMinMana OrElse ManaPoints < AmmoMakerSpell.ManaPoints Then Exit Sub
                 Dim SP As New ServerPacketBuilder(Proxy)
                 Select Case AmmoMakerSpell.Kind
-                    Case SpellKind.Ammunition
+                    Case ISpells.SpellKind.Ammunition
                         SP.Speak(AmmoMakerSpell.Words)
                         'Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
-                    Case SpellKind.Incantation
+                    Case ISpells.SpellKind.Incantation
                         Dim SlotToUse As New ITibia.InventorySlots
                         Dim LeftHandSlot As Integer = 0
                         Dim RightHandSlot As Integer = 0
@@ -3812,7 +3807,6 @@ Public Module KernelModule
                     ChatMessageQueueList.Clear()
                     ChatMessageQueueTimerObj.StartTimer()
                 End If
-                RaiseEvent OnConnected()
                 System.GC.Collect()
                 Log("Event", "Connected to game server.")
             Catch Ex As Exception
@@ -3826,16 +3820,14 @@ Public Module KernelModule
                 IsGreetingSent = False
                 GreetingSentTry = 0
                 StopEverything()
-                RaiseEvent OnDisconnected()
                 System.GC.Collect()
-
                 Log("Event", "Disconnected from game server.")
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
 
-        Private Sub Client_Exited() Handles Client.Exited
+        Private Sub Client_Closed() Handles Client.Closed
             Try
                 Log("Event", "The Tibia Client has been closed.")
                 End
@@ -4134,7 +4126,7 @@ Public Module KernelModule
                                 ConsoleRead(Message)
                                 MCollection = RegExp.Matches(Message)
                                 For Each GroupMatch In MCollection
-                                    CommandParser(GroupMatch.Groups(1).ToString)
+                                    Kernel.CommandParser.Invoke(GroupMatch.Groups(1).ToString)
                                 Next
                             End If
                         ElseIf MessageType = ITibia.MessageType.Channel AndAlso (bytBuffer(4) >= ITibia.Channel.IRCChannelBegin AndAlso bytBuffer(4) < ITibia.Channel.IRCChannelEnd) Then
@@ -4152,7 +4144,7 @@ Public Module KernelModule
                                     ConsoleRead(Message)
                                     MCollection = RegExp.Matches(Message)
                                     For Each GroupMatch In MCollection
-                                        CommandParser(GroupMatch.Groups(1).ToString)
+                                        Kernel.CommandParser.Invoke(GroupMatch.Groups(1).ToString)
                                     Next
                                 ElseIf Message.StartsWith("/") Then
                                     Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "^/(join|nick|users|me|nickserv|msg)(?:\s(.+))?", RegexOptions.IgnoreCase)
@@ -4224,7 +4216,7 @@ Public Module KernelModule
                                         MCollection = RegExp.Matches(ChatMessage.Message)
                                         For Each GroupMatch In MCollection
                                             ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                            CommandParser(GroupMatch.Groups(1).Value)
+                                            Kernel.CommandParser.Invoke(GroupMatch.Groups(1).Value)
                                         Next
                                         If MCollection.Count > 0 Then
                                             Send = False
@@ -4258,7 +4250,7 @@ Public Module KernelModule
                                         MCollection = RegExp.Matches(ChatMessage.Message)
                                         For Each GroupMatch In MCollection
                                             ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                            CommandParser(GroupMatch.Groups(1).ToString)
+                                            Kernel.CommandParser.Invoke(GroupMatch.Groups(1).ToString)
                                         Next
                                         If MCollection.Count > 0 Then
                                             Send = False
@@ -4274,7 +4266,7 @@ Public Module KernelModule
                                         MCollection = RegExp.Matches(ChatMessage.Message)
                                         For Each GroupMatch In MCollection
                                             ConsoleRead("&" & GroupMatch.Groups(1).Value)
-                                            CommandParser(GroupMatch.Groups(1).ToString)
+                                            Kernel.CommandParser.Invoke(GroupMatch.Groups(1).ToString)
                                         Next
                                         If MCollection.Count > 0 Then
                                             Send = False
@@ -4873,6 +4865,80 @@ Public Module KernelModule
 
 #End Region
 
+#Region " Methods "
+        Public Function NewBattlelist() As Scripting.IBattlelist Implements Scripting.IKernel.NewBattlelist
+            Try
+                Return New BattleList
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Function
+
+        Public Function NewBattlelist(ByVal Position As Integer) As Scripting.IBattlelist Implements Scripting.IKernel.NewBattlelist
+            Try
+                Return New BattleList(Position)
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Function
+
+        Public Function NewBattlelist(ByVal SE As Scripting.IBattlelist.SpecialEntity) As Scripting.IBattlelist Implements Scripting.IKernel.NewBattlelist
+            Try
+                Return New BattleList(SE)
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Function
+
+        Public Function NewContainer() As Scripting.IContainer Implements Scripting.IKernel.NewContainer
+            Try
+                Return New Container()
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Function
+#End Region
+
+#Region " Properties "
+        Public ReadOnly Property GetSpells() As Scripting.ISpells Implements IKernel.Spells
+            Get
+                Try
+                    Return Spells
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property GetCommandParser() As Scripting.ICommandParser Implements IKernel.CommandParser
+            Get
+                Try
+                    Return CommandParser
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
+            End Get
+        End Property
+#End Region
+
     End Class
 
 End Module
+
+Public Class TTBVBCodeDomProvider
+    Inherits VBCodeProvider
+
+    Public Overrides Function CreateCompiler() As System.CodeDom.Compiler.ICodeCompiler
+        Return CreateCompiler()
+    End Function
+
+    Public Overloads Overrides Function CreateGenerator() As System.CodeDom.Compiler.ICodeGenerator
+        Return CreateGenerator()
+    End Function
+End Class

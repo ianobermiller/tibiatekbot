@@ -1,4 +1,4 @@
-'    Copyright (C) 2007 TibiaTek Development Team
+ï»¿'    Copyright (C) 2007 TibiaTek Development Team
 '
 '    This file is part of TibiaTek Bot.
 '
@@ -17,146 +17,146 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.Text.RegularExpressions, TibiaTekBot.frmMain, _
- TibiaTekBot.Constants, _
- TibiaTekBot.KernelModule, System.Diagnostics, System.Runtime.InteropServices, _
- System.ComponentModel, TibiaTekBot.MiscUtils, TibiaTekBot.DatFile, Scripting, System.Net, _
- System.Xml
+Imports Scripting, System.Text.RegularExpressions, System.Xml, System.Net, _
+    System.Runtime.InteropServices, System.ComponentModel
 
+Public Class CommandParser
+    Implements ICommandParser
 
-Public Module CommandParserModule
+    Private Commands As Dictionary(Of String, ICommandParser.CommandCallback)
 
-    Public Sub CommandParser(ByVal Message As String)
+    Public Sub New()
+        Commands = New Dictionary(Of String, ICommandParser.CommandCallback)
+        AddDefaultCommands()
+    End Sub
+
+    Private Sub AddDefaultCommands()
         Try
-            If Not Kernel.Client.IsConnected Then Exit Sub
-            Dim MatchObj As Match = Regex.Match(Message, "^([a-zA-Z]+)\s*([^;]*)$")
-            If MatchObj.Success Then
-                Select Case MatchObj.Groups(1).Value.ToLower
-                    Case "help", "h", "?", "halp", "f1", "sos", "ayuda", "ajuda", "sos"
-                        CmdHelp(MatchObj.Groups)
-                    Case "light"
-                        CmdLight(MatchObj.Groups)
-                    Case "exp", "experience"
-                        CmdExp(MatchObj.Groups)
-                    Case "attack", "attacker", "atk"
-                        CmdAttack(MatchObj.Groups)
-                    Case "spell", "spellcaster"
-                        CmdSpell(MatchObj.Groups)
-                    Case "eat", "eater", "ate"
-                        CmdEat(MatchObj.Groups)
-                    Case "uh", "uher"
-                        CmdUH(MatchObj.Groups)
-                    Case "about", "a"
-                        CmdAbout()
-                    Case "look"
-                        CmdLook(MatchObj.Groups)
-                    Case "heal", "healer"
-                        CmdHeal(MatchObj.Groups)
-                    Case "fish", "fisher"
-                        CmdFisher(MatchObj.Groups)
-                    Case "healfriend"
-                        CmdHealFriend(MatchObj.Groups)
-                    Case "healparty"
-                        CmdHealParty(MatchObj.Groups)
-                    Case "faketitle"
-                        CmdFakeTitle(MatchObj.Groups)
-                    Case "loot", "looter"
-                        CmdLoot(MatchObj.Groups)
-                    Case "advertise", "advertiser"
-                        CmdAdvertise(MatchObj.Groups)
-                    Case "getitemid"
-                        CmdGetItemId()
-                    Case "version", "v"
-                        CmdVersion()
-                    Case "test"
-                        CmdTest(MatchObj.Groups)
-                    Case "char", "character"
-                        CmdChar(MatchObj.Groups)
-                    Case "open"
-                        CmdOpen(MatchObj.Groups)
-                    Case "guild", "guildmembers", "guilds"
-                        CmdGuild(MatchObj.Groups)
-                    Case "runemaker"
-                        CmdRunemaker(MatchObj.Groups)
-                    Case "ammorestacker", "ammo"
-                        CmdAmmoRestacker(MatchObj.Groups)
-                    Case "pickup"
-                        CmdPickUp(MatchObj.Groups)
-                    Case "log", "logger"
-                        CmdLog(MatchObj.Groups)
-                    Case "animation"
-                        CmdAnimation(MatchObj.Groups)
-                    Case "statsuploader"
-                        CmdStatusUploader(MatchObj.Groups)
-                    Case "mapviewer", "map", "mapview"
-                        CmdMapViewer()
-                    Case "watch", "watcher"
-                        CmdTradeWatcher(MatchObj.Groups)
-                    Case "stacker", "stack"
-                        CmdStacker(MatchObj.Groups)
-                    Case "config"
-                        CmdConfig(MatchObj.Groups)
-                    Case "hotkeys", "hotkey"
-                        CmdHotkeys(MatchObj.Groups)
-                    Case "feedback", "comment", "bugreport", "report", "bug"
-                        CmdFeedback(MatchObj.Groups)
-                    Case "chameleon", "outfit"
-                        CmdChameleon(MatchObj.Groups)
-                    Case "reload"
-                        CmdReload(MatchObj.Groups)
-                    Case "trainer"
-                        CmdTrainer(MatchObj.Groups)
-                    Case "commands", "command", "list", "listing", "cmd", "cmds"
-                        CmdCommands()
-                    Case "sendlocation", "sendloc"
-                        CmdSendLocation(MatchObj.Groups)
-                    Case "fpschanger", "fps"
-                        CmdFpsChanger(MatchObj.Groups)
-                    Case "rainbow", "rainbowoutfit"
-                        CmdRainbow(MatchObj.Groups)
-                    Case "namespy", "xray"
-                        CmdNameSpy(MatchObj.Groups)
-                    Case "website", "web", "homepage", "webpage"
-                        CmdWebsite()
-                    Case "drinker", "drink", "manadrink", "manadrinker", "mf", "manafluid"
-                        CmdDrinker(MatchObj.Groups)
-                    Case "cavebot"
-                        CmdCaveBot(MatchObj.Groups)
-                    Case "walker"
-                        CmdWalker(MatchObj.Groups)
-                    Case "combo", "combobot"
-                        CmdCombobot(MatchObj.Groups)
-                    Case "amuletchanger"
-                        CmdAmuletChanger(MatchObj.Groups)
-                    Case "ringchanger"
-                        CmdRingChanger(MatchObj.Groups)
-                    Case "irc"
-                        CmdIrc(MatchObj.Groups)
-                    Case "antilogout", "autoidler", "antiidler", "idler"
-                        CmdAntiLogout(MatchObj.Groups)
-                    Case "viewmsg"
-                        CmdViewMessage()
-                    Case "dancer"
-                        CmdDancer(MatchObj.Groups)
-                    Case "ammomaker", "ammocreater", "makeammo", "ammunitionmaker", "makeammunition"
-                        CmdAmmoMaker(MatchObj.Groups)
-                    Case "state", "botstate"
-                        CmdBotState(MatchObj.Groups)
-                    Case Else
-                        Kernel.ConsoleError("This command does not exist." & Ret & _
-                            "  For a list of available commands type: &help.")
-                End Select
-            Else
-                Kernel.ConsoleError("Invalid command syntax.")
-            End If
+            Add(New String() {"help", "h", "?", "halp", "f1", "sos", "ayuda", "ajuda", "sos"}, AddressOf CmdHelp)
+            Add(New String() {"exp", "experience"}, AddressOf CmdExp)
+            Add(New String() {"attack", "atk", "attacker", "autoattack"}, AddressOf CmdAttack)
+            Add(New String() {"spell", "spellcaster"}, AddressOf CmdSpell)
+            Add(New String() {"eat", "eater", "ate", "autoeater", "autoeat"}, AddressOf CmdEat)
+            Add(New String() {"uh", "autouh", "uher", "autouher"}, AddressOf CmdUH)
+            Add(New String() {"heal", "healer", "autoheal", "autohealer"}, AddressOf CmdHeal)
+            Add(New String() {"fish", "fisher", "autofish", "autofisher"}, AddressOf CmdFisher)
+            Add(New String() {"loot", "looter", "autolooter", "autoloot"}, AddressOf CmdLoot)
+            Add(New String() {"advertise", "advertiser"}, AddressOf CmdAdvertise)
+            Add(New String() {"guild", "guildmembers"}, AddressOf CmdGuild)
+            Add(New String() {"runemaker", "runemake"}, AddressOf CmdRunemaker)
+            Add(New String() {"ammo", "ammorestacker"}, AddressOf CmdAmmoRestacker)
+            Add(New String() {"pickup", "autopickup"}, AddressOf CmdPickUp)
+            Add(New String() {"watch", "tradewatcher", "watcher", "tradewatch", "watchtrade"}, AddressOf CmdTradeWatcher)
+            Add(New String() {"stack", "stacker", "autostacker", "autostack"}, AddressOf CmdStacker)
+            Add(New String() {"feedback", "bug", "comment", "bugreport", "report"}, AddressOf CmdFeedback)
+            Add(New String() {"trainer", "autotrainer", "train", "autotrain"}, AddressOf CmdTrainer)
+            Add(New String() {"chameleon", "outfit", "outfits"}, AddressOf CmdChameleon)
+            Add(New String() {"commands", "list", "command", "listing", "cmd", "cmds"}, AddressOf CmdCommands)
+            Add(New String() {"fps", "fpschanger"}, AddressOf CmdFpsChanger)
+            Add(New String() {"rainbow", "rainbowoutfit"}, AddressOf CmdRainbow)
+            Add(New String() {"namespy", "xray"}, AddressOf CmdNameSpy)
+            Add(New String() {"website", "home", "homepage", "webpage"}, AddressOf CmdWebsite)
+            Add(New String() {"drinker", "drink", "manadrinker", "mf", "manafluiddrinker", "manafluid"}, AddressOf CmdDrinker)
+            Add(New String() {"combo", "combobot"}, AddressOf CmdCombobot)
+            Add(New String() {"amulet", "amuletchanger", "ammychanger", "ammy"}, AddressOf CmdAmuletChanger)
+            Add(New String() {"ring", "ringchanger"}, AddressOf CmdRingChanger)
+            Add(New String() {"antilog", "antilogout", "antiidle", "antiidler"}, AddressOf CmdAntiLogout)
+            Add(New String() {"dance", "dancer"}, AddressOf CmdDancer)
+            Add(New String() {"ammomaker", "ammomake", "makeammo", "ammunitionmaker", "makeammunition"}, AddressOf CmdAmmoMaker)
+            Add(New String() {"botstate", "state"}, AddressOf CmdBotState)
+            Add("light", AddressOf CmdLight)
+            Add("about", AddressOf CmdAbout)
+            Add("look", AddressOf CmdLook)
+            Add("healfriend", AddressOf CmdHealFriend)
+            Add("healparty", AddressOf CmdHealParty)
+            Add("faketitle", AddressOf CmdFakeTitle)
+            Add("getitemid", AddressOf CmdGetItemId)
+            Add("version", AddressOf CmdVersion)
+            Add("test", AddressOf CmdTest)
+            Add("char", AddressOf CmdChar)
+            Add("open", AddressOf CmdOpen)
+            Add("animation", AddressOf CmdAnimation)
+            Add("statsuploader", AddressOf CmdStatsUploader)
+            Add("mapviewer", AddressOf CmdMapViewer)
+            Add("config", AddressOf CmdConfig)
+            Add("hotkeys", AddressOf CmdHotkeys)
+            Add("sendlocation", AddressOf CmdSendLocation)
+            Add("cavebot", AddressOf CmdCaveBot)
+            Add("walker", AddressOf CmdWalker)
+            Add("irc", AddressOf CmdIrc)
+            Add("viewmsg", AddressOf CmdViewMessage)
+            Add("log", AddressOf CmdLog)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
+    Public Function Add(ByVal CommandNames() As String, ByVal Callback As ICommandParser.CommandCallback) As Boolean Implements ICommandParser.Add
+        Try
+            If CommandNames.Length > 0 OrElse Callback Is Nothing Then
+                For Each CommandName As String In CommandNames
+                    CommandName = CommandName.ToLower
+                    If Add(CommandName, Callback) = False Then
+                        Return False
+                    End If
+                Next
+                Return True
+            Else
+                Return False
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Public Function Add(ByVal CommandName As String, ByVal Callback As ICommandParser.CommandCallback) As Boolean Implements Scripting.ICommandParser.Add
+        Try
+            CommandName = CommandName.ToLower
+            If Commands.ContainsKey(CommandName) Then
+                Return False
+            Else
+                Commands.Add(CommandName, Callback)
+                Return True
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Public Function Invoke(ByVal CommandAndParameter As String) As Boolean Implements ICommandParser.Invoke
+        Try
+            Dim MatchObj As Match = Regex.Match(CommandAndParameter, "^([a-zA-Z]+)\s*([^;]*)$")
+            If MatchObj.Success Then
+                Return Invoke(MatchObj.Groups(1).Value, MatchObj.Groups)
+            End If
+            Return False
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Public Function Invoke(ByVal CommandName As String, ByVal Arguments As System.Text.RegularExpressions.GroupCollection) As Boolean Implements Scripting.ICommandParser.Invoke
+        Try
+            If Commands.ContainsKey(CommandName) Then
+                Commands(CommandName).Invoke(Arguments)
+                Return True
+            Else
+                Kernel.ConsoleError("This command does not exist." & Ret & _
+                    "  For a list of available commands type: &help.")
+                Return False
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
 #Region " View Message "
 
-    Private Sub CmdViewMessage()
+    Private Sub CmdViewMessage(ByVal Arguments As GroupCollection)
 
         If Kernel.TTMessages = 0 Then
             Kernel.ConsoleError("You have no messages from the TibiaTek Development Team.")
@@ -255,7 +255,7 @@ Public Module CommandParserModule
 
 #Region " Website Command "
 
-    Private Sub CmdWebsite()
+    Private Sub CmdWebsite(ByVal Arguments As GroupCollection)
         Try
             System.Diagnostics.Process.Start(ConstantsModule.BotWebsite)
         Catch Ex As Exception
@@ -348,10 +348,10 @@ Public Module CommandParserModule
                 Select Case Value
                     Case "spells", "spell"
                         Kernel.ConsoleWrite("Please wait...")
-                        KernelModule.Spells.LoadSpells()
+                        Kernel.Spells.LoadSpells()
                     Case "outfits", "outfit"
                         Kernel.ConsoleWrite("Please wait...")
-                        KernelModule.Outfits.LoadOutfits()
+                        Kernel.Outfits.LoadOutfits()
                     Case "items", "item"
                         Kernel.ConsoleWrite("Please wait...")
                         Kernel.Client.Items.Refresh()
@@ -413,11 +413,11 @@ Public Module CommandParserModule
                 MatchObj = Regex.Match(Arguments(2).ToString, """([^""]+)(?:""\s+(\d))?")
                 If MatchObj.Success Then
                     Dim Request As String = MatchObj.Groups(1).Value
-                    Dim Outfit As New OutfitDefinition
+                    Dim Outfit As New IOutfits.OutfitDefinition
                     If Regex.IsMatch(Request, "^\d+$") Then
-                        Found = KernelModule.Outfits.GetOutfitByID(CUShort(Request), Outfit)
+                        Found = Kernel.Outfits.GetOutfitByID(CUShort(Request), Outfit)
                     Else
-                        Found = KernelModule.Outfits.GetOutfitByName(Request, Outfit)
+                        Found = Kernel.Outfits.GetOutfitByName(Request, Outfit)
                     End If
                     If Found Then
                         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -521,12 +521,12 @@ Public Module CommandParserModule
 
 #Region " Help Command "
 
-    Private Sub CmdHelp(ByVal Arguments As GroupCollection)
+    Public Sub CmdHelp(ByVal Arguments As GroupCollection)
         Try
             Dim Topic As String = Arguments(2).ToString.ToLower
             Select Case Topic
                 Case "light"
-                    Kernel.ConsoleWrite("«Light Effect»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Light EffectÂ»" & Ret & _
                     "Usage: &light <on | off | torch | great torch | ultimate tor" & _
                     "ch | utevo lux | utevo gran lux | utevo vis lux | light wand>." & Ret & _
                     "Example: &light utevo lux." & Ret & _
@@ -535,7 +535,7 @@ Public Module CommandParserModule
                     "f to be very handy." & Ret & _
                     "Note: This command <<does not>> cast any spells whatsoever.")
                 Case "exp"
-                    Kernel.ConsoleWrite("«Experience Checker»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Experience CheckerÂ»" & Ret & _
                     "Usage: &exp <on | creatures <on | off> | off>." & Ret & _
                     "Example: &exp on." & Ret & _
                     "Example: &exp creatures on." & Ret & _
@@ -544,7 +544,7 @@ Public Module CommandParserModule
                     "nce you need until the next level!. With the new show creatures feature, you'll find out how many creatures you have left to kill." & Ret & _
                     "Note: The experience is shown on the title of the Tibia Client.")
                 Case "trainer"
-                    Kernel.ConsoleWrite("«Auto Trainer»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto TrainerÂ»" & Ret & _
                     "Usage: &trainer <add | remove | clear | stop |<minimum hp %> <maximum hp %>>>." & Ret & _
                     "Example: &trainer 50% 90%." & Ret & _
                     "Comment:" & Ret & _
@@ -552,7 +552,7 @@ Public Module CommandParserModule
                     "To start training type &trainer <min hp %> <max hp %>, and you will hurt the creatures until <min hp%> and continue attacking after <max hp%>. " & _
                     "To stop, &trainer stop.")
                 Case "attack"
-                    Kernel.ConsoleWrite("«Auto Attacker»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto AttackerÂ»" & Ret & _
                     "Usage: &attack <on | off | auto | stand | follow | offensive | balanced | " & _
                     "defensive | ""Player Name"" >." & Ret & _
                     "Example: &attack on." & Ret & _
@@ -560,14 +560,14 @@ Public Module CommandParserModule
                     " Automatically attack any monsters that attack you, or if set to auto attacks monsters that are in screen (not touching to another player's creatures though)." & Ret & _
                     " To train with slimes, put the slime on follow when issuing &attack on.")
                 Case "spell"
-                    Kernel.ConsoleWrite("«Spell Caster»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Spell CasterÂ»" & Ret & _
                     "Usage: &spell <off | <minimum mana points> <spell words>>." & Ret & _
                     "Example: &spell 400 exura vita """"Magic Level Plx!!." & Ret & _
                     "Comment:" & Ret & _
                     " Never be bothered again because you forgot to cast a spell and you " & _
                     "wasted mana!")
                 Case "eat"
-                    Kernel.ConsoleWrite("«Auto Eater/Smart Eater»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto Eater/Smart EaterÂ»" & Ret & _
                     "Usage: &eat <on | off | time in seconds | <smart <minimum hit points>> >." & Ret & _
                     "Example: &eat on." & Ret & _
                     "Example: &eat smart 600." & Ret & _
@@ -576,14 +576,14 @@ Public Module CommandParserModule
                     " Auto Eater will make sure you bloat, but will also keep yo" & _
                     "u in a strict diet using the Smart option.")
                 Case "uh"
-                    Kernel.ConsoleWrite("«Auto UHer»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto UHerÂ»" & Ret & _
                     "Usage: &uh <hit points | off>." & Ret & _
                     "Example: &uh 120." & Ret & _
                     "Comment:" & Ret & _
                     "  Feel safe because you will always UH yourself before it h" & _
                     "appens!")
                 Case "look"
-                    Kernel.ConsoleWrite("«Floor Explorer»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Floor ExplorerÂ»" & Ret & _
                    "Usage: &look <around | up | above | down | below>." & Ret & _
                    "Example: &look below." & Ret & _
                    "Command:" & Ret & _
@@ -592,7 +592,7 @@ Public Module CommandParserModule
                    " are on the ground level, and it won't tell you what's ab" & _
                    "ove you if you are one level below ground.")
                 Case "fisher"
-                    Kernel.ConsoleWrite("«Auto Fisher»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto FisherÂ»" & Ret & _
                     "Usage: &fisher <off  | <<minimum capacity> <normal | turbo>>>." & Ret & _
                     "Example: &fisher 6 normal." & Ret & _
                     "Comment:" & Ret & _
@@ -600,7 +600,7 @@ Public Module CommandParserModule
                     "oring and tiresome it gets? Well, now this is the solution " & _
                     "for you! Normal speed and turbo speed selector included ;).")
                 Case "runemaker"
-                    Kernel.ConsoleWrite("«Runemaker»" & Ret & _
+                    Kernel.ConsoleWrite("Â«RunemakerÂ»" & Ret & _
                     "Usage: &runemaker <minimum mana points> <minimum soul points> ""<spell words or spell name>""." & Ret & _
                     "Example: &runemaker 400 2 ""ultimate healing""." & Ret & _
                     "Comment:" & Ret & _
@@ -609,14 +609,14 @@ Public Module CommandParserModule
                     "Note: You must have the arrow slot empty, and there must at" & _
                     " least one container open with blank runes on it.")
                 Case "char"
-                    Kernel.ConsoleWrite("«Character Information Lookup»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Character Information LookupÂ»" & Ret & _
                     "Usage: &char ""<Player Name>""." & Ret & _
                     "Example: &char ""eternal oblivion""." & Ret & _
                     "Comment:" & Ret & _
                     " This command will let you retrieve the information of a character" & _
                     "without you having to open Tibia.com and search for it yourself.")
                 Case "open"
-                    Kernel.ConsoleWrite("«Open File/Website»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Open File/WebsiteÂ»" & Ret & _
                     "Usage: &open <""Local File or URL"" | <wiki | character | guild | erig | google | mytibia> ""<search terms>"" >." & Ret & _
                     "Example: &open ""notepad""." & Ret & _
                     "Example: &open wiki ""Banuta Quest""." & Ret & _
@@ -625,7 +625,7 @@ Public Module CommandParserModule
                     "lets you open your browser to search in Tibia Wiki, Tibia.com Character " & _
                     "and Guild Pages, Erig's TOP Players, Google and Mytibia.")
                     'Case "admin"
-                    'Core.ConsoleWrite("«Remote Administration»" & Ret & _
+                    'Core.ConsoleWrite("Â«Remote AdministrationÂ»" & Ret & _
                     '"Usage: &admin <password | list | off>" & Ret & _
                     '"Example: &admin iRownz0rx." & Ret & _
                     '"Comment:" & Ret & _
@@ -634,7 +634,7 @@ Public Module CommandParserModule
                     '"private message to the player running TibiaTek Bot the command name " & _
                     '"followed by the password, example: admin iRownz0rx.")
                 Case "pickup"
-                    Kernel.ConsoleWrite("«Auto Pickup»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto PickupÂ»" & Ret & _
                     "Usage: &pickup <on | off>" & Ret & _
                     "Example: &pickup on." & Ret & _
                     "Comment:" & Ret & _
@@ -642,7 +642,7 @@ Public Module CommandParserModule
                     "put them in your right hand. If you accidentally put another object in " & _
                     "your right hand it will be moved to your backpack.")
                 Case "ammorestacker"
-                    Kernel.ConsoleWrite("«Auto Ammunition Restacker»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto Ammunition RestackerÂ»" & Ret & _
                     "Usage: &ammorestacker <minimum ammunition | off>" & Ret & _
                     "Example: &ammorestacker 50." & Ret & _
                     "Comment:" & Ret & _
@@ -650,7 +650,7 @@ Public Module CommandParserModule
                     "and activate this command, and you'll always be fully equipped." & Ret & _
                     "Note: You will be warned when you are running out of items to restack.")
                 Case "log"
-                    Kernel.ConsoleWrite("«Events Logging»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Events LoggingÂ»" & Ret & _
                     "Usage: &log <on | off>" & Ret & _
                     "Example: &log on." & Ret & _
                     "Comment:" & Ret & _
@@ -658,69 +658,69 @@ Public Module CommandParserModule
                     "what really happened." & Ret & _
                     "Note: To be used only when you are Away From Keyboard (AFK).")
                 Case "healfriend"
-                    Kernel.ConsoleWrite("«Auto Heal Friend»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto Heal FriendÂ»" & Ret & _
                     "Usage: &healfriend <minimum hit points percent>% ""<uh | sio | both>"" ""<player name>""." & Ret & _
                     "Example: &healfriend 50% ""sio"" ""Cameri deDurp""." & Ret & _
                     "Comment:" & Ret & _
                     "  Auto Heal Friend keeps your friend safe before it''s too late." & Ret & _
                     "Note: You can only heal one friend at a time, if you need to heal more people, use ""healparty"".")
                 Case "guild"
-                    Kernel.ConsoleWrite("«Guild Members Lookup»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Guild Members LookupÂ»" & Ret & _
                     "Usage: &guild <online | both> ""<guild name>""." & Ret & _
                     "Example: &guild online ""Mercenaries""." & Ret & _
                     "Comment:" & Ret & _
                     "  Find out which guild members are online and which aren't." & Ret & _
                     "Note: Guild name is case-sensitive.")
                 Case "faketitle"
-                    Kernel.ConsoleWrite("«Fake Title»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Fake TitleÂ»" & Ret & _
                     "Usage: &faketitle <off | ""<new title>"">." & Ret & _
                     "Example: &faketitle ""Firefox""." & Ret & _
                     "Comment:" & Ret & _
                     "  Never get caught again by your parents playing Tibia!.")
                 Case "advertise"
-                    Kernel.ConsoleWrite("«Trade Channel Advertiser»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Trade Channel AdvertiserÂ»" & Ret & _
                     "Usage: &advertise ""<advertisement>""." & Ret & _
                     "Example: &advertise ""Sell Giant Sword, Wand of Plage ~ msg me""." & Ret & _
                     "Comment:" & Ret & _
                     "  This command advertises in the trade channel for you every 2 minutes.")
                 Case "heal"
-                    Kernel.ConsoleWrite("«Auto Healer»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto HealerÂ»" & Ret & _
                     "Usage: &heal <minimum hit points percent | minimum hit points> ""<healing spell words or spell name>"" [""""<comment>]." & Ret & _
                     "Example: &heal 70% ""Intense Healing"" """"I never die~." & Ret & _
                     "Comment:" & Ret & _
                     "  Keep yourself healthy at all times!.")
                 Case "healparty"
-                    Kernel.ConsoleWrite("«Auto Heal Party»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto Heal PartyÂ»" & Ret & _
                     "Usage: &healparty <minimum hit points percent>% ""<sio | uh | both>""." & Ret & _
                     "Example: &healparty 30% ""sio""." & Ret & _
                     "Comment:" & Ret & _
                     "  Keep your party members safe, protect them because you could be next!.")
                 Case "loot"
-                    Kernel.ConsoleWrite("«Auto Looter»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto LooterÂ»" & Ret & _
                     "Usage: &loot <on | minimum capacity | off>." & Ret & _
                     "Example: &loot 100." & Ret & _
                     "Comment:" & Ret & _
                     "  Tired of having to open the corpses? With this command you won't have to do anything.")
                 Case "statsuploader"
-                    Kernel.ConsoleWrite("«Stats Uploader»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Stats UploaderÂ»" & Ret & _
                     "Usage: &statsuploader <on | off>." & Ret & _
                     "Example: &statsuploader on." & Ret & _
                     "Comment:" & Ret & _
                     "  Generate an XML file with the stats of your character, upload it to the web or save it on your hard disk.")
                 Case "mapviewer"
-                    Kernel.ConsoleWrite("«Map Viewer»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Map ViewerÂ»" & Ret & _
                     "Usage: &mapviewer." & Ret & _
                     "Example: &mapviewer." & Ret & _
                     "Comment:" & Ret & _
                     "  Show an <<experimental>> map viewer of your current Tibia. For informational purposes only.")
                 Case "stacker"
-                    Kernel.ConsoleWrite("«Auto Stacker»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto StackerÂ»" & Ret & _
                     "Usage: &stacker <on | off>." & Ret & _
                     "Example: &stacker on." & Ret & _
                     "Comment:" & Ret & _
                     "  Automatically organize your backpacks with this auto stacker.")
                 Case "config"
-                    Kernel.ConsoleWrite("«Configuration Manager»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Configuration ManagerÂ»" & Ret & _
                     "Usage: &config <load | edit | clear>." & Ret & _
                     "Example: &config edit." & Ret & _
                     "Comment:" & Ret & _
@@ -728,53 +728,53 @@ Public Module CommandParserModule
                     "right after you log in? Type in the configuration manager the commands " & _
                     "as you would type them normally, each on one line or separated by semi-colons.")
                 Case "hotkeys"
-                    Kernel.ConsoleWrite("«Hotkey Settings Manager»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Hotkey Settings ManagerÂ»" & Ret & _
                     "Usage: &hotkeys <save | load>." & Ret & _
                     "Example: &hotkeys save." & Ret & _
                     "Comment:" & Ret & _
                     "  Keep separate hotkey settings for each of your characters!")
                 Case "feedback"
-                    Kernel.ConsoleWrite("«Feedback, Comments, Bug reports»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Feedback, Comments, Bug reportsÂ»" & Ret & _
                     "Usage: &feedback." & Ret & _
                     "Example: &feedback." & Ret & _
                     "Comment:" & Ret & _
                     "  With this command, you can send me comments, bug reports and anything considered as feedback." & Ret & _
                     "Communication between the users and developers is very important! This is completely anonymous.")
                 Case "chameleon"
-                    Kernel.ConsoleWrite("«Chameleon»" & Ret & _
+                    Kernel.ConsoleWrite("Â«ChameleonÂ»" & Ret & _
                     "Usage: &chameleon <""<outfit name or id>"" [addons 0-3] | copy ""<player name>"">." & Ret & _
                     "Example: &chameleon ""male citizen"" 3." & Ret & _
                     "Example: &chameleon ""dworc voodoomaster""." & Ret & _
                     "Comment:" & Ret & _
                     "  Use this command to change your outfit to whatever you want, even copy your friend's outfit!")
                 Case "watch"
-                    Kernel.ConsoleWrite("«Trade Channel Watcher»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Trade Channel WatcherÂ»" & Ret & _
                     "Usage: &watch <regular expression pattern | off>." & Ret & _
                     "Example: &watch ^.*bps*\s+of\s+uh.*$." & Ret & _
                     "Comment:" & Ret & _
                     "  This command will inform you of any offer in the trade channel that matches the pattern." & Ret & _
                     "See http://en.wikipedia.org/wiki/Regular_expression for more information on regular expressions.")
                 Case "reload"
-                    Kernel.ConsoleWrite("«Reload Data»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Reload DataÂ»" & Ret & _
                     "Usage: &reload <spells | outfits | items | constants | dat>." & Ret & _
                     "Example: &reload items." & Ret & _
                     "Comment:" & Ret & _
                     "  Use this command to reload the files from the Data folder.")
                 Case "list"
-                    Kernel.ConsoleWrite("«Commands List»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Commands ListÂ»" & Ret & _
                     "Usage: &list." & Ret & _
                     "Example: &list." & Ret & _
                     "Comment:" & Ret & _
                     "  Use this command to view all the bot's commands (In alphaphetical order).")
                 Case "sendlocation"
-                    Kernel.ConsoleWrite("«Send Location»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Send LocationÂ»" & Ret & _
                     "Usage: &sendlocation ""<player name>""." & Ret & _
                     "Example: &sendlocation ""Cameri de'Durp." & Ret & _
                     "Comment:" & Ret & _
                     "  Use this command to send other players a link to a map of your current position." & Ret & _
                     "The link points to a page that has the map of tibia, and a cursor pointing to your current location.")
                 Case "rainbow"
-                    Kernel.ConsoleWrite("«Rainbow Outfit»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Rainbow OutfitÂ»" & Ret & _
                     "Usage: &rainbow <on | off | fast | slow>." & Ret & _
                     "Example: &rainbow fast." & Ret & _
                     "Comment:" & Ret & _
@@ -782,7 +782,7 @@ Public Module CommandParserModule
                     "It changes your outfit color repately." & Ret & _
                     "Note: Everyone will see your outfit changing.")
                 Case "fpschanger"
-                    Kernel.ConsoleWrite("«FPS Changer»" & Ret & _
+                    Kernel.ConsoleWrite("Â«FPS ChangerÂ»" & Ret & _
                     "Usage: &fpschanger <on | off>." & Ret & _
                     "Example: &fpschanger on." & Ret & _
                     "Comment: " & Ret & _
@@ -790,26 +790,26 @@ Public Module CommandParserModule
                     " this command is right for you, it will enable you to lower/increase the FPS when your Tibia is " & _
                     "active, inactive, minimized and hidden.")
                 Case "namespy"
-                    Kernel.ConsoleWrite("«Name Spy»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Name SpyÂ»" & Ret & _
                     "Usage: &namespy <on | off>." & Ret & _
                     "Example: &namespy on." & Ret & _
                     "Comment: " & Ret & _
                     "  See the names/health bar of creatures or other players on a different floor than yours.")
                 Case "website"
-                    Kernel.ConsoleWrite("«Website»" & Ret & _
+                    Kernel.ConsoleWrite("Â«WebsiteÂ»" & Ret & _
                     "Usage: &website." & Ret & _
                     "Example: &website." & Ret & _
                     "Comment: " & Ret & _
                     "  Opens up TibiaTek Bot's website.")
                 Case "drinker"
-                    Kernel.ConsoleWrite("«Auto Manafluid Drinker»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Auto Manafluid DrinkerÂ»" & Ret & _
                     "Usage: &drinker <minimum mana points | off>." & Ret & _
                     "Example: &drinker 350." & Ret & _
                     "Comment: " & Ret & _
                     "  Drinks vials with mana fluid from backpack when mana is lower than given mana." & Ret & _
                     "Note: Uses same delays as auto healer.")
                 Case "cavebot"
-                    Kernel.ConsoleWrite("«Cavebot»" & Ret & _
+                    Kernel.ConsoleWrite("Â«CavebotÂ»" & Ret & _
                     "Usage: &cavebot <on | off | continue | add <walk | rope | ladder | sewer> <hole | stairs | shovel <up | down | left | right>>" & Ret & _
                     "Example: &cavebot on." & Ret & _
                     "Example: &cavebot add stairs up." & Ret & _
@@ -818,7 +818,7 @@ Public Module CommandParserModule
                     "Note: Cavebot looting/eating uses same dealays as auto looter/eater." & Ret & _
                     "Note: Check Constants for more options.")
                 Case "walker"
-                    Kernel.ConsoleWrite("«Walker»" & Ret & _
+                    Kernel.ConsoleWrite("Â«WalkerÂ»" & Ret & _
                     "Usage: &walker <on | off | continue>" & Ret & _
                     "Example: &walker on." & Ret & _
                     "Comment: " & Ret & _
@@ -827,46 +827,46 @@ Public Module CommandParserModule
                     "Note: Walker uses same waypoints as Cavebot, and you can add them with commands &walker add or &cavebot add. " & Ret & _
                     "  (type &help cavebot for more info about adding)")
                 Case "combobot", "combo"
-                    Kernel.ConsoleWrite("«Combobot»" & Ret & _
+                    Kernel.ConsoleWrite("Â«CombobotÂ»" & Ret & _
                     "Usage: &combobot <""Leader Name"" | off>." & Ret & _
                     "Example: &combobot ""Jokuperkele""." & Ret & _
                     "  Makes comboshots even easier (and more effective) what they are normally. " & Ret & _
                     "Note: Combobot fires rune when <leader name> shoots rune and to the same target" & Ret & _
                     "Note: At this point combobot works only with Sudden Death runes.")
                 Case "amuletchanger"
-                    Kernel.ConsoleWrite("«Amulet Changer»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Amulet ChangerÂ»" & Ret & _
                     "Usage: &amuletchanger <on | off | ""Amulet name"">." & Ret & _
                     "Example: &amuletchanger ""Stone Skin Amulet""." & Ret & _
                     "  Times when you died because you didn't have time to change amulet are now over." & Ret & _
                     "Note: &amuletchanger on is using the amulet you have in your amulet-slot." & Ret & _
                     "Note: Names of amulets are case-sensitive (e.g stone skin amuet <> Stone Skin Amulet)")
                 Case "antilogout", "anti-logout"
-                    Kernel.ConsoleWrite("«Anti-Logout»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Anti-LogoutÂ»" & Ret & _
                     "Usage: &antilogout <on | off>." & Ret & _
                     "Example: &antilogout on." & Ret & _
                     "Comment: " & Ret & _
                     "  Protects yourself from getting kicked because of inactivity.")
                 Case "irc"
-                    Kernel.ConsoleWrite("«IRC»" & Ret & _
+                    Kernel.ConsoleWrite("Â«IRCÂ»" & Ret & _
                     "Usage: &irc <<users | join> ""<channel>"" | nick ""new nick"" | quit>." & Ret & _
                     "Example: &irc join ""#TibiaTekBot""." & Ret & _
                     "Example: &irc quit." & Ret & _
                     "Comment: " & Ret & _
                     "  Allows you to execute some of the common IRC commands.")
                 Case "viewmsg"
-                    Kernel.ConsoleWrite("«View Message»" & Ret & _
+                    Kernel.ConsoleWrite("Â«View MessageÂ»" & Ret & _
                     "Usage: &viewmsg." & Ret & _
                     "Example: &viewmsg." & Ret & _
                     "Comment: " & Ret & _
                     "  Let's you read any messages sent to you by the TibiaTek Development Team.")
                 Case "dancer"
-                    Kernel.ConsoleWrite("«Dancer»" & Ret & _
+                    Kernel.ConsoleWrite("Â«DancerÂ»" & Ret & _
                     "Usage: &dancer slow|fast|turbo|on|off." & Ret & _
                     "Example: &dancer on." & Ret & _
                     "Comment " & Ret & _
                     "  Now you can proof that you are not using Multi Client.. Even if you really are.")
                 Case "ammomaker", "ammunitionmaker"
-                    Kernel.ConsoleWrite("«Ammunition Maker»" & Ret & _
+                    Kernel.ConsoleWrite("Â«Ammunition MakerÂ»" & Ret & _
                     "Usage: <minimum mana points> <minimum capacity> ""<spell words or spell name>""." & Ret & _
                     "Example: &ammomaker 250 100 ""bolt""." & Ret & _
                     "Comment " & Ret & _
@@ -1052,7 +1052,7 @@ Public Module CommandParserModule
                         Dim GroupMatch As Match
                         MCollection = [Regex].Matches(Data, "&([^\n;]+)[;]?")
                         For Each GroupMatch In MCollection
-                            CommandParser(GroupMatch.Groups(1).Value)
+                            Kernel.CommandParser.Invoke(GroupMatch.Groups(1).Value)
                         Next
                         Kernel.ConsoleWrite("Done loading your configuration.")
                     Catch
@@ -1092,7 +1092,7 @@ Public Module CommandParserModule
 
 #Region " Map Viewer Command "
 
-    Private Sub CmdMapViewer()
+    Private Sub CmdMapViewer(ByVal Arguments As GroupCollection)
         Try
             If Not Kernel.BGWMapViewer.IsBusy Then
                 Kernel.ConsoleWrite("Map Viewer is opening. Please wait...")
@@ -1132,7 +1132,7 @@ Public Module CommandParserModule
                                 Exit Sub
                             End If
                             Kernel.ConsoleWrite("Please wait...")
-                            KernelModule.LootItems.ShowLootCategories()
+                            Kernel.LootItems.ShowLootCategories()
                         Case Else
                             Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]{0,4})")
                             If MatchObj.Success Then
@@ -1154,7 +1154,7 @@ Public Module CommandParserModule
 
 #Region " Stats Uploader "
 
-    Private Sub CmdStatusUploader(ByVal Arguments As GroupCollection)
+    Private Sub CmdStatsUploader(ByVal Arguments As GroupCollection)
         Try
             Select Case StrToShort(Arguments(2).ToString)
                 Case 0
@@ -1302,7 +1302,7 @@ Public Module CommandParserModule
                         Else
                             Kernel.HealMinimumHP = CInt(Match.Groups(1).Value)
                         End If
-                        For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
+                        For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
                             If Spell.Name.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) OrElse Spell.Words.Equals(Match.Groups(2).Value, StringComparison.CurrentCultureIgnoreCase) Then
                                 Select Case Spell.Name.ToLower
                                     Case "light healing", "heal friend", "mass healing", "intense healing", "ultimate healing"
@@ -1441,11 +1441,11 @@ Public Module CommandParserModule
                     Dim Match As Match = RegExp.Match(Value)
                     If Match.Success Then
                         Dim Found As Boolean = False
-                        Dim S As New SpellDefinition
-                        For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
+                        Dim S As New ISpells.SpellDefinition
+                        For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
                             If (Spell.Name.Equals(Match.Groups(3).Value, StringComparison.CurrentCultureIgnoreCase) _
                             OrElse Spell.Words.Equals(Match.Groups(3).ToString, StringComparison.CurrentCultureIgnoreCase)) _
-                            AndAlso Spell.Kind = SpellKind.Rune Then
+                            AndAlso Spell.Kind = ISpells.SpellKind.Rune Then
                                 S = Spell
                                 Found = True
                                 Exit For
@@ -1931,7 +1931,7 @@ Public Module CommandParserModule
 
 #Region " About Command "
 
-    Private Sub CmdAbout()
+    Private Sub CmdAbout(ByVal Arguments As GroupCollection)
         Try
             Kernel.ConsoleWrite(BotName & " v" & BotVersion & "." & Ret & _
             "It is written by the TibiaTek Development Team, " & Ret & _
@@ -2064,7 +2064,7 @@ Public Module CommandParserModule
 
 #Region " Version Command "
 
-    Private Sub CmdVersion()
+    Private Sub CmdVersion(ByVal Arguments As GroupCollection)
         Try
             Kernel.ConsoleWrite(BotName & " v" & BotVersion & ".")
             Kernel.ConsoleWrite("Powered By: PProxy v2.0 by CPargermer.")
@@ -2163,7 +2163,7 @@ Public Module CommandParserModule
 
 #Region " Get Item ID Command "
 
-    Private Sub CmdGetItemId()
+    Private Sub CmdGetItemId(ByVal Arguments As GroupCollection)
         Try
             Dim Container As New Container()
             Dim I As Integer
@@ -2228,7 +2228,7 @@ Public Module CommandParserModule
 
 #Region " List Commands Command "
 
-    Private Sub CmdCommands()
+    Private Sub CmdCommands(ByVal Arguments As GroupCollection)
         Try
             Kernel.ConsoleWrite("Listing all commands. Type &help <command> for help. Example: &help attack." & Ret & _
                 "&amuletchanger <on | off | ""Amulet Name"">" & Ret & _
@@ -2954,11 +2954,11 @@ Public Module CommandParserModule
                     Dim MatchObj As Match = Regex.Match(Value, "([1-9][0-9]{1,4})\s+([0-9]{0,3})\s+""([^""]+)""?")
                     If MatchObj.Success Then
                         Dim Found As Boolean = False
-                        Dim S As New SpellDefinition
-                        For Each Spell As SpellDefinition In KernelModule.Spells.SpellsList
+                        Dim S As New ISpells.SpellDefinition
+                        For Each Spell As ISpells.SpellDefinition In Kernel.Spells.SpellsList
                             If (Spell.Name.Equals(MatchObj.Groups(3).Value, StringComparison.CurrentCultureIgnoreCase) _
                             OrElse Spell.Words.Equals(MatchObj.Groups(3).ToString, StringComparison.CurrentCultureIgnoreCase)) _
-                            AndAlso (Spell.Kind = SpellKind.Ammunition Or Spell.Kind = SpellKind.Incantation) Then
+                            AndAlso (Spell.Kind = ISpells.SpellKind.Ammunition Or Spell.Kind = ISpells.SpellKind.Incantation) Then
                                 S = Spell
                                 Found = True
                                 Exit For
@@ -3014,4 +3014,4 @@ Public Module CommandParserModule
     End Sub
 #End Region
 
-End Module
+End Class
