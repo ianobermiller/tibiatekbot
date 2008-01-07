@@ -18,6 +18,7 @@
  * Auto Open Backpack (at character login)
  * IRC Client, live support directly from Tibia (TibiaTek Bot connects to IRC, irc://irc.deltaanime.net/tibiatekbot)
  * Improved Graphic User Interface
+ * Healers now support potions
 
 = Since v2.1 =
  * Ammunition Re-stacker (bolts, arrows, etc)
