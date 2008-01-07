@@ -344,12 +344,6 @@
   <data name="ClosePopupItem.Text" xml:space="preserve">
     <value>&amp;Exit</value>
   </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 20</value>
-  </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
-    <value>TibiaTek Bot Menu</value>
-  </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>236, 248</value>
   </data>
@@ -365,6 +359,12 @@
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 20</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
+    <value>TibiaTek Bot Menu</value>
   </data>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
@@ -10093,6 +10093,12 @@
   <data name="&gt;&gt;LicenseToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;TestToolStripMenuItem1.Name" xml:space="preserve">
+    <value>TestToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;TestToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;TestToolStripMenuItem.Name" xml:space="preserve">
     <value>TestToolStripMenuItem</value>
   </data>
@@ -10104,12 +10110,6 @@
   </data>
   <data name="&gt;&gt;Timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TestToolStripMenuItem1.Name" xml:space="preserve">
-    <value>TestToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;TestToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>

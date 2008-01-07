@@ -154,6 +154,20 @@ Public Class CommandParser
         End Try
     End Function
 
+    Public Function Remove(ByVal CommandName As String) As Boolean Implements Scripting.ICommandParser.Remove
+        Try
+            If Commands.ContainsKey(CommandName) Then
+                Commands.Remove(CommandName)
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
 #Region " View Message "
 
     Private Sub CmdViewMessage(ByVal Arguments As GroupCollection)
@@ -1228,7 +1242,8 @@ Public Class CommandParser
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Kernel.ConsoleWrite("Begin Test")
-            Kernel.ConsoleWrite(Kernel.CharacterLoc.X & ":" & Kernel.CharacterLoc.Y & ":" & Kernel.CharacterLoc.Z)
+            Dim Cont As New Container
+            Kernel.ConsoleWrite(Cont.GetInventorySlotId(ITibia.InventorySlots.Head))
             Kernel.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

@@ -321,6 +321,18 @@ Public Module ContainerModule
             End Get
         End Property
 
+        Public ReadOnly Property GetInventorySlotId(ByVal Slot As ITibia.InventorySlots) As Integer Implements IContainer.GetInventorySlotId
+            Get
+                Try
+                    Dim SlotId As Integer = 0
+                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((Slot - 1) * Consts.ItemDist), SlotId, 2)
+                    Return SlotId
+                Catch ex As Exception
+                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End Get
+        End Property
+
     End Class
 
     Public Class InternalContainer

@@ -217,5 +217,4 @@ Public Class frmScripts
             ScriptsView.Rows(I).Cells(0).Value = My.Resources.script_play
         Next
     End Sub
-
 End Class
