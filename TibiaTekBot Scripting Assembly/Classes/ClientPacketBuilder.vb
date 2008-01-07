@@ -20,7 +20,7 @@
 Imports System.Windows.Forms
 
 Public Class ClientPacketBuilder
-    Implements IPacketBuilder
+    Implements IClientPacketBuilder
 
     Private Packets As New Queue(Of Packet)
     Private _Proxy As IProxy
@@ -31,7 +31,7 @@ Public Class ClientPacketBuilder
         _AutoSend = AutoSend
     End Sub
 
-    Public Sub Speak(ByVal Name As String, ByVal DefaultMessageType As ITibia.DefaultMessageType, ByVal Level As Integer, ByVal Message As String, ByVal X As Integer, ByVal Y As Integer, ByVal Z As Byte)
+    Public Sub Speak(ByVal Name As String, ByVal DefaultMessageType As ITibia.DefaultMessageType, ByVal Level As Integer, ByVal Message As String, ByVal X As Integer, ByVal Y As Integer, ByVal Z As Byte) Implements IClientPacketBuilder.Speak
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HAA)
@@ -50,7 +50,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub SpeakWithBroadcast(ByVal Nick As String, ByVal Message As String)
+    Public Sub SpeakWithBroadcast(ByVal Nick As String, ByVal Message As String) Implements IClientPacketBuilder.SpeakWithBroadcast
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HAA)
@@ -66,7 +66,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub Speak(ByVal Destinatary As String, ByVal Level As Integer, ByVal Message As String, Optional ByVal PrivateMessageType As ITibia.PrivateMessageType = ITibia.PrivateMessageType.Normal)
+    Public Sub Speak(ByVal Destinatary As String, ByVal Level As Integer, ByVal Message As String, Optional ByVal PrivateMessageType As ITibia.PrivateMessageType = ITibia.PrivateMessageType.Normal) Implements IClientPacketBuilder.Speak
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HAA)
@@ -82,7 +82,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub Speak(ByVal Name As String, ByVal Level As Integer, ByVal ChannelType As ITibia.ChannelMessageType, ByVal Message As String, Optional ByVal Channel As ITibia.Channel = ITibia.Channel.Console)
+    Public Sub Speak(ByVal Name As String, ByVal Level As Integer, ByVal ChannelType As ITibia.ChannelMessageType, ByVal Message As String, Optional ByVal Channel As ITibia.Channel = ITibia.Channel.Console) Implements IClientPacketBuilder.Speak
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HAA)
@@ -99,7 +99,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub SystemMessage(ByVal Type As ITibia.SysMessageType, ByVal Message As String)
+    Public Sub SystemMessage(ByVal Type As ITibia.SysMessageType, ByVal Message As String) Implements IClientPacketBuilder.SystemMessage
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HB4)
@@ -112,7 +112,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub AnimatedText(ByRef Color As ITibia.TextColors, ByRef Loc As ITibia.LocationDefinition, ByRef ShortText As String)
+    Public Sub AnimatedText(ByRef Color As ITibia.TextColors, ByRef Loc As ITibia.LocationDefinition, ByRef ShortText As String) Implements IClientPacketBuilder.AnimatedText
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H84)
@@ -128,7 +128,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub FYIBox(ByVal Message As String)
+    Public Sub FYIBox(ByVal Message As String) Implements IClientPacketBuilder.FYIBox
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H15)
@@ -140,7 +140,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub CreateContainer(ByVal ItemID As UShort, ByVal ContainerIndex As Byte, ByVal Name As String, ByVal Size As Byte, ByVal Items() As IContainer.ContainerItemDefinition, Optional ByVal HasParent As Boolean = False)
+    Public Sub CreateContainer(ByVal ItemID As UShort, ByVal ContainerIndex As Byte, ByVal Name As String, ByVal Size As Byte, ByVal Items() As IContainer.ContainerItemDefinition, Optional ByVal HasParent As Boolean = False) Implements IClientPacketBuilder.CreateContainer
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H6E)
@@ -163,7 +163,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub OpenPrivate(ByVal PlayerName As String)
+    Public Sub OpenPrivate(ByVal PlayerName As String) Implements IClientPacketBuilder.OpenPrivate
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HAD)
@@ -175,7 +175,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub AnimationEffect(ByVal Loc As ITibia.LocationDefinition, ByVal Animation As ITibia.AnimationEffects)
+    Public Sub AnimationEffect(ByVal Loc As ITibia.LocationDefinition, ByVal Animation As ITibia.AnimationEffects) Implements IClientPacketBuilder.AnimationEffect
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H83)
@@ -190,7 +190,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub HouseSpellEdit(ByVal SpellID As Byte, ByVal Time As UInteger, ByVal Content As String)
+    Public Sub HouseSpellEdit(ByVal SpellID As Byte, ByVal Time As UInteger, ByVal Content As String) Implements IClientPacketBuilder.HouseSpellEdit
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H97)
@@ -204,7 +204,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub OpenChannel(ByVal ChannelName As String, ByVal ChannelID As Integer)
+    Public Sub OpenChannel(ByVal ChannelName As String, ByVal ChannelID As Integer) Implements IClientPacketBuilder.OpenChannel
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HAC)
@@ -217,7 +217,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub AddObjectToContainer(ByVal ItemID As UShort, ByVal ContainerIndex As Byte, Optional ByVal Count As Byte = &HFF)
+    Public Sub AddObjectToContainer(ByVal ItemID As UShort, ByVal ContainerIndex As Byte, Optional ByVal Count As Byte = &HFF) Implements IClientPacketBuilder.AddObjectToContainer
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H70)
@@ -233,7 +233,7 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
-    Public Sub RemoveObjectFromContainer(ByVal Slot As Byte, ByVal ContainerIndex As Byte)
+    Public Sub RemoveObjectFromContainer(ByVal Slot As Byte, ByVal ContainerIndex As Byte) Implements IClientPacketBuilder.RemoveObjectFromContainer
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&H72)
