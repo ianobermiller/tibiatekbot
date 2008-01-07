@@ -210,7 +210,6 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
         Me.TabPage10 = New System.Windows.Forms.TabPage
@@ -617,6 +616,7 @@ Partial Class frmMain
         '
         Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
+        Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
@@ -699,7 +699,7 @@ Partial Class frmMain
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem, Me.TestToolStripMenuItem1})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
         Me.MenuStrip1.Name = "MenuStrip1"
@@ -1512,11 +1512,6 @@ Partial Class frmMain
         '
         Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
         resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
-        '
-        'TestToolStripMenuItem1
-        '
-        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
-        resources.ApplyResources(Me.TestToolStripMenuItem1, "TestToolStripMenuItem1")
         '
         'TestToolStripMenuItem
         '
@@ -4113,5 +4108,4 @@ Partial Class frmMain
     Private components As System.ComponentModel.IContainer
     Friend WithEvents TestToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ScriptsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TestToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 End Class

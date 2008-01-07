@@ -2729,7 +2729,7 @@ Public Class frmMain
         Kernel.ScriptsForm.Show()
     End Sub
 
-    Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
+    Private Sub TestToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Kernel.Client.BringToFront()
     End Sub
 End Class
