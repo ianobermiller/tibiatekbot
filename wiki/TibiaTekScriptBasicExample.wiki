@@ -1,0 +1,29 @@
+#summary Basic TibiaTek Script Example
+#labels Phase-Support
+
+{{{
+Imports System, Scripting
+
+Public Class Script
+    Implements IScript
+
+    Dim WithEvents Kernel As IKernel
+
+    Public Sub Initialize(ByVal Kernel As IKernel) Implements IScript.Initialize
+        Me.Kernel = Kernel
+    End Sub
+
+    Public Sub PauseScript() Implements IScript.Pause
+        ' Paused
+    End Sub
+
+    Public Sub ResumeScript() Implements IScript.Resume
+        ' Resume
+    End Sub
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Dispose all created objects
+    End Sub
+
+End Class
+}}}
