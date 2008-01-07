@@ -30,6 +30,7 @@ Public Interface ICommandParser
     Function Add(ByVal CommandNames() As String, ByVal Callback As ICommandParser.CommandCallback) As Boolean
     Function Invoke(ByVal CommandAndParameter As String) As Boolean
     Function Invoke(ByVal CommandName As String, ByVal Arguments As GroupCollection) As Boolean
+    Function Remove(ByVal CommandName As String) As Boolean
 #End Region
 
 End Interface
