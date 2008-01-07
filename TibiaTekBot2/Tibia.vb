@@ -41,6 +41,7 @@ Public NotInheritable Class Tibia
     Private Declare Function CreateRemoteThread Lib "kernel32" (ByVal hProcess As Int32, ByVal lpThreadAttributes As Int32, ByVal dwStackSize As Int32, ByVal lpStartAddress As Int32, ByVal lpParameter As Int32, ByVal dwCreationFlags As Int32, ByRef lpThreadId As Int32) As Int32
     Private Declare Function GetProcAddress Lib "kernel32" (ByVal hModule As Int32, <MarshalAs(UnmanagedType.LPStr)> ByVal lpProcName As String) As Int32
     Private Declare Function VirtualFreeEx Lib "kernel32" (ByVal hProcess As Int32, ByVal lpAddress As Int32, ByVal dwSize As Int32, ByVal dwFreeType As Int32) As Boolean
+    Private Declare Function SetWindowPos Lib "user32" (ByVal hWnd As Int32, ByVal hWndInsertAfter As Int32, ByVal X As Int32, ByVal Y As Int32, ByVal CX As Int32, ByVal CY As Int32, ByVal uFlags As UInt32) As Boolean
 #End Region
 
 #Region " Constants "
@@ -50,6 +51,10 @@ Public NotInheritable Class Tibia
     Private Const MEM_COMMIT As Int32 = &H1000
     Private Const MEM_RESERVE As Int32 = &H2000
     Private Const MEM_RELEASE As Int32 = &H8000
+    Private Const SWP_NOMOVE As Int32 = &H2
+    Private Const SWP_NOSIZE As Int32 = &H1
+    Private Const HWND_TOPMOST As Int32 = &HFFFFFFFF
+    Private Const HWND_NOTOPMOST As Int32 = &HFFFFFFFE
 
 #End Region
 
@@ -351,14 +356,34 @@ Public NotInheritable Class Tibia
 
     Public ReadOnly Property IsConnected() As Boolean Implements Scripting.ITibia.IsConnected
         Get
-            Return ConnectionState = ITibia.ConnectionStates.Connected
+            Try
+                Return ConnectionState = ITibia.ConnectionStates.Connected
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            End Try
         End Get
     End Property
 
     Public ReadOnly Property Dat() As IDatFile Implements ITibia.Dat
         Get
-            Return _Dat
+            Try
+                Return _Dat
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
         End Get
+    End Property
+
+    Public WriteOnly Property TopMost() As Boolean Implements ITibia.TopMost
+        Set(ByVal value As Boolean)
+            Try
+                SetWindowPos(GetWindowHandle, IIf(value, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE)
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Set
     End Property
 
 #End Region
