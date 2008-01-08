@@ -21,6 +21,7 @@ Public Interface IKernel
 
 #Region " Properties "
     ReadOnly Property Client() As ITibia
+    ReadOnly Property Proxy() As IProxy
     ReadOnly Property Spells() As ISpells
     ReadOnly Property CommandParser() As ICommandParser
 #End Region

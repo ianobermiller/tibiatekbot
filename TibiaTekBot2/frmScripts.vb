@@ -285,6 +285,7 @@ Public Class frmScripts
                     SD.Script = DirectCast(FindInterface(Results.CompiledAssembly, "IScript"), Scripting.IScript)
                     SD.Script.Initialize(Kernel)
                     Kernel.Scripts.Add(SD)
+                    MessageBox.Show("Script Loading Completed.", "Ready!", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
                 Reader.Close()
                 TextFile.Close()

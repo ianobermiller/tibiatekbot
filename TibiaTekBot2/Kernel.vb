@@ -453,6 +453,17 @@ Public Module KernelModule
             End Get
         End Property
 
+        Public ReadOnly Property GetProxy() As IProxy Implements IKernel.Proxy
+            Get
+                Try
+                    Return Proxy
+                Catch ex As Exception
+                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
+            End Get
+        End Property
+
 #End Region
 
 #Region " Background Workers "
