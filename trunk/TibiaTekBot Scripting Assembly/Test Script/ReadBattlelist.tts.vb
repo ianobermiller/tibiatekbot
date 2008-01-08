@@ -8,6 +8,8 @@ Public Class Script
     Dim WithEvents Kernel As IKernel
 
     Public Sub ShowCreatures(ByVal Arguments As System.Text.RegularExpressions.GroupCollection)
+        Dim SP As New ServerPacketBuilder(Kernel.Proxy)
+        SP.Speak("Hello")
         Dim BL As IBattlelist = Kernel.NewBattlelist
         BL.Reset()
         Do
