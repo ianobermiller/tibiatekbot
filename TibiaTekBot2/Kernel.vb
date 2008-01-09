@@ -4635,10 +4635,10 @@ Public Module KernelModule
                             'skill level+ skill percent
                             'fist,club,sword,axe,dist,shield,fish
                         Case &HA2 'icons
-                            Dim Condition As Conditions = CType(GetWord(bytBuffer, Pos), Conditions)
-                            If Not MagicShieldActivated AndAlso CBool((Condition And Conditions.MagicShield) = Conditions.MagicShield) Then 'got magic shield plx
+                            Dim Condition As Scripting.ITibia.Conditions = CType(GetWord(bytBuffer, Pos), Scripting.ITibia.Conditions)
+                            If Not MagicShieldActivated AndAlso CBool((Condition And Scripting.ITibia.Conditions.MagicShield) = Scripting.ITibia.Conditions.MagicShield) Then 'got magic shield plx
                                 MagicShieldActivated = True
-                            ElseIf MagicShieldActivated AndAlso Not CBool((Condition And Conditions.MagicShield)) Then
+                            ElseIf MagicShieldActivated AndAlso Not CBool((Condition And Scripting.ITibia.Conditions.MagicShield)) Then
                                 MagicShieldActivated = False
                                 CP.SystemMessage(SysMessageType.Information, "Your Magic Shield is now over.")
                                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))

@@ -386,6 +386,24 @@ Public NotInheritable Class Tibia
         End Set
     End Property
 
+    Public ReadOnly Property CharacterHasCondition(ByVal Condition As Scripting.ITibia.Conditions) As Boolean Implements ITibia.CharacterHasCondition
+        Get
+            Try
+                Dim CurrentConditions As Integer = 0
+
+                Kernel.Client.ReadMemory(Consts.ptrConditions, CurrentConditions, 2)
+                If (CurrentConditions And Condition) = Condition Then
+                    Return True
+                Else
+                    Return False
+                End If
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region " Methods "

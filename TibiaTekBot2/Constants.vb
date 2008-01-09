@@ -728,26 +728,6 @@ Public Module ConstantsModule
         Text = 2
     End Enum
 
-    <Flags()> Public Enum Conditions
-        None
-        Poison = 1
-        Burnt = 2
-        Electrified = 4
-        Beer = 8
-        MagicShield = 16
-        Paralized = 32
-        Haste = 64
-        CombatSign = 128
-        Drowning = 256
-        Freezing = 512
-        Dazzled = 1024
-        Cursed = 2048
-        All = Poison Or Burnt Or Electrified _
-            Or Beer Or MagicShield Or Paralized _
-            Or Haste Or CombatSign Or Drowning _
-            Or Freezing Or Dazzled Or Cursed
-    End Enum
-
     Public Enum SysMessageType
         StatusWarning = &H12
         EventAdvance
