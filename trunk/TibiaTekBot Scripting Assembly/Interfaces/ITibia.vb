@@ -202,6 +202,26 @@ Public Interface ITibia
         FireworksFail = 30
         FireworksBlue = 31
     End Enum
+
+    <Flags()> Enum Conditions
+        None
+        Poison = 1
+        Burnt = 2
+        Electrified = 4
+        Beer = 8
+        MagicShield = 16
+        Paralized = 32
+        Haste = 64
+        CombatSign = 128
+        Drowning = 256
+        Freezing = 512
+        Dazzled = 1024
+        Cursed = 2048
+        All = Poison Or Burnt Or Electrified _
+            Or Beer Or MagicShield Or Paralized _
+            Or Haste Or CombatSign Or Drowning _
+            Or Freezing Or Dazzled Or Cursed
+    End Enum
 #End Region
 
 #Region " Events "
@@ -236,6 +256,7 @@ Public Interface ITibia
     ReadOnly Property Dat() As IDatFile
     ReadOnly Property Items() As IItems
     WriteOnly Property TopMost() As Boolean
+    ReadOnly Property CharacterHasCondition(ByVal Condition As Scripting.ITibia.Conditions) As Boolean
 
 #End Region
 

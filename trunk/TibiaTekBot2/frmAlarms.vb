@@ -677,23 +677,23 @@ Public Class frmAlarms
                 Output &= " My Capacity is " & Kernel.SoulPoints & ", below " & StatusSoulPoints.Value & "."
                 Alert = True
             End If
-            If StatusConditionBurnt.Checked AndAlso (CurrentConditions And Conditions.Burnt) = Conditions.Burnt Then
+            If StatusConditionBurnt.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.Burnt) = Scripting.ITibia.Conditions.Burnt Then
                 Output &= " I'm burnt."
                 Alert = True
             End If
-            If StatusConditionCombatSign.Checked AndAlso (CurrentConditions And Conditions.CombatSign) = Conditions.CombatSign Then
+            If StatusConditionCombatSign.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.CombatSign) = Scripting.ITibia.Conditions.CombatSign Then
                 Output &= " I'm PZ locked."
                 Alert = True
             End If
-            If StatusConditionDrowning.Checked AndAlso (CurrentConditions And Conditions.Drowning) = Conditions.Drowning Then
+            If StatusConditionDrowning.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.Drowning) = Scripting.ITibia.Conditions.Drowning Then
                 Output &= " I'm drowning."
                 Alert = True
             End If
-            If StatusConditionElectrified.Checked AndAlso (CurrentConditions And Conditions.Electrified) = Conditions.Electrified Then
+            If StatusConditionElectrified.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.Electrified) = Scripting.ITibia.Conditions.Electrified Then
                 Output &= " I'm electrified."
                 Alert = True
             End If
-            If StatusConditionParalized.Checked AndAlso (CurrentConditions And Conditions.Paralized) = Conditions.Paralized Then
+            If StatusConditionParalized.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.Paralized) = Scripting.ITibia.Conditions.Paralized Then
                 Output &= " I'm paralized."
                 Alert = True
             End If
