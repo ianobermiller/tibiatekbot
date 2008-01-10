@@ -3432,6 +3432,8 @@ Public Module KernelModule
                 'IrcGenerateNick()
                 If Not String.IsNullOrEmpty(Consts.IRCNickname) Then
                     IRCClient.Nick = Consts.IRCNickname
+                Else
+                    IrcGenerateNick()
                 End If
                 IRCClient.RealName = Client.CharacterWorld
                 IRCClient.User = Environment.MachineName
@@ -4170,7 +4172,7 @@ Public Module KernelModule
                                             Case "me"
                                                 Dim Action As String = Match.Groups(2).Value
                                                 If Action.Length > 0 Then
-                                                    Dim InvalidWords() As String = {":", "[", "]", "gm", "cm", "admin"}
+                                                    Dim InvalidWords() As String = {":", "[", "]", "gm", "cm", "admin", "}", "{", "-", "+", "~", "@", "irc"}
                                                     For Each InvalidWord As String In InvalidWords
                                                         If Action.ToLower.Contains(InvalidWord) Then
                                                             Exit Sub

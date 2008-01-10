@@ -130,7 +130,12 @@ Public Class IrcClient
     End Property
     Public Property Password() As String
         Get
-            Return Me._Password
+            Try
+                Return Me._Password
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+            Return String.Empty
         End Get
         Set(ByVal value As String)
             Me._Password = value
@@ -138,7 +143,12 @@ Public Class IrcClient
     End Property
     Public Property User() As String
         Get
-            Return Me._User
+            Try
+                Return Me._User
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+            Return String.Empty
         End Get
         Set(ByVal value As String)
             Me._User = value
@@ -146,7 +156,12 @@ Public Class IrcClient
     End Property
     Public Property Invisible() As Boolean
         Get
-            Return Me._IsInvisible
+            Try
+                Return Me._IsInvisible
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+            Return String.Empty
         End Get
         Set(ByVal value As Boolean)
             Me._IsInvisible = value
@@ -154,7 +169,12 @@ Public Class IrcClient
     End Property
     Public Property RealName() As String
         Get
-            Return Me._RealName
+            Try
+                Return Me._RealName
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+            Return String.Empty
         End Get
         Set(ByVal value As String)
             Me._RealName = value
@@ -185,7 +205,12 @@ Public Class IrcClient
     End Property
     Public Property Nick() As String
         Get
-            Return Me._Nick
+            Try
+                Return Me._Nick
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+            Return String.Empty
         End Get
         Set(ByVal value As String)
             Try
@@ -235,24 +260,31 @@ Public Class IrcClient
     End Function
 
     Public Sub Disconnect()
-		If WasConnected AndAlso Not Client Is Nothing AndAlso Client.Connected Then
-			WasConnected = False
-			If Not Client.Client Is Nothing Then
-				Client.Client.Disconnect(True)
-			End If
-		End If
-		RaiseEvent EventDisconnected()
-        'DoMainLoopThread.Abort()
+        Try
+            If WasConnected AndAlso Not Client Is Nothing AndAlso Client.Connected Then
+                WasConnected = False
+                If Not Client.Client Is Nothing Then
+                    Client.Client.Disconnect(True)
+                End If
+            End If
+            RaiseEvent EventDisconnected()
+            'DoMainLoopThread.Abort()
+        Catch Ex As Exception
+        End Try
     End Sub
     Public Function GetUserLevel(ByVal Nickname As String, ByVal Channel As String) As Integer
-        If Channels Is Nothing Then Return False
-        If Channels.ContainsKey(Channel) Then
-            For Each User As String In Channels(Channel).Users.Keys
-                If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
-                    Return Channels(Channel).Users(User).UserLevel
-                End If
-            Next
-        End If
+        Try
+            If Channels Is Nothing Then Return False
+            If Channels.ContainsKey(Channel) Then
+                For Each User As String In Channels(Channel).Users.Keys
+                    If String.Equals(Nickname, User, StringComparison.CurrentCultureIgnoreCase) Then
+                        Return Channels(Channel).Users(User).UserLevel
+                    End If
+                Next
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Function
 
 	Public Sub WriteLine(ByVal Command As String)
@@ -293,13 +325,18 @@ Public Class IrcClient
 		End Try
 	End Sub
     Public Sub ChangeNick(ByVal NewNick As String)
-        Dim InvalidWords() As String = {"admin", "gm", "cm"}
-        For Each InvalidWord As String In InvalidWords
-            If NewNick.ToLower.Contains(InvalidWord) Then
-                Exit Sub
-            End If
-        Next
-        WriteLine(String.Format("NICK {0}", NewNick))
+        Try
+            If NewNick Is Nothing Or NewNick = String.Empty Then Exit Sub
+            Dim InvalidWords() As String = New String() {"admin", "gm", "cm"}
+            For Each InvalidWord As String In InvalidWords
+                If NewNick.ToLower.Contains(InvalidWord) Then
+                    Exit Sub
+                End If
+            Next
+            WriteLine(String.Format("NICK {0}", NewNick))
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 	Public Sub Identify()
 		Try
@@ -338,15 +375,6 @@ Public Class IrcClient
 		End Try
 	End Sub
 
-    Public Sub SpeakToServer(ByVal Message As String, ByVal Server As String)
-        Try
-            If Not WasConnected Then Exit Sub
-            WriteLine(String.Format("PRIVMSG {0} :{1}", Server, Message))
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
     Public Sub Rejoin(ByVal Channel As String)
         Try
             If Channels.ContainsKey(Channel) Then
@@ -356,8 +384,8 @@ Public Class IrcClient
             End If
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-		End Try
-	End Sub
+        End Try
+    End Sub
 
     Public Sub Join(ByVal Channel As String)
         Try
@@ -447,7 +475,7 @@ Public Class IrcClient
                         Catch Ex As System.Text.DecoderFallbackException
                         End Try
                         If Message Is Nothing OrElse String.IsNullOrEmpty(Message) Then Exit Do
-                        'Core.ConsoleWrite(Message)
+                        Kernel.ConsoleWrite(Message)
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
                         Dim Temp() As String
@@ -690,6 +718,8 @@ Public Class IrcClient
                                                         End If
                                                     End If
                                                 End If
+                                            Case "INVITE"
+                                                ':OsQu!OsQu@daIRC-23E71AE5.lohjanpuhelin.fi INVITE TTBBeast877 :#ttbdev
                                         End Select
                                     End If
                             End Select
