@@ -200,7 +200,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Kernel.vb">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="BattleList.vb" />
     <Compile Include="Constants.vb" />
@@ -356,7 +355,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <BaseApplicationManifest Include="My Project\app.manifest" />
-    <None Include="Resources\trayicon.ico" />
     <Content Include="Alarms\Status.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -411,24 +409,14 @@
     <None Include="Resources\ConstantsEditor.ico" />
     <None Include="Resources\Tibia.ico" />
     <None Include="Resources\TibiaMultiClientPatch.ico" />
-    <None Include="Resources\script.gif" />
-    <None Include="Resources\script_add.gif" />
-    <None Include="Resources\script_delete.gif" />
-    <None Include="Resources\script_edit.gif" />
-    <None Include="Resources\script_play.gif" />
-    <None Include="Resources\script_save.gif" />
-    <None Include="Resources\script_stop.gif" />
-    <None Include="Resources\script_warning.gif" />
     <None Include="Resources\script.png" />
     <None Include="Resources\script_add.png" />
     <None Include="Resources\script_delete.png" />
     <None Include="Resources\script_edit.png" />
-    <None Include="Resources\script_play.png" />
     <None Include="Resources\script_save.png" />
     <None Include="Resources\script_stop.png" />
     <None Include="Resources\script_warning.png" />
     <None Include="Resources\script_pause.png" />
-    <Content Include="Resources\tibiatekbot.ico" />
     <None Include="Resources\ttb splash0.jpg" />
     <None Include="Resources\ttb splash1.jpg" />
     <None Include="Resources\ttb splash2.jpg" />
@@ -438,10 +426,7 @@
     <None Include="Resources\ttb splash6.jpg" />
     <Content Include="Resources\ttb21.ico" />
     <Content Include="Resources\ttb21_16.ico" />
-    <None Include="Resources\ttb2_16x161.ico" />
     <None Include="Resources\ttb.ico" />
-    <None Include="Resources\ttb2_16x16.ico" />
-    <None Include="Resources\ttb2.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

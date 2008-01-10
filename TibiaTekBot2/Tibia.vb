@@ -65,7 +65,7 @@ Public NotInheritable Class Tibia
     Public Event Closed() Implements ITibia.Closed
     Public Event Connected() Implements ITibia.Connected
     Public Event Disconnected() Implements ITibia.Disconnected
-
+    Public Event CharacterConditionsChanged(ByVal Conditions As Scripting.ITibia.Conditions) Implements ITibia.CharacterConditionsChanged
 #End Region
 
 #Region " Structures "
@@ -391,7 +391,7 @@ Public NotInheritable Class Tibia
             Try
                 Dim CurrentConditions As Integer = 0
 
-                Kernel.Client.ReadMemory(Consts.ptrConditions, CurrentConditions, 2)
+                Kernel.Client.ReadMemory(Consts.ptrConditions, CurrentConditions, 4)
                 If (CurrentConditions And Condition) = Condition Then
                     Return True
                 Else
@@ -750,6 +750,15 @@ Public NotInheritable Class Tibia
         ReadMemory(Consts.ptrFrameRateBegin, FrameRateBegin, 4)
         WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, NewFPS)
     End Sub
+
+#Region " Event Raising"
+
+    Public Sub Raise_CharacterConditionsChanged(ByVal Conditions As ITibia.Conditions)
+        RaiseEvent CharacterConditionsChanged(Conditions)
+    End Sub
+
+#End Region
+
 #End Region
 
 End Class
