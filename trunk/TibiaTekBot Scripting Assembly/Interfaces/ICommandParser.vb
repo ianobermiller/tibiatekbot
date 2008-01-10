@@ -31,6 +31,7 @@ Public Interface ICommandParser
     Function Invoke(ByVal CommandAndParameter As String) As Boolean
     Function Invoke(ByVal CommandName As String, ByVal Arguments As GroupCollection) As Boolean
     Function Remove(ByVal CommandName As String) As Boolean
+    Function Remove(ByVal CommandNames() As String) As Boolean
 #End Region
 
 End Interface
