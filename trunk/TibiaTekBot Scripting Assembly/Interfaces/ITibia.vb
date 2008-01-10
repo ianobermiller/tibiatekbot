@@ -230,7 +230,8 @@ Public Interface ITibia
 	Event Started()
     Event Closed()
 	Event Connected()
-	Event Disconnected()
+    Event Disconnected()
+    Event CharacterConditionsChanged(ByVal Conditions As ITibia.Conditions)
 
 #End Region
 

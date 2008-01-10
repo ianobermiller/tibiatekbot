@@ -4609,10 +4609,8 @@ Public Module KernelModule
                                     If Not BL.Find(ID) Then Continue While
                                     Name = BL.GetName()
                                     If Creatures.Creatures.ContainsKey(Name) Then
-                                        'MsgBox("nextlevelexp: " & NextLevelExp & ". Experience: " & Experience & ". ")
                                         Dim N As Integer = (NextLevelExp - Experience) / (Creatures.Creatures(Name).Experience * Consts.CreatureExpMultiplier)
                                         CP.SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up.")
-                                        'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up."))
                                     End If
                                 End If
                             End If
@@ -4643,6 +4641,7 @@ Public Module KernelModule
                                 CP.SystemMessage(SysMessageType.Information, "Your Magic Shield is now over.")
                                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))
                             End If
+                            Client.Raise_CharacterConditionsChanged(conditions)
                         Case &HAA 'received message
                             GetDWord(bytBuffer, Pos)
                             Dim Name As String = ""
@@ -4942,15 +4941,3 @@ Public Module KernelModule
     End Class
 
 End Module
-
-Public Class TTBVBCodeDomProvider
-    Inherits VBCodeProvider
-
-    Public Overrides Function CreateCompiler() As System.CodeDom.Compiler.ICodeCompiler
-        Return CreateCompiler()
-    End Function
-
-    Public Overloads Overrides Function CreateGenerator() As System.CodeDom.Compiler.ICodeGenerator
-        Return CreateGenerator()
-    End Function
-End Class
