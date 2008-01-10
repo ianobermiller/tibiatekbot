@@ -293,6 +293,12 @@ Public Class IrcClient
 		End Try
 	End Sub
     Public Sub ChangeNick(ByVal NewNick As String)
+        Dim InvalidWords() As String = {"admin", "gm", "cm"}
+        For Each InvalidWord As String In InvalidWords
+            If NewNick.ToLower.Contains(InvalidWord) Then
+                Exit Sub
+            End If
+        Next
         WriteLine(String.Format("NICK {0}", NewNick))
     End Sub
 	Public Sub Identify()

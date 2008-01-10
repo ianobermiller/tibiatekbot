@@ -4159,7 +4159,7 @@ Public Module KernelModule
                                         Kernel.CommandParser.Invoke(GroupMatch.Groups(1).ToString)
                                     Next
                                 ElseIf Message.StartsWith("/") Then
-                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "^/(join|nick|users|me|nickserv|msg)(?:\s(.+))?", RegexOptions.IgnoreCase)
+                                    Dim Match As Match = Regex.Match(Message.TrimEnd(" "c), "^/(join|nick|users|me)(?:\s(.+))?", RegexOptions.IgnoreCase)
                                     If Match.Success Then
                                         Select Case Match.Groups(1).Value.ToLower
                                             Case "join", "j"
@@ -4168,15 +4168,17 @@ Public Module KernelModule
                                                 IRCClient.Nick = Match.Groups(2).Value
                                                 IRCClient.ChangeNick(IRCClient.Nick)
                                             Case "me"
-                                                If Match.Groups(2).Value.Length > 0 Then
-                                                    IRCClient.Speak(Chr(1) & "ACTION " & Match.Groups(2).Value & Chr(1), Channel)
+                                                Dim Action As String = Match.Groups(2).Value
+                                                If Action.Length > 0 Then
+                                                    Dim InvalidWords() As String = {":", "[", "]", "gm", "cm", "admin"}
+                                                    For Each InvalidWord As String In InvalidWords
+                                                        If Action.ToLower.Contains(InvalidWord) Then
+                                                            Exit Sub
+                                                        End If
+                                                    Next
+                                                    IRCClient.Speak(Chr(1) & "ACTION " & Action & Chr(1), Channel)
                                                 End If
                                                 IrcChannelSpeakUnknown(IRCClient.Nick & " " & Match.Groups(2).Value, IrcChannelNameToID(Channel))
-                                            Case "msg"
-                                                Dim Match2 As Match = Regex.Match(Match.Groups(2).Value, "([^\s]+)\s([^\n]+)", RegexOptions.IgnoreCase)
-                                                If Match2.Success Then
-                                                    IRCClient.Speak(Match2.Groups(3).Value, Match2.Groups(2).Value)
-                                                End If
                                             Case "users", "u"
                                                 If Kernel.IRCClient.Channels.ContainsKey(Channel) Then
                                                     Dim TempNick As String = ""
@@ -4641,7 +4643,7 @@ Public Module KernelModule
                                 CP.SystemMessage(SysMessageType.Information, "Your Magic Shield is now over.")
                                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))
                             End If
-                            Client.Raise_CharacterConditionsChanged(conditions)
+                            Client.Raise_CharacterConditionsChanged(Condition)
                         Case &HAA 'received message
                             GetDWord(bytBuffer, Pos)
                             Dim Name As String = ""
