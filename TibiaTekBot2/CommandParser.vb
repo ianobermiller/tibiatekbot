@@ -168,6 +168,18 @@ Public Class CommandParser
         End Try
     End Function
 
+    Public Function Remove(ByVal CommandNames() As String) As Boolean Implements ICommandParser.Remove
+        Try
+            For Each CommandName As String In CommandNames
+                If Not Remove(CommandName) Then Return False
+            Next
+            Return True
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
 #Region " View Message "
 
     Private Sub CmdViewMessage(ByVal Arguments As GroupCollection)
