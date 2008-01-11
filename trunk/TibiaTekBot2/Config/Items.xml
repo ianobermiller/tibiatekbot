@@ -75,6 +75,7 @@
     <Item Name="Scythe" Kind="Equipment,SingleHandedWeapon,Tool" ID="HD7D"/>
     <Item Name="Magic Light Wand" Kind="Tool,LightSource" ID="HBE6"/>
     <Item Name="Light Shovel" Kind="Tool" ID="H164E"/>
+	<Item Name="Frozen Starlight" Kind="Tool" ID="HCB1"/>
     <Item Name="Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCCD"/>
 	<Item Name="Enchanted Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CC7"/>
 	<Item Name="Royal Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CD2"/>
@@ -106,6 +107,7 @@
     <Item Name="Golden Bag" Kind="Equipment,Container" ID="2863"/>
     <Item Name="Jungle Bag" Kind="Equipment,Container" ID="2864"/>
     <Item Name="Backpack Of Holding" Kind="Equipment,Container" ID="3253"/>
+	<Item Name="Key Ring" Kind="Equipment,Container" ID="H16A9"/>
     <Item Name="Parcel" Kind="Container" ID="3503"/>
     <Item Name="Present" Kind="Container" ID="2856" />
     <Item Name="Stamped Parcel" Kind="Container" ID="3504"/>
@@ -236,10 +238,13 @@
     <Item Name="Crystal Coin" Kind="Valuable" ID="HBE3"/>
     <Item Name="Bright Sword" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCDF"/>
     <Item Name="Royal Helmet" Kind="Equipment,Helmet" ID="HD40"/>
+	<Item Name="Warrior Helmet" Kind="Equipment,Helmet" ID="HD29"/>
     <Item Name="Golden Armor" Kind="Armor" ID="HD20"/>
+	<Item Name="Dragon Scale Mail" Kind="Armor" ID="HD3A"/>
 	<Item Name="Krimhorn Helmet" Kind="Equipment,Helmet" ID="H198"/>
 	<Item Name="Dagger" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCC3"/>
 	<Item Name="Giant Sword" Kind="Equipment,DoubleHandedWeapon,Tool" ID="HCD1"/>
+	<Item Name="The Avenger" Kind="Equipment,DoubleHandedWeapon,Tool" ID="H197F"/>
     <Item Name="Crown Legs" Kind="Equipment,Leg" ID="HD36"/>
     <Item Name="Boots Of Haste" Kind="Equipment,Footwear" ID="HC07"/>
     <Item Name="Demon Shield" Kind="Equipment,Shield" ID="HD5C"/>
