@@ -3784,6 +3784,11 @@ Public Module KernelModule
                         Case Else
                             IrcChannelSpeakNormal(Nick & "@IRC", Message, IrcChannelNameToID(Channel))
                     End Select
+                    If Message.ToLower.Contains(IRCClient.Nick.ToLower) Then
+                        If (Consts.IRCHighlightOpOnly AndAlso IRCClient.GetUserLevel(Nick, Channel) < 4) Then Exit Sub
+                        Dim CPB As New ClientPacketBuilder(Proxy)
+                        CPB.SystemMessage(ITibia.SysMessageType.Information, "[" & Channel & "] " & Nick & "@IRC: " & Message)
+                    End If
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

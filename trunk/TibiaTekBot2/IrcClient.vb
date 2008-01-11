@@ -42,6 +42,7 @@ Public Class IrcClient
     Public Event EventChannelAction As ChannelAction
     Public Event EventChannelBroadcast As ChannelBroadcast
     Public Event EventNotice As Notice
+    Public Event EventInvite As Invite
 
     Public Delegate Sub ChannelJoin(ByVal Nick As String, ByVal Channel As String)
     Public Delegate Sub ChannelSelfJoin(ByVal Channel As String)
@@ -65,6 +66,7 @@ Public Class IrcClient
     Public Delegate Sub Connected()
     Public Delegate Sub Disconnected()
     Public Delegate Sub EndMOTD()
+    Public Delegate Sub Invite(ByVal Nick As String, ByVal Channel As String)
 
     'Public ChannelInfo As ChannelInformation
     Public Channels As New SortedList(Of String, ChannelInformation)
@@ -475,7 +477,7 @@ Public Class IrcClient
                         Catch Ex As System.Text.DecoderFallbackException
                         End Try
                         If Message Is Nothing OrElse String.IsNullOrEmpty(Message) Then Exit Do
-                        Kernel.ConsoleWrite(Message)
+                        'Kernel.ConsoleWrite(Message)
                         RaiseEvent EventRawMessage(Message)
                         SplitMessages = Message.Split(New Char() {" "c}, 2)
                         Dim Temp() As String
@@ -578,7 +580,7 @@ Public Class IrcClient
                                                     ElseIf String.Equals(Destinatary, Me.Nick) Then
                                                         Select Case Msg
                                                             Case One & "VERSION" & One
-                                                                SendNotice(From, One & "VERSION " & IRCClientVersion & One)
+                                                                SendNotice(From, One & "VERSION " & IRCClientVersion & " for " & BotName & " v" & BotVersion & One)
                                                             Case Else
                                                                 If Msg.StartsWith(Chr(1) & "PING") Then
                                                                     SendNotice(From, Msg)
@@ -719,6 +721,26 @@ Public Class IrcClient
                                                     End If
                                                 End If
                                             Case "INVITE"
+                                                Match2 = Regex.Match(Arguments, "([^\s]+)\s:([^\n]+)")
+                                                If Match2.Success Then
+                                                    Dim Channel As String = Match2.Groups(2).Value
+                                                    Dim TTBChannel As String = "#tibiatekbot"
+                                                    Dim Nick As String = Match2.Groups(1).Value
+                                                    Dim Found As Boolean = False
+                                                    For Each Chan As String In Channels.Keys
+                                                        If Chan.ToLower.Equals(TTBChannel) Then
+                                                            TTBChannel = Chan
+                                                            Found = True
+                                                        End If
+                                                    Next
+                                                    If Found Then
+                                                        If Channels(TTBChannel).Users.ContainsKey(From) Then
+                                                            If Channels(TTBChannel).Users(From).UserLevel >= 4 Then
+                                                                Join(Channel)
+                                                            End If
+                                                        End If
+                                                    End If
+                                                End If
                                                 ':OsQu!OsQu@daIRC-23E71AE5.lohjanpuhelin.fi INVITE TTBBeast877 :#ttbdev
                                         End Select
                                     End If
