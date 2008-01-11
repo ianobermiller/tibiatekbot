@@ -28,7 +28,7 @@ Public Module ConstantsModule
         Implements IConstants
 
         Public IRCJoinChannels As String = ""
-
+        Public IRCHighlightOpOnly As Boolean = True
         Public LatestVersionUrl As String = "http://www.tibiatek.com/version.php"
         Public MusicalNotesOnAlarm As Boolean = True
         Public EatFromFloor As Boolean = True
@@ -611,6 +611,8 @@ Public Module ConstantsModule
                                                     IRCPassword = Value
                                                 Case "IRCJoinChannels"
                                                     IRCJoinChannels = Value
+                                                Case "IRCHighlightOpOnly"
+                                                    IRCHighlightOpOnly = System.Boolean.Parse(Value)
                                                 Case "AntiLogoutInterval"
                                                     AntiLogoutInterval = CInt(Value)
                                                 Case "AutoOpenBackpack"
