@@ -9,6 +9,8 @@
  * .WPT File Support for Cavebot
  * The TTB Tray Icon Menu can be found on the GUI
  * Ammunition Maker
+ * Auto joining channels depending on your language
+ * Highlighting when your nick is mentioned in a channel
 
 = Since v2.2 =
  * Spells and commands through any chat window (channel)
