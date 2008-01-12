@@ -174,22 +174,28 @@ Public Class frmMain
 
     Private Sub frmMain_Activated(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Activated
         Try
+            Static FirstTime As Boolean = True
+            If FirstTime Then
+                Kernel.Client.BringToFront()
+                FirstTime = False
+            End If
             If Kernel.Client.IsConnected Then
-                Me.Text = "TibiaTek Bot - " & Kernel.Client.CharacterName
+                Me.Text = "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName
                 FunctionsToolStripMenuItem.Enabled = True
                 AboutToolStripMenuItem.Enabled = True
                 RefreshControls()
                 MainTabControl.Enabled = True
             Else
                 If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                    Me.Text = "TibiaTek Bot - " & Hex(Kernel.Client.GetProcessHandle)
+                    Me.Text = "TibiaTek Bot v" & BotVersion & " - " & Hex(Kernel.Client.GetProcessHandle)
                 Else
-                    Me.Text = "TibiaTek Bot"
+                    Me.Text = "TibiaTek Bot v" & BotVersion
                 End If
                 FunctionsToolStripMenuItem.Enabled = False
                 'AboutToolStripMenuItem.Enabled = False
-                'MainTabControl.Enabled = False
+                MainTabControl.Enabled = False
             End If
+
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -928,29 +934,8 @@ Public Class frmMain
             If Not File.Exists(Application.StartupPath & "\TibiaTekBot Injected DLL.dll") Then
                 Throw New Exception("Unable to locate """ & Application.StartupPath & "\TibiaTekBot Injected DLL.dll"". Please re-install the application.")
             End If
-            'pipes
-            'Dim PipeStream As New System.IO.Pipes.NamedPipeServerStream("ttb2", Pipes.PipeDirection.InOut)
-
             Kernel.Client.InjectDLL(Application.StartupPath & "\TibiaTekBot Injected DLL.dll")
-
-
-            'MsgBox("waiting for connection VB")
-            'PipeStream.WaitForConnection()
-
-            'MsgBox("writing to stream VB")
-            'Dim SR As New StreamReader(PipeStream, System.Text.Encoding.ASCII)
-            'Dim Response As String = SR.ReadLine()
-
-            'SR.DiscardBufferedData()
-            'SR.Close()
-            'PipeStream.Seek(0, SeekOrigin.Begin)
-            'MsgBox(Response)
-            'Dim SW As New StreamWriter(PipeStream, System.Text.Encoding.ASCII)
-            'SW.WriteLine("This is the message from vb")
-            'SW.Flush()
-
             Kernel.Proxy = New PProxy2(Kernel.Client)
-
 
             System.Threading.Thread.Sleep(1000)
             Kernel.WindowTimerObj.StartTimer()

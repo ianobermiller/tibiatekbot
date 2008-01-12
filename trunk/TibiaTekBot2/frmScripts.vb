@@ -295,4 +295,20 @@ Public Class frmScripts
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    Private Sub TestToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem.Click
+        For Each SD As ScriptDefinition In Kernel.Scripts
+            If SD.Filename.Equals(ScriptsView.SelectedRows(0).Cells(1).Value.ToString) Then
+                Dim ass As System.Reflection.Assembly = SD.CompilerResults.CompiledAssembly
+                Dim t() As Type = ass.GetExportedTypes
+                Dim mi() As MethodInfo = t(0).GetMethods()
+                For Each m As MethodInfo In mi
+                    MsgBox(m.Name)
+                Next
+                Exit For
+            End If
+        Next
+    End Sub
+
+
 End Class
