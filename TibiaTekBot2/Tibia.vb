@@ -59,7 +59,6 @@ Public NotInheritable Class Tibia
 #End Region
 
 #Region " Events "
-
     Public Event Starting() Implements ITibia.Starting
     Public Event Started() Implements ITibia.Started
     Public Event Closed() Implements ITibia.Closed

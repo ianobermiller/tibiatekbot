@@ -78,6 +78,7 @@
     <Item Name="Light Shovel" Kind="Tool" ID="H164E"/>
 	<Item Name="Frozen Starlight" Kind="Tool" ID="HCB1"/>
     <Item Name="Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCCD"/>
+	<Item Name="Hunting Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HD13"/>
 	<Item Name="Enchanted Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CC7"/>
 	<Item Name="Royal Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CD2"/>
     <Item Name="Small Stone" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H6F5"/>
@@ -341,7 +342,13 @@
 	<Item Name="Small Sapphire" Kind="Valuable" ID="HBD5"/>
 	<Item Name="Black Pearl" Kind="Valuable" ID="HBD3"/>
 	<Item Name="Small Amethyst" Kind="Valuable" ID="HBD9"/>
+	<Item Name="Panpipes" Kind="Valuable" ID="HB89"/>
+	<Item Name="Model Ship" Kind="Valuable" ID="HBB2"/>
+	<Item Name="Pirate Shirt" Kind="Valuable" ID="H17CF"/>
 	<Item Name="Red Gem" Kind="Valuable" ID="HBDF"/>
+	<Item Name="Small Amethyst" Kind="Valuable" ID="HBD9"/>
+	<Item Name="Deer Trophy" Kind="Valuable" ID="H1CE5"/>
+	<Item Name="Post Officer's Hat" Kind="Helmet,Equipment,Valuable" ID="HBF8"/>
 	<Item Name="Empty Potion Flask" Kind="FluidContainer" ID="H11D"/>
 	<Item Name="Strong Empty Potion Flask" Kind="FluidContainer" ID="H11B"/>
 	<Item Name="Great Empty Potion Flask" Kind="FluidContainer" ID="H11C"/>
@@ -351,4 +358,17 @@
 	<Item Name="Mana Potion" Kind="Tool" ID="H10C"/>
 	<Item Name="Strong Mana Potion" Kind="Tool" ID="HED"/>
 	<Item Name="Great Mana Potion" Kind="Tool" ID="HEE"/>
+	<Item Name="Earth Arrow" Kind="Equipment,Ammunition" ID="H306"/>
+	<Item Name="Flash Arrow" Kind="Equipment,Ammunition" ID="H2F9"/>
+	<Item Name="Shiver Arrow" Kind="Equipment,Ammunition" ID="H2FA"/>
+	<Item Name="Flaming Arrow" Kind="Equipment,Ammunition" ID="H2FB"/>
+	<Item Name="Sniper Arrow" Kind="Equipment,Ammunition" ID="H1CC4"/>
+	<Item Name="Piercing Bolt" Kind="Equipment,Ammunition" ID="H1CC3"/>
+	<Item Name="Power Bolt" Kind="Equipment,Ammunition" ID="HD7A"/>
+	<Item Name="Turtle Shell" Kind="Valuable" ID="H170B"/>
+	<Item Name="Double Axe" Kind="Equipment,DoubleHandedWeapon" ID="HCCB"/>
+	<Item Name="Naginata" Kind="Equipment,DoubleHandedWeapon" ID="HCF2"/>
+	<Item Name="Mystic Blade" Kind="Equipment,SingleHandedWeapon" ID="H1CD8"/>
+	<Item Name="Serpent Sword" Kind="Equipment,SingleHandedWeapon" ID="HCE1"/>
+	<Item Name="Crystal Sword" Kind="Equipment,SingleHandedWeapon" ID="H1D19"/>
 </Items>

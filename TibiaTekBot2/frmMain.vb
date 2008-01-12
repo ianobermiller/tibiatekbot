@@ -1779,8 +1779,8 @@ Public Class frmMain
             If Kernel.IRCClient.IsConnected Then
                 Kernel.IRCClient.Quit()
             End If
-            If Not Kernel.IRCClient.DoMainLoopThread Is Nothing Then
-                Kernel.IRCClient.DoMainLoopThread.Abort()
+            If Not Kernel.IRCClient.MainThread Is Nothing Then
+                Kernel.IRCClient.MainThread.Abort()
             End If
             If Not Kernel.Client Is Nothing Then
                 Kernel.Client.Close()
