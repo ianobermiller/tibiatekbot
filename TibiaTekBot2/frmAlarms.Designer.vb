@@ -95,6 +95,7 @@ Partial Class frmAlarms
         Me.MessageIgnoredPlayersInput = New System.Windows.Forms.TextBox
         Me.MessageIgnoredPlayers = New System.Windows.Forms.ListBox
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
+        Me.MessagePauseBot = New System.Windows.Forms.CheckBox
         Me.MessageForwardMessage = New System.Windows.Forms.CheckBox
         Me.MessageLogOut = New System.Windows.Forms.CheckBox
         Me.MessagePlaySound = New System.Windows.Forms.CheckBox
@@ -133,7 +134,6 @@ Partial Class frmAlarms
         Me.BattlelistAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StatusAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ItemsAlarmTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.MessagePauseBot = New System.Windows.Forms.CheckBox
         tablalala = New System.Windows.Forms.TabPage
         tablalala.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -654,6 +654,16 @@ Partial Class frmAlarms
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Actions"
         '
+        'MessagePauseBot
+        '
+        Me.MessagePauseBot.AutoSize = True
+        Me.MessagePauseBot.Location = New System.Drawing.Point(10, 62)
+        Me.MessagePauseBot.Name = "MessagePauseBot"
+        Me.MessagePauseBot.Size = New System.Drawing.Size(75, 17)
+        Me.MessagePauseBot.TabIndex = 13
+        Me.MessagePauseBot.Text = "Pause Bot"
+        Me.MessagePauseBot.UseVisualStyleBackColor = True
+        '
         'MessageForwardMessage
         '
         Me.MessageForwardMessage.AutoSize = True
@@ -1019,16 +1029,6 @@ Partial Class frmAlarms
         'ItemsAlarmTimer
         '
         Me.ItemsAlarmTimer.Interval = 1000
-        '
-        'MessagePauseBot
-        '
-        Me.MessagePauseBot.AutoSize = True
-        Me.MessagePauseBot.Location = New System.Drawing.Point(10, 62)
-        Me.MessagePauseBot.Name = "MessagePauseBot"
-        Me.MessagePauseBot.Size = New System.Drawing.Size(72, 17)
-        Me.MessagePauseBot.TabIndex = 13
-        Me.MessagePauseBot.Text = "PauseBot"
-        Me.MessagePauseBot.UseVisualStyleBackColor = True
         '
         'frmAlarms
         '

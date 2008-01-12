@@ -19,7 +19,7 @@
 
 Public Interface IIrcClient
 
-#Region " Structures"
+#Region " Structures "
     Structure UserInformation
         Public UserLevel As Integer
     End Structure

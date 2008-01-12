@@ -700,7 +700,7 @@ Public Class IrcClient
                                                             End If
                                                         End If
                                                     End If
-                                                    RaiseEvent Invite(Nick, Channel)
+                                                    RaiseEvent Invite(From, Channel)
                                                 End If
                                         End Select
                                     End If

@@ -4011,6 +4011,10 @@ Public Module KernelModule
                             If Client.Items.IsRing(ItemID) Then
                                 Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
                                 If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+                                    If RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                        RingID = ItemID
+                                        'ConsoleWrite("Ring Changer Item: " & Client.Items.GetItemName(ItemID))
+                                    End If
                                     SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger))
                                     'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger)))
                                 Else
@@ -4021,6 +4025,10 @@ Public Module KernelModule
                             If Client.Items.IsNeck(ItemID) Then
                                 Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
                                 If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+                                    If AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                        AmuletID = ItemID
+                                        'ConsoleWrite("Amulet Changer Item: " & Client.Items.GetItemName(ItemID))
+                                    End If
                                     SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck))
                                     'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck)))
                                     AmuletID = ItemID
@@ -4033,7 +4041,12 @@ Public Module KernelModule
                                 Dim Ammodef As Scripting.IContainer.ContainerItemDefinition
                                 Dim Cont As New Container
                                 If (New Container).FindItem(Ammodef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
-                                    AmmoRestackerItemID = ItemID
+
+                                    If AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                        AmmoRestackerItemID = ItemID
+                                        ConsoleWrite("Ammunition Restacker Item: " & Client.Items.GetItemName(AmmoRestackerItemID))
+                                    End If
+
                                     SP.MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount)
                                     'Proxy.SendPacketToServer(MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount))
                                 Else
@@ -4043,16 +4056,28 @@ Public Module KernelModule
                             End If
                         ElseIf Consts.EquipItemsOnUse Then
                             If Client.Items.IsNeck(ItemID) Then
+                                If AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                    AmuletID = ItemID
+                                    'ConsoleWrite("Amulet Changer Item: " & Client.Items.GetItemName(ItemID))
+                                End If
                                 SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck), 1)
                                 'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck), 1))
                                 Send = False
                             End If
                             If Client.Items.IsRing(ItemID) Then
+                                If RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                    RingID = ItemID
+                                    'ConsoleWrite("Ring Changer Item: " & Client.Items.GetItemName(ItemID))
+                                End If
                                 SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger), 1)
                                 'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger), 1))
                                 Send = False
                             End If
                             If Client.Items.IsAmmunition(ItemID) Then
+                                If AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                    AmmoRestackerItemID = ItemID
+                                    'ConsoleWrite("Ammunition Restacker Item: " & Client.Items.GetItemName(AmmoRestackerItemID))
+                                End If
                                 SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), 100)
                                 'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), 100))
                                 Send = False
