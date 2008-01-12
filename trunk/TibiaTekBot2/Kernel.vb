@@ -126,6 +126,7 @@ Public Module KernelModule
         Public WithEvents BGWCharCommand As BackgroundWorker
         Public WithEvents BGWGuildMembersCommand As BackgroundWorker
         Public WithEvents BGWUpdateChecker As BackgroundWorker
+        Public WithEvents BGWConnectIrc As BackgroundWorker
         Public WithEvents LightTimerObj As ThreadTimer
         Public WithEvents GreetingTimerObj As ThreadTimer
         Public WithEvents ExpCheckerTimerObj As ThreadTimer
@@ -384,6 +385,7 @@ Public Module KernelModule
                 BGWOpenCommand = New BackgroundWorker()
                 BGWCharCommand = New BackgroundWorker()
                 BGWGuildMembersCommand = New BackgroundWorker()
+                BGWConnectIrc = New BackgroundWorker
                 BGWUpdateChecker = New BackgroundWorker()
                 BGWMapViewer = New BackgroundWorker()
                 BGWSendLocation = New BackgroundWorker()
@@ -845,11 +847,22 @@ Public Module KernelModule
 
 #End Region
 
+#Region " Connect Irc BG Worker "
+        Public Sub ConnectIrcd_() Handles BGWConnectIrc.DoWork
+            Try
+                ConnectToIrc()
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+#End Region
+
 #End Region
 
 #Region " Thread Timers "
         Public Sub StopEverything()
             Try
+                If BGWConnectIrc.IsBusy Then BGWConnectIrc.CancelAsync()
                 LightC = ITibia.LightColor.Darkness
                 LightI = ITibia.LightIntensity.None
                 LightTimerObj.StopTimer()
@@ -2833,7 +2846,11 @@ Public Module KernelModule
                 If Consts.AutoPublishLocation Then AutoPublishLocationTimerObj.StartTimer()
                 If Consts.ShowInvisibleCreatures Then ShowInvisibleCreaturesTimerObj.StartTimer()
                 If Consts.IRCConnectOnStartUp Then
-                    ConnectToIrc()
+                    If BGWConnectIrc.IsBusy Then
+                        BGWConnectIrc.CancelAsync()
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    BGWConnectIrc.RunWorkerAsync()
                 End If
                 If Not IO.File.Exists(GetProfileDirectory() & "\config.txt") Then
                     ConsoleError("Unable to load your configuration.")
@@ -3428,7 +3445,8 @@ Public Module KernelModule
 
         Public Sub ConnectToIrc()
             Try
-                If Not Client.IsConnected Then Exit Sub
+                'If Client.IsConnected Then Exit Sub
+                'ConsoleError("cli")
                 'IrcGenerateNick()
                 If Not String.IsNullOrEmpty(Consts.IRCNickname) Then
                     IRCClient.Nick = Consts.IRCNickname
@@ -3439,9 +3457,10 @@ Public Module KernelModule
                 IRCClient.User = Environment.MachineName
                 IRCClient.Invisible = True
                 If Not IRCClient.Connect Then
+                    ConsoleError("Unable to connect to ")
                     Exit Sub
                 End If
-                IRCClient.MainLoop()
+                IRCClient.DoMainThread()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3463,7 +3482,7 @@ Public Module KernelModule
         Public Sub IrcChannelSpeakOwner(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(Nick, 4, ITibia.ChannelMessageType.GameMaster, Message, ChannelID)
+                CP.Speak(Nick, 4, ITibia.ChannelMessageType.Tutor, Message, ChannelID)
                 'Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 5, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3483,7 +3502,7 @@ Public Module KernelModule
         Public Sub IrcChannelSpeakOperator(ByVal Nick As String, ByVal Message As String, ByVal ChannelID As Integer)
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
-                CP.Speak(Nick, 3, ITibia.ChannelMessageType.GameMaster, Message, ChannelID)
+                CP.Speak(Nick, 3, ITibia.ChannelMessageType.Tutor, Message, ChannelID)
                 'Proxy.SendPacketToClient(CreatureSpeak(Nick, MessageType.ChannelGM, 4, Message, 0, 0, 0, ChannelID))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3522,7 +3541,7 @@ Public Module KernelModule
 
         Public Function IrcChannelIDToName(ByVal ChannelID As Integer) As String
             Try
-                For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+                For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, IIrcClient.ChannelInformation) In IRCClient.Channels
                     If ChannelKVP.Value.ID = ChannelID Then
                         Return ChannelKVP.Key
                     End If
@@ -3534,7 +3553,7 @@ Public Module KernelModule
         End Function
 
         Public Function IrcChannelIsOpened(ByVal ChannelID As Integer) As Boolean
-            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, IIrcClient.ChannelInformation) In IRCClient.Channels
                 If ChannelID = ChannelKVP.Value.ID Then
                     Return True
                 End If
@@ -3543,7 +3562,7 @@ Public Module KernelModule
         End Function
 
         Public Function IrcChannelIsOpened(ByRef ChannelName As String) As Boolean
-            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, IIrcClient.ChannelInformation) In IRCClient.Channels
                 If String.Equals(ChannelName, ChannelKVP.Key, StringComparison.CurrentCultureIgnoreCase) AndAlso ChannelKVP.Value.ID > 0 Then
                     ChannelName = ChannelKVP.Key
                     Return True
@@ -3554,7 +3573,7 @@ Public Module KernelModule
 
         Public Function IrcChannelNameToID(ByVal ChannelName As String) As Integer
             Try
-                For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+                For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, IIrcClient.ChannelInformation) In IRCClient.Channels
                     If String.Equals(ChannelName, ChannelKVP.Key, StringComparison.CurrentCultureIgnoreCase) Then
                         Return ChannelKVP.Value.ID
                     End If
@@ -3568,16 +3587,11 @@ Public Module KernelModule
 #End Region
 
 #Region " IRC Events "
-        'Public Event EventPrivateMessage As PrivateMessage
-        'Public Event EventChannelError As ChannelError
-        'Public Event EventChannelMode As ChannelMode
-        'Public Event EventChannelNamesList As ChannelNamesList
-
-        Private Sub IrcClient_ChannelJoin(ByVal Nick As String, ByVal Channel As String) Handles IRCClient.EventChannelJoin
+        Private Sub IrcClient_ChannelJoin(ByVal Nick As String, ByVal Channel As String) Handles IRCClient.ChannelJoin
             'ConsoleWrite(Nick & " joined " & Channel & ".")
         End Sub
 
-        Private Sub IrcClient_ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelKick
+        Private Sub IrcClient_ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.ChannelKick
             Try
                 'ConsoleWrite(NickKicker & " kicked " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".")
                 If IrcChannelIsOpened(Channel) Then
@@ -3588,7 +3602,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_ChannelAction(ByVal Nick As String, ByVal Action As String, ByVal Channel As String) Handles IRCClient.EventChannelAction
+        Private Sub IrcClient_ChannelAction(ByVal Nick As String, ByVal Action As String, ByVal Channel As String) Handles IRCClient.ChannelAction
             Try
                 IrcChannelSpeakUnknown(Nick & " " & Action, IrcChannelNameToID(Channel))
             Catch Ex As Exception
@@ -3596,7 +3610,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_ChannelBroadcast(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.EventChannelBroadcast
+        Private Sub IrcClient_ChannelBroadcast(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.ChannelBroadcast
             Try
                 Dim CP As New ClientPacketBuilder(Proxy)
                 CP.SpeakWithBroadcast(Nick, Message)
@@ -3606,7 +3620,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_ChannelSelfKick(ByVal nickkicker As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.EventChannelSelfKick
+        Private Sub IrcClient_ChannelSelfKick(ByVal nickkicker As String, ByVal Reason As String, ByVal Channel As String) Handles IRCClient.ChannelSelfKick
             Try
                 IrcChannelSpeakUnknown("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
                 ConsoleError("You have been kicked from " & Channel & " by " & nickkicker & ". Reason: " & Reason & ".")
@@ -3615,7 +3629,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_TopicChange(ByVal ChannelInfo As ChannelInformation) Handles IRCClient.EventChannelTopicChange
+        Private Sub IrcClient_TopicChange(ByVal ChannelInfo As IIrcClient.ChannelInformation) Handles IRCClient.ChannelTopicChange
             Try
                 Thread.Sleep(1000)
                 If IrcChannelIsOpened(ChannelInfo.Name) Then
@@ -3626,7 +3640,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_ChannelSelfPart(ByVal Channel As String) Handles IRCClient.EventChannelSelfPart
+        Private Sub IrcClient_ChannelSelfPart(ByVal Channel As String) Handles IRCClient.ChannelSelfPart
             Try
                 ConsoleWrite("You have left " & Channel & ".")
             Catch Ex As Exception
@@ -3634,17 +3648,17 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_NickChange(ByVal OldNick As String, ByVal NewNick As String) Handles IRCClient.EventNickChange
+        Private Sub IrcClient_NickChange(ByVal OldNick As String, ByVal NewNick As String) Handles IRCClient.NickChange
             'If IrcChannelIsOpened(Channel) Then
             '    IrcChannelSpeakOperator(Channel, OldNick & " is now known as " & NickKicked & " from " & Channel & ". Reason: " & Reason & ".", IrcChannelNameToID(Channel))
             'End If
         End Sub
 
-        Private Sub IrcClient_Quit(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventQuit
+        Private Sub IrcClient_Quit(ByVal Nick As String, ByVal Message As String) Handles IRCClient.QuitIrc
             'ConsoleWrite(Nick & " quits. Reason: " & Message & ".")
         End Sub
 
-        Private Sub IrcClient_ChannelSelfJoin(ByVal Channel As String) Handles IRCClient.EventChannelSelfJoin
+        Private Sub IrcClient_ChannelSelfJoin(ByVal Channel As String) Handles IRCClient.ChannelSelfJoin
             Try
                 ConsoleWrite("Joined channel " & Channel & ".")
                 Dim UsedIDs As New List(Of Integer)
@@ -3652,17 +3666,17 @@ Public Module KernelModule
                 If IrcChannelIsOpened(Channel) Then
                     ConsoleWrite("You have already joined that channel.")
                 End If
-                For Each ChannelInfo As ChannelInformation In IRCClient.Channels.Values
+                For Each ChannelInfo As IIrcClient.ChannelInformation In IRCClient.Channels.Values
                     If ChannelInfo.ID > 0 Then
                         UsedIDs.Add(ChannelInfo.ID)
                     End If
                 Next
                 Dim R As New Random(System.DateTime.Now.Millisecond)
-                Dim CI As ChannelInformation
+                Dim CI As IIrcClient.ChannelInformation
                 Do
                     ChannelID = R.Next(ITibia.Channel.IRCChannelBegin, ITibia.Channel.IRCChannelEnd) '0..39
                     If Not UsedIDs.Contains(ChannelID) Then
-                        For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, ChannelInformation) In IRCClient.Channels
+                        For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, IIrcClient.ChannelInformation) In IRCClient.Channels
                             If ChannelKVP.Key = Channel Then
                                 CI = ChannelKVP.Value
                                 CI.ID = ChannelID
@@ -3682,7 +3696,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_Connecting() Handles IRCClient.EventConnecting
+        Private Sub IrcClient_Connecting() Handles IRCClient.Connecting
             Try
                 ConsoleWrite("Connecting to IRC. Please Wait...")
             Catch Ex As Exception
@@ -3690,7 +3704,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_Connected() Handles IRCClient.EventConnected
+        Private Sub IrcClient_Connected() Handles IRCClient.Connected
             Try
                 ConsoleWrite("Successfully connected to IRC. Opening channels, please wait...")
                 If Not String.IsNullOrEmpty(IRCClient.Nick) AndAlso Not String.IsNullOrEmpty(Consts.IRCPassword) Then
@@ -3706,7 +3720,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_Notice(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventNotice
+        Private Sub IrcClient_Notice(ByVal Nick As String, ByVal Message As String) Handles IRCClient.Notice
             Try
                 If Nick.StartsWith("dairc", StringComparison.CurrentCultureIgnoreCase) Then Exit Sub
                 Dim CP As New ClientPacketBuilder(Proxy)
@@ -3717,13 +3731,13 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_PrivateMessage(ByVal Nick As String, ByVal Message As String) Handles IRCClient.EventPrivateMessage
+        Private Sub IrcClient_PrivateMessage(ByVal Nick As String, ByVal Message As String) Handles IRCClient.PrivateMessage
             Dim CP As New ClientPacketBuilder(Proxy)
             CP.Speak(Nick & "@IRC", 0, Message, ITibia.PrivateMessageType.Normal)
             'Core.Proxy.SendPacketToClient(PacketUtils.CreatureSpeak(Nick & "@IRC", MessageType.PM, 5, Message, 0, 0, 0, ChannelType.Console))
         End Sub
 
-        Private Sub IrcClient_Disconnected() Handles IRCClient.EventDisconnected
+        Private Sub IrcClient_Disconnected() Handles IRCClient.Disconnected
             Try
                 ConsoleError("Disconnected from IRC.")
                 IRCClient.Channels.Clear()
@@ -3732,7 +3746,7 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_EndMOTD() Handles IRCClient.EventEndMOTD
+        Private Sub IrcClient_EndMOTD() Handles IRCClient.EndMOTD
             Try
                 If Consts.IRCJoinAfterConnected Then
                     Dim _Channels() As String = Consts.IRCJoinChannels.Split(","c)
@@ -3769,7 +3783,21 @@ Public Module KernelModule
             End Try
         End Sub
 
-        Private Sub IrcClient_ChannelMessage(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.EventChannelMessage
+        Private Sub IrcClient_Invite(ByVal Nick As String, ByVal Channel As String) Handles IRCClient.Invite
+            Try
+                Static LastInvite As DateTime = Now
+                Static FirstTime As Boolean = True
+                If Not FirstTime AndAlso LastInvite.Subtract(Now).TotalSeconds < 10 Then Exit Sub
+                FirstTime = False
+                Dim CPB As New ClientPacketBuilder(Proxy)
+                CPB.SystemMessage(ITibia.SysMessageType.Information, "You have been invited to join " & Channel & " by " & Nick & "@IRC")
+                LastInvite = Now
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+
+        Private Sub IrcClient_ChannelMessage(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.ChannelMessage
             Try
                 If IrcChannelIsOpened(Channel) Then
                     Select Case IRCClient.GetUserLevel(Nick, Channel)
@@ -4924,6 +4952,17 @@ Public Module KernelModule
 #End Region
 
 #Region " Properties "
+        Public ReadOnly Property GetIrcClient() As IIrcClient Implements IKernel.IrcClient
+            Get
+                Try
+                    Return IRCClient
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
+            End Get
+        End Property
+
         Public ReadOnly Property GetSpells() As Scripting.ISpells Implements IKernel.Spells
             Get
                 Try

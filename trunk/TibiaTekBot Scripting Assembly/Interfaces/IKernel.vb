@@ -24,6 +24,7 @@ Public Interface IKernel
     ReadOnly Property Proxy() As IProxy
     ReadOnly Property Spells() As ISpells
     ReadOnly Property CommandParser() As ICommandParser
+    ReadOnly Property IrcClient() As IIrcClient
 #End Region
 
 #Region " Methods "

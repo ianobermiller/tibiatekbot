@@ -72,6 +72,7 @@
     <Compile Include="Classes\ClientPacketBuilder.vb" />
     <Compile Include="Classes\ThreadTimer.vb" />
     <Compile Include="Interfaces\ICommandParser.vb" />
+    <Compile Include="Interfaces\IIrcClient.vb" />
     <Compile Include="Interfaces\IKernel.vb" />
     <Compile Include="Interfaces\IOutfits.vb" />
     <Compile Include="Interfaces\IPipePacketBuilder.vb" />
