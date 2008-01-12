@@ -403,6 +403,47 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
+    'NEW ONES. Not implemented yet to scripting
+
+    Public ReadOnly Property CharacterHP() As Integer Implements ITibia.CharacterHP
+        Get
+            Try
+                Dim Hp As Integer
+                Kernel.Client.ReadMemory(Consts.ptrHitPoints, Hp, 4)
+                Return Hp
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterMP() As Integer Implements ITibia.CharacterMP
+        Get
+            Try
+                Dim Mp As Integer
+                Kernel.Client.ReadMemory(Consts.ptrManaPoints, Mp, 4)
+                Return Mp
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterExp() As Integer Implements ITibia.CharacterExp
+        Get
+            Try
+                Dim Exp As Integer
+                Kernel.Client.ReadMemory(Consts.ptrExperience, Exp, 4)
+                Return Exp
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region " Methods "

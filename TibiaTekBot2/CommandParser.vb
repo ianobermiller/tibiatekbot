@@ -836,7 +836,7 @@ Public Class CommandParser
                     "Note: Uses same delays as auto healer.")
                 Case "cavebot"
                     Kernel.ConsoleWrite("«Cavebot»" & Ret & _
-                    "Usage: &cavebot <on | off | continue | add <walk | rope | ladder | sewer> <hole | stairs | shovel <up | down | left | right>>" & Ret & _
+                    "Usage: &cavebot <on | off | continue | load ""Waypoint file"" | add <walk | rope | ladder | sewer> <hole | stairs | shovel <up | down | left | right>>" & Ret & _
                     "Example: &cavebot on." & Ret & _
                     "Example: &cavebot add stairs up." & Ret & _
                     "Comment: " & Ret & _
@@ -845,7 +845,7 @@ Public Class CommandParser
                     "Note: Check Constants for more options.")
                 Case "walker"
                     Kernel.ConsoleWrite("«Walker»" & Ret & _
-                    "Usage: &walker <on | off | continue>" & Ret & _
+                    "Usage: &walker <on | off | continue | load ""Waypoint file""" & Ret & _
                     "Example: &walker on." & Ret & _
                     "Comment: " & Ret & _
                     "  Walker simply walks from point A to point B." & Ret & _
@@ -1254,7 +1254,7 @@ Public Class CommandParser
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Kernel.ConsoleWrite("Begin Test")
-            Kernel.ConsoleWrite(Kernel.Client.CharacterHasCondition(ITibia.Conditions.Burnt))
+            Kernel.ConsoleWrite(Application.StartupPath)
             Kernel.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2430,7 +2430,7 @@ Public Class CommandParser
                     Kernel.ConsoleWrite("Cavebot is now Enabled.")
                     Kernel.CBState = CavebotState.Walking
                 Case Else 'ADD or Continue
-                    If Arguments(2).ToString = "continue" Then
+                    If Arguments(2).ToString.ToLower = "continue" Then
                         If Kernel.Walker_Waypoints.Count = 0 Then
                             Kernel.ConsoleWrite("No waypoints found.")
                             Exit Sub
@@ -2591,7 +2591,25 @@ Public Class CommandParser
                                                     Kernel.ConsoleWrite("Stopped adding waypoints automatically.")
                                             End Select
                                         Else
-                                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                            MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(load|append)\s+""?(.+)""$")
+                                            If MatchObj.Success Then
+                                                Dim Path As String = MatchObj.Groups(2).ToString
+                                                If Path.StartsWith("\") Then ' "\...\waypoint.xml"
+                                                    Path = Application.StartupPath & Path
+                                                ElseIf Not Path.Contains("\") Then ' "waypoint.xml"
+                                                    Path = MiscUtils.GetWaypointsDirectory & "\" & Path
+                                                End If ' else "C:\..\waypoint.xml"
+
+                                                If IO.File.Exists(Path) Then
+                                                    WalkerModule.Load(Path)
+                                                    Kernel.ConsoleWrite("Loading waypoints compeleted.")
+                                                Else
+                                                    Kernel.ConsoleError("Unable to find waypoint file.")
+                                                    Exit Sub
+                                                End If
+                                            Else
+                                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                            End If
                                         End If
                                     End If
                                 End If
@@ -2764,7 +2782,25 @@ Public Class CommandParser
                                                         Kernel.ConsoleWrite("Stopped adding waypoints automatically.")
                                                 End Select
                                             Else
-                                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                                MatchObj = Regex.Match(Arguments(2).ToString.ToLower, "(load|append)\s+""?(.+)""$")
+                                                If MatchObj.Success Then
+                                                    Dim Path As String = MatchObj.Groups(2).ToString
+                                                    If Path.StartsWith("\") Then ' "\...\waypoint.xml"
+                                                        Path = Application.StartupPath & Path
+                                                    ElseIf Not Path.Contains("\") Then ' "waypoint.xml"
+                                                        Path = MiscUtils.GetWaypointsDirectory & "\" & Path
+                                                    End If ' else "C:\..\waypoint.xml"
+
+                                                    If IO.File.Exists(Path) Then
+                                                        WalkerModule.Load(Path)
+                                                        Kernel.ConsoleWrite("Loading waypoints compeleted.")
+                                                    Else
+                                                        Kernel.ConsoleError("Unable to find waypoint file.")
+                                                        Exit Sub
+                                                    End If
+                                                Else
+                                                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                                End If
                                             End If
                                         End If
                                     End If

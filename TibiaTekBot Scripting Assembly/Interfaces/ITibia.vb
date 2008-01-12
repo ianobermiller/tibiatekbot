@@ -258,6 +258,10 @@ Public Interface ITibia
     ReadOnly Property Items() As IItems
     WriteOnly Property TopMost() As Boolean
     ReadOnly Property CharacterHasCondition(ByVal Condition As Scripting.ITibia.Conditions) As Boolean
+    ReadOnly Property CharacterHP() As Integer
+    ReadOnly Property CharacterMP() As Integer
+    ReadOnly Property CharacterExp() As Integer
+
 
 #End Region
 
