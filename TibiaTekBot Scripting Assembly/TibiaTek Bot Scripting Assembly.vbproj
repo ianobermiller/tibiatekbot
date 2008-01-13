@@ -107,7 +107,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Test Script\ManaSmartEater.vb" />
     <None Include="Test Script\ReadBattlelist.tts.vb" />
     <None Include="Test Script\UsingTimers.tts.vb" />
     <None Include="Test Script\UsingCommandParser.tts.vb" />
