@@ -24,70 +24,46 @@ Module PacketUtils
 #Region " Packet Reading "
 
     Public Function GetString(ByVal bytBuffer() As Byte, ByRef Start As UInteger) As String
-        Try
-            Dim intCount As Integer
-            Dim intTemp As UShort
-            Dim strString As String = ""
-            intTemp = GetWord(bytBuffer, Start)
-            For intCount = Start To intTemp + Start - 1
-                strString = strString & Chr(bytBuffer(intCount))
-            Next
-            Start = intTemp + Start
-            Return strString
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
+        Dim intCount As Integer
+        Dim intTemp As UShort
+        Dim strString As String = ""
+        intTemp = GetWord(bytBuffer, Start)
+        For intCount = Start To intTemp + Start - 1
+            strString = strString & Chr(bytBuffer(intCount))
+        Next
+        Start = intTemp + Start
+        Return strString
     End Function
 
     Public Function GetByte(ByVal bytBuffer() As Byte, ByRef Start As UInteger) As Byte
-        Try
-            Dim Result As Byte = bytBuffer(Start)
-            Start += 1
-            Return Result
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
+
+        Dim Result As Byte = bytBuffer(Start)
+        Start += 1
+        Return Result
     End Function
 
     Public Function GetWord(ByVal bytBuffer() As Byte, ByRef Start As UInteger) As UInt16
-        Try
-            Dim Result As UInt16 = bytBuffer(Start) + (CUShort(bytBuffer(Start + 1)) * 256)
-            Start += 2
-            Return Result
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
+        Dim Result As UInt16 = bytBuffer(Start) + (CUShort(bytBuffer(Start + 1)) * 256)
+        Start += 2
+        Return Result
     End Function
 
     Public Function GetDWord(ByVal bytBuffer() As Byte, ByRef Start As UInteger) As UInt32
-        Try
-            Dim Result As UInt32 = bytBuffer(Start)
-            Result += (CUInt(bytBuffer(Start + 1)) * 256)
-            Result += (CUInt(bytBuffer(Start + 2)) * 256 * 256)
-            Result += (CUInt(bytBuffer(Start + 3)) * 256 * 256 * 256)
-            Start += 4
-            Return Result
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End
-        End Try
+        Dim Result As UInt32 = bytBuffer(Start)
+        Result += (CUInt(bytBuffer(Start + 1)) * 256)
+        Result += (CUInt(bytBuffer(Start + 2)) * 256 * 256)
+        Result += (CUInt(bytBuffer(Start + 3)) * 256 * 256 * 256)
+        Start += 4
+        Return Result
     End Function
 
 	Public Function GetLocation(ByVal bytbuffer() As Byte, ByRef Start As UInteger) As ITibia.LocationDefinition
-		Try
-			Dim Loc As New ITibia.LocationDefinition
-			Loc.X = GetWord(bytbuffer, Start)
-			Loc.Y = GetWord(bytbuffer, Start)
-			Loc.Z = GetByte(bytbuffer, Start)
-			Return Loc
-		Catch Ex As Exception
-			MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-			End
-		End Try
-	End Function
+        Dim Loc As New ITibia.LocationDefinition
+        Loc.X = GetWord(bytbuffer, Start)
+        Loc.Y = GetWord(bytbuffer, Start)
+        Loc.Z = GetByte(bytbuffer, Start)
+        Return Loc
+    End Function
 
 
 #End Region

@@ -23,6 +23,7 @@ Imports Scripting, System.Runtime.InteropServices, System.Windows.Forms, System.
 Public NotInheritable Class Tibia
     Implements ITibia
 
+
 #Region " Windows API Declarations "
     Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As Int32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
     Private Declare Function WriteProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByVal lpBuffer() As Byte, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
@@ -65,6 +66,7 @@ Public NotInheritable Class Tibia
     Public Event Connected() Implements ITibia.Connected
     Public Event Disconnected() Implements ITibia.Disconnected
     Public Event CharacterConditionsChanged(ByVal Conditions As Scripting.ITibia.Conditions) Implements ITibia.CharacterConditionsChanged
+    'Public Event CharacterStatsChanged(ByVal Health As UInteger, ByVal MaxHealth As UInteger, ByVal FreeCapacity As UInteger, ByVal Experience As UInteger) Implements Scripting.ITibia.CharacterStatsChanged
 #End Region
 
 #Region " Structures "
@@ -390,7 +392,7 @@ Public NotInheritable Class Tibia
             Try
                 Dim CurrentConditions As Integer = 0
 
-                Kernel.Client.ReadMemory(Consts.ptrConditions, CurrentConditions, 4)
+                ReadMemory(Consts.ptrConditions, CurrentConditions, 4)
                 If (CurrentConditions And Condition) = Condition Then
                     Return True
                 Else
@@ -409,7 +411,7 @@ Public NotInheritable Class Tibia
         Get
             Try
                 Dim Hp As Integer
-                Kernel.Client.ReadMemory(Consts.ptrHitPoints, Hp, 4)
+                ReadMemory(Consts.ptrHitPoints, Hp, 4)
                 Return Hp
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -422,7 +424,7 @@ Public NotInheritable Class Tibia
         Get
             Try
                 Dim Mp As Integer
-                Kernel.Client.ReadMemory(Consts.ptrManaPoints, Mp, 4)
+                ReadMemory(Consts.ptrManaPoints, Mp, 4)
                 Return Mp
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -431,11 +433,11 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property CharacterExp() As Integer Implements ITibia.CharacterExp
+    Public ReadOnly Property CharacterExperience() As Integer Implements ITibia.CharacterExperience
         Get
             Try
                 Dim Exp As Integer
-                Kernel.Client.ReadMemory(Consts.ptrExperience, Exp, 4)
+                ReadMemory(Consts.ptrExperience, Exp, 4)
                 Return Exp
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -800,6 +802,7 @@ Public NotInheritable Class Tibia
 #End Region
 
 #End Region
+
 
 End Class
 
