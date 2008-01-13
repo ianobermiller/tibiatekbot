@@ -1637,6 +1637,7 @@ Public Module KernelModule
                 HealTimerObj.Interval = Consts.HealersAfterHealDelay
                 Dim ServerPacket As New ServerPacketBuilder(Proxy)
                 ServerPacket.Speak(Output, ITibia.DefaultMessageType.Normal)
+                System.Threading.Thread.Sleep(Consts.HealersAfterHealDelay)
                 'Proxy.SendPacketToServer(Speak(Output, MessageType.Normal))
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2333,6 +2334,7 @@ Public Module KernelModule
                     SpellTimerObj.Interval = Consts.SpellCasterDelay
                     Dim SP As New ServerPacketBuilder(Proxy)
                     SP.Speak(SpellMsg)
+                    Thread.Sleep(Consts.SpellCasterDelay)
                     'Proxy.SendPacketToServer(Speak(SpellMsg))
                 End If
             Catch Ex As Exception
@@ -2362,6 +2364,7 @@ Public Module KernelModule
                 'Proxy.SendPacketToServer(UseHotkey(UHId, CharacterID))
                 'Proxy.SendPacketToServer(UseHotkey(UHId))
                 Log("Auto UHer", "Used UH on yourself.")
+                Thread.Sleep(Consts.HealersAfterHealDelay)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -2399,6 +2402,7 @@ Public Module KernelModule
                             End If
                     End Select
                     HealFriendTimerObj.Interval = Consts.HealersAfterHealDelay
+                    Thread.Sleep(Consts.HealersAfterHealDelay)
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
