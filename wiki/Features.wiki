@@ -1,10 +1,13 @@
 #summary Features of TibiaTek Bot v2
 #labels Featured,Phase-Design,Phase-Implementation
 
+= For v2.4 (Not yet released)
+ * Advanced Keyboard System
+ * Scripting with C# syntax
+
 = For v2.3 (Not yet released) =
  * Fastest Auto Looter (8 items looted in 1 second)
- * Scripting (VB .NET and C#)
- * Advanced Keyboard System
+ * Scripting (VB .NET)
  * Regular Expression Builder for Trade Channel Watcher
  * .WPT File Support for Cavebot
  * The TTB Tray Icon Menu can be found on the GUI
