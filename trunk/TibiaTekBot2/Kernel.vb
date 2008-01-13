@@ -314,6 +314,7 @@ Public Module KernelModule
         Public DrinkerManaRequired As Integer = 0
 
         Public Walker_Waypoints As New List(Of Walker)
+        Public WaitAttacker As Date = Nothing
         Public WaypointIndex As Integer = 0
         Public WalkerWaitUntil As DateTime
         Public WalkerFirstTime As Boolean = True
@@ -2286,23 +2287,23 @@ Public Module KernelModule
                 If Not Client.IsConnected Then Exit Sub
                 Dim BotNameStart As String = BotName
                 If TTBState = BotState.Paused Then BotNameStart += " [Paused]"
-                Dim NextLevelExpL As Long = 0
-                Dim CurrentLevelExpL As Long = 0
-                Dim ExperienceL As Long = Experience
-                Dim LastExperienceL As Long = LastExperience
-                Dim NextLevelPercentageL As Long = NextLevelPercentage
+                Dim NextLevelExpL As Double = 0
+                Dim CurrentLevelExpL As Double = 0
+                Dim ExperienceL As Double = Experience
+                Dim LastExperienceL As Double = LastExperience
+                Dim NextLevelPercentageL As Double = NextLevelPercentage
                 If ExperienceL < 0 Then Exit Sub
                 If ExpCheckerActivated Then
                     If LastExperienceL > 0 AndAlso ExperienceL = LastExperience Then
                         Exit Sub
                     End If
                 End If
-                NextLevelExpL = CLng(Floor(((16 + (2 / 3)) * Pow(Level + 1, 3)) - (100 * Pow(Level + 1, 2)) + (((283 + (1 / 3)) * (Level + 1)) - 200)))
+                NextLevelExpL = CDbl(Floor(((16 + (2 / 3)) * Pow(Level + 1, 3)) - (100 * Pow(Level + 1, 2)) + (((283 + (1 / 3)) * (Level + 1)) - 200)))
                 NextLevelExp = CInt(NextLevelExpL)
-                CurrentLevelExpL = CLng(Floor(((16 + (2 / 3)) * Pow(Level, 3)) - (100 * Pow(Level, 2)) + (((283 + (1 / 3)) * (Level)) - 200)))
-                CurrentLevelExp = CInt(CurrentLevelExpL)
+                CurrentLevelExpL = CDbl(Floor(((16 + (2 / 3)) * Pow(Level, 3)) - (100 * Pow(Level, 2)) + (((283 + (1 / 3)) * (Level)) - 200)))
+                CurrentLevelExp = CDbl(CurrentLevelExpL)
                 If (Level = 0) Or (Experience = 0) Then Exit Sub
-                NextLevelPercentageL = CLng(Floor((ExperienceL - CurrentLevelExpL) * 100 / (NextLevelExpL - CurrentLevelExpL)))
+                NextLevelPercentageL = CDbl(Floor((ExperienceL - CurrentLevelExpL) * 100 / (NextLevelExpL - CurrentLevelExpL)))
                 NextLevelPercentage = CInt(NextLevelPercentageL)
                 If ExpCheckerActivated Then
                     If Not Client.Title.Equals(BotNameStart & " - " & Kernel.Client.CharacterName.ToString & " - Exp. For Level " & (Level + 1) & ": " & (NextLevelExp - Experience) & " (" & NextLevelPercentage & "% completed)") Then
@@ -2644,6 +2645,14 @@ Public Module KernelModule
                             If BL.GetHPPercentage = 0 Then
                                 Kernel.CBState = CavebotState.OpeningBody
                                 Exit Select
+                            End If
+                        Else
+                            If WaitAttacker = Nothing Then
+                                WaitAttacker = Date.Now.AddSeconds(3)
+                            End If
+                            If Date.Now > WaitAttacker Then
+                                Kernel.CBState = CavebotState.Walking
+                                WaitAttacker = Nothing
                             End If
                         End If
                         If Not BL.CreaturesOnScreen Then

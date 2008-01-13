@@ -1254,7 +1254,9 @@ Public Class CommandParser
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Kernel.ConsoleWrite("Begin Test")
-            Kernel.ConsoleWrite(Application.StartupPath)
+            Dim P As New Packet()
+            P.AddByte(&H28)
+            Kernel.Proxy.SendToClient(P)
             Kernel.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
