@@ -260,7 +260,7 @@ Public Interface ITibia
     ReadOnly Property CharacterHasCondition(ByVal Condition As Scripting.ITibia.Conditions) As Boolean
     ReadOnly Property CharacterHP() As Integer
     ReadOnly Property CharacterMP() As Integer
-    ReadOnly Property CharacterExp() As Integer
+    ReadOnly Property CharacterExperience() As Integer
 
 
 #End Region

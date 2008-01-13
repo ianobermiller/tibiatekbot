@@ -4188,9 +4188,11 @@ Public Module KernelModule
                             Case 4, &HB
                                 PrivateMessageType = MType
                                 MessageType = ITibia.MessageType.PrivateMessage
-                            Case 5, 9, &HA, &HC, &HE
+                            Case 5, &HA, &HC, &HE
                                 ChannelMessageType = MType
                                 MessageType = ITibia.MessageType.Channel
+                            Case 9 ' broadcast
+                                Exit Sub
                             Case Else
                                 Exit Sub 'ok unexpected!
                         End Select
@@ -4732,9 +4734,12 @@ Public Module KernelModule
                                 Case 4, &HB
                                     PrivateMessageType = MType
                                     MessageType = ITibia.MessageType.PrivateMessage
-                                Case 5, 9, &HA, &HC, &HE
+                                Case 5, &HA, &HC, &HE
                                     ChannelMessageType = MType
                                     MessageType = ITibia.MessageType.Channel
+                                Case 9 'broadcast
+                                    Message = GetString(bytBuffer, Pos)
+                                    Continue While
                                 Case Else
                                     Exit Sub 'ok unexpected!
                             End Select
@@ -4748,6 +4753,7 @@ Public Module KernelModule
                                     End If
                                 Case ITibia.MessageType.Channel
                                     Dim Channel As ITibia.Channel = CType(GetWord(bytBuffer, Pos), ITibia.Channel)
+                                    'MsgBox(BytesToStr(bytBuffer))
                                     Message = GetString(bytBuffer, Pos)
                                     If TradeWatcherActive AndAlso Channel = ITibia.Channel.Trade AndAlso Not Name.Equals(Client.CharacterName) Then
                                         If Regex.IsMatch(Message, TradeWatcherRegex, RegexOptions.IgnoreCase) Then
