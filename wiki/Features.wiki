@@ -1,7 +1,7 @@
 #summary Features of TibiaTek Bot v2
 #labels Featured,Phase-Design,Phase-Implementation
 
-= For v2.4 (Not yet released)
+= For v2.4 (Not yet released) =
  * Advanced Keyboard System
  * Scripting with C# syntax
 
