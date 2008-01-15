@@ -98,6 +98,7 @@ Public Interface IContainer
     ReadOnly Property GetContainerIndex() As Integer
     ReadOnly Property Items(ByVal Index As Integer) As IContainer.ContainerItemDefinition
     ReadOnly Property GetInventorySlotId(ByVal Slot As ITibia.InventorySlots) As Integer
+    ReadOnly Property GetInventorySlotCount(ByVal Slot As ITibia.InventorySlots) As Integer
 #End Region
 
 #Region " Methods "
