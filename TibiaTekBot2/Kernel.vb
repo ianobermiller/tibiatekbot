@@ -2652,11 +2652,12 @@ Public Module KernelModule
                             End If
                         Else
                             If WaitAttacker = Nothing Then
-                                WaitAttacker = Date.Now.AddSeconds(3)
-                            End If
-                            If Date.Now > WaitAttacker Then
+                                WaitAttacker = Date.Now.AddSeconds(10)
+                                'Kernel.ConsoleWrite("Added 10 seconds to timer")
+                            ElseIf Date.Now > WaitAttacker Then
                                 Kernel.CBState = CavebotState.Walking
                                 WaitAttacker = Nothing
+                                'Kernel.ConsoleWrite("Out of time, Attacker -> Walker")
                             End If
                         End If
                         If Not BL.CreaturesOnScreen Then
@@ -2686,11 +2687,13 @@ Public Module KernelModule
                             Static Cont As New Container
                             CurrentContCount = Cont.ContainerCount
                             If CurrentContCount > CBContainerCount Then
+                                WaitAttacker = Nothing
                                 CBState = CavebotState.Looting ' : Core.ConsoleWrite("Looting state ->")
                             Else
                                 If Date.Now > WaitTime Then
 
                                     'Core.ConsoleWrite("Running out of time, Walking ->")
+                                    WaitAttacker = Nothing
                                     CBState = CavebotState.Walking
                                 End If
                             End If

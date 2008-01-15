@@ -280,6 +280,7 @@ Public Interface ITibia
 	Function SendMessage(ByVal MessageID As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
 	Function MessageBox(ByVal Message As String, Optional ByVal Caption As String = "", Optional ByVal Buttons As MessageBoxButtons = MessageBoxButtons.OK, Optional ByVal Icon As MessageBoxIcon = MessageBoxIcon.None, Optional ByVal DefaultButton As MessageBoxDefaultButton = MessageBoxDefaultButton.Button1, Optional ByVal Options As MessageBoxOptions = MessageBoxOptions.DefaultDesktopOnly) As DialogResult
     Sub SetFramesPerSecond(ByVal FPS As Double)
+    Sub CharacterMove(ByVal Location As ITibia.LocationDefinition)
     Function BringToFront() As Boolean
 
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value As Integer, ByVal Size As Integer)

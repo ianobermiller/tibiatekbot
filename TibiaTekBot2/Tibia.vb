@@ -793,6 +793,18 @@ Public NotInheritable Class Tibia
         WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, NewFPS)
     End Sub
 
+    Public Sub CharacterMove(ByVal Location As ITibia.LocationDefinition) Implements Scripting.ITibia.CharacterMove
+        Try
+            Dim BL As New BattleList
+            WriteMemory(Consts.ptrGoToX, Location.X, 4)
+            WriteMemory(Consts.ptrGoToY, Location.Y, 4)
+            WriteMemory(Consts.ptrGoToZ, Location.Z, 1)
+            BL.IsWalking = True
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
 #Region " Event Raising"
 
     Public Sub Raise_CharacterConditionsChanged(ByVal Conditions As ITibia.Conditions)
