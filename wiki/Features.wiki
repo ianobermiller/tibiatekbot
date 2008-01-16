@@ -5,7 +5,7 @@
  * Advanced Keyboard System
  * Scripting with C# syntax
 
-= For v2.3 (Not yet released) =
+= Since v2.3 =
  * Fastest Auto Looter (8 items looted in 1 second)
  * Scripting (VB .NET)
  * Regular Expression Builder for Trade Channel Watcher
