@@ -43,6 +43,10 @@
     <Item Name="Energy Wall" Kind="Rune" ID="HC5E"/>
     <Item Name="Fire Wall" Kind="Rune" ID="HC76"/>
 	<Item Name="Paralyze" Kind="Rune" ID="HC5D"/>
+	<Item Name="Avalance" Kind="Rune" ID="HC59"/>
+    <Item Name="Stalagmite" Kind="Rune" ID="HC6B"/>
+    <Item Name="Stone Shower" Kind="Rune" ID="HC67"/>
+
 	
     <Item Name="Fish" Kind="Food" ID="Hdfa"/>
     <Item Name="Ham" Kind="Food" ID="Hdfe"/>
@@ -82,7 +86,8 @@
 	<Item Name="Enchanted Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CC7"/>
 	<Item Name="Royal Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CD2"/>
     <Item Name="Small Stone" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H6F5"/>
-    <Item Name="Throwing Star" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCD7"/>
+    <Item Name="Throwing Star" Kind="Equipment,SingleHandedWeapon,Throwab
+	le" ID="HCD7"/>
     <Item Name="Throwing Knife" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCE2"/>
     <Item Name="Snowball" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HBB0"/>        
     <Item Name="Fur Backpack" Kind="Equipment,Container" ID="H1CAE"/>
