@@ -2722,7 +2722,7 @@ Public Class frmMain
         Kernel.Client.BringToFront()
     End Sub
 
-    Private Sub ExpCheckerBox_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExpCheckerBox.Enter
-
+    Private Sub KeyboardToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KeyboardToolStripMenuItem.Click
+        Kernel.KeyboardForm.ShowDialog()
     End Sub
 End Class

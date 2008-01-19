@@ -424,4 +424,10 @@ Public Class frmKeyboard
                 commandArray(offset).identifier = 1
         End Select
     End Sub
+
+    Private Sub frmKeyboard_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+        e.Cancel = True
+        Me.Hide()
+    End Sub
+
 End Class

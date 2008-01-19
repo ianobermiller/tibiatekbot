@@ -140,8 +140,8 @@ Public Class CommandParser
 
     Public Function Invoke(ByVal CommandName As String, ByVal Arguments As System.Text.RegularExpressions.GroupCollection) As Boolean Implements Scripting.ICommandParser.Invoke
         Try
-            If Commands.ContainsKey(CommandName) Then
-                Commands(CommandName).Invoke(Arguments)
+            If Commands.ContainsKey(CommandName.ToLower) Then
+                Commands(CommandName.ToLower).Invoke(Arguments)
                 Return True
             Else
                 Kernel.ConsoleError("This command does not exist." & Ret & _
@@ -156,8 +156,8 @@ Public Class CommandParser
 
     Public Function Remove(ByVal CommandName As String) As Boolean Implements Scripting.ICommandParser.Remove
         Try
-            If Commands.ContainsKey(CommandName) Then
-                Commands.Remove(CommandName)
+            If Commands.ContainsKey(CommandName.ToLower) Then
+                Commands.Remove(CommandName.ToLower)
                 Return True
             Else
                 Return False
@@ -1255,8 +1255,21 @@ Public Class CommandParser
         Try
             Kernel.ConsoleWrite("Begin Test")
             Dim P As New Packet()
-            P.AddByte(&H28)
-            Kernel.Proxy.SendToClient(P)
+            Dim len As Integer = Kernel.Client.Dat.Length
+            Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+            CPB.CreateContainer(3454, &HF, "Test", 1, New Scripting.IContainer.ContainerItemDefinition() {}, False)
+            'db0
+            For I As Integer = 0 To len - 1
+                With Kernel.Client.Dat.GetInfo(I)
+                    If .BlocksPath And (.IsRotatable Or .IsFluid) Then '.IsPickupable Or
+                        CPB.AddObjectToContainer(I, &HF, 100)
+                        Kernel.ConsoleRead(Hex(I))
+                        System.Threading.Thread.Sleep(1000)
+                        CPB.RemoveObjectFromContainer(0, &HF)
+                    End If
+                End With
+            Next
+
             Kernel.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

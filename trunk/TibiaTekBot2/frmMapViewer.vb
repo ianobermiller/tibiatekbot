@@ -108,7 +108,7 @@ Public Class frmMapViewer
                                         Try
                                             If ObjectID >= Kernel.Client.Dat.Length Then
                                                 Images(Left, Top) = ImageTiles.Swamp
-                                            ElseIf Kernel.Client.Dat.GetInfo(ObjectID).IsGroundTile Then
+                                            ElseIf Kernel.Client.Dat.GetInfo(ObjectID).IsGround AndAlso Kernel.Client.Dat.GetInfo(I).Speed > 0 Then
                                                 Images(Left, Top) = ImageTiles.Walkable
                                             ElseIf Kernel.Client.Dat.GetInfo(ObjectID).Blocking Then
                                                 Images(Left, Top) = ImageTiles.NotWalkable

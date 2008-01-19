@@ -81,14 +81,39 @@ Partial Class frmKeyboard
         Me.ComboBox3 = New System.Windows.Forms.ComboBox
         Me.ComboBox2 = New System.Windows.Forms.ComboBox
         Me.IdentifierBox = New System.Windows.Forms.ComboBox
+        Me.Panel1 = New System.Windows.Forms.Panel
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton
+        Me.RadioButton4 = New System.Windows.Forms.RadioButton
+        Me.RadioButton5 = New System.Windows.Forms.RadioButton
+        Me.Panel2 = New System.Windows.Forms.Panel
+        Me.RadioButton6 = New System.Windows.Forms.RadioButton
+        Me.RadioButton7 = New System.Windows.Forms.RadioButton
+        Me.RadioButton8 = New System.Windows.Forms.RadioButton
+        Me.RadioButton9 = New System.Windows.Forms.RadioButton
+        Me.RadioButton10 = New System.Windows.Forms.RadioButton
+        Me.RadioButton11 = New System.Windows.Forms.RadioButton
+        Me.RadioButton12 = New System.Windows.Forms.RadioButton
+        Me.RadioButton13 = New System.Windows.Forms.RadioButton
+        Me.RadioButton14 = New System.Windows.Forms.RadioButton
+        Me.RadioButton15 = New System.Windows.Forms.RadioButton
+        Me.HKeyBSlsh = New System.Windows.Forms.RadioButton
+        Me.HKeyTick = New System.Windows.Forms.RadioButton
+        Me.Button1 = New System.Windows.Forms.Button
+        Me.Button2 = New System.Windows.Forms.Button
         Me.MainKeys.SuspendLayout()
         Me.ModifiersPanel.SuspendLayout()
         Me.OutputPanel.SuspendLayout()
         Me.ActionsPanel.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainKeys
         '
+        Me.MainKeys.Controls.Add(Me.HKeyTick)
+        Me.MainKeys.Controls.Add(Me.HKeyBSlsh)
         Me.MainKeys.Controls.Add(Me.HKeyFSlsh)
         Me.MainKeys.Controls.Add(Me.HKeyFStop)
         Me.MainKeys.Controls.Add(Me.HKeyComma)
@@ -136,13 +161,13 @@ Partial Class frmKeyboard
         Me.MainKeys.Controls.Add(Me.HKey1)
         Me.MainKeys.Location = New System.Drawing.Point(0, 0)
         Me.MainKeys.Name = "MainKeys"
-        Me.MainKeys.Size = New System.Drawing.Size(415, 136)
+        Me.MainKeys.Size = New System.Drawing.Size(482, 136)
         Me.MainKeys.TabIndex = 48
         '
         'HKeyFSlsh
         '
         Me.HKeyFSlsh.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyFSlsh.Location = New System.Drawing.Point(348, 102)
+        Me.HKeyFSlsh.Location = New System.Drawing.Point(379, 102)
         Me.HKeyFSlsh.Name = "HKeyFSlsh"
         Me.HKeyFSlsh.Size = New System.Drawing.Size(31, 31)
         Me.HKeyFSlsh.TabIndex = 92
@@ -154,7 +179,7 @@ Partial Class frmKeyboard
         'HKeyFStop
         '
         Me.HKeyFStop.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyFStop.Location = New System.Drawing.Point(315, 102)
+        Me.HKeyFStop.Location = New System.Drawing.Point(346, 102)
         Me.HKeyFStop.Name = "HKeyFStop"
         Me.HKeyFStop.Size = New System.Drawing.Size(31, 31)
         Me.HKeyFStop.TabIndex = 91
@@ -166,7 +191,7 @@ Partial Class frmKeyboard
         'HKeyComma
         '
         Me.HKeyComma.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyComma.Location = New System.Drawing.Point(282, 102)
+        Me.HKeyComma.Location = New System.Drawing.Point(313, 102)
         Me.HKeyComma.Name = "HKeyComma"
         Me.HKeyComma.Size = New System.Drawing.Size(31, 31)
         Me.HKeyComma.TabIndex = 90
@@ -178,7 +203,7 @@ Partial Class frmKeyboard
         'HKeyM
         '
         Me.HKeyM.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyM.Location = New System.Drawing.Point(249, 102)
+        Me.HKeyM.Location = New System.Drawing.Point(280, 102)
         Me.HKeyM.Name = "HKeyM"
         Me.HKeyM.Size = New System.Drawing.Size(31, 31)
         Me.HKeyM.TabIndex = 89
@@ -190,7 +215,7 @@ Partial Class frmKeyboard
         'HKeyN
         '
         Me.HKeyN.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyN.Location = New System.Drawing.Point(216, 102)
+        Me.HKeyN.Location = New System.Drawing.Point(247, 102)
         Me.HKeyN.Name = "HKeyN"
         Me.HKeyN.Size = New System.Drawing.Size(31, 31)
         Me.HKeyN.TabIndex = 88
@@ -202,7 +227,7 @@ Partial Class frmKeyboard
         'HKeyB
         '
         Me.HKeyB.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyB.Location = New System.Drawing.Point(183, 102)
+        Me.HKeyB.Location = New System.Drawing.Point(214, 102)
         Me.HKeyB.Name = "HKeyB"
         Me.HKeyB.Size = New System.Drawing.Size(31, 31)
         Me.HKeyB.TabIndex = 87
@@ -214,7 +239,7 @@ Partial Class frmKeyboard
         'HKeyV
         '
         Me.HKeyV.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyV.Location = New System.Drawing.Point(150, 102)
+        Me.HKeyV.Location = New System.Drawing.Point(181, 102)
         Me.HKeyV.Name = "HKeyV"
         Me.HKeyV.Size = New System.Drawing.Size(31, 31)
         Me.HKeyV.TabIndex = 86
@@ -226,7 +251,7 @@ Partial Class frmKeyboard
         'HKeyC
         '
         Me.HKeyC.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyC.Location = New System.Drawing.Point(117, 102)
+        Me.HKeyC.Location = New System.Drawing.Point(148, 102)
         Me.HKeyC.Name = "HKeyC"
         Me.HKeyC.Size = New System.Drawing.Size(31, 31)
         Me.HKeyC.TabIndex = 85
@@ -238,7 +263,7 @@ Partial Class frmKeyboard
         'HKeyX
         '
         Me.HKeyX.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyX.Location = New System.Drawing.Point(84, 102)
+        Me.HKeyX.Location = New System.Drawing.Point(115, 102)
         Me.HKeyX.Name = "HKeyX"
         Me.HKeyX.Size = New System.Drawing.Size(31, 31)
         Me.HKeyX.TabIndex = 84
@@ -250,7 +275,7 @@ Partial Class frmKeyboard
         'HKeyZ
         '
         Me.HKeyZ.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyZ.Location = New System.Drawing.Point(51, 102)
+        Me.HKeyZ.Location = New System.Drawing.Point(82, 102)
         Me.HKeyZ.Name = "HKeyZ"
         Me.HKeyZ.Size = New System.Drawing.Size(31, 31)
         Me.HKeyZ.TabIndex = 83
@@ -262,7 +287,7 @@ Partial Class frmKeyboard
         'HKeySColon
         '
         Me.HKeySColon.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeySColon.Location = New System.Drawing.Point(333, 69)
+        Me.HKeySColon.Location = New System.Drawing.Point(364, 69)
         Me.HKeySColon.Name = "HKeySColon"
         Me.HKeySColon.Size = New System.Drawing.Size(31, 31)
         Me.HKeySColon.TabIndex = 82
@@ -274,7 +299,7 @@ Partial Class frmKeyboard
         'HKeyL
         '
         Me.HKeyL.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyL.Location = New System.Drawing.Point(300, 69)
+        Me.HKeyL.Location = New System.Drawing.Point(331, 69)
         Me.HKeyL.Name = "HKeyL"
         Me.HKeyL.Size = New System.Drawing.Size(31, 31)
         Me.HKeyL.TabIndex = 81
@@ -286,7 +311,7 @@ Partial Class frmKeyboard
         'HKeyK
         '
         Me.HKeyK.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyK.Location = New System.Drawing.Point(267, 69)
+        Me.HKeyK.Location = New System.Drawing.Point(298, 69)
         Me.HKeyK.Name = "HKeyK"
         Me.HKeyK.Size = New System.Drawing.Size(31, 31)
         Me.HKeyK.TabIndex = 80
@@ -298,7 +323,7 @@ Partial Class frmKeyboard
         'HKeyJ
         '
         Me.HKeyJ.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyJ.Location = New System.Drawing.Point(234, 69)
+        Me.HKeyJ.Location = New System.Drawing.Point(265, 69)
         Me.HKeyJ.Name = "HKeyJ"
         Me.HKeyJ.Size = New System.Drawing.Size(31, 31)
         Me.HKeyJ.TabIndex = 79
@@ -310,7 +335,7 @@ Partial Class frmKeyboard
         'HKeyH
         '
         Me.HKeyH.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyH.Location = New System.Drawing.Point(201, 69)
+        Me.HKeyH.Location = New System.Drawing.Point(232, 69)
         Me.HKeyH.Name = "HKeyH"
         Me.HKeyH.Size = New System.Drawing.Size(31, 31)
         Me.HKeyH.TabIndex = 78
@@ -322,7 +347,7 @@ Partial Class frmKeyboard
         'HKeyG
         '
         Me.HKeyG.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyG.Location = New System.Drawing.Point(168, 69)
+        Me.HKeyG.Location = New System.Drawing.Point(199, 69)
         Me.HKeyG.Name = "HKeyG"
         Me.HKeyG.Size = New System.Drawing.Size(31, 31)
         Me.HKeyG.TabIndex = 77
@@ -334,7 +359,7 @@ Partial Class frmKeyboard
         'HKeyF
         '
         Me.HKeyF.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyF.Location = New System.Drawing.Point(135, 69)
+        Me.HKeyF.Location = New System.Drawing.Point(166, 69)
         Me.HKeyF.Name = "HKeyF"
         Me.HKeyF.Size = New System.Drawing.Size(31, 31)
         Me.HKeyF.TabIndex = 76
@@ -346,7 +371,7 @@ Partial Class frmKeyboard
         'HKeyD
         '
         Me.HKeyD.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyD.Location = New System.Drawing.Point(102, 69)
+        Me.HKeyD.Location = New System.Drawing.Point(133, 69)
         Me.HKeyD.Name = "HKeyD"
         Me.HKeyD.Size = New System.Drawing.Size(31, 31)
         Me.HKeyD.TabIndex = 75
@@ -358,7 +383,7 @@ Partial Class frmKeyboard
         'HKeyApost
         '
         Me.HKeyApost.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyApost.Location = New System.Drawing.Point(366, 69)
+        Me.HKeyApost.Location = New System.Drawing.Point(397, 69)
         Me.HKeyApost.Name = "HKeyApost"
         Me.HKeyApost.Size = New System.Drawing.Size(31, 31)
         Me.HKeyApost.TabIndex = 74
@@ -370,7 +395,7 @@ Partial Class frmKeyboard
         'HKeyS
         '
         Me.HKeyS.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyS.Location = New System.Drawing.Point(69, 69)
+        Me.HKeyS.Location = New System.Drawing.Point(100, 69)
         Me.HKeyS.Name = "HKeyS"
         Me.HKeyS.Size = New System.Drawing.Size(31, 31)
         Me.HKeyS.TabIndex = 73
@@ -382,7 +407,7 @@ Partial Class frmKeyboard
         'HKeyA
         '
         Me.HKeyA.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyA.Location = New System.Drawing.Point(36, 69)
+        Me.HKeyA.Location = New System.Drawing.Point(67, 69)
         Me.HKeyA.Name = "HKeyA"
         Me.HKeyA.Size = New System.Drawing.Size(31, 31)
         Me.HKeyA.TabIndex = 72
@@ -394,7 +419,7 @@ Partial Class frmKeyboard
         'HKeyLBrac
         '
         Me.HKeyLBrac.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyLBrac.Location = New System.Drawing.Point(348, 36)
+        Me.HKeyLBrac.Location = New System.Drawing.Point(379, 36)
         Me.HKeyLBrac.Name = "HKeyLBrac"
         Me.HKeyLBrac.Size = New System.Drawing.Size(31, 31)
         Me.HKeyLBrac.TabIndex = 71
@@ -406,7 +431,7 @@ Partial Class frmKeyboard
         'HKeyP
         '
         Me.HKeyP.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyP.Location = New System.Drawing.Point(315, 36)
+        Me.HKeyP.Location = New System.Drawing.Point(346, 36)
         Me.HKeyP.Name = "HKeyP"
         Me.HKeyP.Size = New System.Drawing.Size(31, 31)
         Me.HKeyP.TabIndex = 70
@@ -418,7 +443,7 @@ Partial Class frmKeyboard
         'HKeyO
         '
         Me.HKeyO.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyO.Location = New System.Drawing.Point(282, 36)
+        Me.HKeyO.Location = New System.Drawing.Point(313, 36)
         Me.HKeyO.Name = "HKeyO"
         Me.HKeyO.Size = New System.Drawing.Size(31, 31)
         Me.HKeyO.TabIndex = 69
@@ -430,7 +455,7 @@ Partial Class frmKeyboard
         'HKeyI
         '
         Me.HKeyI.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyI.Location = New System.Drawing.Point(249, 36)
+        Me.HKeyI.Location = New System.Drawing.Point(280, 36)
         Me.HKeyI.Name = "HKeyI"
         Me.HKeyI.Size = New System.Drawing.Size(31, 31)
         Me.HKeyI.TabIndex = 68
@@ -442,7 +467,7 @@ Partial Class frmKeyboard
         'HKeyU
         '
         Me.HKeyU.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyU.Location = New System.Drawing.Point(216, 36)
+        Me.HKeyU.Location = New System.Drawing.Point(247, 36)
         Me.HKeyU.Name = "HKeyU"
         Me.HKeyU.Size = New System.Drawing.Size(31, 31)
         Me.HKeyU.TabIndex = 67
@@ -454,7 +479,7 @@ Partial Class frmKeyboard
         'HKeyY
         '
         Me.HKeyY.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyY.Location = New System.Drawing.Point(183, 36)
+        Me.HKeyY.Location = New System.Drawing.Point(214, 36)
         Me.HKeyY.Name = "HKeyY"
         Me.HKeyY.Size = New System.Drawing.Size(31, 31)
         Me.HKeyY.TabIndex = 66
@@ -466,7 +491,7 @@ Partial Class frmKeyboard
         'HKeyT
         '
         Me.HKeyT.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyT.Location = New System.Drawing.Point(150, 36)
+        Me.HKeyT.Location = New System.Drawing.Point(181, 36)
         Me.HKeyT.Name = "HKeyT"
         Me.HKeyT.Size = New System.Drawing.Size(31, 31)
         Me.HKeyT.TabIndex = 65
@@ -478,7 +503,7 @@ Partial Class frmKeyboard
         'HKeyR
         '
         Me.HKeyR.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyR.Location = New System.Drawing.Point(117, 36)
+        Me.HKeyR.Location = New System.Drawing.Point(148, 36)
         Me.HKeyR.Name = "HKeyR"
         Me.HKeyR.Size = New System.Drawing.Size(31, 31)
         Me.HKeyR.TabIndex = 64
@@ -490,7 +515,7 @@ Partial Class frmKeyboard
         'HKeyRBrac
         '
         Me.HKeyRBrac.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyRBrac.Location = New System.Drawing.Point(381, 36)
+        Me.HKeyRBrac.Location = New System.Drawing.Point(412, 36)
         Me.HKeyRBrac.Name = "HKeyRBrac"
         Me.HKeyRBrac.Size = New System.Drawing.Size(31, 31)
         Me.HKeyRBrac.TabIndex = 63
@@ -502,7 +527,7 @@ Partial Class frmKeyboard
         'HkeyE
         '
         Me.HkeyE.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HkeyE.Location = New System.Drawing.Point(84, 36)
+        Me.HkeyE.Location = New System.Drawing.Point(115, 36)
         Me.HkeyE.Name = "HkeyE"
         Me.HkeyE.Size = New System.Drawing.Size(31, 31)
         Me.HkeyE.TabIndex = 62
@@ -514,7 +539,7 @@ Partial Class frmKeyboard
         'HKeyW
         '
         Me.HKeyW.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyW.Location = New System.Drawing.Point(51, 36)
+        Me.HKeyW.Location = New System.Drawing.Point(82, 36)
         Me.HKeyW.Name = "HKeyW"
         Me.HKeyW.Size = New System.Drawing.Size(31, 31)
         Me.HKeyW.TabIndex = 61
@@ -526,7 +551,7 @@ Partial Class frmKeyboard
         'HKeyQ
         '
         Me.HKeyQ.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyQ.Location = New System.Drawing.Point(18, 36)
+        Me.HKeyQ.Location = New System.Drawing.Point(49, 36)
         Me.HKeyQ.Name = "HKeyQ"
         Me.HKeyQ.Size = New System.Drawing.Size(31, 31)
         Me.HKeyQ.TabIndex = 60
@@ -538,7 +563,7 @@ Partial Class frmKeyboard
         'HKeyMinus
         '
         Me.HKeyMinus.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyMinus.Location = New System.Drawing.Point(333, 3)
+        Me.HKeyMinus.Location = New System.Drawing.Point(364, 3)
         Me.HKeyMinus.Name = "HKeyMinus"
         Me.HKeyMinus.Size = New System.Drawing.Size(31, 31)
         Me.HKeyMinus.TabIndex = 59
@@ -550,7 +575,7 @@ Partial Class frmKeyboard
         'HKey0
         '
         Me.HKey0.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey0.Location = New System.Drawing.Point(300, 3)
+        Me.HKey0.Location = New System.Drawing.Point(331, 3)
         Me.HKey0.Name = "HKey0"
         Me.HKey0.Size = New System.Drawing.Size(31, 31)
         Me.HKey0.TabIndex = 58
@@ -562,7 +587,7 @@ Partial Class frmKeyboard
         'HKey9
         '
         Me.HKey9.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey9.Location = New System.Drawing.Point(267, 3)
+        Me.HKey9.Location = New System.Drawing.Point(298, 3)
         Me.HKey9.Name = "HKey9"
         Me.HKey9.Size = New System.Drawing.Size(31, 31)
         Me.HKey9.TabIndex = 57
@@ -574,7 +599,7 @@ Partial Class frmKeyboard
         'HKey8
         '
         Me.HKey8.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey8.Location = New System.Drawing.Point(234, 3)
+        Me.HKey8.Location = New System.Drawing.Point(265, 3)
         Me.HKey8.Name = "HKey8"
         Me.HKey8.Size = New System.Drawing.Size(31, 31)
         Me.HKey8.TabIndex = 56
@@ -586,7 +611,7 @@ Partial Class frmKeyboard
         'HKey7
         '
         Me.HKey7.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey7.Location = New System.Drawing.Point(201, 3)
+        Me.HKey7.Location = New System.Drawing.Point(232, 3)
         Me.HKey7.Name = "HKey7"
         Me.HKey7.Size = New System.Drawing.Size(31, 31)
         Me.HKey7.TabIndex = 55
@@ -598,7 +623,7 @@ Partial Class frmKeyboard
         'HKey6
         '
         Me.HKey6.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey6.Location = New System.Drawing.Point(168, 3)
+        Me.HKey6.Location = New System.Drawing.Point(199, 3)
         Me.HKey6.Name = "HKey6"
         Me.HKey6.Size = New System.Drawing.Size(31, 31)
         Me.HKey6.TabIndex = 54
@@ -610,7 +635,7 @@ Partial Class frmKeyboard
         'HKey5
         '
         Me.HKey5.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey5.Location = New System.Drawing.Point(135, 3)
+        Me.HKey5.Location = New System.Drawing.Point(166, 3)
         Me.HKey5.Name = "HKey5"
         Me.HKey5.Size = New System.Drawing.Size(31, 31)
         Me.HKey5.TabIndex = 53
@@ -622,7 +647,7 @@ Partial Class frmKeyboard
         'HKey4
         '
         Me.HKey4.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey4.Location = New System.Drawing.Point(102, 3)
+        Me.HKey4.Location = New System.Drawing.Point(133, 3)
         Me.HKey4.Name = "HKey4"
         Me.HKey4.Size = New System.Drawing.Size(31, 31)
         Me.HKey4.TabIndex = 52
@@ -634,7 +659,7 @@ Partial Class frmKeyboard
         'HKeyEqual
         '
         Me.HKeyEqual.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKeyEqual.Location = New System.Drawing.Point(366, 3)
+        Me.HKeyEqual.Location = New System.Drawing.Point(397, 3)
         Me.HKeyEqual.Name = "HKeyEqual"
         Me.HKeyEqual.Size = New System.Drawing.Size(31, 31)
         Me.HKeyEqual.TabIndex = 51
@@ -646,7 +671,7 @@ Partial Class frmKeyboard
         'HKey3
         '
         Me.HKey3.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey3.Location = New System.Drawing.Point(69, 3)
+        Me.HKey3.Location = New System.Drawing.Point(100, 3)
         Me.HKey3.Name = "HKey3"
         Me.HKey3.Size = New System.Drawing.Size(31, 31)
         Me.HKey3.TabIndex = 50
@@ -658,7 +683,7 @@ Partial Class frmKeyboard
         'HKey2
         '
         Me.HKey2.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey2.Location = New System.Drawing.Point(36, 3)
+        Me.HKey2.Location = New System.Drawing.Point(67, 3)
         Me.HKey2.Name = "HKey2"
         Me.HKey2.Size = New System.Drawing.Size(31, 31)
         Me.HKey2.TabIndex = 49
@@ -670,7 +695,7 @@ Partial Class frmKeyboard
         'HKey1
         '
         Me.HKey1.Appearance = System.Windows.Forms.Appearance.Button
-        Me.HKey1.Location = New System.Drawing.Point(3, 3)
+        Me.HKey1.Location = New System.Drawing.Point(34, 3)
         Me.HKey1.Name = "HKey1"
         Me.HKey1.Size = New System.Drawing.Size(31, 31)
         Me.HKey1.TabIndex = 48
@@ -749,29 +774,32 @@ Partial Class frmKeyboard
         Me.ActionsPanel.Controls.Add(Me.IdentifierBox)
         Me.ActionsPanel.Location = New System.Drawing.Point(0, 171)
         Me.ActionsPanel.Name = "ActionsPanel"
-        Me.ActionsPanel.Size = New System.Drawing.Size(415, 70)
+        Me.ActionsPanel.Size = New System.Drawing.Size(415, 37)
         Me.ActionsPanel.TabIndex = 51
         '
         'ComboBox5
         '
+        Me.ComboBox5.Enabled = False
         Me.ComboBox5.FormattingEnabled = True
-        Me.ComboBox5.Location = New System.Drawing.Point(330, 23)
+        Me.ComboBox5.Location = New System.Drawing.Point(330, 6)
         Me.ComboBox5.Name = "ComboBox5"
         Me.ComboBox5.Size = New System.Drawing.Size(80, 21)
         Me.ComboBox5.TabIndex = 4
         '
         'ComboBox4
         '
+        Me.ComboBox4.Enabled = False
         Me.ComboBox4.FormattingEnabled = True
-        Me.ComboBox4.Location = New System.Drawing.Point(248, 23)
+        Me.ComboBox4.Location = New System.Drawing.Point(248, 6)
         Me.ComboBox4.Name = "ComboBox4"
         Me.ComboBox4.Size = New System.Drawing.Size(80, 21)
         Me.ComboBox4.TabIndex = 3
         '
         'ComboBox3
         '
+        Me.ComboBox3.Enabled = False
         Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(166, 23)
+        Me.ComboBox3.Location = New System.Drawing.Point(166, 6)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(80, 21)
         Me.ComboBox3.TabIndex = 2
@@ -779,37 +807,317 @@ Partial Class frmKeyboard
         'ComboBox2
         '
         Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(84, 23)
+        Me.ComboBox2.Items.AddRange(New Object() {"`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "]", "\", ";", "'", ",", ".", "/", "Home", "End", "Delete", "Insert", "PgUp", "PgDn", "NumPad 0", "NumPad 1", "NumPad 2", "NumPad 3", "NumPad 4", "NumPad 5", "NumPad 6", "NumPad 7", "NumPad 8", "NumPad 9"})
+        Me.ComboBox2.Location = New System.Drawing.Point(84, 6)
         Me.ComboBox2.Name = "ComboBox2"
         Me.ComboBox2.Size = New System.Drawing.Size(80, 21)
         Me.ComboBox2.TabIndex = 1
         '
         'IdentifierBox
         '
+        Me.IdentifierBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.IdentifierBox.FormattingEnabled = True
         Me.IdentifierBox.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.IdentifierBox.Items.AddRange(New Object() {"Tibia Key", "Say"})
-        Me.IdentifierBox.Location = New System.Drawing.Point(2, 23)
+        Me.IdentifierBox.Items.AddRange(New Object() {"Nothing", "Tibia Key", "Say"})
+        Me.IdentifierBox.Location = New System.Drawing.Point(2, 6)
         Me.IdentifierBox.Name = "IdentifierBox"
         Me.IdentifierBox.Size = New System.Drawing.Size(80, 21)
         Me.IdentifierBox.TabIndex = 0
         '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.RadioButton7)
+        Me.Panel1.Controls.Add(Me.RadioButton5)
+        Me.Panel1.Controls.Add(Me.RadioButton4)
+        Me.Panel1.Controls.Add(Me.RadioButton3)
+        Me.Panel1.Controls.Add(Me.RadioButton2)
+        Me.Panel1.Controls.Add(Me.RadioButton1)
+        Me.Panel1.Location = New System.Drawing.Point(488, 3)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(102, 105)
+        Me.Panel1.TabIndex = 52
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton1.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RadioButton1.Location = New System.Drawing.Point(3, 3)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(47, 31)
+        Me.RadioButton1.TabIndex = 64
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "Home"
+        Me.RadioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton1.UseVisualStyleBackColor = True
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton2.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RadioButton2.Location = New System.Drawing.Point(3, 37)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(47, 31)
+        Me.RadioButton2.TabIndex = 65
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "Delete"
+        Me.RadioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton3.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RadioButton3.Location = New System.Drawing.Point(51, 3)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(47, 31)
+        Me.RadioButton3.TabIndex = 66
+        Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Text = "End"
+        Me.RadioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'RadioButton4
+        '
+        Me.RadioButton4.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton4.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton4.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RadioButton4.Location = New System.Drawing.Point(51, 36)
+        Me.RadioButton4.Name = "RadioButton4"
+        Me.RadioButton4.Size = New System.Drawing.Size(47, 31)
+        Me.RadioButton4.TabIndex = 67
+        Me.RadioButton4.TabStop = True
+        Me.RadioButton4.Text = "PgUp"
+        Me.RadioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton4.UseVisualStyleBackColor = True
+        '
+        'RadioButton5
+        '
+        Me.RadioButton5.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton5.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton5.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RadioButton5.Location = New System.Drawing.Point(51, 69)
+        Me.RadioButton5.Name = "RadioButton5"
+        Me.RadioButton5.Size = New System.Drawing.Size(47, 31)
+        Me.RadioButton5.TabIndex = 68
+        Me.RadioButton5.TabStop = True
+        Me.RadioButton5.Text = "PgDn"
+        Me.RadioButton5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton5.UseVisualStyleBackColor = True
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.RadioButton15)
+        Me.Panel2.Controls.Add(Me.RadioButton14)
+        Me.Panel2.Controls.Add(Me.RadioButton13)
+        Me.Panel2.Controls.Add(Me.RadioButton12)
+        Me.Panel2.Controls.Add(Me.RadioButton11)
+        Me.Panel2.Controls.Add(Me.RadioButton10)
+        Me.Panel2.Controls.Add(Me.RadioButton9)
+        Me.Panel2.Controls.Add(Me.RadioButton8)
+        Me.Panel2.Controls.Add(Me.RadioButton6)
+        Me.Panel2.Location = New System.Drawing.Point(488, 111)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(102, 100)
+        Me.Panel2.TabIndex = 53
+        '
+        'RadioButton6
+        '
+        Me.RadioButton6.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton6.Location = New System.Drawing.Point(3, 3)
+        Me.RadioButton6.Name = "RadioButton6"
+        Me.RadioButton6.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton6.TabIndex = 64
+        Me.RadioButton6.TabStop = True
+        Me.RadioButton6.Text = "7"
+        Me.RadioButton6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton6.UseVisualStyleBackColor = True
+        '
+        'RadioButton7
+        '
+        Me.RadioButton7.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton7.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton7.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RadioButton7.Location = New System.Drawing.Point(3, 69)
+        Me.RadioButton7.Name = "RadioButton7"
+        Me.RadioButton7.Size = New System.Drawing.Size(47, 31)
+        Me.RadioButton7.TabIndex = 69
+        Me.RadioButton7.TabStop = True
+        Me.RadioButton7.Text = "Insert"
+        Me.RadioButton7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton7.UseVisualStyleBackColor = True
+        '
+        'RadioButton8
+        '
+        Me.RadioButton8.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton8.Location = New System.Drawing.Point(3, 34)
+        Me.RadioButton8.Name = "RadioButton8"
+        Me.RadioButton8.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton8.TabIndex = 65
+        Me.RadioButton8.TabStop = True
+        Me.RadioButton8.Text = "4"
+        Me.RadioButton8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton8.UseVisualStyleBackColor = True
+        '
+        'RadioButton9
+        '
+        Me.RadioButton9.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton9.Location = New System.Drawing.Point(3, 65)
+        Me.RadioButton9.Name = "RadioButton9"
+        Me.RadioButton9.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton9.TabIndex = 66
+        Me.RadioButton9.TabStop = True
+        Me.RadioButton9.Text = "1"
+        Me.RadioButton9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton9.UseVisualStyleBackColor = True
+        '
+        'RadioButton10
+        '
+        Me.RadioButton10.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton10.Location = New System.Drawing.Point(35, 3)
+        Me.RadioButton10.Name = "RadioButton10"
+        Me.RadioButton10.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton10.TabIndex = 67
+        Me.RadioButton10.TabStop = True
+        Me.RadioButton10.Text = "8"
+        Me.RadioButton10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton10.UseVisualStyleBackColor = True
+        '
+        'RadioButton11
+        '
+        Me.RadioButton11.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton11.Location = New System.Drawing.Point(35, 34)
+        Me.RadioButton11.Name = "RadioButton11"
+        Me.RadioButton11.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton11.TabIndex = 68
+        Me.RadioButton11.TabStop = True
+        Me.RadioButton11.Text = "5"
+        Me.RadioButton11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton11.UseVisualStyleBackColor = True
+        '
+        'RadioButton12
+        '
+        Me.RadioButton12.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton12.Location = New System.Drawing.Point(35, 65)
+        Me.RadioButton12.Name = "RadioButton12"
+        Me.RadioButton12.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton12.TabIndex = 69
+        Me.RadioButton12.TabStop = True
+        Me.RadioButton12.Text = "2"
+        Me.RadioButton12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton12.UseVisualStyleBackColor = True
+        '
+        'RadioButton13
+        '
+        Me.RadioButton13.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton13.Location = New System.Drawing.Point(67, 3)
+        Me.RadioButton13.Name = "RadioButton13"
+        Me.RadioButton13.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton13.TabIndex = 70
+        Me.RadioButton13.TabStop = True
+        Me.RadioButton13.Text = "9"
+        Me.RadioButton13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton13.UseVisualStyleBackColor = True
+        '
+        'RadioButton14
+        '
+        Me.RadioButton14.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton14.Location = New System.Drawing.Point(67, 34)
+        Me.RadioButton14.Name = "RadioButton14"
+        Me.RadioButton14.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton14.TabIndex = 71
+        Me.RadioButton14.TabStop = True
+        Me.RadioButton14.Text = "6"
+        Me.RadioButton14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton14.UseVisualStyleBackColor = True
+        '
+        'RadioButton15
+        '
+        Me.RadioButton15.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton15.Location = New System.Drawing.Point(67, 65)
+        Me.RadioButton15.Name = "RadioButton15"
+        Me.RadioButton15.Size = New System.Drawing.Size(31, 31)
+        Me.RadioButton15.TabIndex = 72
+        Me.RadioButton15.TabStop = True
+        Me.RadioButton15.Text = "3"
+        Me.RadioButton15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.RadioButton15.UseVisualStyleBackColor = True
+        '
+        'HKeyBSlsh
+        '
+        Me.HKeyBSlsh.Appearance = System.Windows.Forms.Appearance.Button
+        Me.HKeyBSlsh.Location = New System.Drawing.Point(445, 36)
+        Me.HKeyBSlsh.Name = "HKeyBSlsh"
+        Me.HKeyBSlsh.Size = New System.Drawing.Size(31, 31)
+        Me.HKeyBSlsh.TabIndex = 93
+        Me.HKeyBSlsh.TabStop = True
+        Me.HKeyBSlsh.Text = "\"
+        Me.HKeyBSlsh.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.HKeyBSlsh.UseVisualStyleBackColor = True
+        '
+        'HKeyTick
+        '
+        Me.HKeyTick.Appearance = System.Windows.Forms.Appearance.Button
+        Me.HKeyTick.Location = New System.Drawing.Point(3, 3)
+        Me.HKeyTick.Name = "HKeyTick"
+        Me.HKeyTick.Size = New System.Drawing.Size(31, 31)
+        Me.HKeyTick.TabIndex = 94
+        Me.HKeyTick.TabStop = True
+        Me.HKeyTick.Text = "`"
+        Me.HKeyTick.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.HKeyTick.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.Button1.Location = New System.Drawing.Point(425, 217)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 54
+        Me.Button1.Text = "OK"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Button2.Location = New System.Drawing.Point(506, 217)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 55
+        Me.Button2.Text = "Cancel"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'frmKeyboard
         '
+        Me.AcceptButton = Me.Button1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 241)
+        Me.CancelButton = Me.Button2
+        Me.ClientSize = New System.Drawing.Size(593, 246)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ActionsPanel)
         Me.Controls.Add(Me.OutputPanel)
         Me.Controls.Add(Me.ModifiersPanel)
         Me.Controls.Add(Me.MainKeys)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmKeyboard"
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "TibiaTek Keyboard"
         Me.MainKeys.ResumeLayout(False)
         Me.ModifiersPanel.ResumeLayout(False)
         Me.OutputPanel.ResumeLayout(False)
         Me.ActionsPanel.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -871,4 +1179,25 @@ Partial Class frmKeyboard
     Friend WithEvents ComboBox2 As System.Windows.Forms.ComboBox
     Friend WithEvents IdentifierBox As System.Windows.Forms.ComboBox
     Friend WithEvents ComboBox5 As System.Windows.Forms.ComboBox
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents RadioButton5 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton4 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton3 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton7 As System.Windows.Forms.RadioButton
+    Friend WithEvents Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents RadioButton15 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton14 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton13 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton12 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton11 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton10 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton9 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton8 As System.Windows.Forms.RadioButton
+    Friend WithEvents RadioButton6 As System.Windows.Forms.RadioButton
+    Friend WithEvents HKeyTick As System.Windows.Forms.RadioButton
+    Friend WithEvents HKeyBSlsh As System.Windows.Forms.RadioButton
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 End Class
