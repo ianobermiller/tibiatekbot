@@ -157,6 +157,7 @@ Public Module KernelModule
         Public WithEvents MapViewerForm As New frmMapViewer
         Public WithEvents CavebotForm As New frmCavebot
         Public WithEvents ScriptsForm As New frmScripts
+        Public WithEvents KeyboardForm As New frmKeyboard
 
         'Public Map As MapTiles
         Public WithEvents ConstantsEditorForm As New frmConstantsEditor
@@ -3978,14 +3979,10 @@ Public Module KernelModule
                                         Dim DatObj As IDatFile.DatObject
                                         DatObj = Client.Dat.GetInfo(ItemID)
                                         If DatObj.IsStackable Then
-                                            Count = 5
-                                        ElseIf DatObj.IsFluidContainer Then
+                                            Count = 100
+                                        ElseIf DatObj.IsFluid Then
                                             '   keep count
-                                        ElseIf DatObj.MultiType Then
-                                            Count = 1
                                         ElseIf DatObj.HasExtraByte Then
-                                            Count = 1
-                                        ElseIf Client.Items.IsRune(ItemID) Then
                                             Count = 1
                                         End If
                                         ConsoleWrite(Client.Items.GetItemName(ItemID) & " (H" & Hex(ItemID) & ") addded to " & MyContainer.GetName & ".")
@@ -4518,7 +4515,7 @@ Public Module KernelModule
                                 Pos += 6
                             ElseIf ID = &H63 Then
                                 Pos += 5
-                            ElseIf Client.Dat.GetInfo(ID).IsFluidContainer Then
+                            ElseIf Client.Dat.GetInfo(ID).IsFluid Then
                                 Pos += 1
                             ElseIf Client.Dat.GetInfo(ID).IsContainer Then
                                 If TTBState = BotState.Paused Then Exit Sub

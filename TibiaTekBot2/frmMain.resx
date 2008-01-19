@@ -229,6 +229,12 @@
   <data name="CharacterStatisticsMenuItem.Text" xml:space="preserve">
     <value>Character &amp;Statistics</value>
   </data>
+  <data name="KeyboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 22</value>
+  </data>
+  <data name="KeyboardToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Keyboard</value>
+  </data>
   <data name="ToolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 6</value>
   </data>
@@ -351,7 +357,7 @@
     <value>TibiaTek Bot Menu</value>
   </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 248</value>
+    <value>236, 292</value>
   </data>
   <data name="&gt;&gt;PopupMenu.Name" xml:space="preserve">
     <value>PopupMenu</value>
@@ -6536,7 +6542,7 @@
     <value>0</value>
   </data>
   <data name="Websitelbl.Text" xml:space="preserve">
-    <value>Webiste:</value>
+    <value>Website:</value>
   </data>
   <data name="&gt;&gt;Websitelbl.Name" xml:space="preserve">
     <value>Websitelbl</value>
@@ -10101,6 +10107,12 @@
   </data>
   <data name="&gt;&gt;Timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;KeyboardToolStripMenuItem.Name" xml:space="preserve">
+    <value>KeyboardToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;KeyboardToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>
