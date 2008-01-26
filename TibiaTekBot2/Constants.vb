@@ -17,7 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports System.Xml, TibiaTekBot.DatFile, TibiaTekBot.Constants, System.Globalization, Scripting
+Imports System.Xml, TibiaTekBot.Constants, System.Globalization, Scripting
 
 Public Module ConstantsModule
 
@@ -60,6 +60,26 @@ Public Module ConstantsModule
         Public WaypointMaxDistance As Integer = 100
         Public CreatureExpMultiplier As Double = 1.0
         Public AutoOpenBackpack As Boolean = True
+        Public ptrObjects As Integer = &H768C9C ' 8.1
+        Public ObjectWidthOffset As Integer = 0
+        Public ObjectHeightOffset As Integer = 4
+        Public ObjectLayersOffset As Integer = &HC
+        Public ObjectPatternXOffset As Integer = &H10
+        Public ObjectPatternYOffset As Integer = &H14
+        Public ObjectPatternDepthOffset As Integer = &H18
+        Public ObjectPhaseOffset As Integer = &H1C
+        Public ObjectSpritesOffset As Integer = &H20
+        Public ObjectFlagsOffset As Integer = &H24
+        Public ObjectWalkSpeedOffset As Integer = &H28
+        Public ObjectTextLimitOffset As Integer = &H2C
+        Public ObjectLightRadiusOffset As Integer = &H30
+        Public ObjectLightColorOffset As Integer = &H34
+        Public ObjectShiftXOffset As Integer = &H38
+        Public ObjectShiftYOffset As Integer = &H3C
+        Public ObjectHeightedOffset As Integer = &H40
+        Public ObjectAutoMapColorOffset As Integer = &H44
+        Public ObjectLensHelpOffset As Integer = &H48
+        Public ObjectDist As Integer = &H4C
 
         Public ptrCharacterListBegin As Integer = &H766DBC
         Public CharacterListDist As Integer = &H54
@@ -635,6 +655,47 @@ Public Module ConstantsModule
                                                     LevelSpy3 = CInt(Value)
                                                 Case "ptrLevelSpy"
                                                     ptrLevelSpy = CInt(Value)
+
+                                                Case "ptrObjects"
+                                                    ptrObjects = CInt(Value)
+                                                Case "ObjectWidthOffset"
+                                                    ObjectWidthOffset = CInt(Value)
+                                                Case "ObjectHeightOffset"
+                                                    ObjectHeightOffset = CInt(Value)
+                                                Case "ObjectLayersOffset"
+                                                    ObjectLayersOffset = CInt(Value)
+                                                Case "ObjectPatternXOffset"
+                                                    ObjectPatternXOffset = CInt(Value)
+                                                Case "ObjectPatternYOffset"
+                                                    ObjectPatternYOffset = CInt(Value)
+                                                Case "ObjectPatternDepthOffset"
+                                                    ObjectPatternDepthOffset = CInt(Value)
+                                                Case "ObjectPhaseOffset"
+                                                    ObjectPhaseOffset = CInt(Value)
+                                                Case "ObjectSpritesOffset"
+                                                    ObjectSpritesOffset = CInt(Value)
+                                                Case "ObjectFlagsOffset"
+                                                    ObjectFlagsOffset = CInt(Value)
+                                                Case "ObjectWalkSpeedOffset"
+                                                    ObjectWalkSpeedOffset = CInt(Value)
+                                                Case "ObjectTextLimitOffset"
+                                                    ObjectTextLimitOffset = CInt(Value)
+                                                Case "ObjectLightRadiusOffset"
+                                                    ObjectLightRadiusOffset = CInt(Value)
+                                                Case "ObjectLightColorOffset"
+                                                    ObjectLightColorOffset = CInt(Value)
+                                                Case "ObjectShiftXOffset"
+                                                    ObjectShiftXOffset = CInt(Value)
+                                                Case "ObjectShiftYOffset"
+                                                    ObjectShiftYOffset = CInt(Value)
+                                                Case "ObjectHeightedOffset"
+                                                    ObjectHeightedOffset = CInt(Value)
+                                                Case "ObjectAutoMapColorOffset"
+                                                    ObjectAutoMapColorOffset = CInt(Value)
+                                                Case "ObjectLensHelpOffset"
+                                                    ObjectLensHelpOffset = CInt(Value)
+                                                Case "ObjectDist"
+                                                    ObjectDist = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
@@ -654,7 +715,7 @@ Public Module ConstantsModule
     End Class
 
     Public Const Ret As Char = Chr(&HA)
-    Public Const BotVersion As String = "2.3"
+    Public Const BotVersion As String = "2.3.1"
     Public Const TibiaFileVersion As String = "8.10"
     Public Const TibiaProductName As String = "Tibia Player"
     Public Const BotStage As String = "Final" 'Alpha,Beta,Final,etc

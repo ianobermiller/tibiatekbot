@@ -79,6 +79,10 @@ Public Class frmScripts
                         SD.SafeFileName = OpenScriptDialog.SafeFileName
                         SD.CompilerResults = Results
                         SD.Script = DirectCast(FindInterface(Results.CompiledAssembly, "IScript"), Scripting.IScript)
+                        If SD.Script Is Nothing Then
+                            MessageBox.Show("Invalid script.", "Compiler Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            Exit Sub
+                        End If
                         SD.Script.Initialize(Kernel)
                         Kernel.Scripts.Add(SD)
                         ScriptsView.Rows.Clear()

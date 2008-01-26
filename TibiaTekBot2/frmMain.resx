@@ -357,7 +357,7 @@
     <value>TibiaTek Bot Menu</value>
   </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 292</value>
+    <value>236, 270</value>
   </data>
   <data name="&gt;&gt;PopupMenu.Name" xml:space="preserve">
     <value>PopupMenu</value>
@@ -1292,6 +1292,12 @@
   </data>
   <data name="AboutToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;About</value>
+  </data>
+  <data name="TestToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 20</value>
+  </data>
+  <data name="TestToolStripMenuItem1.Text" xml:space="preserve">
+    <value>&amp;Test</value>
   </data>
   <data name="MenuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -6116,7 +6122,7 @@
     <value>0</value>
   </data>
   <data name="MCPatcherBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 123</value>
+    <value>6, 98</value>
   </data>
   <data name="MCPatcherBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 52</value>
@@ -6137,33 +6143,6 @@
     <value>TabPage7</value>
   </data>
   <data name="&gt;&gt;MCPatcherBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="MiscReloadTibiaDatButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="MiscReloadTibiaDatButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 77</value>
-  </data>
-  <data name="MiscReloadTibiaDatButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="MiscReloadTibiaDatButton.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="MiscReloadTibiaDatButton.Text" xml:space="preserve">
-    <value>Tibia.dat</value>
-  </data>
-  <data name="&gt;&gt;MiscReloadTibiaDatButton.Name" xml:space="preserve">
-    <value>MiscReloadTibiaDatButton</value>
-  </data>
-  <data name="&gt;&gt;MiscReloadTibiaDatButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MiscReloadTibiaDatButton.Parent" xml:space="preserve">
-    <value>GroupBox1</value>
-  </data>
-  <data name="&gt;&gt;MiscReloadTibiaDatButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="MiscReloadOutfitsButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -6191,7 +6170,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;MiscReloadOutfitsButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="MiscReloadConstantsButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -6218,7 +6197,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;MiscReloadConstantsButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="MiscReloadItemsButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -6245,7 +6224,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;MiscReloadItemsButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="MiscReloadSpellsButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
@@ -6269,13 +6248,13 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;MiscReloadSpellsButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="GroupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
   </data>
   <data name="GroupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 111</value>
+    <value>194, 83</value>
   </data>
   <data name="GroupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -9124,6 +9103,12 @@
   <data name="&gt;&gt;CharacterStatisticsMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;KeyboardToolStripMenuItem.Name" xml:space="preserve">
+    <value>KeyboardToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;KeyboardToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;ToolStripSeparator5.Name" xml:space="preserve">
     <value>ToolStripSeparator5</value>
   </data>
@@ -10096,6 +10081,12 @@
   <data name="&gt;&gt;LicenseToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;TestToolStripMenuItem1.Name" xml:space="preserve">
+    <value>TestToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;TestToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;TestToolStripMenuItem.Name" xml:space="preserve">
     <value>TestToolStripMenuItem</value>
   </data>
@@ -10107,12 +10098,6 @@
   </data>
   <data name="&gt;&gt;Timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;KeyboardToolStripMenuItem.Name" xml:space="preserve">
-    <value>KeyboardToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;KeyboardToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>

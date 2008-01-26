@@ -103,7 +103,7 @@ Public Module WalkerModule
                                 Return False
                             End If
                             For i As Integer = 0 To TD.Count - 1 'CHECK THIS
-                                If Kernel.Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport Then
+                                If Kernel.Client.Objects.LensHelp(TD.ObjectId(i)) = IObjects.ObjectLensHelp.Ladder Then
                                     SP.UseObject(TD.ObjectId(i), Coordinates)
                                     'Core.Proxy.SendPacketToServer(UseObject(TD.ObjectId(i), Coordinates))
                                     IsReady = False
@@ -209,12 +209,12 @@ Public Module WalkerModule
 
                             TileObjects = Kernel.Client.MapTiles.GetTileObjects(8, 6, Kernel.Client.MapTiles.WorldZToClientZ(Kernel.CharacterLoc.Z))
                             For Each TileObject In TileObjects
-                                With Kernel.Client.Dat.GetInfo(TileObject.GetObjectID)
-                                    If .IsSewer Then
-                                        Dim SPB As New ServerPacketBuilder(Kernel.Proxy)
-                                        SPB.UseObject(TileObject.GetObjectID, Coordinates)
-                                    End If
-                                End With
+                                'With Kernel.Client.Dat.GetInfo(TileObject.GetObjectID)
+                                If Kernel.Client.Objects.LensHelp(TileObject.GetObjectID) = IObjects.ObjectLensHelp.Sewer Then
+                                    Dim SPB As New ServerPacketBuilder(Kernel.Proxy)
+                                    SPB.UseObject(TileObject.GetObjectID, Coordinates)
+                                End If
+                                'End With
                             Next
 
                         Else

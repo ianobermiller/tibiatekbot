@@ -117,8 +117,8 @@ Public Module ItemsModule
                                 Kind = Kind Or IItems.ItemKind.DoubleHandedWeapon
                             Case "Ammunition"
                                 Kind = Kind Or IItems.ItemKind.Ammunition
-                            Case "Throwable"
-                                Kind = Kind Or IItems.ItemKind.Throwable
+                            Case "RangedWeapon"
+                                Kind = Kind Or IItems.ItemKind.RangedWeapon
                             Case "Tool"
                                 Kind = Kind Or IItems.ItemKind.Tool
                             Case "Valuable"
@@ -127,36 +127,8 @@ Public Module ItemsModule
                                 Kind = Kind Or IItems.ItemKind.Ring
                             Case "Neck"
                                 Kind = Kind Or IItems.ItemKind.Neck
-                            Case "Container"
-                                Kind = Kind Or IItems.ItemKind.Container
                             Case "Food"
                                 Kind = Kind Or IItems.ItemKind.Food
-                            Case "FluidContainer"
-                                Kind = Kind Or IItems.ItemKind.FluidContainer
-                            Case "LightSource"
-                                Kind = Kind Or IItems.ItemKind.LightSource
-                            Case "MagicField"
-                                Kind = Kind Or IItems.ItemKind.MagicField
-                            Case "Door"
-                                Kind = Kind Or IItems.ItemKind.Door
-                            Case "Special"
-                                Kind = Kind Or IItems.ItemKind.Special
-                            Case "RopeSpot"
-                                Kind = Kind Or IItems.ItemKind.RopeSpot
-                            Case "Teleport"
-                                Kind = Kind Or IItems.ItemKind.Teleport
-                            Case "UsableTeleport"
-                                Kind = Kind Or IItems.ItemKind.UsableTeleport
-                            Case "UsableTeleport2"
-                                Kind = Kind Or IItems.ItemKind.UsableTeleport2
-                            Case "BlockedTeleport"
-                                Kind = Kind Or IItems.ItemKind.BlockedTeleport
-                            Case "Blocking"
-                                Kind = Kind Or IItems.ItemKind.Blocking
-                            Case "FullBlocking"
-                                Kind = Kind Or IItems.ItemKind.FullBlocking
-                            Case "Rune"
-                                Kind = Kind Or IItems.ItemKind.Rune
                             Case Else
                                 Throw New Exception("Items.xml has errors. Invalid item kind for item " & Name & ": " & KindStr & ".")
                         End Select
@@ -168,22 +140,22 @@ Public Module ItemsModule
             End Try
         End Sub
 
-        Public Function IsRune(ByVal ID As UShort) As Boolean Implements IItems.IsRune
-            Try
-                For Each Item As IItems.ItemDefinition In _ItemsList
-                    If Item.ItemID = ID AndAlso (Item.Kind And IItems.ItemKind.Rune) Then Return True
-                Next
-                Return False
-            Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
-            End Try
-        End Function
+        'Public Function IsRune(ByVal ID As UShort) As Boolean Implements IItems.IsRune
+        '    Try
+        '        For Each Item As IItems.ItemDefinition In _ItemsList
+        '            If Item.ItemID = ID AndAlso (Item.Kind And IItems.ItemKind.Rune) Then Return True
+        '        Next
+        '        Return False
+        '    Catch Ex As Exception
+        '        MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '        End
+        '    End Try
+        'End Function
 
-        Public Function IsThrowable(ByVal ID As UShort) As Boolean Implements IItems.IsThrowable
+        Public Function IsRangedWeapon(ByVal ID As UShort) As Boolean Implements IItems.IsRangedWeapon
             Try
                 For Each Item As IItems.ItemDefinition In _ItemsList
-                    If Item.ItemID = ID AndAlso (Item.Kind And IItems.ItemKind.Throwable) Then Return True
+                    If Item.ItemID = ID AndAlso (Item.Kind And IItems.ItemKind.RangedWeapon) Then Return True
                 Next
                 Return False
             Catch Ex As Exception

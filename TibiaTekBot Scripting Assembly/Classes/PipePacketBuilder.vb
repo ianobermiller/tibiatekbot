@@ -121,6 +121,17 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
+    Public Sub Test() Implements IPipePacketBuilder.Test
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(3)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Public Sub Send() Implements IPacketBuilder.Send
         Try
             While Packets.Count > 0

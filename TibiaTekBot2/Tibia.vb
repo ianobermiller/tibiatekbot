@@ -134,14 +134,19 @@ Public NotInheritable Class Tibia
     Private _Filename As String
     Private _Arguments As String
     Private _MapTiles As IMapTiles
-    Private _Dat As IDatFile
     Private _Items As IItems
+    Private _Objects As Objects
     Private _PipeName As String = ""
     Public WithEvents Pipe As Pipe
 
 #End Region
 
 #Region " Properties "
+    Public ReadOnly Property Objects() As Scripting.IObjects Implements Scripting.ITibia.Objects
+        Get
+            Return _Objects
+        End Get
+    End Property
 
     Public ReadOnly Property Items() As IItems Implements ITibia.Items
         Get
@@ -366,17 +371,6 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property Dat() As IDatFile Implements ITibia.Dat
-        Get
-            Try
-                Return _Dat
-            Catch ex As Exception
-                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return Nothing
-            End Try
-        End Get
-    End Property
-
     Public WriteOnly Property TopMost() As Boolean Implements ITibia.TopMost
         Set(ByVal value As Boolean)
             Try
@@ -546,8 +540,9 @@ Public NotInheritable Class Tibia
             _Directory = Directory
             _Arguments = Arguments
             _MapTiles = New MapTiles
-            _Dat = New DatFile(Directory & "\Tibia.dat")
             _Items = New Items()
+            _Objects = New Objects(Me)
+
 
             Dim PipeNum As Integer = (New Random(System.DateTime.Now.Millisecond)).Next(10000, 100000)
             _PipeName = "ttb" & PipeNum
@@ -573,8 +568,6 @@ Public NotInheritable Class Tibia
             ClientProcess.EnableRaisingEvents = True
             ClientProcess.Refresh()
             ClientProcess.WaitForInputIdle()
-            '_PipeThread = New Thread(New ThreadStart(AddressOf Me.PipeThreadProc))
-            '_PipeThread.Start()
             RaiseEvent Started()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -582,17 +575,30 @@ Public NotInheritable Class Tibia
         End Try
     End Sub
 
-    Private Sub Pipe_OnRead(ByVal Buffer() As Byte) Handles Pipe.OnReceive
-        'MsgBox(System.Text.ASCIIEncoding.ASCII.GetString(Buffer))
+    'Private Sub Pipe_OnRead(ByVal Buffer() As Byte) Handles Pipe.OnReceive
+    '    MsgBox(System.Text.ASCIIEncoding.ASCII.GetString(Buffer))
+    'End Sub
+
+    Sub TestPipe()
+        Try
+            Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+            PPB.Test()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub Pipe_OnConnected() Handles Pipe.OnConnected
-        Dim PPB As New PipePacketBuilder(Pipe, False)
-        PPB.SetConstant("ptrInGame", Consts.ptrInGame)
-        PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
-        PPB.SetConstant("TibiaWindowHandle", GetWindowHandle)
-        PPB.HookWndProc(True)
-        PPB.Send()
+        Try
+            Dim PPB As New PipePacketBuilder(Pipe, False)
+            PPB.SetConstant("ptrInGame", Consts.ptrInGame)
+            PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
+            PPB.SetConstant("TibiaWindowHandle", GetWindowHandle)
+            PPB.HookWndProc(True)
+            PPB.Send()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Public Function InjectDLL(ByVal Filename As String) As Boolean

@@ -384,9 +384,6 @@ Public Class CommandParser
                     Case "constants", "constant", "consts", "const"
                         Kernel.ConsoleWrite("Please wait...")
                         Consts.LoadConstants()
-                    Case "tiles", "tile", "dat"
-                        Kernel.ConsoleWrite("Please wait...")
-                        Kernel.Client.Dat.Refresh()
                     Case Else
                         Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
                         Exit Sub
@@ -1203,13 +1200,11 @@ Public Class CommandParser
                                     Dim LootItem As New LootItems.LootItemDefinition(ItemId, ContainerIndex)
                                     If Kernel.LootItems.Add(LootItem) Then
                                         Dim Count As Integer = 0
-                                        Dim DatObj As IDatFile.DatObject
-                                        DatObj = Kernel.Client.Dat.GetInfo(ItemId)
-                                        If DatObj.IsStackable Then
+                                        If Kernel.Client.Objects.HasFlags(ItemId, IObjects.ObjectFlags.IsStackable) Then
                                             Count = 100
-                                        ElseIf DatObj.IsFluid Then
+                                        ElseIf Kernel.Client.Objects.HasFlags(ItemId, IObjects.ObjectFlags.IsFluidContainer) Then
                                             '   keep count
-                                        ElseIf DatObj.HasExtraByte Then
+                                        ElseIf Kernel.Client.Objects.HasExtraByte(ItemId) Then
                                             Count = 1
                                         End If
                                         Kernel.ConsoleWrite(Kernel.Client.Items.GetItemName(ItemId) & " (H" & Hex(ItemId) & ") added to Loot Category #" & ContainerIndex + 1 & ".")
@@ -1345,77 +1340,78 @@ Public Class CommandParser
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                     Kernel.ConsoleWrite(BL.GetDirection.ToString)
-                Case "getinfo"
-                    Dim TileObjects() As IMapTiles.TileObject
-                    Dim TileObject As IMapTiles.TileObject
+                    '    Case "getinfo"
+                    '        Dim TileObjects() As IMapTiles.TileObject
+                    '        Dim TileObject As IMapTiles.TileObject
 
-                    TileObjects = Kernel.Client.MapTiles.GetTileObjects(8, 7, Kernel.Client.MapTiles.WorldZToClientZ(Kernel.CharacterLoc.Z))
-                    For Each TileObject In TileObjects
-                        Kernel.ConsoleWrite("----- INFO FOR: " & TileObject.GetObjectID & " -----")
-                        With Kernel.Client.Dat.GetInfo(TileObject.GetObjectID)
-                            If .Blocking Then Kernel.ConsoleWrite("Blocking")
-                            If .BlocksMissile Then Kernel.ConsoleWrite("Blocks Missile")
-                            If .BlocksPath Then Kernel.ConsoleWrite("Blocks Path")
-                            If .FloorChange Then Kernel.ConsoleWrite("Floor Change")
-                            If .HasActions Then Kernel.ConsoleWrite("Has Actions")
-                            If .HasExtraByte Then Kernel.ConsoleWrite("Has Extrea byte")
-                            If .HasMiniMapColor Then Kernel.ConsoleWrite("Has Minimap color")
-                            If .HasSpecialDescription Then Kernel.ConsoleWrite("Has Special Description")
-                            If .IsContainer Then Kernel.ConsoleWrite("Is Container")
-                            If .IsCorpse Then Kernel.ConsoleWrite("Is Corpse")
-                            If .IsDepot Then Kernel.ConsoleWrite("Is Depot")
-                            If .IsDoor Then Kernel.ConsoleWrite("Is Door")
-                            If .IsDoorWithLock Then Kernel.ConsoleWrite("Is Door with Lock")
-                            If .IsField Then Kernel.ConsoleWrite("Is Field")
-                            If .IsFluid Then Kernel.ConsoleWrite("Is Fluid")
-                            If .IsGround Then Kernel.ConsoleWrite("Is Ground")
-                            If .IsHangable Then Kernel.ConsoleWrite("Is Hangable")
-                            If .IsHangableHorizontal Then Kernel.ConsoleWrite("Is Hangable Horizonal")
-                            If .IsHangableVertical Then Kernel.ConsoleWrite("Is Hangable Vertical")
-                            If .IsHeighted Then Kernel.ConsoleWrite("Is Heighted")
-                            If .IsHole Then Kernel.ConsoleWrite("Is Hole")
-                            If .IsIdleAnimation Then Kernel.ConsoleWrite("Is Idle Animation")
-                            If .IsImmovable Then Kernel.ConsoleWrite("Is Immovable")
-                            If .IsLadder Then Kernel.ConsoleWrite("Is Ladder")
-                            If .IsLayer Then Kernel.ConsoleWrite("Is Layer")
-                            If .IsLightSource Then Kernel.ConsoleWrite("Is Light Source")
-                            If .IsMailbox Then Kernel.ConsoleWrite("Is Mailbox")
-                            If .IsPickupable Then Kernel.ConsoleWrite("Is Pickupable")
-                            If .IsReadable Then Kernel.ConsoleWrite("Is Readable")
-                            If .IsReadOnly Then Kernel.ConsoleWrite("Read Only")
-                            If .IsRopeSpot Then Kernel.ConsoleWrite("Is Ropespot")
-                            If .IsRotatable Then Kernel.ConsoleWrite("Is Rotatable")
-                            If .IsRune Then Kernel.ConsoleWrite("Is Rune")
-                            If .IsSewer Then Kernel.ConsoleWrite("Is Sewer")
-                            If .IsSplash Then Kernel.ConsoleWrite("Is Splash")
-                            If .IsStackable Then Kernel.ConsoleWrite("Is Stackable")
-                            If .IsStairs Then Kernel.ConsoleWrite("Is Stairs")
-                            If .IsSwitch Then Kernel.ConsoleWrite("Is Switch")
-                            If .IsTrash Then Kernel.ConsoleWrite("Is Trash")
-                            If .IsUsable Then Kernel.ConsoleWrite("Is Usable")
-                            If .IsWritable Then Kernel.ConsoleWrite("Is Writable")
-                            If .Speed Then Kernel.ConsoleWrite("Speed: " & .Speed)
-                            If .TopOrder Then Kernel.ConsoleWrite("Top Order: " & .TopOrder)
-                        End With
-                    Next
+                    '        TileObjects = Kernel.Client.MapTiles.GetTileObjects(8, 7, Kernel.Client.MapTiles.WorldZToClientZ(Kernel.CharacterLoc.Z))
+                    '        For Each TileObject In TileObjects
+                    '            Kernel.ConsoleWrite("----- INFO FOR: " & TileObject.GetObjectID & " -----")
+                    '            With Kernel.Client.Dat.GetInfo(TileObject.GetObjectID)
+                    '                If .Blocking Then Kernel.ConsoleWrite("Blocking")
+                    '                If .BlocksMissile Then Kernel.ConsoleWrite("Blocks Missile")
+                    '                If .BlocksPath Then Kernel.ConsoleWrite("Blocks Path")
+                    '                If .FloorChange Then Kernel.ConsoleWrite("Floor Change")
+                    '                If .HasActions Then Kernel.ConsoleWrite("Has Actions")
+                    '                If .HasExtraByte Then Kernel.ConsoleWrite("Has Extrea byte")
+                    '                If .HasMiniMapColor Then Kernel.ConsoleWrite("Has Minimap color")
+                    '                If .HasSpecialDescription Then Kernel.ConsoleWrite("Has Special Description")
+                    '                If .IsContainer Then Kernel.ConsoleWrite("Is Container")
+                    '                If .IsCorpse Then Kernel.ConsoleWrite("Is Corpse")
+                    '                If .IsDepot Then Kernel.ConsoleWrite("Is Depot")
+                    '                If .IsDoor Then Kernel.ConsoleWrite("Is Door")
+                    '                If .IsDoorWithLock Then Kernel.ConsoleWrite("Is Door with Lock")
+                    '                If .IsField Then Kernel.ConsoleWrite("Is Field")
+                    '                If .IsFluid Then Kernel.ConsoleWrite("Is Fluid")
+                    '                If .IsGround Then Kernel.ConsoleWrite("Is Ground")
+                    '                If .IsHangable Then Kernel.ConsoleWrite("Is Hangable")
+                    '                If .IsHangableHorizontal Then Kernel.ConsoleWrite("Is Hangable Horizonal")
+                    '                If .IsHangableVertical Then Kernel.ConsoleWrite("Is Hangable Vertical")
+                    '                If .IsHeighted Then Kernel.ConsoleWrite("Is Heighted")
+                    '                If .IsHole Then Kernel.ConsoleWrite("Is Hole")
+                    '                If .IsIdleAnimation Then Kernel.ConsoleWrite("Is Idle Animation")
+                    '                If .IsImmovable Then Kernel.ConsoleWrite("Is Immovable")
+                    '                If .IsLadder Then Kernel.ConsoleWrite("Is Ladder")
+                    '                If .IsLayer Then Kernel.ConsoleWrite("Is Layer")
+                    '                If .IsLightSource Then Kernel.ConsoleWrite("Is Light Source")
+                    '                If .IsMailbox Then Kernel.ConsoleWrite("Is Mailbox")
+                    '                If .IsPickupable Then Kernel.ConsoleWrite("Is Pickupable")
+                    '                If .IsReadable Then Kernel.ConsoleWrite("Is Readable")
+                    '                If .IsReadOnly Then Kernel.ConsoleWrite("Read Only")
+                    '                If .IsRopeSpot Then Kernel.ConsoleWrite("Is Ropespot")
+                    '                If .IsRotatable Then Kernel.ConsoleWrite("Is Rotatable")
+                    '                If .IsRune Then Kernel.ConsoleWrite("Is Rune")
+                    '                If .IsSewer Then Kernel.ConsoleWrite("Is Sewer")
+                    '                If .IsSplash Then Kernel.ConsoleWrite("Is Splash")
+                    '                If .IsStackable Then Kernel.ConsoleWrite("Is Stackable")
+                    '                If .IsStairs Then Kernel.ConsoleWrite("Is Stairs")
+                    '                If .IsSwitch Then Kernel.ConsoleWrite("Is Switch")
+                    '                If .IsTrash Then Kernel.ConsoleWrite("Is Trash")
+                    '                If .IsUsable Then Kernel.ConsoleWrite("Is Usable")
+                    '                If .IsWritable Then Kernel.ConsoleWrite("Is Writable")
+                    '                If .WalkSpeed Then Kernel.ConsoleWrite("Speed: " & .WalkSpeed)
+                    '                If .TopOrder Then Kernel.ConsoleWrite("Top Order: " & .TopOrder)
+                    '            End With
+                    '        Next
 
-                Case Else
-                    Dim P As New Packet()
-                    Dim len As Integer = Kernel.Client.Dat.Length
-                    Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
-                    CPB.CreateContainer(3454, &HF, "Test", 1, New Scripting.IContainer.ContainerItemDefinition() {}, False)
-                    'db0
-                    For I As Integer = 0 To len - 1
-                        With Kernel.Client.Dat.GetInfo(I)
-                            If .IsSwitch Then '.IsPickupable Or
-                                CPB.AddObjectToContainer(I, &HF, 100)
-                                Kernel.ConsoleRead(Hex(I))
-                                System.Threading.Thread.Sleep(1000)
-                                CPB.RemoveObjectFromContainer(0, &HF)
-                            End If
-                        End With
-                    Next
+                    ' Case Else
+                    '        Dim P As New Packet()
+                    '        Dim len As Integer = Kernel.Client.Dat.Length
+                    '        Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                    '        CPB.CreateContainer(3454, &HF, "Test", 1, New Scripting.IContainer.ContainerItemDefinition() {}, False)
+                    '        'db0
+                    '        For I As Integer = 0 To len - 1
+                    '            With Kernel.Client.Dat.GetInfo(I)
+                    '                If .IsSwitch Then '.IsPickupable Or
+                    '                    CPB.AddObjectToContainer(I, &HF, 100)
+                    '                    Kernel.ConsoleRead(Hex(I))
+                    '                    System.Threading.Thread.Sleep(1000)
+                    '                    CPB.RemoveObjectFromContainer(0, &HF)
+                    '                End If
+                    '            End With
+                    '        Next
             End Select
+
             Kernel.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1591,7 +1587,7 @@ Public Class CommandParser
                 Case 1
                     Dim RightHandItemID As Integer
                     Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                    If RightHandItemID = 0 OrElse Not Kernel.Client.Items.IsThrowable(RightHandItemID) Then
+                    If RightHandItemID = 0 OrElse Not Kernel.Client.Items.IsRangedWeapon(RightHandItemID) Then
                         Kernel.ConsoleError("You must have a throwable item in your right hand, like a spear, throwing knife, etc.")
                         Exit Sub
                     End If
@@ -1912,7 +1908,7 @@ Public Class CommandParser
                     End If
                     Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
                     Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
-                    If ItemID = 0 OrElse Not Kernel.Client.Dat.GetInfo(ItemID).IsStackable Then
+                    If ItemID = 0 OrElse Not Kernel.Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsStackable) Then
                         Kernel.ConsoleError("You must place some of your ammunition on the Belt/Arrow Slot first.")
                         Exit Sub
                     End If
@@ -2370,7 +2366,7 @@ Public Class CommandParser
                 Else
                     Output &= ItemName
                 End If
-                If Kernel.Client.Dat.GetInfo(ID).IsStackable Then
+                If Kernel.Client.Objects.HasFlags(ID, IObjects.ObjectFlags.IsStackable) Then
                     Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)) + Consts.ItemCountOffset, ItemCount, 1)
                     Output &= " (x" & ItemCount & ")"
                 End If
@@ -2392,7 +2388,7 @@ Public Class CommandParser
                         Else
                             Output &= ItemName & " H" & Hex(Item.ID)
                         End If
-                        If Kernel.Client.Dat.GetInfo(Item.ID).IsStackable Then
+                        If Kernel.Client.Objects.HasFlags(Item.ID, IObjects.ObjectFlags.IsStackable) Then
                             Output &= " (x" & Item.Count & ")"
                         End If
                         If I < ItemCount - 1 Then

@@ -47,6 +47,7 @@ Partial Class frmMain
         Me.AlarmsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CavebotMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CharacterStatisticsMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.KeyboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
         Me.ChangeLoginServerPopupItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ConstantsEditorMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -210,6 +211,7 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
         Me.TabPage10 = New System.Windows.Forms.TabPage
@@ -392,7 +394,6 @@ Partial Class frmMain
         Me.MCPatcherBox = New System.Windows.Forms.GroupBox
         Me.MCPatcherButton = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.MiscReloadTibiaDatButton = New System.Windows.Forms.Button
         Me.MiscReloadOutfitsButton = New System.Windows.Forms.Button
         Me.MiscReloadConstantsButton = New System.Windows.Forms.Button
         Me.MiscReloadItemsButton = New System.Windows.Forms.Button
@@ -500,7 +501,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.KeyboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -652,6 +652,11 @@ Partial Class frmMain
         resources.ApplyResources(Me.CharacterStatisticsMenuItem, "CharacterStatisticsMenuItem")
         Me.CharacterStatisticsMenuItem.Name = "CharacterStatisticsMenuItem"
         '
+        'KeyboardToolStripMenuItem
+        '
+        Me.KeyboardToolStripMenuItem.Name = "KeyboardToolStripMenuItem"
+        resources.ApplyResources(Me.KeyboardToolStripMenuItem, "KeyboardToolStripMenuItem")
+        '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
@@ -700,7 +705,7 @@ Partial Class frmMain
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem, Me.TestToolStripMenuItem1})
         Me.MenuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
         Me.MenuStrip1.Name = "MenuStrip1"
@@ -1513,6 +1518,11 @@ Partial Class frmMain
         '
         Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
         resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
+        '
+        'TestToolStripMenuItem1
+        '
+        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
+        resources.ApplyResources(Me.TestToolStripMenuItem1, "TestToolStripMenuItem1")
         '
         'TestToolStripMenuItem
         '
@@ -2762,7 +2772,6 @@ Partial Class frmMain
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.MiscReloadTibiaDatButton)
         Me.GroupBox1.Controls.Add(Me.MiscReloadOutfitsButton)
         Me.GroupBox1.Controls.Add(Me.MiscReloadConstantsButton)
         Me.GroupBox1.Controls.Add(Me.MiscReloadItemsButton)
@@ -2770,12 +2779,6 @@ Partial Class frmMain
         resources.ApplyResources(Me.GroupBox1, "GroupBox1")
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.TabStop = False
-        '
-        'MiscReloadTibiaDatButton
-        '
-        resources.ApplyResources(Me.MiscReloadTibiaDatButton, "MiscReloadTibiaDatButton")
-        Me.MiscReloadTibiaDatButton.Name = "MiscReloadTibiaDatButton"
-        Me.MiscReloadTibiaDatButton.UseVisualStyleBackColor = True
         '
         'MiscReloadOutfitsButton
         '
@@ -3481,11 +3484,6 @@ Partial Class frmMain
         'Timer1
         '
         '
-        'KeyboardToolStripMenuItem
-        '
-        Me.KeyboardToolStripMenuItem.Name = "KeyboardToolStripMenuItem"
-        resources.ApplyResources(Me.KeyboardToolStripMenuItem, "KeyboardToolStripMenuItem")
-        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -3834,7 +3832,6 @@ Partial Class frmMain
     Friend WithEvents MiscReloadConstantsButton As System.Windows.Forms.Button
     Friend WithEvents MiscReloadItemsButton As System.Windows.Forms.Button
     Friend WithEvents MiscReloadSpellsButton As System.Windows.Forms.Button
-    Friend WithEvents MiscReloadTibiaDatButton As System.Windows.Forms.Button
     Friend WithEvents AFKTabControl As System.Windows.Forms.TabControl
     Friend WithEvents TabPage14 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage17 As System.Windows.Forms.TabPage
@@ -4115,4 +4112,5 @@ Partial Class frmMain
     Friend WithEvents TestToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ScriptsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents KeyboardToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TestToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 End Class

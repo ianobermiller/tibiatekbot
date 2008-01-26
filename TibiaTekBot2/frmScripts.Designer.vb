@@ -95,36 +95,36 @@ Partial Class frmScripts
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem1, Me.EditToolStripMenuItem, Me.RemoveToolStripMenuItem, Me.ReloadToolStripMenuItem, Me.TestToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(153, 136)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(125, 114)
         '
         'AddToolStripMenuItem1
         '
         Me.AddToolStripMenuItem1.Name = "AddToolStripMenuItem1"
-        Me.AddToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.AddToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
         Me.AddToolStripMenuItem1.Text = "&Add"
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.EditToolStripMenuItem.Text = "&Edit"
         '
         'RemoveToolStripMenuItem
         '
         Me.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem"
-        Me.RemoveToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RemoveToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.RemoveToolStripMenuItem.Text = "&Remove"
         '
         'ReloadToolStripMenuItem
         '
         Me.ReloadToolStripMenuItem.Name = "ReloadToolStripMenuItem"
-        Me.ReloadToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ReloadToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ReloadToolStripMenuItem.Text = "R&eload"
         '
         'TestToolStripMenuItem
         '
         Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
-        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.TestToolStripMenuItem.Text = "&Test"
         Me.TestToolStripMenuItem.Visible = False
         '
@@ -148,39 +148,39 @@ Partial Class frmScripts
         '
         Me.AddScriptToolStripMenuItem.Image = CType(resources.GetObject("AddScriptToolStripMenuItem.Image"), System.Drawing.Image)
         Me.AddScriptToolStripMenuItem.Name = "AddScriptToolStripMenuItem"
-        Me.AddScriptToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.AddScriptToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.AddScriptToolStripMenuItem.Text = "&Add"
         '
         'EditToolStripMenuItem2
         '
         Me.EditToolStripMenuItem2.Image = CType(resources.GetObject("EditToolStripMenuItem2.Image"), System.Drawing.Image)
         Me.EditToolStripMenuItem2.Name = "EditToolStripMenuItem2"
-        Me.EditToolStripMenuItem2.Size = New System.Drawing.Size(124, 22)
+        Me.EditToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
         Me.EditToolStripMenuItem2.Text = "&Edit"
         '
         'RemoveToolStripMenuItem1
         '
         Me.RemoveToolStripMenuItem1.Image = CType(resources.GetObject("RemoveToolStripMenuItem1.Image"), System.Drawing.Image)
         Me.RemoveToolStripMenuItem1.Name = "RemoveToolStripMenuItem1"
-        Me.RemoveToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
+        Me.RemoveToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
         Me.RemoveToolStripMenuItem1.Text = "&Remove"
         '
         'ReloadToolStripMenuItem1
         '
         Me.ReloadToolStripMenuItem1.Name = "ReloadToolStripMenuItem1"
-        Me.ReloadToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
+        Me.ReloadToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
         Me.ReloadToolStripMenuItem1.Text = "R&eload"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(121, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Image = CType(resources.GetObject("ExitToolStripMenuItem.Image"), System.Drawing.Image)
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ExitToolStripMenuItem.Text = "&Close"
         '
         'OptionsToolStripMenuItem
@@ -232,7 +232,8 @@ Partial Class frmScripts
         '
         'OpenScriptDialog
         '
-        Me.OpenScriptDialog.Filter = "TibiaTek Script Files (VB Syntax)|*.tts.vb"
+        Me.OpenScriptDialog.Filter = "TibiaTek Script Files (VB Syntax)|*.tts.vb|TibiaTek Script Files (C# Syntax)|*.tt" & _
+            "s.cs"
         '
         'frmScripts
         '

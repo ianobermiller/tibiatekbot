@@ -22,30 +22,30 @@
 <Items>
 	<Item Name="Icicle" Kind="Tool" ID="HC56" />
     <Item Name="Blank" Kind="Tool" ID="HC4B"/>
-	<Item Name="Ultimate Healing" Kind="Rune" ID="HC58"/>
-    <Item Name="Intense Healing" Kind="Rune" ID="HC50"/>
-    <Item Name="Sudden Death" Kind="Rune" ID="HC53"/>
+	<Item Name="Ultimate Healing" Kind="Unknown" ID="HC58"/>
+    <Item Name="Intense Healing" Kind="Unknown" ID="HC50"/>
+    <Item Name="Sudden Death" Kind="Unknown" ID="HC53"/>
     <Item Name="Blank" Kind="Tool" ID="HC4B"/>
-    <Item Name="Heavy Magic Missile" Kind="Rune" ID="HC7E"/>
-    <Item Name="Destroy Field" Kind="Rune" ID="HC4C"/>
-    <Item Name="Energy Field" Kind="Rune" ID="HC5C"/>
-    <Item Name="Fire Field" Kind="Rune" ID="HC74"/>
-	<Item Name="Fireball" Kind="Rune" ID="HC75"/>
-    <Item Name="Explosion" Kind="Rune" ID="HC80"/>
-    <Item Name="Convince Creature" Kind="Rune" ID="HC69"/>
-    <Item Name="Great Fireball" Kind="Rune" ID="HC77"/>
-    <Item Name="Light Magic Missile" Kind="Rune" ID="HC66"/>
-    <Item Name="Poison Field" Kind="Rune" ID="HC64"/>
-    <Item Name="Chameleon" Kind="Rune" ID="HC6A"/>
-    <Item Name="Antidote" Kind="Rune" ID="HC51"/>
-    <Item Name="Firebomb" Kind="Rune" ID="HC78"/>
-    <Item Name="Poison Wall" Kind="Rune" ID="HC68"/>
-    <Item Name="Energy Wall" Kind="Rune" ID="HC5E"/>
-    <Item Name="Fire Wall" Kind="Rune" ID="HC76"/>
-	<Item Name="Paralyze" Kind="Rune" ID="HC5D"/>
-	<Item Name="Avalance" Kind="Rune" ID="HC59"/>
-    <Item Name="Stalagmite" Kind="Rune" ID="HC6B"/>
-    <Item Name="Stone Shower" Kind="Rune" ID="HC67"/>
+    <Item Name="Heavy Magic Missile" Kind="Unknown" ID="HC7E"/>
+    <Item Name="Destroy Field" Kind="Unknown" ID="HC4C"/>
+    <Item Name="Energy Field" Kind="Unknown" ID="HC5C"/>
+    <Item Name="Fire Field" Kind="Unknown" ID="HC74"/>
+	<Item Name="Fireball" Kind="Unknown" ID="HC75"/>
+    <Item Name="Explosion" Kind="Unknown" ID="HC80"/>
+    <Item Name="Convince Creature" Kind="Unknown" ID="HC69"/>
+    <Item Name="Great Fireball" Kind="Unknown" ID="HC77"/>
+    <Item Name="Light Magic Missile" Kind="Unknown" ID="HC66"/>
+    <Item Name="Poison Field" Kind="Unknown" ID="HC64"/>
+    <Item Name="Chameleon" Kind="Unknown" ID="HC6A"/>
+    <Item Name="Antidote" Kind="Unknown" ID="HC51"/>
+    <Item Name="Firebomb" Kind="Unknown" ID="HC78"/>
+    <Item Name="Poison Wall" Kind="Unknown" ID="HC68"/>
+    <Item Name="Energy Wall" Kind="Unknown" ID="HC5E"/>
+    <Item Name="Fire Wall" Kind="Unknown" ID="HC76"/>
+	<Item Name="Paralyze" Kind="Unknown" ID="HC5D"/>
+	<Item Name="Avalance" Kind="Unknown" ID="HC59"/>
+    <Item Name="Stalagmite" Kind="Unknown" ID="HC6B"/>
+    <Item Name="Stone Shower" Kind="Unknown" ID="HC67"/>
 
 	
     <Item Name="Fish" Kind="Food" ID="Hdfa"/>
@@ -78,166 +78,166 @@
     <Item Name="Rake" Kind="Tool" ID="HD7C"/>
     <Item Name="Pick" Kind="Tool" ID="HD80"/>
     <Item Name="Scythe" Kind="Equipment,SingleHandedWeapon,Tool" ID="HD7D"/>
-    <Item Name="Magic Light Wand" Kind="Tool,LightSource" ID="HBE6"/>
+    <Item Name="Magic Light Wand" Kind="Tool" ID="HBE6"/>
     <Item Name="Light Shovel" Kind="Tool" ID="H164E"/>
 	<Item Name="Frozen Starlight" Kind="Tool" ID="HCB1"/>
-    <Item Name="Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCCD"/>
-	<Item Name="Hunting Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HD13"/>
-	<Item Name="Enchanted Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CC7"/>
-	<Item Name="Royal Spear" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H1CD2"/>
-    <Item Name="Small Stone" Kind="Equipment,SingleHandedWeapon,Throwable" ID="H6F5"/>
-    <Item Name="Throwing Star" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCD7"/>
-    <Item Name="Throwing Knife" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HCE2"/>
-    <Item Name="Snowball" Kind="Equipment,SingleHandedWeapon,Throwable" ID="HBB0"/>        
-    <Item Name="Fur Backpack" Kind="Equipment,Container" ID="H1CAE"/>
-    <Item Name="Gray Backpack" Kind="Equipment,Container" ID="2870"/>
-    <Item Name="Purple Backpack" Kind="Equipment,Container" ID="2868"/>
-    <Item Name="Golden Backpack" Kind="Equipment,Container" ID="2871"/>
-    <Item Name="Jungle Backpack" Kind="Equipment,Container" ID="2872"/>
-    <Item Name="Yellow Backpack" Kind="Equipment,Container" ID="2866"/>
-    <Item Name="Red Backpack" Kind="Equipment,Container" ID="2867"/>
-    <Item Name="Brown Backpack" Kind="Equipment,Container" ID="2854"/>
-    <Item Name="Green Backpack" Kind="Equipment,Container" ID="2865"/>
-    <Item Name="Blue Backpack" Kind="Equipment,Container" ID="2869"/>
-    <Item Name="Pirate Backpack" Kind="Equipment,Container" ID="5926"/>
-    <Item Name="Star Backpack" Kind="Equipment,Container" ID="5949"/>
-    <Item Name="Brown Bag" Kind="Equipment,Container" ID="HB25"/>
-    <Item Name="Pirate Bag" Kind="Equipment,Container" ID="H1727"/>
-    <Item Name="Star Bag" Kind="Equipment,Container" ID="H173E"/>
-    <Item Name="Green Bag" Kind="Equipment,Container" ID="2857"/>
-    <Item Name="Yellow Bag" Kind="Equipment,Container" ID="2858"/>
-    <Item Name="Red Bag" Kind="Equipment,Container" ID="2859"/>
-    <Item Name="Purple Bag" Kind="Equipment,Container" ID="2860"/>
-    <Item Name="Blue Bag" Kind="Equipment,Container" ID="2861"/>
-    <Item Name="Gray Bag" Kind="Equipment,Container" ID="2862"/>
-    <Item Name="Golden Bag" Kind="Equipment,Container" ID="2863"/>
-    <Item Name="Jungle Bag" Kind="Equipment,Container" ID="2864"/>
-    <Item Name="Backpack Of Holding" Kind="Equipment,Container" ID="3253"/>
-	<Item Name="Key Ring" Kind="Equipment,Container" ID="H16A9"/>
-    <Item Name="Parcel" Kind="Container" ID="3503"/>
-    <Item Name="Present" Kind="Container" ID="2856" />
-    <Item Name="Stamped Parcel" Kind="Container" ID="3504"/>
-    <Item Name="Chest" Kind="Container,Blocking" ID="2472"/>
-    <Item Name="Basket" Kind="Container" ID="2855"/>
-    <Item Name="Crate" Kind="Container,Blocking" ID="2471"/>
-    <Item Name="Brown Box" Kind="Container,Blocking" ID="2473"/>
-    <Item Name="Chest" Kind="Container,Blocking" ID="2480"/>
-    <Item Name="Chest" Kind="Container,Blocking" ID="2481"/>
-    <Item Name="Chest" Kind="Container,Blocking" ID="2482"/>    
-    <Item Name="Box" Kind="Container,Blocking" ID="2469"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2431"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2432"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2433"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2434"/>   
-    <Item Name="Booshelf" Kind="Container,Blocking" ID="2435"/>
-    <Item Name="Booshelf" Kind="Container,Blocking" ID="2436"/>
-    <Item Name="Booshelf" Kind="Container,Blocking" ID="2437"/>
-    <Item Name="Booshelf" Kind="Container,Blocking" ID="2438"/>
-    <Item Name="Booshelf" Kind="Container,Blocking" ID="2439"/>
-    <Item Name="Booshelf" Kind="Container,Blocking" ID="2440"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2441"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2442"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2443"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2444"/>    
-    <Item Name="Locker" Kind="Container,Blocking" ID="2449"/>
-    <Item Name="Locker" Kind="Container,Blocking" ID="2450"/>
-    <Item Name="Locker" Kind="Container,Blocking" ID="2451"/>
-    <Item Name="Locker" Kind="Container,Blocking" ID="2452"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2465"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2466"/>
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2467"/>    
-    <Item Name="Drawer" Kind="Container,Blocking" ID="2468"/>    
-    <Item Name="Box" Kind="Container,FullBlocking" ID="2483"/>
-    <Item Name="Box" Kind="Container,FullBlocking" ID="2484"/>
-    <Item Name="Box" Kind="Container,FullBlocking" ID="2485"/>
-    <Item Name="Box" Kind="Container,FullBlocking" ID="2486"/>
-    <Item Name="Barrel" Kind="Container,FullBlocking" ID="2520"/>
-    <Item Name="Barrel" Kind="Container,FullBlocking" ID="2523"/>
-    <Item Name="Trough" Kind="FluidContainer,FullBlocking" ID="2524"/>
+    <Item Name="Spear" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HCCD"/>
+	<Item Name="Hunting Spear" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HD13"/>
+	<Item Name="Enchanted Spear" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="H1CC7"/>
+	<Item Name="Royal Spear" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="H1CD2"/>
+    <Item Name="Small Stone" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="H6F5"/>
+    <Item Name="Throwing Star" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HCD7"/>
+    <Item Name="Throwing Knife" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HCE2"/>
+    <Item Name="Snowball" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HBB0"/>        
+    <Item Name="Fur Backpack" Kind="Equipment" ID="H1CAE"/>
+    <Item Name="Gray Backpack" Kind="Equipment" ID="2870"/>
+    <Item Name="Purple Backpack" Kind="Equipment" ID="2868"/>
+    <Item Name="Golden Backpack" Kind="Equipment" ID="2871"/>
+    <Item Name="Jungle Backpack" Kind="Equipment" ID="2872"/>
+    <Item Name="Yellow Backpack" Kind="Equipment" ID="2866"/>
+    <Item Name="Red Backpack" Kind="Equipment" ID="2867"/>
+    <Item Name="Brown Backpack" Kind="Equipment" ID="2854"/>
+    <Item Name="Green Backpack" Kind="Equipment" ID="2865"/>
+    <Item Name="Blue Backpack" Kind="Equipment" ID="2869"/>
+    <Item Name="Pirate Backpack" Kind="Equipment" ID="5926"/>
+    <Item Name="Star Backpack" Kind="Equipment" ID="5949"/>
+    <Item Name="Brown Bag" Kind="Equipment" ID="HB25"/>
+    <Item Name="Pirate Bag" Kind="Equipment" ID="H1727"/>
+    <Item Name="Star Bag" Kind="Equipment" ID="H173E"/>
+    <Item Name="Green Bag" Kind="Equipment" ID="2857"/>
+    <Item Name="Yellow Bag" Kind="Equipment" ID="2858"/>
+    <Item Name="Red Bag" Kind="Equipment" ID="2859"/>
+    <Item Name="Purple Bag" Kind="Equipment" ID="2860"/>
+    <Item Name="Blue Bag" Kind="Equipment" ID="2861"/>
+    <Item Name="Gray Bag" Kind="Equipment" ID="2862"/>
+    <Item Name="Golden Bag" Kind="Equipment" ID="2863"/>
+    <Item Name="Jungle Bag" Kind="Equipment" ID="2864"/>
+    <Item Name="Backpack Of Holding" Kind="Equipment" ID="3253"/>
+	<Item Name="Key Ring" Kind="Equipment" ID="H16A9"/>
+    <Item Name="Parcel" Kind="Unknown" ID="3503"/>
+    <Item Name="Present" Kind="Unknown" ID="2856" />
+    <Item Name="Stamped Parcel" Kind="Unknown" ID="3504"/>
+    <Item Name="Chest" Kind="Unknown" ID="2472"/>
+    <Item Name="Basket" Kind="Unknown" ID="2855"/>
+    <Item Name="Crate" Kind="Unknown" ID="2471"/>
+    <Item Name="Brown Box" Kind="Unknown" ID="2473"/>
+    <Item Name="Chest" Kind="Unknown" ID="2480"/>
+    <Item Name="Chest" Kind="Unknown" ID="2481"/>
+    <Item Name="Chest" Kind="Unknown" ID="2482"/>    
+    <Item Name="Box" Kind="Unknown" ID="2469"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2431"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2432"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2433"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2434"/>   
+    <Item Name="Booshelf" Kind="Unknown" ID="2435"/>
+    <Item Name="Booshelf" Kind="Unknown" ID="2436"/>
+    <Item Name="Booshelf" Kind="Unknown" ID="2437"/>
+    <Item Name="Booshelf" Kind="Unknown" ID="2438"/>
+    <Item Name="Booshelf" Kind="Unknown" ID="2439"/>
+    <Item Name="Booshelf" Kind="Unknown" ID="2440"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2441"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2442"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2443"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2444"/>    
+    <Item Name="Locker" Kind="Unknown" ID="2449"/>
+    <Item Name="Locker" Kind="Unknown" ID="2450"/>
+    <Item Name="Locker" Kind="Unknown" ID="2451"/>
+    <Item Name="Locker" Kind="Unknown" ID="2452"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2465"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2466"/>
+    <Item Name="Drawer" Kind="Unknown" ID="2467"/>    
+    <Item Name="Drawer" Kind="Unknown" ID="2468"/>    
+    <Item Name="Box" Kind="Unknown" ID="2483"/>
+    <Item Name="Box" Kind="Unknown" ID="2484"/>
+    <Item Name="Box" Kind="Unknown" ID="2485"/>
+    <Item Name="Box" Kind="Unknown" ID="2486"/>
+    <Item Name="Barrel" Kind="Unknown" ID="2520"/>
+    <Item Name="Barrel" Kind="Unknown" ID="2523"/>
+    <Item Name="Trough" Kind="Unknown" ID="2524"/>
     
-    <Item Name="Treasure Chest With Gold" Kind="FullBlocking,Special" ID="5675" />
+    <Item Name="Treasure Chest With Gold" Kind="" ID="5675" />
     <Item Name="Botanist's Container" Kind="Valuable" ID="4869" />
-    <Item Name="Jewel Case" Kind="Equipment,Container" ID="6104"/>
+    <Item Name="Jewel Case" Kind="Equipment" ID="6104"/>
     <Item Name="Worm" Kind="Tool" ID="HDA4"/>
-    <Item Name="Remains Of A Ghost" Kind="Container" ID="H10c2"/>
+    <Item Name="Remains Of A Ghost" Kind="Unknown" ID="H10c2"/>
 
-    <Item Name="Depot" Kind="Container" ID="HDAE"/>
-    <Item Name="Depot" Kind="Container" ID="HDAB"/>
-    <Item Name="Depot" Kind="Container" ID="HDAA"/>
-    <Item Name="Depot" Kind="Container" ID="HDA9"/>
-    <Item Name="Depot" Kind="Container" ID="HDAC"/>
-    <Item Name="Teleport" Kind="Teleport" ID="H79D"/>
-    <Item Name="Ladder" Kind="UsableTeleport" ID="H79C"/>
-    <Item Name="Ladder" Kind="UsableTeleport" ID="H7B0"/>
-    <Item Name="Mailbox" Kind="Special" ID="HDAD"/>
-    <Item Name="Closed H. Door1" Kind="Door" ID="H14A3"/>
-    <Item Name="Closed H. Door2" Kind="Door" ID="H14A5"/>
-    <Item Name="Closed H. Door3" Kind="Door" ID="H1870"/>
-    <Item Name="Closed H. Door4" Kind="Door" ID="H186E"/>
-    <Item Name="Closed H. Door5" Kind="Door" ID="H13DA"/>
-    <Item Name="Closed H. Door6" Kind="Door" ID="H13F5"/>
-    <Item Name="Open H. Door1" Kind="Door" ID="H1871"/>
-    <Item Name="Open H. Door2" Kind="Door" ID="H1838"/>
-    <Item Name="Open H. Door3" Kind="Door" ID="H14A4"/>
-    <Item Name="Open H. Door4" Kind="Door" ID="H14A6"/>
-    <Item Name="Open H. Door5" Kind="Door" ID="H667"/>
-    <Item Name="Open H. Door6" Kind="Door" ID="H669"/>        
-    <Item Name="Open H. Door7" Kind="Door" ID="H186F"/>  
-    <Item Name="Open H. Door8" Kind="Door" ID="H13DB"/>  
-    <Item Name="Closed H. Door7" Kind="Door" ID="H13F6"/>
-    <Item Name="Closed Door1" Kind="Door" ID="H685"/>
-    <Item Name="Closed Door2" Kind="Door" ID="H1404"/>
-    <Item Name="Closed Door3" Kind="Door" ID="H149D"/>
-    <Item Name="Closed Door4" Kind="Door" ID="H14A0"/>
-    <Item Name="Closed Door5" Kind="Door" ID="H13FD"/>
-    <Item Name="Closed Door6" Kind="Door" ID="H65D"/>
-    <Item Name="Closed Door7" Kind="Door" ID="H660"/>
-    <Item Name="Closed Door8" Kind="Door" ID="H699"/>
-    <Item Name="Closed Door9" Kind="Door" ID="H1330"/>
-    <Item Name="Closed DoorA" Kind="Door" ID="H13F2"/>
-    <Item Name="Open Door1" Kind="Door" ID="H686"/>
-    <Item Name="Open Door2" Kind="Door" ID="H1406"/>
-    <Item Name="Open Door3" Kind="Door" ID="H149F"/>
-    <Item Name="Open Door4" Kind="Door" ID="H14A2"/>
-    <Item Name="Open Door5" Kind="Door" ID="H13BF"/>
-    <Item Name="Open Door6" Kind="Door" ID="H132F"/>
-    <Item Name="Open Door7" Kind="Door" ID="H13F4"/>
-    <Item Name="Open Door8" Kind="Door" ID="H65E"/>
-    <Item Name="Open Door9" Kind="Door" ID="H661"/>
-    <Item Name="Open DoorA" Kind="Door" ID="H689"/>
-    <Item Name="Locked Door1" Kind="Door" ID="H684"/>
-    <Item Name="Locked Door2" Kind="Door" ID="H1405"/>
-    <Item Name="Locked Door3" Kind="Door" ID="H13EA"/>
-    <Item Name="Down1" Kind="Teleport" ID="H1D5"/>
-    <Item Name="Down2" Kind="Teleport" ID="H1B2"/>
-    <Item Name="Down3" Kind="Teleport" ID="H1B1"/>
-    <Item Name="Down4" Kind="UsableTeleport2" ID="H1B3"/>
-    <Item Name="Down5" Kind="UsableTeleport2" ID="H253"/> 
-    <Item Name="Down6" Kind="Teleport" ID="H1B0"/>
-    <Item Name="Down7" Kind="Teleport" ID="H1B6"/>
-    <Item Name="Down8" Kind="Teleport" ID="H19B"/>
-    <Item Name="Down9" Kind="Teleport" ID="H1E2"/>
-    <Item Name="DownA" Kind="Teleport" ID="H163B"/>
-    <Item Name="DownB" Kind="Teleport" ID="H19D"/>
-    <Item Name="Stairs1" Kind="Teleport" ID="H79B"/>
-    <Item Name="Stairs2" Kind="Teleport" ID="H7A6"/>
-    <Item Name="Stairs3" Kind="Teleport" ID="H148A"/>
-    <Item Name="Stairs4" Kind="Teleport" ID="H148B"/>
-    <Item Name="Water With Fish1" Kind="FullBlocking" ID="H11F5"/>
-    <Item Name="Water With Fish2" Kind="FullBlocking" ID="H11F6"/>
-    <Item Name="Water With Fish3" Kind="FullBlocking" ID="H11F7"/>
-    <Item Name="Water With Fish4" Kind="FullBlocking" ID="H11F8"/>
-    <Item Name="Water With Fish5" Kind="FullBlocking" ID="H11F9"/>
-    <Item Name="Water With Fish6" Kind="FullBlocking" ID="H11FA"/>
-    <Item Name="Water1" Kind="FullBlocking" ID="H1201"/>
-    <Item Name="Water2" Kind="FullBlocking" ID="H1202"/>
-    <Item Name="Water3" Kind="FullBlocking" ID="H1203"/>
-    <Item Name="Water4" Kind="FullBlocking" ID="H1204"/>
-    <Item Name="Water5" Kind="FullBlocking" ID="H1205"/>
-    <Item Name="Water6" Kind="FullBlocking" ID="H1206"/>
-    <Item Name="Downstairs" Kind="Teleport" ID="H1B5"/>        
-    <Item Name="Dustbin" Kind="Special" ID="H9DE"/>
-    <Item Name="Vial" Kind="FluidContainer" ID="HB3A"/>
+    <Item Name="Depot" Kind="Unknown" ID="HDAE"/>
+    <Item Name="Depot" Kind="Unknown" ID="HDAB"/>
+    <Item Name="Depot" Kind="Unknown" ID="HDAA"/>
+    <Item Name="Depot" Kind="Unknown" ID="HDA9"/>
+    <Item Name="Depot" Kind="Unknown" ID="HDAC"/>
+    <Item Name="Unknown" Kind="Unknown" ID="H79D"/>
+    <Item Name="Ladder" Kind="Unknown" ID="H79C"/>
+    <Item Name="Ladder" Kind="Unknown" ID="H7B0"/>
+    <Item Name="Mailbox" Kind="Unknown" ID="HDAD"/>
+    <Item Name="Closed H. Door1" Kind="Unknown" ID="H14A3"/>
+    <Item Name="Closed H. Door2" Kind="Unknown" ID="H14A5"/>
+    <Item Name="Closed H. Door3" Kind="Unknown" ID="H1870"/>
+    <Item Name="Closed H. Door4" Kind="Unknown" ID="H186E"/>
+    <Item Name="Closed H. Door5" Kind="Unknown" ID="H13DA"/>
+    <Item Name="Closed H. Door6" Kind="Unknown" ID="H13F5"/>
+    <Item Name="Open H. Door1" Kind="Unknown" ID="H1871"/>
+    <Item Name="Open H. Door2" Kind="Unknown" ID="H1838"/>
+    <Item Name="Open H. Door3" Kind="Unknown" ID="H14A4"/>
+    <Item Name="Open H. Door4" Kind="Unknown" ID="H14A6"/>
+    <Item Name="Open H. Door5" Kind="Unknown" ID="H667"/>
+    <Item Name="Open H. Door6" Kind="Unknown" ID="H669"/>        
+    <Item Name="Open H. Door7" Kind="Unknown" ID="H186F"/>  
+    <Item Name="Open H. Door8" Kind="Unknown" ID="H13DB"/>  
+    <Item Name="Closed H. Door7" Kind="Unknown" ID="H13F6"/>
+    <Item Name="Closed Door1" Kind="Unknown" ID="H685"/>
+    <Item Name="Closed Door2" Kind="Unknown" ID="H1404"/>
+    <Item Name="Closed Door3" Kind="Unknown" ID="H149D"/>
+    <Item Name="Closed Door4" Kind="Unknown" ID="H14A0"/>
+    <Item Name="Closed Door5" Kind="Unknown" ID="H13FD"/>
+    <Item Name="Closed Door6" Kind="Unknown" ID="H65D"/>
+    <Item Name="Closed Door7" Kind="Unknown" ID="H660"/>
+    <Item Name="Closed Door8" Kind="Unknown" ID="H699"/>
+    <Item Name="Closed Door9" Kind="Unknown" ID="H1330"/>
+    <Item Name="Closed DoorA" Kind="Unknown" ID="H13F2"/>
+    <Item Name="Open Door1" Kind="Unknown" ID="H686"/>
+    <Item Name="Open Door2" Kind="Unknown" ID="H1406"/>
+    <Item Name="Open Door3" Kind="Unknown" ID="H149F"/>
+    <Item Name="Open Door4" Kind="Unknown" ID="H14A2"/>
+    <Item Name="Open Door5" Kind="Unknown" ID="H13BF"/>
+    <Item Name="Open Door6" Kind="Unknown" ID="H132F"/>
+    <Item Name="Open Door7" Kind="Unknown" ID="H13F4"/>
+    <Item Name="Open Door8" Kind="Unknown" ID="H65E"/>
+    <Item Name="Open Door9" Kind="Unknown" ID="H661"/>
+    <Item Name="Open DoorA" Kind="Unknown" ID="H689"/>
+    <Item Name="Locked Door1" Kind="Unknown" ID="H684"/>
+    <Item Name="Locked Door2" Kind="Unknown" ID="H1405"/>
+    <Item Name="Locked Door3" Kind="Unknown" ID="H13EA"/>
+    <Item Name="Down1" Kind="Unknown" ID="H1D5"/>
+    <Item Name="Down2" Kind="Unknown" ID="H1B2"/>
+    <Item Name="Down3" Kind="Unknown" ID="H1B1"/>
+    <Item Name="Down4" Kind="Unknown" ID="H1B3"/>
+    <Item Name="Down5" Kind="Unknown" ID="H253"/> 
+    <Item Name="Down6" Kind="Unknown" ID="H1B0"/>
+    <Item Name="Down7" Kind="Unknown" ID="H1B6"/>
+    <Item Name="Down8" Kind="Unknown" ID="H19B"/>
+    <Item Name="Down9" Kind="Unknown" ID="H1E2"/>
+    <Item Name="DownA" Kind="Unknown" ID="H163B"/>
+    <Item Name="DownB" Kind="Unknown" ID="H19D"/>
+    <Item Name="Stairs1" Kind="Unknown" ID="H79B"/>
+    <Item Name="Stairs2" Kind="Unknown" ID="H7A6"/>
+    <Item Name="Stairs3" Kind="Unknown" ID="H148A"/>
+    <Item Name="Stairs4" Kind="Unknown" ID="H148B"/>
+    <Item Name="Water With Fish1" Kind="Unknown" ID="H11F5"/>
+    <Item Name="Water With Fish2" Kind="Unknown" ID="H11F6"/>
+    <Item Name="Water With Fish3" Kind="Unknown" ID="H11F7"/>
+    <Item Name="Water With Fish4" Kind="Unknown" ID="H11F8"/>
+    <Item Name="Water With Fish5" Kind="Unknown" ID="H11F9"/>
+    <Item Name="Water With Fish6" Kind="Unknown" ID="H11FA"/>
+    <Item Name="Water1" Kind="Unknown" ID="H1201"/>
+    <Item Name="Water2" Kind="Unknown" ID="H1202"/>
+    <Item Name="Water3" Kind="Unknown" ID="H1203"/>
+    <Item Name="Water4" Kind="Unknown" ID="H1204"/>
+    <Item Name="Water5" Kind="Unknown" ID="H1205"/>
+    <Item Name="Water6" Kind="Unknown" ID="H1206"/>
+    <Item Name="Downstairs" Kind="Unknown" ID="H1B5"/>        
+    <Item Name="Dustbin" Kind="Unknown" ID="H9DE"/>
+    <Item Name="Vial" Kind="Unknown" ID="HB3A"/>
     <Item Name="King Voodoo Doll" Kind="Valuable" ID="HC89"/>    
     <Item Name="Post Horn" Kind="Valuable" ID="HB8D"/>
     <Item Name="Platinum Coin" Kind="Valuable" ID="HBDB"/>
@@ -273,9 +273,9 @@
 	<Item Name="Blue Legs" Kind="Equipment,Leg" ID="H285"/>
     <Item Name="Cream Cake" Kind="Valuable" ID="H18F9"/>
     <Item Name="Sandals" Kind="Equipment,Footwear" ID="HDDF"/>
-    <Item Name="Pot" Kind="FluidContainer,FullBlocking" ID="HD89"/>
-    <Item Name="Candelabrum" Kind="LightSource" ID="HB5F"/>
-    <Item Name="Lit Candelabrum" Kind="LightSource" ID="HB60"/>
+    <Item Name="Pot" Kind="Unknown" ID="HD89"/>
+    <Item Name="Candelabrum" Kind="Unknown" ID="HB5F"/>
+    <Item Name="Lit Candelabrum" Kind="Unknown" ID="HB60"/>
     <Item Name="Parchment" Kind="Tool" ID="HB13"/>
     <Item Name="Lyre" Kind="Valuable" ID="HB85"/>
     <Item Name="Party Trumpet" Kind="Valuable" ID="H19AC"/>
@@ -353,9 +353,9 @@
 	<Item Name="Small Amethyst" Kind="Valuable" ID="HBD9"/>
 	<Item Name="Deer Trophy" Kind="Valuable" ID="H1CE5"/>
 	<Item Name="Post Officer's Hat" Kind="Helmet,Equipment,Valuable" ID="HBF8"/>
-	<Item Name="Empty Potion Flask" Kind="FluidContainer" ID="H11D"/>
-	<Item Name="Strong Empty Potion Flask" Kind="FluidContainer" ID="H11B"/>
-	<Item Name="Great Empty Potion Flask" Kind="FluidContainer" ID="H11C"/>
+	<Item Name="Empty Potion Flask" Kind="Unknown" ID="H11D"/>
+	<Item Name="Strong Empty Potion Flask" Kind="Unknown" ID="H11B"/>
+	<Item Name="Great Empty Potion Flask" Kind="Unknown" ID="H11C"/>
 	<Item Name="Health Potion" Kind="Tool" ID="H10A"/>
 	<Item Name="Strong Health Potion" Kind="Tool" ID="HEC"/>
 	<Item Name="Great Health Potion" Kind="Tool" ID="HEF"/>

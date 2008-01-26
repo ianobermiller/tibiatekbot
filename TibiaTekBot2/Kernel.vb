@@ -22,7 +22,7 @@ Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, S
   System.IO, System.Xml, Microsoft.VisualBasic.Devices, TibiaTekBot.Constants, _
   System.Drawing.Imaging, TibiaTekBot.PProxy2, System.Runtime.InteropServices, _
   TibiaTekBot.IrcClient, System.Windows.Forms, Scripting, System.ComponentModel, _
-  System.CodeDom, System.CodeDom.Compiler
+  System.CodeDom.Compiler
 
 #Region " To Do "
 
@@ -1129,7 +1129,7 @@ Public Module KernelModule
                         ContainerIndex = MyContainer.GetContainerIndex
                         For I As Integer = 0 To ContainerItemCount - 1
                             Item = MyContainer.Items(I)
-                            If Client.Dat.GetInfo(Item.ID).IsStackable AndAlso Item.Count < 100 Then
+                            If Client.Objects.HasFlags(Item.ID, IObjects.ObjectFlags.IsStackable) AndAlso Item.Count < 100 Then
                                 If MyContainer.FindItem(Item2, Item.ID, ContainerIndex, I + 1, ContainerIndex, 1, 99) Then
                                     Dim ServerPacket As New ServerPacketBuilder(Proxy)
                                     ServerPacket.MoveObject(Item, Item2.Location)
@@ -1212,7 +1212,7 @@ Public Module KernelModule
                             If LootItems.IsLootable(Item.ID) Then
                                 Dim RemainingCount As Integer
                                 RemainingCount = Max(Item.Count, 1)
-                                If Client.Dat.GetInfo(Item.ID).IsStackable Then
+                                If Client.Objects.HasFlags(Item.ID, IObjects.ObjectFlags.IsStackable) Then
                                     For ActualIndex2 = 0 To 15
                                         If Containers(ActualIndex2).ID = 0 Then Continue For
                                         'if its a corpse, or a brown bag that has a parent container
@@ -2941,59 +2941,65 @@ Public Module KernelModule
                 Dim ReturnLocations As New SortedList '(Of Integer, ITibia.LocationDefinition)
                 BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 Kernel.ConsoleWrite("Current Z + FloorChange: " & CurrentZ + FloorChange)
+                Dim TileObjectID As Integer = 0
                 For XAxis As Integer = 1 To 15
                     For YAxis As Integer = 1 To 11
                         TileObjects = Client.MapTiles.GetTileObjects(XAxis, YAxis, Client.MapTiles.WorldZToClientZ(CurrentZ + FloorChange))
+
                         For Each TileObject In TileObjects
-                            With Client.Dat.GetInfo(TileObject.GetObjectID)
-                                Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
-                                CPB.AnimatedText(Scripting.ITibia.TextColors.Orange, TileObject.GetMapLocation, "^")
-                                If .FloorChange OrElse .IsHole OrElse .IsStairs OrElse (.BlocksPath AndAlso .IsHeighted AndAlso .IsImmovable AndAlso .TopOrder = 2) Then
-                                    'Kernel.ConsoleWrite("Current Z + FloorChange: " & CurrentZ + FloorChange)
-                                    Select Case FloorChange
-                                        Case 1 '/\
-                                            'Kernel.ConsoleWrite("Adding waypoint UP")
-                                            Dim ReturnLocation As ITibia.LocationDefinition
-                                            If CurrentZ = 7 Then 'You can't read floor 8 from floor 7
-                                                ReturnLocation = BL.GetLocation
-                                                ReturnLocation.Z += 1
-                                                Select Case BL.GetDirection
-                                                    Case IBattlelist.Directions.Down
-                                                        ReturnLocation.Y -= 1
-                                                    Case IBattlelist.Directions.Left
-                                                        ReturnLocation.X += 1
-                                                    Case IBattlelist.Directions.Right
-                                                        ReturnLocation.X -= 1
-                                                    Case IBattlelist.Directions.Up
-                                                        ReturnLocation.Y += 1
-                                                End Select
-                                            Else
-                                                ReturnLocation = TileObject.GetMapLocation
-                                                ReturnLocation.X -= 1
-                                                ReturnLocation.Y -= 1
-                                            End If
-                                            'Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
-                                            CPB.AnimatedText(Scripting.ITibia.TextColors.Crystal, ReturnLocation, "HERE")
-                                            'Kernel.ConsoleWrite(ReturnLocation.X & ":" & ReturnLocation.Y & ":" & ReturnLocation.Z)
-                                            If Not ReturnLocations.ContainsKey(Abs(BL.GetDistanceFromLocation(ReturnLocation, True))) Then
-                                                ReturnLocations.Add(Abs(BL.GetDistanceFromLocation(ReturnLocation, True)), ReturnLocation)
-                                            End If
-                                        Case -1 '\/
-                                            'Kernel.ConsoleWrite("Adding waypoint DOWN")
-                                            Dim Returnlocation As ITibia.LocationDefinition = TileObject.GetMapLocation
-                                            Returnlocation.Z = CurrentZ + FloorChange
-                                            If Not Returnlocation.Z = 7 Then
-                                                Returnlocation.X += 1
-                                                Returnlocation.Y += 1
-                                            End If
-                                            'Kernel.ConsoleWrite("Return Location Z: " & Returnlocation.Z)
-                                            'Kernel.ConsoleWrite("----------------")
-                                            If Not ReturnLocations.ContainsKey(Abs(BL.GetDistanceFromLocation(Returnlocation, True))) Then
-                                                ReturnLocations.Add(Abs(BL.GetDistanceFromLocation(Returnlocation, True)), Returnlocation)
-                                            End If
-                                    End Select
-                                End If
-                            End With
+                            TileObjectID = TileObject.GetObjectID
+
+                            Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                            CPB.AnimatedText(Scripting.ITibia.TextColors.Orange, TileObject.GetMapLocation, "^")
+                            If Client.Objects.HasFlags(TileObjectID, IObjects.ObjectFlags.CausesFloorChange) _
+                            OrElse Client.Objects.LensHelp(TileObjectID) = IObjects.ObjectLensHelp.Hole _
+                            OrElse Client.Objects.LensHelp(TileObjectID) = IObjects.ObjectLensHelp.Stairs _
+                            OrElse Client.Objects.HasFlags(TileObjectID, IObjects.ObjectFlags.BlocksPath Or IObjects.ObjectFlags.HasHeight Or IObjects.ObjectFlags.IsImmovable Or IObjects.ObjectFlags.TopOrder2) Then
+                                'Kernel.ConsoleWrite("Current Z + FloorChange: " & CurrentZ + FloorChange)
+                                Select Case FloorChange
+                                    Case 1 '/\
+                                        'Kernel.ConsoleWrite("Adding waypoint UP")
+                                        Dim ReturnLocation As ITibia.LocationDefinition
+                                        If CurrentZ = 7 Then 'You can't read floor 8 from floor 7
+                                            ReturnLocation = BL.GetLocation
+                                            ReturnLocation.Z += 1
+                                            Select Case BL.GetDirection
+                                                Case IBattlelist.Directions.Down
+                                                    ReturnLocation.Y -= 1
+                                                Case IBattlelist.Directions.Left
+                                                    ReturnLocation.X += 1
+                                                Case IBattlelist.Directions.Right
+                                                    ReturnLocation.X -= 1
+                                                Case IBattlelist.Directions.Up
+                                                    ReturnLocation.Y += 1
+                                            End Select
+                                        Else
+                                            ReturnLocation = TileObject.GetMapLocation
+                                            ReturnLocation.X -= 1
+                                            ReturnLocation.Y -= 1
+                                        End If
+                                        'Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                                        CPB.AnimatedText(Scripting.ITibia.TextColors.Crystal, ReturnLocation, "HERE")
+                                        'Kernel.ConsoleWrite(ReturnLocation.X & ":" & ReturnLocation.Y & ":" & ReturnLocation.Z)
+                                        If Not ReturnLocations.ContainsKey(Abs(BL.GetDistanceFromLocation(ReturnLocation, True))) Then
+                                            ReturnLocations.Add(Abs(BL.GetDistanceFromLocation(ReturnLocation, True)), ReturnLocation)
+                                        End If
+                                    Case -1 '\/
+                                        'Kernel.ConsoleWrite("Adding waypoint DOWN")
+                                        Dim Returnlocation As ITibia.LocationDefinition = TileObject.GetMapLocation
+                                        Returnlocation.Z = CurrentZ + FloorChange
+                                        If Not Returnlocation.Z = 7 Then
+                                            Returnlocation.X += 1
+                                            Returnlocation.Y += 1
+                                        End If
+                                        'Kernel.ConsoleWrite("Return Location Z: " & Returnlocation.Z)
+                                        'Kernel.ConsoleWrite("----------------")
+                                        If Not ReturnLocations.ContainsKey(Abs(BL.GetDistanceFromLocation(Returnlocation, True))) Then
+                                            ReturnLocations.Add(Abs(BL.GetDistanceFromLocation(Returnlocation, True)), Returnlocation)
+                                        End If
+                                End Select
+                            End If
+
                         Next
                     Next
                 Next
@@ -3966,13 +3972,13 @@ Public Module KernelModule
                                     Send = False
                                     If LooterCurrentCategory = 0 Or ItemID <= 100 Then Exit Sub
                                     If LootItems.Add(New LootItems.LootItemDefinition(ItemID, LooterCurrentCategory - 1)) Then
-                                        Dim DatObj As IDatFile.DatObject
-                                        DatObj = Client.Dat.GetInfo(ItemID)
-                                        If DatObj.IsStackable Then
+                                        'Dim DatObj As IDatFile.DatObject
+                                        'DatObj = Client.Dat.GetInfo(ItemID)
+                                        If Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsStackable) Then
                                             Count = 100
-                                        ElseIf DatObj.IsFluid Then
+                                        ElseIf Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsFluidContainer) Then
                                             '   keep count
-                                        ElseIf DatObj.HasExtraByte Then
+                                        ElseIf Client.Objects.HasExtraByte(ItemID) Then
                                             Count = 1
                                         End If
                                         ConsoleWrite(Client.Items.GetItemName(ItemID) & " (H" & Hex(ItemID) & ") added to " & MyContainer.GetName & ".")
@@ -3992,7 +3998,7 @@ Public Module KernelModule
                         Dim Slot As Integer = GetByte(bytBuffer, Pos)
                         Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
                         'Core.ConsoleWrite(BytesToStr(bytBuffer))
-                        If Client.Dat.GetInfo(ItemID).IsContainer Then BagOpened = False
+                        If Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsContainer) Then BagOpened = False
                         If Location.Y = &H4F Then
                             Dim MyContainer As New Container
                             MyContainer.JumpToContainer(&HF)
@@ -4087,7 +4093,8 @@ Public Module KernelModule
                             End If
                         End If
                         If LearningMode Then
-                            If Client.Items.GetItemKind(ItemID) = IItems.ItemKind.UsableTeleport Then
+                            If Client.Objects.LensHelp(ItemID) = IObjects.ObjectLensHelp.Ladder Then
+                                'If Client.Items.GetItemKind(ItemID) = IItems.ItemKind.UsableTeleport Then
                                 Dim WalkerChar As New Walker
                                 WalkerChar.Coordinates = Location
                                 WalkerChar.Type = Walker.WaypointType.Ladder
@@ -4096,17 +4103,17 @@ Public Module KernelModule
                                 Kernel.ConsoleWrite("Ladder waypoint added.")
                                 AutoAddTime = Now.AddSeconds(5)
                             End If
-                            With Client.Dat.GetInfo(ItemID)
-                                If .IsSewer Then
-                                    Dim WalkerChar As New Walker
-                                    WalkerChar.Coordinates = Location
-                                    WalkerChar.Type = Walker.WaypointType.Sewer
-                                    WalkerChar.Info = ""
-                                    Walker_Waypoints.Add(WalkerChar)
-                                    Kernel.ConsoleWrite("Sewer waypoint added.")
-                                    AutoAddTime = Now.AddSeconds(5)
-                                End If
-                            End With
+                            'With Client.Dat.GetInfo(ItemID)
+                            If Client.Objects.LensHelp(ItemID) = IObjects.ObjectLensHelp.Sewer Then
+                                Dim WalkerChar As New Walker
+                                WalkerChar.Coordinates = Location
+                                WalkerChar.Type = Walker.WaypointType.Sewer
+                                WalkerChar.Info = ""
+                                Walker_Waypoints.Add(WalkerChar)
+                                Kernel.ConsoleWrite("Sewer waypoint added.")
+                                AutoAddTime = Now.AddSeconds(5)
+                            End If
+                            'End With
                         End If
                     Case &H83 'Use Item With
                         Proxy.LastAction = Date.Now.Ticks
@@ -4456,7 +4463,7 @@ Public Module KernelModule
                         If Consts.AutoOpenBackpack Then
                             Dim ItemID As Integer = 0
                             Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (ITibia.InventorySlots.Backpack - 1)), ItemID, 2)
-                            If Client.Dat.GetInfo(ItemID).IsContainer Then
+                            If Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsContainer) Then
                                 SP.UseObject(ItemID, ITibia.InventorySlots.Backpack, 0)
                                 'Proxy.SendPacketToServer()
                             End If
@@ -4520,12 +4527,12 @@ Public Module KernelModule
                                 Pos += 6
                             ElseIf ID = &H63 Then
                                 Pos += 5
-                            ElseIf Client.Dat.GetInfo(ID).IsFluid Then
+                            ElseIf Client.Objects.HasFlags(ID, IObjects.ObjectFlags.IsFluidContainer) Then
                                 Pos += 1
-                            ElseIf Client.Dat.GetInfo(ID).IsContainer Then
+                            ElseIf Client.Objects.HasFlags(ID, IObjects.ObjectFlags.IsContainer) Then
                                 If TTBState = BotState.Paused Then Exit Sub
                                 If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                    If Not ((Client.Items.GetItemKind(ID) And IItems.ItemKind.Container) = IItems.ItemKind.Container) Then 'if its known container, skip
+                                    If Not Client.Objects.HasFlags(ID, IObjects.ObjectFlags.IsContainer) Then 'if its known container, skip
                                         Dim BL As New BattleList
                                         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                                         If BL.GetDistanceFromLocation(Loc) <= Consts.LootMaxDistance Then
@@ -4553,7 +4560,7 @@ Public Module KernelModule
                                         End If
                                     End If
                                 End If
-                            ElseIf Client.Dat.GetInfo(ID).HasExtraByte Then
+                            ElseIf Client.Objects.HasExtraByte(ID) Then
                                 Pos += 1
                             End If
                         Case &H6B 'update tile object
@@ -4578,7 +4585,7 @@ Public Module KernelModule
                                 Pos += 6
                             ElseIf ID = &H63 Then
                                 Pos += 5
-                            ElseIf Client.Dat.GetInfo(ID).HasExtraByte Or Client.Items.IsRune(ID) Then
+                            ElseIf Client.Objects.HasExtraByte(ID) Then
                                 Pos += 1
                             End If
                         Case &H6C 'remove item from map
@@ -4595,7 +4602,7 @@ Public Module KernelModule
                             OneByte = GetByte(bytBuffer, Pos)
                             For I As Integer = 1 To OneByte
                                 ID = GetWord(bytBuffer, Pos)
-                                If Client.Dat.GetInfo(ID).HasExtraByte Or Client.Items.IsRune(ID) Then
+                                If Client.Objects.HasExtraByte(ID) Then
                                     Pos += 1
                                 End If
                             Next
@@ -4604,13 +4611,13 @@ Public Module KernelModule
                         Case &H70 'add item to container
                             Pos += 1
                             ID = GetWord(bytBuffer, Pos)
-                            If Client.Dat.GetInfo(ID).HasExtraByte Or Client.Items.IsRune(ID) Then
+                            If Client.Objects.HasExtraByte(ID) Then
                                 Pos += 1
                             End If
                         Case &H71 'update container item
                             Pos += 2
                             ID = GetWord(bytBuffer, Pos)
-                            If Client.Dat.GetInfo(ID).HasExtraByte Or Client.Items.IsRune(ID) Then
+                            If Client.Objects.HasExtraByte(ID) Then
                                 Pos += 1
                             End If
                         Case &H72 'remove container item
@@ -4618,7 +4625,7 @@ Public Module KernelModule
                         Case &H78
                             Pos += 1 'slot
                             ID = GetWord(bytBuffer, Pos)
-                            If Client.Dat.GetInfo(ID).HasExtraByte Or Client.Items.IsRune(ID) Then
+                            If Client.Objects.HasExtraByte(ID) Then
                                 Pos += 1
                             End If
                         Case &H79 'remove inventory item
@@ -4629,7 +4636,7 @@ Public Module KernelModule
                             OneByte = GetByte(bytBuffer, Pos)
                             For I As Integer = 1 To OneByte
                                 ID = GetWord(bytBuffer, Pos)
-                                If Client.Dat.GetInfo(ID).HasExtraByte Or Client.Items.IsRune(ID) Then
+                                If Client.Objects.HasExtraByte(ID) Then
                                     Pos += 1
                                 End If
                             Next

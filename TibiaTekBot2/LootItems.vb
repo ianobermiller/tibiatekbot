@@ -48,7 +48,7 @@ Public Module LootItemsModule
                         If ContainerIndex < Integer.MaxValue AndAlso Item.GetContainerIndex <> ContainerIndex Then Continue For
                         ItemID = Item.GetID
                         Dim Count As Integer = 0
-                        If Kernel.Client.Dat.GetInfo(ItemID).HasExtraByte Then
+                        If Kernel.Client.Objects.HasExtraByte(ItemID) Then
                             Count = 100
                         Else
                             Count = 0

@@ -264,8 +264,8 @@ Public Interface ITibia
     ReadOnly Property CharacterChasingMode() As ChasingMode
     ReadOnly Property CharacterSecureMode() As SecureMode
     ReadOnly Property CharacterFightingMode() As FightingMode
-    ReadOnly Property Dat() As IDatFile
     ReadOnly Property Items() As IItems
+    ReadOnly Property Objects() As IObjects
     WriteOnly Property TopMost() As Boolean
     ReadOnly Property CharacterHasCondition(ByVal Condition As Scripting.ITibia.Conditions) As Boolean
     ReadOnly Property CharacterHitPoints() As Integer

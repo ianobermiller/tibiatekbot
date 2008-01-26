@@ -140,6 +140,17 @@ Public Class ClientPacketBuilder
         End Try
     End Sub
 
+    Public Sub Debug()
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(&HFF)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Public Sub CreateContainer(ByVal ItemID As UShort, ByVal ContainerIndex As Byte, ByVal Name As String, ByVal Size As Byte, ByVal Items() As IContainer.ContainerItemDefinition, Optional ByVal HasParent As Boolean = False) Implements IClientPacketBuilder.CreateContainer
         Try
             Dim _Packet As New Packet
@@ -152,7 +163,7 @@ Public Class ClientPacketBuilder
             _Packet.AddByte(Items.Length)
             For Each Item As IContainer.ContainerItemDefinition In Items
                 _Packet.AddWord(Item.ID)
-                If _Proxy.Client.Dat.GetInfo(Item.ID).HasExtraByte OrElse _Proxy.Client.Items.IsRune(Item.ID) Then
+                If _Proxy.Client.Objects.HasExtraByte(Item.ID) Then
                     _Packet.AddByte(Item.Count)
                 End If
             Next
@@ -223,7 +234,7 @@ Public Class ClientPacketBuilder
             _Packet.AddByte(&H70)
             _Packet.AddByte(ContainerIndex)
             _Packet.AddWord(ItemID)
-            If _Proxy.Client.Dat.GetInfo(ItemID).HasExtraByte OrElse _Proxy.Client.Items.IsRune(ItemID) Then
+            If _Proxy.Client.Objects.HasExtraByte(ItemID) Then
                 _Packet.AddByte(Count)
             End If
             Packets.Enqueue(_Packet)

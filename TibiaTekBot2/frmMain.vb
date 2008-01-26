@@ -948,6 +948,7 @@ Public Class frmMain
                 Kernel.Client.WriteMemory(Consts.ptrServerPortBegin + (Consts.ServerAddressDist * I), Kernel.Proxy.sckLListen.LocalPort, 2)
             Next
             Me.NotifyIcon.Visible = True
+            CType(Kernel.Client.Objects, Objects).Initialize()
             Kernel.Proxy.LoginPort = Kernel.LoginPort
             Kernel.TibiaClientStateTimerObj.StartTimer()
             Kernel.Client.ReadMemory(Consts.ptrFrameRateBegin, Kernel.FrameRateBegin, 4)
@@ -956,8 +957,6 @@ Public Class frmMain
                 Kernel.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
                 Kernel.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
             End If
-
-
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1566,7 +1565,7 @@ Public Class frmMain
                 Dim ItemCount As Integer
                 Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist), ItemID, 2)
                 Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.Belt - 1) * Consts.ItemDist) + Consts.ItemCountOffset, ItemCount, 1)
-                If ItemID = 0 OrElse Not Kernel.Client.Dat.GetInfo(ItemID).IsStackable Then
+                If ItemID = 0 OrElse Not Kernel.Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsStackable) Then
                     MessageBox.Show("You must place some of your ammunition on the Belt/Arrow Slot first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
@@ -1883,15 +1882,6 @@ Public Class frmMain
         Try
             Consts.LoadConstants()
             MessageBox.Show("Done loading the Constants configuration file.")
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
-    Private Sub MiscReloadTibiaDatButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadTibiaDatButton.Click
-        Try
-            Kernel.Client.Dat.Refresh()
-            MessageBox.Show("Done loading the Tibia.dat file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -2314,7 +2304,7 @@ Public Class frmMain
             If PickuperTrigger.Checked Then
                 Dim RightHandItemID As Integer
                 Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                If RightHandItemID = 0 OrElse Not Kernel.Client.Items.IsThrowable(RightHandItemID) Then
+                If RightHandItemID = 0 OrElse Not Kernel.Client.Items.IsRangedWeapon(RightHandItemID) Then
                     MessageBox.Show("You must have a throwable item in your right hand, like a spear, throwing knife, etc.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
@@ -2724,5 +2714,9 @@ Public Class frmMain
 
     Private Sub KeyboardToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KeyboardToolStripMenuItem.Click
         Kernel.KeyboardForm.ShowDialog()
+    End Sub
+
+    Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
+        Kernel.Client.TestPipe()
     End Sub
 End Class
