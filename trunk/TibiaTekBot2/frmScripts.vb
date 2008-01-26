@@ -56,6 +56,7 @@ Public Class frmScripts
                     CP.ReferencedAssemblies.Add("System.Windows.Forms.dll")
                     CP.ReferencedAssemblies.Add("Microsoft.VisualBasic.dll")
                     CP.ReferencedAssemblies.Add("System.Xml.dll")
+                    CP.ReferencedAssemblies.Add("System.Drawing.dll")
                     CP.ReferencedAssemblies.Add("System.dll")
 
 

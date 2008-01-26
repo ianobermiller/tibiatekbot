@@ -1254,22 +1254,109 @@ Public Class CommandParser
     Private Sub CmdTest(ByVal Arguments As GroupCollection)
         Try
             Kernel.ConsoleWrite("Begin Test")
-            Dim P As New Packet()
-            Dim len As Integer = Kernel.Client.Dat.Length
-            Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
-            CPB.CreateContainer(3454, &HF, "Test", 1, New Scripting.IContainer.ContainerItemDefinition() {}, False)
-            'db0
-            For I As Integer = 0 To len - 1
-                With Kernel.Client.Dat.GetInfo(I)
-                    If .BlocksPath And (.IsRotatable Or .IsFluid) Then '.IsPickupable Or
-                        CPB.AddObjectToContainer(I, &HF, 100)
-                        Kernel.ConsoleRead(Hex(I))
-                        System.Threading.Thread.Sleep(1000)
-                        CPB.RemoveObjectFromContainer(0, &HF)
-                    End If
-                End With
-            Next
+            Select Case Arguments(2).ToString.ToLower
+                Case "coords"
+                    'Kernel.ConsoleWrite("World: " & Kernel.CharacterLoc.X & ":" & Kernel.CharacterLoc.Y & ":" & Kernel.CharacterLoc.Z)
+                    'Kernel.ConsoleWrite("ClientZ: " & Kernel.Client.MapTiles.WorldZToClientZ(Kernel.CharacterLoc.Z))
+                    Kernel.ConsoleWrite("ClientZ(5): " & Kernel.Client.MapTiles.WorldZToClientZ(5))
+                    Kernel.ConsoleWrite("ClientZ(6): " & Kernel.Client.MapTiles.WorldZToClientZ(6))
+                    Kernel.ConsoleWrite("ClientZ(7): " & Kernel.Client.MapTiles.WorldZToClientZ(7))
+                    Kernel.ConsoleWrite("ClientZ(8): " & Kernel.Client.MapTiles.WorldZToClientZ(8))
+                    Kernel.ConsoleWrite("ClientZ(9): " & Kernel.Client.MapTiles.WorldZToClientZ(9))
+                Case "floorchange"
+                    Dim BL As New BattleList
+                    BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                    Dim LocationDown As ITibia.LocationDefinition
+                    Dim LocationUp As ITibia.LocationDefinition
+                    LocationDown = Kernel.AddWaypointLocation(-1, BL.GetLocation.Z) 'down
+                    LocationUp = Kernel.AddWaypointLocation(1, BL.GetLocation.Z) 'up
+                    Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                    CPB.AnimatedText(Scripting.ITibia.TextColors.White, LocationDown, "DOWN")
+                    Kernel.ConsoleWrite("Down: " & LocationDown.X & ":" & LocationDown.Y & ":" & LocationDown.Z)
+                    CPB.AnimatedText(Scripting.ITibia.TextColors.Green, LocationUp, "UP")
+                    Kernel.ConsoleWrite("Up: " & LocationUp.X & ":" & LocationUp.Y & ":" & LocationUp.Z)
+                Case "wp"
+                    Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                    For I As Integer = 0 To Kernel.Walker_Waypoints.Count - 1
+                        If Kernel.Walker_Waypoints(1).Type = Walker.WaypointType.StairsOrHole Then
+                            CPB.AnimatedText(Scripting.ITibia.TextColors.Red, Kernel.Walker_Waypoints(I).Coordinates, "**")
+                        End If
+                    Next
+                Case "direction"
+                    Dim BL As New BattleList
+                    BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                    Kernel.ConsoleWrite(BL.GetDirection.ToString)
+                Case "getinfo"
+                    Dim TileObjects() As IMapTiles.TileObject
+                    Dim TileObject As IMapTiles.TileObject
 
+                    TileObjects = Kernel.Client.MapTiles.GetTileObjects(8, 7, Kernel.Client.MapTiles.WorldZToClientZ(Kernel.CharacterLoc.Z))
+                    For Each TileObject In TileObjects
+                        Kernel.ConsoleWrite("----- INFO FOR: " & TileObject.GetObjectID & " -----")
+                        With Kernel.Client.Dat.GetInfo(TileObject.GetObjectID)
+                            If .Blocking Then Kernel.ConsoleWrite("Blocking")
+                            If .BlocksMissile Then Kernel.ConsoleWrite("Blocks Missile")
+                            If .BlocksPath Then Kernel.ConsoleWrite("Blocks Path")
+                            If .FloorChange Then Kernel.ConsoleWrite("Floor Change")
+                            If .HasActions Then Kernel.ConsoleWrite("Has Actions")
+                            If .HasExtraByte Then Kernel.ConsoleWrite("Has Extrea byte")
+                            If .HasMiniMapColor Then Kernel.ConsoleWrite("Has Minimap color")
+                            If .HasSpecialDescription Then Kernel.ConsoleWrite("Has Special Description")
+                            If .IsContainer Then Kernel.ConsoleWrite("Is Container")
+                            If .IsCorpse Then Kernel.ConsoleWrite("Is Corpse")
+                            If .IsDepot Then Kernel.ConsoleWrite("Is Depot")
+                            If .IsDoor Then Kernel.ConsoleWrite("Is Door")
+                            If .IsDoorWithLock Then Kernel.ConsoleWrite("Is Door with Lock")
+                            If .IsField Then Kernel.ConsoleWrite("Is Field")
+                            If .IsFluid Then Kernel.ConsoleWrite("Is Fluid")
+                            If .IsGround Then Kernel.ConsoleWrite("Is Ground")
+                            If .IsHangable Then Kernel.ConsoleWrite("Is Hangable")
+                            If .IsHangableHorizontal Then Kernel.ConsoleWrite("Is Hangable Horizonal")
+                            If .IsHangableVertical Then Kernel.ConsoleWrite("Is Hangable Vertical")
+                            If .IsHeighted Then Kernel.ConsoleWrite("Is Heighted")
+                            If .IsHole Then Kernel.ConsoleWrite("Is Hole")
+                            If .IsIdleAnimation Then Kernel.ConsoleWrite("Is Idle Animation")
+                            If .IsImmovable Then Kernel.ConsoleWrite("Is Immovable")
+                            If .IsLadder Then Kernel.ConsoleWrite("Is Ladder")
+                            If .IsLayer Then Kernel.ConsoleWrite("Is Layer")
+                            If .IsLightSource Then Kernel.ConsoleWrite("Is Light Source")
+                            If .IsMailbox Then Kernel.ConsoleWrite("Is Mailbox")
+                            If .IsPickupable Then Kernel.ConsoleWrite("Is Pickupable")
+                            If .IsReadable Then Kernel.ConsoleWrite("Is Readable")
+                            If .IsReadOnly Then Kernel.ConsoleWrite("Read Only")
+                            If .IsRopeSpot Then Kernel.ConsoleWrite("Is Ropespot")
+                            If .IsRotatable Then Kernel.ConsoleWrite("Is Rotatable")
+                            If .IsRune Then Kernel.ConsoleWrite("Is Rune")
+                            If .IsSewer Then Kernel.ConsoleWrite("Is Sewer")
+                            If .IsSplash Then Kernel.ConsoleWrite("Is Splash")
+                            If .IsStackable Then Kernel.ConsoleWrite("Is Stackable")
+                            If .IsStairs Then Kernel.ConsoleWrite("Is Stairs")
+                            If .IsSwitch Then Kernel.ConsoleWrite("Is Switch")
+                            If .IsTrash Then Kernel.ConsoleWrite("Is Trash")
+                            If .IsUsable Then Kernel.ConsoleWrite("Is Usable")
+                            If .IsWritable Then Kernel.ConsoleWrite("Is Writable")
+                            If .Speed Then Kernel.ConsoleWrite("Speed: " & .Speed)
+                            If .TopOrder Then Kernel.ConsoleWrite("Top Order: " & .TopOrder)
+                        End With
+                    Next
+
+                Case Else
+                    Dim P As New Packet()
+                    Dim len As Integer = Kernel.Client.Dat.Length
+                    Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                    CPB.CreateContainer(3454, &HF, "Test", 1, New Scripting.IContainer.ContainerItemDefinition() {}, False)
+                    'db0
+                    For I As Integer = 0 To len - 1
+                        With Kernel.Client.Dat.GetInfo(I)
+                            If .IsSwitch Then '.IsPickupable Or
+                                CPB.AddObjectToContainer(I, &HF, 100)
+                                Kernel.ConsoleRead(Hex(I))
+                                System.Threading.Thread.Sleep(1000)
+                                CPB.RemoveObjectFromContainer(0, &HF)
+                            End If
+                        End With
+                    Next
+            End Select
             Kernel.ConsoleWrite("End Test")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

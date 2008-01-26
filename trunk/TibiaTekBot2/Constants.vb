@@ -741,16 +741,6 @@ Public Module ConstantsModule
         StatusConsoleRed
     End Enum
 
-    Public Enum Skills
-        FistFighting = 0
-        ClubFighting
-        SwordFighting
-        AxeFighting
-        DistanceFighting
-        Shielding
-        Fishing
-    End Enum
-
     Public Enum HotkeyCombination
         F1 = 0
         F2

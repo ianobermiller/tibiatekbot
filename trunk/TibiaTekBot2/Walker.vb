@@ -198,22 +198,25 @@ Public Module WalkerModule
                             Return False
                         End If
                     Case WaypointType.Sewer
+                        If Kernel.CharacterLoc.Z <> Coordinates.Z Then
+                            IsReady = True
+                            Return True
+                        End If
                         If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
                             'Let's get Sewer's id and position
-                            TD.Get_TileInfo()
-                            Dim SewerId As Integer = 0
-                            Dim SewerStackPos As Integer = 0
-                            For i As Integer = 0 To TD.Count
-                                If Kernel.Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport2 Then
-                                    Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
-                                    ServerPacket.UseObject(TD.ObjectId(i), Kernel.CharacterLoc)
-                                    'Core.Proxy.SendPacketToServer(UseObject(TD.ObjectId(i), Core.CharacterLoc))
-                                    If Kernel.CharacterLoc.Z <> Coordinates.Z Then
-                                        IsReady = True
-                                        Return True
+                            Dim TileObjects() As IMapTiles.TileObject
+                            Dim TileObject As IMapTiles.TileObject
+
+                            TileObjects = Kernel.Client.MapTiles.GetTileObjects(8, 6, Kernel.Client.MapTiles.WorldZToClientZ(Kernel.CharacterLoc.Z))
+                            For Each TileObject In TileObjects
+                                With Kernel.Client.Dat.GetInfo(TileObject.GetObjectID)
+                                    If .IsSewer Then
+                                        Dim SPB As New ServerPacketBuilder(Kernel.Proxy)
+                                        SPB.UseObject(TileObject.GetObjectID, Coordinates)
                                     End If
-                                End If
+                                End With
                             Next
+
                         Else
                             If BL.IsWalking = False Then
                                 Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
@@ -278,7 +281,7 @@ Public Module WalkerModule
                                 IsReady = True
                                 Return True
                             End If
-                            If Abs(Kernel.CharacterLoc.X - Coordinates.X) < 5 AndAlso Abs(Kernel.CharacterLoc.Y - Coordinates.Y) < 5 AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
+                            If Abs(Kernel.CharacterLoc.X - Coordinates.X) < 2 AndAlso Abs(Kernel.CharacterLoc.Y - Coordinates.Y) < 2 AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
                                 'Finding Shovel
                                 Dim Shovel As Scripting.IContainer.ContainerItemDefinition
                                 If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Shovel")) = False Then

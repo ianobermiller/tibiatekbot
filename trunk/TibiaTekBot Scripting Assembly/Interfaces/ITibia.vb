@@ -33,7 +33,7 @@ Public Interface ITibia
 			Me.X = X
 			Me.Y = Y
 			Me.Z = Z
-		End Sub
+        End Sub
 	End Structure
 
 #End Region
@@ -222,6 +222,16 @@ Public Interface ITibia
             Or Haste Or CombatSign Or Drowning _
             Or Freezing Or Dazzled Or Cursed
     End Enum
+
+    Enum Skills
+        FistFighting = 0
+        ClubFighting
+        SwordFighting
+        AxeFighting
+        DistanceFighting
+        Shielding
+        Fishing
+    End Enum
 #End Region
 
 #Region " Events "
@@ -258,9 +268,16 @@ Public Interface ITibia
     ReadOnly Property Items() As IItems
     WriteOnly Property TopMost() As Boolean
     ReadOnly Property CharacterHasCondition(ByVal Condition As Scripting.ITibia.Conditions) As Boolean
-    ReadOnly Property CharacterHP() As Integer
-    ReadOnly Property CharacterMP() As Integer
+    ReadOnly Property CharacterHitPoints() As Integer
+    ReadOnly Property CharacterManaPoints() As Integer
     ReadOnly Property CharacterExperience() As Integer
+    ReadOnly Property CharacterCapacity() As Integer
+    ReadOnly Property CharacterSoulPoints() As Integer
+    ReadOnly Property CharacterStamina() As Integer
+    ReadOnly Property CharacterSkill(ByVal Skill As ITibia.Skills) As Integer
+    ReadOnly Property CharacterSkillPercent(ByVal Skill As ITibia.Skills) As Integer
+    ReadOnly Property CharacterMagicLevel() As Integer
+    ReadOnly Property CharacterLevel() As Integer
 
 
 #End Region

@@ -154,9 +154,9 @@ Public Class frmCharacterStatistics
             End If
 
             ' Fist
-            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.FistFighting * Consts.SkillsDist), ActualFist, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Scripting.ITibia.Skills.FistFighting * Consts.SkillsDist), ActualFist, 1)
             ActualFistLabel.Text = ActualFist.ToString
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), ActualFistPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.FistFighting * Consts.SkillsDist), ActualFistPercent, 1)
             RemainingFistLabel.Text = (100 - ActualFistPercent) & "%"
             Rate = (ActualFistPercent - InitialFistPercent) / TimeDiff.TotalHours
             If Rate > 0 Then
@@ -167,13 +167,13 @@ Public Class frmCharacterStatistics
                 If ETAFistLabel.Text <> Double.PositiveInfinity.ToString Then
                     ETAFistLabel.Text = Double.PositiveInfinity.ToString
                 End If
-                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), InitialFistPercent, 1)
+                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.FistFighting * Consts.SkillsDist), InitialFistPercent, 1)
             End If
 
             ' Club
-            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.ClubFighting * Consts.SkillsDist), ActualClub, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Scripting.ITibia.Skills.ClubFighting * Consts.SkillsDist), ActualClub, 1)
             ActualClubLabel.Text = ActualClub.ToString
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), ActualClubPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.ClubFighting * Consts.SkillsDist), ActualClubPercent, 1)
             RemainingClubLabel.Text = (100 - ActualClubPercent) & "%"
             Rate = (ActualClubPercent - InitialClubPercent) / TimeDiff.TotalHours
             If Rate > 0 Then
@@ -184,13 +184,13 @@ Public Class frmCharacterStatistics
                 If ETAClubLabel.Text <> Double.PositiveInfinity.ToString Then
                     ETAClubLabel.Text = Double.PositiveInfinity.ToString
                 End If
-                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), InitialClubPercent, 1)
+                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.ClubFighting * Consts.SkillsDist), InitialClubPercent, 1)
             End If
 
             ' Axe
-            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.AxeFighting * Consts.SkillsDist), ActualAxe, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Scripting.ITibia.Skills.AxeFighting * Consts.SkillsDist), ActualAxe, 1)
             ActualAxeLabel.Text = ActualAxe.ToString
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), ActualAxePercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.AxeFighting * Consts.SkillsDist), ActualAxePercent, 1)
             RemainingAxeLabel.Text = (100 - ActualAxePercent) & "%"
             Rate = (ActualAxePercent - InitialAxePercent) / TimeDiff.TotalHours
             If Rate > 0 Then
@@ -201,13 +201,13 @@ Public Class frmCharacterStatistics
                 If ETAAxeLabel.Text <> Double.PositiveInfinity.ToString Then
                     ETAAxeLabel.Text = Double.PositiveInfinity.ToString
                 End If
-                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), InitialAxePercent, 1)
+                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.AxeFighting * Consts.SkillsDist), InitialAxePercent, 1)
             End If
 
             ' Sword
-            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.SwordFighting * Consts.SkillsDist), ActualSword, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Scripting.ITibia.Skills.SwordFighting * Consts.SkillsDist), ActualSword, 1)
             ActualSwordLabel.Text = ActualSword.ToString
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), ActualSwordPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.SwordFighting * Consts.SkillsDist), ActualSwordPercent, 1)
             RemainingSwordLabel.Text = (100 - ActualSwordPercent) & "%"
             Rate = (ActualSwordPercent - InitialSwordPercent) / TimeDiff.TotalHours
             If Rate > 0 Then
@@ -218,13 +218,13 @@ Public Class frmCharacterStatistics
                 If ETASwordLabel.Text <> Double.PositiveInfinity.ToString Then
                     ETASwordLabel.Text = Double.PositiveInfinity.ToString
                 End If
-                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), InitialSwordPercent, 1)
+                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.SwordFighting * Consts.SkillsDist), InitialSwordPercent, 1)
             End If
 
             ' Distance
-            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.DistanceFighting * Consts.SkillsDist), ActualDistance, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Scripting.ITibia.Skills.DistanceFighting * Consts.SkillsDist), ActualDistance, 1)
             ActualDistanceLabel.Text = ActualDistance.ToString
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), ActualDistancePercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.DistanceFighting * Consts.SkillsDist), ActualDistancePercent, 1)
             RemainingDistanceLabel.Text = (100 - ActualDistancePercent) & "%"
             Rate = (ActualDistancePercent - InitialDistancePercent) / TimeDiff.TotalHours
             If Rate > 0 Then
@@ -235,13 +235,13 @@ Public Class frmCharacterStatistics
                 If ETADistanceLabel.Text <> Double.PositiveInfinity.ToString Then
                     ETADistanceLabel.Text = Double.PositiveInfinity.ToString
                 End If
-                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), InitialDistancePercent, 1)
+                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.DistanceFighting * Consts.SkillsDist), InitialDistancePercent, 1)
             End If
 
             ' Shielding
-            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Shielding * Consts.SkillsDist), ActualShielding, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Scripting.ITibia.Skills.Shielding * Consts.SkillsDist), ActualShielding, 1)
             ActualShieldingLabel.Text = ActualShielding.ToString
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), ActualShieldingPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.Shielding * Consts.SkillsDist), ActualShieldingPercent, 1)
             RemainingShieldingLabel.Text = (100 - ActualShieldingPercent) & "%"
             Rate = (ActualShieldingPercent - InitialShieldingPercent) / TimeDiff.TotalHours
             If Rate > 0 Then
@@ -252,13 +252,13 @@ Public Class frmCharacterStatistics
                 If ETAShieldingLabel.Text <> Double.PositiveInfinity.ToString Then
                     ETAShieldingLabel.Text = Double.PositiveInfinity.ToString
                 End If
-                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), InitialShieldingPercent, 1)
+                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.Shielding * Consts.SkillsDist), InitialShieldingPercent, 1)
             End If
 
             ' Fishing
-            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Fishing * Consts.SkillsDist), ActualFishing, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Scripting.ITibia.Skills.Fishing * Consts.SkillsDist), ActualFishing, 1)
             ActualFishingLabel.Text = ActualFishing.ToString
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), ActualFishingPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.Fishing * Consts.SkillsDist), ActualFishingPercent, 1)
             RemainingFishingLabel.Text = (100 - ActualFishingPercent) & "%"
             Rate = (ActualFishingPercent - InitialFishingPercent) / TimeDiff.TotalHours
             If Rate > 0 Then
@@ -269,7 +269,7 @@ Public Class frmCharacterStatistics
                 If ETAFishingLabel.Text <> Double.PositiveInfinity.ToString Then
                     ETAFishingLabel.Text = Double.PositiveInfinity.ToString
                 End If
-                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), InitialFishingPercent, 1)
+                Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.Fishing * Consts.SkillsDist), InitialFishingPercent, 1)
             End If
 
             ' Stats
@@ -302,19 +302,19 @@ Public Class frmCharacterStatistics
             ' Magic Level
             Kernel.Client.ReadMemory(Consts.ptrMagicLevelPercent, InitialMagicLevelPercent, 1)
             ' Fist
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), InitialFistPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.FistFighting * Consts.SkillsDist), InitialFistPercent, 1)
             ' Club
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), InitialClubPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.ClubFighting * Consts.SkillsDist), InitialClubPercent, 1)
             ' Axe
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), InitialAxePercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.AxeFighting * Consts.SkillsDist), InitialAxePercent, 1)
             ' Sword
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), InitialSwordPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.SwordFighting * Consts.SkillsDist), InitialSwordPercent, 1)
             ' Distance
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), InitialDistancePercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.DistanceFighting * Consts.SkillsDist), InitialDistancePercent, 1)
             ' Shielding
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), InitialShieldingPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.Shielding * Consts.SkillsDist), InitialShieldingPercent, 1)
             ' Fishing
-            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), InitialFishingPercent, 1)
+            Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Scripting.ITibia.Skills.Fishing * Consts.SkillsDist), InitialFishingPercent, 1)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
