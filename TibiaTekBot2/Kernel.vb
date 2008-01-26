@@ -1122,6 +1122,9 @@ Public Module KernelModule
                     If MyContainer.IsOpened Then
                         'do not stack if it's fake bp
                         If MyContainer.GetContainerIndex = &HF AndAlso MyContainer.GetContainerSize = &H24 Then Continue Do
+                        If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                            If MyContainer.GetName.StartsWith("Dead") Or MyContainer.GetName.StartsWith("Slain") Or MyContainer.GetName.StartsWith("Remains") Or MyContainer.GetName.StartsWith("Bag") Then Continue Do
+                        End If
                         ContainerItemCount = MyContainer.GetItemCount
                         ContainerIndex = MyContainer.GetContainerIndex
                         For I As Integer = 0 To ContainerItemCount - 1
@@ -1399,8 +1402,8 @@ Public Module KernelModule
 
                     Dim xmlFistFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "FistFighting", "")
                     Dim xmlFistFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.FistFighting * Consts.SkillsDist), Skill, 1)
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.FistFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (ITibia.Skills.FistFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (ITibia.Skills.FistFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlFistFighting.InnerText = CStr(Skill)
                     xmlFistFightingP.InnerText = CStr(SkillPercent)
                     xmlFistFighting.Attributes.Append(xmlFistFightingP)
@@ -1408,8 +1411,8 @@ Public Module KernelModule
 
                     Dim xmlClubFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "ClubFighting", "")
                     Dim xmlClubFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.ClubFighting * Consts.SkillsDist), Skill, 1)
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.ClubFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (ITibia.Skills.ClubFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (ITibia.Skills.ClubFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlClubFighting.InnerText = CStr(Skill)
                     xmlClubFightingP.InnerText = CStr(SkillPercent)
                     xmlClubFighting.Attributes.Append(xmlClubFightingP)
@@ -1417,8 +1420,8 @@ Public Module KernelModule
 
                     Dim xmlSwordFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "SwordFighting", "")
                     Dim xmlSwordFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.SwordFighting * Consts.SkillsDist), Skill, 1)
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.SwordFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (ITibia.Skills.SwordFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (ITibia.Skills.SwordFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlSwordFighting.InnerText = CStr(Skill)
                     xmlSwordFightingP.InnerText = CStr(SkillPercent)
                     xmlSwordFighting.Attributes.Append(xmlSwordFightingP)
@@ -1426,8 +1429,8 @@ Public Module KernelModule
 
                     Dim xmlAxeFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "AxeFighting", "")
                     Dim xmlAxeFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.AxeFighting * Consts.SkillsDist), Skill, 1)
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.AxeFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (ITibia.Skills.AxeFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (ITibia.Skills.AxeFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlAxeFighting.InnerText = CStr(Skill)
                     xmlAxeFightingP.InnerText = CStr(SkillPercent)
                     xmlAxeFighting.Attributes.Append(xmlAxeFightingP)
@@ -1435,8 +1438,8 @@ Public Module KernelModule
 
                     Dim xmlDistanceFighting As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "DistanceFighting", "")
                     Dim xmlDistanceFightingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.DistanceFighting * Consts.SkillsDist), Skill, 1)
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.DistanceFighting * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (ITibia.Skills.DistanceFighting * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (ITibia.Skills.DistanceFighting * Consts.SkillsDist), SkillPercent, 1)
                     xmlDistanceFighting.InnerText = CStr(Skill)
                     xmlDistanceFightingP.InnerText = CStr(SkillPercent)
                     xmlDistanceFighting.Attributes.Append(xmlDistanceFightingP)
@@ -1444,8 +1447,8 @@ Public Module KernelModule
 
                     Dim xmlShielding As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Shielding", "")
                     Dim xmlShieldingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Shielding * Consts.SkillsDist), Skill, 1)
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Shielding * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (ITibia.Skills.Shielding * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (ITibia.Skills.Shielding * Consts.SkillsDist), SkillPercent, 1)
                     xmlShielding.InnerText = CStr(Skill)
                     xmlShieldingP.InnerText = CStr(SkillPercent)
                     xmlShielding.Attributes.Append(xmlShieldingP)
@@ -1453,8 +1456,8 @@ Public Module KernelModule
 
                     Dim xmlFishing As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Fishing", "")
                     Dim xmlFishingP As XmlAttribute = xmlFile.CreateAttribute("Percent")
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (Skills.Fishing * Consts.SkillsDist), Skill, 1)
-                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (Skills.Fishing * Consts.SkillsDist), SkillPercent, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsBegin + (ITibia.Skills.Fishing * Consts.SkillsDist), Skill, 1)
+                    Kernel.Client.ReadMemory(Consts.ptrSkillsPercentBegin + (ITibia.Skills.Fishing * Consts.SkillsDist), SkillPercent, 1)
                     xmlFishing.InnerText = CStr(Skill)
                     xmlFishingP.InnerText = CStr(SkillPercent)
                     xmlFishing.Attributes.Append(xmlFishingP)
@@ -2929,101 +2932,76 @@ Public Module KernelModule
 #End Region
 
 #Region " AutoAdd Timer "
-        Private Function AddWaypointLocation(ByVal Loc As ITibia.LocationDefinition, ByVal CameDirection As IBattlelist.Directions, ByVal HeadingDirection As IBattlelist.Directions) As ITibia.LocationDefinition
+        Public Function AddWaypointLocation(ByVal FloorChange As Integer, ByVal CurrentZ As Integer) As ITibia.LocationDefinition
+            'FloorChange: -1 up to down | +1 down to up
             Try
-                Dim TD As New TileData
-                Dim ReturnLocation As New ITibia.LocationDefinition
-                Dim TempLocation As New ITibia.LocationDefinition
-                ReturnLocation = Loc
-                TempLocation = Loc
-                'Selecting Came Direction
-                Select Case CameDirection
-                    Case 0 'From Down to Up
-                        'User can only use stairs, ramps, etc.. to go up, so there's only one option
-                        Select Case HeadingDirection
-                            Case IBattlelist.Directions.Down
-                                ReturnLocation.Y += 1
-                            Case IBattlelist.Directions.Left
-                                ReturnLocation.X -= 1
-                            Case IBattlelist.Directions.Right
-                                ReturnLocation.X += 1
-                            Case IBattlelist.Directions.Up
-                                ReturnLocation.Y -= 1
-                        End Select
-                        ReturnLocation.Z += 1
-                        Return ReturnLocation
-                        Exit Function
-                    Case 1 'From Up to Down
-                        TD.FindTile(ReturnLocation, False)
-                        TD.Get_TileInfo()
-                        'Option 1
-                        For i As Integer = 0 To TD.Count
-                            If Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport Or Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.UsableTeleport2 Then
-                                ReturnLocation.Z -= 1
-                                Return ReturnLocation
-                                Exit Function
-                            End If
+                Dim TileObjects() As IMapTiles.TileObject
+                Dim BL As New BattleList
+                Dim TileObject As IMapTiles.TileObject
+                Dim ReturnLocations As New SortedList '(Of Integer, ITibia.LocationDefinition)
+                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                Kernel.ConsoleWrite("Current Z + FloorChange: " & CurrentZ + FloorChange)
+                For XAxis As Integer = 1 To 15
+                    For YAxis As Integer = 1 To 11
+                        TileObjects = Client.MapTiles.GetTileObjects(XAxis, YAxis, Client.MapTiles.WorldZToClientZ(CurrentZ + FloorChange))
+                        For Each TileObject In TileObjects
+                            With Client.Dat.GetInfo(TileObject.GetObjectID)
+                                Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                                CPB.AnimatedText(Scripting.ITibia.TextColors.Orange, TileObject.GetMapLocation, "^")
+                                If .FloorChange OrElse .IsHole OrElse .IsStairs OrElse (.BlocksPath AndAlso .IsHeighted AndAlso .IsImmovable AndAlso .TopOrder = 2) Then
+                                    'Kernel.ConsoleWrite("Current Z + FloorChange: " & CurrentZ + FloorChange)
+                                    Select Case FloorChange
+                                        Case 1 '/\
+                                            'Kernel.ConsoleWrite("Adding waypoint UP")
+                                            Dim ReturnLocation As ITibia.LocationDefinition
+                                            If CurrentZ = 7 Then 'You can't read floor 8 from floor 7
+                                                ReturnLocation = BL.GetLocation
+                                                ReturnLocation.Z += 1
+                                                Select Case BL.GetDirection
+                                                    Case IBattlelist.Directions.Down
+                                                        ReturnLocation.Y -= 1
+                                                    Case IBattlelist.Directions.Left
+                                                        ReturnLocation.X += 1
+                                                    Case IBattlelist.Directions.Right
+                                                        ReturnLocation.X -= 1
+                                                    Case IBattlelist.Directions.Up
+                                                        ReturnLocation.Y += 1
+                                                End Select
+                                            Else
+                                                ReturnLocation = TileObject.GetMapLocation
+                                                ReturnLocation.X -= 1
+                                                ReturnLocation.Y -= 1
+                                            End If
+                                            'Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                                            CPB.AnimatedText(Scripting.ITibia.TextColors.Crystal, ReturnLocation, "HERE")
+                                            'Kernel.ConsoleWrite(ReturnLocation.X & ":" & ReturnLocation.Y & ":" & ReturnLocation.Z)
+                                            If Not ReturnLocations.ContainsKey(Abs(BL.GetDistanceFromLocation(ReturnLocation, True))) Then
+                                                ReturnLocations.Add(Abs(BL.GetDistanceFromLocation(ReturnLocation, True)), ReturnLocation)
+                                            End If
+                                        Case -1 '\/
+                                            'Kernel.ConsoleWrite("Adding waypoint DOWN")
+                                            Dim Returnlocation As ITibia.LocationDefinition = TileObject.GetMapLocation
+                                            Returnlocation.Z = CurrentZ + FloorChange
+                                            If Not Returnlocation.Z = 7 Then
+                                                Returnlocation.X += 1
+                                                Returnlocation.Y += 1
+                                            End If
+                                            'Kernel.ConsoleWrite("Return Location Z: " & Returnlocation.Z)
+                                            'Kernel.ConsoleWrite("----------------")
+                                            If Not ReturnLocations.ContainsKey(Abs(BL.GetDistanceFromLocation(Returnlocation, True))) Then
+                                                ReturnLocations.Add(Abs(BL.GetDistanceFromLocation(Returnlocation, True)), Returnlocation)
+                                            End If
+                                    End Select
+                                End If
+                            End With
                         Next
-                        'Option 2
-                        TempLocation.Z -= 1
-                        TD.FindTile(TempLocation, False)
-                        TD.Get_TileInfo()
-                        For i As Integer = 0 To TD.Count
-                            If Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.Teleport Then
-                                ReturnLocation.Z -= 1
-                                Return ReturnLocation
-                                Exit Function
-                            End If
-                        Next
-                        'Option 3
-                        TempLocation.Z += 1 'Restoring temploc
-                        TD.FindTile(TempLocation, False)
-                        TD.Get_TileInfo()
-                        If TD.TileId = 386 Then 'ROPE SPOT
-                            ReturnLocation.Z -= 1
-                            Return ReturnLocation
-                            Exit Function
-                        End If
-                        'Option 4
-                        Select Case HeadingDirection
-                            Case IBattlelist.Directions.Down
-                                TempLocation.Y += 1
-                            Case IBattlelist.Directions.Left
-                                TempLocation.X -= 1
-                            Case IBattlelist.Directions.Right
-                                TempLocation.X += 1
-                            Case IBattlelist.Directions.Up
-                                TempLocation.Y -= 1
-                        End Select
-                        TD.FindTile(TempLocation, False)
-                        TD.Get_TileInfo()
-                        Kernel.ConsoleWrite(TD.Count.ToString)
-                        Kernel.ConsoleWrite(TD.ObjectId(1).ToString)
-                        For i As Integer = 0 To TD.Count
-                            If Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.Teleport Then
-                                ReturnLocation = TempLocation
-                                ReturnLocation.Z -= 1
-                                Return ReturnLocation
-                                Exit Function
-                            End If
-                        Next
-                        'Option 5
-                        TempLocation.Z -= 1
-                        TD.FindTile(TempLocation, False)
-                        TD.Get_TileInfo()
-                        For i As Integer = 0 To TD.Count
-                            If Client.Items.GetItemKind(TD.ObjectId(i)) = IItems.ItemKind.Teleport Then
-                                ReturnLocation = TempLocation
-                                Return ReturnLocation
-                                Exit Function
-                            End If
-                        Next
-                End Select
-                'Can't find
-                ReturnLocation.X = 0
-                ReturnLocation.Y = 0
-                ReturnLocation.Z = 0
-                Return ReturnLocation
+                    Next
+                Next
+                If ReturnLocations.Count > 0 Then
+                    Return ReturnLocations.GetByIndex(0)
+                Else
+                    Return New ITibia.LocationDefinition(0, 0, 0) 'Error
+                End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3036,32 +3014,44 @@ Public Module KernelModule
                 Dim TD As New TileData
                 Dim CameLoc As New ITibia.LocationDefinition
                 Dim WaypointLoc As New ITibia.LocationDefinition
-                Dim CameDir As New Byte '0 = From Down to Up, 1 = From Up to Down
+                Dim Tries As Integer = 0
+                Dim CameDir As New Integer   '0 = From Down to Up, 1 = From Up to Down
                 'Add normal Walking time every 10s
                 If Walker_Waypoints.Count <> 0 Then 'List is not empty
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                     If BL.GetLocation.Z <> LastFloor Then
-                        If BL.GetLocation.Z < LastFloor Then CameDir = 0
-                        If BL.GetLocation.Z > LastFloor Then CameDir = 1
-                        LastFloor = BL.GetLocation.Z
-                        CameLoc = BL.GetLocation
-                        If Not Walker_Waypoints(Walker_Waypoints.Count - 1).Type = Walker.WaypointType.Ladder And _
-                        Not Walker_Waypoints(Walker_Waypoints.Count - 1).Type = Walker.WaypointType.Rope And _
-                        Not Walker_Waypoints(Walker_Waypoints.Count - 1).Type = Walker.WaypointType.Sewer And _
-                        Not Walker_Waypoints(Walker_Waypoints.Count - 1).Type = Walker.WaypointType.Shovel Then
-                            WaypointLoc = AddWaypointLocation(CameLoc, CameDir, BL.GetDirection)
-                            If WaypointLoc.X <> 0 Then 'There were no error
-                                Dim WalkerChar As New Walker
-                                WalkerChar.Coordinates = WaypointLoc
-                                WalkerChar.Type = Walker.WaypointType.StairsOrHole
-                                WalkerChar.Info = ""
-                                Walker_Waypoints.Add(WalkerChar)
-                                AutoAddTime = Now.AddSeconds(5) 'Don't add next right away
-                                Kernel.ConsoleWrite("Stairs/Hole waypoint added.")
-                            Else
-                                Kernel.ConsoleWrite("Error, can't add waypoint")
+                        Do Until Tries > 3 '4 Tries to succeed
+                            Tries += 1
+                            If BL.GetLocation.Z < LastFloor Then CameDir = 1
+                            If BL.GetLocation.Z > LastFloor Then CameDir = -1
+                            LastFloor = BL.GetLocation.Z
+                            If Not Walker_Waypoints(Walker_Waypoints.Count - 1).Type = Walker.WaypointType.Ladder And _
+                            Not Walker_Waypoints(Walker_Waypoints.Count - 1).Type = Walker.WaypointType.Rope And _
+                            Not Walker_Waypoints(Walker_Waypoints.Count - 1).Type = Walker.WaypointType.Sewer And _
+                            Not Walker_Waypoints(Walker_Waypoints.Count - 1).Type = Walker.WaypointType.Shovel Then
+                                WaypointLoc = AddWaypointLocation(CameDir, BL.GetLocation.Z)
+                                If WaypointLoc.X <> 0 Then 'There were no error
+                                    Dim WalkerChar As New Walker
+                                    WalkerChar.Coordinates = WaypointLoc
+                                    WalkerChar.Type = Walker.WaypointType.StairsOrHole
+                                    WalkerChar.Info = ""
+                                    Walker_Waypoints.Add(WalkerChar)
+                                    AutoAddTime = Now.AddSeconds(5) 'Don't add next right away
+                                    Kernel.ConsoleWrite("Stairs/Hole waypoint added.")
+                                    Exit Do
+                                Else
+                                    Kernel.ConsoleError("Error, can't add waypoint. Try #" & Tries & ". Please wait..")
+                                    If Tries > 3 Then
+                                        Kernel.ConsoleWrite("Couldn't add waypoint. This might affect to cavebot." & Ret & "Check TibiaTek Wiki -> Cavebot for more info.")
+                                        LastFloor = BL.GetLocation.Z
+                                        AutoAddTime = Now.AddSeconds(5)
+                                        Exit Do
+                                    End If
+                                    LastFloor = LastFloor + CameDir
+                                    Threading.Thread.Sleep(2000) 'Wait for 2s before next try
+                                End If
                             End If
-                        End If
+                        Loop
                     End If
                 End If
                 If AutoAddTime < Date.Now Then
@@ -4104,7 +4094,19 @@ Public Module KernelModule
                                 WalkerChar.Info = ""
                                 Walker_Waypoints.Add(WalkerChar)
                                 Kernel.ConsoleWrite("Ladder waypoint added.")
+                                AutoAddTime = Now.AddSeconds(5)
                             End If
+                            With Client.Dat.GetInfo(ItemID)
+                                If .IsSewer Then
+                                    Dim WalkerChar As New Walker
+                                    WalkerChar.Coordinates = Location
+                                    WalkerChar.Type = Walker.WaypointType.Sewer
+                                    WalkerChar.Info = ""
+                                    Walker_Waypoints.Add(WalkerChar)
+                                    Kernel.ConsoleWrite("Sewer waypoint added.")
+                                    AutoAddTime = Now.AddSeconds(5)
+                                End If
+                            End With
                         End If
                     Case &H83 'Use Item With
                         Proxy.LastAction = Date.Now.Ticks
@@ -4124,10 +4126,12 @@ Public Module KernelModule
                                     WalkerChar.Type = Walker.WaypointType.Rope
                                     WalkerChar.Info = ""
                                     Kernel.ConsoleWrite("Rope waypoint added.")
+                                    AutoAddTime = Now.AddSeconds(5)
                                 Case "Shovel", "Light Shovel"
                                     WalkerChar.Type = Walker.WaypointType.Shovel
-                                    WalkerChar.Info = BL.GetDirection 'HAVE TO BE TESTED!
+                                    WalkerChar.Info = ""
                                     Kernel.ConsoleWrite("Shovel waypoint added.")
+                                    AutoAddTime = Now.AddSeconds(5)
                                 Case Else
                                     Exit Sub
                             End Select
@@ -4479,6 +4483,7 @@ Public Module KernelModule
                 Dim Word As UShort = 0
                 Dim OneByte As Byte = 0
                 'Trace.WriteLine("FromServer: " & BytesToStr(bytBuffer))
+                'ConsoleWrite(BytesToStr(bytBuffer))
                 While Pos < PacketLength
                     PacketID = GetByte(bytBuffer, Pos)
                     Select Case PacketID

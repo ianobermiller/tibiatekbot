@@ -405,9 +405,7 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    'NEW ONES. Not implemented yet to scripting
-
-    Public ReadOnly Property CharacterHP() As Integer Implements ITibia.CharacterHP
+    Public ReadOnly Property CharacterHitPoints() As Integer Implements ITibia.CharacterHitPoints
         Get
             Try
                 Dim Hp As Integer
@@ -420,7 +418,7 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property CharacterMP() As Integer Implements ITibia.CharacterMP
+    Public ReadOnly Property CharacterManaPoints() As Integer Implements ITibia.CharacterManaPoints
         Get
             Try
                 Dim Mp As Integer
@@ -439,6 +437,98 @@ Public NotInheritable Class Tibia
                 Dim Exp As Integer
                 ReadMemory(Consts.ptrExperience, Exp, 4)
                 Return Exp
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    'Not added to the scripting yet!
+    Public ReadOnly Property CharacterCapacity() As Integer Implements ITibia.CharacterCapacity
+        Get
+            Try
+                Dim Cap As Integer
+                ReadMemory(Consts.ptrCapacity, Cap, 4)
+                Return Cap
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterSoulPoints() As Integer Implements ITibia.CharacterSoulPoints
+        Get
+            Try
+                Dim Soul As Integer
+                ReadMemory(Consts.ptrSoulPoints, Soul, 4)
+                Return Soul
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterStamina() As Integer Implements ITibia.CharacterStamina
+        Get
+            Try
+                Dim Stamina As Integer
+                ReadMemory(Consts.ptrStamina, Stamina, 4)
+                Return Stamina
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterSkill(ByVal Skill As ITibia.Skills) As Integer Implements ITibia.CharacterSkill
+        Get
+            Try
+                Dim SkillValue As Integer
+                ReadMemory(Consts.ptrSkillsBegin + (Skill * Consts.SkillsDist), SkillValue, 1)
+                Return SkillValue
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterSkillPercent(ByVal Skill As ITibia.Skills) As Integer Implements ITibia.CharacterSkillPercent
+        Get
+            Try
+                Dim SkillPercent As Integer
+                ReadMemory(Consts.ptrSkillsPercentBegin + (Skill * Consts.SkillsDist), SkillPercent, 1)
+                Return SkillPercent
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterMagicLevel() As Integer Implements ITibia.CharacterMagicLevel
+        Get
+            Try
+                Dim MLevel As Integer
+                ReadMemory(Consts.ptrMagicLevel, MLevel, 1)
+                Return MLevel
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterLevel() As Integer Implements ITibia.CharacterLevel
+        Get
+            Try
+                Dim Level As Integer
+                ReadMemory(Consts.ptrLevel, Level, 1)
+                Return Level
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return Nothing
