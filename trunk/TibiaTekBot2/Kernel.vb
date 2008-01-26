@@ -3975,7 +3975,7 @@ Public Module KernelModule
                                         ElseIf DatObj.HasExtraByte Then
                                             Count = 1
                                         End If
-                                        ConsoleWrite(Client.Items.GetItemName(ItemID) & " (H" & Hex(ItemID) & ") addded to " & MyContainer.GetName & ".")
+                                        ConsoleWrite(Client.Items.GetItemName(ItemID) & " (H" & Hex(ItemID) & ") added to " & MyContainer.GetName & ".")
                                         CP.AddObjectToContainer(ItemID, &HF, Count)
                                         'Proxy.SendPacketToClient(AddObjectToContainer(ItemID, &HF, Count))
                                     Else
