@@ -74,6 +74,7 @@
     <Compile Include="Interfaces\ICommandParser.vb" />
     <Compile Include="Interfaces\IIrcClient.vb" />
     <Compile Include="Interfaces\IKernel.vb" />
+    <Compile Include="Interfaces\IObjects.vb" />
     <Compile Include="Interfaces\IOutfits.vb" />
     <Compile Include="Interfaces\IPipePacketBuilder.vb" />
     <Compile Include="Interfaces\IClientPacketBuilder.vb" />

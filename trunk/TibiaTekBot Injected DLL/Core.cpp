@@ -14,6 +14,7 @@ using namespace std;
 WNDPROC WndProc;
 HINSTANCE hMod;
 HWND TibiaWindowHandle;
+DWORD TibiaProcessID;
 //DWORD TTBProcessID;
 //HANDLE TTBProcessHandle;
 
@@ -46,7 +47,7 @@ DWORD ReadDWord(BYTE *buffer, int *offset){
 	return result;
 }
 
-DOUBLE ReadDouble(BYTE *buffer, int *offset){
+double ReadDouble(BYTE *buffer, int *offset){
 	BYTE a[8];
 	double *result;
 	int i;
@@ -90,7 +91,7 @@ inline bool InGame(){ return (*INGAME == 8); }
 
 
 LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam){
-	Beep(2000,50);
+	//Beep(2000,50);
     return CallWindowProc(WndProc, hWnd, uMsg, wParam, lParam );
 }
 
@@ -120,6 +121,28 @@ void PipeOnRead(){
 				} else {
 					SetWindowLongPtr(TibiaWindowHandle, GWLP_WNDPROC, (LONG)WndProc);
 				}
+			}
+			break;
+		case 3: // Test
+			{
+				//const unsigned int* HeapHandlePointer = (const unsigned int*)0x772500;
+				//const unsigned int MaxItems = 7441;
+				//const unsigned int structSize = 19*sizeof(int);
+
+				//PROCESS_HEAP_ENTRY phe;
+				//phe.lpData = NULL;
+				//unsigned int HeapEntryStartAddress=0;
+				//while (HeapWalk((HANDLE)*HeapHandlePointer, &phe)) {
+				//	if ((unsigned int)phe.cbData == MaxItems*structSize) {
+				//		HeapEntryStartAddress = (unsigned int)phe.lpData;
+				//		break;
+				//	}
+				//}
+				const unsigned int* TibiaDat = (const unsigned int*)0x768C9C;
+				const unsigned int* HeapEntryStartAddress = (const unsigned int*)(*TibiaDat + 0x8);
+				char la[125];
+				sprintf(la,"%x",*HeapEntryStartAddress);
+				MessageBoxA(0,la,"la",0);
 			}
 			break;
 	}
@@ -169,10 +192,9 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 		{
 			TerminateThread(PipeThread, EXIT_SUCCESS);
 			DeleteCriticalSection(&PipeReadCriticalSection);
-		
 			/* Close the pipe thread? */
 		}
 		break;
     }
-    return EXIT_SUCCESS;
+    return true;
 }

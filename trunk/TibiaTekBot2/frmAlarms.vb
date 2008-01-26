@@ -951,7 +951,7 @@ Public Class frmAlarms
                         ContainerItemCount = MyContainer.GetItemCount
                         For I As Integer = 0 To ContainerItemCount - 1
                             Item = MyContainer.Items(I)
-                            If Kernel.Client.Items.IsThrowable(Item.ID) Then
+                            If Kernel.Client.Items.IsRangedWeapon(Item.ID) Then
                                 If Item.Count = 0 Then
                                     ThrowablesCount += 1
                                 Else

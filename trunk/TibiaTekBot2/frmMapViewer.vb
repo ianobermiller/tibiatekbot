@@ -106,11 +106,12 @@ Public Class frmMapViewer
                                         Images(Left, Top) = ImageTiles.Depot
                                     Case Else
                                         Try
-                                            If ObjectID >= Kernel.Client.Dat.Length Then
-                                                Images(Left, Top) = ImageTiles.Swamp
-                                            ElseIf Kernel.Client.Dat.GetInfo(ObjectID).IsGround AndAlso Kernel.Client.Dat.GetInfo(I).Speed > 0 Then
+                                            'If ObjectID >= Kernel.Client.Dat.Length Then
+                                            'Images(Left, Top) = ImageTiles.Swamp
+                                            'Else
+                                            If Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.WalkSpeed) AndAlso Kernel.Client.Objects.WalkSpeed(I) > 0 Then
                                                 Images(Left, Top) = ImageTiles.Walkable
-                                            ElseIf Kernel.Client.Dat.GetInfo(ObjectID).Blocking Then
+                                            ElseIf Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.Blocking) Then
                                                 Images(Left, Top) = ImageTiles.NotWalkable
                                             End If
                                         Catch

@@ -203,4 +203,24 @@
   <Const Name="MCPatchReplacement" Value="HEB" />
   <Const Name="MCPatchOriginal" Value="H75" />
   <Const Name="AntiLogoutInterval" Value="30000" />
+  <Const Name="ptrObjects" Value="H768C9C" />
+  <Const Name="ObjectWidthOffset" Value="0" />
+  <Const Name="ObjectHeightOffset" Value="4" />
+  <Const Name="ObjectLayersOffset" Value="HC" />
+  <Const Name="ObjectPatternXOffset" Value="H10" />
+  <Const Name="ObjectPatternYOffset" Value="H14" />
+  <Const Name="ObjectPatternDepthOffset" Value="H18" />
+  <Const Name="ObjectPhaseOffset" Value="H1C" />
+  <Const Name="ObjectSpritesOffset" Value="H20" />
+  <Const Name="ObjectFlagsOffset" Value="H24" />
+  <Const Name="ObjectWalkSpeedOffset" Value="H28" />
+  <Const Name="ObjectTextLimitOffset" Value="H2C" />
+  <Const Name="ObjectLightRadiusOffset" Value="H30" />
+  <Const Name="ObjectLightColorOffset" Value="H34" />
+  <Const Name="ObjectShiftXOffset" Value="H38" />
+  <Const Name="ObjectShiftYOffset" Value="H3C" />
+  <Const Name="ObjectHeightedOffset" Value="H40" />
+  <Const Name="ObjectAutoMapColorOffset" Value="H44" />
+  <Const Name="ObjectLensHelpOffset" Value="H48" />
+  <Const Name="ObjectDist" Value="H4C" />
 </Constants>
