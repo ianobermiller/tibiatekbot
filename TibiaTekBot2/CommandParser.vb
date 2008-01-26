@@ -726,7 +726,8 @@ Public Class CommandParser
                     "Usage: &loot <on | minimum capacity | off>." & Ret & _
                     "Example: &loot 100." & Ret & _
                     "Comment:" & Ret & _
-                    "  Tired of having to open the corpses? With this command you won't have to do anything.")
+                    "  Tired of having to open the corpses? With this command you won't have to do anything." & Ret & _
+                    " Note: You can edit lootable items with command &loot <edit | add ContainerIndex ItemId>")
                 Case "statsuploader"
                     Kernel.ConsoleWrite("«Stats Uploader»" & Ret & _
                     "Usage: &statsuploader <on | off>." & Ret & _
@@ -1160,13 +1161,71 @@ Public Class CommandParser
                             Kernel.ConsoleWrite("Please wait...")
                             Kernel.LootItems.ShowLootCategories()
                         Case Else
-                            Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "([1-9][0-9]{0,4})")
+                            Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "^([1-9][0-9]{0,4})")
                             If MatchObj.Success Then
                                 Kernel.LooterMinimumCapacity = CUShort(MatchObj.Groups(1).Value)
                                 Kernel.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches " & Kernel.LooterMinimumCapacity & ".")
                                 Kernel.LooterTimerObj.StartTimer()
                             Else
-                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                Dim MatchObj1 As Match = Regex.Match(Arguments(2).ToString, "add\s+(\d+)\s+(H[0-7A-F]+|\d+)")
+                                If MatchObj1.Success Then
+                                    If Kernel.LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                        Kernel.ConsoleError("Auto Looter must not be Enabled to edit the Loot Items.")
+                                        Exit Sub
+                                    End If
+                                    Dim ContainerIndex As Integer = MatchObj1.Groups(1).Value - 1
+                                    Dim ItemId As Integer = 0
+                                    Kernel.ConsoleWrite(MatchObj1.Groups(2).ToString)
+                                    If MatchObj1.Groups(2).ToString.ToLower.StartsWith("h") Then
+                                        ItemId = CInt("&" & MatchObj1.Groups(2).ToString)
+                                    Else
+                                        ItemId = CInt(MatchObj1.Groups(2).ToString)
+                                    End If
+
+                                    If ContainerIndex > 11 OrElse ContainerIndex < 0 Then
+                                        Kernel.ConsoleError("Invalid Container Index. Please enter Index between 1 and 12.")
+                                        Exit Sub
+                                    End If
+
+                                    Dim ContainerItems() As Scripting.IContainer.ContainerItemDefinition = Kernel.LootItems.GetItemsIDs(ContainerIndex)
+                                    If ContainerItems.Length > &H24 Then
+                                        Kernel.ConsoleError("There is no space in the container. Please choose different Container Index")
+                                        Exit Sub
+                                    End If
+
+                                    If ItemId < 100 OrElse ItemId > 7540 Then
+                                        Kernel.ConsoleError("Item Id is invalid. Please enter Item Id between 100 and 7540 (H64 - H1D47).")
+                                        Exit Sub
+                                    End If
+
+                                    'Everything's clear, let's add item
+                                    Dim CP As New ClientPacketBuilder(Kernel.Proxy)
+                                    Dim LootItem As New LootItems.LootItemDefinition(ItemId, ContainerIndex)
+                                    If Kernel.LootItems.Add(LootItem) Then
+                                        Dim Count As Integer = 0
+                                        Dim DatObj As IDatFile.DatObject
+                                        DatObj = Kernel.Client.Dat.GetInfo(ItemId)
+                                        If DatObj.IsStackable Then
+                                            Count = 100
+                                        ElseIf DatObj.IsFluid Then
+                                            '   keep count
+                                        ElseIf DatObj.HasExtraByte Then
+                                            Count = 1
+                                        End If
+                                        Kernel.ConsoleWrite(Kernel.Client.Items.GetItemName(ItemId) & " (H" & Hex(ItemId) & ") added to Loot Category #" & ContainerIndex + 1 & ".")
+                                        'Check if there is the virtual container open
+                                        Dim MyContainer As New Container
+                                        MyContainer.JumpToContainer(&HF)
+                                        Dim ContainerSize As Integer = MyContainer.GetContainerSize
+                                        If MyContainer.IsOpened AndAlso ContainerSize = &H24 AndAlso MyContainer.GetName.EndsWith(ContainerIndex + 1) Then
+                                            CP.AddObjectToContainer(ItemId, &HF, Count)
+                                        End If
+                                    Else
+                                        Kernel.ConsoleError("This item already exists.")
+                                    End If
+                                Else
+                                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                End If
                             End If
                     End Select
             End Select
