@@ -4532,7 +4532,7 @@ Public Module KernelModule
                             ElseIf Client.Objects.HasFlags(ID, IObjects.ObjectFlags.IsContainer) Then
                                 If TTBState = BotState.Paused Then Exit Sub
                                 If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                    If Not Client.Objects.HasFlags(ID, IObjects.ObjectFlags.IsContainer) Then 'if its known container, skip
+                                    If Client.Items.GetItemName(ID) = "Unknown" Then 'if its known container, skip
                                         Dim BL As New BattleList
                                         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                                         If BL.GetDistanceFromLocation(Loc) <= Consts.LootMaxDistance Then
