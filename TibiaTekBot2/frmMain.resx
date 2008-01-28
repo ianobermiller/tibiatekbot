@@ -350,12 +350,6 @@
   <data name="ClosePopupItem.Text" xml:space="preserve">
     <value>&amp;Exit</value>
   </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 20</value>
-  </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
-    <value>TibiaTek Bot Menu</value>
-  </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>236, 270</value>
   </data>
@@ -371,6 +365,12 @@
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 20</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
+    <value>TibiaTek Bot Menu</value>
   </data>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
@@ -1760,10 +1760,10 @@
     <value>2</value>
   </data>
   <data name="LightEffectsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 95</value>
+    <value>6, 95</value>
   </data>
   <data name="LightEffectsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 83</value>
+    <value>204, 83</value>
   </data>
   <data name="LightEffectsBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1871,10 +1871,10 @@
     <value>2</value>
   </data>
   <data name="AmmunitionRestackerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 184</value>
+    <value>6, 184</value>
   </data>
   <data name="AmmunitionRestackerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 88</value>
+    <value>204, 88</value>
   </data>
   <data name="AmmunitionRestackerBox.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
