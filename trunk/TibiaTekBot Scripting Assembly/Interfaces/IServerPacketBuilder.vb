@@ -20,6 +20,7 @@
 Public Interface IServerPacketBuilder
     Inherits IPacketBuilder
 
+#Region " Methods "
     Sub PlayerLogout()
     Sub ChangeFightingMode(ByVal FightingMode As ITibia.FightingMode)
     Sub ChangeChasingMode(ByVal ChasingMode As ITibia.ChasingMode)
@@ -39,6 +40,8 @@ Public Interface IServerPacketBuilder
     Sub MoveObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, ByVal Destination As ITibia.LocationDefinition, Optional ByVal Count As Byte = &HFF)
     Sub MoveObject(ByVal Item As IContainer.ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition, Optional ByVal Count As Byte = &HFF)
     Sub UseObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, Optional ByVal ContainerIndex As Byte = 1)
+    Sub UseFishingRodOnLocation(ByVal FishingRod As IContainer.ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition, ByVal Sprite As UInt32)
+#End Region
 
 End Interface
 

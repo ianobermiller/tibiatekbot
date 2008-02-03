@@ -22,22 +22,7 @@ Imports TibiaTekBot.KernelModule, System.IO, System.Math, Scripting, System.Text
 Module MiscUtils
 
     Public Function GetConfigurationDirectory() As String
-        Try
-            Dim ExecutablePath As String = ""
-            For I As Integer = Application.ExecutablePath.Length - 1 To 0 Step -1
-                If Application.ExecutablePath.Chars(I) = "\" Then
-                    ExecutablePath = Strings.Left(Application.ExecutablePath, I)
-                    Exit For
-                End If
-            Next
-            If Not IO.Directory.Exists(ExecutablePath & "\Config") Then
-                IO.Directory.CreateDirectory(ExecutablePath & "\Config")
-            End If
-            Return ExecutablePath & "\Config"
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-        Return "\Data"
+        Return My.Computer.FileSystem.CurrentDirectory & "\Config"
     End Function
 
     Public Function TimeSpanToString(ByVal Time As TimeSpan) As String
@@ -62,22 +47,7 @@ Module MiscUtils
     End Function
 
     Public Function GetWaypointsDirectory() As String
-        Try
-            Dim ExecutablePath As String = ""
-            For I As Integer = Application.ExecutablePath.Length - 1 To 0 Step -1
-                If Application.ExecutablePath.Chars(I) = "\" Then
-                    ExecutablePath = Strings.Left(Application.ExecutablePath, I)
-                    Exit For
-                End If
-            Next
-            If Not IO.Directory.Exists(ExecutablePath & "\Waypoints") Then
-                IO.Directory.CreateDirectory(ExecutablePath & "\Waypoints")
-            End If
-            Return ExecutablePath & "\Waypoints"
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-        Return "\Data"
+        Return My.Computer.FileSystem.CurrentDirectory & "\Waypoints"
     End Function
 
     Public Function StrToShort(ByVal S As String) As Int16
@@ -107,8 +77,6 @@ Module MiscUtils
                 Select Case S.ToLower()
                     Case "1", "on", "true", "yes", "sim", "enable", "activate", "si"
                         Result = True
-                        '    Case "0", "off", "false", "no", "nao", "disable", "deactivate"
-                        'Result = False
                 End Select
             End If
             Return Result
@@ -141,11 +109,7 @@ Module MiscUtils
 
     Public Function GetInventorySlotAsLocation(ByVal Slot As ITibia.InventorySlots) As ITibia.LocationDefinition
         Try
-            Dim Result As New ITibia.LocationDefinition
-            Result.X = &HFFFF
-            Result.Y = CShort(Slot)
-            Result.Z = 0
-            Return Result
+            Return New ITibia.LocationDefinition(&HFFFF, Slot, 0)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End

@@ -26,6 +26,7 @@ Public NotInheritable Class Tibia
 
 #Region " Windows API Declarations "
     Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As Int32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
+    Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As UInt32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
     Private Declare Function WriteProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByVal lpBuffer() As Byte, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
     Private Declare Function SetWindowText Lib "user32" Alias "SetWindowTextA" (ByVal hwnd As Int32, ByVal lpString As String) As Int32
     Private Declare Function GetWindowPlacement Lib "user32" (ByVal hWnd As IntPtr, ByRef windowPlacement As WindowPlacement) As Boolean
@@ -65,8 +66,8 @@ Public NotInheritable Class Tibia
     Public Event Closed() Implements ITibia.Closed
     Public Event Connected() Implements ITibia.Connected
     Public Event Disconnected() Implements ITibia.Disconnected
-    Public Event CharacterConditionsChanged(ByVal Conditions As Scripting.ITibia.Conditions) Implements ITibia.CharacterConditionsChanged
-    'Public Event CharacterStatsChanged(ByVal Health As UInteger, ByVal MaxHealth As UInteger, ByVal FreeCapacity As UInteger, ByVal Experience As UInteger) Implements Scripting.ITibia.CharacterStatsChanged
+    Public Event CharacterAttacked(ByVal e As Scripting.Events.Events.CharacterAttackedEventArgs) Implements Scripting.ITibia.CharacterAttacked
+    Public Event CharacterConditionsChanged(ByVal e As Scripting.Events.Events.CharacterConditionsChangedEventArgs) Implements Scripting.ITibia.CharacterConditionsChanged
 #End Region
 
 #Region " Structures "
@@ -134,7 +135,6 @@ Public NotInheritable Class Tibia
     Private _Filename As String
     Private _Arguments As String
     Private _MapTiles As IMapTiles
-    Private _Items As IItems
     Private _Objects As Objects
     Private _PipeName As String = ""
     Public WithEvents Pipe As Pipe
@@ -145,12 +145,6 @@ Public NotInheritable Class Tibia
     Public ReadOnly Property Objects() As Scripting.IObjects Implements Scripting.ITibia.Objects
         Get
             Return _Objects
-        End Get
-    End Property
-
-    Public ReadOnly Property Items() As IItems Implements ITibia.Items
-        Get
-            Return _Items
         End Get
     End Property
 
@@ -540,7 +534,6 @@ Public NotInheritable Class Tibia
             _Directory = Directory
             _Arguments = Arguments
             _MapTiles = New MapTiles
-            _Items = New Items()
             _Objects = New Objects(Me)
 
 
@@ -561,7 +554,7 @@ Public NotInheritable Class Tibia
             PSI.FileName = _Filename
             PSI.WorkingDirectory = _Directory
             PSI.UseShellExecute = True
-
+            'RaiseEvent CharacterAttacked(
             PSI.Arguments = _Arguments & " -pipe:" & _PipeName.Substring(3)
             ClientProcess = Process.Start(PSI)
             RaiseEvent Starting()
@@ -596,6 +589,7 @@ Public NotInheritable Class Tibia
             PPB.SetConstant("TibiaWindowHandle", GetWindowHandle)
             PPB.HookWndProc(True)
             PPB.Send()
+
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -824,9 +818,9 @@ Public NotInheritable Class Tibia
 
     Public Sub ReadMemory(ByVal Address As Integer, ByRef Value As UInteger, ByVal Size As Integer)
         Try
-            Dim mValue As Integer = 0
+            Dim mValue As UInteger = 0
             ReadProcessMemory(GetProcessHandle, Address, mValue, Size, 0)
-            Value = CUInt(mValue)
+            Value = mValue
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -903,8 +897,17 @@ Public NotInheritable Class Tibia
 
 #Region " Event Raising"
 
-    Public Sub Raise_CharacterConditionsChanged(ByVal Conditions As ITibia.Conditions)
-        RaiseEvent CharacterConditionsChanged(Conditions)
+    Public Sub [RaiseEvent](ByVal Kind As ITibia.EventKind, ByVal e As EventArgs)
+        Try
+            Select Case Kind
+                Case ITibia.EventKind.CharacterAttacked
+                    RaiseEvent CharacterAttacked(e)
+                Case ITibia.EventKind.CharacterConditionsChanged
+                    RaiseEvent CharacterConditionsChanged(e)
+            End Select
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
 #End Region
@@ -913,4 +916,3 @@ Public NotInheritable Class Tibia
 
 
 End Class
-

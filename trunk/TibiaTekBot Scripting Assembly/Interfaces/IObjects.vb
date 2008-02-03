@@ -21,7 +21,7 @@ Imports System.Runtime.InteropServices
 Public Interface IObjects
 
 #Region " Enumerations "
-    <Flags()> Enum ObjectFlags As Integer
+    <Flags()> Enum ObjectFlags As UInteger
         None = &H0
         WalkSpeed = &H1
         TopOrder1 = WalkSpeed << 1
@@ -71,6 +71,39 @@ Public Interface IObjects
         HasSpecialDescription = &H457
         [ReadOnly] = &H458
     End Enum
+
+    <Flags()> Enum ObjectKind
+        None = &H0
+        Equipment = &H1
+        Helmet = Equipment << 1
+        Armor = Helmet << 1
+        Leg = Armor << 1
+        Footwear = Leg << 1
+        Shield = Footwear << 1
+        SingleHandedWeapon = Shield << 1 'for rods and wands too
+        DoubleHandedWeapon = SingleHandedWeapon << 1 'for bows/xbows too
+        Ammunition = DoubleHandedWeapon << 1 'arros & bolts
+        RangedWeapon = Ammunition << 1 'spears, snowballs, throwing stars, etc, bows/xbows included
+        Tool = RangedWeapon << 1 'rope, shovel, light shovel, pick, etc
+        Valuable = Tool << 1 'gems, creature products, books, creature products, quest items, etc
+        Ring = Valuable << 1
+        Neck = Ring << 1 'amulets and necklaces, scarf
+        Food = Neck << 1
+    End Enum
+#End Region
+
+#Region " Structures "
+    Structure ObjectDefinition
+        Dim ItemID As UInt32
+        Dim Name As String
+        Dim Kind As ObjectKind
+
+        Sub New(ByVal ItemID As UInt32, ByVal Name As String, ByVal Kind As ObjectKind)
+            Me.ItemID = ItemID
+            Me.Name = Name
+            Me.Kind = Kind
+        End Sub
+    End Structure
 #End Region
 
 #Region " Properties "
@@ -85,85 +118,18 @@ Public Interface IObjects
     Property LensHelp(ByVal ItemID As Integer) As ObjectLensHelp
     ReadOnly Property MinimumItemID() As Integer
     ReadOnly Property MaximumItemID() As Integer
+    Property Name(ByVal ItemID As Integer) As String
+    Property Kind(ByVal ItemID As Integer) As IObjects.ObjectKind
+    ReadOnly Property ID(ByVal Name As String) As Integer
 
 #End Region
-
 
 #Region " Functions "
 
     Function HasExtraByte(ByVal ItemID As Integer) As Boolean
     Function HasFlags(ByVal ItemID As Integer, ByVal Flags As ObjectFlags) As Boolean
-
+    Function IsKind(ByVal ItemID As Integer, ByVal Kind As IObjects.ObjectKind) As Boolean
 #End Region
 
-
-
-
-
- 
-
-    '<StructLayout(LayoutKind.Sequential)> _
-    'Structure [Object]
-    '    Private _Width As UInt32
-    '    Private _Height As UInt32
-    '    Private _Unknown As UInt32
-    '    Private _Layers As UInt32
-    '    Private _PatternX As UInt32
-    '    Private _PatternY As UInt32
-    '    Private _PatternDepth As UInt32
-    '    Private _Phase As UInt32
-    '    Private _Sprites As UInt32
-    '    Private _Flags As ObjectFlags
-    '    Private _WalkSpeed As UInt32
-    '    Private _TextLimit As UInt32
-    '    Private _LightRadius As UInt32
-    '    Private _LightColor As UInt32
-    '    Private _ShiftX As UInt32
-    '    Private _ShiftY As UInt32
-    '    Private _Heighted As UInt32
-    '    Private _AutoMapColor As UInt32
-    '    Private _LensHelp As ObjectLensHelp
-
-    '    Public Sub New(ByVal Width As UInt32, ByVal Height As UInt32, ByVal Layers As UInt32, _
-    '                  ByVal PatternX As UInt32, ByVal PatternY As UInt32, _
-    '                  ByVal PatternDepth As UInt32, ByVal Phase As UInt32, ByVal Sprites As UInt32, _
-    '                  ByVal Flags As UInt32, ByVal WalkSpeed As UInt32, ByVal TextLimit As UInt32, _
-    '                  ByVal LightRadius As UInt32, ByVal LightColor As UInt32, _
-    '                  ByVal ShiftX As UInt32, ByVal ShiftY As UInt32, _
-    '                  ByVal Heighted As UInt32, ByVal AutoMapColor As UInt32, _
-    '                  ByVal LensHelp As UInt32)
-    '        _Width = Width
-    '        _Height = Height
-    '        _Layers = Layers
-    '        _PatternX = PatternX
-    '        _PatternY = PatternY
-    '        _PatternDepth = PatternDepth
-    '        _Phase = Phase
-    '        _Sprites = Sprites
-    '        _Flags = Flags
-    '        _WalkSpeed = WalkSpeed
-    '        _TextLimit = TextLimit
-    '    End Sub
-
-    '    ReadOnly Property Width() As UInt32
-    '        Get
-    '            Return _Width
-    '        End Get
-    '    End Property
-
-    '    ReadOnly Property Height() As UInt32
-    '        Get
-    '            Return _Height
-    '        End Get
-    '    End Property
-
-    '    ReadOnly Property Layers() As UInt32
-    '        Get
-    '            Return _Layers
-    '        End Get
-    '    End Property
-
-    '    'ReadOnly Property 
-    'End Structure
 
 End Interface

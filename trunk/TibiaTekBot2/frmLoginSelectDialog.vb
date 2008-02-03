@@ -78,6 +78,7 @@ Public Class frmLoginSelectDialog
 
     Private Sub frmLoginSelectDialog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+
             Dim xmlDocument As New System.Xml.XmlDocument()
             xmlDocument.Load(GetConfigurationDirectory() & "\Data.xml")
             For Each Node As XmlNode In xmlDocument.Item("Client").Item("Addresses")

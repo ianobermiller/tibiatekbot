@@ -882,7 +882,7 @@ Public Class frmAlarms
                         ContainerItemCount = MyContainer.GetItemCount
                         For I As Integer = 0 To ContainerItemCount - 1
                             Item = MyContainer.Items(I)
-                            If Kernel.Client.Items.IsFood(Item.ID) Then
+                            If Kernel.Client.Objects.IsKind(Item.ID, IObjects.ObjectKind.Food) Then
                                 If Item.Count = 0 Then
                                     FoodCount += 1
                                 Else
@@ -909,7 +909,7 @@ Public Class frmAlarms
                 If Alert Then Output = "Your alarm has fired because you have " & FoodCount & " food items."
             End If
             If Not Alert AndAlso BlankRunesCond.Active Then
-                BlankRunesCount = (New Container).GetItemCountByItemID(Kernel.Client.Items.GetItemID("Blank"))
+                BlankRunesCount = (New Container).GetItemCountByItemID(Kernel.Client.Objects.ID("Blank"))
                 Select Case BlankRunesCond.Condition
                     Case LogicConditions.Equal
                         If BlankRunesCount = BlankRunesCond.Count Then Alert = True
@@ -927,7 +927,7 @@ Public Class frmAlarms
                 If Alert Then Output = "Your alarm has fired because you have " & BlankRunesCount & " blank runes."
             End If
             If Not Alert AndAlso WormsCond.Active Then
-                WormsCount = (New Container).GetItemCountByItemID(Kernel.Client.Items.GetItemID("Worm"))
+                WormsCount = (New Container).GetItemCountByItemID(Kernel.Client.Objects.ID("Worm"))
                 Select Case WormsCond.Condition
                     Case LogicConditions.Equal
                         If WormsCount = WormsCond.Count Then Alert = True
@@ -951,7 +951,7 @@ Public Class frmAlarms
                         ContainerItemCount = MyContainer.GetItemCount
                         For I As Integer = 0 To ContainerItemCount - 1
                             Item = MyContainer.Items(I)
-                            If Kernel.Client.Items.IsRangedWeapon(Item.ID) Then
+                            If Kernel.Client.Objects.IsKind(Item.ID, IObjects.ObjectKind.RangedWeapon) Then
                                 If Item.Count = 0 Then
                                     ThrowablesCount += 1
                                 Else
@@ -984,7 +984,7 @@ Public Class frmAlarms
                         ContainerItemCount = MyContainer.GetItemCount
                         For I As Integer = 0 To ContainerItemCount - 1
                             Item = MyContainer.Items(I)
-                            If Kernel.Client.Items.IsAmmunition(Item.ID) Then
+                            If Kernel.Client.Objects.IsKind(Item.ID, IObjects.ObjectKind.Ammunition) Then
                                 If Item.Count = 0 Then
                                     AmmunitionCount += 1
                                 Else

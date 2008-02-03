@@ -71,9 +71,9 @@ Public Class frmMain
             End If
             'Changers
             'CHANGE THIS WTF!
-            For Each Item As IItems.ItemDefinition In Kernel.Client.Items.ItemsList
-                If Kernel.Client.Items.IsRing(Item.ItemID) Then ChangerRingType.Items.Add(Item.Name)
-                If Kernel.Client.Items.IsNeck(Item.ItemID) Then ChangerAmuletType.Items.Add(Item.Name)
+            For Each Item As IObjects.ObjectDefinition In CType(Kernel.Client.Objects, Objects).Objects
+                If Kernel.Client.Objects.IsKind(Item.ItemID, IObjects.ObjectKind.Ring) Then ChangerRingType.Items.Add(Item.Name)
+                If Kernel.Client.Objects.IsKind(Item.ItemID, IObjects.ObjectKind.Neck) Then ChangerAmuletType.Items.Add(Item.Name)
             Next
             If ChangerRingType.Items.Count > 0 Then ChangerRingType.SelectedIndex = 0
             If ChangerAmuletType.Items.Count > 0 Then ChangerAmuletType.SelectedIndex = 0
@@ -288,13 +288,13 @@ Public Class frmMain
             AmuletChangerTrigger.Checked = Kernel.AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running
 
             If RingChangerTrigger.Checked Then
-                ChangerRingType.Text = Kernel.Client.Items.GetItemName(Kernel.RingID)
+                ChangerRingType.Text = Kernel.Client.Objects.Name(Kernel.RingID)
                 ChangerRingType.Enabled = False
             Else
                 ChangerRingType.Enabled = True
             End If
             If AmuletChangerTrigger.Checked Then
-                ChangerAmuletType.Text = Kernel.Client.Items.GetItemName(Kernel.AmuletID)
+                ChangerAmuletType.Text = Kernel.Client.Objects.Name(Kernel.AmuletID)
                 ChangerAmuletType.Enabled = False
             Else
                 ChangerAmuletType.Enabled = True
@@ -503,7 +503,7 @@ Public Class frmMain
             Dim MaxHitPoints As Integer = 0
             Kernel.Client.ReadMemory(Consts.ptrMaxHitPoints, MaxHitPoints, 4)
             If HealWithRune.Checked Then
-                Select Case Kernel.Client.Items.GetItemName(Kernel.UHId)
+                Select Case Kernel.Client.Objects.Name(Kernel.UHId)
                     Case "Ultimate Healing"
                         HealRuneType.Text = "UH Rune"
                     Case "Intense Healing"
@@ -575,7 +575,7 @@ Public Class frmMain
             End If
 
             If HealWithPotion.Checked Then
-                Select Case Kernel.Client.Items.GetItemName(Kernel.PotionID)
+                Select Case Kernel.Client.Objects.Name(Kernel.PotionID)
                     Case "Health Potion"
                         HealPotionName.Text = "Health Potion"
                     Case "Strong Health Potion"
@@ -1861,7 +1861,7 @@ Public Class frmMain
 
     Private Sub MiscReloadItemsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MiscReloadItemsButton.Click
         Try
-            Kernel.Client.Items.Refresh()
+            CType(Kernel.Client.Objects, Objects).Refresh()
             MessageBox.Show("Done loading the Items configuration file.")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2304,7 +2304,7 @@ Public Class frmMain
             If PickuperTrigger.Checked Then
                 Dim RightHandItemID As Integer
                 Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                If RightHandItemID = 0 OrElse Not Kernel.Client.Items.IsRangedWeapon(RightHandItemID) Then
+                If RightHandItemID = 0 OrElse Not Kernel.Client.Objects.IsKind(RightHandItemID, IObjects.ObjectKind.RangedWeapon) Then
                     MessageBox.Show("You must have a throwable item in your right hand, like a spear, throwing knife, etc.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
@@ -2349,7 +2349,7 @@ Public Class frmMain
     Private Sub RingChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RingChangerTrigger.CheckedChanged
         Try
             If RingChangerTrigger.Checked Then
-                Kernel.RingID = Kernel.Client.Items.GetItemID(ChangerRingType.Text)
+                Kernel.RingID = Kernel.Client.Objects.ID(ChangerRingType.Text)
                 If Kernel.RingID = 0 Then 'AndAlso Core.Client.Items.IsRing(Core.RingID) Then <-- WTF O.o
                     MessageBox.Show("Invalid Ring Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshChangerControls()
@@ -2369,7 +2369,7 @@ Public Class frmMain
     Private Sub AmuletChangerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmuletChangerTrigger.CheckedChanged
         Try
             If AmuletChangerTrigger.Checked Then
-                Kernel.AmuletID = Kernel.Client.Items.GetItemID(ChangerAmuletType.Text)
+                Kernel.AmuletID = Kernel.Client.Objects.ID(ChangerAmuletType.Text)
                 If Kernel.AmuletID = 0 Then ' AndAlso Core.Client.Items.IsNeck(Core.AmuletID) Then <-- WTF O.o
                     MessageBox.Show("Invalid Amulet/Necklace Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     RefreshChangerControls()
@@ -2413,11 +2413,11 @@ Public Class frmMain
                 End If
                 Select Case HealPotionName.Text
                     Case "Health Potion"
-                        Kernel.PotionID = Kernel.Client.Items.GetItemID("Health Potion")
+                        Kernel.PotionID = Kernel.Client.Objects.ID("Health Potion")
                     Case "Strong Health Potion"
-                        Kernel.PotionID = Kernel.Client.Items.GetItemID("Strong Health Potion")
+                        Kernel.PotionID = Kernel.Client.Objects.ID("Strong Health Potion")
                     Case "Great Health Potion"
-                        Kernel.PotionID = Kernel.Client.Items.GetItemID("Great Health Potion")
+                        Kernel.PotionID = Kernel.Client.Objects.ID("Great Health Potion")
                     Case Else
                         MessageBox.Show("You must select the Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
@@ -2457,9 +2457,9 @@ Public Class frmMain
                 End If
                 Select Case HealRuneType.Text
                     Case "UH Rune"
-                        Kernel.UHId = Kernel.Client.Items.GetItemID("Ultimate Healing")
+                        Kernel.UHId = Kernel.Client.Objects.ID("Ultimate Healing")
                     Case "IH Rune"
-                        Kernel.UHId = Kernel.Client.Items.GetItemID("Intense Healing")
+                        Kernel.UHId = Kernel.Client.Objects.ID("Intense Healing")
                     Case Else
                         MessageBox.Show("You must select the Rune.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
@@ -2541,11 +2541,11 @@ Public Class frmMain
                 End If
                 Select Case ManaPotionName.Text
                     Case "Mana Potion"
-                        Kernel.ManaPotionID = Kernel.Client.Items.GetItemID("Mana Potion")
+                        Kernel.ManaPotionID = Kernel.Client.Objects.ID("Mana Potion")
                     Case "Strong Mana Potion"
-                        Kernel.ManaPotionID = Kernel.Client.Items.GetItemID("Strong Mana Potion")
+                        Kernel.ManaPotionID = Kernel.Client.Objects.ID("Strong Mana Potion")
                     Case "Great Mana Potion"
-                        Kernel.ManaPotionID = Kernel.Client.Items.GetItemID("Great Mana Potion")
+                        Kernel.ManaPotionID = Kernel.Client.Objects.ID("Great Mana Potion")
                     Case Else
                         MessageBox.Show("You must select the Mana Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
