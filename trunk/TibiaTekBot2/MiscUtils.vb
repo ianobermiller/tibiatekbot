@@ -22,7 +22,7 @@ Imports TibiaTekBot.KernelModule, System.IO, System.Math, Scripting, System.Text
 Module MiscUtils
 
     Public Function GetConfigurationDirectory() As String
-        Return My.Computer.FileSystem.CurrentDirectory & "\Config"
+        Return My.Application.Info.DirectoryPath & "\Config"
     End Function
 
     Public Function TimeSpanToString(ByVal Time As TimeSpan) As String
@@ -47,7 +47,7 @@ Module MiscUtils
     End Function
 
     Public Function GetWaypointsDirectory() As String
-        Return My.Computer.FileSystem.CurrentDirectory & "\Waypoints"
+        Return My.Application.Info.DirectoryPath & "\Waypoints"
     End Function
 
     Public Function StrToShort(ByVal S As String) As Int16
