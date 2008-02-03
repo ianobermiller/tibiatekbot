@@ -130,7 +130,7 @@ Public Module WalkerModule
                             BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                             Dim Container As New Container
                             'Dim Rope As ContainerItemDefinition
-                            Dim RopeId As UShort = Kernel.Client.Items.GetItemID("Rope")
+                            Dim RopeId As UShort = Kernel.Client.Objects.ID("Rope")
                             Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
                             ServerPacket.UseObjectWithObjectOnGround(RopeId, BL.GetLocation, TD.TileId)
                             ServerPacket.Send()
@@ -249,8 +249,8 @@ Public Module WalkerModule
                                 End Select
                                 'Finding Shovel
                                 Dim Shovel As Scripting.IContainer.ContainerItemDefinition
-                                If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Shovel")) = False Then
-                                    If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Light Shovel")) = False Then
+                                If (New Container).FindItem(Shovel, Kernel.Client.Objects.ID("Shovel")) = False Then
+                                    If (New Container).FindItem(Shovel, Kernel.Client.Objects.ID("Light Shovel")) = False Then
                                         Kernel.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
                                         System.Threading.Thread.Sleep(10000)
                                         IsReady = False
@@ -284,8 +284,8 @@ Public Module WalkerModule
                             If Abs(Kernel.CharacterLoc.X - Coordinates.X) < 2 AndAlso Abs(Kernel.CharacterLoc.Y - Coordinates.Y) < 2 AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
                                 'Finding Shovel
                                 Dim Shovel As Scripting.IContainer.ContainerItemDefinition
-                                If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Shovel")) = False Then
-                                    If (New Container).FindItem(Shovel, Kernel.Client.Items.GetItemID("Light Shovel")) = False Then
+                                If (New Container).FindItem(Shovel, Kernel.Client.Objects.ID("Shovel")) = False Then
+                                    If (New Container).FindItem(Shovel, Kernel.Client.Objects.ID("Light Shovel")) = False Then
                                         Kernel.ConsoleError("Unable to find shovel. Stopping for 10 seconds.")
                                         System.Threading.Thread.Sleep(10000)
                                         IsReady = False

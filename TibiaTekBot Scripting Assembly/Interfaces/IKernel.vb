@@ -16,6 +16,7 @@
 '    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
+Imports Microsoft.VisualBasic, Microsoft.VisualBasic.Devices, Microsoft.VisualBasic.ApplicationServices
 
 Public Interface IKernel
 
@@ -25,6 +26,7 @@ Public Interface IKernel
     ReadOnly Property Spells() As ISpells
     ReadOnly Property CommandParser() As ICommandParser
     ReadOnly Property IrcClient() As IIrcClient
+    ReadOnly Property Computer() As Computer
 #End Region
 
 #Region " Methods "

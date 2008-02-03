@@ -434,6 +434,19 @@ Public Class ServerPacketBuilder
         End Try
     End Sub
 
+    Public Sub UseFishingRodOnLocation(ByVal FishingRod As IContainer.ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition, ByVal Sprite As UInt32) Implements IServerPacketBuilder.UseFishingRodOnLocation
+        Dim _Packet As New Packet()
+        _Packet.AddByte(&H83)
+        _Packet.AddLocation(FishingRod.Location)
+        _Packet.AddWord(FishingRod.ID)
+        _Packet.AddByte(FishingRod.Slot)
+        _Packet.AddLocation(Destination)
+        _Packet.AddWord(Sprite)
+        _Packet.AddByte(&H0)
+        Packets.Enqueue(_Packet)
+        If _AutoSend Then Send()
+    End Sub
+
     Public Sub Send() Implements IPacketBuilder.Send
         Try
             While Packets.Count > 0

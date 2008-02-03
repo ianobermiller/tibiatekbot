@@ -41,7 +41,7 @@ Public Module ConstantsModule
         Public RSAKeyOpenTibia As String = "109120132967399429278860960508995541528237502902798129123468757937266291492576446330739696001110603907230888610072655818825358503429057592827629436413108566029093628212635953836686562675849720620786279431090218017681061521755056710823876476444260558147179707119674283982419152118103759076030616683978566631413"
         Public AutoPickUpDelay As Integer = 2000
         Public HealersCheckInterval As Integer = 300
-        Public HealersAfterHealDelay As Integer = 300
+        Public HealersAfterHealDelay As Integer = 2000
         Public HotkeysCanEquipItems As Boolean = True
         Public EquipItemsOnUse As Boolean = True
         Public AutoPublishLocation As Boolean = False
@@ -766,11 +766,11 @@ Public Module ConstantsModule
 
 
 
-    Public Enum ItemSearchArgs
-        Body = 1
-        Backpack = 2
-        BodyBackpack = 3
-    End Enum
+    'Public Enum ItemSearchArgs
+    '    Body = 1
+    '    Backpack = 2
+    '    BodyBackpack = 3
+    'End Enum
 
     Public Enum HealTypes
         None

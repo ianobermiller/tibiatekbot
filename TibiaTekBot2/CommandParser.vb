@@ -86,6 +86,7 @@ Public Class CommandParser
             Add("irc", AddressOf CmdIrc)
             Add("viewmsg", AddressOf CmdViewMessage)
             Add("log", AddressOf CmdLog)
+            Add(New String() {"favwnp", "favweapon", "favoriteweapon", "fvwpn"}, AddressOf CmdFavWep)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -378,9 +379,9 @@ Public Class CommandParser
                     Case "outfits", "outfit"
                         Kernel.ConsoleWrite("Please wait...")
                         Kernel.Outfits.LoadOutfits()
-                    Case "items", "item"
+                    Case "objects", "object"
                         Kernel.ConsoleWrite("Please wait...")
-                        Kernel.Client.Items.Refresh()
+                        CType(Kernel.Client.Objects, Objects).Refresh()
                     Case "constants", "constant", "consts", "const"
                         Kernel.ConsoleWrite("Please wait...")
                         Consts.LoadConstants()
@@ -1207,7 +1208,7 @@ Public Class CommandParser
                                         ElseIf Kernel.Client.Objects.HasExtraByte(ItemId) Then
                                             Count = 1
                                         End If
-                                        Kernel.ConsoleWrite(Kernel.Client.Items.GetItemName(ItemId) & " (H" & Hex(ItemId) & ") added to Loot Category #" & ContainerIndex + 1 & ".")
+                                        Kernel.ConsoleWrite(Kernel.Client.Objects.Name(ItemId) & " (H" & Hex(ItemId) & ") added to Loot Category #" & ContainerIndex + 1 & ".")
                                         'Check if there is the virtual container open
                                         Dim MyContainer As New Container
                                         MyContainer.JumpToContainer(&HF)
@@ -1309,6 +1310,26 @@ Public Class CommandParser
         Try
             Kernel.ConsoleWrite("Begin Test")
             Select Case Arguments(2).ToString.ToLower
+                Case "setparcel"
+                    Kernel.ConsoleWrite(Kernel.Client.Objects.ID("Parcel"))
+                    'Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+                    'Dim SPB As New ServerPacketBuilder(Kernel.Proxy)
+                    'CPB.CreateContainer(3454, &HF, "Test", 1, New Scripting.IContainer.ContainerItemDefinition() {}, False)
+
+                    'For I As UInteger = 100 To 7540
+                    '    If (Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.BlocksPath) AndAlso Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.IsPickupable)) _
+                    '        OrElse (Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.BlocksPath) AndAlso Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.IsContainer)) _
+                    '        OrElse (Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.BlocksPath) AndAlso Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.IsRotatable)) _
+                    '        OrElse (Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.BlocksPath) AndAlso Kernel.Client.Objects.HasFlags(I, IObjects.ObjectFlags.IsLightSource)) Then
+                    '        Kernel.ConsoleWrite(I & " -> " & Kernel.Client.Objects.Flags(I).ToString)
+                    '        CPB.AddObjectToContainer(I, &HF, 100)
+                    '        System.Threading.Thread.Sleep(200)
+                    '        CPB.RemoveObjectFromContainer(0, &HF)
+                    '    End If
+                    'Next
+                    'Kernel.ConsoleWrite(Kernel.Client.Objects.Flags(3503).ToString)
+                    'Kernel.Client.Objects.Flags(3503) = Kernel.Client.Objects.Flags(3503) And Not IObjects.ObjectFlags.BlocksPath
+                    'Kernel.ConsoleWrite(Kernel.Client.Objects.Flags(3503).ToString)
                 Case "coords"
                     'Kernel.ConsoleWrite("World: " & Kernel.CharacterLoc.X & ":" & Kernel.CharacterLoc.Y & ":" & Kernel.CharacterLoc.Z)
                     'Kernel.ConsoleWrite("ClientZ: " & Kernel.Client.MapTiles.WorldZToClientZ(Kernel.CharacterLoc.Z))
@@ -1317,6 +1338,7 @@ Public Class CommandParser
                     Kernel.ConsoleWrite("ClientZ(7): " & Kernel.Client.MapTiles.WorldZToClientZ(7))
                     Kernel.ConsoleWrite("ClientZ(8): " & Kernel.Client.MapTiles.WorldZToClientZ(8))
                     Kernel.ConsoleWrite("ClientZ(9): " & Kernel.Client.MapTiles.WorldZToClientZ(9))
+
                 Case "floorchange"
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -1329,6 +1351,7 @@ Public Class CommandParser
                     Kernel.ConsoleWrite("Down: " & LocationDown.X & ":" & LocationDown.Y & ":" & LocationDown.Z)
                     CPB.AnimatedText(Scripting.ITibia.TextColors.Green, LocationUp, "UP")
                     Kernel.ConsoleWrite("Up: " & LocationUp.X & ":" & LocationUp.Y & ":" & LocationUp.Z)
+
                 Case "wp"
                     Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
                     For I As Integer = 0 To Kernel.Walker_Waypoints.Count - 1
@@ -1336,6 +1359,7 @@ Public Class CommandParser
                             CPB.AnimatedText(Scripting.ITibia.TextColors.Red, Kernel.Walker_Waypoints(I).Coordinates, "**")
                         End If
                     Next
+
                 Case "direction"
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -1587,7 +1611,7 @@ Public Class CommandParser
                 Case 1
                     Dim RightHandItemID As Integer
                     Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), RightHandItemID, 2)
-                    If RightHandItemID = 0 OrElse Not Kernel.Client.Items.IsRangedWeapon(RightHandItemID) Then
+                    If RightHandItemID = 0 OrElse Not (Kernel.Client.Objects.Kind(RightHandItemID) And IObjects.ObjectKind.RangedWeapon = IObjects.ObjectKind.RangedWeapon) Then
                         Kernel.ConsoleError("You must have a throwable item in your right hand, like a spear, throwing knife, etc.")
                         Exit Sub
                     End If
@@ -2182,7 +2206,7 @@ Public Class CommandParser
                 Case Else
                     If IsNumeric(Value) AndAlso CInt(Value) > 0 Then
                         Kernel.UHHPRequired = CUInt(Value)
-                        Kernel.UHId = Kernel.Client.Items.GetItemID("Ultimate Healing")
+                        Kernel.UHId = Kernel.Client.Objects.ID("Ultimate Healing")
                         Kernel.UHTimerObj.StartTimer()
                         Kernel.ConsoleWrite("Auto UHer will now 'UH' you if you are below " & Ret & _
                         Kernel.UHHPRequired & " hit points.")
@@ -2360,7 +2384,7 @@ Public Class CommandParser
             For E As ITibia.InventorySlots = ITibia.InventorySlots.Head To ITibia.InventorySlots.Belt
                 Output = E.ToString & ": "
                 Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + (Consts.ItemDist * (E - 1)), ID, 2)
-                ItemName = Kernel.Client.Items.GetItemName(ID)
+                ItemName = Kernel.Client.Objects.Name(ID)
                 If String.Compare(ItemName, "Unknown") = 0 Then
                     Output &= "Unknown H" & Hex(ID)
                 Else
@@ -2382,7 +2406,7 @@ Public Class CommandParser
                     ItemCount = Container.GetItemCount()
                     For I = 0 To ItemCount - 1
                         Item = Container.Items(I)
-                        ItemName = Kernel.Client.Items.GetItemName(Item.ID)
+                        ItemName = Kernel.Client.Objects.Name(Item.ID)
                         If String.Compare(ItemName, "Unknown") = 0 Then
                             Output &= "Unknown H" & Hex(Item.ID)
                         Else
@@ -3037,8 +3061,8 @@ Public Class CommandParser
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
                     If MatchObj.Success Then
-                        Kernel.AmuletID = Kernel.Client.Items.GetItemID(MatchObj.Groups(1).ToString)
-                        If Kernel.AmuletID = 0 AndAlso Kernel.Client.Items.IsNeck(Kernel.AmuletID) Then
+                        Kernel.AmuletID = Kernel.Client.Objects.ID(MatchObj.Groups(1).ToString)
+                        If Kernel.AmuletID = 0 AndAlso (Kernel.Client.Objects.Kind(Kernel.AmuletID) And IObjects.ObjectKind.Neck = IObjects.ObjectKind.Neck) Then
                             Kernel.ConsoleError("Invalid Amulet/Necklace Name.")
                             Exit Sub
                         End If
@@ -3075,8 +3099,8 @@ Public Class CommandParser
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Arguments(2).Value, """([^""]+)")
                     If MatchObj.Success Then
-                        Kernel.RingID = Kernel.Client.Items.GetItemID(MatchObj.Groups(1).ToString)
-                        If Kernel.RingID = 0 AndAlso Kernel.Client.Items.IsRing(Kernel.RingID) Then
+                        Kernel.RingID = Kernel.Client.Objects.ID(MatchObj.Groups(1).ToString)
+                        If Kernel.RingID = 0 AndAlso (Kernel.Client.Objects.Kind(Kernel.RingID) And IObjects.ObjectKind.Ring = IObjects.ObjectKind.Ring) Then
                             Kernel.ConsoleError("Invalid Ring Name.")
                             Exit Sub
                         End If
@@ -3233,4 +3257,86 @@ Public Class CommandParser
     End Sub
 #End Region
 
+#Region "Favored Weapon"
+    Private Sub CmdFavWep(ByVal Arguments As GroupCollection)
+        Try
+            Select Case Arguments(2).ToString.ToLower
+                Case "off"
+                    Kernel.ConsoleWrite("Favored Weapon Disabled")
+                    Kernel.FavoredWeaponEnabled = False
+                Case "on"
+                    Kernel.ConsoleWrite("Favored Weapon Enabled")
+                    Kernel.FavoredWeaponEnabled = True
+                Case Else
+                    Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "add\s+""([^""]+)""\s+(H[1-9A-F][0-9A-F]{0,3})\s+""([^""]+)""")
+                    Dim MatchObj2 As Match = Regex.Match(Arguments(2).Value, "setshield\s+(H[1-9A-F][0-9A-F]{0,3})")
+                    Dim MatchObj3 As Match = Regex.Match(Arguments(2).Value, "remove\s+(H[1-9A-F][0-9A-F]{0,3})")
+                    Dim fwSlotID As Short
+                    Dim ItemID As Integer = 0
+                    If MatchObj.Success Then
+                        Select Case MatchObj.Groups(1).ToString.ToLower
+                            Case "left"
+                                fwSlotID = 1
+                            Case "right"
+                                fwSlotID = 2
+                            Case "twohanded"
+                                fwSlotID = 3
+                            Case Else
+                                Kernel.ConsoleError("Invalid format for this command." & Ret & "Use: &favwnp <add ""<righthand | lefthand | twohanded>"" ID ""Monster1, Monster2, Monster3""><setshield ID><remove ID>")
+                                Exit Sub
+                        End Select
+                        If MatchObj.Groups(2).ToString.ToLower.StartsWith("h") Then
+                            ItemID = CInt("&" & MatchObj.Groups(2).ToString)
+                        Else
+                            ItemID = CInt(MatchObj.Groups(2).ToString)
+                        End If
+                        If ItemID < 100 OrElse ItemID > 7540 Then
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "Use: &favwnp <add ""<righthand | lefthand | twohanded>"" ID ""Monster1, Monster2, Monster3""><setshield ID><remove ID>")
+                            Exit Sub
+                        End If
+                        If MatchObj.Groups.Item(3).ToString = vbNullString Then
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "Use: &favwnp <add ""<righthand | lefthand | twohanded>"" ID ""Monster1, Monster2, Monster3""><setshield ID><remove ID>")
+                            Exit Sub
+                        End If
+                        If Kernel.FWAdd(ItemID, fwSlotID, MatchObj.Groups.Item(3).ToString) Then
+                            Kernel.ConsoleWrite("Favorite Weapon Added.")
+                        Else
+                            Kernel.ConsoleError("Can't add Favorite Weapon.")
+                        End If
+                    End If
+                    If MatchObj2.Success Then
+                        If MatchObj2.Groups(1).ToString.ToLower.StartsWith("h") Then
+                            ItemID = CInt("&" & MatchObj2.Groups(1).ToString)
+                        Else
+                            ItemID = CInt(MatchObj2.Groups(1).ToString)
+                        End If
+                        If ItemID < 100 OrElse ItemID > 7540 Then
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "Use: &favwnp <add ""<righthand | lefthand | twohanded>"" ID ""Monster1, Monster2, Monster3""><setshield ID><remove ID>")
+                            Exit Sub
+                        End If
+                        Kernel.FavoredWeaponShield = ItemID
+                        Kernel.ConsoleWrite("New favored shield configured")
+                    End If
+                    If MatchObj3.Success Then
+                        If MatchObj3.Groups(1).ToString.ToLower.StartsWith("h") Then
+                            ItemID = CInt("&" & MatchObj3.Groups(1).ToString)
+                        Else
+                            ItemID = CInt(MatchObj3.Groups(1).ToString)
+                        End If
+                        If ItemID < 100 OrElse ItemID > 7540 Then
+                            Kernel.ConsoleError("Invalid format for this command." & Ret & "Use: &favwnp <add ""<righthand | lefthand | twohanded>"" ID ""Monster1, Monster2, Monster3""><setshield ID><remove ID>")
+                            Exit Sub
+                        End If
+                        If Kernel.FWRemove(ItemID) Then
+                            Kernel.ConsoleWrite("Favorite Weapon removed.")
+                        Else
+                            Kernel.ConsoleError("Can't remove Favorite Weapon.")
+                        End If
+                    End If
+            End Select
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+#End Region
 End Class

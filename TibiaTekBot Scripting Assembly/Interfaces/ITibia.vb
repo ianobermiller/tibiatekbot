@@ -19,7 +19,6 @@
 
 Imports Scripting, System.Windows.Forms
 
-
 Public Interface ITibia
 
 #Region " Structures "
@@ -40,21 +39,27 @@ Public Interface ITibia
 
 #Region " Enumerations "
 
-	Enum WindowStates As Integer
-		Active
-		Minimized
-		Inactive
-		Hidden
-	End Enum
+    Enum EventKind
+        None = 0
+        CharacterAttacked
+        CharacterConditionsChanged
+    End Enum
 
-	Enum ConnectionStates As Integer
-		Disconnected = 0
-		InitLogging = 2
-		Logging = 3
-		LoggedOn = 4
-		InitConnecting = 5
-		Connecting = 6
-		Connected = 8
+    Enum WindowStates As Integer
+        Active
+        Minimized
+        Inactive
+        Hidden
+    End Enum
+
+    Enum ConnectionStates As Integer
+        Disconnected = 0
+        InitLogging = 2
+        Logging = 3
+        LoggedOn = 4
+        InitConnecting = 5
+        Connecting = 6
+        Connected = 8
     End Enum
 
     Enum TextColors
@@ -241,8 +246,13 @@ Public Interface ITibia
     Event Closed()
 	Event Connected()
     Event Disconnected()
-    Event CharacterConditionsChanged(ByVal Conditions As ITibia.Conditions)
+    Event CharacterConditionsChanged As CharacterConditionsChangedEventHandler
+    Event CharacterAttacked As CharacterAttackedEventHandler
+#End Region
 
+#Region " Delegates "
+    Delegate Sub CharacterAttackedEventHandler(ByVal e As Events.CharacterAttackedEventArgs)
+    Delegate Sub CharacterConditionsChangedEventHandler(ByVal e As Events.CharacterConditionsChangedEventArgs)
 #End Region
 
 #Region " Properties "
@@ -264,7 +274,6 @@ Public Interface ITibia
     ReadOnly Property CharacterChasingMode() As ChasingMode
     ReadOnly Property CharacterSecureMode() As SecureMode
     ReadOnly Property CharacterFightingMode() As FightingMode
-    ReadOnly Property Items() As IItems
     ReadOnly Property Objects() As IObjects
     WriteOnly Property TopMost() As Boolean
     ReadOnly Property CharacterHasCondition(ByVal Condition As Scripting.ITibia.Conditions) As Boolean

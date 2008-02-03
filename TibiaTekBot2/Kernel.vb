@@ -82,6 +82,12 @@ Imports System.Threading, TibiaTekBot.frmMain, System.Text.RegularExpressions, S
 Public Module KernelModule
 
 #Region " Structures "
+    Public Structure WeaponFavoritDefinition
+        Dim WeaponID As Integer
+        Dim Monster As String
+        Dim Hand As Short
+    End Structure
+
     Public Structure MagicWallDefinition
         Dim Enabled As Boolean
         Dim LastMagicWallDate As Date
@@ -369,6 +375,10 @@ Public Module KernelModule
         Public AmmoMakerSpell As ISpells.SpellDefinition
 
         Public TTBState As BotState = BotState.Running
+
+        Public FavoredWeapon As List(Of WeaponFavoritDefinition)
+        Public FavoredWeaponEnabled As Boolean = False
+        Public FavoredWeaponShield As Integer = 0
 #End Region
 
 #Region " Initialization"
@@ -441,32 +451,6 @@ Public Module KernelModule
                 End
             End Try
         End Sub
-
-#End Region
-
-#Region " Properties "
-
-        Public ReadOnly Property GetClient() As ITibia Implements IKernel.Client
-            Get
-                Try
-                    Return Client
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return Nothing
-                End Try
-            End Get
-        End Property
-
-        Public ReadOnly Property GetProxy() As IProxy Implements IKernel.Proxy
-            Get
-                Try
-                    Return Proxy
-                Catch ex As Exception
-                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return Nothing
-                End Try
-            End Get
-        End Property
 
 #End Region
 
@@ -1184,7 +1168,7 @@ Public Module KernelModule
                 Dim ContainerItemCount As Integer
                 Dim ContainerItemCount2 As Integer
                 Dim Found As Boolean = False
-                Dim BrownBagID As UShort = Client.Items.GetItemID("Brown Bag")
+                Dim BrownBagID As UShort = Client.Objects.ID("Brown Bag")
                 Client.ReadMemory(Consts.ptrCapacity, Capacity, 2)
 
                 'If all loot conditions are fulfilled, start looting
@@ -1309,7 +1293,7 @@ Public Module KernelModule
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1
                             Item = Containers(ActualIndex).Items(I)
                             If Item.ID = 0 Then Continue For
-                            If Client.Items.IsFood(Item.ID) Then
+                            If Client.Objects.Kind(Item.ID) And IObjects.ObjectKind.Food = IObjects.ObjectKind.Food Then
                                 ServerPacket.UseObject(Item)
                                 'Proxy.SendPacketToServer(UseObject(Item), False)
                                 WaitMillis = 1000
@@ -1519,7 +1503,7 @@ Public Module KernelModule
                                 Item = Container.Items(I)
                                 Dim xmlItem As XmlNode = xmlFile.CreateNode(XmlNodeType.Element, "Item", "")
                                 Dim xmlItemName As XmlAttribute = xmlFile.CreateAttribute("Name")
-                                xmlItemName.InnerText = Client.Items.GetItemName(Item.ID)
+                                xmlItemName.InnerText = Client.Objects.Name(Item.ID)
                                 Dim xmlItemID As XmlAttribute = xmlFile.CreateAttribute("ID")
                                 xmlItemID.InnerText = Item.ID.ToString
                                 Dim xmlItemCount As XmlAttribute = xmlFile.CreateAttribute("Count")
@@ -1851,7 +1835,7 @@ Public Module KernelModule
                 Dim Retries As Integer = 0
                 Dim MyContainer As New Container
                 Dim BlankRune As Scripting.IContainer.ContainerItemDefinition
-                Dim BlankRuneID As UShort = Client.Items.GetItemID("Blank")
+                Dim BlankRuneID As UShort = Client.Objects.ID("Blank")
                 Dim Found As Boolean = False
                 Dim Count As Integer = 0
                 If RunemakerManaPoints = 0 Then Exit Sub
@@ -2030,8 +2014,8 @@ Public Module KernelModule
                 If Client.MapTiles.IsBusy Then Exit Sub
                 Dim FishingRodItemData As Scripting.IContainer.ContainerItemDefinition
                 Dim TileID As Integer
-                Dim FishingRodID As UShort = Client.Items.GetItemID("Fishing Rod")
-                Dim WormID As UShort = Client.Items.GetItemID("Worm")
+                Dim FishingRodID As UShort = Client.Objects.ID("Fishing Rod")
+                Dim WormID As UShort = Client.Objects.ID("Worm")
                 Dim WormItemData As Scripting.IContainer.ContainerItemDefinition
                 Dim Tiles As New List(Of IMapTiles.TileObject)
                 Dim Tile As IMapTiles.TileObject
@@ -2065,11 +2049,9 @@ Public Module KernelModule
                 If Tiles.Count > 0 Then
                     Dim RandomNumber As New Random(Date.Now.Second)
                     Tile = Tiles(RandomNumber.Next(Tiles.Count)) 'randomize plx
-                    'Proxy.SendPacketToServer(UseObjectWithObjectOnGround(FishingRodID, Tile.GetMapLocation, Tile.GetObjectID))
                     Dim ServerPacket As New ServerPacketBuilder(Proxy)
-                    ServerPacket.UseObjectWithObjectOnGround(FishingRodID, Tile.GetMapLocation)
+                    ServerPacket.UseFishingRodOnLocation(FishingRodItemData, Tile.GetMapLocation, Tile.GetObjectID)
                     ServerPacket.Send()
-                    'Proxy.SendPacketToServer(UseObject(FishingRodID, Tile.GetMapLocation))
                     If FisherSpeed > 0 AndAlso Not FisherTimerObj.Interval = FisherSpeed Then
                         FisherTimerObj.Interval = FisherSpeed
                     Else
@@ -2184,7 +2166,7 @@ Public Module KernelModule
                         If Dist <= MaxDistance Then
                             TileObjects = Client.MapTiles.GetTileObjects(Left, Top, Client.MapTiles.WorldZToClientZ(CharacterLoc.Z))
                             For Each TileObj In TileObjects
-                                If Client.Items.IsFood(TileObj.GetObjectID) Then
+                                If Client.Objects.IsKind(TileObj.GetObjectID, IObjects.ObjectKind.Food) Then
                                     Dim SP As New ServerPacketBuilder(Proxy)
                                     SP.UseObject(TileObj.GetObjectID, TileObj.GetMapLocation)
                                     'Proxy.SendPacketToServer(UseObject(TileObj.GetObjectID, TileObj.GetMapLocation))
@@ -2213,7 +2195,7 @@ Public Module KernelModule
                         ContainerItemCount = Container.GetItemCount
                         For I = 0 To ContainerItemCount - 1
                             Item = Container.Items(I)
-                            If Client.Items.IsFood(Item.ID) Then
+                            If Client.Objects.IsKind(Item.ID, IObjects.ObjectKind.Food) Then
                                 Found = True
                                 Exit Do
                             End If
@@ -2425,7 +2407,7 @@ Public Module KernelModule
 
         Private Sub UHByCharacterID(ByVal CharacterID As Int32)
             Try
-                Dim UHRuneID As UShort = Client.Items.GetItemID("Ultimate Healing")
+                Dim UHRuneID As UShort = Client.Objects.ID("Ultimate Healing")
                 Dim SP As New ServerPacketBuilder(Proxy)
                 SP.UseHotkey(UHRuneID, CharacterID)
                 'Proxy.SendPacketToServer(UseHotkey(UHRuneID, CharacterID))
@@ -2492,11 +2474,11 @@ Public Module KernelModule
                     Dim ItemID As Integer = 0
                     Dim SP As New ServerPacketBuilder(Proxy)
                     If Kernel.IsOpenTibiaServer Then
-                        SP.UseHotkey(Client.Items.GetItemID("Vial"), CInt(Fluids.ManaOpenTibia))
-                        'Proxy.SendPacketToServer(UseHotkey(Client.Items.GetItemID("Vial"), CInt(Fluids.ManaOpenTibia)))
+                        SP.UseHotkey(Client.Objects.ID("Vial"), CInt(Fluids.ManaOpenTibia))
+                        'Proxy.SendPacketToServer(UseHotkey(Client.Objects.ID("Vial"), CInt(Fluids.ManaOpenTibia)))
                     Else
-                        SP.UseHotkey(Client.Items.GetItemID("Vial"), CInt(Fluids.Mana))
-                        'Proxy.SendPacketToServer(UseHotkey(Client.Items.GetItemID("Vial"), CInt(Fluids.Mana)))
+                        SP.UseHotkey(Client.Objects.ID("Vial"), CInt(Fluids.Mana))
+                        'Proxy.SendPacketToServer(UseHotkey(Client.Objects.ID("Vial"), CInt(Fluids.Mana)))
                     End If
                     AutoDrinkerTimerObj.Interval = Consts.HealersAfterHealDelay
                 End If
@@ -2595,7 +2577,7 @@ Public Module KernelModule
                         ContainerItemCount = Container.GetItemCount
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1
                             Item = Container.Items(I)
-                            If Client.Items.IsFood(Item.ID) Then
+                            If Client.Objects.IsKind(Item.ID, IObjects.ObjectKind.Food) Then
                                 Return False
                             End If
                         Next
@@ -3174,7 +3156,7 @@ Public Module KernelModule
                             Exit Sub
                         End If
 
-                        If Not (New Container).FindItem(Spear, Client.Items.GetItemID("Spear")) Then
+                        If Not (New Container).FindItem(Spear, Client.Objects.ID("Spear")) Then
                             Kernel.ConsoleError("Ammo Maker couldn't find a spear. Ammo Maker is now stopped.")
                             AmmoMakerMinMana = 0
                             AmmoMakerMinCap = 0
@@ -3197,7 +3179,7 @@ Public Module KernelModule
                             'Core.Proxy.SendPacketToServer(PacketUtils.MoveObject(Spear.ID, Spear.Location, GetInventorySlotAsLocation(SlotToUse), 1))
                             System.Threading.Thread.Sleep(1000)
                             Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
-                        Loop Until TempSlot = Client.Items.GetItemID("Spear")
+                        Loop Until TempSlot = Client.Objects.ID("Spear")
 
                         'Casting the spell
                         Retries = 0
@@ -3215,7 +3197,7 @@ Public Module KernelModule
                             'Core.Proxy.SendPacketToServer(PacketUtils.Speak(AmmoMakerSpell.Words))
                             System.Threading.Thread.Sleep(1000)
                             Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotToUse - 1) * Consts.ItemDist), TempSlot, 2)
-                        Loop While TempSlot = Client.Items.GetItemID("Spear")
+                        Loop While TempSlot = Client.Objects.ID("Spear")
 
                         'Moving spear back to the backpack
                         Retries = 0
@@ -3956,7 +3938,7 @@ Public Module KernelModule
                                     LootItems.Remove(ItemID)
                                     CP.RemoveObjectFromContainer(Slot, Source.Y - &H40)
                                     'Proxy.SendPacketToClient(RemoveObjectFromContainer(Slot, Source.Y - &H40))
-                                    ConsoleWrite(Client.Items.GetItemName(ItemID) & " (H" & Hex(ItemID) & ") removed from " & MyContainer.GetName & ".")
+                                    ConsoleWrite(Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ") removed from " & MyContainer.GetName & ".")
                                 Else
                                     CP.SystemMessage(SysMessageType.StatusSmall, "Sorry, not possible.")
                                     'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, "Sorry, not possible."))
@@ -3981,7 +3963,7 @@ Public Module KernelModule
                                         ElseIf Client.Objects.HasExtraByte(ItemID) Then
                                             Count = 1
                                         End If
-                                        ConsoleWrite(Client.Items.GetItemName(ItemID) & " (H" & Hex(ItemID) & ") added to " & MyContainer.GetName & ".")
+                                        ConsoleWrite(Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ") added to " & MyContainer.GetName & ".")
                                         CP.AddObjectToContainer(ItemID, &HF, Count)
                                         'Proxy.SendPacketToClient(AddObjectToContainer(ItemID, &HF, Count))
                                     Else
@@ -4009,83 +3991,83 @@ Public Module KernelModule
                                     CP.CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True)
                                     'Proxy.SendPacketToClient(CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True))
                                 Else
-                                    CP.SystemMessage(SysMessageType.Information, "Item Information: " & Client.Items.GetItemName(ItemID) & " (H" & Hex(ItemID) & ").")
-                                    'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Item Information: " & Client.Items.GetItemName(ItemID) & " (H" & Hex(ItemID) & ")."))
+                                    CP.SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ").")
+                                    'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ")."))
                                 End If
                                 Send = False
                                 Exit Sub
                             End If
                         End If
                         If Consts.HotkeysCanEquipItems AndAlso (Location.X = &HFFFF AndAlso Location.Y = 0 AndAlso Location.Z = 0) Then 'hotkey
-                            If Client.Items.IsRing(ItemID) Then
+                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ring) Then
                                 Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
                                 If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
                                     If RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                         RingID = ItemID
-                                        'ConsoleWrite("Ring Changer Item: " & Client.Items.GetItemName(ItemID))
+                                        'ConsoleWrite("Ring Changer Item: " & Client.Objects.Name(ItemID))
                                     End If
                                     SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger))
                                     'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger)))
                                 Else
-                                    ConsoleError("Could not find " & Client.Items.GetItemName(ItemID) & ", make sure it is on an open container.")
+                                    ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
                                 End If
                                 Send = False
                             End If
-                            If Client.Items.IsNeck(ItemID) Then
+                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Neck) Then
                                 Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
                                 If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
                                     If AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                         AmuletID = ItemID
-                                        'ConsoleWrite("Amulet Changer Item: " & Client.Items.GetItemName(ItemID))
+                                        'ConsoleWrite("Amulet Changer Item: " & Client.Objects.Name(ItemID))
                                     End If
                                     SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck))
                                     'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck)))
                                     AmuletID = ItemID
                                 Else
-                                    ConsoleError("Could not find " & Client.Items.GetItemName(ItemID) & ", make sure it is on an open container.")
+                                    ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
                                 End If
                                 Send = False
                             End If
-                            If Client.Items.IsAmmunition(ItemID) Then
+                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ammunition) Then
                                 Dim Ammodef As Scripting.IContainer.ContainerItemDefinition
                                 Dim Cont As New Container
                                 If (New Container).FindItem(Ammodef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
 
                                     If AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                         AmmoRestackerItemID = ItemID
-                                        ConsoleWrite("Ammunition Restacker Item: " & Client.Items.GetItemName(AmmoRestackerItemID))
+                                        ConsoleWrite("Ammunition Restacker Item: " & Client.Objects.Name(AmmoRestackerItemID))
                                     End If
 
                                     SP.MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount)
                                     'Proxy.SendPacketToServer(MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount))
                                 Else
-                                    ConsoleError("Could not find " & Client.Items.GetItemName(ItemID) & ", make sure it is on an open container.")
+                                    ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
                                 End If
                                 Send = False
                             End If
                         ElseIf Consts.EquipItemsOnUse Then
-                            If Client.Items.IsNeck(ItemID) Then
+                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Neck) Then
                                 If AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                     AmuletID = ItemID
-                                    'ConsoleWrite("Amulet Changer Item: " & Client.Items.GetItemName(ItemID))
+                                    'ConsoleWrite("Amulet Changer Item: " & Client.Objects.Name(ItemID))
                                 End If
                                 SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck), 1)
                                 'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck), 1))
                                 Send = False
                             End If
-                            If Client.Items.IsRing(ItemID) Then
+                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ring) Then
                                 If RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                     RingID = ItemID
-                                    'ConsoleWrite("Ring Changer Item: " & Client.Items.GetItemName(ItemID))
+                                    'ConsoleWrite("Ring Changer Item: " & Client.Objects.Name(ItemID))
                                 End If
                                 SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger), 1)
                                 'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger), 1))
                                 Send = False
                             End If
-                            If Client.Items.IsAmmunition(ItemID) Then
+                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ammunition) Then
                                 If AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                     AmmoRestackerItemID = ItemID
-                                    'ConsoleWrite("Ammunition Restacker Item: " & Client.Items.GetItemName(AmmoRestackerItemID))
+                                    'ConsoleWrite("Ammunition Restacker Item: " & Client.Objects.Name(AmmoRestackerItemID))
                                 End If
                                 SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), 100)
                                 'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), 100))
@@ -4128,7 +4110,7 @@ Public Module KernelModule
                         Dim TileId As Integer = GetWord(bytBuffer, Pos)
                         If LearningMode Then
                             Dim WalkerChar As New Walker
-                            Select Case Client.Items.GetItemName(Cont.ID)
+                            Select Case Client.Objects.Name(Cont.ID)
                                 Case "Rope"
                                     WalkerChar.Type = Walker.WaypointType.Rope
                                     WalkerChar.Info = ""
@@ -4532,7 +4514,7 @@ Public Module KernelModule
                             ElseIf Client.Objects.HasFlags(ID, IObjects.ObjectFlags.IsContainer) Then
                                 If TTBState = BotState.Paused Then Exit Sub
                                 If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                    If Client.Items.GetItemName(ID) = "Unknown" Then 'if its known container, skip
+                                    If Client.Objects.Name(ID) = "Unknown" Then 'if its known container, skip
                                         Dim BL As New BattleList
                                         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                                         If BL.GetDistanceFromLocation(Loc) <= Consts.LootMaxDistance Then
@@ -4663,7 +4645,7 @@ Public Module KernelModule
                             If ComboBotEnabled Then
                                 If Type = 32 Then 'SD rune
                                     If ComboBotLeader.ToLower = FromBL.GetName.ToLower Then
-                                        SP.UseHotkey(Client.Items.GetItemID("Sudden Death"), ToBl.GetEntityID)
+                                        SP.UseHotkey(Client.Objects.ID("Sudden Death"), ToBl.GetEntityID)
                                         'Proxy.SendPacketToServer(PacketUtils.UseHotkey(, ToBl.GetEntityID))
                                     End If
                                 End If
@@ -4730,7 +4712,7 @@ Public Module KernelModule
                                 CP.SystemMessage(SysMessageType.Information, "Your Magic Shield is now over.")
                                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))
                             End If
-                            Client.Raise_CharacterConditionsChanged(Condition)
+                            Client.RaiseEvent(ITibia.EventKind.CharacterConditionsChanged, New Events.CharacterConditionsChangedEventArgs(Condition))
                         Case &HAA 'received message
                             GetDWord(bytBuffer, Pos)
                             Dim Name As String = ""
@@ -4970,6 +4952,44 @@ Public Module KernelModule
 #End Region
 
 #Region " Methods "
+
+#Region " Favored Weapon Add/Remove "
+        Function FWAdd(ByVal ItemID As Integer, ByVal Hand As Short, ByVal Monsters As String) As Boolean
+            Try
+                Dim MonstersArr() As String
+                Dim NewFavoredWeapon As KernelModule.WeaponFavoritDefinition
+                MonstersArr = Split(Monsters, ", ")
+                For i As Short = LBound(MonstersArr) To UBound(MonstersArr)
+                    If MonstersArr(i) <> Nothing Then
+                        NewFavoredWeapon.WeaponID = ItemID
+                        NewFavoredWeapon.Hand = Hand
+                        NewFavoredWeapon.Monster = MonstersArr(i).ToLower
+                        FavoredWeapon.Add(NewFavoredWeapon)
+                    End If
+                Next
+                Return True
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            End Try
+        End Function
+        Function FWRemove(ByVal ItemID As Integer) As Boolean
+            Try
+                Dim WasRemoved As Boolean = False
+                For Each FW As WeaponFavoritDefinition In FavoredWeapon
+                    If FW.WeaponID = ItemID Then
+                        FW.Monster = Nothing
+                        WasRemoved = True
+                    End If
+                Next
+                Return WasRemoved
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            End Try
+        End Function
+#End Region
+
         Public Function NewBattlelist() As Scripting.IBattlelist Implements Scripting.IKernel.NewBattlelist
             Try
                 Return New BattleList
@@ -5040,6 +5060,35 @@ Public Module KernelModule
                 End Try
             End Get
         End Property
+
+        Public ReadOnly Property GetClient() As ITibia Implements IKernel.Client
+            Get
+                Try
+                    Return Client
+                Catch Ex As Exception
+                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property GetProxy() As IProxy Implements IKernel.Proxy
+            Get
+                Try
+                    Return Proxy
+                Catch ex As Exception
+                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return Nothing
+                End Try
+            End Get
+        End Property
+
+        Public ReadOnly Property Computer() As Microsoft.VisualBasic.Devices.Computer Implements Scripting.IKernel.Computer
+            Get
+                Return My.Computer
+            End Get
+        End Property
+
 #End Region
 
     End Class

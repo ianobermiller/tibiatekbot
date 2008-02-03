@@ -209,19 +209,19 @@ Public Module LootItemsModule
 
         Public Sub ShowLootCategories()
             Try
-                Dim StarBag As UShort = Kernel.Client.Items.GetItemID("Star Bag")
-                Dim TreasureChest As UShort = Kernel.Client.Items.GetItemID("Treasure Chest With Gold")
-                Dim BotanistContainer As UShort = Kernel.Client.Items.GetItemID("Botanist's Container")
-                Dim GoldenBP As UShort = Kernel.Client.Items.GetItemID("Golden Backpack")
-                Dim GreenBP As UShort = Kernel.Client.Items.GetItemID("Green Backpack")
-                Dim RedBP As UShort = Kernel.Client.Items.GetItemID("Red Backpack")
-                Dim BlueBP As UShort = Kernel.Client.Items.GetItemID("Blue Backpack")
-                Dim PurpleBP As UShort = Kernel.Client.Items.GetItemID("Purple Backpack")
-                Dim GrayBP As UShort = Kernel.Client.Items.GetItemID("Gray Backpack")
-                Dim JungleBP As UShort = Kernel.Client.Items.GetItemID("Jungle Backpack")
-                Dim BrownBP As UShort = Kernel.Client.Items.GetItemID("Brown Backpack")
-                Dim StarBP As UShort = Kernel.Client.Items.GetItemID("Star Backpack")
-                Dim PirateBP As UShort = Kernel.Client.Items.GetItemID("Pirate Backpack")
+                Dim StarBag As UShort = Kernel.Client.Objects.ID("Star Bag")
+                Dim TreasureChest As UShort = Kernel.Client.Objects.ID("Treasure Chest With Gold")
+                Dim BotanistContainer As UShort = Kernel.Client.Objects.ID("Botanist's Container")
+                Dim GoldenBP As UShort = Kernel.Client.Objects.ID("Golden Backpack")
+                Dim GreenBP As UShort = Kernel.Client.Objects.ID("Green Backpack")
+                Dim RedBP As UShort = Kernel.Client.Objects.ID("Red Backpack")
+                Dim BlueBP As UShort = Kernel.Client.Objects.ID("Blue Backpack")
+                Dim PurpleBP As UShort = Kernel.Client.Objects.ID("Purple Backpack")
+                Dim GrayBP As UShort = Kernel.Client.Objects.ID("Gray Backpack")
+                Dim JungleBP As UShort = Kernel.Client.Objects.ID("Jungle Backpack")
+                Dim BrownBP As UShort = Kernel.Client.Objects.ID("Brown Backpack")
+                Dim StarBP As UShort = Kernel.Client.Objects.ID("Star Backpack")
+                Dim PirateBP As UShort = Kernel.Client.Objects.ID("Pirate Backpack")
                 Dim ItemsList() As Scripting.IContainer.ContainerItemDefinition = { _
                     New Scripting.IContainer.ContainerItemDefinition(TreasureChest), _
                     New Scripting.IContainer.ContainerItemDefinition(BotanistContainer), _

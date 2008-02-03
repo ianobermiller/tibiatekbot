@@ -80,7 +80,7 @@ Public Class frmMapViewer
                                 End If
                                 Exit For
                             Else
-                                Dim ItemName As String = Kernel.Client.Items.GetItemName(ObjectID)
+                                Dim ItemName As String = Kernel.Client.Objects.Name(ObjectID)
                                 Select Case ItemName
                                     Case "Teleport"
                                         Images(Left, Top) = ImageTiles.Teleport
@@ -214,7 +214,7 @@ Public Class frmMapViewer
                     BL.Find(Data)
                     Output = BL.GetName & " (H" & Hex(Data) & ")"
                 Else
-                    ItemName = Kernel.Client.Items.GetItemName(ObjectID)
+                    ItemName = Kernel.Client.Objects.Name(ObjectID)
                     Output = ItemName & " (H" & Hex(ObjectID) & ")"
                 End If
                 TileObjectsList.Items.Add(Output)

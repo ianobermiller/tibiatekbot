@@ -105,7 +105,7 @@ Public Class frmCharacterStatistics
             ElapsedTimeLabel.Text = TimeSpanToString(TimeDiff)
 
             ' Gold
-            ActualGold = (New Container).GetItemCountByItemID(Kernel.Client.Items.GetItemID("Gold Coin"))
+            ActualGold = (New Container).GetItemCountByItemID(Kernel.Client.Objects.ID("Gold Coin"))
             ActualGoldLabel.Text = ActualGold
             RateGoldLabel.Text = Round((ActualGold - InitialGold) / TimeDiff.TotalHours, 2) & " gp/h"
 
@@ -294,7 +294,7 @@ Public Class frmCharacterStatistics
         Try
             Kernel.CharacterStatisticsTime = Now
             ' Gold
-            InitialGold = (New Container).GetItemCountByItemID(Kernel.Client.Items.GetItemID("Gold Coin"))
+            InitialGold = (New Container).GetItemCountByItemID(Kernel.Client.Objects.ID("Gold Coin"))
             ' Level
             Kernel.Client.ReadMemory(Consts.ptrLevelPercent, InitialLevelPercent, 1)
             ' Experience

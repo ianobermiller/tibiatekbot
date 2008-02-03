@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (C) 2007 TibiaTek Development Team
+
+    This file is part of TibiaTek Bot.
+
+    TibiaTek Bot is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TibiaTek Bot is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
+    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
+-->
+<Objects>
+	<Object Name="Icicle" Kind="None" ID="HC56" />
+    <Object Name="Blank" Kind="Tool" ID="HC4B"/>
+	<Object Name="Ultimate Healing" Kind="None" ID="HC58"/>
+    <Object Name="Intense Healing" Kind="None" ID="HC50"/>
+    <Object Name="Sudden Death" Kind="None" ID="HC53"/>
+    <Object Name="Heavy Magic Missile" Kind="None" ID="HC7E"/>
+    <Object Name="Destroy Field" Kind="None" ID="HC4C"/>
+    <Object Name="Energy Field" Kind="None" ID="HC5C"/>
+    <Object Name="Fire Field" Kind="None" ID="HC74"/>
+	<Object Name="Fireball" Kind="None" ID="HC75"/>
+    <Object Name="Explosion" Kind="None" ID="HC80"/>
+    <Object Name="Convince Creature" Kind="None" ID="HC69"/>
+    <Object Name="Great Fireball" Kind="None" ID="HC77"/>
+    <Object Name="Light Magic Missile" Kind="None" ID="HC66"/>
+    <Object Name="Poison Field" Kind="None" ID="HC64"/>
+    <Object Name="Chameleon" Kind="None" ID="HC6A"/>
+    <Object Name="Antidote" Kind="None" ID="HC51"/>
+    <Object Name="Firebomb" Kind="None" ID="HC78"/>
+    <Object Name="Poison Wall" Kind="None" ID="HC68"/>
+    <Object Name="Energy Wall" Kind="None" ID="HC5E"/>
+    <Object Name="Fire Wall" Kind="None" ID="HC76"/>
+	<Object Name="Paralyze" Kind="None" ID="HC5D"/>
+	<Object Name="Avalance" Kind="None" ID="HC59"/>
+    <Object Name="Stalagmite" Kind="None" ID="HC6B"/>
+    <Object Name="Stone Shower" Kind="None" ID="HC67"/>
+
+	
+    <Object Name="Fish" Kind="Food" ID="Hdfa"/>
+    <Object Name="Ham" Kind="Food" ID="Hdfe"/>
+    <Object Name="Meat" Kind="Food" ID="Hdf9"/>
+    <Object Name="White Mushroom" Kind="Food" ID="He8b"/>
+    <Object Name="Apple" Kind="Food" ID="He01"/>
+    <Object Name="Brown Mushroom" Kind="Food" ID="He8d"/>
+    <Object Name="Banana" Kind="Food" ID="He03"/>
+    <Object Name="Dragon Ham" Kind="Food" ID="Hdff"/>
+    <Object Name="Blueberry" Kind="Food" ID="He04"/>
+    <Object Name="Bread" Kind="Food" ID="He10"/>
+    <Object Name="Brown Bread" Kind="Food" ID="He12"/>
+    <Object Name="Carrot" Kind="Food" ID="He0b"/>
+    <Object Name="Cheese" Kind="Food" ID="He17"/>
+    <Object Name="Coconut" Kind="Food" ID="He05"/>
+    <Object Name="Corncob" Kind="Food" ID="He0d"/>
+    <Object Name="Green Mushroom" Kind="Food" ID="He94"/>
+    <Object Name="Roll" Kind="Food" ID="He11"/>
+    <Object Name="Salmon" Kind="Food" ID="Hdfb"/>
+	<Object Name="Orange" Kind="Food" ID="HE02"/>
+	<Object Name="Melon" Kind="Food" ID="HE09"/>
+	<Object Name="Egg" Kind="Food" ID="HE16"/>
+    <Object Name="Rope" Kind="Tool" ID="HBBB"/>
+    <Object Name="Shovel" Kind="Tool" ID="HD81"/>
+    <Object Name="Light Shovel" Kind="Tool" ID="H164E" />
+    <Object Name="Fishing Rod" Kind="Tool" ID="HD9B"/>
+    <Object Name="Machete" Kind="Equipment,SingleHandedWeapon,Tool" ID="3308"/>
+    <Object Name="Crowbar" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCE8"/>
+    <Object Name="Rake" Kind="Tool" ID="HD7C"/>
+    <Object Name="Pick" Kind="Tool" ID="HD80"/>
+    <Object Name="Scythe" Kind="Equipment,SingleHandedWeapon,Tool" ID="HD7D"/>
+    <Object Name="Magic Light Wand" Kind="Tool" ID="HBE6"/>
+	<Object Name="Frozen Starlight" Kind="Tool" ID="HCB1"/>
+    <Object Name="Spear" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HCCD"/>
+	<Object Name="Hunting Spear" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HD13"/>
+	<Object Name="Enchanted Spear" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="H1CC7"/>
+	<Object Name="Royal Spear" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="H1CD2"/>
+    <Object Name="Small Stone" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="H6F5"/>
+    <Object Name="Throwing Star" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HCD7"/>
+    <Object Name="Throwing Knife" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HCE2"/>
+    <Object Name="Snowball" Kind="Equipment,SingleHandedWeapon,RangedWeapon" ID="HBB0"/>        
+    <Object Name="Fur Backpack" Kind="Equipment" ID="H1CAE"/>
+    <Object Name="Gray Backpack" Kind="Equipment" ID="2870"/>
+    <Object Name="Purple Backpack" Kind="Equipment" ID="2868"/>
+    <Object Name="Golden Backpack" Kind="Equipment" ID="2871"/>
+    <Object Name="Jungle Backpack" Kind="Equipment" ID="2872"/>
+    <Object Name="Yellow Backpack" Kind="Equipment" ID="2866"/>
+    <Object Name="Red Backpack" Kind="Equipment" ID="2867"/>
+    <Object Name="Brown Backpack" Kind="Equipment" ID="2854"/>
+    <Object Name="Green Backpack" Kind="Equipment" ID="2865"/>
+    <Object Name="Blue Backpack" Kind="Equipment" ID="2869"/>
+    <Object Name="Pirate Backpack" Kind="Equipment" ID="5926"/>
+    <Object Name="Star Backpack" Kind="Equipment" ID="5949"/>
+    <Object Name="Brown Bag" Kind="Equipment" ID="HB25"/>
+    <Object Name="Pirate Bag" Kind="Equipment" ID="H1727"/>
+    <Object Name="Star Bag" Kind="Equipment" ID="H173E"/>
+    <Object Name="Green Bag" Kind="Equipment" ID="2857"/>
+    <Object Name="Yellow Bag" Kind="Equipment" ID="2858"/>
+    <Object Name="Red Bag" Kind="Equipment" ID="2859"/>
+    <Object Name="Purple Bag" Kind="Equipment" ID="2860"/>
+    <Object Name="Blue Bag" Kind="Equipment" ID="2861"/>
+    <Object Name="Gray Bag" Kind="Equipment" ID="2862"/>
+    <Object Name="Golden Bag" Kind="Equipment" ID="2863"/>
+    <Object Name="Jungle Bag" Kind="Equipment" ID="2864"/>
+    <Object Name="Backpack Of Holding" Kind="Equipment" ID="3253"/>
+	<Object Name="Key Ring" Kind="Equipment" ID="H16A9"/>
+    <Object Name="Parcel" Kind="None" ID="3503"/>
+    <Object Name="Present" Kind="None" ID="2856" />
+    <Object Name="Stamped Parcel" Kind="None" ID="3504"/>
+    <Object Name="Chest" Kind="None" ID="2472"/>
+    <Object Name="Basket" Kind="None" ID="2855"/>
+    <Object Name="Crate" Kind="None" ID="2471"/>
+    <Object Name="Brown Box" Kind="None" ID="2473"/>
+    <Object Name="Chest" Kind="None" ID="2480"/>
+    <Object Name="Chest" Kind="None" ID="2481"/>
+    <Object Name="Chest" Kind="None" ID="2482"/>    
+    <Object Name="Box" Kind="None" ID="2469"/>
+    <Object Name="Drawer" Kind="None" ID="2431"/>
+    <Object Name="Drawer" Kind="None" ID="2432"/>
+    <Object Name="Drawer" Kind="None" ID="2433"/>
+    <Object Name="Drawer" Kind="None" ID="2434"/>   
+    <Object Name="Booshelf" Kind="None" ID="2435"/>
+    <Object Name="Booshelf" Kind="None" ID="2436"/>
+    <Object Name="Booshelf" Kind="None" ID="2437"/>
+    <Object Name="Booshelf" Kind="None" ID="2438"/>
+    <Object Name="Booshelf" Kind="None" ID="2439"/>
+    <Object Name="Booshelf" Kind="None" ID="2440"/>
+    <Object Name="Drawer" Kind="None" ID="2441"/>
+    <Object Name="Drawer" Kind="None" ID="2442"/>
+    <Object Name="Drawer" Kind="None" ID="2443"/>
+    <Object Name="Drawer" Kind="None" ID="2444"/>    
+    <Object Name="Locker" Kind="None" ID="2449"/>
+    <Object Name="Locker" Kind="None" ID="2450"/>
+    <Object Name="Locker" Kind="None" ID="2451"/>
+    <Object Name="Locker" Kind="None" ID="2452"/>
+    <Object Name="Drawer" Kind="None" ID="2465"/>
+    <Object Name="Drawer" Kind="None" ID="2466"/>
+    <Object Name="Drawer" Kind="None" ID="2467"/>    
+    <Object Name="Drawer" Kind="None" ID="2468"/>    
+    <Object Name="Box" Kind="None" ID="2483"/>
+    <Object Name="Box" Kind="None" ID="2484"/>
+    <Object Name="Box" Kind="None" ID="2485"/>
+    <Object Name="Box" Kind="None" ID="2486"/>
+    <Object Name="Barrel" Kind="None" ID="2520"/>
+    <Object Name="Barrel" Kind="None" ID="2523"/>
+    <Object Name="Trough" Kind="None" ID="2524"/>
+    
+    <Object Name="Treasure Chest With Gold" Kind="None" ID="5675" />
+    <Object Name="Botanist's Container" Kind="Valuable" ID="4869" />
+    <Object Name="Jewel Case" Kind="Equipment" ID="6104"/>
+    <Object Name="Worm" Kind="Tool" ID="HDA4"/>
+    <Object Name="Remains Of A Ghost" Kind="None" ID="H10c2"/>
+
+    <Object Name="Depot" Kind="None" ID="HDAE"/>
+    <Object Name="Depot" Kind="None" ID="HDAB"/>
+    <Object Name="Depot" Kind="None" ID="HDAA"/>
+    <Object Name="Depot" Kind="None" ID="HDA9"/>
+    <Object Name="Depot" Kind="None" ID="HDAC"/>
+    <Object Name="None" Kind="None" ID="H79D"/>
+    <Object Name="Ladder" Kind="None" ID="H79C"/>
+    <Object Name="Ladder" Kind="None" ID="H7B0"/>
+    <Object Name="Mailbox" Kind="None" ID="HDAD"/>
+    <Object Name="Closed H. Door1" Kind="None" ID="H14A3"/>
+    <Object Name="Closed H. Door2" Kind="None" ID="H14A5"/>
+    <Object Name="Closed H. Door3" Kind="None" ID="H1870"/>
+    <Object Name="Closed H. Door4" Kind="None" ID="H186E"/>
+    <Object Name="Closed H. Door5" Kind="None" ID="H13DA"/>
+    <Object Name="Closed H. Door6" Kind="None" ID="H13F5"/>
+    <Object Name="Open H. Door1" Kind="None" ID="H1871"/>
+    <Object Name="Open H. Door2" Kind="None" ID="H1838"/>
+    <Object Name="Open H. Door3" Kind="None" ID="H14A4"/>
+    <Object Name="Open H. Door4" Kind="None" ID="H14A6"/>
+    <Object Name="Open H. Door5" Kind="None" ID="H667"/>
+    <Object Name="Open H. Door6" Kind="None" ID="H669"/>        
+    <Object Name="Open H. Door7" Kind="None" ID="H186F"/>  
+    <Object Name="Open H. Door8" Kind="None" ID="H13DB"/>  
+    <Object Name="Closed H. Door7" Kind="None" ID="H13F6"/>
+    <Object Name="Closed Door1" Kind="None" ID="H685"/>
+    <Object Name="Closed Door2" Kind="None" ID="H1404"/>
+    <Object Name="Closed Door3" Kind="None" ID="H149D"/>
+    <Object Name="Closed Door4" Kind="None" ID="H14A0"/>
+    <Object Name="Closed Door5" Kind="None" ID="H13FD"/>
+    <Object Name="Closed Door6" Kind="None" ID="H65D"/>
+    <Object Name="Closed Door7" Kind="None" ID="H660"/>
+    <Object Name="Closed Door8" Kind="None" ID="H699"/>
+    <Object Name="Closed Door9" Kind="None" ID="H1330"/>
+    <Object Name="Closed DoorA" Kind="None" ID="H13F2"/>
+    <Object Name="Open Door1" Kind="None" ID="H686"/>
+    <Object Name="Open Door2" Kind="None" ID="H1406"/>
+    <Object Name="Open Door3" Kind="None" ID="H149F"/>
+    <Object Name="Open Door4" Kind="None" ID="H14A2"/>
+    <Object Name="Open Door5" Kind="None" ID="H13BF"/>
+    <Object Name="Open Door6" Kind="None" ID="H132F"/>
+    <Object Name="Open Door7" Kind="None" ID="H13F4"/>
+    <Object Name="Open Door8" Kind="None" ID="H65E"/>
+    <Object Name="Open Door9" Kind="None" ID="H661"/>
+    <Object Name="Open DoorA" Kind="None" ID="H689"/>
+    <Object Name="Locked Door1" Kind="None" ID="H684"/>
+    <Object Name="Locked Door2" Kind="None" ID="H1405"/>
+    <Object Name="Locked Door3" Kind="None" ID="H13EA"/>
+    <Object Name="Down1" Kind="None" ID="H1D5"/>
+    <Object Name="Down2" Kind="None" ID="H1B2"/>
+    <Object Name="Down3" Kind="None" ID="H1B1"/>
+    <Object Name="Down4" Kind="None" ID="H1B3"/>
+    <Object Name="Down5" Kind="None" ID="H253"/> 
+    <Object Name="Down6" Kind="None" ID="H1B0"/>
+    <Object Name="Down7" Kind="None" ID="H1B6"/>
+    <Object Name="Down8" Kind="None" ID="H19B"/>
+    <Object Name="Down9" Kind="None" ID="H1E2"/>
+    <Object Name="DownA" Kind="None" ID="H163B"/>
+    <Object Name="DownB" Kind="None" ID="H19D"/>
+    <Object Name="Stairs1" Kind="None" ID="H79B"/>
+    <Object Name="Stairs2" Kind="None" ID="H7A6"/>
+    <Object Name="Stairs3" Kind="None" ID="H148A"/>
+    <Object Name="Stairs4" Kind="None" ID="H148B"/>
+    <Object Name="Water With Fish1" Kind="None" ID="H11F5"/>
+    <Object Name="Water With Fish2" Kind="None" ID="H11F6"/>
+    <Object Name="Water With Fish3" Kind="None" ID="H11F7"/>
+    <Object Name="Water With Fish4" Kind="None" ID="H11F8"/>
+    <Object Name="Water With Fish5" Kind="None" ID="H11F9"/>
+    <Object Name="Water With Fish6" Kind="None" ID="H11FA"/>
+    <Object Name="Water1" Kind="None" ID="H1201"/>
+    <Object Name="Water2" Kind="None" ID="H1202"/>
+    <Object Name="Water3" Kind="None" ID="H1203"/>
+    <Object Name="Water4" Kind="None" ID="H1204"/>
+    <Object Name="Water5" Kind="None" ID="H1205"/>
+    <Object Name="Water6" Kind="None" ID="H1206"/>
+    <Object Name="Downstairs" Kind="None" ID="H1B5"/>        
+    <Object Name="Dustbin" Kind="None" ID="H9DE"/>
+    <Object Name="Vial" Kind="None" ID="HB3A"/>
+    <Object Name="King Voodoo Doll" Kind="Valuable" ID="HC89"/>    
+    <Object Name="Post Horn" Kind="Valuable" ID="HB8D"/>
+    <Object Name="Platinum Coin" Kind="Valuable" ID="HBDB"/>
+    <Object Name="Crystal Coin" Kind="Valuable" ID="HBE3"/>
+    <Object Name="Bright Sword" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCDF"/>
+    <Object Name="Royal Helmet" Kind="Equipment,Helmet" ID="HD40"/>
+	<Object Name="Warrior Helmet" Kind="Equipment,Helmet" ID="HD29"/>
+    <Object Name="Golden Armor" Kind="Armor" ID="HD20"/>
+	<Object Name="Dragon Scale Mail" Kind="Armor" ID="HD3A"/>
+	<Object Name="Krimhorn Helmet" Kind="Equipment,Helmet" ID="H198"/>
+	<Object Name="Dagger" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCC3"/>
+	<Object Name="Giant Sword" Kind="Equipment,DoubleHandedWeapon,Tool" ID="HCD1"/>
+	<Object Name="The Avenger" Kind="Equipment,DoubleHandedWeapon,Tool" ID="H197F"/>
+    <Object Name="Crown Legs" Kind="Equipment,Leg" ID="HD36"/>
+    <Object Name="Boots Of Haste" Kind="Equipment,Footwear" ID="HC07"/>
+    <Object Name="Demon Shield" Kind="Equipment,Shield" ID="HD5C"/>
+    <Object Name="Combat Knife" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCDC"/>
+    <Object Name="Knife" Kind="Equipment,SingleHandedWeapon,Tool" ID="HCDB"/>
+    <Object Name="Crocodile Boots" Kind="Equipment,Footwear" ID="HDE4"/>
+    <Object Name="Two Handed Sword" Kind="DoubleHandedWeapon,Tool" ID="HCC1"/>
+    <Object Name="Silver Key 3033" Kind="Valuable" ID="HB99"/>
+    <Object Name="Soldier Helmet" Kind="Equipment,Helmet" ID="HD19"/>
+    <Object Name="Dwarven Shield" Kind="Equipment,Shield" ID="HD61"/>
+    <Object Name="Plate Legs" Kind="Equipment,Leg" ID="HDE5"/>
+    <Object Name="Leather Boots" Kind="Equipment,Footwear" ID="HDE0"/>
+    <Object Name="Steel Helmet" Kind="Equipment,Helmet" ID="HD17"/>
+    <Object Name="Tortoise Shield" Kind="Equipment,Shield" ID="H17F3"/>
+    <Object Name="Bow" Kind="Equipment,DoubleHandedWeapon" ID="HD16"/>
+    <Object Name="Crown Armor" Kind="Equipment,Armor" ID="HD35"/>
+    <Object Name="Chain Legs" Kind="Equipment,Leg" ID="HDE6"/>
+	<Object Name="Blue Legs" Kind="Equipment,Leg" ID="H285"/>
+    <Object Name="Cream Cake" Kind="Valuable" ID="H18F9"/>
+    <Object Name="Sandals" Kind="Equipment,Footwear" ID="HDDF"/>
+    <Object Name="Pot" Kind="None" ID="HD89"/>
+    <Object Name="Candelabrum" Kind="None" ID="HB5F"/>
+    <Object Name="Lit Candelabrum" Kind="None" ID="HB60"/>
+    <Object Name="Parchment" Kind="Tool" ID="HB13"/>
+    <Object Name="Lyre" Kind="Valuable" ID="HB85"/>
+    <Object Name="Party Trumpet" Kind="Valuable" ID="H19AC"/>
+    <Object Name="Wooden Doll" Kind="Valuable" ID="HBAD"/>
+    <Object Name="Small Diamond" Kind="Valuable" ID="HBD4"/>
+    <Object Name="Silver Brooch" Kind="Valuable" ID="HBC9"/>
+    <Object Name="White Tapestry" Kind="Valuable" ID="HA6B"/>
+    <Object Name="Blue Tapestry" Kind="Valuable" ID="HA63"/>
+    <Object Name="Furniture Package" Kind="Valuable" ID="HAE1"/>
+    <Object Name="Furniture Package" Kind="Valuable" ID="HADB"/>
+    <Object Name="Party Hat" Kind="Equipment,Helmet" ID="H19B2"/>
+    <Object Name="Blue Robe" Kind="Equipment,Armor" ID="HDEF"/>
+    <Object Name="Dark Helmet" Kind="Equipment,Helmet" ID="HD38"/>
+    <Object Name="Amulet of Loss" Kind="Equipment,Neck" ID="HBF1"/>
+    <Object Name="Star Amulet" Kind="Equipment,Neck" ID="HBC6"/>
+    <Object Name="Scarf" Kind="Equipment,Neck" ID="HDF4"/>
+    <Object Name="Wolf Tooth Chain" Kind="Equipment,Neck" ID="HBC4"/>
+    <Object Name="Stone Skin Amulet" Kind="Equipment,Neck" ID="HC09"/>
+    <Object Name="Elven Amulet" Kind="Equipment,Neck" ID="HC0A"/>
+    <Object Name="Crystal Necklace" Kind="Equipment,Neck" ID="HBC0"/>
+    <Object Name="Protection Amulet" Kind="Equipment,Neck" ID="HC0C"/>
+    <Object Name="Silver Amulet" Kind="Equipment,Neck" ID="HBEE"/>
+    <Object Name="Strange Talisman" Kind="Equipment,Neck" ID="HBE5"/>
+    <Object Name="Garlick Necklace" Kind="Equipment,Neck" ID="HC0B"/>
+    <Object Name="Bronze Amulet" Kind="Equipment,Neck" ID="HBF0"/>
+    <Object Name="Dragon Necklace" Kind="Equipment,Neck" ID="HC0D"/>
+    <Object Name="Bronze Necklace" Kind="Equipment,Neck" ID="3009"/>
+    <Object Name="Golden Amulet" Kind="Equipment,Neck" ID="3013"/>
+    <Object Name="Platinum Amulet" Kind="Equipment,Neck" ID="HBEF"/>
+    <Object Name="Moonlight Rod" Kind="Equipment,SingleHandedWeapon" ID="HBFE"/>
+    <Object Name="Snakebite Rod" Kind="Equipment,SingleHandedWeapon" ID="HBFA"/>
+    <Object Name="Quagmire Rod" Kind="Equipment,SingleHandedWeapon" ID="HBF9"/>
+    <Object Name="Wand of Vortex" Kind="Equipment,SingleHandedWeapon" ID="HC02"/>
+    <Object Name="Wand of Inferno" Kind="Equipment,SingleHandedWeapon" ID="HBFF"/>
+    <Object Name="Wand of Plague" Kind="Equipment,SingleHandedWeapon" ID="HC00"/>
+    <Object Name="Wand of Cosmic Energy" Kind="Equipment,SingleHandedWeapon" ID="HC01"/>
+    <Object Name="Wand of Dragonbreath" Kind="Equipment,SingleHandedWeapon" ID="HC03"/>
+    <Object Name="Ring of the Skies" Kind="Equipment,Ring" ID="3006"/>
+    <Object Name="Stealth Ring" Kind="Equipment,Ring" ID="HBE9"/>
+    <Object Name="Axe Ring" Kind="Equipment,Ring" ID="HC14"/>
+    <Object Name="Ring Of Healing" Kind="Equipment,Ring" ID="HC1A"/>
+    <Object Name="Life Ring" Kind="Equipment,Ring" ID="HBEC"/>
+    <Object Name="Dwarven Ring" Kind="Equipment,Ring" ID="HC19"/>
+    <Object Name="Wedding Ring" Kind="Equipment,Ring" ID="HBBC"/>
+	<Object Name="Might Ring" Kind="Equipment,Ring" ID="HBE8"/>
+    <Object Name="Club Ring" Kind="Equipment,Ring" ID="HC15"/>
+    <Object Name="Power Ring" Kind="Equipment,Ring" ID="HBEA"/>
+    <Object Name="Sword Ring" Kind="Equipment,Ring" ID="HC13"/>
+    <Object Name="Time Ring" Kind="Equipment,Ring" ID="HBED"/>
+    <Object Name="Crystal Ring" Kind="Equipment,Ring" ID="HBBF"/>
+    <Object Name="Energy Ring" Kind="Equipment,Ring" ID="HBEB" />
+    <Object Name="Golden Ring" Kind="Equipment,Ring" ID="HBF7"/>
+    <Object Name="Bolt" Kind="Equipment,Ammunition" ID="HD76"/>
+    <Object Name="Burst Arrow" Kind="Equipment,Ammunition" ID="HD79"/>
+    <Object Name="Poison Arrow" Kind="Equipment,Ammunition" ID="HD78"/>
+    <Object Name="Arrow" Kind="Equipment,Ammunition" ID="HD77"/>
+    <Object Name="Wolf Paw" Kind="Valuable" ID="H1709"/>
+    <Object Name="Gold Coin" Kind="Valuable" ID="HBD7"/>
+    <Object Name="Honeycomb" Kind="Valuable" ID="H170E"/>
+	<Object Name="Ape Fur" Kind="Valuable" ID="H16FB"/>
+	<Object Name="Green Dragon Scale" Kind="Valuable" ID="H1720"/>
+	<Object Name="Bat Wing" Kind="Valuable" ID="H1706"/>
+	<Object Name="Minotaur Leather" Kind="Valuable" ID="H16F6"/>
+	<Object Name="Chicken Feather" Kind="Valuable" ID="H1702"/>
+	<Object Name="Scarab Coin" Kind="Valuable" ID="HBE2"/>
+	<Object Name="Small Sapphire" Kind="Valuable" ID="HBD5"/>
+	<Object Name="Black Pearl" Kind="Valuable" ID="HBD3"/>
+	<Object Name="Small Amethyst" Kind="Valuable" ID="HBD9"/>
+	<Object Name="Panpipes" Kind="Valuable" ID="HB89"/>
+	<Object Name="Model Ship" Kind="Valuable" ID="HBB2"/>
+	<Object Name="Pirate Shirt" Kind="Valuable" ID="H17CF"/>
+	<Object Name="Red Gem" Kind="Valuable" ID="HBDF"/>
+	<Object Name="Deer Trophy" Kind="Valuable" ID="H1CE5"/>
+	<Object Name="Post Officer's Hat" Kind="Helmet,Equipment,Valuable" ID="HBF8"/>
+	<Object Name="Empty Potion Flask" Kind="None" ID="H11D"/>
+	<Object Name="Strong Empty Potion Flask" Kind="None" ID="H11B"/>
+	<Object Name="Great Empty Potion Flask" Kind="None" ID="H11C"/>
+	<Object Name="Health Potion" Kind="Tool" ID="H10A"/>
+	<Object Name="Strong Health Potion" Kind="Tool" ID="HEC"/>
+	<Object Name="Great Health Potion" Kind="Tool" ID="HEF"/>
+	<Object Name="Mana Potion" Kind="Tool" ID="H10C"/>
+	<Object Name="Strong Mana Potion" Kind="Tool" ID="HED"/>
+	<Object Name="Great Mana Potion" Kind="Tool" ID="HEE"/>
+	<Object Name="Earth Arrow" Kind="Equipment,Ammunition" ID="H306"/>
+	<Object Name="Flash Arrow" Kind="Equipment,Ammunition" ID="H2F9"/>
+	<Object Name="Shiver Arrow" Kind="Equipment,Ammunition" ID="H2FA"/>
+	<Object Name="Flaming Arrow" Kind="Equipment,Ammunition" ID="H2FB"/>
+	<Object Name="Sniper Arrow" Kind="Equipment,Ammunition" ID="H1CC4"/>
+	<Object Name="Piercing Bolt" Kind="Equipment,Ammunition" ID="H1CC3"/>
+	<Object Name="Power Bolt" Kind="Equipment,Ammunition" ID="HD7A"/>
+	<Object Name="Turtle Shell" Kind="Valuable" ID="H170B"/>
+	<Object Name="Double Axe" Kind="Equipment,DoubleHandedWeapon" ID="HCCB"/>
+	<Object Name="Naginata" Kind="Equipment,DoubleHandedWeapon" ID="HCF2"/>
+	<Object Name="Mystic Blade" Kind="Equipment,SingleHandedWeapon" ID="H1CD8"/>
+	<Object Name="Serpent Sword" Kind="Equipment,SingleHandedWeapon" ID="HCE1"/>
+	<Object Name="Crystal Sword" Kind="Equipment,SingleHandedWeapon" ID="H1D19"/>
+</Objects>
