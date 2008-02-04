@@ -221,9 +221,13 @@ Partial Class frmMain
         Me.GeneralTabControl = New System.Windows.Forms.TabControl
         Me.GeneralTab1 = New System.Windows.Forms.TabPage
         Me.ComboBotBox = New System.Windows.Forms.GroupBox
+        Me.ComboLeaders = New System.Windows.Forms.ListBox
+        Me.LeadersContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.AddLeader = New System.Windows.Forms.ToolStripMenuItem
+        Me.RemoveLeader = New System.Windows.Forms.ToolStripMenuItem
         Me.ComboBotTrigger = New System.Windows.Forms.CheckBox
-        Me.ComboLeader = New System.Windows.Forms.TextBox
         Me.ComboBotLeaderlbl = New System.Windows.Forms.Label
+        Me.ComboLeader = New System.Windows.Forms.TextBox
         Me.AutoStackerBox = New System.Windows.Forms.GroupBox
         Me.AutoStackerlvl2 = New System.Windows.Forms.Label
         Me.AutoStackerDelay = New System.Windows.Forms.NumericUpDown
@@ -510,6 +514,7 @@ Partial Class frmMain
         Me.GeneralTabControl.SuspendLayout()
         Me.GeneralTab1.SuspendLayout()
         Me.ComboBotBox.SuspendLayout()
+        Me.LeadersContextMenuStrip.SuspendLayout()
         Me.AutoStackerBox.SuspendLayout()
         CType(Me.AutoStackerDelay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LightEffectsBox.SuspendLayout()
@@ -617,6 +622,7 @@ Partial Class frmMain
         '
         Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.KeyboardToolStripMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
+        Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
@@ -1580,6 +1586,7 @@ Partial Class frmMain
         'GeneralTab1
         '
         Me.GeneralTab1.Controls.Add(Me.ComboBotBox)
+        Me.GeneralTab1.Controls.Add(Me.ComboLeader)
         Me.GeneralTab1.Controls.Add(Me.AutoStackerBox)
         Me.GeneralTab1.Controls.Add(Me.LightEffectsBox)
         Me.GeneralTab1.Controls.Add(Me.AmmunitionRestackerBox)
@@ -1591,12 +1598,35 @@ Partial Class frmMain
         '
         'ComboBotBox
         '
+        Me.ComboBotBox.Controls.Add(Me.ComboLeaders)
         Me.ComboBotBox.Controls.Add(Me.ComboBotTrigger)
-        Me.ComboBotBox.Controls.Add(Me.ComboLeader)
         Me.ComboBotBox.Controls.Add(Me.ComboBotLeaderlbl)
         resources.ApplyResources(Me.ComboBotBox, "ComboBotBox")
         Me.ComboBotBox.Name = "ComboBotBox"
         Me.ComboBotBox.TabStop = False
+        '
+        'ComboLeaders
+        '
+        Me.ComboLeaders.ContextMenuStrip = Me.LeadersContextMenuStrip
+        Me.ComboLeaders.FormattingEnabled = True
+        resources.ApplyResources(Me.ComboLeaders, "ComboLeaders")
+        Me.ComboLeaders.Name = "ComboLeaders"
+        '
+        'LeadersContextMenuStrip
+        '
+        Me.LeadersContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddLeader, Me.RemoveLeader})
+        Me.LeadersContextMenuStrip.Name = "LeadersContextMenuStrip"
+        resources.ApplyResources(Me.LeadersContextMenuStrip, "LeadersContextMenuStrip")
+        '
+        'AddLeader
+        '
+        Me.AddLeader.Name = "AddLeader"
+        resources.ApplyResources(Me.AddLeader, "AddLeader")
+        '
+        'RemoveLeader
+        '
+        Me.RemoveLeader.Name = "RemoveLeader"
+        resources.ApplyResources(Me.RemoveLeader, "RemoveLeader")
         '
         'ComboBotTrigger
         '
@@ -1604,15 +1634,15 @@ Partial Class frmMain
         Me.ComboBotTrigger.Name = "ComboBotTrigger"
         Me.ComboBotTrigger.UseVisualStyleBackColor = True
         '
-        'ComboLeader
-        '
-        resources.ApplyResources(Me.ComboLeader, "ComboLeader")
-        Me.ComboLeader.Name = "ComboLeader"
-        '
         'ComboBotLeaderlbl
         '
         resources.ApplyResources(Me.ComboBotLeaderlbl, "ComboBotLeaderlbl")
         Me.ComboBotLeaderlbl.Name = "ComboBotLeaderlbl"
+        '
+        'ComboLeader
+        '
+        resources.ApplyResources(Me.ComboLeader, "ComboLeader")
+        Me.ComboLeader.Name = "ComboLeader"
         '
         'AutoStackerBox
         '
@@ -3509,8 +3539,10 @@ Partial Class frmMain
         Me.TabPage1.ResumeLayout(False)
         Me.GeneralTabControl.ResumeLayout(False)
         Me.GeneralTab1.ResumeLayout(False)
+        Me.GeneralTab1.PerformLayout()
         Me.ComboBotBox.ResumeLayout(False)
         Me.ComboBotBox.PerformLayout()
+        Me.LeadersContextMenuStrip.ResumeLayout(False)
         Me.AutoStackerBox.ResumeLayout(False)
         Me.AutoStackerBox.PerformLayout()
         CType(Me.AutoStackerDelay, System.ComponentModel.ISupportInitialize).EndInit()
@@ -4112,4 +4144,8 @@ Partial Class frmMain
     Friend WithEvents ScriptsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents KeyboardToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TestToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ComboLeaders As System.Windows.Forms.ListBox
+    Friend WithEvents LeadersContextMenuStrip As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents AddLeader As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RemoveLeader As System.Windows.Forms.ToolStripMenuItem
 End Class

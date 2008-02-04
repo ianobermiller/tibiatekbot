@@ -1588,7 +1588,13 @@ Public Class frmMain
         Try
             If ComboBotTrigger.Checked Then
                 If Kernel.ComboBotEnabled = True Then Exit Sub
-                Kernel.ComboBotLeader = ComboLeader.Text
+                'Kernel.ComboBotLeader = ComboLeader.Text
+                Dim i As Integer
+                Kernel.Combobotleaders.Clear()
+                For i = 0 To ComboLeaders.Items.Count - 1
+                    Kernel.Combobotleaders.Add(ComboLeaders.Items(i).ToString.ToLower)
+                Next
+
                 Kernel.ComboBotEnabled = True
             Else
                 Kernel.ComboBotEnabled = False
@@ -2718,5 +2724,33 @@ Public Class frmMain
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Kernel.Client.TestPipe()
+    End Sub
+
+
+    Private Sub AddLeader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddLeader.Click
+        Try
+            Dim LeaderName As String
+            LeaderName = InputBox("Enter the Leader name", "ComboBot - Add Leader")
+            If LeaderName.Length > 0 Then
+                If ComboLeaders.Items.Contains(LeaderName) Then
+                    MsgBox("That Leader name already exists", MsgBoxStyle.Critical, "Combobot - Add leader")
+                Else
+                    ComboLeaders.Items.Add(LeaderName)
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+    Private Sub RemoveLeader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RemoveLeader.Click
+        Try
+            If ComboLeaders.Items.Count > 0 Then
+                ComboLeaders.Items.RemoveAt(ComboLeaders.SelectedIndex)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class

@@ -352,6 +352,7 @@ Public Module KernelModule
 
         Public ComboBotEnabled As Boolean = False
         Public ComboBotLeader As String = ""
+        Public Combobotleaders As New Collection
 
         Public AmuletID As Integer = 0
 
@@ -4905,7 +4906,7 @@ ContinueAttack:
                             Word = GetWord(bytBuffer, Pos)
                             Pos += Word
                         Case &H85 'projectile?
-                            'Core.ConsoleWrite(BytesToStr(bytBuffer))
+                            'ConsoleWrite(BytesToStr(bytBuffer))
                             If TTBState = BotState.Paused Then Exit Sub
                             Dim FromBL As New BattleList
                             Dim ToBl As New BattleList
@@ -4917,7 +4918,13 @@ ContinueAttack:
                             'ConsoleWrite("Projectile type: " & Type.ToString & " (" & FromBL.GetName & "->" & ToBl.GetName & ") ")
                             If ComboBotEnabled Then
                                 If Type = 32 Then 'SD rune
-                                    If ComboBotLeader.ToLower = FromBL.GetName.ToLower Then
+                                    Dim z As Integer, IsLeader As Boolean = False
+                                    For z = 1 To Combobotleaders.Count
+                                        If Combobotleaders.Item(z).ToString.ToLower = FromBL.GetName.ToLower Then
+                                            IsLeader = True
+                                        End If
+                                    Next
+                                    If IsLeader Then
                                         SP.UseHotkey(Client.Objects.ID("Sudden Death"), ToBl.GetEntityID)
                                         'Proxy.SendPacketToServer(PacketUtils.UseHotkey(, ToBl.GetEntityID))
                                     End If
@@ -5081,7 +5088,7 @@ ContinueAttack:
                 End While
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End
+                'End
             End Try
         End Sub
 
