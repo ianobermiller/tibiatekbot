@@ -853,8 +853,9 @@ Public Class CommandParser
                     "  (type &help cavebot for more info about adding)")
                 Case "combobot", "combo"
                     Kernel.ConsoleWrite("«Combobot»" & Ret & _
-                    "Usage: &combobot <""Leader Name"" | off>." & Ret & _
+                    "Usage: &combobot <""Leader Name1,Leader Name2,Leader Name3"" | off>." & Ret & _
                     "Example: &combobot ""Jokuperkele""." & Ret & _
+                    "Example2: &combobot ""Jokuperkele,Steniux""." & Ret & _
                     "  Makes comboshots even easier (and more effective) what they are normally. " & Ret & _
                     "Note: Combobot fires rune when <leader name> shoots rune and to the same target" & Ret & _
                     "Note: At this point combobot works only with Sudden Death runes.")
@@ -3007,9 +3008,13 @@ Public Class CommandParser
                 Case Else
                     Dim MatchObj As Match = Regex.Match(Value, """([^""]+)")
                     If MatchObj.Success Then
-                        Kernel.ComboBotLeader = MatchObj.Groups(1).ToString
+                        'Kernel.ComboBotLeader = MatchObj.Groups(1).ToString
+                        Kernel.Combobotleaders.Clear()
+                        For Each leader As String In MatchObj.Groups(1).ToString.Split(CChar(","))
+                            Kernel.Combobotleaders.Add(Trim(leader).ToLower)
+                        Next
                         Kernel.ComboBotEnabled = True
-                        Kernel.ConsoleWrite("Combobot is now Enabled with Leader: " & Kernel.ComboBotLeader)
+                        Kernel.ConsoleWrite("Combobot is now Enabled with Leader(s): " & MatchObj.Groups(1).ToString)
                         Exit Sub
                     Else
                         If Value = "leader" Then
@@ -3017,7 +3022,9 @@ Public Class CommandParser
                             BL.Reset()
                             If BL.JumpToEntity(IBattlelist.SpecialEntity.Attacked) OrElse BL.JumpToEntity(IBattlelist.SpecialEntity.Followed) Then
                                 If BL.IsPlayer Then
-                                    Kernel.ComboBotLeader = BL.GetName
+                                    'Kernel.ComboBotLeader = BL.GetName
+                                    Kernel.Combobotleaders.Clear()
+                                    Kernel.Combobotleaders.Add(BL.GetName)
                                     Kernel.ComboBotEnabled = True
                                     Kernel.ConsoleWrite("Combobot is now Enabled with Leader: " & Kernel.ComboBotLeader)
                                     Exit Sub
