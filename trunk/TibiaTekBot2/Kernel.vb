@@ -2748,6 +2748,192 @@ Public Module KernelModule
                         Client.WriteMemory(Consts.ptrGoToZ, 0, 1)
                         System.Threading.Thread.Sleep(1000)
                     End If
+                    If FavoredWeaponEnabled Then
+                        Dim CID As Integer 'CID = Creature ID
+                        Dim CN As String 'CN = Creature Nam
+                        Dim cHand As Integer
+                        Dim Retries As Short
+                        Dim CT As New Container
+                        Dim FoundWep As Boolean = False
+                        Dim FavWepCT As Scripting.IContainer.ContainerItemDefinition
+                        Dim SlotFromTo As ITibia.InventorySlots
+                        Dim SlotShield As ITibia.InventorySlots
+                        CT.Reset()
+                        CID = AttackerMonsters.GetByIndex(0)
+                        If BL.Find(CID, False) Then
+                            CN = BL.GetName.ToLower
+                            For Each FW As WeaponFavoritDefinition In FavoredWeapon
+                                If FW.Monster = CN Then
+                                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.LeftHand - 1) * Consts.ItemDist), cHand, 2)
+                                    If cHand = FW.WeaponID Then GoTo ContinueAttack
+                                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), cHand, 2)
+                                    If cHand = FW.WeaponID Then GoTo ContinueAttack
+                                    Do
+                                        For i As Integer = 0 To CT.GetItemCount - 1
+                                            If CT.Items(i).ID = FW.WeaponID Then
+                                                FoundWep = True
+                                                Exit Do
+                                            End If
+                                        Next
+                                    Loop While CT.NextContainer
+                                    If Not FoundWep Then
+                                        ConsoleError("Can't find the favored weapon for: " & FW.Monster)
+                                        GoTo ContinueAttack
+                                    End If
+                                    SlotFromTo = ITibia.InventorySlots.LeftHand
+BackFWHand:
+                                    Select Case FW.Hand
+                                        Case 1 'left
+                                            SlotFromTo = ITibia.InventorySlots.LeftHand
+                                            SlotShield = ITibia.InventorySlots.RightHand
+                                        Case 2 'right
+                                            SlotFromTo = ITibia.InventorySlots.RightHand
+                                            SlotShield = ITibia.InventorySlots.LeftHand
+                                        Case 3 'twohanded
+                                            If SlotFromTo = ITibia.InventorySlots.LeftHand Then
+                                                SlotFromTo = ITibia.InventorySlots.RightHand
+                                            Else
+                                                SlotFromTo = ITibia.InventorySlots.LeftHand
+                                            End If
+                                            SlotShield = ITibia.InventorySlots.Armor 'WOW
+                                    End Select
+                                    Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotFromTo - 1) * Consts.ItemDist), cHand, 2)
+                                    If cHand > 0 Then
+                                        Retries = 0
+                                        Do
+                                            Retries += 1
+                                            If Retries > 20 Then
+                                                ConsoleError("Can't move hands for Fav Weapon.") 'Remove actually
+                                                GoTo ContinueAttack
+                                                Exit Sub
+                                            End If
+                                            sp.MoveObject(cHand, GetInventorySlotAsLocation(SlotFromTo), GetInventorySlotAsLocation(ITibia.InventorySlots.Backpack), 100)
+                                            System.Threading.Thread.Sleep(1000)
+                                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotFromTo - 1) * Consts.ItemDist), cHand, 2)
+                                        Loop While cHand <> 0
+                                    End If
+                                    If SlotShield <> ITibia.InventorySlots.Armor Then
+                                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotShield - 1) * Consts.ItemDist), cHand, 2)
+                                        If cHand <> FavoredWeaponShield Then
+                                            Retries = 0
+                                            Do
+                                                Retries += 1
+                                                If Retries > 20 Then
+                                                    ConsoleError("Can't move hands for Fav Weapon.") 'Remove actually
+                                                    GoTo ContinueAttack
+                                                    Exit Sub
+                                                End If
+                                                sp.MoveObject(cHand, GetInventorySlotAsLocation(SlotShield), GetInventorySlotAsLocation(ITibia.InventorySlots.Backpack), 100)
+                                                System.Threading.Thread.Sleep(1000)
+                                                Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotShield - 1) * Consts.ItemDist), cHand, 2)
+                                            Loop While cHand <> 0
+                                        End If
+                                    End If
+                                    If FW.Hand = 3 Then
+                                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((Scripting.ITibia.InventorySlots.LeftHand - 1) * Consts.ItemDist), cHand, 2)
+                                        If cHand > 0 Then
+                                            SlotFromTo = ITibia.InventorySlots.RightHand
+                                            GoTo BackFWHand
+                                        End If
+                                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((Scripting.ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), cHand, 2)
+                                        If cHand > 0 Then
+                                            SlotFromTo = ITibia.InventorySlots.LeftHand
+                                            GoTo BackFWHand
+                                        End If
+                                    End If
+                                    CT.Reset()
+                                    Do
+                                        For i As Integer = 0 To CT.GetItemCount - 1
+                                            If CT.Items(i).ID = FW.WeaponID Then
+                                                FoundWep = True
+                                                FavWepCT = CT.Items(i)
+                                                Exit Do
+                                            End If
+                                        Next
+                                    Loop While CT.NextContainer
+                                    Retries = 0
+                                    Do
+                                        Retries += 1
+                                        If Retries > 20 Then
+                                            ConsoleError("Can't move fav weapon to inventory.")
+                                            GoTo ContinueAttack
+                                        End If
+                                        sp.MoveObject(FavWepCT, GetInventorySlotAsLocation(SlotFromTo))
+                                        System.Threading.Thread.Sleep(1000)
+                                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotFromTo - 1) * Consts.ItemDist), cHand, 2)
+                                    Loop While cHand = 0
+                                    If FavoredWeaponShield = 0 Then GoTo ContinueAttack
+                                    Select Case FW.Hand
+                                        Case 1 'left
+                                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((Scripting.ITibia.InventorySlots.RightHand - 1) * Consts.ItemDist), cHand, 2)
+                                            If cHand <> FavoredWeaponShield Then
+                                                SlotFromTo = ITibia.InventorySlots.RightHand
+                                                If cHand = 0 Then
+                                                    FoundWep = False
+                                                    CT.Reset()
+                                                    Do
+                                                        For i As Integer = 0 To CT.GetItemCount - 1
+                                                            If CT.Items(i).ID = FavoredWeaponShield Then
+                                                                FoundWep = True
+                                                                FavWepCT = CT.Items(i)
+                                                                Exit Do
+                                                            End If
+                                                        Next
+                                                    Loop While CT.NextContainer
+                                                    If Not FoundWep Then
+                                                        ConsoleError("Can't find you shield!")
+                                                    End If
+                                                    Do
+                                                        Retries += 1
+                                                        If Retries > 20 Then
+                                                            ConsoleError("Can't move shield to inventory.")
+                                                            GoTo ContinueAttack
+                                                            Exit Sub
+                                                        End If
+                                                        sp.MoveObject(FavWepCT, GetInventorySlotAsLocation(SlotFromTo))
+                                                        System.Threading.Thread.Sleep(1000)
+                                                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotFromTo - 1) * Consts.ItemDist), cHand, 2)
+                                                    Loop While cHand = 0
+                                                End If
+                                            End If
+                                        Case 2 'right
+                                            Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((Scripting.ITibia.InventorySlots.LeftHand - 1) * Consts.ItemDist), cHand, 2)
+                                            If cHand <> FavoredWeaponShield Then
+                                                SlotFromTo = ITibia.InventorySlots.LeftHand
+                                                If cHand = 0 Then
+                                                    FoundWep = False
+                                                    CT.Reset()
+                                                    Do
+                                                        For i As Integer = 0 To CT.GetItemCount - 1
+                                                            If CT.Items(i).ID = FavoredWeaponShield Then
+                                                                FoundWep = True
+                                                                FavWepCT = CT.Items(i)
+                                                                Exit Do
+                                                            End If
+                                                        Next
+                                                    Loop While CT.NextContainer
+                                                    If Not FoundWep Then
+                                                        ConsoleError("Can't find you shield!")
+                                                    End If
+                                                    Do
+                                                        Retries += 1
+                                                        If Retries > 20 Then
+                                                            ConsoleError("Can't move shield to inventory.")
+                                                            GoTo ContinueAttack
+                                                            Exit Sub
+                                                        End If
+                                                        sp.MoveObject(FavWepCT, GetInventorySlotAsLocation(SlotFromTo))
+                                                        System.Threading.Thread.Sleep(1000)
+                                                        Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((SlotFromTo - 1) * Consts.ItemDist), cHand, 2)
+                                                    Loop While cHand = 0
+                                                End If
+                                            End If
+                                    End Select
+                                End If
+                            Next
+                        End If
+                    End If
+ContinueAttack:
                     Client.WriteMemory(Consts.ptrAttackedEntityID, AttackerMonsters.GetByIndex(0), 4)
                     sp.AttackEntity(AttackerMonsters.GetByIndex(0))
                     'Proxy.SendPacketToServer(AttackEntity(AttackerMonsters.GetByIndex(0)))
@@ -3879,6 +4065,219 @@ Public Module KernelModule
             End Try
         End Sub
 
+#Region " Packets from Client Parsers "
+
+        Private Sub ClientParseLogout(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseAutoMapWalk(ByRef bytBuffer() As Byte, ByRef Pos As Integer, ByRef Send As Boolean)
+            Dim Directions As Integer = GetByte(bytBuffer, Pos)
+            Pos += Directions
+        End Sub
+
+        Private Sub ClientParsePing(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterMoveNorthEast(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterMoveSouthEast(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterMoveSouthWest(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterMoveNorthWest(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterMoveNorth(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterMoveEast(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterMoveSouth(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterMoveWest(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterTurnNorth(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterTurnEast(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterTurnWest(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseCharacterTurnSouth(ByRef Send As Boolean)
+        End Sub
+
+        Private Sub ClientParseMoveObject(ByRef bytBuffer() As Byte, ByRef Pos As Integer, ByRef Send As Boolean)
+            Dim Source As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
+            Dim ItemID As UShort = GetWord(bytBuffer, Pos)
+            Dim Slot As Integer = GetByte(bytBuffer, Pos)
+            Dim Destination As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
+            Dim Count As Integer = GetByte(bytBuffer, Pos)
+            Dim MyContainer As New Container
+            Dim CP As New ClientPacketBuilder(Proxy)
+            If Source.X = &HFFFF AndAlso Source.Y = &H4F Then 'containers only
+                MyContainer.JumpToContainer(&HF) 'go to that container
+                Dim ContainerSize As Integer = MyContainer.GetContainerSize
+                If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then 'is fake
+                    Send = False
+                    If LooterCurrentCategory = 0 Then Exit Sub
+                    'thrown to map, or thrown to inventory, or thrown to another bp
+                    If (Destination.X < &HFFFF) OrElse (Destination.X = &HFFFF AndAlso Destination.Y < &H40) OrElse (Destination.X = Source.X AndAlso Destination.Y <> Source.Y) Then
+                        LootItems.Remove(ItemID)
+                        CP.RemoveObjectFromContainer(Slot, Source.Y - &H40)
+                        ConsoleWrite(Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ") removed from " & MyContainer.GetName & ".")
+                    Else
+                        CP.SystemMessage(SysMessageType.StatusSmall, "Sorry, not possible.")
+                    End If
+                End If
+            ElseIf (Source.X = &HFFFF AndAlso Source.Y < &H40) OrElse Source.X < &HFFFF OrElse (Source.X = &HFFFF AndAlso Source.Y <> Destination.Y) Then
+                If Destination.X = &HFFFF AndAlso Destination.Y = &H4F Then
+                    MyContainer.JumpToContainer(&HF) 'go to that container
+                    Dim ContainerSize As Integer = MyContainer.GetContainerSize
+                    If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then 'is fake
+                        Send = False
+                        If LooterCurrentCategory = 0 Or ItemID <= 100 Then Exit Sub
+                        If LootItems.Add(New LootItems.LootItemDefinition(ItemID, LooterCurrentCategory - 1)) Then
+                            If Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsStackable) Then
+                                Count = 100
+                            ElseIf Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsFluidContainer) Then
+                                '   keep count
+                            ElseIf Client.Objects.HasExtraByte(ItemID) Then
+                                Count = 1
+                            End If
+                            ConsoleWrite(Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ") added to " & MyContainer.GetName & ".")
+                            CP.AddObjectToContainer(ItemID, &HF, Count)
+                        Else
+                            ConsoleError("This item already exists.")
+                        End If
+                    End If
+                End If
+            End If
+        End Sub
+
+        Private Sub ClientParseUseItem(ByRef bytBuffer() As Byte, ByRef Pos As Integer, ByRef Send As Boolean)
+            Dim Location As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
+            Dim ItemID As Integer = GetWord(bytBuffer, Pos)
+            Dim Slot As Integer = GetByte(bytBuffer, Pos)
+            Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
+            Dim CP As New ClientPacketBuilder(Proxy)
+            Dim SP As New ServerPacketBuilder(Proxy)
+            If Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsContainer) Then BagOpened = False
+            If Location.Y = &H4F Then
+                Dim MyContainer As New Container
+                MyContainer.JumpToContainer(&HF)
+                Dim ContainerSize As Integer = MyContainer.GetContainerSize
+                If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then
+                    If String.Compare(MyContainer.GetName, "Loot Categories") = 0 Then 'using a category :O
+                        LooterCurrentCategory = Slot + 1
+                        CP.CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True)
+                        'Proxy.SendPacketToClient(CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True))
+                    Else
+                        CP.SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ").")
+                        'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ")."))
+                    End If
+                    Send = False
+                    Exit Sub
+                End If
+            End If
+            If Consts.HotkeysCanEquipItems AndAlso (Location.X = &HFFFF AndAlso Location.Y = 0 AndAlso Location.Z = 0) Then 'hotkey
+                If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ring) Then
+                    Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
+                    If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+                        If RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                            RingID = ItemID
+                            'ConsoleWrite("Ring Changer Item: " & Client.Objects.Name(ItemID))
+                        End If
+                        SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger))
+                        'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger)))
+                    Else
+                        ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
+                    End If
+                    Send = False
+                End If
+                If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Neck) Then
+                    Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
+                    If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+                        If AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                            AmuletID = ItemID
+                            'ConsoleWrite("Amulet Changer Item: " & Client.Objects.Name(ItemID))
+                        End If
+                        SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck))
+                        'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck)))
+                        AmuletID = ItemID
+                    Else
+                        ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
+                    End If
+                    Send = False
+                End If
+                If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ammunition) Then
+                    Dim Ammodef As Scripting.IContainer.ContainerItemDefinition
+                    Dim Cont As New Container
+                    If (New Container).FindItem(Ammodef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
+
+                        If AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                            AmmoRestackerItemID = ItemID
+                            ConsoleWrite("Ammunition Restacker Item: " & Client.Objects.Name(AmmoRestackerItemID))
+                        End If
+                        SP.MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount)
+                    Else
+                        ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
+                    End If
+                    Send = False
+                End If
+            ElseIf Consts.EquipItemsOnUse Then
+                If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Neck) Then
+                    If AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                        AmuletID = ItemID
+                    End If
+                    SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck), 1)
+                    Send = False
+                End If
+                If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ring) Then
+                    If RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                        RingID = ItemID
+                    End If
+                    SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger), 1)
+                    Send = False
+                End If
+                If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ammunition) Then
+                    If AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                        AmmoRestackerItemID = ItemID
+                    End If
+                    SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), 100)
+                    Send = False
+                End If
+            End If
+            If LearningMode Then
+                If Client.Objects.LensHelp(ItemID) = IObjects.ObjectLensHelp.Ladder Then
+                    Dim WalkerChar As New Walker
+                    WalkerChar.Coordinates = Location
+                    WalkerChar.Type = Walker.WaypointType.Ladder
+                    WalkerChar.Info = ""
+                    Walker_Waypoints.Add(WalkerChar)
+                    Kernel.ConsoleWrite("Ladder waypoint added.")
+                    AutoAddTime = Now.AddSeconds(5)
+                End If
+                If Client.Objects.LensHelp(ItemID) = IObjects.ObjectLensHelp.Sewer Then
+                    Dim WalkerChar As New Walker
+                    WalkerChar.Coordinates = Location
+                    WalkerChar.Type = Walker.WaypointType.Sewer
+                    WalkerChar.Info = ""
+                    Walker_Waypoints.Add(WalkerChar)
+                    Kernel.ConsoleWrite("Sewer waypoint added.")
+                    AutoAddTime = Now.AddSeconds(5)
+                End If
+            End If
+        End Sub
+#End Region
+
         Private Sub Proxy_PacketFromClient(ByRef bytBuffer() As Byte, ByRef Send As Boolean) Handles Proxy.PacketFromClient
             Try
                 Dim RegExp As Regex = New Regex("&([^;]+);?")
@@ -3894,209 +4293,70 @@ Public Module KernelModule
                 Dim SP As New ServerPacketBuilder(Proxy)
                 Dim ID As UShort = GetByte(bytBuffer, Pos)
                 Select Case ID
-                    Case &H1E 'ping
-                    Case &H64 'Clicked Map or Ground, so Player Moving
+                    Case &H14 ' Logout
+                        ClientParseLogout(Send)
+                    Case &H1E ' Ping
+                        ClientParsePing(Send)
+                    Case &H64 ' Auto Walk
+                        ClientParseAutoMapWalk(bytBuffer, Pos, Send)
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
-                        Exit Sub
-                    Case &H65, &H66, &H67, &H68, &H6A, &H6B, &H6C, &H6D 'Player Moving
+                    Case &H65 ' Character Move North
+                        ClientParseCharacterMoveNorth(Send)
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
-                        Exit Sub
-                    Case &H88 'go to parent
+                    Case &H66 ' Character Move East
+                        ClientParseCharacterMoveEast(Send)
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
-                        Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
-                        Dim MyContainer As New Container
-                        If ContainerIndex = &HF Then
-                            MyContainer.JumpToContainer(&HF)
-                            Dim ContainerSize As Integer = MyContainer.GetContainerSize
-                            If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then
-                                LootItems.ShowLootCategories()
-                                Send = False
-                            End If
-                        End If
+                    Case &H67
+                        ClientParseCharacterMoveSouth(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H68
+                        ClientParseCharacterMoveWest(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H6A
+                        ClientParseCharacterMoveNorthEast(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H6B
+                        ClientParseCharacterMoveSouthEast(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H6C
+                        ClientParseCharacterMoveSouthWest(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H6D
+                        ClientParseCharacterMoveNorthWest(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H6F
+                        ClientParseCharacterTurnNorth(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H70
+                        ClientParseCharacterTurnEast(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H71
+                        ClientParseCharacterTurnSouth(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                    Case &H72
+                        ClientParseCharacterTurnWest(Send)
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
                     Case &H78 'move object
+                        ClientParseMoveObject(bytBuffer, Pos, Send)
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
-                        Dim Source As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
-                        Dim ItemID As UShort = GetWord(bytBuffer, Pos)
-                        Dim Slot As Integer = GetByte(bytBuffer, Pos)
-                        Dim Destination As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
-                        Dim Count As Integer = GetByte(bytBuffer, Pos)
-                        Dim MyContainer As New Container
-                        If Source.X = &HFFFF AndAlso Source.Y = &H4F Then 'containers only
-                            MyContainer.JumpToContainer(&HF) 'go to that container
-                            Dim ContainerSize As Integer = MyContainer.GetContainerSize
-                            If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then 'is fake
-                                Send = False
-                                If LooterCurrentCategory = 0 Then Exit Sub
-                                'thrown to map, or thrown to inventory, or thrown to another bp
-                                If (Destination.X < &HFFFF) _
-                                 OrElse (Destination.X = &HFFFF AndAlso Destination.Y < &H40) _
-                                 OrElse (Destination.X = Source.X AndAlso Destination.Y <> Source.Y) Then
-                                    LootItems.Remove(ItemID)
-                                    CP.RemoveObjectFromContainer(Slot, Source.Y - &H40)
-                                    'Proxy.SendPacketToClient(RemoveObjectFromContainer(Slot, Source.Y - &H40))
-                                    ConsoleWrite(Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ") removed from " & MyContainer.GetName & ".")
-                                Else
-                                    CP.SystemMessage(SysMessageType.StatusSmall, "Sorry, not possible.")
-                                    'Proxy.SendPacketToClient(SystemMessage(SysMessageType.StatusSmall, "Sorry, not possible."))
-                                End If
-                            End If
-                        ElseIf (Source.X = &HFFFF AndAlso Source.Y < &H40) _
-                         OrElse Source.X < &HFFFF _
-                         OrElse (Source.X = &HFFFF AndAlso Source.Y <> Destination.Y) Then
-                            If Destination.X = &HFFFF AndAlso Destination.Y = &H4F Then
-                                MyContainer.JumpToContainer(&HF) 'go to that container
-                                Dim ContainerSize As Integer = MyContainer.GetContainerSize
-                                If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then 'is fake
-                                    Send = False
-                                    If LooterCurrentCategory = 0 Or ItemID <= 100 Then Exit Sub
-                                    If LootItems.Add(New LootItems.LootItemDefinition(ItemID, LooterCurrentCategory - 1)) Then
-                                        'Dim DatObj As IDatFile.DatObject
-                                        'DatObj = Client.Dat.GetInfo(ItemID)
-                                        If Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsStackable) Then
-                                            Count = 100
-                                        ElseIf Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsFluidContainer) Then
-                                            '   keep count
-                                        ElseIf Client.Objects.HasExtraByte(ItemID) Then
-                                            Count = 1
-                                        End If
-                                        ConsoleWrite(Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ") added to " & MyContainer.GetName & ".")
-                                        CP.AddObjectToContainer(ItemID, &HF, Count)
-                                        'Proxy.SendPacketToClient(AddObjectToContainer(ItemID, &HF, Count))
-                                    Else
-                                        ConsoleError("This item already exists.")
-                                    End If
-                                End If
-                            End If
-                        End If
                     Case &H82 'use item
+                        ClientParseUseItem(bytBuffer, Pos, Send)
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
-                        Dim Location As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
-                        Dim ItemID As Integer = GetWord(bytBuffer, Pos)
-                        Dim Slot As Integer = GetByte(bytBuffer, Pos)
-                        Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
-                        'Core.ConsoleWrite(BytesToStr(bytBuffer))
-                        If Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsContainer) Then BagOpened = False
-                        If Location.Y = &H4F Then
-                            Dim MyContainer As New Container
-                            MyContainer.JumpToContainer(&HF)
-                            Dim ContainerSize As Integer = MyContainer.GetContainerSize
-                            If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then
-                                If String.Compare(MyContainer.GetName, "Loot Categories") = 0 Then 'using a category :O
-                                    LooterCurrentCategory = Slot + 1
-                                    CP.CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True)
-                                    'Proxy.SendPacketToClient(CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True))
-                                Else
-                                    CP.SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ").")
-                                    'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ")."))
-                                End If
-                                Send = False
-                                Exit Sub
-                            End If
-                        End If
-                        If Consts.HotkeysCanEquipItems AndAlso (Location.X = &HFFFF AndAlso Location.Y = 0 AndAlso Location.Z = 0) Then 'hotkey
-                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ring) Then
-                                Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
-                                If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
-                                    If RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                        RingID = ItemID
-                                        'ConsoleWrite("Ring Changer Item: " & Client.Objects.Name(ItemID))
-                                    End If
-                                    SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger))
-                                    'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger)))
-                                Else
-                                    ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
-                                End If
-                                Send = False
-                            End If
-                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Neck) Then
-                                Dim ItemDef As Scripting.IContainer.ContainerItemDefinition
-                                If (New Container).FindItem(ItemDef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
-                                    If AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                        AmuletID = ItemID
-                                        'ConsoleWrite("Amulet Changer Item: " & Client.Objects.Name(ItemID))
-                                    End If
-                                    SP.MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck))
-                                    'Proxy.SendPacketToServer(MoveObject(ItemDef, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck)))
-                                    AmuletID = ItemID
-                                Else
-                                    ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
-                                End If
-                                Send = False
-                            End If
-                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ammunition) Then
-                                Dim Ammodef As Scripting.IContainer.ContainerItemDefinition
-                                Dim Cont As New Container
-                                If (New Container).FindItem(Ammodef, ItemID, 0, 0, Consts.MaxContainers - 1) Then
-
-                                    If AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                        AmmoRestackerItemID = ItemID
-                                        ConsoleWrite("Ammunition Restacker Item: " & Client.Objects.Name(AmmoRestackerItemID))
-                                    End If
-
-                                    SP.MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount)
-                                    'Proxy.SendPacketToServer(MoveObject(Ammodef, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), Cont.GetItemCount))
-                                Else
-                                    ConsoleError("Could not find " & Client.Objects.Name(ItemID) & ", make sure it is on an open container.")
-                                End If
-                                Send = False
-                            End If
-                        ElseIf Consts.EquipItemsOnUse Then
-                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Neck) Then
-                                If AmuletChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                    AmuletID = ItemID
-                                    'ConsoleWrite("Amulet Changer Item: " & Client.Objects.Name(ItemID))
-                                End If
-                                SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck), 1)
-                                'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Neck), 1))
-                                Send = False
-                            End If
-                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ring) Then
-                                If RingChangerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                    RingID = ItemID
-                                    'ConsoleWrite("Ring Changer Item: " & Client.Objects.Name(ItemID))
-                                End If
-                                SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger), 1)
-                                'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Finger), 1))
-                                Send = False
-                            End If
-                            If Client.Objects.IsKind(ItemID, IObjects.ObjectKind.Ammunition) Then
-                                If AmmoRestackerTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                    AmmoRestackerItemID = ItemID
-                                    'ConsoleWrite("Ammunition Restacker Item: " & Client.Objects.Name(AmmoRestackerItemID))
-                                End If
-                                SP.MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), 100)
-                                'Proxy.SendPacketToServer(MoveObject(ItemID, Location, GetInventorySlotAsLocation(ITibia.InventorySlots.Belt), 100))
-                                Send = False
-                            End If
-                        End If
-                        If LearningMode Then
-                            If Client.Objects.LensHelp(ItemID) = IObjects.ObjectLensHelp.Ladder Then
-                                'If Client.Items.GetItemKind(ItemID) = IItems.ItemKind.UsableTeleport Then
-                                Dim WalkerChar As New Walker
-                                WalkerChar.Coordinates = Location
-                                WalkerChar.Type = Walker.WaypointType.Ladder
-                                WalkerChar.Info = ""
-                                Walker_Waypoints.Add(WalkerChar)
-                                Kernel.ConsoleWrite("Ladder waypoint added.")
-                                AutoAddTime = Now.AddSeconds(5)
-                            End If
-                            'With Client.Dat.GetInfo(ItemID)
-                            If Client.Objects.LensHelp(ItemID) = IObjects.ObjectLensHelp.Sewer Then
-                                Dim WalkerChar As New Walker
-                                WalkerChar.Coordinates = Location
-                                WalkerChar.Type = Walker.WaypointType.Sewer
-                                WalkerChar.Info = ""
-                                Walker_Waypoints.Add(WalkerChar)
-                                Kernel.ConsoleWrite("Sewer waypoint added.")
-                                AutoAddTime = Now.AddSeconds(5)
-                            End If
-                            'End With
-                        End If
                     Case &H83 'Use Item With
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
@@ -4132,6 +4392,19 @@ Public Module KernelModule
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Pos += 13
+                    Case &H88 'go to parent
+                        Proxy.LastAction = Date.Now.Ticks
+                        LastActivity = Date.Now
+                        Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
+                        Dim MyContainer As New Container
+                        If ContainerIndex = &HF Then
+                            MyContainer.JumpToContainer(&HF)
+                            Dim ContainerSize As Integer = MyContainer.GetContainerSize
+                            If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then
+                                LootItems.ShowLootCategories()
+                                Send = False
+                            End If
+                        End If
                     Case &H8A
                         Proxy.LastAction = Date.Now.Ticks
                         Dim SpellID As Integer = GetByte(bytBuffer, Pos)
