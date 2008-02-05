@@ -1,21 +1,43 @@
-Imports System, Scripting, Microsoft.VisualBasic.Conversion, Microsoft.VisualBasic.VBMath
+Imports System, Scripting, Microsoft.VisualBasic.Conversion
 Imports Microsoft.VisualBasic.Strings, System.Threading
-Imports System.Windows.Forms
-Public Class Script2
+Imports System.Windows.Forms, System.Text.RegularExpressions
+
+Public Class Script232
     Implements IScript
+
+    Dim Account As String = "12345"   ' Enter your account number here
+    Dim Password As String = "BlaBla"  ' Enter your password here
+    Dim CharacterIndex As Integer = 1   ' Enter your Character Index here (1 = First Character in your Character List)
 
     Dim WithEvents Kernel As IKernel
     Dim WithEvents Timer As ThreadTimer
-    Dim tryLogin_ As Boolean
+    Dim LoginRunning As Boolean
+
+
     Public Sub New()
-        Timer = New ThreadTimer(10000)
+        Timer = New ThreadTimer(30000)
         Timer.StopTimer()
     End Sub
 
     Public Sub Initialize(ByVal Kernel As IKernel) Implements IScript.Initialize
         Me.Kernel = Kernel
+        Kernel.CommandParser.Add("relogin", AddressOf MyCommand)
+        Kernel.ConsoleWrite("relogin script loaded, usage: &relogin <on|off>")
+        Kernel.ConsoleWrite("Note: Edit the script to set your data, Account, password, Character, Save it and reload it.")
     End Sub
-
+    Public Sub MyCommand(ByVal Arguments As System.Text.RegularExpressions.GroupCollection)
+        Dim Value As String = Arguments(2).ToString
+        Select Case Value.ToLower
+            Case "off"
+                Timer.StopTimer()
+                Kernel.ConsoleWrite("Script stopped")
+            Case "on"
+                Timer.StartTimer()
+                Kernel.ConsoleWrite("Script started")
+            Case Else
+                Kernel.ConsoleWrite("-.- its  ""&relogin on"" or ""&relogin off"" -.-")
+        End Select
+    End Sub
     Public Sub PauseScript() Implements IScript.Pause
         Timer.StopTimer()
     End Sub
@@ -27,9 +49,7 @@ Public Class Script2
     Public Sub Timer_OnExecute() Handles Timer.OnExecute
         If Not Kernel.Client.IsConnected Then
             Try
-
-                Login(2785150, "changoleon1", 2)
-
+                Login(Account, Password, CharacterIndex)
             Catch ex As Exception
                 Kernel.ConsoleError(ex.Message)
             End Try
@@ -39,34 +59,51 @@ Public Class Script2
     Public Sub Dispose() Implements IDisposable.Dispose
         ' Dispose all created objects
         Timer.Dispose()
+        Kernel.CommandParser.Remove("relogin")
     End Sub
 
     Sub Login(ByVal account As Integer, ByVal password As String, ByVal charindex As Integer)
+        If LoginRunning Then Exit Sub
+        LoginRunning = True
         Dim tryLogin As Boolean = False
         Dim Client As ITibia = Kernel.Client
         Dim Retries As Integer = 100
-        Dim ActiveDialog As String = Client.GetCurrentDialog
-        Dim i As Integer
-        Dim x As Long = 0
-        Dim y As Long = 0
-
-        ' Get "Enter game" cordz
-        x = (12 * Screen.PrimaryScreen.Bounds.Width) / 100
-        y = (65 * Screen.PrimaryScreen.Bounds.Height) / 100
+        Dim ActiveDialog As String
+        Dim i As Integer, x As Integer, y As Integer
+        Dim Hidden As Boolean = False
+        Dim Minimized As Boolean = False
 
         If Not Kernel.Client.IsConnected Then
-            Dim COntinue_ As Boolean = False
+
             Do Until Kernel.Client.IsConnected
-                Application.DoEvents()
                 ActiveDialog = Client.GetCurrentDialog
                 If ActiveDialog = "" And tryLogin = False Then
+                    Dim TibiaRect As New RECT
+
+                    GetWindowRect(Client.GetWindowHandle, TibiaRect) ' Get the tibia Rect
+                    x = TibiaRect.Left + 124    ' Coordz of Enter Game Button
+                    y = TibiaRect.Bottom - 224  '
+
+                    If Client.GetWindowState = ITibia.WindowStates.Hidden Then
+                        Hidden = True
+                    End If
+
+                    If Client.GetWindowState = ITibia.WindowStates.Minimized Then
+                        Minimized = True
+                    End If
+
+                    Client.Show()
+                    ShowWindow(Client.GetWindowHandle, ShowState.SW_SHOWMAXIMIZED)
                     Client.Activate()
+
                     Thread.Sleep(500)
                     Clic(x, y) 'Clic Enter game button
+
                     Thread.Sleep(1000)
 
                     tryLogin = True
                 End If
+
                 If ActiveDialog = "Enter Game" Then
                     Send_Keys(account)
                     Thread.Sleep(500)
@@ -75,8 +112,8 @@ Public Class Script2
                     Send_Keys(password)
                     Thread.Sleep(500)
                     SendKeys(Keys.Enter)
-
                 End If
+
                 If ActiveDialog.ToLower.Contains("select") Then
                     If Not tryLogin Then
                         SendKeys(Keys.Escape)
@@ -105,6 +142,12 @@ Public Class Script2
                     tryLogin = False
                 End If
 
+                If ActiveDialog.ToLower.Contains("sorry") Then
+                    SendKeys(Keys.Escape)
+                    LoginRunning = False
+                    Exit Sub
+                End If
+
                 Thread.Sleep(200)
                 Retries -= 1
                 If Retries <= 0 Then
@@ -113,6 +156,9 @@ Public Class Script2
             Loop
 
         End If
+        If Hidden Then Client.Hide()
+        If Minimized Then Client.Minimize()
+        LoginRunning = False
     End Sub
 
 
@@ -128,16 +174,42 @@ Public Class Script2
     Public Const MK_MBUTTON = &H10
     Public Const MK_SHIFT = &H4
 
-    Function MakeDWord(ByVal LoWord As Long, ByVal HiWord As Long) As Long
+    Private Const MOUSEEVENTF_LEFTDOWN = &H2
+    Private Const MOUSEEVENTF_LEFTUP = &H4
+
+    Private Structure RECT        Public Left As Integer        Public Top As Integer        Public Right As Integer        Public Bottom As Integer
+    End Structure
+    Private Enum ShowState As UInteger
+        SW_HIDE = 0
+        SW_SHOWNORMAL = 1
+        SW_SHOWMINIMIZED = 2
+        SW_SHOWMAXIMIZED = 3
+        SW_SHOWNOACTIVATE = 4
+        SW_SHOW = 5
+        SW_MINIMIZE = 6
+        SW_SHOWMINNOACTIVE = 7
+        SW_SHOWNA = 8
+        SW_RESTORE = 9
+        SW_SHOWDEFAULT = 10
+    End Enum
+    Private Declare Function ShowWindow Lib "user32" (ByVal handle As IntPtr, ByVal nCmd As Int32) As Boolean
+    Private Declare Function GetWindowRect Lib "user32" (ByVal hWnd As Integer, ByRef lpRect As RECT) As Integer    Declare Function SetCursorPos Lib "user32" Alias "SetCursorPos" (ByVal x As Integer, ByVal y As Integer) As Integer
+    Private Declare Sub mouse_event Lib "user32" _
+                        (ByVal dwFlags As Long, _
+                         ByVal dx As Long, _
+                         ByVal dy As Long, _
+                         ByVal cButtons As Long, _
+                        ByVal dwExtraInfo As Long)
+
+
+    Function MakeDWord(ByVal LoWord As Integer, ByVal HiWord As Integer) As Integer
         MakeDWord = (HiWord * &H10000) Or (LoWord And &HFFFF&)
     End Function
 
     Public Sub Clic(ByVal x As Integer, ByVal y As Integer)
-        Dim targetXY As Long, ReturnValue As Integer
-        targetXY = MakeDWord((x), (y))
-        ReturnValue = Kernel.Client.SendMessage(WM_MOUSEMOVE, CLng(0), targetXY) 'Move mouse to spot
-        ReturnValue = Kernel.Client.SendMessage(WM_LBUTTONDOWN, CLng(MK_LBUTTON), targetXY) 'Click down
-        ReturnValue = Kernel.Client.SendMessage(WM_LBUTTONUP, CLng(MK_LBUTTON), targetXY) 'Click up
+        SetCursorPos(x, y) ' Move the mouse to x,y
+        Call mouse_event(MOUSEEVENTF_LEFTDOWN, 0&, 0&, 0&, 0&) 'Simulate Clic Down
+        Call mouse_event(MOUSEEVENTF_LEFTUP, 0&, 0&, 0&, 0&)   'Simulate Clic Up
     End Sub
 
 #End Region
@@ -297,5 +369,8 @@ TheEnd:
         keybd_event(Key, 0, 2, 0) ' Key up
     End Sub
 #End Region
+
+
+
 
 End Class
