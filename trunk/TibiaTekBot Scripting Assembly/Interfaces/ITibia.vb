@@ -263,7 +263,7 @@ Public Interface ITibia
 	ReadOnly Property GetProcessHandle() As Integer
 	ReadOnly Property GetWindowHandle() As Integer
 	ReadOnly Property GetWindowState() As WindowStates
-	Property Title() As String
+    Property Title() As String
 	ReadOnly Property GetCurrentDialog() As String
 	ReadOnly Property ConnectionState() As ConnectionStates
     ReadOnly Property IsConnected() As Boolean
@@ -295,10 +295,11 @@ Public Interface ITibia
 
 	Sub ConsoleWrite(ByVal Message As String)
 	Sub ConsoleError(ByVal Message As String)
-	Sub ConsoleRead(ByVal Message As String)
-	Sub Restore()
-	Sub Minimize()
-	Sub Hide()
+    Sub ConsoleRead(ByVal Message As String)
+    Sub Restore()
+    Sub Minimize()
+    Sub Maximize()
+    Sub Hide()
 	Sub Show()
 	Sub Activate()
 	Sub FlashWindow(Optional ByVal [Stop] As Boolean = False)
