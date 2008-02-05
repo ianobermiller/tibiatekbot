@@ -629,6 +629,14 @@ Public NotInheritable Class Tibia
         End Try
     End Sub
 
+    Public Sub Maximize() Implements Scripting.ITibia.Maximize
+        Try
+            ShowWindow(GetWindowHandle, ShowState.SW_SHOWMAXIMIZED)
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Public Sub Show() Implements Scripting.ITibia.Show
         Try
             _Visible = True
@@ -886,8 +894,8 @@ Public NotInheritable Class Tibia
     Public Sub CharacterMove(ByVal Location As ITibia.LocationDefinition) Implements Scripting.ITibia.CharacterMove
         Try
             Dim BL As New BattleList
-            WriteMemory(Consts.ptrGoToX, Location.X, 4)
-            WriteMemory(Consts.ptrGoToY, Location.Y, 4)
+            WriteMemory(Consts.ptrGoToX, Location.X, 2)
+            WriteMemory(Consts.ptrGoToY, Location.Y, 2)
             WriteMemory(Consts.ptrGoToZ, Location.Z, 1)
             BL.IsWalking = True
         Catch ex As Exception

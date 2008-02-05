@@ -3512,6 +3512,8 @@ Partial Class frmMain
         '
         'Timer1
         '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 1000
         '
         'frmMain
         '
@@ -3683,7 +3685,6 @@ Partial Class frmMain
     End Sub
     Friend WithEvents PopupMenu As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ClosePopupItem As System.Windows.Forms.ToolStripMenuItem
-    Public WithEvents NotifyIcon As System.Windows.Forms.NotifyIcon
     Friend WithEvents AlarmsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ShowHideTibiaWindow As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ConstantsEditorMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -4148,4 +4149,5 @@ Partial Class frmMain
     Friend WithEvents LeadersContextMenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents AddLeader As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RemoveLeader As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents NotifyIcon As System.Windows.Forms.NotifyIcon
 End Class
