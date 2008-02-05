@@ -2742,30 +2742,6 @@ Public Class frmMain
         End Try
     End Sub
 
-    Public Sub NI_ShowBalloonTip(ByVal Title As String, ByVal Message As String, Optional ByVal Timeout As Integer = 5, Optional ByVal Icon As ToolTipIcon = ToolTipIcon.None)
-        Try
-            NotifyIcon.ShowBalloonTip(Timeout, Title, Message, Icon)
-        Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-    <STAThread()> _
-    Public Sub NI_SetText(ByVal Text As String)
-        Try
-            NotifyIcon.Text = Text
-        Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-    Public Function NI_GetText() As String
-        Try
-            NI_GetText = NotifyIcon.Text
-        Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-        NI_GetText = ""
-    End Function
-
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         Try
             If Kernel.Client.IsConnected Then
@@ -2775,6 +2751,36 @@ Public Class frmMain
             End If
         Catch ex As Exception
             NotifyIcon.Text = "TibiaTek Bot v" & BotVersion
+        End Try
+    End Sub
+
+    Private Sub NotifyIcon_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles NotifyIcon.Click
+        Try
+            If Not My.Computer.Keyboard.CtrlKeyDown Then Exit Sub
+            If Me.Visible Then
+                Me.Hide()
+                IsVisible = False
+            Else
+                Me.Show()
+                Me.Activate()
+                IsVisible = True
+            End If
+        Catch ex As Exception
+            'MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub NotifyIcon_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles NotifyIcon.DoubleClick
+        Try
+            If My.Computer.Keyboard.CtrlKeyDown Then Exit Sub
+            If Kernel.Client.GetWindowState = ITibia.WindowStates.Hidden Then
+                Kernel.Client.Show()
+                Kernel.Client.Activate()
+            Else
+                Kernel.Client.Hide()
+            End If
+        Catch ex As Exception
+            'MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 End Class
