@@ -56,6 +56,7 @@ Partial Class frmScripts
         '
         'ScriptsView
         '
+        Me.ScriptsView.AllowDrop = Global.TibiaTekBot.My.MySettings.Default.TestingDrop
         Me.ScriptsView.AllowUserToAddRows = False
         Me.ScriptsView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
@@ -64,6 +65,7 @@ Partial Class frmScripts
         Me.ScriptsView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.ScriptsView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ScriptStatus, Me.Filename})
         Me.ScriptsView.ContextMenuStrip = Me.ContextMenuStrip1
+        Me.ScriptsView.DataBindings.Add(New System.Windows.Forms.Binding("AllowDrop", Global.TibiaTekBot.My.MySettings.Default, "TestingDrop", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.ScriptsView.Location = New System.Drawing.Point(12, 43)
         Me.ScriptsView.Name = "ScriptsView"
         Me.ScriptsView.ReadOnly = True
@@ -148,39 +150,39 @@ Partial Class frmScripts
         '
         Me.AddScriptToolStripMenuItem.Image = CType(resources.GetObject("AddScriptToolStripMenuItem.Image"), System.Drawing.Image)
         Me.AddScriptToolStripMenuItem.Name = "AddScriptToolStripMenuItem"
-        Me.AddScriptToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AddScriptToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.AddScriptToolStripMenuItem.Text = "&Add"
         '
         'EditToolStripMenuItem2
         '
         Me.EditToolStripMenuItem2.Image = CType(resources.GetObject("EditToolStripMenuItem2.Image"), System.Drawing.Image)
         Me.EditToolStripMenuItem2.Name = "EditToolStripMenuItem2"
-        Me.EditToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
+        Me.EditToolStripMenuItem2.Size = New System.Drawing.Size(124, 22)
         Me.EditToolStripMenuItem2.Text = "&Edit"
         '
         'RemoveToolStripMenuItem1
         '
         Me.RemoveToolStripMenuItem1.Image = CType(resources.GetObject("RemoveToolStripMenuItem1.Image"), System.Drawing.Image)
         Me.RemoveToolStripMenuItem1.Name = "RemoveToolStripMenuItem1"
-        Me.RemoveToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.RemoveToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
         Me.RemoveToolStripMenuItem1.Text = "&Remove"
         '
         'ReloadToolStripMenuItem1
         '
         Me.ReloadToolStripMenuItem1.Name = "ReloadToolStripMenuItem1"
-        Me.ReloadToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.ReloadToolStripMenuItem1.Size = New System.Drawing.Size(124, 22)
         Me.ReloadToolStripMenuItem1.Text = "R&eload"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(121, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Image = CType(resources.GetObject("ExitToolStripMenuItem.Image"), System.Drawing.Image)
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ExitToolStripMenuItem.Text = "&Close"
         '
         'OptionsToolStripMenuItem

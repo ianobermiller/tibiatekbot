@@ -195,7 +195,6 @@ Public Class frmMain
                 'AboutToolStripMenuItem.Enabled = False
                 MainTabControl.Enabled = False
             End If
-
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -1830,15 +1829,6 @@ Public Class frmMain
         Consts.AutoStackerDelay = AutoStackerDelay.Value
     End Sub
 
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-        If Kernel.Client.IsConnected Then
-            RefreshControls()
-            MainTabControl.Enabled = True
-        Else
-            MainTabControl.Enabled = False
-        End If
-
-    End Sub
 
     Private Sub TabPage10_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TabPage10.Enter
         Dim R As New Random(System.DateTime.Now.Millisecond)
@@ -2726,7 +2716,6 @@ Public Class frmMain
         Kernel.Client.TestPipe()
     End Sub
 
-
     Private Sub AddLeader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddLeader.Click
         Try
             Dim LeaderName As String
@@ -2743,7 +2732,6 @@ Public Class frmMain
         End Try
     End Sub
 
-
     Private Sub RemoveLeader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RemoveLeader.Click
         Try
             If ComboLeaders.Items.Count > 0 Then
@@ -2751,6 +2739,42 @@ Public Class frmMain
             End If
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Public Sub NI_ShowBalloonTip(ByVal Title As String, ByVal Message As String, Optional ByVal Timeout As Integer = 5, Optional ByVal Icon As ToolTipIcon = ToolTipIcon.None)
+        Try
+            NotifyIcon.ShowBalloonTip(Timeout, Title, Message, Icon)
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    <STAThread()> _
+    Public Sub NI_SetText(ByVal Text As String)
+        Try
+            NotifyIcon.Text = Text
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    Public Function NI_GetText() As String
+        Try
+            NI_GetText = NotifyIcon.Text
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+        NI_GetText = ""
+    End Function
+
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+        Try
+            If Kernel.Client.IsConnected Then
+                NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName
+            Else
+                NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - Not logged in"
+            End If
+        Catch ex As Exception
+            NotifyIcon.Text = "TibiaTek Bot v" & BotVersion
         End Try
     End Sub
 End Class
