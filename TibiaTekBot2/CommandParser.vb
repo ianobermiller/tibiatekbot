@@ -1145,10 +1145,12 @@ Public Class CommandParser
                 Case 0
                     Kernel.LooterMinimumCapacity = 0
                     Kernel.LooterTimerObj.StopTimer()
+                    Kernel.RenameBackpackObj.StopTimer()
                     Kernel.ConsoleWrite("Auto Looter is now Disabled.")
                 Case 1
                     Kernel.LooterMinimumCapacity = 0
                     Kernel.LooterTimerObj.StartTimer()
+                    Kernel.RenameBackpackObj.StartTimer()
                     Kernel.ConsoleWrite("Auto Looter is now Enabled." & Ret & "It will loot until capacity reaches 0.")
                 Case Else
                     Select Case Arguments(2).Value.ToLower
@@ -1339,7 +1341,8 @@ Public Class CommandParser
                     Kernel.ConsoleWrite("ClientZ(7): " & Kernel.Client.MapTiles.WorldZToClientZ(7))
                     Kernel.ConsoleWrite("ClientZ(8): " & Kernel.Client.MapTiles.WorldZToClientZ(8))
                     Kernel.ConsoleWrite("ClientZ(9): " & Kernel.Client.MapTiles.WorldZToClientZ(9))
-
+                Case "bpindex"
+                    Kernel.ConsoleWrite(Kernel.LootItems.GetBackpackIndex(3031))
                 Case "floorchange"
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -1360,7 +1363,18 @@ Public Class CommandParser
                             CPB.AnimatedText(Scripting.ITibia.TextColors.Red, Kernel.Walker_Waypoints(I).Coordinates, "**")
                         End If
                     Next
-
+                Case "iteminfo"
+                    Kernel.ConsoleWrite(Kernel.Client.Objects.Flags(&HBD7).ToString)
+                Case "bp"
+                    Dim BP As New Container
+                    Dim I As Integer = 0
+                    BP.Reset()
+                    Do
+                        I += 1
+                        'Kernel.Client.ConsoleWrite(BP.GetContainerIndex)
+                        SetContainerName("BP #" & I, BP.GetContainerIndex)
+                    Loop While BP.NextContainer
+                    Kernel.ConsoleWrite("Renamed BP's")
                 Case "direction"
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)

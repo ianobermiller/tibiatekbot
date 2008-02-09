@@ -114,7 +114,8 @@
     <None Include="Test Script\UsingTimers.tts.vb" />
     <Compile Include="Test Script\login.tts.vb" />
     <None Include="Test Script\CharacterConditionsChanged.tts.vb" />
-    <None Include="Test Script\UsingCommandParser.tts.vb" />
+    <Compile Include="Test Script\Say.tts.vb" />
+    <Compile Include="Test Script\UsingCommandParser.tts.vb" />
     <None Include="Test Script\UsingComputerObject.tts.vb" />
   </ItemGroup>
   <ItemGroup>
