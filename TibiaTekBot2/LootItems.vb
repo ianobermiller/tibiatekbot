@@ -39,58 +39,21 @@ Public Module LootItemsModule
             End Get
         End Property
 
-        Public ReadOnly Property GetBackpackIndex(ByVal ID As Integer, Optional ByVal OpenBps As Integer = -1) As Integer
-            Get
-                Try
-
-                    Dim BPCount As Integer = 0
-                    If OpenBps = -1 Then
-                        Dim BP As New Container
-                        BPCount = BP.GetBackpackCount
-                    Else
-                        BPCount = OpenBps
-                    End If
-                    For Each Item As LootItemDefinition In Items.Values
-                        If Item.GetID = ID Then
-                            If System.Math.Abs(BPCount - 1) < Item.GetContainerIndex Then 'We don't want to return negative value
-                                Return System.Math.Abs(BPCount - 1)
-                            Else
-                                Return Item.GetContainerIndex
-                            End If
-                        End If
-                    Next
-                    Return -1
-                Catch ex As Exception
-                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End Get
-        End Property
-
-        Public ReadOnly Property GetItemsIDs(Optional ByVal ContainerIndex As Integer = Integer.MaxValue, Optional ByVal Page As Integer = 0) As Scripting.IContainer.ContainerItemDefinition()
+        Public ReadOnly Property GetItemsIDs(Optional ByVal ContainerIndex As Integer = Integer.MaxValue) As Scripting.IContainer.ContainerItemDefinition()
             Get
                 Try
                     Dim R As New List(Of Scripting.IContainer.ContainerItemDefinition)
-                    Dim I As Integer = 0
                     Dim ItemID As UShort = 0
-
                     For Each Item As LootItemDefinition In Items.Values
                         If ContainerIndex < Integer.MaxValue AndAlso Item.GetContainerIndex <> ContainerIndex Then Continue For
                         ItemID = Item.GetID
-                        I += 1
                         Dim Count As Integer = 0
                         If Kernel.Client.Objects.HasExtraByte(ItemID) Then
                             Count = 100
                         Else
                             Count = 0
                         End If
-                        If Page = 0 Then 'Do not care about inside backpacks (aka Pages)
-                            R.Add(New Scripting.IContainer.ContainerItemDefinition(ItemID, Count))
-                        ElseIf I >= (Page - 1) * 35 AndAlso I < Page * 35 Then 'Add Item to the backpack
-                            R.Add(New Scripting.IContainer.ContainerItemDefinition(ItemID, Count))
-                        ElseIf I = Page * 35 Then 'Time to add backpack
-                            R.Add(New Scripting.IContainer.ContainerItemDefinition(Kernel.Client.Objects.ID("Brown Backpack"), 0))
-                            Exit For
-                        End If
+                        R.Add(New Scripting.IContainer.ContainerItemDefinition(ItemID, Count))
                     Next
                     Return R.ToArray
                 Catch Ex As Exception

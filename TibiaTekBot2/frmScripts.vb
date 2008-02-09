@@ -417,7 +417,4 @@ Public Class frmScripts
             End If
         Next
     End Sub
-    Private Sub ReloadToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReloadToolStripMenuItem1.Click
-
-    End Sub
 End Class
