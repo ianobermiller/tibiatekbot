@@ -235,4 +235,25 @@ Module MiscUtils
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Function
+
+    Public Function SetContainerName(ByVal NewName As String, ByVal ContainerIndex As Integer) As Boolean
+        Try
+            Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
+            Dim BP As New Container
+            If BP.JumpToContainer(ContainerIndex) Then
+                Dim ContainerItems(BP.GetItemCount - 1) As IContainer.ContainerItemDefinition
+                For I As Integer = 0 To BP.GetItemCount - 1
+                    ContainerItems(I) = BP.Items(I)
+                Next
+                CPB.CreateContainer(BP.GetContainerID, ContainerIndex, NewName, BP.GetContainerSize, ContainerItems, BP.HasParent)
+            Else
+                Return False
+            End If
+            'Kernel.Client.WriteMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerNameOffset, NewName)
+            Return True
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
 End Module

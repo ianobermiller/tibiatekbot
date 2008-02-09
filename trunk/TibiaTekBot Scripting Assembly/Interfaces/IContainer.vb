@@ -99,6 +99,7 @@ Public Interface IContainer
     ReadOnly Property Items(ByVal Index As Integer) As IContainer.ContainerItemDefinition
     ReadOnly Property GetInventorySlotId(ByVal Slot As ITibia.InventorySlots) As Integer
     ReadOnly Property GetInventorySlotCount(ByVal Slot As ITibia.InventorySlots) As Integer
+    ReadOnly Property GetContainerCount() As Integer
 #End Region
 
 #Region " Methods "
@@ -108,7 +109,6 @@ Public Interface IContainer
     Function IsOpened() As Boolean
     Function PrevContainer() As Boolean
     Function FindItem(ByRef Item As IContainer.ContainerItemDefinition, ByVal ItemID As Integer, Optional ByVal ContainerIndexOffset As Integer = 0, Optional ByVal IndexOffset As Integer = 0, Optional ByVal ContainerIndexMax As Integer = 0, Optional ByVal MinCount As Integer = 0, Optional ByVal MaxCount As Integer = 100) As Boolean
-    Function ContainerCount() As Integer
     Function GetItemCountByItemID(ByVal ItemID As UShort) As Integer
 #End Region
 End Interface

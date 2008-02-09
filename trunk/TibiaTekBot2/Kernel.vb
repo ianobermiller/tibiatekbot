@@ -191,6 +191,7 @@ Public Module KernelModule
         Public WithEvents AmmoMakerTimerObj As ThreadTimer
         Public Scripts As List(Of ScriptDefinition)
         Public CommandParser As CommandParser
+        Public WithEvents RenameBackpackObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -447,6 +448,7 @@ Public Module KernelModule
                 MagicWalls = New List(Of MagicWallDefinition)
                 DancerTimerObj = New ThreadTimer()
                 AmmoMakerTimerObj = New ThreadTimer(1000)
+                RenameBackpackObj = New ThreadTimer(100)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -473,7 +475,7 @@ Public Module KernelModule
                 ServerPacket.UseObject(LooterItemID, LooterLoc, N)
                 'buffer = UseObject(LooterItemID, LooterLoc, N)
                 Static Cont As New Container
-                If N - 1 = Cont.ContainerCount Then
+                If N - 1 = Cont.GetContainerCount Then
                     ReplacedContainer = True
                 Else
                     ReplacedContainer = False
@@ -1146,11 +1148,14 @@ Public Module KernelModule
                 LootHasChanged -= 1 'The looter has two tries to loot successfully
                 Dim ActualItem As Integer
                 Dim ActualIndex As Integer
+                Dim LootItem As New LootItems.LootItemDefinition
                 Dim ActualIndex2 As Integer
                 Dim Container As New Container
+                Dim NumberOfBps As Integer = Container.GetBackpackCount
                 Dim Item As Scripting.IContainer.ContainerItemDefinition
                 Container.Reset()
                 Dim Containers() As InternalContainer = {New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer}
+                'Take information from real bps
                 Do
                     If Container.IsOpened() Then
                         ActualIndex = Container.GetContainerIndex()
@@ -1188,13 +1193,18 @@ Public Module KernelModule
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1
                             Item = Containers(ActualIndex).Items(I)
                             If Item.ID = 0 Then Continue For
-                            If Item.ID = BrownBagID AndAlso Not BagOpened AndAlso Consts.LootInBag Then 'got bag!
+                            If Item.ID = BrownBagID AndAlso Not BagOpened AndAlso Consts.LootInBag Then 'It's a bag!
                                 'Dim ServerPacket As New ServerPacketBuilder(Proxy)
                                 ServerPacket.UseObject(Item, &HF)
                                 'Proxy.SendPacketToServer(OpenContainer(Item, &HF), False)
                                 BagOpened = True
                             End If
                             If LootItems.IsLootable(Item.ID) Then
+                                LootItem = LootItems.GetLootItem(Item.ID)
+                                If LootItem.GetContainerIndex = 11 Then 'LOOT TO GROUND
+                                    ServerPacket.MoveObject(Item, CharacterLoc)
+                                    Continue For
+                                End If
                                 Dim RemainingCount As Integer
                                 RemainingCount = Max(Item.Count, 1)
                                 If Client.Objects.HasFlags(Item.ID, IObjects.ObjectFlags.IsStackable) Then
@@ -1208,6 +1218,7 @@ Public Module KernelModule
                                             OrElse (Containers(ActualIndex2).GetName.StartsWith("Bag") _
                                             AndAlso Containers(ActualIndex2).HasParent _
                                             AndAlso Containers(ActualIndex2).GetContainerID = BrownBagID) Then Continue For
+                                        If Not Containers(ActualIndex2).GetContainerIndex = LootItems.GetBackpackIndex(Item.ID, NumberOfBps) Then Continue For
                                         ContainerItemCount2 = Containers(ActualIndex2).GetItemCount()
                                         For E As Integer = 0 To ContainerItemCount2 - 1
                                             Item2 = Containers(ActualIndex2).Items(E)
@@ -1255,6 +1266,7 @@ Public Module KernelModule
                                             OrElse (Containers(ActualIndex2).GetName.StartsWith("Bag") _
                                             AndAlso Containers(ActualIndex2).HasParent _
                                             AndAlso Containers(ActualIndex2).GetContainerID = BrownBagID) Then Continue For
+                                        If Not Containers(ActualIndex2).GetContainerIndex = LootItems.GetBackpackIndex(Item.ID, NumberOfBps) Then Continue For
                                         If Containers(ActualIndex2).GetItemCount < Containers(ActualIndex2).GetContainerSize Then
                                             Dim Loc As ITibia.LocationDefinition
                                             Loc.X = &HFFFF
@@ -2639,7 +2651,7 @@ Public Module KernelModule
                             End If
                         Else
                             If WaitAttacker = Nothing Then
-                                WaitAttacker = Date.Now.AddSeconds(10)
+                                WaitAttacker = Date.Now.AddSeconds(6)
                                 'Kernel.ConsoleWrite("Added 10 seconds to timer")
                             ElseIf Date.Now > WaitAttacker Then
                                 Kernel.CBState = CavebotState.Walking
@@ -2672,7 +2684,7 @@ Public Module KernelModule
                         CBCreatureDied = False
                         If IsOpeningReady = True Then
                             Static Cont As New Container
-                            CurrentContCount = Cont.ContainerCount
+                            CurrentContCount = Cont.GetContainerCount
                             If CurrentContCount > CBContainerCount Then
                                 WaitAttacker = Nothing
                                 CBState = CavebotState.Looting ' : Core.ConsoleWrite("Looting state ->")
@@ -3619,6 +3631,52 @@ ContinueAttack:
 
 #End Region
 
+#Region " Rename Backpack Timer "
+
+        Public Sub RewriteBPNames() 'Used when user closes the container
+            Try
+                'If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
+                Dim BP As New Container
+                BP.Reset()
+                Do
+                    'If Not BP.GetName.EndsWith("]") Then
+                    Select Case BP.GetName.ToLower
+                        Case "backpack"
+                            SetContainerName("Backpack " & "[" & BP.GetContainerIndex + 1 & "]", BP.GetContainerIndex)
+                        Case "bag"
+                            SetContainerName("Bag " & "[" & BP.GetContainerIndex + 1 & "]", BP.GetContainerIndex)
+                    End Select
+                    'End If
+                Loop While BP.NextContainer
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+
+        Private Sub RenameBackpackObj_OnExecute() Handles RenameBackpackObj.OnExecute
+            Try
+                'If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
+                Dim BP As New Container
+                BP.Reset()
+                Do
+                    If Not BP.GetName.EndsWith("]") Then
+                        Select Case BP.GetName.ToLower
+                            Case "backpack"
+                                SetContainerName("Backpack " & "[" & BP.GetContainerIndex + 1 & "]", BP.GetContainerIndex)
+                            Case "bag"
+                                SetContainerName("Bag " & "[" & BP.GetContainerIndex + 1 & "]", BP.GetContainerIndex)
+                        End Select
+                    End If
+                Loop While BP.NextContainer
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Kernel.ConsoleError("Unkown Error occured during Renaming Backpacks. Renaming Backpacks is now disabled.")
+                RenameBackpackObj.StopTimer()
+            End Try
+        End Sub
+
+#End Region
+
 #End Region
 
 #Region " IRC Client "
@@ -4115,6 +4173,13 @@ ContinueAttack:
         Private Sub ClientParseCharacterTurnSouth(ByRef Send As Boolean)
         End Sub
 
+        Private Sub ClientParseCloseContainer(ByVal bytBuffer() As Byte, ByVal Pos As Integer, ByVal Send As Boolean)
+            Dim ContainerIndex As Integer = GetByte(bytBuffer, Pos)
+            If RenameBackpackObj.State = IThreadTimer.ThreadTimerState.Running Then
+                RewriteBPNames()
+            End If
+        End Sub
+
         Private Sub ClientParseMoveObject(ByRef bytBuffer() As Byte, ByRef Pos As Integer, ByRef Send As Boolean)
             Dim Source As ITibia.LocationDefinition = GetLocation(bytBuffer, Pos)
             Dim ItemID As UShort = GetWord(bytBuffer, Pos)
@@ -4178,10 +4243,28 @@ ContinueAttack:
                 If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then
                     If String.Compare(MyContainer.GetName, "Loot Categories") = 0 Then 'using a category :O
                         LooterCurrentCategory = Slot + 1
-                        CP.CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True)
-                        'Proxy.SendPacketToClient(CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True))
+                        If Slot + 1 = 12 Then 'Backpack which loots to GROUND
+                            CP.CreateContainer(ItemID, &HF, "BP " & "GROUND" & " Page 1", &H24, LootItems.GetItemsIDs(Slot, 1), True)
+                        Else
+                            CP.CreateContainer(ItemID, &HF, "BP " & (Slot + 1) & " Page 1", &H24, LootItems.GetItemsIDs(Slot, 1), True)
+                            'Proxy.SendPacketToClient(CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True))
+                        End If
+                    ElseIf MyContainer.GetName.Contains("Page") AndAlso Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsContainer) Then 'Moving to different page
+                        Dim RegExp As Match = Regex.Match(MyContainer.GetName, "BP\s(\d+)\sPage\s(\d+)")
+                        If RegExp.Success Then
+                            Dim BPNumber As Integer = RegExp.Groups(1).Value
+                            Dim PageNumber As Integer = RegExp.Groups(2).Value
+                            CP.CreateContainer(ItemID, &HF, "BP " & BPNumber & " Page " & PageNumber + 1, &H24, LootItems.GetItemsIDs(BPNumber - 1, PageNumber + 1), True)
+                        Else
+                            Dim RegExpGround As Match = Regex.Match(MyContainer.GetName, "BP\sGRUND\sPage\s(\d+)")
+                            If RegExpGround.Success Then
+                                Dim GroundPageNumber As Integer = RegExpGround.Groups(1).Value
+                                CP.CreateContainer(ItemID, &HF, "BP " & "GROUND" & " Page " & GroundPageNumber + 1, &H24, LootItems.GetItemsIDs(11, GroundPageNumber + 1), True) '11 is Ground backpack
+                            End If
+                        End If
                     Else
                         CP.SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ").")
+                        Send = False
                         'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ")."))
                     End If
                     Send = False
@@ -4393,6 +4476,9 @@ ContinueAttack:
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
                         Pos += 13
+                    Case &H87
+                        ClientParseCloseContainer(bytBuffer, Pos, Send)
+                        'Not sure if this affects to activity
                     Case &H88 'go to parent
                         Proxy.LastAction = Date.Now.Ticks
                         LastActivity = Date.Now
@@ -4402,7 +4488,30 @@ ContinueAttack:
                             MyContainer.JumpToContainer(&HF)
                             Dim ContainerSize As Integer = MyContainer.GetContainerSize
                             If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then
-                                LootItems.ShowLootCategories()
+                                If MyContainer.GetName.Contains("Page") Then 'Moving to different page
+                                    Dim RegExp1 As Match = Regex.Match(MyContainer.GetName, "BP\s(\d+)\sPage\s(\d+)")
+                                    If RegExp1.Success Then
+                                        Dim BPNumber As Integer = RegExp1.Groups(1).Value
+                                        Dim PageNumber As Integer = RegExp1.Groups(2).Value
+                                        If PageNumber <= 1 Then 'User tries to go up from Page 1
+                                            LootItems.ShowLootCategories()
+                                        Else
+                                            CP.CreateContainer(MyContainer.GetContainerID, &HF, "BP " & BPNumber & " Page " & PageNumber - 1, &H24, LootItems.GetItemsIDs(BPNumber - 1, PageNumber - 1), True)
+                                        End If
+                                    Else
+                                        Dim RegExp1Ground As Match = Regex.Match(MyContainer.GetName, "BP\sGROUND\sPage\s(\d+)")
+                                        If RegExp1Ground.Success Then
+                                            Dim GroundPageNumber As Integer = RegExp1Ground.Groups(1).Value
+                                            If GroundPageNumber <= 1 Then 'User tries to go up from Page 1
+                                                LootItems.ShowLootCategories()
+                                            Else
+                                                CP.CreateContainer(MyContainer.GetContainerID, &HF, "BP " & "GROUND" & " Page " & GroundPageNumber - 1, &H24, LootItems.GetItemsIDs(11, GroundPageNumber - 1), True) 'Index 11 is Ground Backpack
+                                            End If
+                                        End If
+                                    End If
+                                Else
+                                    LootItems.ShowLootCategories()
+                                End If
                                 Send = False
                             End If
                         End If
@@ -4770,7 +4879,7 @@ ContinueAttack:
                                 If Word = 0 Then 'invisible!
                                     Pos += 2
                                 Else
-                                    Pos += 5 'skip outfit stuff
+                                    Pos += 5 'skip outfit stuff 
                                 End If
                                 Pos += 6
                             ElseIf ID = &H61 Then 'unknown creatre, skip that shit
@@ -4788,7 +4897,7 @@ ContinueAttack:
                             ElseIf Client.Objects.HasFlags(ID, IObjects.ObjectFlags.IsContainer) Then
                                 If TTBState = BotState.Paused Then Exit Sub
                                 If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
-                                    If Client.Objects.Name(ID) = "Unknown" Then 'if its known container, skip
+                                    If String.IsNullOrEmpty(Client.Objects.Name(ID)) Then 'if its known container, skip
                                         Dim BL As New BattleList
                                         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                                         If BL.GetDistanceFromLocation(Loc) <= Consts.LootMaxDistance Then
@@ -4800,7 +4909,7 @@ ContinueAttack:
                                                 'WriteMemory(Consts.ptrGoToY, 0, 1)
                                                 'WriteMemory(Consts.ptrGoToZ, 0, 1)
                                                 BL.IsWalking = False
-                                                CBContainerCount = (New Container).ContainerCount
+                                                CBContainerCount = (New Container).GetContainerCount
                                                 IsOpeningReady = False
                                                 WaitTime = Date.Now.AddSeconds(5)
                                                 CBCreatureDied = True
@@ -4862,6 +4971,7 @@ ContinueAttack:
                                     Pos += 1
                                 End If
                             Next
+                            Dim BP As New Container
                         Case &H6F 'close container
                             Pos += 1 'containerindex
                         Case &H70 'add item to container
