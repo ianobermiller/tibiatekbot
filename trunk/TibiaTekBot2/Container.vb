@@ -125,42 +125,22 @@ Public Module ContainerModule
                 End
             End Try
         End Function
-        Public ReadOnly Property GetContainerCount() As Integer Implements IContainer.GetContainerCount
-            Get
-                Try
-                    Dim ContCount As Integer = 0
-                    Dim Cont As New Container
-                    Cont.Reset()
-                    Do
-                        If Cont.IsOpened() Then
-                            ContCount += 1
-                        End If
-                    Loop While Cont.NextContainer()
-                    Return ContCount
-                Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End
-                End Try
-            End Get
-        End Property
-
-        Public ReadOnly Property GetBackpackCount() As Integer
-            Get
-                Try
-                    Dim ContCount As Integer = 0
-                    Dim Cont As New Container
-                    Cont.Reset()
-                    Do
-                        If Cont.IsOpened() AndAlso Not String.IsNullOrEmpty(Kernel.Client.Objects.Name(Cont.GetContainerID)) Then
-                            ContCount += 1
-                        End If
-                    Loop While Cont.NextContainer()
-                    Return ContCount
-                Catch ex As Exception
-                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
-            End Get
-        End Property
+        Public Function ContainerCount() As Integer Implements IContainer.ContainerCount
+            Try
+                Dim ContCount As Integer = 0
+                Dim Cont As New Container
+                Cont.Reset()
+                Do
+                    If Cont.IsOpened() Then
+                        ContCount += 1
+                    End If
+                Loop While Cont.NextContainer()
+                Return ContCount
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Function
 
         Public Shared Function IsOpened(ByVal Index As Integer) As Boolean
             Try

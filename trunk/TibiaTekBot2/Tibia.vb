@@ -44,7 +44,6 @@ Public NotInheritable Class Tibia
     Private Declare Function GetProcAddress Lib "kernel32" (ByVal hModule As Int32, <MarshalAs(UnmanagedType.LPStr)> ByVal lpProcName As String) As Int32
     Private Declare Function VirtualFreeEx Lib "kernel32" (ByVal hProcess As Int32, ByVal lpAddress As Int32, ByVal dwSize As Int32, ByVal dwFreeType As Int32) As Boolean
     Private Declare Function SetWindowPos Lib "user32" (ByVal hWnd As Int32, ByVal hWndInsertAfter As Int32, ByVal X As Int32, ByVal Y As Int32, ByVal CX As Int32, ByVal CY As Int32, ByVal uFlags As UInt32) As Boolean
-    Private Declare Function UpdateWindow Lib "User32" Alias "UpdateWindow" (ByVal hwnd As System.IntPtr) As Long
 #End Region
 
 #Region " Constants "
@@ -617,14 +616,6 @@ Public NotInheritable Class Tibia
     Public Sub Minimize() Implements Scripting.ITibia.Minimize
         Try
             ShowWindow(GetWindowHandle, ShowState.SW_MINIMIZE)
-        Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
-    Public Sub Update()
-        Try
-            UpdateWindow(GetWindowHandle)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
