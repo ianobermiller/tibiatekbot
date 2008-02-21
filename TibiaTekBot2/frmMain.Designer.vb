@@ -56,6 +56,7 @@ Partial Class frmMain
         Me.ShowHideTibiaWindow = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.ClosePopupItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.TibiaTekBotMenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.FunctionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -620,7 +621,7 @@ Partial Class frmMain
         '
         'PopupMenu
         '
-        Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.KeyboardToolStripMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
+        Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.KeyboardToolStripMenuItem, Me.ToolStripMenuItem1, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
         Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
@@ -701,6 +702,11 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.ClosePopupItem, "ClosePopupItem")
         Me.ClosePopupItem.Name = "ClosePopupItem"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        resources.ApplyResources(Me.ToolStripMenuItem1, "ToolStripMenuItem1")
         '
         'TibiaTekBotMenuToolStripMenuItem
         '
@@ -4150,4 +4156,5 @@ Partial Class frmMain
     Friend WithEvents AddLeader As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RemoveLeader As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NotifyIcon As System.Windows.Forms.NotifyIcon
+    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 End Class

@@ -82,8 +82,12 @@ Public Module ConstantsModule
         Public ObjectDist As Integer = &H4C
 
         Public ptrCharacterListBegin As Integer = &H766DBC
-        Public CharacterListDist As Integer = &H54
-        Public CharacterListWorldOffset As Integer = 30
+        Public CharacterListDist As Integer = &H54 '8.1
+        Public CharacterListWorldOffset As Integer = &H1E '8.1
+        Public CharacterListWorldIPBinaryOffset As Integer = &H3C '8.1
+        Public CharacterListWorldIPStringOffset As Integer = &H40 '8,1
+        Public CharacterListWorldPortOffset As Integer = &H50 '8.1
+
         Public ptrInGame As Integer = &H766DF8
         Public ptrFrameRateBegin As Integer = &H76793C
         Public ptrEnterOneNamePerLine As Integer = &H594670

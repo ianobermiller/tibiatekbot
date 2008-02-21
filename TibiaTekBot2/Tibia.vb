@@ -138,7 +138,7 @@ Public NotInheritable Class Tibia
     Private _Objects As Objects
     Private _PipeName As String = ""
     Public WithEvents Pipe As Pipe
-
+    Private _CharacterList() As ITibia.CharacterListEntry
 #End Region
 
 #Region " Properties "
@@ -164,15 +164,55 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
+
     Public ReadOnly Property CharacterName() As String Implements ITibia.CharacterName
         Get
+            If Not IsConnected Then Return String.Empty
             Try
-                Dim CharacterIndex As Integer = 0, CharacterListBegin As Integer = 0
-                Dim _CharacterName As String = String.Empty
+                Return _CharacterList(CharacterListSelectedIndex).CharacterName
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Get
+    End Property
+
+    Public WriteOnly Property CharacterList() As ITibia.CharacterListEntry()
+        Set(ByVal value As ITibia.CharacterListEntry())
+            _CharacterList = value
+        End Set
+    End Property
+
+    Public ReadOnly Property CharacterListSelectedIndex() As Integer Implements ITibia.CharacterListSelectedIndex
+        Get
+            If Not IsConnected Then Return 0
+            Try
+                Dim CharacterIndex As Integer = 0
                 ReadMemory(Consts.ptrCharacterSelectionIndex, CharacterIndex, 1)
-                ReadMemory(Consts.ptrCharacterListBegin, CharacterListBegin, 4)
-                ReadMemory(CharacterListBegin + (CharacterIndex * Consts.CharacterListDist), _CharacterName)
-                Return _CharacterName
+                Return CharacterIndex
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterList_() As ITibia.CharacterListEntry() Implements ITibia.CharacterList
+        Get
+            Try
+                Return _CharacterList
+            Catch Ex As Exception
+                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property CharacterListCurrentEntry() As ITibia.CharacterListEntry Implements ITibia.CharacterListCurrentEntry
+        Get
+            If Not IsConnected Then Return Nothing
+            Try
+                Return _CharacterList(CharacterListSelectedIndex)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End

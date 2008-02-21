@@ -46,10 +46,11 @@ Public Class PProxy2
 
     'Public ClientHandle As IntPtr = 0
 
-    Private CharacterNames() As String
-    Private CharacterWorlds() As String
-    Private CharacterIPs() As UInteger
-    Private CharacterPorts() As UShort
+    'Private CharacterNames() As String
+    'Private CharacterWorlds() As String
+    'Private CharacterIPs() As UInteger
+    'Private CharacterPorts() As UShort
+    Private CharacterList() As ITibia.CharacterListEntry
     Private CharacterIndex As Integer = 0
 
     Public Event PacketFromClient(ByRef bytArray() As Byte, ByRef Block As Boolean)
@@ -383,7 +384,7 @@ Public Class PProxy2
                 CharacterIndex = intTemp
                 sckGS.Close()
                 'Dim IP As New Net.IPAddress(CharacterIPs(intTemp))
-                sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
+                sckGS.Connect(CharacterList(intTemp).WorldIP.ToString, CharacterList(intTemp).WorldPort)
                 'strCharName = CharacterNames(intTemp)
                 RaiseEvent ConnectionGained()
             Else
@@ -393,7 +394,7 @@ Public Class PProxy2
                         Kernel.Client.ReadMemory(Consts.ptrCharacterSelectionIndex, intTemp, 1)
                         CharacterIndex = intTemp
                         sckGS.Close()
-                        sckGS.Connect((New Net.IPAddress(CharacterIPs(intTemp))).ToString, CharacterPorts(intTemp))
+                        sckGS.Connect(CharacterList(intTemp).WorldIP.ToString, CharacterList(intTemp).WorldPort)
                         'strCharName = CharacterNames(intTemp)
                     Case Else
                 End Select
@@ -480,17 +481,26 @@ Public Class PProxy2
             Dim Motd As String = GetString(bytBuffer, Pos)
             Pos += 1
             Dim TotalChars As Short = GetByte(bytBuffer, Pos)
-            ReDim CharacterNames(TotalChars - 1)
-            ReDim CharacterWorlds(TotalChars - 1)
-            ReDim CharacterIPs(TotalChars - 1)
-            ReDim CharacterPorts(TotalChars - 1)
+            ReDim CharacterList(TotalChars - 1)
+            'ReDim CharacterNames(TotalChars - 1)
+            'ReDim CharacterWorlds(TotalChars - 1)
+            'ReDim CharacterIPs(TotalChars - 1)
+            'ReDim CharacterPorts(TotalChars - 1)
             'Dim pck As String = BytesToStr(bytBuffer)
             For I As Integer = 0 To TotalChars - 1
-                CharacterNames(I) = GetString(bytBuffer, Pos)
-                CharacterWorlds(I) = GetString(bytBuffer, Pos)
-                CharacterIPs(I) = GetDWord(bytBuffer, Pos)
-                CharacterPorts(I) = GetWord(bytBuffer, Pos)
+                With CharacterList(I)
+                    .Index = I
+                    .CharacterName = GetString(bytBuffer, Pos)
+                    .WorldName = GetString(bytBuffer, Pos)
+                    .WorldIP = New Net.IPAddress(GetDWord(bytBuffer, Pos))
+                    .WorldPort = GetWord(bytBuffer, Pos)
+                End With
+                'CharacterNames(I) = GetString(bytBuffer, Pos)
+                'CharacterWorlds(I) = GetString(bytBuffer, Pos)
+                'CharacterIPs(I) = GetDWord(bytBuffer, Pos)
+                'CharacterPorts(I) = GetWord(bytBuffer, Pos)
             Next
+            CType(Client, Tibia).CharacterList = CharacterList
             Dim PremDays As UShort = GetWord(bytBuffer, Pos)
             ReDim bytBuffer(1)
             'Dim newBytBuffer(1) As Byte
@@ -504,13 +514,16 @@ Public Class PProxy2
             AddByte(bytBuffer, &H64)
             AddByte(bytBuffer, CByte(TotalChars))
             For I As Integer = 0 To TotalChars - 1
-                AddString(bytBuffer, CharacterNames(I))
-                AddString(bytBuffer, CharacterWorlds(I))
-                AddByte(bytBuffer, 127)
-                AddByte(bytBuffer, 0)
-                AddByte(bytBuffer, 0)
-                AddByte(bytBuffer, 1)
-                AddWord(bytBuffer, sckGListen.LocalPort)
+                With CharacterList(I)
+                    AddString(bytBuffer, .CharacterName)
+                    AddString(bytBuffer, .WorldName)
+                    AddByte(bytBuffer, 127)
+                    AddByte(bytBuffer, 0)
+                    AddByte(bytBuffer, 0)
+                    AddByte(bytBuffer, 1)
+                    AddWord(bytBuffer, sckGListen.LocalPort)
+                End With
+
             Next
             AddWord(bytBuffer, PremDays)
             If Fix(bytBuffer.Length / 8) <> (bytBuffer.Length / 8) Then

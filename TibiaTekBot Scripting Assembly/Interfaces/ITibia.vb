@@ -17,11 +17,19 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports Scripting, System.Windows.Forms
+Imports Scripting, System.Net, System.Windows.Forms
 
 Public Interface ITibia
 
 #Region " Structures "
+
+    Structure CharacterListEntry
+        Dim Index As Integer
+        Dim CharacterName As String
+        Dim WorldName As String
+        Dim WorldIP As IPAddress
+        Dim WorldPort As UInteger
+    End Structure
 
 	Structure LocationDefinition
 		Dim X As Integer
@@ -287,7 +295,9 @@ Public Interface ITibia
     ReadOnly Property CharacterSkillPercent(ByVal Skill As ITibia.Skills) As Integer
     ReadOnly Property CharacterMagicLevel() As Integer
     ReadOnly Property CharacterLevel() As Integer
-
+    ReadOnly Property CharacterListCurrentEntry() As ITibia.CharacterListEntry
+    ReadOnly Property CharacterList() As ITibia.CharacterListEntry()
+    ReadOnly Property CharacterListSelectedIndex() As Integer
 
 #End Region
 
