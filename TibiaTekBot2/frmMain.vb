@@ -950,7 +950,7 @@ Public Class frmMain
             CType(Kernel.Client.Objects, Objects).Initialize()
             Kernel.Proxy.LoginPort = Kernel.LoginPort
             Kernel.TibiaClientStateTimerObj.StartTimer()
-            Kernel.Client.ReadMemory(Consts.ptrFrameRateBegin, Kernel.FrameRateBegin, 4)
+            Kernel.Client.ReadMemory(Consts.ptrScreenInfoBegin, Kernel.FrameRateBegin, 4)
             InjectLastAttackedId()
             If Kernel.IsOpenTibiaServer Then
                 Kernel.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)

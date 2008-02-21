@@ -31,23 +31,29 @@ Public Interface ITibia
         Dim WorldPort As UInteger
     End Structure
 
-	Structure LocationDefinition
-		Dim X As Integer
-		Dim Y As Integer
-		Dim Z As Integer
+    Structure LocationDefinition
+        Dim X As Integer
+        Dim Y As Integer
+        Dim Z As Integer
 
-		Public Sub New(ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer)
-			Me.X = X
-			Me.Y = Y
-			Me.Z = Z
+        Public Sub New(ByVal X As Integer, ByVal Y As Integer, ByVal Z As Integer)
+            Me.X = X
+            Me.Y = Y
+            Me.Z = Z
         End Sub
-	End Structure
+    End Structure
 
 #End Region
 
 #Region " Enumerations "
 
-    Enum EventKind
+    Enum GraphicsEngines As Integer
+        DirectX5 = 0
+        OpenGL
+        DirectX9
+    End Enum
+
+    Enum EventKind As Integer
         None = 0
         CharacterAttacked
         CharacterConditionsChanged
@@ -249,10 +255,10 @@ Public Interface ITibia
 
 #Region " Events "
 
-	Event Starting()
-	Event Started()
+    Event Starting()
+    Event Started()
     Event Closed()
-	Event Connected()
+    Event Connected()
     Event Disconnected()
     Event CharacterConditionsChanged As CharacterConditionsChangedEventHandler
     Event CharacterAttacked As CharacterAttackedEventHandler
@@ -265,15 +271,15 @@ Public Interface ITibia
 
 #Region " Properties "
 
-	ReadOnly Property Directory() As String
-	ReadOnly Property Filename() As String
-	ReadOnly Property GetProcessID() As Integer
-	ReadOnly Property GetProcessHandle() As Integer
-	ReadOnly Property GetWindowHandle() As Integer
-	ReadOnly Property GetWindowState() As WindowStates
+    ReadOnly Property Directory() As String
+    ReadOnly Property Filename() As String
+    ReadOnly Property GetProcessID() As Integer
+    ReadOnly Property GetProcessHandle() As Integer
+    ReadOnly Property GetWindowHandle() As Integer
+    ReadOnly Property GetWindowState() As WindowStates
     Property Title() As String
-	ReadOnly Property GetCurrentDialog() As String
-	ReadOnly Property ConnectionState() As ConnectionStates
+    ReadOnly Property GetCurrentDialog() As String
+    ReadOnly Property ConnectionState() As ConnectionStates
     ReadOnly Property IsConnected() As Boolean
     ReadOnly Property CharacterLocation() As LocationDefinition
     ReadOnly Property MapTiles() As IMapTiles
@@ -298,24 +304,31 @@ Public Interface ITibia
     ReadOnly Property CharacterListCurrentEntry() As ITibia.CharacterListEntry
     ReadOnly Property CharacterList() As ITibia.CharacterListEntry()
     ReadOnly Property CharacterListSelectedIndex() As Integer
+    ReadOnly Property ScreenWidth() As Integer
+    ReadOnly Property ScreenHeight() As Integer
+    ReadOnly Property ScreenTop() As Integer
+    ReadOnly Property ScreenLeft() As Integer
+    ReadOnly Property ScreenRight() As Integer
+    ReadOnly Property ScreenBottom() As Integer
+    ReadOnly Property GraphicsEngine() As GraphicsEngines
 
 #End Region
 
 #Region " Methods "
 
-	Sub ConsoleWrite(ByVal Message As String)
-	Sub ConsoleError(ByVal Message As String)
+    Sub ConsoleWrite(ByVal Message As String)
+    Sub ConsoleError(ByVal Message As String)
     Sub ConsoleRead(ByVal Message As String)
     Sub Restore()
     Sub Minimize()
     Sub Maximize()
     Sub Hide()
-	Sub Show()
-	Sub Activate()
-	Sub FlashWindow(Optional ByVal [Stop] As Boolean = False)
-	Sub Close()
-	Function SendMessage(ByVal MessageID As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
-	Function MessageBox(ByVal Message As String, Optional ByVal Caption As String = "", Optional ByVal Buttons As MessageBoxButtons = MessageBoxButtons.OK, Optional ByVal Icon As MessageBoxIcon = MessageBoxIcon.None, Optional ByVal DefaultButton As MessageBoxDefaultButton = MessageBoxDefaultButton.Button1, Optional ByVal Options As MessageBoxOptions = MessageBoxOptions.DefaultDesktopOnly) As DialogResult
+    Sub Show()
+    Sub Activate()
+    Sub FlashWindow(Optional ByVal [Stop] As Boolean = False)
+    Sub Close()
+    Function SendMessage(ByVal MessageID As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+    Function MessageBox(ByVal Message As String, Optional ByVal Caption As String = "", Optional ByVal Buttons As MessageBoxButtons = MessageBoxButtons.OK, Optional ByVal Icon As MessageBoxIcon = MessageBoxIcon.None, Optional ByVal DefaultButton As MessageBoxDefaultButton = MessageBoxDefaultButton.Button1, Optional ByVal Options As MessageBoxOptions = MessageBoxOptions.DefaultDesktopOnly) As DialogResult
     Sub SetFramesPerSecond(ByVal FPS As Double)
     Sub CharacterMove(ByVal Location As ITibia.LocationDefinition)
     Function BringToFront() As Boolean

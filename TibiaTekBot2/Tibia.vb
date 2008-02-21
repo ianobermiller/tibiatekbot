@@ -23,7 +23,6 @@ Imports Scripting, System.Runtime.InteropServices, System.Windows.Forms, System.
 Public NotInheritable Class Tibia
     Implements ITibia
 
-
 #Region " Windows API Declarations "
     Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As Int32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
     Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As UInt32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
@@ -564,6 +563,151 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
+    Public ReadOnly Property GraphicsEngine() As Scripting.ITibia.GraphicsEngines Implements Scripting.ITibia.GraphicsEngine
+        Get
+            Try
+                Dim GE As Integer = 0
+                ReadMemory(Consts.ptrScreenInfoGraphicsEngine, GE, 1)
+                Return CType(GE, ITibia.GraphicsEngines)
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return ITibia.GraphicsEngines.DirectX5 'default?
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ScreenBottom() As Integer Implements Scripting.ITibia.ScreenBottom
+        Get
+            Try
+                Dim Result As Integer = 0
+                Dim ScreenInfoBegin As Integer = 0
+                ReadMemory(Consts.ptrScreenInfoBegin, ScreenInfoBegin, 4)
+                Select Case GraphicsEngine
+                    Case ITibia.GraphicsEngines.DirectX5
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX5BottomOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.OpenGL
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoOGLBottomOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.DirectX9
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX9BottomOffset, Result, 4)
+                End Select
+                Return Result
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return 0
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ScreenHeight() As Integer Implements Scripting.ITibia.ScreenHeight
+        Get
+            Try
+                Dim Result As Integer = 0
+                Dim ScreenInfoBegin As Integer = 0
+                ReadMemory(Consts.ptrScreenInfoBegin, ScreenInfoBegin, 4)
+                Select Case GraphicsEngine
+                    Case ITibia.GraphicsEngines.DirectX5
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX5HeightOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.OpenGL
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoOGLHeightOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.DirectX9
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX9HeightOffset, Result, 4)
+                End Select
+                Return Result
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return 0
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ScreenLeft() As Integer Implements Scripting.ITibia.ScreenLeft
+        Get
+            Try
+                Dim Result As Integer = 0
+                Dim ScreenInfoBegin As Integer = 0
+                ReadMemory(Consts.ptrScreenInfoBegin, ScreenInfoBegin, 4)
+                Select Case GraphicsEngine
+                    Case ITibia.GraphicsEngines.DirectX5
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX5LeftOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.OpenGL
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoOGLLeftOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.DirectX9
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX9LeftOffset, Result, 4)
+                End Select
+                Return Result
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return 0
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ScreenRight() As Integer Implements Scripting.ITibia.ScreenRight
+        Get
+            Try
+                Dim Result As Integer = 0
+                Dim ScreenInfoBegin As Integer = 0
+                ReadMemory(Consts.ptrScreenInfoBegin, ScreenInfoBegin, 4)
+                Select Case GraphicsEngine
+                    Case ITibia.GraphicsEngines.DirectX5
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX5RightOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.OpenGL
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoOGLRightOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.DirectX9
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX9RightOffset, Result, 4)
+                End Select
+                Return Result
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return 0
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ScreenTop() As Integer Implements Scripting.ITibia.ScreenTop
+        Get
+            Try
+                Dim Result As Integer = 0
+                Dim ScreenInfoBegin As Integer = 0
+                ReadMemory(Consts.ptrScreenInfoBegin, ScreenInfoBegin, 4)
+                Select Case GraphicsEngine
+                    Case ITibia.GraphicsEngines.DirectX5
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX5TopOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.OpenGL
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoOGLTopOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.DirectX9
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX9TopOffset, Result, 4)
+                End Select
+                Return Result
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return 0
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property ScreenWidth() As Integer Implements Scripting.ITibia.ScreenWidth
+        Get
+            Try
+                Dim Result As Integer = 0
+                Dim ScreenInfoBegin As Integer = 0
+                ReadMemory(Consts.ptrScreenInfoBegin, ScreenInfoBegin, 4)
+                Select Case GraphicsEngine
+                    Case ITibia.GraphicsEngines.DirectX5
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX5WidthOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.OpenGL
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoOGLWidthOffset, Result, 4)
+                    Case ITibia.GraphicsEngines.DirectX9
+                        ReadMemory(ScreenInfoBegin + Consts.ScreenInfoDX9WidthOffset, Result, 4)
+                End Select
+                Return Result
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return 0
+            End Try
+        End Get
+    End Property
+
 #End Region
 
 #Region " Methods "
@@ -927,8 +1071,8 @@ Public NotInheritable Class Tibia
     Public Sub SetFramesPerSecond(ByVal FPS As Double) Implements Scripting.ITibia.SetFramesPerSecond
         Dim NewFPS As Double = Round((1110 / FPS) - 5, 1)
         Dim FrameRateBegin As Integer = 0
-        ReadMemory(Consts.ptrFrameRateBegin, FrameRateBegin, 4)
-        WriteMemory(FrameRateBegin + Consts.FrameRateLimitOffset, NewFPS)
+        ReadMemory(Consts.ptrScreenInfoBegin, FrameRateBegin, 4)
+        WriteMemory(FrameRateBegin + Consts.ScreenInfoFrameRateLimitOffset, NewFPS)
     End Sub
 
     Public Sub CharacterMove(ByVal Location As ITibia.LocationDefinition) Implements Scripting.ITibia.CharacterMove
