@@ -89,7 +89,7 @@ Public Module ConstantsModule
         Public CharacterListWorldPortOffset As Integer = &H50 '8.1
 
         Public ptrInGame As Integer = &H766DF8
-        Public ptrFrameRateBegin As Integer = &H76793C
+        Public ptrScreenInfoBegin As Integer = &H76793C
         Public ptrEnterOneNamePerLine As Integer = &H594670
         Public ptrCharacterSelectionIndex As Integer = &H766DB8
         Public ptrEncryptionKey As Integer = &H7637AC
@@ -220,8 +220,30 @@ Public Module ConstantsModule
         Public HotkeyTextOffset As Integer = &H1D8
         Public HotkeyTextDist As Integer = &H100
 
-        Public FrameRateCurrentOffset As Integer = &H60
-        Public FrameRateLimitOffset As Integer = &H58
+        Public ptrScreenInfoGraphicsEngine As Integer = &H76B6C0
+        Public ScreenInfoFrameRateOffset As Integer = &H60
+        Public ScreenInfoFrameRateLimitOffset As Integer = &H58
+        'DirectX 9
+        Public ScreenInfoDX9WidthOffset As Integer = &H7C
+        Public ScreenInfoDX9HeightOffset As Integer = &H80
+        Public ScreenInfoDX9LeftOffset As Integer = &H1D4
+        Public ScreenInfoDX9TopOffset As Integer = &H1D8
+        Public ScreenInfoDX9RightOffset As Integer = &H1DC
+        Public ScreenInfoDX9BottomOffset As Integer = &H1F0
+        'DirectX 5
+        Public ScreenInfoDX5WidthOffset As Integer = &HE8
+        Public ScreenInfoDX5HeightOffset As Integer = &HEC
+        Public ScreenInfoDX5LeftOffset As Integer = &H78
+        Public ScreenInfoDX5TopOffset As Integer = &H7C
+        Public ScreenInfoDX5RightOffset As Integer = &H80
+        Public ScreenInfoDX5BottomOffset As Integer = &H84
+        'OpenGL
+        Public ScreenInfoOGLWidthOffset As Integer = &H7C
+        Public ScreenInfoOGLHeightOffset As Integer = &H80
+        Public ScreenInfoOGLLeftOffset As Integer = &H28
+        Public ScreenInfoOGLTopOffset As Integer = &H2C
+        Public ScreenInfoOGLRightOffset As Integer = &H30
+        Public ScreenInfoOGLBottomOffset As Integer = &H34
 
         Public ptrNameSpy As Integer = &H4DD2D7
         Public ptrNameSpy2 As Integer = &H4DD2E1
@@ -352,8 +374,8 @@ Public Module ConstantsModule
                                                     ptrNameSpy = CInt(Value)
                                                 Case "ptrNameSpy2"
                                                     ptrNameSpy2 = CInt(Value)
-                                                Case "ptrFrameRateBegin"
-                                                    ptrFrameRateBegin = CInt(Value)
+                                                Case "ptrScreenInfoBegin"
+                                                    ptrScreenInfoBegin = CInt(Value)
                                                 Case "ptrEnterOneNamePerLine"
                                                     ptrEnterOneNamePerLine = CInt(Value)
                                                 Case "ptrHotkeyBegin"
@@ -590,10 +612,48 @@ Public Module ConstantsModule
                                                     HotkeyTextOffset = CInt(Value)
                                                 Case "HotkeyTextDist"
                                                     HotkeyTextDist = CInt(Value)
-                                                Case "FrameRateCurrentOffset"
-                                                    FrameRateCurrentOffset = CInt(Value)
-                                                Case "FrameRateLimitOffset"
-                                                    FrameRateLimitOffset = CInt(Value)
+                                                Case "ptrScreenInfoGraphicsEngine"
+                                                    ptrScreenInfoGraphicsEngine = CInt(Value)
+                                                Case "ScreenInfoFrameRateOffset"
+                                                    ScreenInfoFrameRateOffset = CInt(Value)
+                                                Case "ScreenInfoFrameRateLimitOffset"
+                                                    ScreenInfoFrameRateLimitOffset = CInt(Value)
+                                                Case "ScreenInfoDX9WidthOffset"
+                                                    ScreenInfoDX9WidthOffset = CInt(Value)
+                                                Case "ScreenInfoDX9HeightOffset"
+                                                    ScreenInfoDX9HeightOffset = CInt(Value)
+                                                Case "ScreenInfoDX9LeftOffset"
+                                                    ScreenInfoDX9LeftOffset = CInt(Value)
+                                                Case "ScreenInfoDX9TopOffset"
+                                                    ScreenInfoDX9TopOffset = CInt(Value)
+                                                Case "ScreenInfoDX9RightOffset"
+                                                    ScreenInfoDX9RightOffset = CInt(Value)
+                                                Case "ScreenInfoDX9BottomOffset"
+                                                    ScreenInfoDX9BottomOffset = CInt(Value)
+                                                Case "ScreenInfoDX5WidthOffset"
+                                                    ScreenInfoDX5WidthOffset = CInt(Value)
+                                                Case "ScreenInfoDX5HeightOffset"
+                                                    ScreenInfoDX5HeightOffset = CInt(Value)
+                                                Case "ScreenInfoDX5LeftOffset"
+                                                    ScreenInfoDX5LeftOffset = CInt(Value)
+                                                Case "ScreenInfoDX5TopOffset"
+                                                    ScreenInfoDX5TopOffset = CInt(Value)
+                                                Case "ScreenInfoDX5RightOffset"
+                                                    ScreenInfoDX5RightOffset = CInt(Value)
+                                                Case "ScreenInfoDX5BottomOffset"
+                                                    ScreenInfoDX5BottomOffset = CInt(Value)
+                                                Case "ScreenInfoOGLWidthOffset"
+                                                    ScreenInfoOGLWidthOffset = CInt(Value)
+                                                Case "ScreenInfoOGLHeightOffset"
+                                                    ScreenInfoOGLHeightOffset = CInt(Value)
+                                                Case "ScreenInfoOGLLeftOffset"
+                                                    ScreenInfoOGLLeftOffset = CInt(Value)
+                                                Case "ScreenInfoOGLTopOffset"
+                                                    ScreenInfoOGLTopOffset = CInt(Value)
+                                                Case "ScreenInfoOGLRightOffset"
+                                                    ScreenInfoOGLRightOffset = CInt(Value)
+                                                Case "ScreenInfoOGLBottomOffset"
+                                                    ScreenInfoOGLBottomOffset = CInt(Value)
                                                 Case "NameSpyDefault"
                                                     NameSpyDefault = CInt(Value)
                                                 Case "NameSpy2Default"

@@ -87,7 +87,7 @@
   <Const Name="WindowButton3Offset" Value="H34" />
   <Const Name="WindowButton4Offset" Value="H38" />
   <Const Name="ptrInGame" Value="H76c2c8" /> 
-  <Const Name="ptrFrameRateBegin" Value="H76CE0C" />
+  <Const Name="ptrScreenInfoBegin" Value="H76CE0C" />
   <Const Name="ptrEnterOneNamePerLine" Value="H598670" />
   <Const Name="ptrForYourInformation" Value="H599990" />
   <Const Name="ptrCharacterSelectionIndex" Value="H76C288" />
@@ -190,8 +190,30 @@
   <Const Name="VipStatusOffset" Value="H22" />
   <Const Name="VipDist" Value="H2C" />
   <Const Name="SkillsDist" Value="4" />
-  <Const Name="FrameRateCurrentOffset" Value="H60" />
-  <Const Name="FrameRateLimitOffset" Value="H58" />
+  <Const Name="ptrScreenInfoGraphicsEngine" Value="H76B6C0" />
+  <Const Name="ScreenInfoFrameRateOffset" Value="H60" />
+  <Const Name="ScreenInfoFrameRateLimitOffset" Value="H58" />
+  <Const Name="ScreenInfoDX9WidthOffset" Value="H7C" />
+  <Const Name="ScreenInfoDX9HeightOffset" Value="H80" />
+  <Const Name="ScreenInfoDX9LeftOffset" Value="H1D4" />
+  <Const Name="ScreenInfoDX9TopOffset" Value="H1D8" />
+  <Const Name="ScreenInfoDX9RightOffset" Value="H1DC" />
+  <Const Name="ScreenInfoDX9BottomOffset" Value="H1F0" />
+  
+  <Const Name="ScreenInfoDX5WidthOffset" Value="HE8" />
+  <Const Name="ScreenInfoDX5HeightOffset" Value="HEC" />
+  <Const Name="ScreenInfoDX5LeftOffset" Value="H78" />
+  <Const Name="ScreenInfoDX5TopOffset" Value="H7C" />
+  <Const Name="ScreenInfoDX5RightOffset" Value="H80" />
+  <Const Name="ScreenInfoDX5BottomOffset" Value="H84" />
+
+  <Const Name="ScreenInfoOGLWidthOffset" Value="H7C" />
+  <Const Name="ScreenInfoOGLHeightOffset" Value="H80" />
+  <Const Name="ScreenInfoOGLLeftOffset" Value="H28" />
+  <Const Name="ScreenInfoOGLTopOffset" Value="H2C" />
+  <Const Name="ScreenInfoOGLRightOffset" Value="H30" />
+  <Const Name="ScreenInfoOGLBottomOffset" Value="H34" />  
+  
   <Const Name="ptrNameSpy" Value="H4DF469" /> 
   <Const Name="ptrNameSpy2" Value="H4DF473" /> 
   <Const Name="NameSpyDefault" Value="H4A75" /> 
