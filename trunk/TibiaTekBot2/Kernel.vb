@@ -164,6 +164,7 @@ Public Module KernelModule
         Public WithEvents CavebotForm As New frmCavebot
         Public WithEvents ScriptsForm As New frmScripts
         Public WithEvents KeyboardForm As New frmKeyboard
+        Public WithEvents LagBarForm As New frmLagBar
 
         'Public Map As MapTiles
         Public WithEvents ConstantsEditorForm As New frmConstantsEditor

@@ -2711,9 +2711,17 @@ Public Class frmMain
     Private Sub KeyboardToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KeyboardToolStripMenuItem.Click
         Kernel.KeyboardForm.ShowDialog()
     End Sub
-
+    'Dim WithEvents wsock As New Winsock()
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        Kernel.Client.TestPipe()
+        'Kernel.Client.TestPipe()
+
+        'wsock.Connect(Kernel.Client.CharacterListCurrentEntry.WorldIP.ToString, Kernel.Client.CharacterListCurrentEntry.WorldPort)
+        'Dim time As Date = Date.Now
+        'While wsock.GetState <> Winsock.WinsockStates.Connected
+        '    Application.DoEvents()
+        'End While
+        'MsgBox((Date.Now - time).TotalMilliseconds)
+        'wsock.Close()
     End Sub
 
     Private Sub AddLeader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddLeader.Click
@@ -2782,5 +2790,9 @@ Public Class frmMain
         Catch ex As Exception
             'MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem1.Click
+        Kernel.LagBarForm.Show()
     End Sub
 End Class

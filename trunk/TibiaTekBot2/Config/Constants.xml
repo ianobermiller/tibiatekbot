@@ -138,6 +138,9 @@
   <Const Name="ptrWASDPopup" Value="H76C328" />
   <Const Name="CharacterListDist" Value="H54" />
   <Const Name="CharacterListWorldOffset" Value="H1E" />
+  <Const Name="CharacterListWorldIPBinaryOffset" Value="H3C" />
+  <Const Name="CharacterListWorldIPStringOffset" Value="H40" />
+  <Const Name="CharacterListWorldPortOffset" Value="H50" />
   <Const Name="HotkeyMax" Value="H24" />
   <Const Name="HotkeyItemDataOffset" Value="H90" />
   <Const Name="HotkeyItemOffset" Value="H120" />
