@@ -158,6 +158,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property LagBar() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("LagBar", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property lagbar_bar() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("lagbar_bar", resourceCulture)

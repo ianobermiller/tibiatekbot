@@ -48,6 +48,7 @@ Partial Class frmMain
         Me.CavebotMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CharacterStatisticsMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.KeyboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
         Me.ChangeLoginServerPopupItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ConstantsEditorMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -56,7 +57,6 @@ Partial Class frmMain
         Me.ShowHideTibiaWindow = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.ClosePopupItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.TibiaTekBotMenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.FunctionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -663,6 +663,12 @@ Partial Class frmMain
         Me.KeyboardToolStripMenuItem.Name = "KeyboardToolStripMenuItem"
         resources.ApplyResources(Me.KeyboardToolStripMenuItem, "KeyboardToolStripMenuItem")
         '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Image = Global.TibiaTekBot.My.Resources.Resources.LagBar
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        resources.ApplyResources(Me.ToolStripMenuItem1, "ToolStripMenuItem1")
+        '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
@@ -702,11 +708,6 @@ Partial Class frmMain
         '
         resources.ApplyResources(Me.ClosePopupItem, "ClosePopupItem")
         Me.ClosePopupItem.Name = "ClosePopupItem"
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        resources.ApplyResources(Me.ToolStripMenuItem1, "ToolStripMenuItem1")
         '
         'TibiaTekBotMenuToolStripMenuItem
         '
