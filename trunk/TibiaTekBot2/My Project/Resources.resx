@@ -136,9 +136,6 @@
   <data name="stairsgodown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\stairsgodown.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="script_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\script_stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ConstantsEditor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ConstantsEditor.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,8 +145,8 @@
   <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="stairsgoup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\stairsgoup.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ttb_splash6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ttb splash6.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="swamp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\swamp.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -190,8 +187,8 @@
   <data name="walkable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\walkable.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="script_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\script_stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TibiaMultiClientPatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TibiaMultiClientPatch.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,8 +196,8 @@
   <data name="waterfish" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\waterfish.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ttb_splash6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ttb splash6.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ChangeLoginServer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChangeLoginServer.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -229,6 +226,9 @@
   <data name="ttb_splash1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ttb splash1.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="lagbar_interface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lagbar_interface.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="doorclosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\doorclosed.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -250,10 +250,16 @@
   <data name="script_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\script_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="script_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\script_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stairsgoup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\stairsgoup.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ttb_splash4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ttb splash4.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="script_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\script_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="lagbar_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lagbar_bar.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

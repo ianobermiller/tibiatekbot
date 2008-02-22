@@ -27,16 +27,14 @@
                         If Elapsed > 5000 Then
                             Label2.Text = (Date.Now - Time).TotalMilliseconds & " ms"
                             Label2.ForeColor = Drawing.Color.DarkRed
-                            ProgressBar1.Value = ProgressBar1.Maximum
+                            PictureBox2.Size = New System.Drawing.Size(88, 9)
                             Exit Sub
                         End If
                         Application.DoEvents()
                     End While
                     Label2.Text = (Date.Now - Time).TotalMilliseconds & " ms"
-                    If Elapsed <= 100 Then
-                        Label2.ForeColor = Drawing.Color.LightGreen
-                    ElseIf Elapsed <= 200 Then
-                        Label2.ForeColor = Drawing.Color.Green
+                    If Elapsed <= 200 Then
+                        Label2.ForeColor = Drawing.Color.Lime
                     ElseIf Elapsed <= 300 Then
                         Label2.ForeColor = Drawing.Color.Yellow
                     ElseIf Elapsed <= 400 Then
@@ -47,7 +45,11 @@
                         Label2.ForeColor = Drawing.Color.Red
                     End If
                     'ProgressBar1.Maximum = CInt(Fix(Math.Max(ProgressBar1.Maximum, Elapsed)))
-                    ProgressBar1.Value = Math.Min(500, Fix(Elapsed))
+                    If Elapsed > 500 Then
+                        PictureBox2.Size = New System.Drawing.Size(88, 9)
+                    Else
+                        PictureBox2.Size = New System.Drawing.Size(Math.Min(88, Fix(Elapsed * 88 / 500)), 9)
+                    End If
 
                     Socket.Close()
                     While Socket.GetState <> Winsock.WinsockStates.Closed
@@ -56,7 +58,7 @@
                 Else
                     Label2.Text = "N/A"
                     Label2.ForeColor = Drawing.Color.White
-                    ProgressBar1.Value = 0
+                    PictureBox2.Size = New System.Drawing.Size(0, 9)
                 End If
 
             Catch ex As Exception
@@ -64,7 +66,7 @@
         End SyncLock
     End Sub
 
-    Private Sub frmLagBar_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown, ProgressBar1.MouseDown, Label2.MouseDown
+    Private Sub frmLagBar_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown, Label2.MouseDown
         If Not My.Computer.Mouse.ButtonsSwapped And e.Button = MouseButtons.Left OrElse _
            My.Computer.Mouse.ButtonsSwapped And e.Button = MouseButtons.Right Then
             CType(sender, System.Windows.Forms.Control).Capture = False
@@ -72,8 +74,5 @@
         End If
     End Sub
 
-    Private Sub Button1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Me.Hide()
-    End Sub
 
 End Class
