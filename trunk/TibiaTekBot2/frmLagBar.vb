@@ -27,7 +27,7 @@
                         If Elapsed > 5000 Then
                             Label2.Text = (Date.Now - Time).TotalMilliseconds & " ms"
                             Label2.ForeColor = Drawing.Color.DarkRed
-                            PictureBox2.Size = New System.Drawing.Size(88, 9)
+                            PictureBox1.Size = New System.Drawing.Size(88, 9)
                             Exit Sub
                         End If
                         Application.DoEvents()
@@ -46,9 +46,9 @@
                     End If
                     'ProgressBar1.Maximum = CInt(Fix(Math.Max(ProgressBar1.Maximum, Elapsed)))
                     If Elapsed > 500 Then
-                        PictureBox2.Size = New System.Drawing.Size(88, 9)
+                        PictureBox1.Size = New System.Drawing.Size(88, 9)
                     Else
-                        PictureBox2.Size = New System.Drawing.Size(Math.Min(88, Fix(Elapsed * 88 / 500)), 9)
+                        PictureBox1.Size = New System.Drawing.Size(Math.Min(88, Fix(Elapsed * 88 / 500)), 9)
                     End If
 
                     Socket.Close()
@@ -58,7 +58,7 @@
                 Else
                     Label2.Text = "N/A"
                     Label2.ForeColor = Drawing.Color.White
-                    PictureBox2.Size = New System.Drawing.Size(0, 9)
+                    PictureBox1.Size = New System.Drawing.Size(0, 9)
                 End If
 
             Catch ex As Exception
@@ -73,6 +73,5 @@
             SendMessage(Handle.ToInt32, &HA1, 2, 0)
         End If
     End Sub
-
 
 End Class
