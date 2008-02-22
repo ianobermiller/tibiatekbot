@@ -134,6 +134,9 @@ Partial Class frmAlarms
         Me.BattlelistAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StatusAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ItemsAlarmTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.StatusConditionDazzled = New System.Windows.Forms.CheckBox
+        Me.StatusConditionCursed = New System.Windows.Forms.CheckBox
+        Me.StatusConditionFreezing = New System.Windows.Forms.CheckBox
         tablalala = New System.Windows.Forms.TabPage
         tablalala.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -176,6 +179,9 @@ Partial Class frmAlarms
         '
         'GroupBox13
         '
+        Me.GroupBox13.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox13.Controls.Add(Me.GroupBox15)
         Me.GroupBox13.Controls.Add(Me.GroupBox14)
         Me.GroupBox13.Location = New System.Drawing.Point(6, 6)
@@ -343,6 +349,9 @@ Partial Class frmAlarms
         '
         'Tabs
         '
+        Me.Tabs.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Tabs.Controls.Add(Me.TabPage1)
         Me.Tabs.Controls.Add(Me.TabPage3)
         Me.Tabs.Controls.Add(Me.TabPage2)
@@ -350,7 +359,7 @@ Partial Class frmAlarms
         Me.Tabs.Location = New System.Drawing.Point(12, 12)
         Me.Tabs.Name = "Tabs"
         Me.Tabs.SelectedIndex = 0
-        Me.Tabs.Size = New System.Drawing.Size(368, 275)
+        Me.Tabs.Size = New System.Drawing.Size(368, 322)
         Me.Tabs.TabIndex = 0
         '
         'TabPage1
@@ -359,20 +368,23 @@ Partial Class frmAlarms
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(360, 249)
+        Me.TabPage1.Size = New System.Drawing.Size(360, 283)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Battlelist"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
+        Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.MultiFloorGroupBox)
         Me.GroupBox1.Controls.Add(Me.GroupBox6)
         Me.GroupBox1.Controls.Add(Me.GroupBox5)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(348, 237)
+        Me.GroupBox1.Size = New System.Drawing.Size(348, 271)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Battlelist Alarm Settings"
@@ -465,20 +477,23 @@ Partial Class frmAlarms
         '
         'GroupBox5
         '
+        Me.GroupBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.GroupBox5.Controls.Add(Me.BattlelistIgnoredPlayerRemove)
         Me.GroupBox5.Controls.Add(Me.BattlelistIgnoredPlayerAdd)
         Me.GroupBox5.Controls.Add(Me.BattlelistIgnoredPlayersInput)
         Me.GroupBox5.Controls.Add(Me.BattlelistIgnoredPlayers)
         Me.GroupBox5.Location = New System.Drawing.Point(6, 65)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(163, 166)
+        Me.GroupBox5.Size = New System.Drawing.Size(163, 200)
         Me.GroupBox5.TabIndex = 15
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Ignored Players"
         '
         'BattlelistIgnoredPlayerRemove
         '
-        Me.BattlelistIgnoredPlayerRemove.Location = New System.Drawing.Point(95, 140)
+        Me.BattlelistIgnoredPlayerRemove.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.BattlelistIgnoredPlayerRemove.Location = New System.Drawing.Point(95, 174)
         Me.BattlelistIgnoredPlayerRemove.Name = "BattlelistIgnoredPlayerRemove"
         Me.BattlelistIgnoredPlayerRemove.Size = New System.Drawing.Size(62, 20)
         Me.BattlelistIgnoredPlayerRemove.TabIndex = 17
@@ -487,7 +502,8 @@ Partial Class frmAlarms
         '
         'BattlelistIgnoredPlayerAdd
         '
-        Me.BattlelistIgnoredPlayerAdd.Location = New System.Drawing.Point(6, 140)
+        Me.BattlelistIgnoredPlayerAdd.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.BattlelistIgnoredPlayerAdd.Location = New System.Drawing.Point(6, 174)
         Me.BattlelistIgnoredPlayerAdd.Name = "BattlelistIgnoredPlayerAdd"
         Me.BattlelistIgnoredPlayerAdd.Size = New System.Drawing.Size(40, 20)
         Me.BattlelistIgnoredPlayerAdd.TabIndex = 16
@@ -496,17 +512,21 @@ Partial Class frmAlarms
         '
         'BattlelistIgnoredPlayersInput
         '
-        Me.BattlelistIgnoredPlayersInput.Location = New System.Drawing.Point(6, 114)
+        Me.BattlelistIgnoredPlayersInput.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.BattlelistIgnoredPlayersInput.Location = New System.Drawing.Point(6, 148)
         Me.BattlelistIgnoredPlayersInput.Name = "BattlelistIgnoredPlayersInput"
         Me.BattlelistIgnoredPlayersInput.Size = New System.Drawing.Size(151, 20)
         Me.BattlelistIgnoredPlayersInput.TabIndex = 15
         '
         'BattlelistIgnoredPlayers
         '
+        Me.BattlelistIgnoredPlayers.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BattlelistIgnoredPlayers.FormattingEnabled = True
         Me.BattlelistIgnoredPlayers.Location = New System.Drawing.Point(6, 19)
         Me.BattlelistIgnoredPlayers.Name = "BattlelistIgnoredPlayers"
-        Me.BattlelistIgnoredPlayers.Size = New System.Drawing.Size(151, 82)
+        Me.BattlelistIgnoredPlayers.Size = New System.Drawing.Size(151, 108)
         Me.BattlelistIgnoredPlayers.Sorted = True
         Me.BattlelistIgnoredPlayers.TabIndex = 14
         '
@@ -577,39 +597,44 @@ Partial Class frmAlarms
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(360, 249)
+        Me.TabPage3.Size = New System.Drawing.Size(360, 283)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Message"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
+        Me.GroupBox3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox3.Controls.Add(Me.GroupBox2)
         Me.GroupBox3.Controls.Add(Me.GroupBox9)
         Me.GroupBox3.Controls.Add(Me.GroupBox7)
         Me.GroupBox3.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(348, 237)
+        Me.GroupBox3.Size = New System.Drawing.Size(348, 271)
         Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Received Messages Alarm Settings"
         '
         'GroupBox2
         '
+        Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.MessageIgnoredPlayersRemove)
         Me.GroupBox2.Controls.Add(Me.MessageIgnoredPlayersAdd)
         Me.GroupBox2.Controls.Add(Me.MessageIgnoredPlayersInput)
         Me.GroupBox2.Controls.Add(Me.MessageIgnoredPlayers)
         Me.GroupBox2.Location = New System.Drawing.Point(6, 65)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(163, 166)
+        Me.GroupBox2.Size = New System.Drawing.Size(163, 200)
         Me.GroupBox2.TabIndex = 22
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Ignored Players"
         '
         'MessageIgnoredPlayersRemove
         '
-        Me.MessageIgnoredPlayersRemove.Location = New System.Drawing.Point(95, 140)
+        Me.MessageIgnoredPlayersRemove.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.MessageIgnoredPlayersRemove.Location = New System.Drawing.Point(95, 174)
         Me.MessageIgnoredPlayersRemove.Name = "MessageIgnoredPlayersRemove"
         Me.MessageIgnoredPlayersRemove.Size = New System.Drawing.Size(62, 20)
         Me.MessageIgnoredPlayersRemove.TabIndex = 17
@@ -618,7 +643,8 @@ Partial Class frmAlarms
         '
         'MessageIgnoredPlayersAdd
         '
-        Me.MessageIgnoredPlayersAdd.Location = New System.Drawing.Point(6, 140)
+        Me.MessageIgnoredPlayersAdd.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.MessageIgnoredPlayersAdd.Location = New System.Drawing.Point(6, 174)
         Me.MessageIgnoredPlayersAdd.Name = "MessageIgnoredPlayersAdd"
         Me.MessageIgnoredPlayersAdd.Size = New System.Drawing.Size(40, 20)
         Me.MessageIgnoredPlayersAdd.TabIndex = 16
@@ -627,17 +653,22 @@ Partial Class frmAlarms
         '
         'MessageIgnoredPlayersInput
         '
-        Me.MessageIgnoredPlayersInput.Location = New System.Drawing.Point(6, 114)
+        Me.MessageIgnoredPlayersInput.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.MessageIgnoredPlayersInput.Location = New System.Drawing.Point(6, 148)
         Me.MessageIgnoredPlayersInput.Name = "MessageIgnoredPlayersInput"
         Me.MessageIgnoredPlayersInput.Size = New System.Drawing.Size(151, 20)
         Me.MessageIgnoredPlayersInput.TabIndex = 15
         '
         'MessageIgnoredPlayers
         '
+        Me.MessageIgnoredPlayers.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MessageIgnoredPlayers.FormattingEnabled = True
         Me.MessageIgnoredPlayers.Location = New System.Drawing.Point(6, 19)
         Me.MessageIgnoredPlayers.Name = "MessageIgnoredPlayers"
-        Me.MessageIgnoredPlayers.Size = New System.Drawing.Size(151, 82)
+        Me.MessageIgnoredPlayers.Size = New System.Drawing.Size(151, 108)
         Me.MessageIgnoredPlayers.TabIndex = 14
         '
         'GroupBox9
@@ -649,7 +680,7 @@ Partial Class frmAlarms
         Me.GroupBox9.Controls.Add(Me.MessageForwardMessageInput)
         Me.GroupBox9.Location = New System.Drawing.Point(175, 65)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(167, 166)
+        Me.GroupBox9.Size = New System.Drawing.Size(167, 145)
         Me.GroupBox9.TabIndex = 21
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Actions"
@@ -738,25 +769,33 @@ Partial Class frmAlarms
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(360, 249)
+        Me.TabPage2.Size = New System.Drawing.Size(360, 296)
         Me.TabPage2.TabIndex = 3
         Me.TabPage2.Text = "Status"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
         'GroupBox8
         '
+        Me.GroupBox8.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox8.Controls.Add(Me.GroupBox12)
         Me.GroupBox8.Controls.Add(Me.GroupBox11)
         Me.GroupBox8.Controls.Add(Me.GroupBox10)
         Me.GroupBox8.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(348, 237)
+        Me.GroupBox8.Size = New System.Drawing.Size(348, 284)
         Me.GroupBox8.TabIndex = 0
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Status Alarm Settings"
         '
         'GroupBox12
         '
+        Me.GroupBox12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox12.Controls.Add(Me.StatusConditionFreezing)
+        Me.GroupBox12.Controls.Add(Me.StatusConditionCursed)
+        Me.GroupBox12.Controls.Add(Me.StatusConditionDazzled)
         Me.GroupBox12.Controls.Add(Me.StatusConditionCombatSign)
         Me.GroupBox12.Controls.Add(Me.StatusConditionDrowning)
         Me.GroupBox12.Controls.Add(Me.StatusConditionParalized)
@@ -765,7 +804,7 @@ Partial Class frmAlarms
         Me.GroupBox12.Controls.Add(Me.StatusConditionPoisoned)
         Me.GroupBox12.Location = New System.Drawing.Point(6, 140)
         Me.GroupBox12.Name = "GroupBox12"
-        Me.GroupBox12.Size = New System.Drawing.Size(177, 87)
+        Me.GroupBox12.Size = New System.Drawing.Size(177, 134)
         Me.GroupBox12.TabIndex = 23
         Me.GroupBox12.TabStop = False
         Me.GroupBox12.Text = "If Conditioned"
@@ -984,7 +1023,8 @@ Partial Class frmAlarms
         '
         'AlarmsSave
         '
-        Me.AlarmsSave.Location = New System.Drawing.Point(12, 293)
+        Me.AlarmsSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.AlarmsSave.Location = New System.Drawing.Point(12, 340)
         Me.AlarmsSave.Name = "AlarmsSave"
         Me.AlarmsSave.Size = New System.Drawing.Size(75, 23)
         Me.AlarmsSave.TabIndex = 1
@@ -993,7 +1033,8 @@ Partial Class frmAlarms
         '
         'AlarmsHide
         '
-        Me.AlarmsHide.Location = New System.Drawing.Point(305, 293)
+        Me.AlarmsHide.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.AlarmsHide.Location = New System.Drawing.Point(305, 340)
         Me.AlarmsHide.Name = "AlarmsHide"
         Me.AlarmsHide.Size = New System.Drawing.Size(75, 23)
         Me.AlarmsHide.TabIndex = 2
@@ -1002,7 +1043,8 @@ Partial Class frmAlarms
         '
         'AlarmsLoad
         '
-        Me.AlarmsLoad.Location = New System.Drawing.Point(93, 293)
+        Me.AlarmsLoad.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.AlarmsLoad.Location = New System.Drawing.Point(93, 340)
         Me.AlarmsLoad.Name = "AlarmsLoad"
         Me.AlarmsLoad.Size = New System.Drawing.Size(75, 23)
         Me.AlarmsLoad.TabIndex = 3
@@ -1011,7 +1053,8 @@ Partial Class frmAlarms
         '
         'AlarmsActivate
         '
-        Me.AlarmsActivate.Location = New System.Drawing.Point(224, 293)
+        Me.AlarmsActivate.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.AlarmsActivate.Location = New System.Drawing.Point(224, 340)
         Me.AlarmsActivate.Name = "AlarmsActivate"
         Me.AlarmsActivate.Size = New System.Drawing.Size(75, 23)
         Me.AlarmsActivate.TabIndex = 4
@@ -1030,11 +1073,42 @@ Partial Class frmAlarms
         '
         Me.ItemsAlarmTimer.Interval = 1000
         '
+        'StatusConditionDazzled
+        '
+        Me.StatusConditionDazzled.AutoSize = True
+        Me.StatusConditionDazzled.Location = New System.Drawing.Point(6, 86)
+        Me.StatusConditionDazzled.Name = "StatusConditionDazzled"
+        Me.StatusConditionDazzled.Size = New System.Drawing.Size(64, 17)
+        Me.StatusConditionDazzled.TabIndex = 20
+        Me.StatusConditionDazzled.Text = "Dazzled"
+        Me.StatusConditionDazzled.UseVisualStyleBackColor = True
+        '
+        'StatusConditionCursed
+        '
+        Me.StatusConditionCursed.AutoSize = True
+        Me.StatusConditionCursed.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.StatusConditionCursed.Location = New System.Drawing.Point(110, 86)
+        Me.StatusConditionCursed.Name = "StatusConditionCursed"
+        Me.StatusConditionCursed.Size = New System.Drawing.Size(59, 17)
+        Me.StatusConditionCursed.TabIndex = 21
+        Me.StatusConditionCursed.Text = "Cursed"
+        Me.StatusConditionCursed.UseVisualStyleBackColor = True
+        '
+        'StatusConditionFreezing
+        '
+        Me.StatusConditionFreezing.AutoSize = True
+        Me.StatusConditionFreezing.Location = New System.Drawing.Point(6, 109)
+        Me.StatusConditionFreezing.Name = "StatusConditionFreezing"
+        Me.StatusConditionFreezing.Size = New System.Drawing.Size(66, 17)
+        Me.StatusConditionFreezing.TabIndex = 22
+        Me.StatusConditionFreezing.Text = "Freezing"
+        Me.StatusConditionFreezing.UseVisualStyleBackColor = True
+        '
         'frmAlarms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(395, 328)
+        Me.ClientSize = New System.Drawing.Size(395, 375)
         Me.Controls.Add(Me.AlarmsActivate)
         Me.Controls.Add(Me.AlarmsLoad)
         Me.Controls.Add(Me.AlarmsHide)
@@ -1170,4 +1244,7 @@ Partial Class frmAlarms
     Friend WithEvents StatusPauseBot As System.Windows.Forms.CheckBox
     Friend WithEvents ItemsPauseBot As System.Windows.Forms.CheckBox
     Friend WithEvents MessagePauseBot As System.Windows.Forms.CheckBox
+    Friend WithEvents StatusConditionDazzled As System.Windows.Forms.CheckBox
+    Friend WithEvents StatusConditionFreezing As System.Windows.Forms.CheckBox
+    Friend WithEvents StatusConditionCursed As System.Windows.Forms.CheckBox
 End Class

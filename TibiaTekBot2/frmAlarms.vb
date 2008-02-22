@@ -87,97 +87,122 @@ Public Class frmAlarms
             Dim AlarmsNode As XmlNode = Document.Item("Alarms")
             'battlelist alarms
             Dim BattlelistNode As XmlNode = AlarmsNode.Item("Battlelist")
-            BattlelistPlayer.Checked = CBool(BattlelistNode.Item("ActivateIfPlayer").InnerText)
-            BattlelistMonsterNPC.Checked = CBool(BattlelistNode.Item("ActivateIfMonsterNPC").InnerText)
-            BattlelistPlayerKiller.Checked = CBool(BattlelistNode.Item("ActivateIfPlayerKiller").InnerText)
-            BattlelistGMCM.Checked = CBool(BattlelistNode.Item("ActivateIfGMCM").InnerText)
-            BattlelistMultiFloorBelow.Checked = CBool(BattlelistNode.Item("MultiFloorBelow").InnerText)
-            BattlelistMultiFloorAbove.Checked = CBool(BattlelistNode.Item("MultiFloorAbove").InnerText)
-            BattlelistPlaySound.Checked = CBool(BattlelistNode.Item("PlaySound").InnerText)
-            BattlelistLogout.Checked = CBool(BattlelistNode.Item("LogOut").InnerText)
-            BattlelistMessagePlayerInput.Text = BattlelistNode.Item("MessagePlayer").GetAttribute("Player")
-            BattlelistMessagePlayer.Checked = CBool(BattlelistNode.Item("MessagePlayer").InnerText)
-            Dim BattlelistIgnoredPlayersNode As XmlNode = BattlelistNode.Item("IgnoredPlayers")
-            For Each Player As XmlElement In BattlelistIgnoredPlayersNode
-                BattlelistIgnoredPlayers.Items.Add(Player.InnerText)
-            Next
+            If Not BattlelistNode.Item("ActiveIfPlayer") Is Nothing Then BattlelistPlayer.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfPlayer").InnerText)
+            If Not BattlelistNode.Item("ActiveIfMonsterNPC") Is Nothing Then BattlelistMonsterNPC.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfMonsterNPC").InnerText)
+            If Not BattlelistNode.Item("ActiveIfPlayerKiller") Is Nothing Then BattlelistPlayerKiller.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfPlayerKiller").InnerText)
+            If Not BattlelistNode.Item("ActiveIfGMCM") Is Nothing Then BattlelistGMCM.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfGMCM").InnerText)
+            If Not BattlelistNode.Item("MultiFloorBelow") Is Nothing Then BattlelistMultiFloorBelow.Checked = Boolean.Parse(BattlelistNode.Item("MultiFloorBelow").InnerText)
+            If Not BattlelistNode.Item("MultiFloorAbove") Is Nothing Then BattlelistMultiFloorAbove.Checked = Boolean.Parse(BattlelistNode.Item("MultiFloorAbove").InnerText)
+            If Not BattlelistNode.Item("PlaySound") Is Nothing Then BattlelistPlaySound.Checked = Boolean.Parse(BattlelistNode.Item("PlaySound").InnerText)
+            If Not BattlelistNode.Item("LogOut") Is Nothing Then BattlelistLogout.Checked = Boolean.Parse(BattlelistNode.Item("LogOut").InnerText)
+            If Not BattlelistNode.Item("MessagePlayer") Is Nothing Then BattlelistMessagePlayerInput.Text = BattlelistNode.Item("MessagePlayer").GetAttribute("Player")
+            If Not BattlelistNode.Item("MessagePlayer") Is Nothing Then BattlelistMessagePlayer.Checked = Boolean.Parse(BattlelistNode.Item("MessagePlayer").InnerText)
+            If Not BattlelistNode.Item("IgnoredPlayers") Is Nothing Then
+                Dim BattlelistIgnoredPlayersNode As XmlNode = BattlelistNode.Item("IgnoredPlayers")
+                For Each Player As XmlElement In BattlelistIgnoredPlayersNode
+                    BattlelistIgnoredPlayers.Items.Add(Player.InnerText)
+                Next
+            End If
             'message alarms
             Dim MessageNode As XmlNode = AlarmsNode.Item("Message")
-            MessagePublic.Checked = CBool(MessageNode.Item("Public").InnerText)
-            MessagePrivate.Checked = CBool(MessageNode.Item("Private").InnerText)
-            MessagePlaySound.Checked = CBool(MessageNode.Item("PlaySound").InnerText)
-            MessageLogOut.Checked = CBool(MessageNode.Item("LogOut").InnerText)
-            MessageForwardMessageInput.Text = MessageNode.Item("ForwardMessage").GetAttribute("Player")
-            MessageForwardMessage.Checked = CBool(MessageNode.Item("ForwardMessage").InnerText)
-            Dim ForwardMessagePlayersNode As XmlNode = MessageNode.Item("IgnoredPlayers")
-            For Each Player As XmlElement In ForwardMessagePlayersNode
-                MessageIgnoredPlayers.Items.Add(Player.InnerText)
-            Next
+            If Not MessageNode.Item("Public") Is Nothing Then MessagePublic.Checked = Boolean.Parse(MessageNode.Item("Public").InnerText)
+            If Not MessageNode.Item("Private") Is Nothing Then MessagePrivate.Checked = Boolean.Parse(MessageNode.Item("Private").InnerText)
+            If Not MessageNode.Item("PlaySound") Is Nothing Then MessagePlaySound.Checked = Boolean.Parse(MessageNode.Item("PlaySound").InnerText)
+            If Not MessageNode.Item("LogOut") Is Nothing Then MessageLogOut.Checked = Boolean.Parse(MessageNode.Item("LogOut").InnerText)
+            If Not MessageNode.Item("ForwardMessage") Is Nothing Then MessageForwardMessageInput.Text = MessageNode.Item("ForwardMessage").GetAttribute("Player")
+            If Not MessageNode.Item("ForwardMessage") Is Nothing Then MessageForwardMessage.Checked = Boolean.Parse(MessageNode.Item("ForwardMessage").InnerText)
+            If Not MessageNode.Item("IgnoredPlayers") Is Nothing Then
+                Dim ForwardMessagePlayersNode As XmlNode = MessageNode.Item("IgnoredPlayers")
+                For Each Player As XmlElement In ForwardMessagePlayersNode
+                    MessageIgnoredPlayers.Items.Add(Player.InnerText)
+                Next
+            End If
             'status
             Dim StatusNode As XmlNode = AlarmsNode.Item("Status")
-            StatusHitPoints.Value = CDec(StatusNode.Item("HitPoints").InnerText)
-            StatusManaPoints.Value = CDec(StatusNode.Item("ManaPoints").InnerText)
-            StatusSoulPoints.Value = CDec(StatusNode.Item("SoulPoints").InnerText)
-            StatusCapacity.Value = CDec(StatusNode.Item("Capacity").InnerText)
-            StatusPlaySound.Checked = CBool(StatusNode.Item("PlaySound").InnerText)
-            StatusLogOut.Checked = CBool(StatusNode.Item("LogOut").InnerText)
-            StatusMessagePlayer.Checked = CBool(StatusNode.Item("MessagePlayer").InnerText)
-            StatusMessagePlayerName.Text = StatusNode.Item("MessagePlayer").GetAttribute("Player")
-            Dim ConditionsNode As XmlNode = StatusNode.Item("Conditions")
-            StatusConditionCombatSign.Checked = CBool(ConditionsNode.Item("CombatSign").InnerText)
-            StatusConditionBurnt.Checked = CBool(ConditionsNode.Item("Burnt").InnerText)
-            StatusConditionPoisoned.Checked = CBool(ConditionsNode.Item("Poisoned").InnerText)
-            StatusConditionDrowning.Checked = CBool(ConditionsNode.Item("Drowning").InnerText)
-            StatusConditionParalized.Checked = CBool(ConditionsNode.Item("Paralized").InnerText)
-            StatusConditionElectrified.Checked = CBool(ConditionsNode.Item("Electrified").InnerText)
+            If Not StatusNode.Item("HitPoints") Is Nothing Then StatusHitPoints.Value = CDec(StatusNode.Item("HitPoints").InnerText)
+            If Not StatusNode.Item("ManaPoints") Is Nothing Then StatusManaPoints.Value = CDec(StatusNode.Item("ManaPoints").InnerText)
+            If Not StatusNode.Item("SoulPoints") Is Nothing Then StatusSoulPoints.Value = CDec(StatusNode.Item("SoulPoints").InnerText)
+            If Not StatusNode.Item("Capacity") Is Nothing Then StatusCapacity.Value = CDec(StatusNode.Item("Capacity").InnerText)
+            If Not StatusNode.Item("PlaySound") Is Nothing Then StatusPlaySound.Checked = Boolean.Parse(StatusNode.Item("PlaySound").InnerText)
+            If Not StatusNode.Item("LogOut") Is Nothing Then StatusLogOut.Checked = Boolean.Parse(StatusNode.Item("LogOut").InnerText)
+            If Not StatusNode.Item("MessagePlayer") Is Nothing Then
+                StatusMessagePlayer.Checked = Boolean.Parse(StatusNode.Item("MessagePlayer").InnerText)
+                StatusMessagePlayerName.Text = StatusNode.Item("MessagePlayer").GetAttribute("Player")
+            End If
+            If Not StatusNode.Item("Conditions") Is Nothing Then
+                Dim ConditionsNode As XmlNode = StatusNode.Item("Conditions")
+                If Not ConditionsNode.Item("CombatSign") Is Nothing Then StatusConditionCombatSign.Checked = Boolean.Parse(ConditionsNode.Item("CombatSign").InnerText)
+                If Not ConditionsNode.Item("Burnt") Is Nothing Then StatusConditionBurnt.Checked = Boolean.Parse(ConditionsNode.Item("Burnt").InnerText)
+                If Not ConditionsNode.Item("Poisoned") Is Nothing Then StatusConditionPoisoned.Checked = Boolean.Parse(ConditionsNode.Item("Poisoned").InnerText)
+                If Not ConditionsNode.Item("Drowning") Is Nothing Then StatusConditionDrowning.Checked = Boolean.Parse(ConditionsNode.Item("Drowning").InnerText)
+                If Not ConditionsNode.Item("Paralized") Is Nothing Then StatusConditionParalized.Checked = Boolean.Parse(ConditionsNode.Item("Paralized").InnerText)
+                If Not ConditionsNode.Item("Electrified") Is Nothing Then StatusConditionElectrified.Checked = Boolean.Parse(ConditionsNode.Item("Electrified").InnerText)
+                If Not ConditionsNode.Item("Freezing") Is Nothing Then StatusConditionFreezing.Checked = Boolean.Parse(ConditionsNode.Item("Freezing").InnerText)
+                If Not ConditionsNode.Item("Cursed") Is Nothing Then StatusConditionCursed.Checked = Boolean.Parse(ConditionsNode.Item("Cursed").InnerText)
+                If Not ConditionsNode.Item("Dazzled") Is Nothing Then StatusConditionDazzled.Checked = Boolean.Parse(ConditionsNode.Item("Dazzled").InnerText)
+            End If
             'items
             Dim ItemsNode As XmlNode = AlarmsNode.Item("Items")
-            ItemsPlaySound.Checked = CBool(ItemsNode.Item("PlaySound").InnerText)
-            ItemsLogOut.Checked = CBool(ItemsNode.Item("LogOut").InnerText)
-            ItemsMessagePlayer.Checked = CBool(ItemsNode.Item("MessagePlayer").InnerText)
-            ItemsMessagePlayerName.Text = ItemsNode.Item("MessagePlayer").GetAttribute("Player")
-            Dim ListNode As XmlNode = ItemsNode.Item("List")
+            If Not ItemsNode.Item("PlaySound") Is Nothing Then ItemsPlaySound.Checked = Boolean.Parse(ItemsNode.Item("PlaySound").InnerText)
+            If Not ItemsNode.Item("LogOut") Is Nothing Then ItemsLogOut.Checked = Boolean.Parse(ItemsNode.Item("LogOut").InnerText)
+            If Not ItemsNode.Item("MessagePlayer") Is Nothing Then
+                ItemsMessagePlayer.Checked = Boolean.Parse(ItemsNode.Item("MessagePlayer").InnerText)
+                ItemsMessagePlayerName.Text = ItemsNode.Item("MessagePlayer").GetAttribute("Player")
+            End If
+            
+            If Not ItemsNode.Item("List") Is Nothing Then
+                Dim ListNode As XmlNode = ItemsNode.Item("List")
 
-            Dim FoodNode As XmlElement = ListNode.Item("Food")
-            FoodCond.Active = CBool(FoodNode.InnerText)
-            ItemsList.SetItemChecked(0, FoodCond.Active)
-            FoodCond.Condition = CType(FoodNode.GetAttribute("Condition"), LogicConditions)
-            FoodCond.Count = CDec(FoodNode.GetAttribute("Count"))
-            FoodCond.CheckFloor = CBool(FoodNode.GetAttribute("CheckFloor"))
-            FoodCond.CheckInventory = CBool(FoodNode.GetAttribute("CheckInventory"))
+                If Not ListNode.Item("Food") Is Nothing Then
+                    Dim FoodNode As XmlElement = ListNode.Item("Food")
+                    FoodCond.Active = Boolean.Parse(FoodNode.InnerText)
+                    ItemsList.SetItemChecked(0, FoodCond.Active)
+                    FoodCond.Condition = CType(FoodNode.GetAttribute("Condition"), LogicConditions)
+                    FoodCond.Count = CDec(FoodNode.GetAttribute("Count"))
+                    FoodCond.CheckFloor = Boolean.Parse(FoodNode.GetAttribute("CheckFloor"))
+                    FoodCond.CheckInventory = Boolean.Parse(FoodNode.GetAttribute("CheckInventory"))
+                End If
 
-            Dim BlankRunesNode As XmlElement = ListNode.Item("BlankRunes")
-            BlankRunesCond.Active = CBool(BlankRunesNode.InnerText)
-            ItemsList.SetItemChecked(1, BlankRunesCond.Active)
-            BlankRunesCond.Condition = CType(BlankRunesNode.GetAttribute("Condition"), LogicConditions)
-            BlankRunesCond.Count = CDec(BlankRunesNode.GetAttribute("Count"))
-            BlankRunesCond.CheckFloor = CBool(BlankRunesNode.GetAttribute("CheckFloor"))
-            BlankRunesCond.CheckInventory = CBool(BlankRunesNode.GetAttribute("CheckInventory"))
+                If Not ListNode.Item("BlackRunes") Is Nothing Then
+                    Dim BlankRunesNode As XmlElement = ListNode.Item("BlankRunes")
+                    BlankRunesCond.Active = Boolean.Parse(BlankRunesNode.InnerText)
+                    ItemsList.SetItemChecked(1, BlankRunesCond.Active)
+                    BlankRunesCond.Condition = CType(BlankRunesNode.GetAttribute("Condition"), LogicConditions)
+                    BlankRunesCond.Count = CDec(BlankRunesNode.GetAttribute("Count"))
+                    BlankRunesCond.CheckFloor = Boolean.Parse(BlankRunesNode.GetAttribute("CheckFloor"))
+                    BlankRunesCond.CheckInventory = Boolean.Parse(BlankRunesNode.GetAttribute("CheckInventory"))
+                End If
 
-            Dim WormsNode As XmlElement = ListNode.Item("Worms")
-            WormsCond.Active = CBool(WormsNode.InnerText)
-            ItemsList.SetItemChecked(2, WormsCond.Active)
-            WormsCond.Condition = CType(WormsNode.GetAttribute("Condition"), LogicConditions)
-            WormsCond.Count = CDec(WormsNode.GetAttribute("Count"))
-            WormsCond.CheckFloor = CBool(WormsNode.GetAttribute("CheckFloor"))
-            WormsCond.CheckInventory = CBool(WormsNode.GetAttribute("CheckInventory"))
+                If Not ListNode.Item("Worms") Is Nothing Then
+                    Dim WormsNode As XmlElement = ListNode.Item("Worms")
+                    WormsCond.Active = Boolean.Parse(WormsNode.InnerText)
+                    ItemsList.SetItemChecked(2, WormsCond.Active)
+                    WormsCond.Condition = CType(WormsNode.GetAttribute("Condition"), LogicConditions)
+                    WormsCond.Count = CDec(WormsNode.GetAttribute("Count"))
+                    WormsCond.CheckFloor = Boolean.Parse(WormsNode.GetAttribute("CheckFloor"))
+                    WormsCond.CheckInventory = Boolean.Parse(WormsNode.GetAttribute("CheckInventory"))
+                End If
 
-            Dim ThrowablesNode As XmlElement = ListNode.Item("Throwables")
-            ThrowablesCond.Active = CBool(ThrowablesNode.InnerText)
-            ItemsList.SetItemChecked(3, ThrowablesCond.Active)
-            ThrowablesCond.Condition = CType(ThrowablesNode.GetAttribute("Condition"), LogicConditions)
-            ThrowablesCond.Count = CDec(ThrowablesNode.GetAttribute("Count"))
-            ThrowablesCond.CheckFloor = CBool(ThrowablesNode.GetAttribute("CheckFloor"))
-            ThrowablesCond.CheckInventory = CBool(ThrowablesNode.GetAttribute("CheckInventory"))
+                If Not ListNode.Item("Throwables") Is Nothing Then
+                    Dim ThrowablesNode As XmlElement = ListNode.Item("Throwables")
+                    ThrowablesCond.Active = Boolean.Parse(ThrowablesNode.InnerText)
+                    ItemsList.SetItemChecked(3, ThrowablesCond.Active)
+                    ThrowablesCond.Condition = CType(ThrowablesNode.GetAttribute("Condition"), LogicConditions)
+                    ThrowablesCond.Count = CDec(ThrowablesNode.GetAttribute("Count"))
+                    ThrowablesCond.CheckFloor = Boolean.Parse(ThrowablesNode.GetAttribute("CheckFloor"))
+                    ThrowablesCond.CheckInventory = Boolean.Parse(ThrowablesNode.GetAttribute("CheckInventory"))
+                End If
 
-            Dim AmmunitionNode As XmlElement = ListNode.Item("Ammunition")
-            AmmunitionCond.Active = CBool(AmmunitionNode.InnerText)
-            ItemsList.SetItemChecked(4, AmmunitionCond.Active)
-            AmmunitionCond.Condition = CType(AmmunitionNode.GetAttribute("Condition"), LogicConditions)
-            AmmunitionCond.Count = CDec(AmmunitionNode.GetAttribute("Count"))
-            AmmunitionCond.CheckFloor = CBool(AmmunitionNode.GetAttribute("CheckFloor").Equals("True"))
-            AmmunitionCond.CheckInventory = CBool(AmmunitionNode.GetAttribute("CheckInventory").Equals("True"))
-        Catch Ex As Exception
+                If ListNode.Item("Ammunition") Is Nothing Then
+                    Dim AmmunitionNode As XmlElement = ListNode.Item("Ammunition")
+                    AmmunitionCond.Active = Boolean.Parse(AmmunitionNode.InnerText)
+                    ItemsList.SetItemChecked(4, AmmunitionCond.Active)
+                    AmmunitionCond.Condition = CType(AmmunitionNode.GetAttribute("Condition"), LogicConditions)
+                    AmmunitionCond.Count = CDec(AmmunitionNode.GetAttribute("Count"))
+                    AmmunitionCond.CheckFloor = Boolean.Parse(AmmunitionNode.GetAttribute("CheckFloor"))
+                    AmmunitionCond.CheckInventory = Boolean.Parse(AmmunitionNode.GetAttribute("CheckInventory"))
+                End If
+       Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
         Finally
@@ -326,13 +351,21 @@ Public Class frmAlarms
             xmlSTConditionParalized.InnerText = StatusConditionParalized.Checked
             Dim xmlSTConditionElectrified As XmlElement = xmlFile.CreateElement("Electrified")
             xmlSTConditionElectrified.InnerText = StatusConditionElectrified.Checked
+            Dim xmlSTConditionDazzled As XmlElement = xmlFile.CreateElement("Dazzled")
+            xmlSTConditionDazzled.InnerText = StatusConditionDazzled.Checked
+            Dim xmlSTConditionFreezing As XmlElement = xmlFile.CreateElement("Freezing")
+            xmlSTConditionFreezing.InnerText = StatusConditionFreezing.Checked
+            Dim xmlSTConditionCursed As XmlElement = xmlFile.CreateElement("Cursed")
+            xmlSTConditionCursed.InnerText = StatusConditionCursed.Checked
             xmlSTConditions.AppendChild(xmlSTConditionCombatSign)
             xmlSTConditions.AppendChild(xmlSTConditionBurnt)
             xmlSTConditions.AppendChild(xmlSTConditionPoisoned)
             xmlSTConditions.AppendChild(xmlSTConditionDrowning)
             xmlSTConditions.AppendChild(xmlSTConditionParalized)
             xmlSTConditions.AppendChild(xmlSTConditionElectrified)
-
+            xmlSTConditions.AppendChild(xmlSTConditionDazzled)
+            xmlSTConditions.AppendChild(xmlSTConditionFreezing)
+            xmlSTConditions.AppendChild(xmlSTConditionCursed)
             xmlStatus.AppendChild(xmlSTHitPoints)
             xmlStatus.AppendChild(xmlSTManaPoints)
             xmlStatus.AppendChild(xmlSTSoulPoints)
@@ -677,24 +710,36 @@ Public Class frmAlarms
                 Output &= " My Capacity is " & Kernel.SoulPoints & ", below " & StatusSoulPoints.Value & "."
                 Alert = True
             End If
-            If StatusConditionBurnt.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.Burnt) = Scripting.ITibia.Conditions.Burnt Then
+            If StatusConditionBurnt.Checked AndAlso Kernel.Client.CharacterHasCondition(ITibia.Conditions.Burnt) Then
                 Output &= " I'm burnt."
                 Alert = True
             End If
-            If StatusConditionCombatSign.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.CombatSign) = Scripting.ITibia.Conditions.CombatSign Then
+            If StatusConditionCombatSign.Checked AndAlso Kernel.Client.CharacterHasCondition(ITibia.Conditions.CombatSign) Then
                 Output &= " I'm PZ locked."
                 Alert = True
             End If
-            If StatusConditionDrowning.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.Drowning) = Scripting.ITibia.Conditions.Drowning Then
+            If StatusConditionDrowning.Checked AndAlso Kernel.Client.CharacterHasCondition(ITibia.Conditions.Drowning) Then
                 Output &= " I'm drowning."
                 Alert = True
             End If
-            If StatusConditionElectrified.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.Electrified) = Scripting.ITibia.Conditions.Electrified Then
+            If StatusConditionElectrified.Checked AndAlso Kernel.Client.CharacterHasCondition(ITibia.Conditions.Electrified) Then
                 Output &= " I'm electrified."
                 Alert = True
             End If
-            If StatusConditionParalized.Checked AndAlso (CurrentConditions And Scripting.ITibia.Conditions.Paralized) = Scripting.ITibia.Conditions.Paralized Then
+            If StatusConditionParalized.Checked AndAlso Kernel.Client.CharacterHasCondition(ITibia.Conditions.Paralized) Then
                 Output &= " I'm paralized."
+                Alert = True
+            End If
+            If StatusConditionDazzled.Checked AndAlso Kernel.Client.CharacterHasCondition(ITibia.Conditions.Dazzled) Then
+                Output &= " I'm dazzled."
+                Alert = True
+            End If
+            If StatusConditionFreezing.Checked AndAlso Kernel.Client.CharacterHasCondition(ITibia.Conditions.Freezing) Then
+                Output &= " I'm freezing."
+                Alert = True
+            End If
+            If StatusConditionCursed.Checked AndAlso Kernel.Client.CharacterHasCondition(ITibia.Conditions.Cursed) Then
+                Output &= " I'm cursed."
                 Alert = True
             End If
             If Alert Then

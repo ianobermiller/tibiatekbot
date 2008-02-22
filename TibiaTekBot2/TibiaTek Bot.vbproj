@@ -437,6 +437,7 @@
     <None Include="Resources\lagbar_interface.gif" />
     <None Include="Resources\lagbar_bar.gif" />
     <None Include="Resources\LagBar.ico" />
+    <None Include="Resources\keyboard.png" />
     <Content Include="Resources\ttb21.ico" />
     <Content Include="Resources\ttb21_16.ico" />
     <Content Include="TibiaTekBot Injected DLL.dll">
