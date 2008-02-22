@@ -360,14 +360,8 @@
   <data name="ClosePopupItem.Text" xml:space="preserve">
     <value>&amp;Exit</value>
   </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 20</value>
-  </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
-    <value>TibiaTek Bot Menu</value>
-  </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 314</value>
+    <value>236, 292</value>
   </data>
   <data name="&gt;&gt;PopupMenu.Name" xml:space="preserve">
     <value>PopupMenu</value>
@@ -380,6 +374,12 @@
   </data>
   <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 20</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
+    <value>TibiaTek Bot Menu</value>
   </data>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>

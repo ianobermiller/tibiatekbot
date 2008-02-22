@@ -124,6 +124,9 @@
   <data name="script_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\script_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LagBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LagBar.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Cavebot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cavebot.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -166,6 +169,9 @@
   <data name="holeopen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\holeopen.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ttb21_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ttb21_16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Alarms" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Alarms.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -196,9 +202,6 @@
   <data name="TibiaMultiClientPatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TibiaMultiClientPatch.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="waterfish" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MapReader\waterfish.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -217,8 +220,8 @@
   <data name="doorlocked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MapReader\doorlocked.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ttb21_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ttb21_16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="waterfish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MapReader\waterfish.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tibia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tibia.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -262,7 +265,7 @@
   <data name="ttb_splash4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ttb splash4.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LagBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LagBar.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="keyboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\keyboard.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
