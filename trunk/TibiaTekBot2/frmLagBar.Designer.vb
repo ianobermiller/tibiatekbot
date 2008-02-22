@@ -48,7 +48,7 @@ Partial Class frmLagBar
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.TibiaTekBot.My.Resources.Resources.lagbar_bar
-        Me.PictureBox1.Location = New System.Drawing.Point(5, 6)
+        Me.PictureBox1.Location = New System.Drawing.Point(5, 4)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(88, 9)
         Me.PictureBox1.TabIndex = 6
