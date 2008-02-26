@@ -17,6 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 Imports Microsoft.VisualBasic, Microsoft.VisualBasic.Devices, Microsoft.VisualBasic.ApplicationServices
+Imports System.Windows.Forms
 
 Public Interface IKernel
 
@@ -27,13 +28,13 @@ Public Interface IKernel
     ReadOnly Property CommandParser() As ICommandParser
     ReadOnly Property IrcClient() As IIrcClient
     ReadOnly Property Computer() As Computer
+    ReadOnly Property [NotifyIcon]() As NotifyIcon
 #End Region
 
 #Region " Methods "
     Function NewBattlelist() As IBattlelist
     Function NewBattlelist(ByVal SE As IBattlelist.SpecialEntity) As IBattlelist
     Function NewBattlelist(ByVal Position As Integer) As IBattlelist
-
     Function NewContainer() As IContainer
 
     Sub ConsoleRead(ByVal strString As String)

@@ -193,6 +193,7 @@ Public Module KernelModule
         Public Scripts As List(Of ScriptDefinition)
         Public CommandParser As CommandParser
         Public WithEvents RenameBackpackObj As ThreadTimer
+        Public _NotifyIcon As NotifyIcon
 #End Region
 
 #Region " Variables "
@@ -4095,6 +4096,7 @@ ContinueAttack:
         Private Sub Proxy_ConnectionLost() Handles Proxy.ConnectionLost
             Try
                 'ChangeClientTitle(BotName & " - Not Logged In")
+                Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - Not logged in"
                 IsGreetingSent = False
                 GreetingSentTry = 0
                 StopEverything()
@@ -4107,6 +4109,7 @@ ContinueAttack:
 
         Private Sub Client_Closed() Handles Client.Closed
             Try
+                Kernel.NotifyIcon.Visible = False
                 Log("Event", "The Tibia Client has been closed.")
                 End
             Catch Ex As Exception
@@ -5078,6 +5081,7 @@ ContinueAttack:
                                     If DefaultMessageType <> ITibia.DefaultMessageType.MonsterSay AndAlso DefaultMessageType <> ITibia.DefaultMessageType.MonsterYell Then
                                         MessageAlarm(ITibia.MessageType.Default, Name, Level, Loc, Message)
                                     End If
+                                    Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.Default, Name, Level, Loc, Message, DefaultMessageType))
                                 Case ITibia.MessageType.Channel
                                     Dim Channel As ITibia.Channel = CType(GetWord(bytBuffer, Pos), ITibia.Channel)
                                     'MsgBox(BytesToStr(bytBuffer))
@@ -5089,9 +5093,11 @@ ContinueAttack:
                                         End If
                                     End If
                                     'MessageAlarm(ChannelMessageType, Name, Level, Loc, Message)
+                                    Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.Channel, Name, Level, Loc, Message, , ChannelMessageType, , Channel))
                                 Case ITibia.MessageType.PrivateMessage 'private message
                                     Message = GetString(bytBuffer, Pos)
                                     MessageAlarm(ITibia.MessageType.PrivateMessage, Name, Level, Loc, Message)
+                                    Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.PrivateMessage, Name, Level, Loc, Message, , , PrivateMessageType))
                             End Select
                         Case &HAB 'channel dialog
                             OneByte = GetByte(bytBuffer, Pos)
@@ -5219,6 +5225,7 @@ ContinueAttack:
                     'Core.Proxy.SendPacketToServer(PacketUtils.PlayerLogout)
                     Log("Message Alarm", "Logging out.")
                 End If
+
                 If AlarmsForm.MessageForwardMessage.Checked AndAlso AlarmsForm.MessageForwardMessageInput.Text.Length > 0 Then
                     ChatMessage.Message = Output
                     ChatMessage.MessageType = ITibia.MessageType.PrivateMessage
@@ -5236,7 +5243,6 @@ ContinueAttack:
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
-
 #End Region
 
 #Region " Console R/W "
@@ -5418,6 +5424,11 @@ ContinueAttack:
             End Get
         End Property
 
+        Public ReadOnly Property NotifyIcon() As NotifyIcon Implements Scripting.IKernel.NotifyIcon
+            Get
+                Return _NotifyIcon
+            End Get
+        End Property
 #End Region
 
     End Class

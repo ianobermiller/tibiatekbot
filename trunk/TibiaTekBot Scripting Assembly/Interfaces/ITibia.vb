@@ -42,7 +42,6 @@ Public Interface ITibia
             Me.Z = Z
         End Sub
     End Structure
-
 #End Region
 
 #Region " Enumerations "
@@ -57,6 +56,7 @@ Public Interface ITibia
         None = 0
         CharacterAttacked
         CharacterConditionsChanged
+        MessageReceived
     End Enum
 
     Enum WindowStates As Integer
@@ -262,11 +262,13 @@ Public Interface ITibia
     Event Disconnected()
     Event CharacterConditionsChanged As CharacterConditionsChangedEventHandler
     Event CharacterAttacked As CharacterAttackedEventHandler
+    Event MessageReceived As MessageReceivedEventHandler
 #End Region
 
 #Region " Delegates "
     Delegate Sub CharacterAttackedEventHandler(ByVal e As Events.CharacterAttackedEventArgs)
     Delegate Sub CharacterConditionsChangedEventHandler(ByVal e As Events.CharacterConditionsChangedEventArgs)
+    Delegate Sub MessageReceivedEventHandler(ByVal e As Events.MessageReceivedEventArgs)
 #End Region
 
 #Region " Properties "

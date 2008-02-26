@@ -181,6 +181,7 @@ Public Class frmMain
             End If
             If Kernel.Client.IsConnected Then
                 Me.Text = "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName
+
                 FunctionsToolStripMenuItem.Enabled = True
                 AboutToolStripMenuItem.Enabled = True
                 RefreshControls()
@@ -956,6 +957,8 @@ Public Class frmMain
                 Kernel.Client.UnprotectMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia.Length)
                 Kernel.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
             End If
+            Kernel._NotifyIcon = Me.NotifyIcon
+            Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - Not logged in"
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -2750,18 +2753,6 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-        Try
-            If Kernel.Client.IsConnected Then
-                NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName
-            Else
-                NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - Not logged in"
-            End If
-        Catch ex As Exception
-            NotifyIcon.Text = "TibiaTek Bot v" & BotVersion
-        End Try
-    End Sub
-
     Private Sub NotifyIcon_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles NotifyIcon.Click
         Try
             If Not My.Computer.Keyboard.CtrlKeyDown Then Exit Sub
@@ -2794,5 +2785,13 @@ Public Class frmMain
 
     Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem1.Click
         Kernel.LagBarForm.Show()
+    End Sub
+
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+        If Kernel.Client Is Nothing Then Exit Sub
+        If Kernel.Client.IsConnected Then
+            Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName
+            Timer1.Enabled = False
+        End If
     End Sub
 End Class
