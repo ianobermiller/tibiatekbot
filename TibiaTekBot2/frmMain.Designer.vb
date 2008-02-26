@@ -623,6 +623,7 @@ Partial Class frmMain
         '
         Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.KeyboardToolStripMenuItem, Me.ToolStripMenuItem1, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
+        Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
@@ -3520,7 +3521,7 @@ Partial Class frmMain
         'Timer1
         '
         Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 1000
+        Me.Timer1.Interval = 2000
         '
         'frmMain
         '
@@ -4019,7 +4020,6 @@ Partial Class frmMain
     Friend WithEvents NumericUpDown5 As System.Windows.Forms.NumericUpDown
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents CheckBox8 As System.Windows.Forms.CheckBox
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
     Friend WithEvents MCPatcherBox As System.Windows.Forms.GroupBox
     Friend WithEvents MCPatcherButton As System.Windows.Forms.Button
@@ -4158,4 +4158,5 @@ Partial Class frmMain
     Friend WithEvents RemoveLeader As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NotifyIcon As System.Windows.Forms.NotifyIcon
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
 End Class

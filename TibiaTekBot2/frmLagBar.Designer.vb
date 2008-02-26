@@ -58,10 +58,10 @@ Partial Class frmLagBar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Fuchsia
+        Me.BackColor = System.Drawing.Color.Magenta
         Me.BackgroundImage = Global.TibiaTekBot.My.Resources.Resources.lagbar_interface
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.ClientSize = New System.Drawing.Size(96, 35)
+        Me.ClientSize = New System.Drawing.Size(98, 37)
         Me.ControlBox = False
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label2)

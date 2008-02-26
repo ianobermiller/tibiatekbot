@@ -1,4 +1,5 @@
-﻿Public Class frmLagBar
+﻿Imports System.Drawing
+Public Class frmLagBar
     Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
 
     Private Sub frmLagBar_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
@@ -66,7 +67,15 @@
         End SyncLock
     End Sub
 
+    Private Sub frmLagBar_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Me.ControlBox = False
+        Me.FormBorderStyle = _
+            System.Windows.Forms.FormBorderStyle.None
+        Me.TransparencyKey = System.Drawing.Color.Magenta
+    End Sub
+
     Private Sub frmLagBar_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown, Label2.MouseDown
+        If e.Y > 25 And e.Y < 32 And e.X > 85 And e.X < 95 Then Exit Sub
         If Not My.Computer.Mouse.ButtonsSwapped And e.Button = MouseButtons.Left OrElse _
            My.Computer.Mouse.ButtonsSwapped And e.Button = MouseButtons.Right Then
             CType(sender, System.Windows.Forms.Control).Capture = False
@@ -74,4 +83,9 @@
         End If
     End Sub
 
+    Private Sub frmLagBar_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseUp
+        If e.Y > 25 And e.Y < 32 And e.X > 85 And e.X < 95 Then
+            Me.Hide()
+        End If
+    End Sub
 End Class

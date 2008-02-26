@@ -434,10 +434,10 @@
     <None Include="Resources\ttb splash4.jpg" />
     <None Include="Resources\ttb splash5.jpg" />
     <None Include="Resources\ttb splash6.jpg" />
-    <None Include="Resources\lagbar_interface.gif" />
     <None Include="Resources\lagbar_bar.gif" />
     <None Include="Resources\LagBar.ico" />
     <None Include="Resources\keyboard.png" />
+    <None Include="Resources\lagbar_interface.png" />
     <Content Include="Resources\ttb21.ico" />
     <Content Include="Resources\ttb21_16.ico" />
     <Content Include="TibiaTekBot Injected DLL.dll">

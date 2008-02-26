@@ -67,6 +67,8 @@ Public NotInheritable Class Tibia
     Public Event Disconnected() Implements ITibia.Disconnected
     Public Event CharacterAttacked(ByVal e As Scripting.Events.Events.CharacterAttackedEventArgs) Implements Scripting.ITibia.CharacterAttacked
     Public Event CharacterConditionsChanged(ByVal e As Scripting.Events.Events.CharacterConditionsChangedEventArgs) Implements Scripting.ITibia.CharacterConditionsChanged
+    Public Event MessageReceived(ByVal e As Scripting.Events.Events.MessageReceivedEventArgs) Implements ITibia.MessageReceived
+
 #End Region
 
 #Region " Structures "
@@ -136,6 +138,7 @@ Public NotInheritable Class Tibia
     Private _MapTiles As IMapTiles
     Private _Objects As Objects
     Private _PipeName As String = ""
+
     Public WithEvents Pipe As Pipe
     Private _CharacterList() As ITibia.CharacterListEntry
 #End Region
@@ -1096,6 +1099,8 @@ Public NotInheritable Class Tibia
                     RaiseEvent CharacterAttacked(e)
                 Case ITibia.EventKind.CharacterConditionsChanged
                     RaiseEvent CharacterConditionsChanged(e)
+                Case ITibia.EventKind.MessageReceived
+                    RaiseEvent MessageReceived(e)
             End Select
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

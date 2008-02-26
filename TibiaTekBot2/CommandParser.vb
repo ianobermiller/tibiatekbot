@@ -1313,6 +1313,10 @@ Public Class CommandParser
         Try
             Kernel.ConsoleWrite("Begin Test")
             Select Case Arguments(2).ToString.ToLower
+                Case "notify"
+                    Kernel.NotifyIcon.Text = "Hola?"
+                    Kernel.ConsoleRead("changed?")
+                    Kernel.NotifyIcon.ShowBalloonTip(5, "TibiaTekBot", "Hey there :P", ToolTipIcon.Info)
                 Case "setparcel"
                     Kernel.ConsoleWrite(Kernel.Client.Objects.ID("Parcel"))
                     'Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
