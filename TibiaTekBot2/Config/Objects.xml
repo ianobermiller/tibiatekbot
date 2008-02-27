@@ -67,7 +67,13 @@
     <Object Name="Salmon" Kind="Food" ID="Hdfb"/>
 	<Object Name="Orange" Kind="Food" ID="HE02"/>
 	<Object Name="Melon" Kind="Food" ID="HE09"/>
-	<Object Name="Egg" Kind="Food" ID="HE16"/>
+	<Object Name="Fire Mushroom" Kind="Food" ID="HE93"/>
+	<Object Name="Strawberry" Kind="Food" ID="HE07"/>
+	<Object Name="Cherry" Kind="Food" ID="HE06"/>
+	<Object Name="Grape" Kind="Food" ID="HE08"/>
+	<Object Name="Tortoise Egg" Kind="Food" ID="H162E"/>
+	<Object Name="Cookie" Kind="Food" ID="HE0E"/>
+	
     <Object Name="Rope" Kind="Tool" ID="HBBB"/>
     <Object Name="Shovel" Kind="Tool" ID="HD81"/>
     <Object Name="Light Shovel" Kind="Tool" ID="H164E" />
