@@ -152,7 +152,6 @@ Public Class frmAlarms
             
             If Not ItemsNode.Item("List") Is Nothing Then
                 Dim ListNode As XmlNode = ItemsNode.Item("List")
-
                 If Not ListNode.Item("Food") Is Nothing Then
                     Dim FoodNode As XmlElement = ListNode.Item("Food")
                     FoodCond.Active = Boolean.Parse(FoodNode.InnerText)

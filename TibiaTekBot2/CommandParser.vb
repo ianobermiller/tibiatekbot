@@ -1201,7 +1201,7 @@ Public Class CommandParser
 
                                     'Everything's clear, let's add item
                                     Dim CP As New ClientPacketBuilder(Kernel.Proxy)
-                                    Dim LootItem As New LootItems.LootItemDefinition(ItemId, ContainerIndex)
+                                    Dim LootItem As New LootItems.LootItemDefinition(ItemId, ContainerIndex, 1)
                                     If Kernel.LootItems.Add(LootItem) Then
                                         Dim Count As Integer = 0
                                         If Kernel.Client.Objects.HasFlags(ItemId, IObjects.ObjectFlags.IsStackable) Then
@@ -1345,7 +1345,8 @@ Public Class CommandParser
                     Kernel.ConsoleWrite("ClientZ(7): " & Kernel.Client.MapTiles.WorldZToClientZ(7))
                     Kernel.ConsoleWrite("ClientZ(8): " & Kernel.Client.MapTiles.WorldZToClientZ(8))
                     Kernel.ConsoleWrite("ClientZ(9): " & Kernel.Client.MapTiles.WorldZToClientZ(9))
-
+                Case "load loots"
+                    Kernel.LootItems.Load()
                 Case "floorchange"
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -1358,7 +1359,6 @@ Public Class CommandParser
                     Kernel.ConsoleWrite("Down: " & LocationDown.X & ":" & LocationDown.Y & ":" & LocationDown.Z)
                     CPB.AnimatedText(Scripting.ITibia.TextColors.Green, LocationUp, "UP")
                     Kernel.ConsoleWrite("Up: " & LocationUp.X & ":" & LocationUp.Y & ":" & LocationUp.Z)
-
                 Case "wp"
                     Dim CPB As New ClientPacketBuilder(Kernel.Proxy)
                     For I As Integer = 0 To Kernel.Walker_Waypoints.Count - 1
@@ -1366,7 +1366,9 @@ Public Class CommandParser
                             CPB.AnimatedText(Scripting.ITibia.TextColors.Red, Kernel.Walker_Waypoints(I).Coordinates, "**")
                         End If
                     Next
-
+                Case "lootbackpack"
+                    Dim BP As New Container
+                    Kernel.ConsoleWrite("LootBackpack: " & Kernel.LootItems.GetLootingBackpack(3031, BP.ContainerCount))
                 Case "direction"
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -2587,8 +2589,8 @@ Public Class CommandParser
                     Kernel.LooterTimerObj.StopTimer()
                     Kernel.AutoAttackerTimerObj.StopTimer()
                     Kernel.CaveBotTimerObj.StopTimer()
-                    Kernel.EaterTimerObj.StopTimer()
-                    Kernel.EaterTimerObj.Interval = 0
+                    'Kernel.EaterTimerObj.StopTimer()
+                    'Kernel.EaterTimerObj.Interval = 0
                     Kernel.WaypointIndex = 0
                     Kernel.IsOpeningReady = True
                     SP.StopEverything()
@@ -2606,9 +2608,9 @@ Public Class CommandParser
                     End If
                     Kernel.AutoAttackerTimerObj.StartTimer()
                     Kernel.CaveBotTimerObj.StartTimer()
-                    Kernel.AutoEaterSmart = 0
-                    Kernel.EaterTimerObj.Interval = 20000
-                    Kernel.EaterTimerObj.StartTimer()
+                    'Kernel.AutoEaterSmart = 0
+                    'Kernel.EaterTimerObj.Interval = 20000
+                    'Kernel.EaterTimerObj.StartTimer()
                     Kernel.IsOpeningReady = True
                     Kernel.CBCreatureDied = False
                     Kernel.WaypointIndex = 0
@@ -2634,9 +2636,9 @@ Public Class CommandParser
                         End If
                         Kernel.AutoAttackerTimerObj.StartTimer()
                         Kernel.CaveBotTimerObj.StartTimer()
-                        Kernel.AutoEaterSmart = 0
-                        Kernel.EaterTimerObj.Interval = 20000
-                        Kernel.EaterTimerObj.StartTimer()
+                        'Kernel.AutoEaterSmart = 0
+                        'Kernel.EaterTimerObj.Interval = 20000
+                        'Kernel.EaterTimerObj.StartTimer()
                         Kernel.IsOpeningReady = True
                         Kernel.CBCreatureDied = False
                         Kernel.Client.WriteMemory(Consts.ptrChasingMode, 1, 1)

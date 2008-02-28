@@ -142,6 +142,24 @@ Public Module ContainerModule
             End Try
         End Function
 
+        Public ReadOnly Property GetBackpackCount() As Integer
+            Get
+                Try
+                    Dim ContCount As Integer = 0
+                    Dim Cont As New Container
+                    Cont.Reset()
+                    Do
+                        If Cont.IsOpened() AndAlso Not String.IsNullOrEmpty(Kernel.Client.Objects.Name(Cont.GetContainerID)) Then
+                            ContCount += 1
+                        End If
+                    Loop While Cont.NextContainer()
+                    Return ContCount
+                Catch ex As Exception
+                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End Get
+        End Property
+
         Public Shared Function IsOpened(ByVal Index As Integer) As Boolean
             Try
                 Dim mIsOpened As Integer = 0
