@@ -1494,8 +1494,9 @@ Public Class frmMain
     End Sub
 
     Private Sub AutoLooterEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterConfigure.Click
-        Kernel.LootItems.ShowLootCategories()
-        Kernel.Client.BringToFront()
+        'Kernel.LootItems.ShowLootCategories()
+        'Kernel.Client.BringToFront()
+        Kernel.EditLootForm.Show()
     End Sub
 
     Private Sub AutoStackerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoStackerTrigger.CheckedChanged

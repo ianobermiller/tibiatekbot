@@ -417,4 +417,12 @@ Public Class frmScripts
             End If
         Next
     End Sub
+
+    Private Sub frmScripts_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub ScriptsView_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles ScriptsView.CellContentClick
+
+    End Sub
 End Class

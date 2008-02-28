@@ -165,6 +165,7 @@ Public Module KernelModule
         Public WithEvents ScriptsForm As New frmScripts
         Public WithEvents KeyboardForm As New frmKeyboard
         Public WithEvents LagBarForm As New frmLagBar
+        Public WithEvents EditLootForm As New frmEditLoot
 
         'Public Map As MapTiles
         Public WithEvents ConstantsEditorForm As New frmConstantsEditor
@@ -1151,7 +1152,9 @@ Public Module KernelModule
                 Dim ActualItem As Integer
                 Dim ActualIndex As Integer
                 Dim ActualIndex2 As Integer
+                Dim LootItem As New LootItems.LootItemDefinition
                 Dim Container As New Container
+                Dim NumberOfBps As Integer = Container.GetBackpackCount
                 Dim Item As Scripting.IContainer.ContainerItemDefinition
                 Container.Reset()
                 Dim Containers() As InternalContainer = {New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer, New InternalContainer}
@@ -1199,6 +1202,11 @@ Public Module KernelModule
                                 BagOpened = True
                             End If
                             If LootItems.IsLootable(Item.ID) Then
+                                LootItem = LootItems.GetLootItem(Item.ID)
+                                If LootItem.GetLootBackpack = 0 Then 'LOOT TO GROUND
+                                    ServerPacket.MoveObject(Item, CharacterLoc)
+                                    Continue For
+                                End If
                                 Dim RemainingCount As Integer
                                 RemainingCount = Max(Item.Count, 1)
                                 If Client.Objects.HasFlags(Item.ID, IObjects.ObjectFlags.IsStackable) Then
@@ -1212,6 +1220,7 @@ Public Module KernelModule
                                             OrElse (Containers(ActualIndex2).GetName.StartsWith("Bag") _
                                             AndAlso Containers(ActualIndex2).HasParent _
                                             AndAlso Containers(ActualIndex2).GetContainerID = BrownBagID) Then Continue For
+                                        If Not Containers(ActualIndex2).GetContainerIndex + 1 = LootItems.GetLootingBackpack(Item.ID, NumberOfBps) Then Continue For
                                         ContainerItemCount2 = Containers(ActualIndex2).GetItemCount()
                                         For E As Integer = 0 To ContainerItemCount2 - 1
                                             Item2 = Containers(ActualIndex2).Items(E)
@@ -1259,10 +1268,12 @@ Public Module KernelModule
                                             OrElse (Containers(ActualIndex2).GetName.StartsWith("Bag") _
                                             AndAlso Containers(ActualIndex2).HasParent _
                                             AndAlso Containers(ActualIndex2).GetContainerID = BrownBagID) Then Continue For
+                                        If Not Containers(ActualIndex2).GetContainerIndex + 1 = LootItems.GetLootingBackpack(Item.ID, NumberOfBps) Then Continue For
                                         If Containers(ActualIndex2).GetItemCount < Containers(ActualIndex2).GetContainerSize Then
                                             Dim Loc As ITibia.LocationDefinition
                                             Loc.X = &HFFFF
                                             Loc.Y = &H40 + Containers(ActualIndex2).GetContainerIndex()
+                                            'Loc.Y = &H40 + LootItems.GetLootingBackpack(Item.ID, NumberOfBps) - 1
                                             Loc.Z = Containers(ActualIndex2).GetContainerSize - 1
                                             ServerPacket.MoveObject(Item, Loc, RemainingCount)
                                             'Proxy.SendPacketToServer(MoveObject(Item, Loc, RemainingCount), False)
@@ -1298,7 +1309,7 @@ Public Module KernelModule
                         For I As Integer = ContainerItemCount - 1 To 0 Step -1
                             Item = Containers(ActualIndex).Items(I)
                             If Item.ID = 0 Then Continue For
-                            If Client.Objects.Kind(Item.ID) And IObjects.ObjectKind.Food = IObjects.ObjectKind.Food Then
+                            If Client.Objects.Kind(Item.ID) = IObjects.ObjectKind.Food Then
                                 ServerPacket.UseObject(Item)
                                 'Proxy.SendPacketToServer(UseObject(Item), False)
                                 WaitMillis = 1000
@@ -4197,7 +4208,7 @@ ContinueAttack:
                     If MyContainer.IsOpened AndAlso ContainerSize = &H24 Then 'is fake
                         Send = False
                         If LooterCurrentCategory = 0 Or ItemID <= 100 Then Exit Sub
-                        If LootItems.Add(New LootItems.LootItemDefinition(ItemID, LooterCurrentCategory - 1)) Then
+                        If LootItems.Add(New LootItems.LootItemDefinition(ItemID, LooterCurrentCategory - 1, 1)) Then
                             If Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsStackable) Then
                                 Count = 100
                             ElseIf Client.Objects.HasFlags(ItemID, IObjects.ObjectFlags.IsFluidContainer) Then
@@ -4233,6 +4244,9 @@ ContinueAttack:
                         CP.CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True)
                         'Proxy.SendPacketToClient(CreateContainer(ItemID, &HF, "Loot Category #" & (Slot + 1), &H24, LootItems.GetItemsIDs(Slot), True))
                     Else
+                        LootItems.SetLootBackpackIndex(ItemID, 3)
+                        LootItems.Save()
+                        Kernel.ConsoleWrite(LootItems.GetLootItem(ItemID).GetLootBackpack)
                         CP.SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ").")
                         'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Item Information: " & Client.Objects.Name(ItemID) & " (H" & Hex(ItemID) & ")."))
                     End If

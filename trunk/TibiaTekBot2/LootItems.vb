@@ -66,10 +66,12 @@ Public Module LootItemsModule
         Public Structure LootItemDefinition
             Private ID As UShort
             Private ContainerIndex As Integer
+            Private LootBackpack As Integer
 
-            Sub New(ByVal ID As UShort, ByVal ContainerIndex As Integer) ', ByVal Capacity As Integer)
+            Sub New(ByVal ID As UShort, ByVal ContainerIndex As Integer, ByVal LootBackpack As Integer) ', ByVal Capacity As Integer)
                 Me.ID = ID
                 Me.ContainerIndex = ContainerIndex
+                Me.LootBackpack = LootBackpack
             End Sub
 
             Public ReadOnly Property GetID() As UShort
@@ -84,6 +86,11 @@ Public Module LootItemsModule
                 End Get
             End Property
 
+            Public ReadOnly Property GetLootBackpack() As Integer
+                Get
+                    Return LootBackpack
+                End Get
+            End Property
         End Structure
 
         Sub New()
@@ -97,6 +104,7 @@ Public Module LootItemsModule
                 Dim Name As String = ""
                 Dim ID As UShort = 0
                 Dim ContainerIndex As Integer = 0
+                Dim LootBackpack As Integer = 0
                 Dim TempStr As String = ""
                 Items.Clear()
                 For Each Element As XmlElement In Document.Item("LootItems")
@@ -107,9 +115,13 @@ Public Module LootItemsModule
                         TempStr = Element.GetAttribute("ContainerIndex")
                         If Not String.IsNullOrEmpty(TempStr) AndAlso TempStr.Chars(0) = "H" Then TempStr = "&" + TempStr
                         ContainerIndex = CInt(TempStr)
+                        TempStr = Element.GetAttribute("LootBackpack")
+                        If Not String.IsNullOrEmpty(TempStr) AndAlso TempStr.Chars(0) = "H" Then TempStr = "&" + TempStr
+                        LootBackpack = CInt(TempStr)
                         If Items.ContainsKey(ID) Then Continue For
-                        Items.Add(ID, New LootItemDefinition(ID, ContainerIndex))
+                        Items.Add(ID, New LootItemDefinition(ID, ContainerIndex, LootBackpack))
                     Catch
+
                     End Try
                 Next
             Catch Ex As Exception
@@ -161,8 +173,11 @@ Public Module LootItemsModule
                     xmlID.InnerText = LootItem.GetID
                     Dim xmlContainerIndex As XmlAttribute = Document.CreateAttribute("ContainerIndex")
                     xmlContainerIndex.InnerText = LootItem.GetContainerIndex
+                    Dim xmlLootBackpack As XmlAttribute = Document.CreateAttribute("LootBackpack")
+                    xmlLootBackpack.InnerText = LootItem.GetLootBackpack
                     xmlItem.Attributes.Append(xmlID)
                     xmlItem.Attributes.Append(xmlContainerIndex)
+                    xmlItem.Attributes.Append(xmlLootBackpack)
                     xmlLootItems.AppendChild(xmlItem)
                 Next
                 Dim Declaration As XmlDeclaration = Document.CreateXmlDeclaration("1.0", "", "")
@@ -176,6 +191,25 @@ Public Module LootItemsModule
                 End
             End Try
         End Sub
+
+        Public Function GetLootingBackpack(ByVal ID As Integer, Optional ByVal OpenContainers As Integer = Integer.MaxValue) As Integer
+            'OpenContainers is used for speed
+            Dim ContainerCount As Integer = 0
+            Dim Container As New Container
+            Dim LootingItem As New LootItemDefinition
+            If OpenContainers = Integer.MaxValue Then
+                ContainerCount = Container.ContainerCount
+            Else
+                ContainerCount = OpenContainers
+            End If
+
+            LootingItem = GetLootItem(ID)
+            If LootingItem.GetLootBackpack > ContainerCount Then
+                Return ContainerCount
+            Else
+                Return LootingItem.GetLootBackpack
+            End If
+        End Function
 
         Public Function Replace(ByVal ID As Integer, ByVal NewLootItems As LootItemDefinition) As Boolean
             Try
@@ -204,6 +238,21 @@ Public Module LootItemsModule
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
+            End Try
+        End Function
+
+        Public Function SetLootBackpackIndex(ByVal ID As Integer, ByVal BackpackIndex As Integer) As Boolean
+            Try
+                'Items.Item(ID).SetLootBackpack(BackpackIndex)
+                If Items.ContainsKey(ID) Then
+                    Dim BufferLootItem As New LootItemDefinition(Items(ID).GetID, Items(ID).GetContainerIndex, BackpackIndex)
+                    Items(ID) = BufferLootItem
+                    Return True
+                End If
+                Return False
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
             End Try
         End Function
 
