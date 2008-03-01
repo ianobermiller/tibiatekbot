@@ -934,7 +934,7 @@ Public Class frmMain
             If Not File.Exists(Application.StartupPath & "\TibiaTekBot Injected DLL.dll") Then
                 Throw New Exception("Unable to locate """ & Application.StartupPath & "\TibiaTekBot Injected DLL.dll"". Please re-install the application.")
             End If
-            Kernel.Client.InjectDLL(Application.StartupPath & "\TibiaTekBot Injected DLL.dll")
+            If Not Kernel.Client.InjectDLL(Application.StartupPath & "\TibiaTekBot Injected DLL.dll") Then MessageBox.Show("Couldn't Inject DLL")
             Kernel.Proxy = New PProxy2(Kernel.Client)
 
             System.Threading.Thread.Sleep(1000)
@@ -2718,6 +2718,12 @@ Public Class frmMain
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Kernel.Client.TestPipe()
+        Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+        Dim Location As New ITibia.LocationDefinition
+        Location.X = 100
+        Location.Y = 100
+        Location.Z = 0 'Not used
+        PPB.DisplayText(1, Location, 100, 0, 0, 1, "Hello World!")
         'Dim T As New System.Threading.Thread(AddressOf AutoLogin)
         ''T.Start()
     End Sub
