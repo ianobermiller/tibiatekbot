@@ -192,7 +192,8 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 		{
 			TerminateThread(PipeThread, EXIT_SUCCESS);
 			DeleteCriticalSection(&PipeReadCriticalSection);
-			/* Close the pipe thread? */
+
+			
 		}
 		break;
     }
