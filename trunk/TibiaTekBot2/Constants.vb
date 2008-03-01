@@ -130,22 +130,24 @@ Public Module ConstantsModule
         Public ptrGoToZ As Integer = &H60EB0C
         Public ptrGo As Integer = 0
         Public ptrHotkeyBegin As Integer = &H763C18
-        Public ptrWindowBegin As Integer = &H6198B4
+        Public ptrDialogBegin As Integer = &H6198B4
         Public ptrLevelPercent As Integer = &H60EAB8
         Public ptrMagicLevel As Integer = &H60EABC
         Public ptrMagicLevelPercent As Integer = &H60EAB4
         Public ptrWASDPopup As Integer = 0
+        Public ptrAutoLoginPatch As Integer = &H47935E '8.1
 
-        Public WindowLeftOffset As Integer = &H14
-        Public WindowTopOffset As Integer = &H18
-        Public WindowWidthOffset As Integer = &H1C
-        Public WindowHeightOffset As Integer = &H20
-        Public WindowButtonPressedOffset As Integer = &H28
-        Public WindowButton1Offset As Integer = &H2C
-        Public WindowButton2Offset As Integer = &H2C
-        Public WindowButton3Offset As Integer = &H30
-        Public WindowButton4Offset As Integer = &H38
-        Public WindowCaptionOffset As Integer = &H50
+        Public DialogLeftOffset As Integer = &H14
+        Public DialogTopOffset As Integer = &H18
+        Public DialogWidthOffset As Integer = &H1C
+        Public DialogHeightOffset As Integer = &H20
+        Public DialogButtonPressedOffset As Integer = &H28
+        Public DialogButton1Offset As Integer = &H2C
+        Public DialogButton2Offset As Integer = &H2C
+        Public DialogButton3Offset As Integer = &H30
+        Public DialogButton4Offset As Integer = &H38
+        Public DialogCaptionOffset As Integer = &H50
+
         Public UnlimitedCapacity As Boolean = False
 
         Public BLMax As Integer = &H96
@@ -190,6 +192,10 @@ Public Module ConstantsModule
         Public MapTileDist As Integer = &HAC
 
         Public DebugOnLog As Boolean = False
+
+        Public ptrAutoLoginAccountNumeric As Integer = &H76C2C0
+        Public ptrAutoLoginAccountString As Integer = &H76C2B4 ' 31 chars + null terminator
+        Public ptrAutoLoginPassword As Integer = &H76C294 ' 31 chars + null terminator
 
         Public StatsUploaderUrl As String = "ftp.server.com"
         Public StatsUploaderUserID As String = "userid"
@@ -281,6 +287,9 @@ Public Module ConstantsModule
         Public TTMessagesInterval As Integer = 3600000
 
         Public ptrForYourInformation As Integer = &H595968
+
+        Public AutoLoginPatch() As Byte = {&H90, &H90, &H90, &H90, &H90}
+        Public AutoLoginPatchOriginal() As Byte = {&HE8, &HD, &H1D, &H9, &H0}
 
         Public Sub New()
             LoadConstants()
@@ -456,34 +465,34 @@ Public Module ConstantsModule
                                                     ptrGo = CInt(Value)
                                                 Case "ptrWASDPopup"
                                                     ptrWASDPopup = CInt(Value)
-                                                Case "ptrWindowBegin"
-                                                    ptrWindowBegin = CInt(Value)
+                                                Case "ptrDialogBegin"
+                                                    ptrDialogBegin = CInt(Value)
                                                 Case "ptrLevelPercent"
                                                     ptrLevelPercent = CInt(Value)
                                                 Case "ptrMagicLevel"
                                                     ptrMagicLevel = CInt(Value)
                                                 Case "ptrMagicLevelPercent"
                                                     ptrMagicLevelPercent = CInt(Value)
-                                                Case "WindowLeftOffset"
-                                                    WindowLeftOffset = CInt(Value)
-                                                Case "WindowTopOffset"
-                                                    WindowTopOffset = CInt(Value)
-                                                Case "WindowWidthOffset"
-                                                    WindowWidthOffset = CInt(Value)
-                                                Case "WindowHeightOffset"
-                                                    WindowHeightOffset = CInt(Value)
-                                                Case "WindowButtonPressedOffset"
-                                                    WindowButtonPressedOffset = CInt(Value)
-                                                Case "WindowButton1Offset"
-                                                    WindowButton1Offset = CInt(Value)
-                                                Case "WindowButton2Offset"
-                                                    WindowButton2Offset = CInt(Value)
-                                                Case "WindowButton3Offset"
-                                                    WindowButton3Offset = CInt(Value)
-                                                Case "WindowButton4Offset"
-                                                    WindowButton4Offset = CInt(Value)
-                                                Case "WindowCaptionOffset"
-                                                    WindowCaptionOffset = CInt(Value)
+                                                Case "DialogLeftOffset"
+                                                    DialogLeftOffset = CInt(Value)
+                                                Case "DialogTopOffset"
+                                                    DialogTopOffset = CInt(Value)
+                                                Case "DialogWidthOffset"
+                                                    DialogWidthOffset = CInt(Value)
+                                                Case "DialogHeightOffset"
+                                                    DialogHeightOffset = CInt(Value)
+                                                Case "DialogButtonPressedOffset"
+                                                    DialogButtonPressedOffset = CInt(Value)
+                                                Case "DialogButton1Offset"
+                                                    DialogButton1Offset = CInt(Value)
+                                                Case "DialogButton2Offset"
+                                                    DialogButton2Offset = CInt(Value)
+                                                Case "DialogButton3Offset"
+                                                    DialogButton3Offset = CInt(Value)
+                                                Case "DialogButton4Offset"
+                                                    DialogButton4Offset = CInt(Value)
+                                                Case "DialogCaptionOffset"
+                                                    DialogCaptionOffset = CInt(Value)
                                                 Case "BLMax"
                                                     BLMax = CInt(Value)
                                                 Case "BLDist"
@@ -684,6 +693,12 @@ Public Module ConstantsModule
                                                     AutoEaterInterval = CInt(Value)
                                                 Case "AutoEaterSmartInterval"
                                                     AutoEaterSmartInterval = CInt(Value)
+                                                Case "ptrAutoLoginAccountNumeric"
+                                                    ptrAutoLoginAccountNumeric = CInt(Value)
+                                                Case "ptrAutoLoginAccountString"
+                                                    ptrAutoLoginAccountString = CInt(Value)
+                                                Case "ptrAutoLoginPassword"
+                                                    ptrAutoLoginPassword = CInt(Value)
 
                                                 Case "IRCConnectOnStartUp"
                                                     IRCConnectOnStartUp = System.Boolean.Parse(Value)
@@ -760,6 +775,21 @@ Public Module ConstantsModule
                                                     ObjectLensHelpOffset = CInt(Value)
                                                 Case "ObjectDist"
                                                     ObjectDist = CInt(Value)
+
+                                                Case "AutoLoginPatch"
+                                                    Dim Bytes() As String = Value.Split(New Char() {","})
+                                                    ReDim AutoLoginPatch(Bytes.Length - 1)
+                                                    For I As Integer = 0 To Bytes.Length - 1
+                                                        AutoLoginPatch(I) = Byte.Parse(Bytes(I), NumberStyles.HexNumber)
+                                                    Next
+                                                Case "AutoLoginPatchOriginal"
+                                                    Dim Bytes() As String = Value.Split(New Char() {","})
+                                                    ReDim AutoLoginPatchOriginal(Bytes.Length - 1)
+                                                    For I As Integer = 0 To Bytes.Length - 1
+                                                        AutoLoginPatchOriginal(I) = Byte.Parse(Bytes(I), NumberStyles.HexNumber)
+                                                    Next
+                                                Case "ptrAutoLoginPatch"
+                                                    ptrAutoLoginPatch = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then

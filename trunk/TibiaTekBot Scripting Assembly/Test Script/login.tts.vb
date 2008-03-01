@@ -76,24 +76,24 @@ Public Class Script232
         If Not Kernel.Client.IsConnected Then
 
             Do Until Kernel.Client.IsConnected
-                ActiveDialog = Client.GetCurrentDialog
+                ActiveDialog = Client.DialogCaption
                 If ActiveDialog = "" And tryLogin = False Then
                     Dim TibiaRect As New RECT
 
-                    GetWindowRect(Client.GetWindowHandle, TibiaRect) ' Get the tibia Rect
+                    GetWindowRect(Client.WindowHandle, TibiaRect) ' Get the tibia Rect
                     x = TibiaRect.Left + 124    ' Coordz of Enter Game Button
                     y = TibiaRect.Bottom - 224  '
 
-                    If Client.GetWindowState = ITibia.WindowStates.Hidden Then
+                    If Client.WindowState = ITibia.WindowStates.Hidden Then
                         Hidden = True
                     End If
 
-                    If Client.GetWindowState = ITibia.WindowStates.Minimized Then
+                    If Client.WindowState = ITibia.WindowStates.Minimized Then
                         Minimized = True
                     End If
 
                     Client.Show()
-                    ShowWindow(Client.GetWindowHandle, ShowState.SW_SHOWMAXIMIZED)
+                    ShowWindow(Client.WindowHandle, ShowState.SW_SHOWMAXIMIZED)
                     Client.Activate()
 
                     Thread.Sleep(500)

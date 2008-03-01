@@ -452,6 +452,7 @@ Public Module KernelModule
                 DancerTimerObj = New ThreadTimer()
                 AmmoMakerTimerObj = New ThreadTimer(1000)
                 RenameBackpackObj = New ThreadTimer(100)
+                FavoredWeapon = New List(Of WeaponFavoritDefinition)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -963,11 +964,11 @@ Public Module KernelModule
                 Dim Title As String
 
                 If TTBState = BotState.Paused Then BotNameStart += " [Paused]"
-                Client.ReadMemory(Consts.ptrWindowBegin, WindowBegin, 4)
+                Client.ReadMemory(Consts.ptrDialogBegin, WindowBegin, 4)
                 If WindowBegin = 0 Then 'no window opened
                     If Not Client.IsConnected() Then
                         If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                            Title = BotNameStart & " - " & Hex(Kernel.Client.GetProcessHandle) & " - Not Logged In"
+                            Title = BotNameStart & " - " & Hex(Kernel.Client.ProcessHandle) & " - Not Logged In"
                         Else
                             Title = BotNameStart & " - Not Logged In"
                         End If
@@ -986,10 +987,10 @@ Public Module KernelModule
                         End If
                     End If
                 Else
-                    Client.ReadMemory(WindowBegin + Consts.WindowCaptionOffset, WindowCaption)
+                    Client.ReadMemory(WindowBegin + Consts.DialogCaptionOffset, WindowCaption)
                     If Not Client.IsConnected() Then
                         If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                            Title = BotNameStart & " - " & Hex(Kernel.Client.GetProcessHandle) & " - " & WindowCaption
+                            Title = BotNameStart & " - " & Hex(Kernel.Client.ProcessHandle) & " - " & WindowCaption
                         Else
                             Title = BotNameStart & " - " & WindowCaption
                         End If
@@ -1020,7 +1021,7 @@ Public Module KernelModule
 
         Private Sub TibiaClientStateTimerObj_Execute() Handles TibiaClientStateTimerObj.OnExecute
             Try
-                TibiaWindowState = Client.GetWindowState()
+                TibiaWindowState = Client.WindowState()
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -3662,7 +3663,7 @@ ContinueAttack:
                 Dim BP As New Container
                 BP.Reset()
                 Do
-                    If Not BP.GetName.EndsWith("]") Then
+                    If Not BP.GetName.EndsWith("]") AndAlso BP.GetContainerIndex < &HF Then
                         Select Case BP.GetName.ToLower
                             Case "backpack"
                                 SetContainerName("Backpack " & "[" & BP.GetContainerIndex + 1 & "]", BP.GetContainerIndex)
@@ -3710,12 +3711,16 @@ ContinueAttack:
         End Sub
 
         Public Sub IrcGenerateNick()
-            Dim Nicks() As String = {"TTBOwner", "TTBFan", "TTBKicker", "TTBKiller", "TTBPwner", "TTBRokr", _
-             "TTBKrzr", "TTBRazr", "TTBLord", "TTBUser", "TTBPKer", "TTBLurer", "TTBGamer", "TTBLoco", _
-             "TTBNeedy", "TTBBeast", "TTBCrzy", "TTBHunter", "TTBRot", "TTBSuper", "TTBLntc", "TTBTurbo", _
-             "TTBKilo", "TTBAlpha", "TTBBeta", "TTBOmega", "TTBPhi", "TTBPsych", "TTBMstr", "TTBBravo", "TTBCharlie"}
-            Dim R As New Random(System.DateTime.Now.Millisecond)
-            IRCClient.Nick = Nicks(R.Next(Nicks.Length)) & R.Next(100, 1000).ToString
+            Try
+                Dim Nicks() As String = {"TTBOwner", "TTBFan", "TTBKicker", "TTBKiller", "TTBPwner", "TTBRokr", _
+                 "TTBKrzr", "TTBRazr", "TTBLord", "TTBUser", "TTBPKer", "TTBLurer", "TTBGamer", "TTBLoco", _
+                 "TTBNeedy", "TTBBeast", "TTBCrzy", "TTBHunter", "TTBRot", "TTBSuper", "TTBLntc", "TTBTurbo", _
+                 "TTBKilo", "TTBAlpha", "TTBBeta", "TTBOmega", "TTBPhi", "TTBPsych", "TTBMstr", "TTBBravo", "TTBCharlie"}
+                Dim R As New Random(System.DateTime.Now.Millisecond * System.DateTime.Now.Minute * System.DateTime.Now.Hour)
+                IRCClient.Nick = Nicks(R.Next(Nicks.Length)) & R.Next(100, 1000).ToString
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End Sub
 
 #End Region

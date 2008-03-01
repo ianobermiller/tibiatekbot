@@ -188,7 +188,7 @@ Public Class frmMain
                 MainTabControl.Enabled = True
             Else
                 If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                    Me.Text = "TibiaTek Bot v" & BotVersion & " - " & Hex(Kernel.Client.GetProcessHandle)
+                    Me.Text = "TibiaTek Bot v" & BotVersion & " - " & Hex(Kernel.Client.ProcessHandle)
                 Else
                     Me.Text = "TibiaTek Bot v" & BotVersion
                 End If
@@ -1131,7 +1131,7 @@ Public Class frmMain
         Try
             If Not Kernel.Proxy Is Nothing Then
                 If Not Kernel.Client Is Nothing Then
-                    If Kernel.Client.GetWindowHandle = 0 Then Exit Sub
+                    If Kernel.Client.WindowHandle = 0 Then Exit Sub
                     If Kernel.TibiaClientIsVisible Then
                         Kernel.Client.Hide()
                         'Win32API.ShowWindow(Core.Client.GetWindowHandle, Win32API.ShowState.SW_HIDE)
@@ -2715,17 +2715,54 @@ Public Class frmMain
     Private Sub KeyboardToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KeyboardToolStripMenuItem.Click
         Kernel.KeyboardForm.ShowDialog()
     End Sub
-    'Dim WithEvents wsock As New Winsock()
-    Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        'Kernel.Client.TestPipe()
 
-        'wsock.Connect(Kernel.Client.CharacterListCurrentEntry.WorldIP.ToString, Kernel.Client.CharacterListCurrentEntry.WorldPort)
-        'Dim time As Date = Date.Now
-        'While wsock.GetState <> Winsock.WinsockStates.Connected
-        '    Application.DoEvents()
-        'End While
-        'MsgBox((Date.Now - time).TotalMilliseconds)
-        'wsock.Close()
+    Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
+        Kernel.Client.TestPipe()
+        'Dim T As New System.Threading.Thread(AddressOf AutoLogin)
+        ''T.Start()
+    End Sub
+
+    <STAThread()> Private Sub AutoLogin()
+        With Kernel
+            If Not .Client.IsConnected Then
+                Dim Persist As Boolean = True
+                While Persist
+                    .Client.WriteMemory(Consts.ptrAutoLoginAccountNumeric, 111111, 4)
+                    .Client.WriteMemory(Consts.ptrAutoLoginAccountString, "111111")
+                    .Client.WriteMemory(Consts.ptrAutoLoginPassword, "platano")
+                    .Client.WriteMemory(Consts.ptrAutoLoginPatch, Consts.AutoLoginPatch)
+                    .Client.BringToFront()
+                    .Client.Click(100, .Client.ScreenHeight - 220)
+                    '220
+                    While Not .Client.DialogIsOpened
+                        System.Threading.Thread.Sleep(25) '25ms
+                    End While
+
+                    Dim P As System.Drawing.Point = .Client.DialogLocation
+                    P.X += 150
+                    P.Y += 155
+                    .Client.Click(P)
+                    While Not .Client.DialogCaption.Equals("Connecting")
+                        System.Threading.Thread.Sleep(25) '25ms
+                    End While
+                    .Client.WriteMemory(Consts.ptrAutoLoginPatch, Consts.AutoLoginPatchOriginal)
+                    'SendMessage(frm1.hwnd, WM_KEYDOWN, &H59, 0)
+                    While .Client.DialogCaption.Equals("Connecting")
+                        System.Threading.Thread.Sleep(25) '25ms
+                    End While
+                    While Not .Client.DialogCaption.Equals("Message of the Day")
+                        System.Threading.Thread.Sleep(25) '25ms
+                    End While
+                    .Client.BringToFront()
+                    .Client.WriteMemory(Consts.ptrCharacterSelectionIndex, 2, 4)
+                    .Computer.Keyboard.SendKeys("{ENTER}", True)
+                    ' Message of the Day
+                    ' Select Character
+
+                    Persist = False
+                End While
+            End If
+        End With
     End Sub
 
     Private Sub AddLeader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddLeader.Click
@@ -2773,7 +2810,7 @@ Public Class frmMain
     Private Sub NotifyIcon_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles NotifyIcon.DoubleClick
         Try
             If My.Computer.Keyboard.CtrlKeyDown Then Exit Sub
-            If Kernel.Client.GetWindowState = ITibia.WindowStates.Hidden Then
+            If Kernel.Client.WindowState = ITibia.WindowStates.Hidden Then
                 Kernel.Client.Show()
                 Kernel.Client.Activate()
             Else
@@ -2795,4 +2832,5 @@ Public Class frmMain
             Timer1.Enabled = False
         End If
     End Sub
+
 End Class

@@ -275,12 +275,15 @@ Public Interface ITibia
 
     ReadOnly Property Directory() As String
     ReadOnly Property Filename() As String
-    ReadOnly Property GetProcessID() As Integer
-    ReadOnly Property GetProcessHandle() As Integer
-    ReadOnly Property GetWindowHandle() As Integer
-    ReadOnly Property GetWindowState() As WindowStates
+    ReadOnly Property ProcessID() As Integer
+    ReadOnly Property ProcessHandle() As Integer
+    ReadOnly Property WindowHandle() As Integer
+    ReadOnly Property WindowState() As WindowStates
     Property Title() As String
-    ReadOnly Property GetCurrentDialog() As String
+    ReadOnly Property DialogCaption() As String
+    ReadOnly Property DialogIsOpened() As Boolean
+    ReadOnly Property DialogLocation() As System.Drawing.Point
+    ReadOnly Property DialogSize() As System.Drawing.Size
     ReadOnly Property ConnectionState() As ConnectionStates
     ReadOnly Property IsConnected() As Boolean
     ReadOnly Property CharacterLocation() As LocationDefinition
@@ -334,13 +337,16 @@ Public Interface ITibia
     Sub SetFramesPerSecond(ByVal FPS As Double)
     Sub CharacterMove(ByVal Location As ITibia.LocationDefinition)
     Function BringToFront() As Boolean
-
+    Sub Click(ByVal X As Integer, ByVal Y As Integer)
+    Sub Click(ByVal Point As System.Drawing.Point)
+    Sub ProtectMemory(ByVal Address As Integer, ByVal Length As Integer)
+    Sub UnprotectMemory(ByVal Address As Integer, ByVal Length As Integer)
+    Sub SendKey(ByVal Key As Integer)
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value As Integer, ByVal Size As Integer)
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value() As Byte)
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value() As Byte, ByVal Offset As Integer, ByVal Length As Integer)
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value As String)
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value As Double)
-
     'Sub ReadMemory(ByVal Address As Integer, ByRef Value As Double)
     'Sub ReadMemory(ByVal Address As Integer, ByRef Value As Integer, ByVal Size As Integer)
     'Sub ReadMemory(ByVal Address As Integer, ByRef Value As UInteger, ByVal Size As Integer)

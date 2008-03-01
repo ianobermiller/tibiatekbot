@@ -43,6 +43,7 @@ Public NotInheritable Class Tibia
     Private Declare Function GetProcAddress Lib "kernel32" (ByVal hModule As Int32, <MarshalAs(UnmanagedType.LPStr)> ByVal lpProcName As String) As Int32
     Private Declare Function VirtualFreeEx Lib "kernel32" (ByVal hProcess As Int32, ByVal lpAddress As Int32, ByVal dwSize As Int32, ByVal dwFreeType As Int32) As Boolean
     Private Declare Function SetWindowPos Lib "user32" (ByVal hWnd As Int32, ByVal hWndInsertAfter As Int32, ByVal X As Int32, ByVal Y As Int32, ByVal CX As Int32, ByVal CY As Int32, ByVal uFlags As UInt32) As Boolean
+
 #End Region
 
 #Region " Constants "
@@ -166,7 +167,6 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-
     Public ReadOnly Property CharacterName() As String Implements ITibia.CharacterName
         Get
             If Not IsConnected Then Return String.Empty
@@ -273,14 +273,14 @@ Public NotInheritable Class Tibia
         End Get
         Set(ByVal NewTitle As String)
             Try
-                SetWindowText(GetWindowHandle, NewTitle)
+                SetWindowText(WindowHandle, NewTitle)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Set
     End Property
 
-    Public ReadOnly Property GetProcessHandle() As Integer Implements Scripting.ITibia.GetProcessHandle
+    Public ReadOnly Property ProcessHandle() As Integer Implements Scripting.ITibia.ProcessHandle
         Get
             Try
                 If ClientProcess Is Nothing Then Return 0
@@ -292,7 +292,7 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property GetProcessID() As Integer Implements Scripting.ITibia.GetProcessID
+    Public ReadOnly Property ProcessID() As Integer Implements Scripting.ITibia.ProcessID
         Get
             Try
                 Return ClientProcess.Id
@@ -303,7 +303,7 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property GetWindowHandle() As Integer Implements Scripting.ITibia.GetWindowHandle
+    Public ReadOnly Property WindowHandle() As Integer Implements Scripting.ITibia.WindowHandle
         Get
             Try
                 Return ClientProcess.MainWindowHandle.ToInt32
@@ -314,7 +314,7 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property GetWindowState() As ITibia.WindowStates Implements Scripting.ITibia.GetWindowState
+    Public ReadOnly Property WindowState() As ITibia.WindowStates Implements Scripting.ITibia.WindowState
         Get
             Try
                 If Not _Visible Then
@@ -322,12 +322,12 @@ Public NotInheritable Class Tibia
                 End If
                 Dim WP As New Tibia.WindowPlacement
                 WP.Length = Convert.ToByte(Marshal.SizeOf(GetType(Tibia.WindowPlacement)))
-                If Tibia.GetWindowPlacement(GetWindowHandle, WP) = False Then
+                If Tibia.GetWindowPlacement(WindowHandle, WP) = False Then
                     Return ITibia.WindowStates.Inactive
                 End If
                 Select Case WP.ShowCmd
                     Case ShowState.SW_SHOWNORMAL, ShowState.SW_SHOWMAXIMIZED
-                        If GetForegroundWindow() = GetWindowHandle Then
+                        If GetForegroundWindow() = WindowHandle Then
                             Return ITibia.WindowStates.Active
                         Else
                             Return ITibia.WindowStates.Inactive
@@ -365,22 +365,77 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property GetCurrentDialog() As String Implements ITibia.GetCurrentDialog
+    Public ReadOnly Property DialogIsOpened() As Boolean Implements Scripting.ITibia.DialogIsOpened
         Get
             Try
-                Dim WindowBegin As Integer = 0
-                Dim WindowCaption As String = String.Empty
-                ReadMemory(Consts.ptrWindowBegin, WindowBegin, 4)
-                If WindowBegin = 0 Then 'no window opened
-                    Return String.Empty
+                Dim DialogBegin As Integer = 0
+                ReadMemory(Consts.ptrDialogBegin, DialogBegin, 4)
+                Return DialogBegin > 0
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property DialogSize() As System.Drawing.Size Implements Scripting.ITibia.DialogSize
+        Get
+            Try
+                Dim DialogBegin As Integer = 0
+                ReadMemory(Consts.ptrDialogBegin, DialogBegin, 4)
+                If DialogBegin = 0 Then
+                    Return System.Drawing.Size.Empty
                 Else
-                    ReadMemory(WindowBegin + Consts.WindowCaptionOffset, WindowCaption)
-                    Return WindowCaption
+                    Dim W As Integer = 0
+                    Dim H As Integer = 0
+                    ReadMemory(DialogBegin + Consts.DialogWidthOffset, W, 4)
+                    ReadMemory(DialogBegin + Consts.DialogWidthOffset, H, 4)
+                    Return New System.Drawing.Size(W, H)
                 End If
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return System.Drawing.Size.Empty
             End Try
-            Return String.Empty
+        End Get
+    End Property
+
+    Public ReadOnly Property DialogLocation() As System.Drawing.Point Implements Scripting.ITibia.DialogLocation
+        Get
+            Try
+                Dim DialogBegin As Integer = 0
+                ReadMemory(Consts.ptrDialogBegin, DialogBegin, 4)
+                If DialogBegin = 0 Then
+                    Return System.Drawing.Point.Empty
+                Else
+                    Dim X As Integer = 0
+                    Dim Y As Integer = 0
+                    ReadMemory(DialogBegin + Consts.DialogLeftOffset, X, 4)
+                    ReadMemory(DialogBegin + Consts.DialogTopOffset, Y, 4)
+                    Return New System.Drawing.Point(X, Y)
+                End If
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return System.Drawing.Point.Empty
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property DialogCaption() As String Implements ITibia.DialogCaption
+        Get
+            Try
+                Dim DialogBegin As Integer = 0
+                Dim Caption As String = String.Empty
+                ReadMemory(Consts.ptrDialogBegin, DialogBegin, 4)
+                If DialogBegin = 0 Then 'no window opened
+                    Return String.Empty
+                Else
+                    ReadMemory(DialogBegin + Consts.DialogCaptionOffset, Caption)
+                    Return Caption
+                End If
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return String.Empty
+            End Try
         End Get
     End Property
 
@@ -410,7 +465,7 @@ Public NotInheritable Class Tibia
     Public WriteOnly Property TopMost() As Boolean Implements ITibia.TopMost
         Set(ByVal value As Boolean)
             Try
-                SetWindowPos(GetWindowHandle, IIf(value, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE)
+                SetWindowPos(WindowHandle, IIf(value, HWND_TOPMOST, HWND_NOTOPMOST), 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE)
             Catch ex As Exception
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -773,7 +828,7 @@ Public NotInheritable Class Tibia
             Dim PPB As New PipePacketBuilder(Pipe, False)
             PPB.SetConstant("ptrInGame", Consts.ptrInGame)
             PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
-            PPB.SetConstant("TibiaWindowHandle", GetWindowHandle)
+            PPB.SetConstant("TibiaWindowHandle", WindowHandle)
             PPB.HookWndProc(True)
             PPB.Send()
 
@@ -784,7 +839,7 @@ Public NotInheritable Class Tibia
 
     Public Function InjectDLL(ByVal Filename As String) As Boolean
         Try
-            Dim hProcess As Int32 = GetProcessHandle
+            Dim hProcess As Int32 = ProcessHandle
             Dim lpRemoteAddress As Int32 = AllocateMemory(Filename.Length)
             WriteMemory(lpRemoteAddress, Filename)
             Dim hThread As Int32 = CreateRemoteThread(hProcess, 0, 0, GetProcAddress(GetModuleHandle("Kernel32"), "LoadLibraryA"), lpRemoteAddress, 0, 0)
@@ -802,7 +857,7 @@ Public NotInheritable Class Tibia
 
     Public Sub Minimize() Implements Scripting.ITibia.Minimize
         Try
-            ShowWindow(GetWindowHandle, ShowState.SW_MINIMIZE)
+            ShowWindow(WindowHandle, ShowState.SW_MINIMIZE)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -810,7 +865,7 @@ Public NotInheritable Class Tibia
 
     Public Sub Restore() Implements Scripting.ITibia.Restore
         Try
-            ShowWindow(GetWindowHandle, ShowState.SW_RESTORE)
+            ShowWindow(WindowHandle, ShowState.SW_RESTORE)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -818,7 +873,7 @@ Public NotInheritable Class Tibia
 
     Public Sub Maximize() Implements Scripting.ITibia.Maximize
         Try
-            ShowWindow(GetWindowHandle, ShowState.SW_SHOWMAXIMIZED)
+            ShowWindow(WindowHandle, ShowState.SW_SHOWMAXIMIZED)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -827,7 +882,7 @@ Public NotInheritable Class Tibia
     Public Sub Show() Implements Scripting.ITibia.Show
         Try
             _Visible = True
-            ShowWindow(GetWindowHandle, ShowState.SW_SHOW)
+            ShowWindow(WindowHandle, ShowState.SW_SHOW)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -836,7 +891,7 @@ Public NotInheritable Class Tibia
     Public Sub Hide() Implements Scripting.ITibia.Hide
         Try
             _Visible = False
-            ShowWindow(GetWindowHandle, ShowState.SW_HIDE)
+            ShowWindow(WindowHandle, ShowState.SW_HIDE)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -852,7 +907,7 @@ Public NotInheritable Class Tibia
 
     Public Sub Activate() Implements Scripting.ITibia.Activate
         Try
-            SetForegroundWindow(GetWindowHandle)
+            SetForegroundWindow(WindowHandle)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -885,10 +940,10 @@ Public NotInheritable Class Tibia
     Public Sub FlashWindow(Optional ByVal [Stop] As Boolean = False) Implements Scripting.ITibia.FlashWindow
         Try
             If [Stop] Then
-                Dim FWI As New FlashWInfo(GetWindowHandle, FlashWFlags.FLASHW_STOP, 0, 0)
+                Dim FWI As New FlashWInfo(WindowHandle, FlashWFlags.FLASHW_STOP, 0, 0)
                 FlashWindowEx(FWI)
             Else
-                Dim FWI As New FlashWInfo(GetWindowHandle, FlashWFlags.FLASHW_TIMERNOFG Or FlashWFlags.FLASHW_TRAY Or FlashWFlags.FLASHW_CAPTION, 0, 0)
+                Dim FWI As New FlashWInfo(WindowHandle, FlashWFlags.FLASHW_TIMERNOFG Or FlashWFlags.FLASHW_TRAY Or FlashWFlags.FLASHW_CAPTION, 0, 0)
                 FlashWindowEx(FWI)
             End If
         Catch Ex As Exception
@@ -898,7 +953,7 @@ Public NotInheritable Class Tibia
 
     Public Function AllocateMemory(ByVal Length As Integer) As Integer
         Try
-            Return VirtualAllocEx(OpenProcess(PROCESS_ALL_ACCESS, False, GetProcessID), 0, Length, MEM_COMMIT Or MEM_RESERVE, PAGE_READWRITE)
+            Return VirtualAllocEx(OpenProcess(PROCESS_ALL_ACCESS, False, ProcessID), 0, Length, MEM_COMMIT Or MEM_RESERVE, PAGE_READWRITE)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -907,17 +962,27 @@ Public NotInheritable Class Tibia
 
     Public Function DeallocateMemory(ByVal Address As Integer, ByVal Length As Integer) As Integer
         Try
-            Return VirtualFreeEx(OpenProcess(PROCESS_ALL_ACCESS, False, GetProcessID), Address, Length, MEM_RELEASE)
+            Return VirtualFreeEx(OpenProcess(PROCESS_ALL_ACCESS, False, ProcessID), Address, Length, MEM_RELEASE)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
         Return 0
     End Function
 
-    Public Sub UnprotectMemory(ByVal Address As Integer, ByVal Length As Integer)
+    Public Sub UnprotectMemory(ByVal Address As Integer, ByVal Length As Integer) Implements ITibia.UnprotectMemory
         Try
             Dim Temp As UInteger = 0
-            VirtualProtectEx(GetProcessHandle, Address, Length, &H40, Temp)
+            VirtualProtectEx(ProcessHandle, Address, Length, &H40, Temp)
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Public Sub ProtectMemory(ByVal Address As Integer, ByVal Length As Integer) Implements ITibia.ProtectMemory
+        Try
+            Dim Temp As UInteger = 0
+            VirtualProtectEx(ProcessHandle, Address, Length, &H2, Temp)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -929,18 +994,18 @@ Public NotInheritable Class Tibia
     End Function
 
     Public Function SendMessage(ByVal MessageID As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer Implements Scripting.ITibia.SendMessage
-        SendMessage(GetWindowHandle, MessageID, wParam, lParam)
+        SendMessage(WindowHandle, MessageID, wParam, lParam)
     End Function
 
     Public Function BringToFront() As Boolean Implements ITibia.BringToFront
-        Return SetForegroundWindow(GetWindowHandle)
+        Return SetForegroundWindow(WindowHandle)
     End Function
 
     Public Sub WriteMemory(ByVal Address As Integer, ByVal Value As Integer, ByVal Size As Integer)
         Try
             Dim bytArray() As Byte
             bytArray = BitConverter.GetBytes(Value)
-            WriteProcessMemory(GetProcessHandle, Address, bytArray, Size, 0)
+            WriteProcessMemory(ProcessHandle, Address, bytArray, Size, 0)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -948,7 +1013,7 @@ Public NotInheritable Class Tibia
 
     Public Sub WriteMemory(ByVal Address As Integer, ByVal Value() As Byte)
         Try
-            WriteProcessMemory(GetProcessHandle, Address, Value, Value.Length, 0)
+            WriteProcessMemory(ProcessHandle, Address, Value, Value.Length, 0)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -1005,7 +1070,7 @@ Public NotInheritable Class Tibia
 
     Public Sub ReadMemory(ByVal Address As Integer, ByRef Value As Integer, ByVal Size As Integer)
         Try
-            ReadProcessMemory(GetProcessHandle, Address, Value, Size, 0)
+            ReadProcessMemory(ProcessHandle, Address, Value, Size, 0)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -1014,7 +1079,7 @@ Public NotInheritable Class Tibia
     Public Sub ReadMemory(ByVal Address As Integer, ByRef Value As UInteger, ByVal Size As Integer)
         Try
             Dim mValue As UInteger = 0
-            ReadProcessMemory(GetProcessHandle, Address, mValue, Size, 0)
+            ReadProcessMemory(ProcessHandle, Address, mValue, Size, 0)
             Value = mValue
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1090,6 +1155,20 @@ Public NotInheritable Class Tibia
         End Try
     End Sub
 
+    Public Sub Click(ByVal X As Integer, ByVal Y As Integer) Implements Scripting.ITibia.Click
+        SendMessage(&H202, 0, 0)
+        SendMessage(&H201, 0, (Y << &H10) + (X And &HFFFF))
+        SendMessage(&H202, 0, (Y << &H10) + (X And &HFFFF))
+    End Sub
+
+    Public Sub Click(ByVal Point As System.Drawing.Point) Implements Scripting.ITibia.Click
+        Click(Point.X, Point.Y)
+    End Sub
+
+    Public Sub SendKey(ByVal Key As Integer) Implements Scripting.ITibia.SendKey
+
+    End Sub
+
 #Region " Event Raising"
 
     Public Sub [RaiseEvent](ByVal Kind As ITibia.EventKind, ByVal e As EventArgs)
@@ -1110,6 +1189,5 @@ Public NotInheritable Class Tibia
 #End Region
 
 #End Region
-
 
 End Class

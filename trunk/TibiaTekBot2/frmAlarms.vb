@@ -93,6 +93,7 @@ Public Class frmAlarms
             If Not BattlelistNode.Item("ActiveIfGMCM") Is Nothing Then BattlelistGMCM.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfGMCM").InnerText)
             If Not BattlelistNode.Item("MultiFloorBelow") Is Nothing Then BattlelistMultiFloorBelow.Checked = Boolean.Parse(BattlelistNode.Item("MultiFloorBelow").InnerText)
             If Not BattlelistNode.Item("MultiFloorAbove") Is Nothing Then BattlelistMultiFloorAbove.Checked = Boolean.Parse(BattlelistNode.Item("MultiFloorAbove").InnerText)
+            If Not BattlelistNode.Item("MultiFloorRange") Is Nothing Then BattlelistMultiFloorRange.Value = CDec(BattlelistNode.Item("MultiFloorRange").InnerText) Else BattlelistMultiFloorRange.Value = 7
             If Not BattlelistNode.Item("PlaySound") Is Nothing Then BattlelistPlaySound.Checked = Boolean.Parse(BattlelistNode.Item("PlaySound").InnerText)
             If Not BattlelistNode.Item("LogOut") Is Nothing Then BattlelistLogout.Checked = Boolean.Parse(BattlelistNode.Item("LogOut").InnerText)
             If Not BattlelistNode.Item("MessagePlayer") Is Nothing Then BattlelistMessagePlayerInput.Text = BattlelistNode.Item("MessagePlayer").GetAttribute("Player")
@@ -256,6 +257,7 @@ Public Class frmAlarms
             Dim xmlBLMessagePlayer As XmlElement = xmlFile.CreateElement("MessagePlayer")
             Dim xmlBLMessagePlayerName As XmlAttribute = xmlFile.CreateAttribute("Player")
             Dim xmlBLIgnoredPlayers As XmlElement = xmlFile.CreateElement("IgnoredPlayers")
+            Dim xmlBLMultiFloorRange As XmlElement = xmlFile.CreateElement("MultiFloorRange")
 
             xmlBLActivateIfPlayer.InnerText = BattlelistPlayer.Checked
             xmlBLActivateIfMonsterNPC.InnerText = BattlelistMonsterNPC.Checked
@@ -268,6 +270,7 @@ Public Class frmAlarms
             xmlBLMessagePlayerName.InnerText = BattlelistMessagePlayerInput.Text
             xmlBLMessagePlayer.Attributes.Append(xmlBLMessagePlayerName)
             xmlBLMessagePlayer.InnerText = BattlelistMessagePlayer.Checked
+            xmlBLMultiFloorRange.InnerText = BattlelistMultiFloorRange.Value
 
             For Each BLPlayer As String In BattlelistIgnoredPlayers.Items
                 Dim xmlBLIgnoredPlayersName As XmlElement = xmlFile.CreateElement("Player")
@@ -281,6 +284,7 @@ Public Class frmAlarms
             xmlBattlelist.AppendChild(xmlBLActivateIfGMCM)
             xmlBattlelist.AppendChild(xmlBLMultiFloorBelow)
             xmlBattlelist.AppendChild(xmlBLMultiFloorAbove)
+            xmlBattlelist.AppendChild(xmlBLMultiFloorRange)
             xmlBattlelist.AppendChild(xmlBLAlertRemoteAdmins)
             xmlBattlelist.AppendChild(xmlBLPlaySound)
             xmlBattlelist.AppendChild(xmlBLLogOut)
@@ -687,6 +691,7 @@ Public Class frmAlarms
 
     Private Sub StatusAlarmTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StatusAlarmTimer.Tick
         Try
+            If Not Kernel.Client.IsConnected Then AlarmsActivate_Click(Nothing, Nothing)
             Dim Alert As Boolean = False
             Dim Output As String = ""
             Dim CurrentConditions As Integer = 0

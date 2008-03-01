@@ -3283,7 +3283,7 @@ Public Class CommandParser
                     Kernel.ConsoleWrite("Favored Weapon Enabled")
                     Kernel.FavoredWeaponEnabled = True
                 Case Else
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "add\s+""([^""]+)""\s+(H[1-9A-F][0-9A-F]{0,3})\s+""([^""]+)""")
+                    Dim MatchObj As Match = Regex.Match(Arguments(2).Value, "add\s+([^\s]+)\s+(H[1-9A-F][0-9A-F]{0,3})\s+""([^""]+)""")
                     Dim MatchObj2 As Match = Regex.Match(Arguments(2).Value, "setshield\s+(H[1-9A-F][0-9A-F]{0,3})")
                     Dim MatchObj3 As Match = Regex.Match(Arguments(2).Value, "remove\s+(H[1-9A-F][0-9A-F]{0,3})")
                     Dim fwSlotID As Short
@@ -3318,8 +3318,7 @@ Public Class CommandParser
                         Else
                             Kernel.ConsoleError("Can't add Favorite Weapon.")
                         End If
-                    End If
-                    If MatchObj2.Success Then
+                    ElseIf MatchObj2.Success Then
                         If MatchObj2.Groups(1).ToString.ToLower.StartsWith("h") Then
                             ItemID = CInt("&" & MatchObj2.Groups(1).ToString)
                         Else
@@ -3331,8 +3330,7 @@ Public Class CommandParser
                         End If
                         Kernel.FavoredWeaponShield = ItemID
                         Kernel.ConsoleWrite("New favored shield configured")
-                    End If
-                    If MatchObj3.Success Then
+                    ElseIf MatchObj3.Success Then
                         If MatchObj3.Groups(1).ToString.ToLower.StartsWith("h") Then
                             ItemID = CInt("&" & MatchObj3.Groups(1).ToString)
                         Else
@@ -3347,6 +3345,8 @@ Public Class CommandParser
                         Else
                             Kernel.ConsoleError("Can't remove Favorite Weapon.")
                         End If
+                    Else
+                        Kernel.ConsoleError("Invalid format for this command." & Ret & "Use: &favwnp <add ""<righthand | lefthand | twohanded>"" ID ""Monster1, Monster2, Monster3""><setshield ID><remove ID>")
                     End If
             End Select
         Catch ex As Exception
