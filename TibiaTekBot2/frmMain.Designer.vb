@@ -1594,7 +1594,6 @@ Partial Class frmMain
         'GeneralTab1
         '
         Me.GeneralTab1.Controls.Add(Me.ComboBotBox)
-        Me.GeneralTab1.Controls.Add(Me.ComboLeader)
         Me.GeneralTab1.Controls.Add(Me.AutoStackerBox)
         Me.GeneralTab1.Controls.Add(Me.LightEffectsBox)
         Me.GeneralTab1.Controls.Add(Me.AmmunitionRestackerBox)
@@ -1607,6 +1606,7 @@ Partial Class frmMain
         'ComboBotBox
         '
         Me.ComboBotBox.Controls.Add(Me.ComboLeaders)
+        Me.ComboBotBox.Controls.Add(Me.ComboLeader)
         Me.ComboBotBox.Controls.Add(Me.ComboBotTrigger)
         Me.ComboBotBox.Controls.Add(Me.ComboBotLeaderlbl)
         resources.ApplyResources(Me.ComboBotBox, "ComboBotBox")
@@ -3549,7 +3549,6 @@ Partial Class frmMain
         Me.TabPage1.ResumeLayout(False)
         Me.GeneralTabControl.ResumeLayout(False)
         Me.GeneralTab1.ResumeLayout(False)
-        Me.GeneralTab1.PerformLayout()
         Me.ComboBotBox.ResumeLayout(False)
         Me.ComboBotBox.PerformLayout()
         Me.LeadersContextMenuStrip.ResumeLayout(False)

@@ -22,7 +22,7 @@
 <Constants>
   <Const Name="IRCConnectOnStartUp" Value="True" />
   <Const Name="IRCJoinAfterConnected" Value="True" />
-  <Const Name="IRCJoinChannels" Value="#tibiatekbot," />
+  <Const Name="IRCJoinChannels" Value="#tibiatekbot" />
   <Const Name="IRCNickname" Value="" />
   <Const Name="IRCPassword" Value="" />
   <Const Name="IRCHighlightOpOnly" Value="False" />
@@ -75,17 +75,21 @@
   <Const Name="StatsUploaderUserID" Value="userid" />
   <Const Name="StatsUploaderPassword" Value="password" />
   <Const Name="StatsUploaderFrequency" Value="30000" />
-  <Const Name="ptrWindowBegin" Value="H61E984" />
-  <Const Name="WindowLeftOffset" Value="H14" />
-  <Const Name="WindowTopOffset" Value="H18" />
-  <Const Name="WindowWidthOffset" Value="H1C" />
-  <Const Name="WindowHeightOffset" Value="H20" />
-  <Const Name="WindowCaptionOffset" Value="H50" />
-  <Const Name="WindowButtonPressedOffset" Value="H28" />
-  <Const Name="WindowButton1Offset" Value="H2C" />
-  <Const Name="WindowButton2Offset" Value="H30" />
-  <Const Name="WindowButton3Offset" Value="H34" />
-  <Const Name="WindowButton4Offset" Value="H38" />
+  <Const Name="ptrDialogBegin" Value="H61E984" />
+  <Const Name="DialogLeftOffset" Value="H14" />
+  <Const Name="DialogTopOffset" Value="H18" />
+  <Const Name="DialogWidthOffset" Value="H1C" />
+  <Const Name="DialogHeightOffset" Value="H20" />
+  <Const Name="DialogCaptionOffset" Value="H50" />
+  <Const Name="DialogButtonPressedOffset" Value="H28" />
+  <Const Name="DialogButton1Offset" Value="H2C" />
+  <Const Name="DialogButton2Offset" Value="H30" />
+  <Const Name="DialogButton3Offset" Value="H34" />
+  <Const Name="DialogButton4Offset" Value="H38" />
+  <Const Name="ptrAutoLoginAccountNumeric" Value="H76c2c0" />
+  <Const Name="ptrAutoLoginPatch" Value="H47935E" />
+  <Const Name="ptrAutoLoginAccountString" Value="H76c2b4" />
+  <Const Name="ptrAutoLoginPassword" Value="H76c294" />
   <Const Name="ptrInGame" Value="H76c2c8" /> 
   <Const Name="ptrScreenInfoBegin" Value="H76CE0C" />
   <Const Name="ptrEnterOneNamePerLine" Value="H598670" />
@@ -248,4 +252,7 @@
   <Const Name="ObjectAutoMapColorOffset" Value="H44" />
   <Const Name="ObjectLensHelpOffset" Value="H48" />
   <Const Name="ObjectDist" Value="H4C" />
+
+  <Const Name="AutoLoginPatch" Value="90,90,90,90,90" />
+  <Const Name="AutoLoginPatchOriginal" Value="E8,0D,1D,09,00" />
 </Constants>
