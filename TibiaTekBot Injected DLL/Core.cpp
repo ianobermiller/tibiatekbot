@@ -10,6 +10,17 @@
 
 using namespace std;
 
+struct Ctext //Display Text Structure
+{
+	char text[1024];
+	int r,g,b;
+	int x,y;
+	int font;
+	bool used;
+};
+
+#define MAX_TEXT 512
+
 /* DLL Injection Related Stuff */
 WNDPROC WndProc;
 HINSTANCE hMod;
@@ -25,6 +36,28 @@ HANDLE PipeHandle;
 HANDLE PipeThread;
 BYTE Buffer[1024];
 CRITICAL_SECTION PipeReadCriticalSection;
+
+/* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
+Ctext texts[MAX_TEXT] = {0};
+
+int n_text=0;
+char g_Text[1024] = "";
+int g_Red = 0;
+int g_Green = 0;
+int g_Blue = 0;
+int g_X = 0;
+int g_Y = 0;
+int g_Font = 1;
+
+char ttext[1024]="'(use object on target)',0";
+char tbuff[2048];
+
+DWORD address = 0x004A3C00;
+DWORD startadr = 0x0044E68D;
+DWORD jmpback = 0x0044E68F+1;
+
+DWORD showfps = 0x00611874; //Show fps flag (0-1)
+DWORD jmpfps = 0x0044E762; // jmp to skip fps
 
 /* Constants from TTB */
 //int INGAME=0;
@@ -65,6 +98,73 @@ string ReadString(BYTE *buffer, int *offset){
 	for (i=0;i<length;i++)
 		result += *(buffer+(*offset)++);
 	return result;
+}
+
+void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText)
+{
+	if(TextNum > MAX_TEXT-1){return;}
+	if(font<1 || font >4){return;}
+	if(texts[TextNum].used == true){return;}
+	if(nRed > 0xFF || nRed < 0){return;}
+	if(nGreen > 0xFF || nGreen < 0){return;}
+	if(nBlue > 0xFF || nBlue < 0){return;}
+
+	texts[TextNum].r=nRed;
+	texts[TextNum].g=nGreen;
+	texts[TextNum].b=nBlue;
+	texts[TextNum].x=nX;
+	texts[TextNum].y=nY;
+	texts[TextNum].used = enabled;
+	texts[TextNum].font = font;
+	sprintf(texts[TextNum].text, "%s", lpText);
+}
+
+void PrintFunction()
+{
+	
+	int i;
+	char flagfps; 
+	memcpy(&flagfps, (DWORD*)showfps, 1);
+
+	for(i=0; i<MAX_TEXT; i++){
+		if(!texts[i].used){continue;}
+
+		sprintf(g_Text,texts[i].text);
+		g_Blue = texts[i].b;
+		g_Green = texts[i].g;
+		g_Red = texts[i].r;
+		g_Y = texts[i].y;
+		g_X = texts[i].x;
+		g_Font = texts[i].font;
+
+		__asm
+		{
+			push 0x00; // Align
+			push offset g_Text; // Text
+			push g_Blue; // Blue
+			push g_Green; // Green
+			push g_Red; // Red
+			push g_Font; // Font number 1 - 4
+			push g_Y; // Y
+			push g_X; // X
+			push 0x01; // Surface
+			call address;
+		}
+	}
+
+	//Fix broken FPS counter
+	if(flagfps==1){
+		__asm
+		{
+			jmp jmpback;
+		}
+	}else{
+		__asm
+		{
+			jmp jmpfps;
+		}
+	}
+	
 }
 
 
@@ -145,6 +245,25 @@ void PipeOnRead(){
 				MessageBoxA(0,la,"la",0);
 			}
 			break;
+		case 4: // DisplayText
+			{
+				int TextId = ReadByte(Buffer, &position); //Text ID
+				int PosX = ReadWord(Buffer, &position);
+				int PosY = ReadWord(Buffer, &position);
+				int ColorRed = ReadWord(Buffer, &position);
+				int ColorGreen = ReadWord(Buffer, &position);
+				int ColorBlue = ReadWord(Buffer, &position);
+				int Font = ReadWord(Buffer, &position);
+				string Text = ReadString(Buffer, &position);
+
+				char *lpText;
+				
+				lpText = new char [Text.size() +1];
+				strcpy (lpText, Text.c_str());
+
+				SetText(TextId, true, PosX, PosY, ColorRed, ColorGreen, ColorBlue, Font, lpText);
+			}
+			break;
 	}
 
 }
@@ -179,8 +298,30 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 	switch (reason){
 		case DLL_PROCESS_ATTACH:
         {
+			HWND hWnd = FindWindowA("TibiaClient", "Tibia");
+			DWORD dwPid;
+			GetWindowThreadProcessId(hWnd, &dwPid);
+			if(GetCurrentProcessId() == dwPid)
+			{
+				MessageBoxA(0, "Get So Far", "ASDF", 0); //Remove after Debug
+				BYTE jmpByte[8] = {0xE9, 0x00, 0x00, 0x00, 0x00, 0x90, 0x90, 0x90};
+				int pointer = (int)&PrintFunction + 3;
+				int jmp = pointer - startadr - 5;
+				memcpy(&jmpByte[1], &jmp, 4);
+				DWORD dwOldProtect, dwNewProtect;
+				VirtualProtectEx(GetCurrentProcess(), (LPVOID)(startadr), 8, PAGE_READWRITE, &dwOldProtect);
+				memcpy((LPVOID)(startadr), &jmpByte, 8);
+				VirtualProtectEx(GetCurrentProcess(), (LPVOID)(startadr), 8, dwOldProtect, &dwNewProtect);
+
+				//Initialize
+				int i;
+				for(i=0; i<MAX_TEXT; i++){
+					texts[i].used = false;
+				}
+			}
+
             hMod = hModule;
-			string CmdArgs = (const char*)0x152310;
+			string CmdArgs = GetCommandLineA();
 			int pos = CmdArgs.find("-pipe:");
 			PipeName = "\\\\.\\pipe\\ttb" + CmdArgs.substr(pos + 6, 5);
 			InitializeCriticalSection(&PipeReadCriticalSection);
@@ -192,8 +333,6 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 		{
 			TerminateThread(PipeThread, EXIT_SUCCESS);
 			DeleteCriticalSection(&PipeReadCriticalSection);
-
-			
 		}
 		break;
     }

@@ -132,6 +132,25 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
+    Public Sub DisplayText(ByVal TextNum As Byte, ByVal Position As ITibia.LocationDefinition, ByVal ColorRed As Integer, ByVal ColorGreen As Integer, ByVal ColorBlue As Integer, ByVal FontNumber As Integer, ByVal Text As String)
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(4)
+            _Packet.AddByte(TextNum)
+            _Packet.AddWord(Position.X)
+            _Packet.AddWord(Position.Y)
+            _Packet.AddWord(ColorRed)
+            _Packet.AddWord(ColorGreen)
+            _Packet.AddWord(ColorBlue)
+            _Packet.AddWord(FontNumber)
+            _Packet.AddString(Text)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Public Sub Send() Implements IPacketBuilder.Send
         Try
             While Packets.Count > 0
