@@ -245,6 +245,12 @@
   <data name="ToolStripMenuItem1.Text" xml:space="preserve">
     <value>&amp;Lag Bar</value>
   </data>
+  <data name="AutoResponderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 22</value>
+  </data>
+  <data name="AutoResponderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto Responder</value>
+  </data>
   <data name="ToolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 6</value>
   </data>
@@ -367,7 +373,7 @@
     <value>TibiaTek Bot Menu</value>
   </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 292</value>
+    <value>236, 336</value>
   </data>
   <data name="&gt;&gt;PopupMenu.Name" xml:space="preserve">
     <value>PopupMenu</value>
@@ -1339,6 +1345,126 @@
   <data name="MainTabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="&gt;&gt;TabPage10.Name" xml:space="preserve">
+    <value>TabPage10</value>
+  </data>
+  <data name="&gt;&gt;TabPage10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage10.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage10.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Name" xml:space="preserve">
+    <value>TabPage1</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Name" xml:space="preserve">
+    <value>TabPage2</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Name" xml:space="preserve">
+    <value>TabPage3</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Name" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Name" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Name" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Name" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="MainTabControl.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="MainTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 27</value>
+  </data>
+  <data name="MainTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>414, 365</value>
+  </data>
+  <data name="MainTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Name" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="&gt;&gt;LinkLabel1.Name" xml:space="preserve">
     <value>LinkLabel1</value>
   </data>
@@ -1390,6 +1516,309 @@
   <data name="&gt;&gt;TabPage10.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="LinkLabel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LinkLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 287</value>
+  </data>
+  <data name="LinkLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 13</value>
+  </data>
+  <data name="LinkLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="LinkLabel1.Text" xml:space="preserve">
+    <value>TibiaTek Official Website</value>
+  </data>
+  <data name="&gt;&gt;LinkLabel1.Name" xml:space="preserve">
+    <value>LinkLabel1</value>
+  </data>
+  <data name="&gt;&gt;LinkLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LinkLabel1.Parent" xml:space="preserve">
+    <value>TabPage10</value>
+  </data>
+  <data name="&gt;&gt;LinkLabel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 43</value>
+  </data>
+  <data name="PictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>402, 241</value>
+  </data>
+  <data name="PictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Name" xml:space="preserve">
+    <value>PictureBox1</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Parent" xml:space="preserve">
+    <value>TabPage10</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Name" xml:space="preserve">
+    <value>GeneralTabControl</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Parent" xml:space="preserve">
+    <value>TabPage1</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabPage1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TabPage1.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Name" xml:space="preserve">
+    <value>TabPage1</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab1.Name" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab1.Parent" xml:space="preserve">
+    <value>GeneralTabControl</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab2.Name" xml:space="preserve">
+    <value>GeneralTab2</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab2.Parent" xml:space="preserve">
+    <value>GeneralTabControl</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GeneralTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="GeneralTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>400, 330</value>
+  </data>
+  <data name="GeneralTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Name" xml:space="preserve">
+    <value>GeneralTabControl</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.Parent" xml:space="preserve">
+    <value>TabPage1</value>
+  </data>
+  <data name="&gt;&gt;GeneralTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ComboBotBox.Name" xml:space="preserve">
+    <value>ComboBotBox</value>
+  </data>
+  <data name="&gt;&gt;ComboBotBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComboBotBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;ComboBotBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;AutoStackerBox.Name" xml:space="preserve">
+    <value>AutoStackerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoStackerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoStackerBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;AutoStackerBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsBox.Name" xml:space="preserve">
+    <value>LightEffectsBox</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerBox.Name" xml:space="preserve">
+    <value>AmmunitionRestackerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ConfigManagerbox.Name" xml:space="preserve">
+    <value>ConfigManagerbox</value>
+  </data>
+  <data name="&gt;&gt;ConfigManagerbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConfigManagerbox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;ConfigManagerbox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;AntiLogoutBox.Name" xml:space="preserve">
+    <value>AntiLogoutBox</value>
+  </data>
+  <data name="&gt;&gt;AntiLogoutBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AntiLogoutBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;AntiLogoutBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="GeneralTab1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="GeneralTab1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="GeneralTab1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 304</value>
+  </data>
+  <data name="GeneralTab1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="GeneralTab1.Text" xml:space="preserve">
+    <value>Part I</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab1.Name" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab1.Parent" xml:space="preserve">
+    <value>GeneralTabControl</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ComboLeaders.Name" xml:space="preserve">
+    <value>ComboLeaders</value>
+  </data>
+  <data name="&gt;&gt;ComboLeaders.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComboLeaders.Parent" xml:space="preserve">
+    <value>ComboBotBox</value>
+  </data>
+  <data name="&gt;&gt;ComboLeaders.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ComboLeader.Name" xml:space="preserve">
+    <value>ComboLeader</value>
+  </data>
+  <data name="&gt;&gt;ComboLeader.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComboLeader.Parent" xml:space="preserve">
+    <value>ComboBotBox</value>
+  </data>
+  <data name="&gt;&gt;ComboLeader.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ComboBotTrigger.Name" xml:space="preserve">
+    <value>ComboBotTrigger</value>
+  </data>
+  <data name="&gt;&gt;ComboBotTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComboBotTrigger.Parent" xml:space="preserve">
+    <value>ComboBotBox</value>
+  </data>
+  <data name="&gt;&gt;ComboBotTrigger.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ComboBotLeaderlbl.Name" xml:space="preserve">
+    <value>ComboBotLeaderlbl</value>
+  </data>
+  <data name="&gt;&gt;ComboBotLeaderlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComboBotLeaderlbl.Parent" xml:space="preserve">
+    <value>ComboBotBox</value>
+  </data>
+  <data name="&gt;&gt;ComboBotLeaderlbl.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ComboBotBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 138</value>
+  </data>
+  <data name="ComboBotBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 134</value>
+  </data>
+  <data name="ComboBotBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="ComboBotBox.Text" xml:space="preserve">
+    <value>Combo Bot</value>
+  </data>
+  <data name="&gt;&gt;ComboBotBox.Name" xml:space="preserve">
+    <value>ComboBotBox</value>
+  </data>
+  <data name="&gt;&gt;ComboBotBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComboBotBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;ComboBotBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="LeadersContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>360, 2</value>
   </metadata>
@@ -1422,6 +1851,18 @@
   </data>
   <data name="&gt;&gt;ComboLeaders.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="AddLeader.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="AddLeader.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="RemoveLeader.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
+  </data>
+  <data name="RemoveLeader.Text" xml:space="preserve">
+    <value>Remove</value>
   </data>
   <data name="ComboLeader.Location" type="System.Drawing.Point, System.Drawing">
     <value>60, 13</value>
@@ -1507,30 +1948,6 @@
   <data name="&gt;&gt;ComboBotLeaderlbl.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="ComboBotBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 138</value>
-  </data>
-  <data name="ComboBotBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 134</value>
-  </data>
-  <data name="ComboBotBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="ComboBotBox.Text" xml:space="preserve">
-    <value>Combo Bot</value>
-  </data>
-  <data name="&gt;&gt;ComboBotBox.Name" xml:space="preserve">
-    <value>ComboBotBox</value>
-  </data>
-  <data name="&gt;&gt;ComboBotBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ComboBotBox.Parent" xml:space="preserve">
-    <value>GeneralTab1</value>
-  </data>
-  <data name="&gt;&gt;ComboBotBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;AutoStackerlvl2.Name" xml:space="preserve">
     <value>AutoStackerlvl2</value>
   </data>
@@ -1602,786 +2019,6 @@
   </data>
   <data name="&gt;&gt;AutoStackerBox.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;LightEffectsTrigger.Name" xml:space="preserve">
-    <value>LightEffectsTrigger</value>
-  </data>
-  <data name="&gt;&gt;LightEffectsTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LightEffectsTrigger.Parent" xml:space="preserve">
-    <value>LightEffectsBox</value>
-  </data>
-  <data name="&gt;&gt;LightEffectsTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;LightEffect.Name" xml:space="preserve">
-    <value>LightEffect</value>
-  </data>
-  <data name="&gt;&gt;LightEffect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LightEffect.Parent" xml:space="preserve">
-    <value>LightEffectsBox</value>
-  </data>
-  <data name="&gt;&gt;LightEffect.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;LightEffectslbl.Name" xml:space="preserve">
-    <value>LightEffectslbl</value>
-  </data>
-  <data name="&gt;&gt;LightEffectslbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LightEffectslbl.Parent" xml:space="preserve">
-    <value>LightEffectsBox</value>
-  </data>
-  <data name="&gt;&gt;LightEffectslbl.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="LightEffectsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 95</value>
-  </data>
-  <data name="LightEffectsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 83</value>
-  </data>
-  <data name="LightEffectsBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="LightEffectsBox.Text" xml:space="preserve">
-    <value>Light Effects</value>
-  </data>
-  <data name="&gt;&gt;LightEffectsBox.Name" xml:space="preserve">
-    <value>LightEffectsBox</value>
-  </data>
-  <data name="&gt;&gt;LightEffectsBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LightEffectsBox.Parent" xml:space="preserve">
-    <value>GeneralTab1</value>
-  </data>
-  <data name="&gt;&gt;LightEffectsBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerTrigger.Name" xml:space="preserve">
-    <value>AmmunitionRestackerTrigger</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerTrigger.Parent" xml:space="preserve">
-    <value>AmmunitionRestackerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerlbl.Name" xml:space="preserve">
-    <value>AmmunitionRestackerlbl</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerlbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerlbl.Parent" xml:space="preserve">
-    <value>AmmunitionRestackerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerlbl.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerMinAmmo.Name" xml:space="preserve">
-    <value>AmmunitionRestackerMinAmmo</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerMinAmmo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerMinAmmo.Parent" xml:space="preserve">
-    <value>AmmunitionRestackerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerMinAmmo.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="AmmunitionRestackerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 184</value>
-  </data>
-  <data name="AmmunitionRestackerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 88</value>
-  </data>
-  <data name="AmmunitionRestackerBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="AmmunitionRestackerBox.Text" xml:space="preserve">
-    <value>Ammunition Restacker</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerBox.Name" xml:space="preserve">
-    <value>AmmunitionRestackerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerBox.Parent" xml:space="preserve">
-    <value>GeneralTab1</value>
-  </data>
-  <data name="&gt;&gt;AmmunitionRestackerBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ConfigClear.Name" xml:space="preserve">
-    <value>ConfigClear</value>
-  </data>
-  <data name="&gt;&gt;ConfigClear.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConfigClear.Parent" xml:space="preserve">
-    <value>ConfigManagerbox</value>
-  </data>
-  <data name="&gt;&gt;ConfigClear.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;ConfigEdit.Name" xml:space="preserve">
-    <value>ConfigEdit</value>
-  </data>
-  <data name="&gt;&gt;ConfigEdit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConfigEdit.Parent" xml:space="preserve">
-    <value>ConfigManagerbox</value>
-  </data>
-  <data name="&gt;&gt;ConfigEdit.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ConfigLoad.Name" xml:space="preserve">
-    <value>ConfigLoad</value>
-  </data>
-  <data name="&gt;&gt;ConfigLoad.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConfigLoad.Parent" xml:space="preserve">
-    <value>ConfigManagerbox</value>
-  </data>
-  <data name="&gt;&gt;ConfigLoad.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ConfigManagerbox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="ConfigManagerbox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 83</value>
-  </data>
-  <data name="ConfigManagerbox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="ConfigManagerbox.Text" xml:space="preserve">
-    <value>Configuration Manager</value>
-  </data>
-  <data name="&gt;&gt;ConfigManagerbox.Name" xml:space="preserve">
-    <value>ConfigManagerbox</value>
-  </data>
-  <data name="&gt;&gt;ConfigManagerbox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConfigManagerbox.Parent" xml:space="preserve">
-    <value>GeneralTab1</value>
-  </data>
-  <data name="&gt;&gt;ConfigManagerbox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;AntiIdlerTrigger.Name" xml:space="preserve">
-    <value>AntiIdlerTrigger</value>
-  </data>
-  <data name="&gt;&gt;AntiIdlerTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AntiIdlerTrigger.Parent" xml:space="preserve">
-    <value>AntiLogoutBox</value>
-  </data>
-  <data name="&gt;&gt;AntiIdlerTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="AntiLogoutBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 6</value>
-  </data>
-  <data name="AntiLogoutBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 47</value>
-  </data>
-  <data name="AntiLogoutBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="AntiLogoutBox.Text" xml:space="preserve">
-    <value>Anti Logout</value>
-  </data>
-  <data name="&gt;&gt;AntiLogoutBox.Name" xml:space="preserve">
-    <value>AntiLogoutBox</value>
-  </data>
-  <data name="&gt;&gt;AntiLogoutBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AntiLogoutBox.Parent" xml:space="preserve">
-    <value>GeneralTab1</value>
-  </data>
-  <data name="&gt;&gt;AntiLogoutBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="GeneralTab1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="GeneralTab1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="GeneralTab1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 304</value>
-  </data>
-  <data name="GeneralTab1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="GeneralTab1.Text" xml:space="preserve">
-    <value>Part I</value>
-  </data>
-  <data name="&gt;&gt;GeneralTab1.Name" xml:space="preserve">
-    <value>GeneralTab1</value>
-  </data>
-  <data name="&gt;&gt;GeneralTab1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GeneralTab1.Parent" xml:space="preserve">
-    <value>GeneralTabControl</value>
-  </data>
-  <data name="&gt;&gt;GeneralTab1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;GroupBox9.Name" xml:space="preserve">
-    <value>GroupBox9</value>
-  </data>
-  <data name="&gt;&gt;GroupBox9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox9.Parent" xml:space="preserve">
-    <value>GeneralTab2</value>
-  </data>
-  <data name="&gt;&gt;GroupBox9.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;DancerBox.Name" xml:space="preserve">
-    <value>DancerBox</value>
-  </data>
-  <data name="&gt;&gt;DancerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DancerBox.Parent" xml:space="preserve">
-    <value>GeneralTab2</value>
-  </data>
-  <data name="&gt;&gt;DancerBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ChangersBox.Name" xml:space="preserve">
-    <value>ChangersBox</value>
-  </data>
-  <data name="&gt;&gt;ChangersBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChangersBox.Parent" xml:space="preserve">
-    <value>GeneralTab2</value>
-  </data>
-  <data name="&gt;&gt;ChangersBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;AutoLooterBox.Name" xml:space="preserve">
-    <value>AutoLooterBox</value>
-  </data>
-  <data name="&gt;&gt;AutoLooterBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AutoLooterBox.Parent" xml:space="preserve">
-    <value>GeneralTab2</value>
-  </data>
-  <data name="&gt;&gt;AutoLooterBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="GeneralTab2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="GeneralTab2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="GeneralTab2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>392, 304</value>
-  </data>
-  <data name="GeneralTab2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="GeneralTab2.Text" xml:space="preserve">
-    <value>Part II</value>
-  </data>
-  <data name="&gt;&gt;GeneralTab2.Name" xml:space="preserve">
-    <value>GeneralTab2</value>
-  </data>
-  <data name="&gt;&gt;GeneralTab2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GeneralTab2.Parent" xml:space="preserve">
-    <value>GeneralTabControl</value>
-  </data>
-  <data name="&gt;&gt;GeneralTab2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="GeneralTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="GeneralTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>400, 330</value>
-  </data>
-  <data name="GeneralTabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;GeneralTabControl.Name" xml:space="preserve">
-    <value>GeneralTabControl</value>
-  </data>
-  <data name="&gt;&gt;GeneralTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GeneralTabControl.Parent" xml:space="preserve">
-    <value>TabPage1</value>
-  </data>
-  <data name="&gt;&gt;GeneralTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="TabPage1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="TabPage1.Text" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="&gt;&gt;TabPage1.Name" xml:space="preserve">
-    <value>TabPage1</value>
-  </data>
-  <data name="&gt;&gt;TabPage1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage1.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AFKTabControl.Name" xml:space="preserve">
-    <value>AFKTabControl</value>
-  </data>
-  <data name="&gt;&gt;AFKTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AFKTabControl.Parent" xml:space="preserve">
-    <value>TabPage2</value>
-  </data>
-  <data name="&gt;&gt;AFKTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="TabPage2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="TabPage2.Text" xml:space="preserve">
-    <value>AFK</value>
-  </data>
-  <data name="&gt;&gt;TabPage2.Name" xml:space="preserve">
-    <value>TabPage2</value>
-  </data>
-  <data name="&gt;&gt;TabPage2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage2.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;HealingTabControl.Name" xml:space="preserve">
-    <value>HealingTabControl</value>
-  </data>
-  <data name="&gt;&gt;HealingTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HealingTabControl.Parent" xml:space="preserve">
-    <value>TabPage3</value>
-  </data>
-  <data name="&gt;&gt;HealingTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="TabPage3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage3.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="TabPage3.Text" xml:space="preserve">
-    <value>Healing</value>
-  </data>
-  <data name="&gt;&gt;TabPage3.Name" xml:space="preserve">
-    <value>TabPage3</value>
-  </data>
-  <data name="&gt;&gt;TabPage3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage3.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage3.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;MCPatcherBox.Name" xml:space="preserve">
-    <value>MCPatcherBox</value>
-  </data>
-  <data name="&gt;&gt;MCPatcherBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MCPatcherBox.Parent" xml:space="preserve">
-    <value>TabPage7</value>
-  </data>
-  <data name="&gt;&gt;MCPatcherBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.Name" xml:space="preserve">
-    <value>GroupBox1</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.Parent" xml:space="preserve">
-    <value>TabPage7</value>
-  </data>
-  <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TabPage7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage7.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage7.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="TabPage7.Text" xml:space="preserve">
-    <value>Misc.</value>
-  </data>
-  <data name="&gt;&gt;TabPage7.Name" xml:space="preserve">
-    <value>TabPage7</value>
-  </data>
-  <data name="&gt;&gt;TabPage7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage7.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage7.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;SendLocationBox.Name" xml:space="preserve">
-    <value>SendLocationBox</value>
-  </data>
-  <data name="&gt;&gt;SendLocationBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SendLocationBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;SendLocationBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsiteBox.Name" xml:space="preserve">
-    <value>OpenWebsiteBox</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsiteBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsiteBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;OpenWebsiteBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;NameSpyBox.Name" xml:space="preserve">
-    <value>NameSpyBox</value>
-  </data>
-  <data name="&gt;&gt;NameSpyBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NameSpyBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;NameSpyBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;FloorLookBox.Name" xml:space="preserve">
-    <value>FloorLookBox</value>
-  </data>
-  <data name="&gt;&gt;FloorLookBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FloorLookBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;FloorLookBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerBox.Name" xml:space="preserve">
-    <value>ExpCheckerBox</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerBox.Parent" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;ExpCheckerBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="TabPage4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage4.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="TabPage4.Text" xml:space="preserve">
-    <value>Info.</value>
-  </data>
-  <data name="&gt;&gt;TabPage4.Name" xml:space="preserve">
-    <value>TabPage4</value>
-  </data>
-  <data name="&gt;&gt;TabPage4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage4.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage4.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Name" xml:space="preserve">
-    <value>PickuperBox</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Name" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.Name" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="TabPage5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage5.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="TabPage5.Text" xml:space="preserve">
-    <value>Training</value>
-  </data>
-  <data name="&gt;&gt;TabPage5.Name" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;TabPage5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage5.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage5.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Name" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Parent" xml:space="preserve">
-    <value>TabPage6</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Name" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Parent" xml:space="preserve">
-    <value>TabPage6</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TabPage6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage6.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
-  </data>
-  <data name="TabPage6.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="TabPage6.Text" xml:space="preserve">
-    <value>Fun</value>
-  </data>
-  <data name="&gt;&gt;TabPage6.Name" xml:space="preserve">
-    <value>TabPage6</value>
-  </data>
-  <data name="&gt;&gt;TabPage6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage6.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage6.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="MainTabControl.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="MainTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 27</value>
-  </data>
-  <data name="MainTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>414, 365</value>
-  </data>
-  <data name="MainTabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Name" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="LinkLabel1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="LinkLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>140, 287</value>
-  </data>
-  <data name="LinkLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 13</value>
-  </data>
-  <data name="LinkLabel1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="LinkLabel1.Text" xml:space="preserve">
-    <value>TibiaTek Official Website</value>
-  </data>
-  <data name="&gt;&gt;LinkLabel1.Name" xml:space="preserve">
-    <value>LinkLabel1</value>
-  </data>
-  <data name="&gt;&gt;LinkLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LinkLabel1.Parent" xml:space="preserve">
-    <value>TabPage10</value>
-  </data>
-  <data name="&gt;&gt;LinkLabel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="PictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 43</value>
-  </data>
-  <data name="PictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>402, 241</value>
-  </data>
-  <data name="PictureBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;PictureBox1.Name" xml:space="preserve">
-    <value>PictureBox1</value>
-  </data>
-  <data name="&gt;&gt;PictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PictureBox1.Parent" xml:space="preserve">
-    <value>TabPage10</value>
-  </data>
-  <data name="&gt;&gt;PictureBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="AddLeader.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="AddLeader.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="RemoveLeader.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="RemoveLeader.Text" xml:space="preserve">
-    <value>Remove</value>
   </data>
   <data name="AutoStackerlvl2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2497,6 +2134,66 @@
   <data name="&gt;&gt;AutoStackerTrigger.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="&gt;&gt;LightEffectsTrigger.Name" xml:space="preserve">
+    <value>LightEffectsTrigger</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsTrigger.Parent" xml:space="preserve">
+    <value>LightEffectsBox</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;LightEffect.Name" xml:space="preserve">
+    <value>LightEffect</value>
+  </data>
+  <data name="&gt;&gt;LightEffect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LightEffect.Parent" xml:space="preserve">
+    <value>LightEffectsBox</value>
+  </data>
+  <data name="&gt;&gt;LightEffect.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;LightEffectslbl.Name" xml:space="preserve">
+    <value>LightEffectslbl</value>
+  </data>
+  <data name="&gt;&gt;LightEffectslbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LightEffectslbl.Parent" xml:space="preserve">
+    <value>LightEffectsBox</value>
+  </data>
+  <data name="&gt;&gt;LightEffectslbl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="LightEffectsBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 95</value>
+  </data>
+  <data name="LightEffectsBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 83</value>
+  </data>
+  <data name="LightEffectsBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="LightEffectsBox.Text" xml:space="preserve">
+    <value>Light Effects</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsBox.Name" xml:space="preserve">
+    <value>LightEffectsBox</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;LightEffectsBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="LightEffectsTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -2605,6 +2302,66 @@
   <data name="&gt;&gt;LightEffectslbl.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;AmmunitionRestackerTrigger.Name" xml:space="preserve">
+    <value>AmmunitionRestackerTrigger</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerTrigger.Parent" xml:space="preserve">
+    <value>AmmunitionRestackerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerlbl.Name" xml:space="preserve">
+    <value>AmmunitionRestackerlbl</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerlbl.Parent" xml:space="preserve">
+    <value>AmmunitionRestackerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerlbl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerMinAmmo.Name" xml:space="preserve">
+    <value>AmmunitionRestackerMinAmmo</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerMinAmmo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerMinAmmo.Parent" xml:space="preserve">
+    <value>AmmunitionRestackerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerMinAmmo.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="AmmunitionRestackerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 184</value>
+  </data>
+  <data name="AmmunitionRestackerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 88</value>
+  </data>
+  <data name="AmmunitionRestackerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="AmmunitionRestackerBox.Text" xml:space="preserve">
+    <value>Ammunition Restacker</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerBox.Name" xml:space="preserve">
+    <value>AmmunitionRestackerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;AmmunitionRestackerBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="AmmunitionRestackerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -2692,6 +2449,66 @@
   <data name="&gt;&gt;AmmunitionRestackerMinAmmo.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;ConfigClear.Name" xml:space="preserve">
+    <value>ConfigClear</value>
+  </data>
+  <data name="&gt;&gt;ConfigClear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConfigClear.Parent" xml:space="preserve">
+    <value>ConfigManagerbox</value>
+  </data>
+  <data name="&gt;&gt;ConfigClear.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ConfigEdit.Name" xml:space="preserve">
+    <value>ConfigEdit</value>
+  </data>
+  <data name="&gt;&gt;ConfigEdit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConfigEdit.Parent" xml:space="preserve">
+    <value>ConfigManagerbox</value>
+  </data>
+  <data name="&gt;&gt;ConfigEdit.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ConfigLoad.Name" xml:space="preserve">
+    <value>ConfigLoad</value>
+  </data>
+  <data name="&gt;&gt;ConfigLoad.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConfigLoad.Parent" xml:space="preserve">
+    <value>ConfigManagerbox</value>
+  </data>
+  <data name="&gt;&gt;ConfigLoad.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ConfigManagerbox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="ConfigManagerbox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 83</value>
+  </data>
+  <data name="ConfigManagerbox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="ConfigManagerbox.Text" xml:space="preserve">
+    <value>Configuration Manager</value>
+  </data>
+  <data name="&gt;&gt;ConfigManagerbox.Name" xml:space="preserve">
+    <value>ConfigManagerbox</value>
+  </data>
+  <data name="&gt;&gt;ConfigManagerbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConfigManagerbox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;ConfigManagerbox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="ConfigClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -2773,6 +2590,42 @@
   <data name="&gt;&gt;ConfigLoad.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;AntiIdlerTrigger.Name" xml:space="preserve">
+    <value>AntiIdlerTrigger</value>
+  </data>
+  <data name="&gt;&gt;AntiIdlerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AntiIdlerTrigger.Parent" xml:space="preserve">
+    <value>AntiLogoutBox</value>
+  </data>
+  <data name="&gt;&gt;AntiIdlerTrigger.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AntiLogoutBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 6</value>
+  </data>
+  <data name="AntiLogoutBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 47</value>
+  </data>
+  <data name="AntiLogoutBox.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="AntiLogoutBox.Text" xml:space="preserve">
+    <value>Anti Logout</value>
+  </data>
+  <data name="&gt;&gt;AntiLogoutBox.Name" xml:space="preserve">
+    <value>AntiLogoutBox</value>
+  </data>
+  <data name="&gt;&gt;AntiLogoutBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AntiLogoutBox.Parent" xml:space="preserve">
+    <value>GeneralTab1</value>
+  </data>
+  <data name="&gt;&gt;AntiLogoutBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="AntiIdlerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -2805,6 +2658,81 @@
   </data>
   <data name="&gt;&gt;AntiIdlerTrigger.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBox9.Name" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;GroupBox9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox9.Parent" xml:space="preserve">
+    <value>GeneralTab2</value>
+  </data>
+  <data name="&gt;&gt;GroupBox9.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DancerBox.Name" xml:space="preserve">
+    <value>DancerBox</value>
+  </data>
+  <data name="&gt;&gt;DancerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DancerBox.Parent" xml:space="preserve">
+    <value>GeneralTab2</value>
+  </data>
+  <data name="&gt;&gt;DancerBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ChangersBox.Name" xml:space="preserve">
+    <value>ChangersBox</value>
+  </data>
+  <data name="&gt;&gt;ChangersBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChangersBox.Parent" xml:space="preserve">
+    <value>GeneralTab2</value>
+  </data>
+  <data name="&gt;&gt;ChangersBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;AutoLooterBox.Name" xml:space="preserve">
+    <value>AutoLooterBox</value>
+  </data>
+  <data name="&gt;&gt;AutoLooterBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoLooterBox.Parent" xml:space="preserve">
+    <value>GeneralTab2</value>
+  </data>
+  <data name="&gt;&gt;AutoLooterBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="GeneralTab2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="GeneralTab2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="GeneralTab2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 304</value>
+  </data>
+  <data name="GeneralTab2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="GeneralTab2.Text" xml:space="preserve">
+    <value>Part II</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab2.Name" xml:space="preserve">
+    <value>GeneralTab2</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab2.Parent" xml:space="preserve">
+    <value>GeneralTabControl</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab2.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;FpsChangerTrigger.Name" xml:space="preserve">
     <value>FpsChangerTrigger</value>
@@ -3563,7 +3491,7 @@
     <value>6, 79</value>
   </data>
   <data name="AmuletChangerTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 17</value>
+    <value>121, 17</value>
   </data>
   <data name="AmuletChangerTrigger.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -3638,7 +3566,7 @@
     <value>6, 19</value>
   </data>
   <data name="RingChangerTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 17</value>
+    <value>111, 17</value>
   </data>
   <data name="RingChangerTrigger.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3818,7 +3746,7 @@
     <value>6, 64</value>
   </data>
   <data name="AutoLooterEatFromCorpse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 17</value>
+    <value>102, 17</value>
   </data>
   <data name="AutoLooterEatFromCorpse.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -4011,6 +3939,45 @@
   </data>
   <data name="&gt;&gt;AutoLooterTrigger.ZOrder" xml:space="preserve">
     <value>7</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Name" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Parent" xml:space="preserve">
+    <value>TabPage2</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabPage2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="TabPage2.Text" xml:space="preserve">
+    <value>AFK</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Name" xml:space="preserve">
+    <value>TabPage2</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage2.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="AFKTabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -4259,7 +4226,7 @@
     <value>9, 19</value>
   </data>
   <data name="AutoFisherTurbo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 17</value>
+    <value>52, 17</value>
   </data>
   <data name="AutoFisherTurbo.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -4475,7 +4442,7 @@
     <value>6, 40</value>
   </data>
   <data name="AutoEaterEatFromFloorFirst.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 17</value>
+    <value>114, 17</value>
   </data>
   <data name="AutoEaterEatFromFloorFirst.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -4586,7 +4553,7 @@
     <value>6, 17</value>
   </data>
   <data name="AutoEaterEatFromFloor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 17</value>
+    <value>92, 17</value>
   </data>
   <data name="AutoEaterEatFromFloor.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -4703,7 +4670,7 @@
     <value>6, 63</value>
   </data>
   <data name="AutoEaterSmart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 17</value>
+    <value>70, 17</value>
   </data>
   <data name="AutoEaterSmart.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -6176,7 +6143,7 @@
     <value>9, 108</value>
   </data>
   <data name="StatsUploaderSaveToDisk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 17</value>
+    <value>89, 17</value>
   </data>
   <data name="StatsUploaderSaveToDisk.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -6669,6 +6636,45 @@
   </data>
   <data name="&gt;&gt;StatsUploaderUrl.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.Name" xml:space="preserve">
+    <value>HealingTabControl</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.Parent" xml:space="preserve">
+    <value>TabPage3</value>
+  </data>
+  <data name="&gt;&gt;HealingTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="TabPage3.Text" xml:space="preserve">
+    <value>Healing</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Name" xml:space="preserve">
+    <value>TabPage3</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage3.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;HealingTab1.Name" xml:space="preserve">
     <value>HealingTab1</value>
@@ -7430,7 +7436,7 @@
     <value>6, 192</value>
   </data>
   <data name="HealWithPotion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 17</value>
+    <value>79, 17</value>
   </data>
   <data name="HealWithPotion.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -7511,7 +7517,7 @@
     <value>6, 105</value>
   </data>
   <data name="HealWithSpell.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 17</value>
+    <value>72, 17</value>
   </data>
   <data name="HealWithSpell.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -7568,7 +7574,7 @@
     <value>6, 20</value>
   </data>
   <data name="HealWithRune.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 17</value>
+    <value>75, 17</value>
   </data>
   <data name="HealWithRune.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -7700,7 +7706,7 @@
     <value>6, 19</value>
   </data>
   <data name="RestoreManaWith.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 17</value>
+    <value>79, 17</value>
   </data>
   <data name="RestoreManaWith.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -8356,6 +8362,57 @@
   <data name="&gt;&gt;HealPlbl.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="&gt;&gt;MCPatcherBox.Name" xml:space="preserve">
+    <value>MCPatcherBox</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.Parent" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;MCPatcherBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Name" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.Parent" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TabPage7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage7.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage7.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="TabPage7.Text" xml:space="preserve">
+    <value>Misc.</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Name" xml:space="preserve">
+    <value>TabPage7</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage7.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="&gt;&gt;MCPatcherButton.Name" xml:space="preserve">
     <value>MCPatcherButton</value>
   </data>
@@ -8592,6 +8649,93 @@
   </data>
   <data name="&gt;&gt;MiscReloadSpellsButton.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Name" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;SendLocationBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Name" xml:space="preserve">
+    <value>OpenWebsiteBox</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;OpenWebsiteBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Name" xml:space="preserve">
+    <value>NameSpyBox</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;NameSpyBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Name" xml:space="preserve">
+    <value>FloorLookBox</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;FloorLookBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Name" xml:space="preserve">
+    <value>ExpCheckerBox</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.Parent" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="TabPage4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage4.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="TabPage4.Text" xml:space="preserve">
+    <value>Info.</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Name" xml:space="preserve">
+    <value>TabPage4</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage4.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="&gt;&gt;SendLocationTo.Name" xml:space="preserve">
     <value>SendLocationTo</value>
@@ -9248,7 +9392,7 @@
     <value>6, 42</value>
   </data>
   <data name="ExpShowCreatures.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 17</value>
+    <value>141, 17</value>
   </data>
   <data name="ExpShowCreatures.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -9275,7 +9419,7 @@
     <value>6, 19</value>
   </data>
   <data name="ExpShowNext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 17</value>
+    <value>147, 17</value>
   </data>
   <data name="ExpShowNext.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -9294,6 +9438,69 @@
   </data>
   <data name="&gt;&gt;ExpShowNext.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Name" xml:space="preserve">
+    <value>PickuperBox</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;PickuperBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Name" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;TrainerBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Name" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.Parent" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TabPage5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage5.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="TabPage5.Text" xml:space="preserve">
+    <value>Training</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Name" xml:space="preserve">
+    <value>TabPage5</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage5.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="&gt;&gt;PickuperTrigger.Name" xml:space="preserve">
     <value>PickuperTrigger</value>
@@ -9863,7 +10070,7 @@
     <value>9, 77</value>
   </data>
   <data name="AttackAutomatically.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 17</value>
+    <value>120, 17</value>
   </data>
   <data name="AttackAutomatically.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -10005,6 +10212,57 @@
   </data>
   <data name="&gt;&gt;FightingModelbl.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBox.Name" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBox.Parent" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Name" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Parent" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TabPage6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage6.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage6.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="TabPage6.Text" xml:space="preserve">
+    <value>Fun</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Name" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage6.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="&gt;&gt;ChameleonPlayer.Name" xml:space="preserve">
     <value>ChameleonPlayer</value>
@@ -10670,7 +10928,7 @@
     <value>9, 108</value>
   </data>
   <data name="CheckBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 17</value>
+    <value>89, 17</value>
   </data>
   <data name="CheckBox1.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -11191,6 +11449,60 @@
   <data name="&gt;&gt;NumericUpDown2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;CheckBox3.Name" xml:space="preserve">
+    <value>CheckBox3</value>
+  </data>
+  <data name="&gt;&gt;CheckBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CheckBox3.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;CheckBox3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ComboBox1.Name" xml:space="preserve">
+    <value>ComboBox1</value>
+  </data>
+  <data name="&gt;&gt;ComboBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComboBox1.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;ComboBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;Label26.Name" xml:space="preserve">
+    <value>Label26</value>
+  </data>
+  <data name="&gt;&gt;Label26.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label26.Parent" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;Label26.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="GroupBox6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>202, 6</value>
+  </data>
+  <data name="GroupBox6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 83</value>
+  </data>
+  <data name="GroupBox6.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="GroupBox6.Text" xml:space="preserve">
+    <value>Light Effects</value>
+  </data>
+  <data name="&gt;&gt;GroupBox6.Name" xml:space="preserve">
+    <value>GroupBox6</value>
+  </data>
+  <data name="&gt;&gt;GroupBox6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="CheckBox3.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -11298,24 +11610,6 @@
   </data>
   <data name="&gt;&gt;Label26.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="GroupBox6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>202, 6</value>
-  </data>
-  <data name="GroupBox6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 83</value>
-  </data>
-  <data name="GroupBox6.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="GroupBox6.Text" xml:space="preserve">
-    <value>Light Effects</value>
-  </data>
-  <data name="&gt;&gt;GroupBox6.Name" xml:space="preserve">
-    <value>GroupBox6</value>
-  </data>
-  <data name="&gt;&gt;GroupBox6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Button2.Name" xml:space="preserve">
     <value>Button2</value>
@@ -11948,7 +12242,7 @@
     <value>6, 64</value>
   </data>
   <data name="CheckBox7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 17</value>
+    <value>102, 17</value>
   </data>
   <data name="CheckBox7.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -13206,6 +13500,12 @@
   </data>
   <data name="&gt;&gt;Timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoResponderToolStripMenuItem.Name" xml:space="preserve">
+    <value>AutoResponderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;AutoResponderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>

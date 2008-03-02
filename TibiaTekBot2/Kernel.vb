@@ -166,7 +166,7 @@ Public Module KernelModule
         Public WithEvents KeyboardForm As New frmKeyboard
         Public WithEvents LagBarForm As New frmLagBar
         Public WithEvents EditLootForm As New frmEditLoot
-
+        Public AutoResponderForm As frmAutoResponder
         'Public Map As MapTiles
         Public WithEvents ConstantsEditorForm As New frmConstantsEditor
         Public WithEvents BGWSendLocation As BackgroundWorker

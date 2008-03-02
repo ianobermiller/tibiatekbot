@@ -152,6 +152,7 @@ Public Class frmMain
                 End If
             Next
             If AmmoMakerSpell.Items.Count > 0 Then AmmoMakerSpell.SelectedIndex = 0
+            Kernel.AutoResponderForm = New frmAutoResponder
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
@@ -2839,4 +2840,12 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub AutoResponderToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoResponderToolStripMenuItem.Click
+        If Kernel.AutoResponderForm Is Nothing Then
+            Kernel.AutoResponderForm = New frmAutoResponder
+            Kernel.AutoResponderForm.Show()
+        Else
+            Kernel.AutoResponderForm.Show()
+        End If
+    End Sub
 End Class
