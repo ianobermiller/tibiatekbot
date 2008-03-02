@@ -294,6 +294,12 @@ Public Module ConstantsModule
         Public AutoLoginPatch2() As Byte = {&H90, &H90, &H90, &H90, &H90}
         Public AutoLoginPatchOriginal2() As Byte = {&HE8, &HC8, &H15, &H9, &H0}
 
+        Public ptrDisplayAddress As Integer = &H4A3C00
+        Public ptrDisplayStartAddress As Integer = &H44E68D
+        Public ptrDisplayJmpBack As Integer = &H44E690
+        Public ptrDisplayShowFps As Integer = &H611874
+        Public ptrDisplayJmpFps As Integer = &H44E762
+
         Public Sub New()
             LoadConstants()
         End Sub
@@ -793,6 +799,16 @@ Public Module ConstantsModule
                                                     Next
                                                 Case "ptrAutoLoginPatch"
                                                     ptrAutoLoginPatch = CInt(Value)
+                                                Case "ptrDisplayAddress"
+                                                    ptrDisplayAddress = CInt(Value)
+                                                Case "ptrDisplayStartAddress"
+                                                    ptrDisplayStartAddress = CInt(Value)
+                                                Case "ptrDisplayJmpBack"
+                                                    ptrDisplayJmpBack = CInt(Value)
+                                                Case "ptrDisplayShowFps"
+                                                    ptrDisplayShowFps = CInt(Value)
+                                                Case "ptrDisplayJmpFps"
+                                                    ptrDisplayJmpFps = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then

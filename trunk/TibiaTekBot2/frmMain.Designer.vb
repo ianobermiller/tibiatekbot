@@ -49,6 +49,7 @@ Partial Class frmMain
         Me.CharacterStatisticsMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.KeyboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
+        Me.AutoResponderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
         Me.ChangeLoginServerPopupItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ConstantsEditorMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -506,7 +507,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.AutoResponderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -624,7 +624,6 @@ Partial Class frmMain
         '
         Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.KeyboardToolStripMenuItem, Me.ToolStripMenuItem1, Me.AutoResponderToolStripMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
-        Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
@@ -670,6 +669,11 @@ Partial Class frmMain
         Me.ToolStripMenuItem1.Image = Global.TibiaTekBot.My.Resources.Resources.LagBar
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         resources.ApplyResources(Me.ToolStripMenuItem1, "ToolStripMenuItem1")
+        '
+        'AutoResponderToolStripMenuItem
+        '
+        Me.AutoResponderToolStripMenuItem.Name = "AutoResponderToolStripMenuItem"
+        resources.ApplyResources(Me.AutoResponderToolStripMenuItem, "AutoResponderToolStripMenuItem")
         '
         'ToolStripSeparator5
         '
@@ -3523,11 +3527,6 @@ Partial Class frmMain
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 2000
-        '
-        'AutoResponderToolStripMenuItem
-        '
-        Me.AutoResponderToolStripMenuItem.Name = "AutoResponderToolStripMenuItem"
-        resources.ApplyResources(Me.AutoResponderToolStripMenuItem, "AutoResponderToolStripMenuItem")
         '
         'frmMain
         '

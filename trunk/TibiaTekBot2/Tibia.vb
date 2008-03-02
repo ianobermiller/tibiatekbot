@@ -829,9 +829,15 @@ Public NotInheritable Class Tibia
             PPB.SetConstant("ptrInGame", Consts.ptrInGame)
             PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
             PPB.SetConstant("TibiaWindowHandle", WindowHandle)
+            PPB.SetConstant("ptrDisplayAddress", Consts.ptrDisplayAddress)
+            PPB.SetConstant("ptrDisplayStartAddress", Consts.ptrDisplayStartAddress)
+            PPB.SetConstant("ptrDisplayJmpBack", Consts.ptrDisplayJmpBack)
+            PPB.SetConstant("ptrDisplayShowFps", Consts.ptrDisplayShowFps)
+            PPB.SetConstant("ptrDisplayJmpFps", Consts.ptrDisplayJmpFps)
             PPB.HookWndProc(True)
             PPB.Send()
-
+            PPB.InjectDisplay()
+            PPB.Send()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
