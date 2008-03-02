@@ -87,6 +87,7 @@ Public Class CommandParser
             Add("viewmsg", AddressOf CmdViewMessage)
             Add("log", AddressOf CmdLog)
             Add(New String() {"favwnp", "favweapon", "favoriteweapon", "fvwpn"}, AddressOf CmdFavWep)
+            Add("reload", AddressOf CmdReload)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
