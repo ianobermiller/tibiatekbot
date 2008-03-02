@@ -39,6 +39,7 @@ CRITICAL_SECTION PipeReadCriticalSection;
 
 /* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
 Ctext texts[MAX_TEXT] = {0};
+void PrintFunction();
 
 int n_text=0;
 char g_Text[1024] = "";
@@ -52,12 +53,12 @@ int g_Font = 1;
 char ttext[1024]="'(use object on target)',0";
 char tbuff[2048];
 
-DWORD address = 0x004A3C00;
-DWORD startadr = 0x0044E68D;
-DWORD jmpback = 0x0044E68F+1;
+DWORD address;
+DWORD startadr;
+DWORD jmpback;
 
-DWORD showfps = 0x00611874; //Show fps flag (0-1)
-DWORD jmpfps = 0x0044E762; // jmp to skip fps
+DWORD showfps; //Show fps flag (0-1)
+DWORD jmpfps; // jmp to skip fps
 
 /* Constants from TTB */
 //int INGAME=0;
@@ -100,11 +101,28 @@ string ReadString(BYTE *buffer, int *offset){
 	return result;
 }
 
+void InjectDisplay()
+{
+	BYTE jmpByte[8] = {0xE9, 0x00, 0x00, 0x00, 0x00, 0x90, 0x90, 0x90};
+	int pointer = (int)&PrintFunction + 3;
+	int jmp = pointer - startadr - 5;
+	memcpy(&jmpByte[1], &jmp, 4);
+	DWORD dwOldProtect, dwNewProtect;
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(startadr), 8, PAGE_READWRITE, &dwOldProtect);
+	memcpy((LPVOID)(startadr), &jmpByte, 8);
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(startadr), 8, dwOldProtect, &dwNewProtect);
+
+	//Initialize
+	int i;
+	for(i=0; i<MAX_TEXT; i++){
+		texts[i].used = false;
+	}
+}
+
 void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText)
 {
 	if(TextNum > MAX_TEXT-1){return;}
 	if(font<1 || font >4){return;}
-	if(texts[TextNum].used == true){return;}
 	if(nRed > 0xFF || nRed < 0){return;}
 	if(nGreen > 0xFF || nGreen < 0){return;}
 	if(nBlue > 0xFF || nBlue < 0){return;}
@@ -118,6 +136,7 @@ void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int n
 	texts[TextNum].font = font;
 	sprintf(texts[TextNum].text, "%s", lpText);
 }
+
 
 void PrintFunction()
 {
@@ -210,6 +229,16 @@ void PipeOnRead(){
 					WASDPOPUP = (const int*)ReadDWord(Buffer, &position);
 				} else if (ConstantName == "TibiaWindowHandle") {
 					TibiaWindowHandle = (HWND)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrDisplayAddress") { //Display
+					address = (const DWORD)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrDisplayStartAddress") {
+					startadr = (const DWORD)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrDisplayJmpBack") {
+					jmpback = (const DWORD)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrDisplayShowFps") {
+					showfps = (const DWORD)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrDisplayJmpFps") {
+					jmpfps = (const DWORD)ReadDWord(Buffer, &position);
 				}
 			}
 			break;
@@ -247,7 +276,7 @@ void PipeOnRead(){
 			break;
 		case 4: // DisplayText
 			{
-				int TextId = ReadByte(Buffer, &position); //Text ID
+				int TextId = ReadByte(Buffer, &position);
 				int PosX = ReadWord(Buffer, &position);
 				int PosY = ReadWord(Buffer, &position);
 				int ColorRed = ReadWord(Buffer, &position);
@@ -262,6 +291,33 @@ void PipeOnRead(){
 				strcpy (lpText, Text.c_str());
 
 				SetText(TextId, true, PosX, PosY, ColorRed, ColorGreen, ColorBlue, Font, lpText);
+			}
+			break;
+		case 5: //RemoveText
+			{
+				int TextId = ReadByte(Buffer, &position);
+				if(TextId > MAX_TEXT-1){break;}
+				texts[TextId].used = false;
+			}
+			break;
+		case 6: //Remove All
+			{
+				int i;
+				for(i=0; i<MAX_TEXT; i++){
+					texts[i].used = false;
+				}
+			}
+			break;
+		case 7: //Inject Display
+			{
+				/* Testing that every constant have a value */
+				if(address == 0){break;}
+				if(startadr == 0){break;}
+				if(jmpback == 0){break;}
+				if(showfps == 0){break;}
+				if(jmpfps == 0){break;}
+
+				InjectDisplay();
 			}
 			break;
 	}
@@ -298,28 +354,6 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 	switch (reason){
 		case DLL_PROCESS_ATTACH:
         {
-			HWND hWnd = FindWindowA("TibiaClient", "Tibia");
-			DWORD dwPid;
-			GetWindowThreadProcessId(hWnd, &dwPid);
-			if(GetCurrentProcessId() == dwPid)
-			{
-				MessageBoxA(0, "Get So Far", "ASDF", 0); //Remove after Debug
-				BYTE jmpByte[8] = {0xE9, 0x00, 0x00, 0x00, 0x00, 0x90, 0x90, 0x90};
-				int pointer = (int)&PrintFunction + 3;
-				int jmp = pointer - startadr - 5;
-				memcpy(&jmpByte[1], &jmp, 4);
-				DWORD dwOldProtect, dwNewProtect;
-				VirtualProtectEx(GetCurrentProcess(), (LPVOID)(startadr), 8, PAGE_READWRITE, &dwOldProtect);
-				memcpy((LPVOID)(startadr), &jmpByte, 8);
-				VirtualProtectEx(GetCurrentProcess(), (LPVOID)(startadr), 8, dwOldProtect, &dwNewProtect);
-
-				//Initialize
-				int i;
-				for(i=0; i<MAX_TEXT; i++){
-					texts[i].used = false;
-				}
-			}
-
             hMod = hModule;
 			string CmdArgs = GetCommandLineA();
 			int pos = CmdArgs.find("-pipe:");

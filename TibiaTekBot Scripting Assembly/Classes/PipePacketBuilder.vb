@@ -151,6 +151,40 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
+    Public Sub RemoveText(ByVal TextNum As Byte)
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(5)
+            _Packet.AddByte(TextNum)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Public Sub RemoveAllText()
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(6)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Public Sub InjectDisplay()
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(7)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Public Sub Send() Implements IPacketBuilder.Send
         Try
             While Packets.Count > 0

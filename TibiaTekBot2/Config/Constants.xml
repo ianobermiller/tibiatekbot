@@ -258,6 +258,10 @@
   <Const Name="AutoLoginPatchOriginal" Value="E8,0D,1D,09,00" />
   <Const Name="AutoLoginPatch2" Value="90,90,90,90,90" />
   <Const Name="AutoLoginPatchOriginal2" Value="E8,C8,15,09,00" />
-
-
+  
+  <Const Name="ptrDisplayAddress" Value="H4A3C00" />
+  <Const Name="ptrDisplayStartAddress" Value="H44E68D" />
+  <Const Name="ptrDisplayJmpBack" Value="H44E690" />
+  <Const Name="ptrDisplayShowFps" Value="H611874" />
+  <Const Name="ptrDisplayJmpFps" Value="H44E762" />
 </Constants>
