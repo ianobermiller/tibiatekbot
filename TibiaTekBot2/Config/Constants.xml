@@ -88,6 +88,7 @@
   <Const Name="DialogButton4Offset" Value="H38" />
   <Const Name="ptrAutoLoginAccountNumeric" Value="H76c2c0" />
   <Const Name="ptrAutoLoginPatch" Value="H47935E" />
+  <Const Name="ptrAutoLoginPatch2" Value="H47A2B3" />
   <Const Name="ptrAutoLoginAccountString" Value="H76c2b4" />
   <Const Name="ptrAutoLoginPassword" Value="H76c294" />
   <Const Name="ptrInGame" Value="H76c2c8" /> 
@@ -255,4 +256,8 @@
 
   <Const Name="AutoLoginPatch" Value="90,90,90,90,90" />
   <Const Name="AutoLoginPatchOriginal" Value="E8,0D,1D,09,00" />
+  <Const Name="AutoLoginPatch2" Value="90,90,90,90,90" />
+  <Const Name="AutoLoginPatchOriginal2" Value="E8,C8,15,09,00" />
+
+
 </Constants>

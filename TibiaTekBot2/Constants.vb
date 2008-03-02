@@ -135,8 +135,9 @@ Public Module ConstantsModule
         Public ptrMagicLevel As Integer = &H60EABC
         Public ptrMagicLevelPercent As Integer = &H60EAB4
         Public ptrWASDPopup As Integer = 0
-        Public ptrAutoLoginPatch As Integer = &H47935E '8.1
 
+        Public ptrAutoLoginPatch As Integer = &H47935E '8.1
+        Public ptrAutoLoginPatch2 As Integer = &H47A2B3 '8.1
         Public DialogLeftOffset As Integer = &H14
         Public DialogTopOffset As Integer = &H18
         Public DialogWidthOffset As Integer = &H1C
@@ -290,6 +291,8 @@ Public Module ConstantsModule
 
         Public AutoLoginPatch() As Byte = {&H90, &H90, &H90, &H90, &H90}
         Public AutoLoginPatchOriginal() As Byte = {&HE8, &HD, &H1D, &H9, &H0}
+        Public AutoLoginPatch2() As Byte = {&H90, &H90, &H90, &H90, &H90}
+        Public AutoLoginPatchOriginal2() As Byte = {&HE8, &HC8, &H15, &H9, &H0}
 
         Public Sub New()
             LoadConstants()

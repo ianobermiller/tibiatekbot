@@ -83,9 +83,10 @@ Public Class frmLagBar
         End If
     End Sub
 
-    Private Sub frmLagBar_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseUp
-        If e.Y > 25 And e.Y < 32 And e.X > 85 And e.X < 95 Then
+    Private Sub frmLagBar_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseUp, PictureBox1.MouseUp, Label2.MouseUp
+        If e.Button = Windows.Forms.MouseButtons.Right Then
             Me.Hide()
         End If
     End Sub
+
 End Class

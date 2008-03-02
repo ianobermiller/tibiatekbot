@@ -2733,11 +2733,14 @@ Public Class frmMain
         With Kernel
             If Not .Client.IsConnected Then
                 Dim Persist As Boolean = True
+
                 While Persist
-                    .Client.WriteMemory(Consts.ptrAutoLoginAccountNumeric, 111111, 4)
-                    .Client.WriteMemory(Consts.ptrAutoLoginAccountString, "111111")
-                    .Client.WriteMemory(Consts.ptrAutoLoginPassword, "platano")
+                    ' Log in first to gameworld once
+                    '.Client.WriteMemory(Consts.ptrAutoLoginAccountNumeric, 111111, 4)
+                    '.Client.WriteMemory(Consts.ptrAutoLoginAccountString, "111111")
+                    '.Client.WriteMemory(Consts.ptrAutoLoginPassword, "platano")
                     .Client.WriteMemory(Consts.ptrAutoLoginPatch, Consts.AutoLoginPatch)
+
                     .Client.BringToFront()
                     .Client.Click(100, .Client.ScreenHeight - 220)
                     '220
@@ -2761,7 +2764,7 @@ Public Class frmMain
                         System.Threading.Thread.Sleep(25) '25ms
                     End While
                     .Client.BringToFront()
-                    .Client.WriteMemory(Consts.ptrCharacterSelectionIndex, 2, 4)
+                    '.Client.WriteMemory(Consts.ptrCharacterSelectionIndex, 2, 4)
                     .Computer.Keyboard.SendKeys("{ENTER}", True)
                     ' Message of the Day
                     ' Select Character
@@ -2832,6 +2835,7 @@ Public Class frmMain
         Kernel.LagBarForm.Show()
     End Sub
 
+
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         If Kernel.Client Is Nothing Then Exit Sub
         If Kernel.Client.IsConnected Then
@@ -2848,4 +2852,5 @@ Public Class frmMain
             Kernel.AutoResponderForm.Show()
         End If
     End Sub
+
 End Class
