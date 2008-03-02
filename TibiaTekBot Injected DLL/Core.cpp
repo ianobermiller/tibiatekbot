@@ -40,6 +40,8 @@ CRITICAL_SECTION PipeReadCriticalSection;
 /* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
 Ctext texts[MAX_TEXT] = {0};
 void PrintFunction();
+void ShowPlayer();
+void GetPlayerInfo(int Surface, int nX, int nY, int Font, int nR, int nG, int nB, char *lpText, int len, int align);
 
 int n_text=0;
 char g_Text[1024] = "";
@@ -56,9 +58,12 @@ char tbuff[2048];
 DWORD address;
 DWORD startadr;
 DWORD jmpback;
-
 DWORD showfps; //Show fps flag (0-1)
 DWORD jmpfps; // jmp to skip fps
+
+DWORD SPAddress = 0x004A2DC0; //ShowPlayerAddress
+DWORD SPStartAdr = 0x004A3F48;
+DWORD SPJmpAdr = 0x004A3F4D;
 
 /* Constants from TTB */
 //int INGAME=0;
@@ -119,6 +124,18 @@ void InjectDisplay()
 	}
 }
 
+void InjectShowPlayer()
+{
+	BYTE jmpByte[8] = {0xE9, 0x00, 0x00, 0x00, 0x00, 0x90, 0x90, 0x90};
+	int pointer = (int)&ShowPlayer + 3;
+	int jmp = pointer - SPStartAdr - 5;
+	memcpy(&jmpByte[1], &jmp, 4);
+	DWORD dwOldProtect, dwNewProtect;
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(SPStartAdr), 8, PAGE_READWRITE, &dwOldProtect);
+	memcpy((LPVOID)(SPStartAdr), &jmpByte, 8);
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(SPStartAdr), 8, dwOldProtect, &dwNewProtect);
+}
+
 void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText)
 {
 	if(TextNum > MAX_TEXT-1){return;}
@@ -137,6 +154,42 @@ void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int n
 	sprintf(texts[TextNum].text, "%s", lpText);
 }
 
+void ShowPlayer()
+{
+	__asm
+	{
+		call GetPlayerInfo;
+		//add ESP,0x28;
+		jmp SPJmpAdr;
+	}
+	
+}
+
+void GetPlayerInfo(int Surface, int nX, int nY, int Font, int nR, int nG, int nB, char *lpText, int len, int aligment)
+{
+	string Text = (const char*)lpText;
+	if(Text == "Jokuperkele")
+	{
+		SetText(150, true, nX, nY-15, 255, 0, 0, 2, "OsQu Rox!");
+	} else {
+		SetText(150, false, 0, 0, 0, 0, 0, 0, "");
+	}
+	__asm
+	{
+		push aligment;
+		push len;
+		push lpText;
+		push nB;
+		push nG;
+		push nR;
+		push Font;
+		push nY;
+		push nX;
+		push Surface;
+		call SPAddress;
+		add ESP, 0x28;
+	}
+}
 
 void PrintFunction()
 {
@@ -318,6 +371,7 @@ void PipeOnRead(){
 				if(jmpfps == 0){break;}
 
 				InjectDisplay();
+				InjectShowPlayer();
 			}
 			break;
 	}
@@ -354,14 +408,15 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 	switch (reason){
 		case DLL_PROCESS_ATTACH:
         {
-            hMod = hModule;
+			//InjectShowPlayer();
+			hMod = hModule;
 			string CmdArgs = GetCommandLineA();
 			int pos = CmdArgs.find("-pipe:");
 			PipeName = "\\\\.\\pipe\\ttb" + CmdArgs.substr(pos + 6, 5);
 			InitializeCriticalSection(&PipeReadCriticalSection);
 			PipeConnected=false;
 			PipeThread = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)PipeThreadProc, hMod, NULL, NULL);
-        }
+		}
         break;
 		case DLL_PROCESS_DETACH:
 		{

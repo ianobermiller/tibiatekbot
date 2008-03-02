@@ -1314,6 +1314,9 @@ Public Class CommandParser
         Try
             Kernel.ConsoleWrite("Begin Test")
             Select Case Arguments(2).ToString.ToLower
+                Case "HideText"
+                    Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+                    PPB.RemoveAllText()
                 Case "notify"
                     Kernel.NotifyIcon.Text = "Hola?"
                     Kernel.ConsoleRead("changed?")
