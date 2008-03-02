@@ -2725,7 +2725,7 @@ Public Class frmMain
         Location.Y = 300
         Location.Z = 0 'Not used
         Dim S As Integer = 0
-        For I As Integer = 1 To 10
+        For I As Integer = 1 To 30
             PPB.DisplayText(S, Location, 255, 0, 0, 2, "TTB ROX!")
             S += 1
             Location.Y += 10
