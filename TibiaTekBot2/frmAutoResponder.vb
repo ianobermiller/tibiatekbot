@@ -1,10 +1,21 @@
 ﻿Imports Scripting, System.Text.RegularExpressions, System.Threading, System.Xml
 Public Class frmAutoResponder
 
+    Public Sub New()
+        ' This call is required by the Windows Form Designer.
+        InitializeComponent()
+        ' Add any initialization after the InitializeComponent() call.
+    End Sub
+
+    Dim WithEvents Client As ITibia
     Dim SelectedRowIndex As Integer
-    Dim MatchFound As Boolean = False
-    Dim WithEvents Client As ITibia = Kernel.Client
-    Dim AR_Activated As Boolean = False
+    Public AR_Activated As Boolean = False
+
+    Structure MsgAnswerDefinition
+        Dim LastAnswer As Date
+        Dim CharName As String
+        Dim Expression As String
+    End Structure
 
     Enum MsgTypes As Integer
         [Private] = 0
@@ -17,6 +28,42 @@ Public Class frmAutoResponder
         Normaltext = 1
     End Enum
 
+    Public MessagesAnswered As New List(Of MsgAnswerDefinition)
+    Dim TestingMode As Boolean = False
+    Public Sub AREnable()
+        If DataGridView1.RowCount = 1 Then
+            Kernel.ConsoleError("There's no Auto Responders. Please edit your AutoResponder. Go to TibiaTek Bot Main menu and select Auto Responder.")
+            Kernel.ARisActive = False
+            Exit Sub
+        End If
+        ActivateBtn.Text = "Desactivate"
+        LoadBtn.Enabled = False
+        SaveBtn.Enabled = False
+        ClearBtn.Enabled = False
+        LblChkDist.Enabled = False
+        CntChkDist.Enabled = False
+        ChkDistance.Enabled = False
+        RmtimeTxt.Enabled = False
+        Rmlbl.Enabled = False
+        AR_Activated = True
+        DataGridView1.Enabled = False
+        SqrLbl.Enabled = False
+    End Sub
+    Public Sub ARDisable()
+
+        ActivateBtn.Text = "Activate"
+        AR_Activated = False
+        LoadBtn.Enabled = True
+        SaveBtn.Enabled = True
+        ClearBtn.Enabled = True
+        LblChkDist.Enabled = True
+        CntChkDist.Enabled = True
+        ChkDistance.Enabled = True
+        RmtimeTxt.Enabled = True
+        Rmlbl.Enabled = True
+        DataGridView1.Enabled = True
+        SqrLbl.Enabled = True
+    End Sub
     Private Sub AddAnswerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddAnswerToolStripMenuItem.Click
         On Error Resume Next
         Dim Answer As String
@@ -27,6 +74,28 @@ Public Class frmAutoResponder
         Combo.Value = Answer
         ActivateBtn.Focus()
         DataGridView1.Refresh()
+    End Sub
+
+    Private Sub DataGridView1_CellMouseEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellMouseEnter
+
+        If e.RowIndex >= 0 Then
+            If DataGridView1.Rows(e.RowIndex).DefaultCellStyle.BackColor = Drawing.Color.Red Then
+                StatusLblHelp.Text = DataGridView1.Rows(e.RowIndex).Cells(0).Tag
+                Exit Sub
+            End If
+        End If
+        Select Case e.ColumnIndex
+            Case 0
+                StatusLblHelp.Text = "Enter the expression te be evalaluated. Example: hello"
+            Case 1
+                StatusLblHelp.Text = "Add the possible responses to send when a messaged matched with the expression"
+            Case 2
+                StatusLblHelp.Text = "Type the seconds to wait for send the answer"
+            Case 3
+                StatusLblHelp.Text = "Select the expression type, RegExp (Regular Exporesions) Ex: hello|hi|hey there|hiho , or Normal Text Ex: hello"
+            Case 4
+                StatusLblHelp.Text = "Select the Message type, Private , Default, or Private or default"
+        End Select
     End Sub
 
     Private Sub DataGridView1_DataError(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) Handles DataGridView1.DataError
@@ -57,7 +126,16 @@ Public Class frmAutoResponder
     End Sub
 
     Private Sub ActivateBtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ActivateBtn.Click
+
         If ActivateBtn.Text = "Activate" Then
+            If DataGridView1.RowCount = 1 Then
+                StatusLblHelp.Text = "There's no Auto Responders"
+                Wait(2)
+                StatusLblHelp.Text = ""
+                Exit Sub
+            End If
+            Kernel.ARisActive = True
+            AR_Activated = True
             ActivateBtn.Text = "Desactivate"
             LoadBtn.Enabled = False
             SaveBtn.Enabled = False
@@ -65,16 +143,24 @@ Public Class frmAutoResponder
             LblChkDist.Enabled = False
             CntChkDist.Enabled = False
             ChkDistance.Enabled = False
-            AR_Activated = True
+            RmtimeTxt.Enabled = False
+            Rmlbl.Enabled = False
+            DataGridView1.Enabled = False
+            SqrLbl.Enabled = False
         Else
             ActivateBtn.Text = "Activate"
             AR_Activated = False
+            Kernel.ARisActive = False
             LoadBtn.Enabled = True
             SaveBtn.Enabled = True
             ClearBtn.Enabled = True
             LblChkDist.Enabled = True
             CntChkDist.Enabled = True
             ChkDistance.Enabled = True
+            RmtimeTxt.Enabled = True
+            Rmlbl.Enabled = True
+            DataGridView1.Enabled = True
+            SqrLbl.Enabled = True
         End If
     End Sub
 
@@ -129,7 +215,7 @@ Public Class frmAutoResponder
             If Me.DataGridView1.Rows.Count = 1 Then Exit Sub
             xmlRespAttribute = Document.CreateAttribute("CheckDist")
             If Me.ChkDistance.Checked Then
-                xmlRespAttribute.InnerText = Me.CntChkDist.Value
+                xmlRespAttribute.InnerText = Me.CntChkDist.Text
             Else
                 xmlRespAttribute.InnerText = 0
             End If
@@ -203,12 +289,12 @@ Public Class frmAutoResponder
                 ChkDistance.CheckState = CheckState.Checked
                 LblChkDist.Enabled = True
                 CntChkDist.Enabled = True
-                CntChkDist.Value = AR_ChckDist
+                CntChkDist.Text = AR_ChckDist
             Else
                 ChkDistance.CheckState = CheckState.Unchecked
                 LblChkDist.Enabled = False
                 CntChkDist.Enabled = False
-                CntChkDist.Value = 0
+                CntChkDist.Text = 0
             End If
 
             Dim AR_Msg As String = ""
@@ -270,15 +356,17 @@ Public Class frmAutoResponder
         If ChkDistance.CheckState = CheckState.Checked Then
             LblChkDist.Enabled = True
             CntChkDist.Enabled = True
+            SqrLbl.Enabled = True
         Else
             LblChkDist.Enabled = False
             CntChkDist.Enabled = False
-            CntChkDist.Value = 0
+            SqrLbl.Enabled = False
+            CntChkDist.Text = 0
         End If
     End Sub
 
     Private Sub Client_MessageReceived(ByVal e As Scripting.Events.Events.MessageReceivedEventArgs) Handles Client.MessageReceived
-        If Not (AR_Activated Or Kernel.Client.IsConnected) Then Exit Sub
+        If Not (AR_Activated) Then Exit Sub
         If e.CharacterName = Client.CharacterName Then Exit Sub
 
         Dim i As Integer = 0
@@ -296,34 +384,36 @@ Public Class frmAutoResponder
         If DataGridView1.Rows.Count < 2 Then Exit Sub
         If e.MessageType = ITibia.MessageType.Channel Then Exit Sub
         If e.MessageType = ITibia.MessageType.Default Then
+            Dim Distance As Double
             If ChkDistance.Checked Then
-                Dim BL As New BattleList
-                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
-                Dim Distance As Double = BL.GetDistanceFromLocation(e.CharacterLocation)
-                If Distance Then
-                    If Distance > CntChkDist.Value Then
+                If Not TestingMode Then
+                    Dim BL As New BattleList
+                    BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                    Distance = BL.GetDistanceFromLocation(e.CharacterLocation)
+
+                    If Distance > CntChkDist.Text Then
                         Exit Sub
                     End If
                 End If
             End If
         End If
 
-        For i = 0 To DataGridView1.Rows.Count - 1
+        For Each Row As DataGridViewRow In DataGridView1.Rows
             Matched = False
-            Text = DataGridView1.Rows(i).Cells(0).Value
+            Text = Row.Cells(0).Value
             If Text = "" Or Text = Nothing Then Continue For
 
-            ComboExpType = DataGridView1.Rows(i).Cells(3)
-            Select Case CType(ComboExpType.Value, String)
+            ' ComboExpType = DataGridView1.Rows(i).Cells(3)
+            Select Case Row.Cells(3).Value.ToString
                 Case "RegExp"
                     AR_ExpType = ExpType.RegExp
                 Case "NormalText"
                     AR_ExpType = ExpType.Normaltext
             End Select
 
-            ComboMsgType = DataGridView1.Rows(i).Cells(4)
+            ComboMsgType = Row.Cells(4)
 
-            Select Case CType(DataGridView1.Rows(i).Cells(4).Value, String)
+            Select Case CType(ComboMsgType.Value, String)
                 Case "Private"
                     AR_MsgType = MsgTypes.Private
                 Case "Default"
@@ -338,10 +428,22 @@ Public Class frmAutoResponder
             Else
                 Continue For
             End If
-
+            Dim RowBackColor As Drawing.Color = Row.DefaultCellStyle.BackColor
             If AR_ExpType = ExpType.RegExp Then
-                Match = Regex.Match(e.Message, Text, RegexOptions.IgnoreCase Or RegexOptions.ExplicitCapture)
-                Matched = Match.Success
+                Try
+                    Match = Regex.Match(e.Message, Text, RegexOptions.IgnoreCase Or RegexOptions.ExplicitCapture)
+                    Matched = Match.Success
+                    Row.DefaultCellStyle.BackColor = Row.DataGridView.DefaultCellStyle.BackColor
+                    Row.Cells(0).Tag = ""
+                Catch ex As Exception
+                    Row.DefaultCellStyle.BackColor = Drawing.Color.Red
+                    Matched = False
+                    StatusLblHelp.Text = "Error: Regular Expresion not valid , [Row " & SelectedRowIndex & "] ( Error msg:" & ex.Message & " )"
+                    Kernel.ConsoleError("Error: Regular Expresion not valid , [Row " & SelectedRowIndex & "] ( Error msg:" & ex.Message & " )")
+                    Row.Cells(0).Tag = StatusLblHelp.Text
+                    Exit Sub
+                End Try
+
             ElseIf AR_ExpType = ExpType.Normaltext Then
                 If e.Message.ToLower.Contains(Text) Then
                     Matched = True
@@ -349,19 +451,55 @@ Public Class frmAutoResponder
             End If
 
             If Matched Then
-                ComboResp = DataGridView1.Rows(i).Cells(1)
+                ComboResp = Row.Cells(1)
+                StatusLblHelp.Text = ""
+                Dim sp As New ServerPacketBuilder(Kernel.Proxy)
+                Dim cp As New ClientPacketBuilder(Kernel.Proxy)
+                Dim strString As String = ""
+                Dim TimeForRepeatedMsg As Integer = CInt(RmtimeTxt.Text)
+                Dim TimeElapsed As Integer
+                For Each MsgAnswered_ As MsgAnswerDefinition In MessagesAnswered
+                    If MsgAnswered_.CharName = e.CharacterName And MsgAnswered_.Expression = Text Then
+                        TimeElapsed = Date.Now.Subtract(MsgAnswered_.LastAnswer).TotalSeconds
+                        If TimeElapsed >= TimeForRepeatedMsg Then
+                            MessagesAnswered.Remove(MsgAnswered_)
+                            Exit For
+                            'Ok Respond
+                        Else
+                            'Ignore msg
+                            If TestingMode Then
+                                StatusLblHelp.Text = "Repeated message, will be ignored, " & (TimeForRepeatedMsg - TimeElapsed) & " Seconds remaining"
+                            End If
+                            Exit Sub
+                        End If
+                    End If
+                Next
+
+                Dim MsgAnswered As New MsgAnswerDefinition
+                MsgAnswered.CharName = e.CharacterName
+                MsgAnswered.LastAnswer = Date.Now
+                MsgAnswered.Expression = Text
+                MessagesAnswered.Add(MsgAnswered)
 
                 If ComboResp.Items.Count > 1 Then
-                    Wait(Val(DataGridView1.Rows(i).Cells(2).Value))
-                    RndNum = RandomNumber(ComboResp.Items.Count)
+                    Wait(Val(Row.Cells(2).Value))
+                    RndNum = RandomNumber(ComboResp.Items.Count, 0)
                     Response = ComboResp.Items(RndNum).ToString
                 ElseIf ComboResp.Items.Count = 1 Then
                     Wait(Val(DataGridView1.Rows(i).Cells(2).Value))
                     Response = ComboResp.Items(0).ToString
                 End If
-                Dim sp As New ServerPacketBuilder(Kernel.Proxy)
-                Dim cp As New ClientPacketBuilder(Kernel.Proxy)
-                Dim strString As String = ""
+
+                If TestingMode Then
+                    TestRitchtext.AppendText(vbLf & "Bot: " & Response)
+                    TestRitchtext.Select(TestRitchtext.TextLength - Response.Length - 5, Response.Length + 5)
+                    TestRitchtext.SelectionColor = Drawing.Color.Gold
+                    TestRitchtext.Select()
+                    TestRitchtext.Select(TestRitchtext.TextLength, 1)
+                    Thread.Sleep(200)
+                    TestTxt.Select()
+                    Exit Sub
+                End If
 
                 If AR_MsgType = MsgTypes.Default And e.MessageType = ITibia.MessageType.Default Then
                     sp.Speak(Response)
@@ -434,4 +572,190 @@ Public Class frmAutoResponder
         Me.Hide()
     End Sub
 
+    Private Sub DataGridView1_CellMouseLeave(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellMouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub LoadBtn_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles LoadBtn.MouseEnter
+        StatusLblHelp.Text = "Load a AutoResponder FIle"
+    End Sub
+
+    Private Sub LoadBtn_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles LoadBtn.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub SaveBtn_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles SaveBtn.MouseEnter
+        StatusLblHelp.Text = "Save your AutoResponder"
+    End Sub
+
+    Private Sub SaveBtn_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles SaveBtn.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub ClearBtn_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles ClearBtn.MouseEnter
+        StatusLblHelp.Text = "Clear all"
+    End Sub
+
+    Private Sub ClearBtn_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles ClearBtn.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub TestTxt_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles TestTxt.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+        End If
+    End Sub
+
+    Private Sub TestTxt_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles TestTxt.KeyUp
+        If e.KeyCode = Keys.Enter Then
+            If AR_Activated = False Then
+                StatusLblHelp.Text = "Activate the AutoResponder first"
+                Wait(2)
+                StatusLblHelp.Text = ""
+                Exit Sub
+            End If
+            TestingMode = True
+            Dim Str As String
+            Str = TestTxt.Text
+            TestRitchtext.AppendText(IIf(TestRitchtext.TextLength > 0, vbLf & "Player: " & Str, "Player: " & Str))
+            TestRitchtext.Select(TestRitchtext.TextLength - Str.Length - 8, Str.Length + 8)
+            TestRitchtext.SelectionColor = Drawing.Color.NavajoWhite
+            TestRitchtext.Select()
+            TestRitchtext.Select(TestRitchtext.TextLength, 1)
+            TestRitchtext.SelectedText = ""
+            Thread.Sleep(200)
+            TestTxt.Text = ""
+            TestTxt.Select()
+            Dim Loc As New Scripting.ITibia.LocationDefinition
+            Loc.X = 0
+            Select Case Me.TestMsgTypeCmb.Text
+                Case "Private"
+                    Kernel.Client.RaiseEvent(ITibia.EventKind.MessageReceived, _
+                                            New Events.MessageReceivedEventArgs(ITibia.MessageType.PrivateMessage, "Player", 27, Loc, Str))
+
+                Case "Default"
+                    Kernel.Client.RaiseEvent(ITibia.EventKind.MessageReceived, _
+                        New Events.MessageReceivedEventArgs(ITibia.MessageType.Default, "Player", 27, Loc, Str))
+
+            End Select
+        End If
+    End Sub
+
+    Private Sub TestRitchtext_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles TestRitchtext.KeyDown
+        e.SuppressKeyPress = True
+    End Sub
+
+    Private Sub TestRitchtext_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles TestRitchtext.MouseDown
+        TestTxt.Select()
+    End Sub
+
+    Private Sub TestBtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestBtn.Click
+        Dim Mysize As New System.Drawing.Size
+        Mysize.Height = 440
+        Mysize.Width = 690
+        Me.Size = Mysize
+        TestBtn.Enabled = False
+        TestingModeGroup.Visible = True
+    End Sub
+
+    Private Sub TestHideBtn_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestHideBtn.Click
+        Dim Mysize As New System.Drawing.Size
+        Mysize.Height = 320
+        Mysize.Width = 690
+        Me.Size = Mysize
+        TestBtn.Enabled = True
+        TestingModeGroup.Visible = False
+    End Sub
+
+    Private Sub Rmlbl_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles Rmlbl.MouseEnter
+        StatusLblHelp.Text = "Enter the seconds for wait to respond to a repeated message."
+    End Sub
+
+    Private Sub Rmlbl_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles Rmlbl.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub RmtimeTxt_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles RmtimeTxt.KeyPress
+        If Char.IsDigit(e.KeyChar) Then
+            e.Handled = False
+        ElseIf Char.IsControl(e.KeyChar) Then
+            e.Handled = False
+        Else
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub RmtimeTxt_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles RmtimeTxt.MouseEnter
+        StatusLblHelp.Text = "Enter the seconds for wait to respond to a message repeated"
+    End Sub
+
+    Private Sub RmtimeTxt_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles RmtimeTxt.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub TestTxt_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles TestTxt.MouseEnter
+        StatusLblHelp.Text = "Type a message and press Enter"
+    End Sub
+
+    Private Sub TestTxt_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles TestTxt.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub frmAutoResponder_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        Me.Client = Kernel.Client
+    End Sub
+
+    Private Sub TimerChk_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TimerChk.Tick
+        If Kernel.ARisActive Then
+            If ActivateBtn.Text = "Activate" Then
+                AREnable()
+            End If
+        Else
+            If Not ActivateBtn.Text = "Activate" Then
+                ARDisable()
+            End If
+        End If
+    End Sub
+
+    Private Sub frmAutoResponder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Dim Mysize As New System.Drawing.Size
+        Mysize.Height = 320
+        Mysize.Width = 690
+        Me.Size = Mysize
+        TestingModeGroup.Visible = False
+    End Sub
+
+    Private Sub CntChkDist_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles CntChkDist.KeyPress
+        If Char.IsDigit(e.KeyChar) Then
+            e.Handled = False
+        ElseIf Char.IsControl(e.KeyChar) Then
+            e.Handled = False
+        Else
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub TestHideBtn_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles TestHideBtn.MouseEnter
+        StatusLblHelp.Text = "Exit from Testing Mode"
+    End Sub
+
+    Private Sub TestHideBtn_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles TestHideBtn.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub CntChkDist_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles CntChkDist.MouseEnter
+        StatusLblHelp.Text = "Enter the maximum distance of the message. (Messages from Default)"
+    End Sub
+
+    Private Sub CntChkDist_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles CntChkDist.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
+
+    Private Sub LblChkDist_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles LblChkDist.MouseEnter
+        StatusLblHelp.Text = "Enter the maximum distance of the message. (Messages from Default)"
+    End Sub
+
+    Private Sub LblChkDist_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles LblChkDist.MouseLeave
+        StatusLblHelp.Text = ""
+    End Sub
 End Class
