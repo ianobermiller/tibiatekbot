@@ -64,6 +64,7 @@ Public Class CommandParser
             Add(New String() {"dance", "dancer"}, AddressOf CmdDancer)
             Add(New String() {"ammomaker", "ammomake", "makeammo", "ammunitionmaker", "makeammunition"}, AddressOf CmdAmmoMaker)
             Add(New String() {"botstate", "state"}, AddressOf CmdBotState)
+            Add(New String() {"autoresponder", "ar"}, AddressOf CmdAutoResponder)
             Add("light", AddressOf CmdLight)
             Add("about", AddressOf CmdAbout)
             Add("look", AddressOf CmdLook)
@@ -899,6 +900,14 @@ Public Class CommandParser
                     "Comment " & Ret & _
                     "  Don't want to pay from ammo but too lazy to make them? With this command you can let bot to handle the " & Ret & _
                     " ammo making, meanwhile you can lay back and take a nice warm cup of coffee.")
+                Case "autoresponder"
+                    Kernel.ConsoleWrite("«Auto Responder»" & Ret & _
+                    "Usage: &autoresponder <on | off>" & Ret & _
+                    "Example: &autoresponder on." & Ret & _
+                    "Comment: " & Ret & _
+                    "You will be afk for a while? AutoResponder will answer for you. " & Ret & _
+                    "Just add the possible responses to the messages they might say." & Ret & _
+                    "Note: To edit your AutoResponder go to TibiaTek Bot Main menu and select Auto Responer.")
                 Case Else
                     Select Case Topic.ToLower
                         Case "general", "general tools", "a"
@@ -938,8 +947,10 @@ Public Class CommandParser
                             "  Cavebot -> &cavebot." & Ret & _
                             "  Stats Uploader -> &statsuploader." & Ret & _
                             "  Ammo Maker -> &ammomaker." & Ret & _
-                            "  Anti-Logout -> &antilogout.") ' & Ret & _
+                            "  Anti-Logout -> &antilogout." & Ret & _
+                            "  Auto Responder -> &autoresponder.")
                             '"  Remote Administration -> &admin.") ' & Ret & _
+
                         Case "info tools", "info", "d"
                             Kernel.ConsoleWrite("Info Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
@@ -3352,6 +3363,25 @@ Public Class CommandParser
                     Else
                         Kernel.ConsoleError("Invalid format for this command." & Ret & "Use: &favwnp <add ""<righthand | lefthand | twohanded>"" ID ""Monster1, Monster2, Monster3""><setshield ID><remove ID>")
                     End If
+            End Select
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+#End Region
+
+#Region " AutoResponder Command "
+    Private Sub CmdAutoResponder(ByVal Arguments As GroupCollection)
+        Try
+            Select Case StrToShort(Arguments(2).ToString)
+                Case 0
+                    Kernel.ConsoleWrite("AutoResponer is now disabled.")
+                    Kernel.ARisActive = False
+                Case 1
+                    Kernel.ConsoleWrite("AutoResponer is now enabled.")
+                    Kernel.ARisActive = True
+                Case Else
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
