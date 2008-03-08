@@ -67,7 +67,8 @@ Public Class frmAutoResponder
     Private Sub AddAnswerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddAnswerToolStripMenuItem.Click
         On Error Resume Next
         Dim Answer As String
-        Answer = InputBox("Type the new response", "TibiaTek Bot - Auto Responder")
+        Answer = Trim(InputBox("Type the new response", "TibiaTek Bot - Auto Responder"))
+        If Answer = "" Then Exit Sub
         Dim Combo As New DataGridViewComboBoxCell
         Combo = DataGridView1.Rows(SelectedRowIndex).Cells(1)
         Combo.Items.Add(Answer)
@@ -126,7 +127,6 @@ Public Class frmAutoResponder
     End Sub
 
     Private Sub ActivateBtn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ActivateBtn.Click
-
         If ActivateBtn.Text = "Activate" Then
             If DataGridView1.RowCount = 1 Then
                 StatusLblHelp.Text = "There's no Auto Responders"
@@ -445,7 +445,7 @@ Public Class frmAutoResponder
                 End Try
 
             ElseIf AR_ExpType = ExpType.Normaltext Then
-                If e.Message.ToLower.Contains(Text) Then
+                If e.Message.ToLower = Text.ToLower Then
                     Matched = True
                 End If
             End If
@@ -567,7 +567,12 @@ Public Class frmAutoResponder
 
     End Function
 
+    Private Sub frmAutoResponder_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
+        TestHideBtn_Click_1(sender, e)
+    End Sub
+
     Private Sub frmAutoResponder_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        TestHideBtn_Click_1(sender, e)
         e.Cancel = True
         Me.Hide()
     End Sub
@@ -656,6 +661,7 @@ Public Class frmAutoResponder
         Me.Size = Mysize
         TestBtn.Enabled = False
         TestingModeGroup.Visible = True
+        TestingMode = True
     End Sub
 
     Private Sub TestHideBtn_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestHideBtn.Click
@@ -665,6 +671,7 @@ Public Class frmAutoResponder
         Me.Size = Mysize
         TestBtn.Enabled = True
         TestingModeGroup.Visible = False
+        TestingMode = False
     End Sub
 
     Private Sub Rmlbl_MouseEnter(ByVal sender As Object, ByVal e As System.EventArgs) Handles Rmlbl.MouseEnter
@@ -758,4 +765,5 @@ Public Class frmAutoResponder
     Private Sub LblChkDist_MouseLeave(ByVal sender As Object, ByVal e As System.EventArgs) Handles LblChkDist.MouseLeave
         StatusLblHelp.Text = ""
     End Sub
+
 End Class
