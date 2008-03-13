@@ -825,6 +825,7 @@ Public NotInheritable Class Tibia
 
     Private Sub Pipe_OnConnected() Handles Pipe.OnConnected
         Try
+            'Send Constants First!
             Dim PPB As New PipePacketBuilder(Pipe, False)
             PPB.SetConstant("ptrInGame", Consts.ptrInGame)
             PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
@@ -834,6 +835,19 @@ Public NotInheritable Class Tibia
             PPB.SetConstant("ptrDisplayJmpBack", Consts.ptrDisplayJmpBack)
             PPB.SetConstant("ptrDisplayShowFps", Consts.ptrDisplayShowFps)
             PPB.SetConstant("ptrDisplayJmpFps", Consts.ptrDisplayJmpFps)
+            PPB.SetConstant("ptrSPAddress", Consts.ptrSPAddress)
+            PPB.SetConstant("ptrSPStartAdr", Consts.ptrSPStartAdr)
+            PPB.SetConstant("ptrSPJmpAdr", Consts.ptrSPJmpAdr)
+            PPB.SetConstant("ptrBattlelistBegin", Consts.ptrBattleListBegin)
+            PPB.SetConstant("BLMax", Consts.BLMax)
+            PPB.SetConstant("BLDist", Consts.BLDist)
+            PPB.SetConstant("BLName", Consts.BLNameOffset)
+            PPB.SetConstant("BLXCoordOffset", Consts.BLCoordXOffset)
+            PPB.SetConstant("BLYCoordOffset", Consts.BLCoordYOffset)
+            PPB.SetConstant("BLZCoordOffset", Consts.BLCoordZOffset)
+            PPB.SetConstant("ptrCharX", Consts.ptrCoordX)
+            PPB.SetConstant("ptrCharY", Consts.ptrCoordY)
+            PPB.SetConstant("ptrCharZ", Consts.ptrCoordZ)
             PPB.HookWndProc(True)
             PPB.Send()
             PPB.InjectDisplay()

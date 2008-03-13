@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <string>
 #include "Core.h"
+#include "Battlelist.h"
 
 #ifdef _MANAGED
 #pragma managed(push, off)
@@ -10,16 +11,8 @@
 
 using namespace std;
 
-struct Ctext //Display Text Structure
-{
-	char text[1024];
-	int r,g,b;
-	int x,y;
-	int font;
-	bool used;
-};
-
 #define MAX_TEXT 512
+#define PTEXT_FIRST 150
 
 /* DLL Injection Related Stuff */
 WNDPROC WndProc;
@@ -39,6 +32,7 @@ CRITICAL_SECTION PipeReadCriticalSection;
 
 /* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
 Ctext texts[MAX_TEXT] = {0};
+BLAddress BLConsts;
 void PrintFunction();
 void ShowPlayer();
 void GetPlayerInfo(int Surface, int nX, int nY, int Font, int nR, int nG, int nB, char *lpText, int len, int align);
@@ -55,15 +49,20 @@ int g_Font = 1;
 char ttext[1024]="'(use object on target)',0";
 char tbuff[2048];
 
+/*Address are loaded from Constants.xml file */
+int *ptrCharX;
+int *ptrCharY;
+int *ptrCharZ;
 DWORD address;
 DWORD startadr;
 DWORD jmpback;
 DWORD showfps; //Show fps flag (0-1)
 DWORD jmpfps; // jmp to skip fps
 
-DWORD SPAddress = 0x004A2DC0; //ShowPlayerAddress
-DWORD SPStartAdr = 0x004A3F48;
-DWORD SPJmpAdr = 0x004A3F4D;
+DWORD SPAddress; //ShowPlayerAddress
+DWORD SPStartAdr;
+DWORD SPJmpAdr;
+bool FirstTime = true;
 
 /* Constants from TTB */
 //int INGAME=0;
@@ -165,14 +164,26 @@ void ShowPlayer()
 	
 }
 
+int GetFreeSlot()
+{
+	int i;
+	for(i=150; i<MAX_TEXT; i++){
+		if(!texts[i].used){return i;}
+	}
+	return 0;
+}
+
 void GetPlayerInfo(int Surface, int nX, int nY, int Font, int nR, int nG, int nB, char *lpText, int len, int aligment)
 {
-	string Text = (const char*)lpText;
-	if(Text == "Jokuperkele")
-	{
-		SetText(150, true, nX, nY-15, 255, 0, 0, 2, "OsQu Rox!");
-	} else {
-		SetText(150, false, 0, 0, 0, 0, 0, 0, "");
+	static Battlelist BL(BLConsts);
+	
+	if (strcmp(lpText,"Seymour")==0){
+		if (abs(*ptrCharX - BL.GetLocation("Seymour").x) < 8 && abs(*ptrCharY - BL.GetLocation("Seymour").y) < 6 && *ptrCharZ == BL.GetLocation("Seymour").z) {
+		SetText(150, true, nX, nY-15, 255, 0, 0, 2, "TTB Rox!");
+		}
+	}
+	if (abs(*ptrCharX - BL.GetLocation("Seymour").x) >= 8 || abs(*ptrCharY - BL.GetLocation("Seymour").y) >= 6 || *ptrCharZ != BL.GetLocation("Seymour").z) {
+		texts[150].used = false;
 	}
 	__asm
 	{
@@ -292,6 +303,32 @@ void PipeOnRead(){
 					showfps = (const DWORD)ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrDisplayJmpFps") {
 					jmpfps = (const DWORD)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrSPAddress") {
+					SPAddress = (const DWORD)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrSPStartAdr") {
+					SPStartAdr = (const DWORD)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrSPJmpAdr") {
+					SPJmpAdr = (const DWORD)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrBattlelistBegin") {
+					BLConsts.ptrBattlelistBegin = (unsigned int*)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLMax") {
+					BLConsts.BLMax = (const int)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLDist") {
+					BLConsts.BLDist = (const int)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLName") {
+					BLConsts.BLName = (const int)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLXCoordOffset") {
+					BLConsts.BLXCoordOffset = (const int)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLYCoordOffset") {
+					BLConsts.BLYCoordOffset = (const int)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLZCoordOffset") {
+					BLConsts.BLZCoordOffset = (const int)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrCharX") {
+					ptrCharX = (int*)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrCharY") {
+					ptrCharY = (int*)ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrCharZ") {
+					ptrCharZ = (int*)ReadDWord(Buffer, &position);
 				}
 			}
 			break;
@@ -320,11 +357,18 @@ void PipeOnRead(){
 				//		break;
 				//	}
 				//}
-				const unsigned int* TibiaDat = (const unsigned int*)0x768C9C;
+				/*const unsigned int* TibiaDat = (const unsigned int*)0x768C9C;
 				const unsigned int* HeapEntryStartAddress = (const unsigned int*)(*TibiaDat + 0x8);
 				char la[125];
 				sprintf(la,"%x",*HeapEntryStartAddress);
-				MessageBoxA(0,la,"la",0);
+				MessageBoxA(0,la,"la",0);*/
+				Battlelist BL(BLConsts);
+				char la[125];
+				LocationDefinition Dist = {0, 0, 0};
+				Dist.x = abs(*ptrCharX - BL.GetLocation("Seymour").x);
+				Dist.y = abs(*ptrCharY - BL.GetLocation("Seymour").y);
+				sprintf(la, "%d, %d", Dist.x, Dist.y);
+				MessageBoxA(0, la, "Distances: x,y", 0);
 			}
 			break;
 		case 4: // DisplayText

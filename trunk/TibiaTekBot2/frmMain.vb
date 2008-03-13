@@ -2718,20 +2718,20 @@ Public Class frmMain
     End Sub
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        'Kernel.Client.TestPipe()
-        Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
-        Dim Location As New ITibia.LocationDefinition
-        Location.X = 300
-        Location.Y = 300
-        Location.Z = 0 'Not used
-        Dim S As Integer = 0
-        For I As Integer = 1 To 30
-            PPB.DisplayText(S, Location, 255, 0, 0, 2, "TTB ROX!")
-            S += 1
-            Location.Y += 10
-        Next
-        MessageBox.Show("DONE")
-        PPB.RemoveAllText()
+        Kernel.Client.TestPipe()
+        'Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+        'Dim Location As New ITibia.LocationDefinition
+        'Location.X = 300
+        'Location.Y = 300
+        'Location.Z = 0 'Not used
+        'Dim S As Integer = 0
+        'For I As Integer = 1 To 30
+        'PPB.DisplayText(S, Location, 255, 0, 0, 2, "TTB ROX!")
+        'S += 1
+        'Location.Y += 10
+        'Next
+        'MessageBox.Show("DONE")
+        'PPB.RemoveAllText()
         'Dim T As New System.Threading.Thread(AddressOf AutoLogin)
         ''T.Start()
     End Sub
@@ -2856,5 +2856,4 @@ Public Class frmMain
             Kernel.AutoResponderForm.Show()
         End If
     End Sub
-
 End Class
