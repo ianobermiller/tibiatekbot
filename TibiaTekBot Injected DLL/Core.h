@@ -7,6 +7,15 @@
 #pragma pack(pop)
 */
 
+struct Ctext //Display Text Structure
+{
+	char text[1024];
+	int r,g,b;
+	int x,y;
+	int font;
+	bool used;
+};
+
 #ifdef TIBIA810
 
 const int * WASDPOPUP = 0;//(int*)0x76C328; //Updated to 8.10

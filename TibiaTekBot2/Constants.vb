@@ -299,6 +299,9 @@ Public Module ConstantsModule
         Public ptrDisplayJmpBack As Integer = &H44E690
         Public ptrDisplayShowFps As Integer = &H611874
         Public ptrDisplayJmpFps As Integer = &H44E762
+        Public ptrSPAddress As Integer = &H4A2DC0
+        Public ptrSPStartAdr As Integer = &H4A3F48
+        Public ptrSPJmpAdr As Integer = &H4A3F4D
 
         Public Sub New()
             LoadConstants()
@@ -809,6 +812,12 @@ Public Module ConstantsModule
                                                     ptrDisplayShowFps = CInt(Value)
                                                 Case "ptrDisplayJmpFps"
                                                     ptrDisplayJmpFps = CInt(Value)
+                                                Case "ptrSPAddress"
+                                                    ptrSPAddress = CInt(Value)
+                                                Case "ptrSPStartAdr"
+                                                    ptrSPStartAdr = CInt(Value)
+                                                Case "ptrSPJmpAdr"
+                                                    ptrSPJmpAdr = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then

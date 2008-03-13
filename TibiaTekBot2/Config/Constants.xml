@@ -264,4 +264,7 @@
   <Const Name="ptrDisplayJmpBack" Value="H44E690" />
   <Const Name="ptrDisplayShowFps" Value="H611874" />
   <Const Name="ptrDisplayJmpFps" Value="H44E762" />
+  <Const Name="ptrSPAddress" Value="H4A2DC0" />
+  <Const Name="ptrSPStartAdr" Value="H4A3F48" />
+  <Const Name="ptrSPJmpAdr" Value="H4A3F4D" />
 </Constants>
