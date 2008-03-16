@@ -281,6 +281,7 @@ Public Class frmAutoResponder
             If OpenDlg.ShowDialog = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             End If
+            DataGridView1.Rows.Clear()
             Dim Document As New XmlDocument
             Document.Load(OpenDlg.FileName)
             Dim AR_ChckDist As Integer = 0
@@ -493,7 +494,7 @@ Public Class frmAutoResponder
                 If TestingMode Then
                     TestRitchtext.AppendText(vbLf & "Bot: " & Response)
                     TestRitchtext.Select(TestRitchtext.TextLength - Response.Length - 5, Response.Length + 5)
-                    TestRitchtext.SelectionColor = Drawing.Color.Gold
+                    TestRitchtext.SelectionColor = Drawing.SystemColors.ActiveCaptionText
                     TestRitchtext.Select()
                     TestRitchtext.Select(TestRitchtext.TextLength, 1)
                     Thread.Sleep(200)
@@ -624,7 +625,7 @@ Public Class frmAutoResponder
             Str = TestTxt.Text
             TestRitchtext.AppendText(IIf(TestRitchtext.TextLength > 0, vbLf & "Player: " & Str, "Player: " & Str))
             TestRitchtext.Select(TestRitchtext.TextLength - Str.Length - 8, Str.Length + 8)
-            TestRitchtext.SelectionColor = Drawing.Color.NavajoWhite
+            TestRitchtext.SelectionColor = Drawing.SystemColors.Info
             TestRitchtext.Select()
             TestRitchtext.Select(TestRitchtext.TextLength, 1)
             TestRitchtext.SelectedText = ""
