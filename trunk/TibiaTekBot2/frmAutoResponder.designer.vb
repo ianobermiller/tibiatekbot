@@ -24,6 +24,7 @@ Partial Class frmAutoResponder
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAutoResponder))
         Me.DataGridView1 = New System.Windows.Forms.DataGridView
         Me.OnMessage = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -68,15 +69,23 @@ Partial Class frmAutoResponder
         '
         'DataGridView1
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGoldenrodYellow
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.BackgroundColor = System.Drawing.Color.SaddleBrown
+        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark
         Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OnMessage, Me.RespondWith, Me.WaitSeconds, Me.ExpressionType, Me.MsgType})
         Me.DataGridView1.ContextMenuStrip = Me.RighClick
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Info
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.GridColor = System.Drawing.Color.CornflowerBlue
         Me.DataGridView1.Location = New System.Drawing.Point(3, 4)
         Me.DataGridView1.MultiSelect = False
@@ -310,9 +319,9 @@ Partial Class frmAutoResponder
         '
         'TestRitchtext
         '
-        Me.TestRitchtext.BackColor = System.Drawing.Color.SaddleBrown
+        Me.TestRitchtext.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.TestRitchtext.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TestRitchtext.ForeColor = System.Drawing.Color.NavajoWhite
+        Me.TestRitchtext.ForeColor = System.Drawing.SystemColors.Info
         Me.TestRitchtext.Location = New System.Drawing.Point(7, 18)
         Me.TestRitchtext.Name = "TestRitchtext"
         Me.TestRitchtext.Size = New System.Drawing.Size(664, 72)
@@ -321,9 +330,9 @@ Partial Class frmAutoResponder
         '
         'TestTxt
         '
-        Me.TestTxt.BackColor = System.Drawing.Color.SaddleBrown
+        Me.TestTxt.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.TestTxt.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TestTxt.ForeColor = System.Drawing.Color.NavajoWhite
+        Me.TestTxt.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.TestTxt.Location = New System.Drawing.Point(7, 93)
         Me.TestTxt.Name = "TestTxt"
         Me.TestTxt.Size = New System.Drawing.Size(503, 20)
