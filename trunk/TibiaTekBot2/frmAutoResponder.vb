@@ -432,9 +432,18 @@ Public Class frmAutoResponder
             Dim RowBackColor As Drawing.Color = Row.DefaultCellStyle.BackColor
             If AR_ExpType = ExpType.RegExp Then
                 Try
+
                     Match = Regex.Match(e.Message, Text, RegexOptions.IgnoreCase Or RegexOptions.ExplicitCapture)
                     Matched = Match.Success
-                    Row.DefaultCellStyle.BackColor = Row.DataGridView.DefaultCellStyle.BackColor
+                    If Row.Index > 0 Then
+                        If Row.Index Mod 2 = 0 Then
+                            Row.DefaultCellStyle.BackColor = Row.DataGridView.DefaultCellStyle.BackColor
+                        Else
+                            Row.DefaultCellStyle.BackColor = Row.DataGridView.AlternatingRowsDefaultCellStyle.BackColor
+                        End If
+                    Else
+                        Row.DefaultCellStyle.BackColor = Row.DataGridView.DefaultCellStyle.BackColor
+                    End If
                     Row.Cells(0).Tag = ""
                 Catch ex As Exception
                     Row.DefaultCellStyle.BackColor = Drawing.Color.Red
