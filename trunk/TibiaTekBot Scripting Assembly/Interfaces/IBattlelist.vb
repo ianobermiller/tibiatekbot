@@ -24,16 +24,16 @@ Public Interface IBattlelist
 #Region " Properties "
 
     ReadOnly Property GetIndexPosition() As Integer
-    ReadOnly Property GetFloor() As Integer
-    ReadOnly Property GetEntityID() As Integer
+    ReadOnly Property Floor() As Integer
+    ReadOnly Property EntityID() As Integer
     ReadOnly Property GetName() As String
     ReadOnly Property GetHPPercentage() As Integer
     ReadOnly Property IsOnScreen() As Boolean
-    ReadOnly Property GetDirection() As Directions
-    ReadOnly Property GetDistance(Optional ByVal IncludeFloor As Boolean = False) As Double
+    ReadOnly Property Direction() As Directions
+    ReadOnly Property Distance(Optional ByVal IncludeFloor As Boolean = False) As Double
 	ReadOnly Property GetDistanceFromLocation(ByVal Loc As ITibia.LocationDefinition, Optional ByVal IncludeFloor As Boolean = False, Optional ByVal CurrentIndex As Boolean = False) As Double
     ReadOnly Property IsMyself() As Boolean
-	ReadOnly Property GetLocation() As ITibia.LocationDefinition
+    ReadOnly Property Location() As ITibia.LocationDefinition
     ReadOnly Property IsFollowed() As Boolean
     ReadOnly Property IsAttacked() As Boolean
     ReadOnly Property GetPartyStatus() As PartyStatus

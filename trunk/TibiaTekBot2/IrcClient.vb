@@ -27,11 +27,14 @@ Public Class IrcClient
     Public Event Notice(ByVal Nick As String, ByVal Message As String) Implements IIrcClient.Notice
     Public Event PrivateMessage(ByVal Nick As String, ByVal Message As String) Implements IIrcClient.PrivateMessage
     Public Event ChannelTopicChange(ByVal ChannelInfo As Scripting.IIrcClient.ChannelInformation) Implements Scripting.IIrcClient.ChannelTopicChange
+    Public Event PacketReceived(ByVal Nick As String, ByVal Channel As String, ByVal Packet As String) Implements Scripting.IIrcClient.PacketReceived
 
     Public Const One As Char = Chr(1)
     'Public Const Version As String = "TibiaTek IRC Client for TibiaTek Bot v2.1 (http://www.tibiatek.com/)"
 
     Public Channels As New SortedList(Of String, IIrcClient.ChannelInformation)
+    Public HiddenChannels As New SortedList(Of String, IIrcClient.ChannelInformation)
+
     Const NickMaxLen As Integer = 15
 
     Private _Server As String
@@ -268,6 +271,34 @@ Public Class IrcClient
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    Public Function IsChannelOpened(ByVal Channel As String) As Boolean Implements Scripting.IIrcClient.IsChannelOpened
+        Try
+            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, IIrcClient.ChannelInformation) In Channels
+                If String.Equals(Channel, ChannelKVP.Key, StringComparison.CurrentCultureIgnoreCase) AndAlso ChannelKVP.Value.ID > 0 Then
+                    Return True
+                End If
+            Next
+            Return False
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Public Function IsHiddenChannelOpened(ByVal Channel As String) As Boolean Implements Scripting.IIrcClient.IsHiddenChannelOpened
+        Try
+            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, IIrcClient.ChannelInformation) In HiddenChannels
+                If String.Equals(Channel, ChannelKVP.Key, StringComparison.CurrentCultureIgnoreCase) AndAlso ChannelKVP.Value.ID > 0 Then
+                    Return True
+                End If
+            Next
+            Return False
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
 #End Region
 
 #Region " Commands "

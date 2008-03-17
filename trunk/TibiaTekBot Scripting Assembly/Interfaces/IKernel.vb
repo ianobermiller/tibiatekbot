@@ -21,6 +21,130 @@ Imports System.Windows.Forms
 
 Public Interface IKernel
 
+#Region " Enumerations "
+    <Flags()> Enum KeyboardState
+        None = 0
+        Alt = 1
+        Shift = 2
+        Ctrl = 4
+    End Enum
+
+    Enum VirtualKey As Integer
+        None
+        Enter = &HD
+        Escape = &H1B
+        Space = &H20
+        PageUp
+        PageDown
+        [End]
+        Home
+        Left
+        Up
+        Right
+        Down
+        Insert = &H2D
+        Delete
+        Number0 = &H30
+        Number1
+        Number2
+        Number3
+        Number4
+        Number5
+        Number6
+        Number7
+        Number8
+        Number9
+        A = &H41
+        B
+        C
+        D
+        E
+        F
+        G
+        H
+        I
+        J
+        K
+        L
+        M
+        N
+        O
+        P
+        Q
+        R
+        S
+        T
+        U
+        V
+        W
+        X
+        Y
+        Z
+        NumPad0 = &H60
+        NumPad1
+        NumPad2
+        NumPad3
+        NumPad4
+        NumPad5
+        NumPad6
+        NumPad7
+        NumPad8
+        NumPad9
+        NumPadMultiply
+        NumPadAdd
+        NumPadSubtract = &H6D
+        NumPadDecimal
+        NumPadDivide
+        F1
+        F2
+        F3
+        F4
+        F5
+        F6
+        F7
+        F8
+        F9
+        F10
+        F11
+        F12
+        F13
+        F14
+        F15
+        F16
+        F17
+        F18
+        F19
+        F20
+        F21
+        F22
+        F23
+        F24
+        Semicolon = &HBA
+        Plus
+        Comma
+        Minus
+        Dot
+        ForwardSlash
+        Tick
+        Tilde = Tick
+        LeftSquareBracket = &HDB
+        BackwardSlash
+        RightSquareBracket
+        SingleQuote
+        Reserved = &HFF
+    End Enum
+#End Region
+
+#Region " Structures "
+    Structure KeyboardVKEntry
+        Dim Name As String
+        Dim VirtualKeyOriginalCode As VirtualKey
+        Dim VirtualKeyNewCode As VirtualKey
+        Dim State As KeyboardState
+    End Structure
+
+#End Region
+
 #Region " Properties "
     ReadOnly Property Client() As ITibia
     ReadOnly Property Proxy() As IProxy

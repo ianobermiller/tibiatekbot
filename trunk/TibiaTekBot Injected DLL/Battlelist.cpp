@@ -1,39 +1,96 @@
 #include "stdafx.h"
 #include <windows.h>
 #include <string>
+#include "Constants.h"
 #include "Battlelist.h"
+#include "Core.h"
 
-Battlelist::Battlelist(BLAddress Addresses)
+Battlelist::Battlelist()
 {
-	BLConst.BLDist = Addresses.BLDist;
-	BLConst.BLMax = Addresses.BLMax;
-	BLConst.BLName = Addresses.BLName;
-	BLConst.BLXCoordOffset = Addresses.BLXCoordOffset;
-	BLConst.BLYCoordOffset = Addresses.BLYCoordOffset;
-	BLConst.BLZCoordOffset = Addresses.BLZCoordOffset;
-	BLConst.ptrBattlelistBegin = Addresses.ptrBattlelistBegin;
-	IndexPosition = 0;
-	ID = 0;
-	//MessageBoxA(0, "Battlelist Constructor Done!", "Info", 0);
+	Reset();
 }
 
-LocationDefinition Battlelist::GetLocation(char *CreatureName)
+bool Battlelist::NextEntity()
+{
+	if (IndexPosition + 1 < Consts::BLMax) {
+		IndexPosition++;
+		Address += Consts::BLDist/sizeof(int);
+		return true;
+	}
+	return false;
+}
+
+bool Battlelist::PrevEntity()
+{
+	if (IndexPosition > 0) {
+		IndexPosition--;
+		Address -= Consts::BLDist/sizeof(int);
+		return true;
+	}
+	return false;
+}
+
+std::string Battlelist::Name(){
+	std::string Result = (char*)(Address + Consts::BLNameOffset/sizeof(int));
+	return Result;
+}
+
+void Battlelist::Reset()
+{
+	IndexPosition = 0;
+	Address = (unsigned int*)Consts::ptrBattlelistBegin;
+}
+
+bool Battlelist::IsVisible()
+{
+	LocationDefinition loc = GetLocation();
+	//char output[128];
+	//sprintf(output, "%d,%d,%d - %d,%d,%d",*Consts::ptrCharX,*Consts::ptrCharY,*Consts::ptrCharZ, loc.x, loc.y, loc.z);
+	//MessageBoxA(0,output,"coords",0);
+	return (abs(*Consts::ptrCharX - loc.x) < 8 && abs(*Consts::ptrCharY - loc.y) < 6 && *Consts::ptrCharZ == loc.z);
+}
+
+bool Battlelist::FindByName(Battlelist *BL, std::string EntityName){
+	do {
+		if (BL->Name() == EntityName)
+			return true;
+	} while(BL->NextEntity());
+	return false;
+}
+
+bool Battlelist::IsOnScreen()
+{
+	return (*(Address + Consts::BLOnScreenOffset/sizeof(int)) == 1);
+}
+
+unsigned int Battlelist::HPPercentage()
+{
+	return *(Address + Consts::BLHPPercentOffset/sizeof(int));
+}
+
+
+bool Battlelist::IsPlayer()
+{
+	return (ID() < 0x40000000);
+}
+
+int Battlelist::GetIndexPosition()
+{
+	return IndexPosition;
+}
+
+unsigned int Battlelist::ID()
+{
+	return *(Address);
+}
+
+LocationDefinition Battlelist::GetLocation()
 {
 	LocationDefinition ReturnValue = {0, 0, 0};
-	int *TempValue = 0;
-	int i = 0;
-	char* Name = 0;
-	unsigned int *BLEntry;
-	for(BLEntry = (unsigned int*)BLConst.ptrBattlelistBegin; (unsigned int)BLEntry < ((unsigned int)BLConst.ptrBattlelistBegin + BLConst.BLMax * BLConst.BLDist); BLEntry += BLConst.BLDist/sizeof(int)) {
-		Name = (char*)(BLEntry + 1);
-		if (strcmp(Name, CreatureName)==0) {
-			LocationDefinition *ld = (LocationDefinition*)(BLEntry + BLConst.BLXCoordOffset/sizeof(int));
-			ReturnValue.x = ld->x;
-			ReturnValue.y = ld->y;
-			ReturnValue.z = ld->z;
-			return ReturnValue;
-		}
-	}
+	LocationDefinition *ld = (LocationDefinition*)(Address + Consts::BLLocationOffset/sizeof(int));
+	ReturnValue.x = ld->x;
+	ReturnValue.y = ld->y;
+	ReturnValue.z = ld->z;
 	return ReturnValue;
 }
-			
+	

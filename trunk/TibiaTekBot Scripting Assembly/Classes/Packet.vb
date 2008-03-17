@@ -35,6 +35,19 @@ Public Class Packet
         End Get
     End Property
 
+    Public Shadows Function ToString() As String Implements IPacket.ToString
+        Try
+            Dim Result As String = String.Empty
+            For Each B As Byte In GetBytes
+                Result &= Hex(B).PadLeft(2, "0"c)
+            Next
+            Return Result
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return String.Empty
+        End Try
+    End Function
+
 #End Region
 
 #Region " Methods "
@@ -164,5 +177,6 @@ Public Class Packet
         End Set
     End Property
 #End Region
+
 
 End Class
