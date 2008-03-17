@@ -1,433 +1,165 @@
+Imports Scripting
+
 Public Class frmKeyboard
-    'the only way i could think of, i miss my pointers
-    'the pure essence of inefficient programming
-    Structure commandStruct
-        Dim identifier As Integer
-        Dim param1 As Integer
-        Dim param2 As Integer
-        Dim param3 As Integer
-        Dim param4 As Integer
-        Dim paramS As String
-    End Structure
+    Private VirtualKeysList As New Dictionary(Of String, IKernel.VirtualKey)
 
-    Dim curChar As Integer
-    Dim stateShift As Integer
-    Dim stateCtrl As Integer
-    Dim stateAlt As Integer
-    Dim keyString As String
-    Dim commandArray(359) As commandStruct
-    Dim offset As Integer
-    Private Sub SetSayCommand(ByVal sayType As Integer, ByRef sayString As String)
-        offset = (stateShift Or stateCtrl << 1 Or stateAlt << 2) * 45 + curChar
-        commandArray(offset).identifier = 1
-        commandArray(offset).param1 = sayType '1 = say, 2 = whisper, 3 = yell
-        commandArray(offset).paramS = sayString
-
-        'do the send, not sure how to do it yet
-    End Sub
-
-
-    Private Sub HKey1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey1.CheckedChanged
-        If HKey1.Checked Then
-            curChar = 0
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey2_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey2.CheckedChanged
-        If HKey2.Checked Then
-            curChar = 1
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey3_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey3.CheckedChanged
-        If HKey3.Checked Then
-            curChar = 2
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey4_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey4.CheckedChanged
-        If HKey4.Checked Then
-            curChar = 3
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey5_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey5.CheckedChanged
-        If HKey5.Checked Then
-            curChar = 4
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey6_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey6.CheckedChanged
-        If HKey6.Checked Then
-            curChar = 5
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey7_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey7.CheckedChanged
-        If HKey7.Checked Then
-            curChar = 6
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey8_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey8.CheckedChanged
-        If HKey8.Checked Then
-            curChar = 7
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey9_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey9.CheckedChanged
-        If HKey9.Checked Then
-            curChar = 8
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKey0_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKey0.CheckedChanged
-        If HKey0.Checked Then
-            curChar = 9
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyMinus_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyMinus.CheckedChanged
-        If HKeyMinus.Checked Then
-            curChar = 10
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyEqual_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyEqual.CheckedChanged
-        If HKeyEqual.Checked Then
-            curChar = 11
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyQ_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyQ.CheckedChanged
-        If HKeyQ.Checked Then
-            curChar = 12
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyW_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyW.CheckedChanged
-        If HKeyW.Checked Then
-            curChar = 13
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HkeyE_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HkeyE.CheckedChanged
-        If HkeyE.Checked Then
-            curChar = 14
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyR_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyR.CheckedChanged
-        If HKeyR.Checked Then
-            curChar = 15
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyT_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyT.CheckedChanged
-        If HKeyT.Checked Then
-            curChar = 16
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyY_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyY.CheckedChanged
-        If HKeyY.Checked Then
-            curChar = 17
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyU_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyU.CheckedChanged
-        If HKeyU.Checked Then
-            curChar = 18
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyI_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyI.CheckedChanged
-        If HKeyI.Checked Then
-            curChar = 19
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyO_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyO.CheckedChanged
-        If HKeyO.Checked Then
-            curChar = 20
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyP_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyP.CheckedChanged
-        If HKeyP.Checked Then
-            curChar = 21
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyLBrac_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyLBrac.CheckedChanged
-        If HKeyLBrac.Checked Then
-            curChar = 22
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyRBrac_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyRBrac.CheckedChanged
-        If HKeyRBrac.Checked Then
-            curChar = 23
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyA_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyA.CheckedChanged
-        If HKeyA.Checked Then
-            curChar = 24
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyS_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyS.CheckedChanged
-        If HKeyS.Checked Then
-            curChar = 25
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyD_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyD.CheckedChanged
-        If HKeyD.Checked Then
-            curChar = 26
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyF_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyF.CheckedChanged
-        If HKeyF.Checked Then
-            curChar = 27
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyG_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyG.CheckedChanged
-        If HKeyG.Checked Then
-            curChar = 28
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyH_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyH.CheckedChanged
-        If HKeyH.Checked Then
-            curChar = 29
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyJ_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyJ.CheckedChanged
-        If HKeyJ.Checked Then
-            curChar = 30
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyK_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyK.CheckedChanged
-        If HKeyK.Checked Then
-            curChar = 31
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyL_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyL.CheckedChanged
-        If HKeyL.Checked Then
-            curChar = 32
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeySColon_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeySColon.CheckedChanged
-        If HKeySColon.Checked Then
-            curChar = 33
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyApost_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyApost.CheckedChanged
-        If HKeyApost.Checked Then
-            curChar = 34
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyZ_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyZ.CheckedChanged
-        If HKeyZ.Checked Then
-            curChar = 35
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyX_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyX.CheckedChanged
-        If HKeyX.Checked Then
-            curChar = 36
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyC_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyC.CheckedChanged
-        If HKeyC.Checked Then
-            curChar = 37
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyV_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyV.CheckedChanged
-        If HKeyV.Checked Then
-            curChar = 38
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyB_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyB.CheckedChanged
-        If HKeyB.Checked Then
-            curChar = 39
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyN_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyN.CheckedChanged
-        If HKeyN.Checked Then
-            curChar = 40
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyM_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyM.CheckedChanged
-        If HKeyM.Checked Then
-            curChar = 41
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyComma_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyComma.CheckedChanged
-        If HKeyComma.Checked Then
-            curChar = 42
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyFStop_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyFStop.CheckedChanged
-        If HKeyFStop.Checked Then
-            curChar = 43
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyFSlsh_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyFSlsh.CheckedChanged
-        If HKeyFSlsh.Checked Then
-            curChar = 44
-        End If
-        SetKeyString()
-    End Sub
-    Private Sub HKeyAlt_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyAlt.CheckedChanged
-        stateAlt = stateAlt Xor 1
-        SetKeyString()
-    End Sub
-    Private Sub HKeyCtrl_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyCtrl.CheckedChanged
-        stateCtrl = stateCtrl Xor 1
-        SetKeyString()
-    End Sub
-    Private Sub HKeyShift_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyShift.CheckedChanged
-        stateShift = stateShift Xor 1
-        SetKeyString()
-    End Sub
-    Private Sub SetKeyString()
-        keyString = ""
-        If stateShift = 1 Then
-            keyString &= "Shift +"
-        End If
-        If stateCtrl = 1 Then
-            keyString &= "Ctrl + "
-        End If
-        If stateAlt = 1 Then
-            keyString &= "Alt + "
-        End If
-        Select Case curChar
-            Case 0
-                keyString &= "1"
-            Case 1
-                keyString &= "2"
-            Case 2
-                keyString &= "3"
-            Case 3
-                keyString &= "4"
-            Case 4
-                keyString &= "5"
-            Case 5
-                keyString &= "6"
-            Case 6
-                keyString &= "7"
-            Case 7
-                keyString &= "8"
-            Case 8
-                keyString &= "9"
-            Case 9
-                keyString &= "0"
-            Case 10
-                keyString &= "-"
-            Case 11
-                keyString &= "="
-            Case 12
-                keyString &= "Q"
-            Case 13
-                keyString &= "W"
-            Case 14
-                keyString &= "E"
-            Case 15
-                keyString &= "R"
-            Case 16
-                keyString &= "T"
-            Case 17
-                keyString &= "Y"
-            Case 18
-                keyString &= "U"
-            Case 19
-                keyString &= "I"
-            Case 20
-                keyString &= "O"
-            Case 21
-                keyString &= "P"
-            Case 22
-                keyString &= "["
-            Case 23
-                keyString &= "]"
-            Case 24
-                keyString &= "A"
-            Case 25
-                keyString &= "S"
-            Case 26
-                keyString &= "D"
-            Case 27
-                keyString &= "F"
-            Case 28
-                keyString &= "G"
-            Case 29
-                keyString &= "H"
-            Case 30
-                keyString &= "J"
-            Case 31
-                keyString &= "K"
-            Case 32
-                keyString &= "L"
-            Case 33
-                keyString &= ";"
-            Case 34
-                keyString &= "'"
-            Case 35
-                keyString &= "Z"
-            Case 36
-                keyString &= "X"
-            Case 37
-                keyString &= "C"
-            Case 38
-                keyString &= "V"
-            Case 39
-                keyString &= "B"
-            Case 40
-                keyString &= "N"
-            Case 41
-                keyString &= "M"
-            Case 42
-                keyString &= ","
-            Case 43
-                keyString &= "."
-            Case 44
-                keyString &= "/"
-        End Select
-        PressedLabel.Text = keyString
-    End Sub
-
-    Private Sub IdentifierBox_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles IdentifierBox.SelectedIndexChanged
-        offset = (stateShift Or stateCtrl << 1 Or stateAlt << 2) * 45 + curChar
-        Dim index As Integer
-        index = IdentifierBox.SelectedIndex
-        Select Case index
-            Case 1
-                commandArray(offset).identifier = 1
-        End Select
-    End Sub
+    Private SelectedVK As IKernel.VirtualKey = IKernel.VirtualKey.None
+    Private VK As String = ""
 
     Private Sub frmKeyboard_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         e.Cancel = True
         Me.Hide()
     End Sub
 
+    Private Sub frmKeyboard_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        VirtualKeysList.Add("Enter", IKernel.VirtualKey.Enter)
+        VirtualKeysList.Add("Escape", IKernel.VirtualKey.Escape)
+        VirtualKeysList.Add("Space", IKernel.VirtualKey.Space)
+        VirtualKeysList.Add("Page Up", IKernel.VirtualKey.PageUp)
+        VirtualKeysList.Add("Page Down", IKernel.VirtualKey.PageDown)
+        VirtualKeysList.Add("End", IKernel.VirtualKey.End)
+        VirtualKeysList.Add("Home", IKernel.VirtualKey.Home)
+        VirtualKeysList.Add("Left", IKernel.VirtualKey.Left)
+        VirtualKeysList.Add("Up", IKernel.VirtualKey.Up)
+        VirtualKeysList.Add("Right", IKernel.VirtualKey.Right)
+        VirtualKeysList.Add("Down", IKernel.VirtualKey.Down)
+        VirtualKeysList.Add("Insert", IKernel.VirtualKey.Insert)
+        VirtualKeysList.Add("Delete", IKernel.VirtualKey.Delete)
+        VirtualKeysList.Add("0", IKernel.VirtualKey.Number0)
+        VirtualKeysList.Add("1", IKernel.VirtualKey.Number1)
+        VirtualKeysList.Add("2", IKernel.VirtualKey.Number2)
+        VirtualKeysList.Add("3", IKernel.VirtualKey.Number3)
+        VirtualKeysList.Add("4", IKernel.VirtualKey.Number4)
+        VirtualKeysList.Add("5", IKernel.VirtualKey.Number5)
+        VirtualKeysList.Add("6", IKernel.VirtualKey.Number6)
+        VirtualKeysList.Add("7", IKernel.VirtualKey.Number7)
+        VirtualKeysList.Add("8", IKernel.VirtualKey.Number8)
+        VirtualKeysList.Add("9", IKernel.VirtualKey.Number9)
+        VirtualKeysList.Add("A", IKernel.VirtualKey.A)
+        VirtualKeysList.Add("B", IKernel.VirtualKey.B)
+        VirtualKeysList.Add("C", IKernel.VirtualKey.C)
+        VirtualKeysList.Add("D", IKernel.VirtualKey.D)
+        VirtualKeysList.Add("E", IKernel.VirtualKey.E)
+        VirtualKeysList.Add("F", IKernel.VirtualKey.F)
+        VirtualKeysList.Add("G", IKernel.VirtualKey.G)
+        VirtualKeysList.Add("H", IKernel.VirtualKey.H)
+        VirtualKeysList.Add("I", IKernel.VirtualKey.I)
+        VirtualKeysList.Add("J", IKernel.VirtualKey.J)
+        VirtualKeysList.Add("K", IKernel.VirtualKey.K)
+        VirtualKeysList.Add("L", IKernel.VirtualKey.L)
+        VirtualKeysList.Add("M", IKernel.VirtualKey.M)
+        VirtualKeysList.Add("N", IKernel.VirtualKey.N)
+        VirtualKeysList.Add("O", IKernel.VirtualKey.O)
+        VirtualKeysList.Add("P", IKernel.VirtualKey.P)
+        VirtualKeysList.Add("Q", IKernel.VirtualKey.Q)
+        VirtualKeysList.Add("R", IKernel.VirtualKey.R)
+        VirtualKeysList.Add("S", IKernel.VirtualKey.S)
+        VirtualKeysList.Add("T", IKernel.VirtualKey.T)
+        VirtualKeysList.Add("U", IKernel.VirtualKey.U)
+        VirtualKeysList.Add("V", IKernel.VirtualKey.V)
+        VirtualKeysList.Add("W", IKernel.VirtualKey.W)
+        VirtualKeysList.Add("X", IKernel.VirtualKey.X)
+        VirtualKeysList.Add("Y", IKernel.VirtualKey.Y)
+        VirtualKeysList.Add("Z", IKernel.VirtualKey.Z)
+        VirtualKeysList.Add("NumPad 0", IKernel.VirtualKey.NumPad0)
+        VirtualKeysList.Add("NumPad 1", IKernel.VirtualKey.NumPad1)
+        VirtualKeysList.Add("NumPad 2", IKernel.VirtualKey.NumPad2)
+        VirtualKeysList.Add("NumPad 3", IKernel.VirtualKey.NumPad3)
+        VirtualKeysList.Add("NumPad 4", IKernel.VirtualKey.NumPad4)
+        VirtualKeysList.Add("NumPad 5", IKernel.VirtualKey.NumPad5)
+        VirtualKeysList.Add("NumPad 6", IKernel.VirtualKey.NumPad6)
+        VirtualKeysList.Add("NumPad 7", IKernel.VirtualKey.NumPad7)
+        VirtualKeysList.Add("NumPad 8", IKernel.VirtualKey.NumPad8)
+        VirtualKeysList.Add("NumPad 9", IKernel.VirtualKey.NumPad9)
+        VirtualKeysList.Add("F1", IKernel.VirtualKey.F1)
+        VirtualKeysList.Add("F2", IKernel.VirtualKey.F2)
+        VirtualKeysList.Add("F3", IKernel.VirtualKey.F3)
+        VirtualKeysList.Add("F4", IKernel.VirtualKey.F4)
+        VirtualKeysList.Add("F5", IKernel.VirtualKey.F5)
+        VirtualKeysList.Add("F6", IKernel.VirtualKey.F6)
+        VirtualKeysList.Add("F7", IKernel.VirtualKey.F7)
+        VirtualKeysList.Add("F8", IKernel.VirtualKey.F8)
+        VirtualKeysList.Add("F9", IKernel.VirtualKey.F9)
+        VirtualKeysList.Add("F10", IKernel.VirtualKey.F10)
+        VirtualKeysList.Add("F11", IKernel.VirtualKey.F11)
+        VirtualKeysList.Add("F12", IKernel.VirtualKey.F12)
+        VirtualKeysList.Add("F13", IKernel.VirtualKey.F13)
+        VirtualKeysList.Add("F14", IKernel.VirtualKey.F14)
+        VirtualKeysList.Add("F15", IKernel.VirtualKey.F15)
+        VirtualKeysList.Add("F16", IKernel.VirtualKey.F16)
+        VirtualKeysList.Add("F17", IKernel.VirtualKey.F17)
+        VirtualKeysList.Add("F18", IKernel.VirtualKey.F18)
+        VirtualKeysList.Add("F19", IKernel.VirtualKey.F19)
+        VirtualKeysList.Add("F20", IKernel.VirtualKey.F20)
+        VirtualKeysList.Add("F21", IKernel.VirtualKey.F21)
+        VirtualKeysList.Add("F22", IKernel.VirtualKey.F22)
+        VirtualKeysList.Add("F23", IKernel.VirtualKey.F23)
+        VirtualKeysList.Add("F24", IKernel.VirtualKey.F24)
+        VirtualKeysList.Add(";", IKernel.VirtualKey.Semicolon)
+        VirtualKeysList.Add(":", IKernel.VirtualKey.Semicolon)
+        VirtualKeysList.Add("=", IKernel.VirtualKey.Plus)
+        VirtualKeysList.Add(",", IKernel.VirtualKey.Comma)
+        VirtualKeysList.Add("-", IKernel.VirtualKey.Minus)
+        VirtualKeysList.Add(".", IKernel.VirtualKey.Dot)
+        VirtualKeysList.Add("/", IKernel.VirtualKey.ForwardSlash)
+        VirtualKeysList.Add("?", IKernel.VirtualKey.ForwardSlash)
+        VirtualKeysList.Add("~", IKernel.VirtualKey.Tick)
+        VirtualKeysList.Add("`", IKernel.VirtualKey.Tick)
+        VirtualKeysList.Add("[", IKernel.VirtualKey.LeftSquareBracket)
+        VirtualKeysList.Add("{", IKernel.VirtualKey.LeftSquareBracket)
+        VirtualKeysList.Add("\", IKernel.VirtualKey.BackwardSlash)
+        VirtualKeysList.Add("|", IKernel.VirtualKey.BackwardSlash)
+        VirtualKeysList.Add("]", IKernel.VirtualKey.RightSquareBracket)
+        VirtualKeysList.Add("}", IKernel.VirtualKey.RightSquareBracket)
+        VirtualKeysList.Add("'", IKernel.VirtualKey.SingleQuote)
+        VirtualKeysList.Add("""", IKernel.VirtualKey.SingleQuote)
+        VirtualKeysList.Add("NumPad /", IKernel.VirtualKey.NumPadDivide)
+        VirtualKeysList.Add("NumPad *", IKernel.VirtualKey.NumPadMultiply)
+        VirtualKeysList.Add("NumPad +", IKernel.VirtualKey.NumPadAdd)
+        VirtualKeysList.Add("NumPad -", IKernel.VirtualKey.NumPadSubtract)
+        VirtualKeysList.Add("NumPad .", IKernel.VirtualKey.NumPadDecimal)
+        For Each VK As String In VirtualKeysList.Keys
+            PressKeyKeyList.Items.Add(VK)
+        Next
+    End Sub
+
+    Private Sub HKey_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyF1.CheckedChanged, HKeyF8.CheckedChanged, HKeyF7.CheckedChanged, HKeyF6.CheckedChanged, HKeyF5.CheckedChanged, HKeyF4.CheckedChanged, HKeyF3.CheckedChanged, HKeyF2.CheckedChanged, HKeyF9.CheckedChanged, HKeyF10.CheckedChanged, HKeyZ.CheckedChanged, HKeyY.CheckedChanged, HKeyX.CheckedChanged, HKeyW.CheckedChanged, HKeyV.CheckedChanged, HKeyU.CheckedChanged, HKeyTick.CheckedChanged, HKeyT.CheckedChanged, HKeySColon.CheckedChanged, HKeyS.CheckedChanged, HKeyRBrac.CheckedChanged, HKeyR.CheckedChanged, HKeyQ.CheckedChanged, HKeyPgUp.CheckedChanged, HKeyPgDn.CheckedChanged, HKeyP.CheckedChanged, HKeyO.CheckedChanged, HKeyNPSubtract.CheckedChanged, HKeyNPMultiply.CheckedChanged, HKeyNPDivide.CheckedChanged, HKeyNPDecimal.CheckedChanged, HKeyNPAdd.CheckedChanged, HKeyNP9.CheckedChanged, HKeyNP8.CheckedChanged, HKeyNP7.CheckedChanged, HKeyNP6.CheckedChanged, HKeyNP5.CheckedChanged, HKeyNP4.CheckedChanged, HKeyNP3.CheckedChanged, HKeyNP2.CheckedChanged, HKeyNP1.CheckedChanged, HKeyNP0.CheckedChanged, HKeyN.CheckedChanged, HKeyMinus.CheckedChanged, HKeyM.CheckedChanged, HKeyLBrac.CheckedChanged, HKeyL.CheckedChanged, HKeyK.CheckedChanged, HKeyJ.CheckedChanged, HKeyInsert.CheckedChanged, HKeyI.CheckedChanged, HKeyHome.CheckedChanged, HKeyH.CheckedChanged, HKeyG.CheckedChanged, HKeyFStop.CheckedChanged, HKeyFSlsh.CheckedChanged, HKeyF12.CheckedChanged, HKeyF11.CheckedChanged, HKeyF.CheckedChanged, HKeyEqual.CheckedChanged, HKeyEnd.CheckedChanged, HkeyE.CheckedChanged, HKeyDelete.CheckedChanged, HKeyD.CheckedChanged, HKeyComma.CheckedChanged, HKeyC.CheckedChanged, HKeyBSlsh.CheckedChanged, HKeyB.CheckedChanged, HKeyApost.CheckedChanged, HKeyA.CheckedChanged, HKey9.CheckedChanged, HKey8.CheckedChanged, HKey7.CheckedChanged, HKey6.CheckedChanged, HKey5.CheckedChanged, HKey4.CheckedChanged, HKey3.CheckedChanged, HKey2.CheckedChanged, HKey1.CheckedChanged, HKey0.CheckedChanged
+        VK = CType(sender, RadioButton).Tag.ToString
+        RefreshCombination()
+    End Sub
+
+    Private Sub RefreshCombination()
+        If Not String.IsNullOrEmpty(VK) Then
+            Dim Output As String = VK
+            If HKeyAlt.Checked Then
+                Output = "Alt + " & Output
+            End If
+            If HKeyCtrl.Checked Then
+                Output = "Ctrl + " & Output
+            End If
+            If HKeyShift.Checked Then
+                Output = "Shift + " & Output
+            End If
+            SelectedCombinationLabel.Text = Output
+        Else
+            Beep()
+        End If
+    End Sub
+
+    Private Sub KeyboardActivateButton_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KeyboardActivateButton.CheckedChanged
+        Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+        If KeyboardActivateButton.Checked Then
+            PPB.Keyboard(True)
+        Else
+            PPB.Keyboard(False)
+        End If
+    End Sub
+
+    Private Sub HKeyState_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HKeyCtrl.CheckedChanged, HKeyShift.CheckedChanged, HKeyAlt.CheckedChanged
+        If String.IsNullOrEmpty(VK) Then
+            RefreshCombination()
+        Else
+            Beep()
+        End If
+    End Sub
 End Class

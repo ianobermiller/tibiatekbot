@@ -38,7 +38,7 @@ Public Module BattleListModule
             End Get
         End Property
 
-        Public ReadOnly Property GetFloor() As Integer Implements IBattlelist.GetFloor
+        Public ReadOnly Property GetFloor() As Integer Implements IBattlelist.Floor
             Get
                 Try
                     Dim Floor As Integer = 0
@@ -51,7 +51,7 @@ Public Module BattleListModule
             End Get
         End Property
 
-        Public ReadOnly Property GetEntityID() As Integer Implements IBattlelist.GetEntityID
+        Public ReadOnly Property GetEntityID() As Integer Implements IBattlelist.EntityID
             Get
                 Try
                     Dim ID As Integer
@@ -124,7 +124,7 @@ Public Module BattleListModule
             End Get
         End Property
 
-        Public ReadOnly Property GetDirection() As IBattlelist.Directions Implements IBattlelist.GetDirection
+        Public ReadOnly Property GetDirection() As IBattlelist.Directions Implements IBattlelist.Direction
             Get
                 Try
                     Dim Dir As Integer
@@ -137,7 +137,7 @@ Public Module BattleListModule
             End Get
         End Property
 
-        Public ReadOnly Property GetDistance(Optional ByVal IncludeFloor As Boolean = False) As Double Implements IBattlelist.GetDistance
+        Public ReadOnly Property GetDistance(Optional ByVal IncludeFloor As Boolean = False) As Double Implements IBattlelist.Distance
             Get
                 Try
                     If IsMyself Then Return 0
@@ -296,7 +296,7 @@ Public Module BattleListModule
             End Get
         End Property
 
-        Public ReadOnly Property GetLocation() As ITibia.LocationDefinition Implements IBattlelist.GetLocation
+        Public ReadOnly Property GetLocation() As ITibia.LocationDefinition Implements IBattlelist.Location
             Get
                 Try
                     Dim Loc As New ITibia.LocationDefinition

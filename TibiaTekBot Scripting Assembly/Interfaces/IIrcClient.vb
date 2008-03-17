@@ -57,6 +57,7 @@ Public Interface IIrcClient
     Event ChannelBroadcast(ByVal Nick As String, ByVal Message As String, ByVal Channel As String)
     Event Notice(ByVal Nick As String, ByVal Message As String)
     Event Invite(ByVal Nick As String, ByVal Channel As String)
+    Event PacketReceived(ByVal Nick As String, ByVal Channel As String, ByVal Packet As String)
 #End Region
 
 #Region " Properties "
@@ -82,6 +83,8 @@ Public Interface IIrcClient
     Function Connect() As Boolean
     Sub DoMainThread()
     Sub Disconnect()
+    Function IsChannelOpened(ByVal Channel As String) As Boolean
+    Function IsHiddenChannelOpened(ByVal Channel As String) As Boolean
 #End Region
 
 End Interface

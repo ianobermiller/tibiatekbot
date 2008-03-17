@@ -1,8 +1,9 @@
 #include "stdafx.h"
-
 #include <windows.h>
 #include <string>
+#include "Constants.h"
 #include "Core.h"
+#include "Packet.h"
 #include "Battlelist.h"
 
 #ifdef _MANAGED
@@ -14,25 +15,9 @@ using namespace std;
 #define MAX_TEXT 512
 #define PTEXT_FIRST 150
 
-/* DLL Injection Related Stuff */
-WNDPROC WndProc;
-HINSTANCE hMod;
-HWND TibiaWindowHandle;
-DWORD TibiaProcessID;
-//DWORD TTBProcessID;
-//HANDLE TTBProcessHandle;
-
-/* Pipes */
-string PipeName;
-bool PipeConnected;
-HANDLE PipeHandle;
-HANDLE PipeThread;
-BYTE Buffer[1024];
-CRITICAL_SECTION PipeReadCriticalSection;
-
 /* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
 Ctext texts[MAX_TEXT] = {0};
-BLAddress BLConsts;
+//BLAddress BLConsts;
 void PrintFunction();
 void ShowPlayer();
 void GetPlayerInfo(int Surface, int nX, int nY, int Font, int nR, int nG, int nB, char *lpText, int len, int align);
@@ -50,9 +35,7 @@ char ttext[1024]="'(use object on target)',0";
 char tbuff[2048];
 
 /*Address are loaded from Constants.xml file */
-int *ptrCharX;
-int *ptrCharY;
-int *ptrCharZ;
+
 DWORD address;
 DWORD startadr;
 DWORD jmpback;
@@ -64,46 +47,9 @@ DWORD SPStartAdr;
 DWORD SPJmpAdr;
 bool FirstTime = true;
 
-/* Constants from TTB */
-//int INGAME=0;
+inline bool InGame(){ return (*Consts::INGAME == 8); }
 
-inline BYTE ReadByte(BYTE *buffer, int *offset){
-	return buffer[(*offset)++];
-}
-
-WORD ReadWord(BYTE *buffer, int *offset){
-	WORD result;
-	result = buffer[*offset]+(buffer[*offset+1]<<8);
-	(*offset)+=2;
-	return result;
-}
-
-DWORD ReadDWord(BYTE *buffer, int *offset){
-	DWORD result;
-	result = buffer[*offset]+(buffer[*offset+1]<<8)+(buffer[*offset+2]<<0x10)+(buffer[*offset+3]<<0x18);
-	(*offset)+=4;
-	return result;
-}
-
-double ReadDouble(BYTE *buffer, int *offset){
-	BYTE a[8];
-	double *result;
-	int i;
-	for (i=0;i<sizeof(double);i++)
-		a[i] = buffer[*offset+7-i];
-	result = (double*)&a[0];
-	(*offset)+=8;
-	return *result;
-}
-
-string ReadString(BYTE *buffer, int *offset){
-	WORD length = ReadWord(buffer, offset);
-	string result = "";
-	int i;
-	for (i=0;i<length;i++)
-		result += *(buffer+(*offset)++);
-	return result;
-}
+inline bool PopupOpened() { return (*Consts::POPUP == 11); }
 
 void InjectDisplay()
 {
@@ -135,7 +81,7 @@ void InjectShowPlayer()
 	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(SPStartAdr), 8, dwOldProtect, &dwNewProtect);
 }
 
-void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText)
+void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText, int id = 0)
 {
 	if(TextNum > MAX_TEXT-1){return;}
 	if(font<1 || font >4){return;}
@@ -143,6 +89,7 @@ void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int n
 	if(nGreen > 0xFF || nGreen < 0){return;}
 	if(nBlue > 0xFF || nBlue < 0){return;}
 
+	strcpy(texts[TextNum].text, lpText);
 	texts[TextNum].r=nRed;
 	texts[TextNum].g=nGreen;
 	texts[TextNum].b=nBlue;
@@ -150,7 +97,8 @@ void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int n
 	texts[TextNum].y=nY;
 	texts[TextNum].used = enabled;
 	texts[TextNum].font = font;
-	sprintf(texts[TextNum].text, "%s", lpText);
+	if (texts[TextNum].EntityID != id)
+		texts[TextNum].EntityID = id;
 }
 
 void ShowPlayer()
@@ -158,10 +106,8 @@ void ShowPlayer()
 	__asm
 	{
 		call GetPlayerInfo;
-		//add ESP,0x28;
 		jmp SPJmpAdr;
 	}
-	
 }
 
 int GetFreeSlot()
@@ -175,44 +121,49 @@ int GetFreeSlot()
 
 void GetPlayerInfo(int Surface, int nX, int nY, int Font, int nR, int nG, int nB, char *lpText, int len, int aligment)
 {
-	static Battlelist BL(BLConsts);
-	
-	if (strcmp(lpText,"Seymour")==0){
-		if (abs(*ptrCharX - BL.GetLocation("Seymour").x) < 8 && abs(*ptrCharY - BL.GetLocation("Seymour").y) < 6 && *ptrCharZ == BL.GetLocation("Seymour").z) {
-		SetText(150, true, nX, nY-15, 255, 0, 0, 2, "TTB Rox!");
+	static Battlelist BL;
+	if (InGame()) {
+		BL.Reset();
+		if (Battlelist::FindByName(&BL, lpText) && !BL.IsPlayer() && BL.IsOnScreen() && BL.IsVisible()) {
+			SetText(BL.GetIndexPosition()+150, true, nX, nY-10, 0, 0xBF, 0, 2, "NPC", BL.ID());
 		}
 	}
-	if (abs(*ptrCharX - BL.GetLocation("Seymour").x) >= 8 || abs(*ptrCharY - BL.GetLocation("Seymour").y) >= 6 || *ptrCharZ != BL.GetLocation("Seymour").z) {
-		texts[150].used = false;
-	}
+
+	BL.Reset();
+	do {
+		if ((!BL.HPPercentage() || (!BL.IsPlayer() && !BL.IsVisible())) && texts[BL.GetIndexPosition()+150].used) {
+			texts[BL.GetIndexPosition()+150].used = false;
+		}
+	} while(BL.NextEntity());
+
 	__asm
 	{
-		push aligment;
-		push len;
-		push lpText;
-		push nB;
-		push nG;
-		push nR;
-		push Font;
-		push nY;
-		push nX;
-		push Surface;
-		call SPAddress;
+		push aligment;//4
+		push len;//8
+		push lpText;//12
+		push nB;//16
+		push nG;//20
+		push nR;//24
+		push Font;//28
+		push nY;//32
+		push nX;//36
+		push Surface;//40
+		call SPAddress;//44
 		add ESP, 0x28;
 	}
 }
 
 void PrintFunction()
 {
-	
 	int i;
 	char flagfps; 
 	memcpy(&flagfps, (DWORD*)showfps, 1);
-
+	
 	for(i=0; i<MAX_TEXT; i++){
-		if(!texts[i].used){continue;}
-
-		sprintf(g_Text,texts[i].text);
+		if(!texts[i].used)
+			continue;
+		
+		strcpy(g_Text,texts[i].text);
 		g_Blue = texts[i].b;
 		g_Green = texts[i].g;
 		g_Red = texts[i].r;
@@ -247,9 +198,7 @@ void PrintFunction()
 			jmp jmpfps;
 		}
 	}
-	
 }
-
 
 void __declspec(noreturn) UninjectSelf(HMODULE Module)
 {
@@ -266,75 +215,173 @@ void __declspec(noreturn) UninjectSelf(HMODULE Module)
 }
 
 
-
-
-
-inline bool InGame(){ return (*INGAME == 8); }
-
-
-
 LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam){
-	//Beep(2000,50);
+	static int i;
+	switch (uMsg) {
+		case WM_CHAR:
+			{
+				/*
+				if (wParam == 'q'){
+					int t = 0x000001;
+					CallWindowProc(WndProc, hWnd, WM_KEYDOWN, VK_SHIFT, t);
+					t=0x000001;
+					CallWindowProc(WndProc, hWnd, WM_KEYDOWN, VK_F1, t );
+					t=0xc0000001;
+					CallWindowProc(WndProc, hWnd, WM_KEYUP, VK_F1,t );
+					t=0xc0000001;
+					CallWindowProc(WndProc, hWnd, WM_KEYUP, VK_SHIFT, t);
+					return 0;
+				}*/
+				if (KeyboardEnabled && InGame() && !PopupOpened()) {
+					if (!KeyboardSayMode){
+						switch(wParam)
+						{
+							case 0x0D: // ENTER
+								{
+									KeyboardSayMode = true;
+									return 0;
+								}
+							case 0x02:
+							case 0x03:
+							case 0x05:
+							case 0x06:
+							case 0x07:
+							case 0x08:
+							case 0x09:
+							case 0x0B:
+							case 0x0C:
+							case 0x0E:
+							case 0x0F:
+							case 0x12:
+							case 0x14:
+							case 0x15:
+							case 0x16:
+							case 0x17:
+							case 0x18:
+							case 0x1A:
+							case 0x1B:
+								break;
+							default:
+								return 0;
+						}
+					}
+				}
+			}
+			break;
+		/*case WM_KEYUP:
+			{
+				if (wParam == 'q'){
+					return 0;
+				}
+			}
+			break;*/
+		case WM_KEYDOWN:
+			{
+				/*
+				if (wParam == 'q'){
+
+					int t = 0x2A0001;
+					CallWindowProc(WndProc, hWnd, WM_KEYDOWN, VK_SHIFT, t);
+					t=0x3b0001;
+					CallWindowProc(WndProc, hWnd, WM_KEYDOWN, VK_F1, t );
+					t=0xc03b0001;
+					CallWindowProc(WndProc, hWnd, WM_KEYUP, VK_F1,t );
+					t=0xc02a0001;
+					CallWindowProc(WndProc, hWnd, WM_KEYUP, VK_SHIFT, t);
+					
+					return 0;
+				}*/
+				if (wParam == VK_F1){
+					char output[256];
+					FILE *fp = fopen("c:/test.txt","a+");
+					sprintf(output, "wParam=%x,lParam=%x\n", wParam, lParam);
+					fprintf(fp, output);
+					fclose(fp);
+					break;
+					//CallWindowProc(WndProc, hWnd, uMsg, wParam, lParam );
+				}
+				if (KeyboardEnabled && InGame() && !PopupOpened()){
+					if (KeyboardSayMode){
+						if (wParam == VK_ESCAPE){
+							KeyboardSayMode = false;
+							return 0;
+						} else if(wParam == VK_RETURN) {
+							KeyboardSayMode = false;
+							break;
+						}
+					} else {
+						for (i=0;i<KeyboardVKEntriesCount;i++){
+							if (KeyboardVKEntries[i].VirtualKeyOriginalCode == wParam){
+								wParam = KeyboardVKEntries[i].VirtualKeyNewCode;
+								break;
+							}
+						}
+					}
+				}
+			}
+			break;
+	}
     return CallWindowProc(WndProc, hWnd, uMsg, wParam, lParam );
 }
+
 
 void PipeOnRead(){
 	int position=0;
 	WORD len  = 0;
-	len = ReadWord(Buffer, &position);
-	BYTE PacketID = ReadByte(Buffer, &position);
+	len = Packet::ReadWord(Buffer, &position);
+	BYTE PacketID = Packet::ReadByte(Buffer, &position);
 	switch (PacketID){
 		case 1: // Set Constant
 			{	
-				string ConstantName = ReadString(Buffer, &position);
+				string ConstantName = Packet::ReadString(Buffer, &position);
 				if (ConstantName == "ptrInGame"){
-					INGAME = (const int*)ReadDWord(Buffer, &position);
+					Consts::INGAME = (const unsigned int*)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrWASDPopup") {
-					WASDPOPUP = (const int*)ReadDWord(Buffer, &position);
+					Consts::POPUP = (const unsigned int*)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "TibiaWindowHandle") {
-					TibiaWindowHandle = (HWND)ReadDWord(Buffer, &position);
+					TibiaWindowHandle = (HWND)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrDisplayAddress") { //Display
-					address = (const DWORD)ReadDWord(Buffer, &position);
+					address = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrDisplayStartAddress") {
-					startadr = (const DWORD)ReadDWord(Buffer, &position);
+					startadr = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrDisplayJmpBack") {
-					jmpback = (const DWORD)ReadDWord(Buffer, &position);
+					jmpback = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrDisplayShowFps") {
-					showfps = (const DWORD)ReadDWord(Buffer, &position);
+					showfps = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrDisplayJmpFps") {
-					jmpfps = (const DWORD)ReadDWord(Buffer, &position);
+					jmpfps = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrSPAddress") {
-					SPAddress = (const DWORD)ReadDWord(Buffer, &position);
+					SPAddress = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrSPStartAdr") {
-					SPStartAdr = (const DWORD)ReadDWord(Buffer, &position);
+					SPStartAdr = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrSPJmpAdr") {
-					SPJmpAdr = (const DWORD)ReadDWord(Buffer, &position);
+					SPJmpAdr = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrBattlelistBegin") {
-					BLConsts.ptrBattlelistBegin = (unsigned int*)ReadDWord(Buffer, &position);
+					Consts::ptrBattlelistBegin = (unsigned int*)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "BLMax") {
-					BLConsts.BLMax = (const int)ReadDWord(Buffer, &position);
+					Consts::BLMax = (const int)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "BLDist") {
-					BLConsts.BLDist = (const int)ReadDWord(Buffer, &position);
-				} else if (ConstantName == "BLName") {
-					BLConsts.BLName = (const int)ReadDWord(Buffer, &position);
-				} else if (ConstantName == "BLXCoordOffset") {
-					BLConsts.BLXCoordOffset = (const int)ReadDWord(Buffer, &position);
-				} else if (ConstantName == "BLYCoordOffset") {
-					BLConsts.BLYCoordOffset = (const int)ReadDWord(Buffer, &position);
-				} else if (ConstantName == "BLZCoordOffset") {
-					BLConsts.BLZCoordOffset = (const int)ReadDWord(Buffer, &position);
+					Consts::BLDist = (const int)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLNameOffset") {
+					Consts::BLNameOffset = (const int)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLLocationOffset") {
+					Consts::BLLocationOffset = (const int)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLOnScreenOffset") {
+					Consts::BLOnScreenOffset = (unsigned int)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "BLHPPercentOffset") {
+					Consts::BLHPPercentOffset = (unsigned int)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrCharX") {
-					ptrCharX = (int*)ReadDWord(Buffer, &position);
+					Consts::ptrCharX = (unsigned int*)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrCharY") {
-					ptrCharY = (int*)ReadDWord(Buffer, &position);
+					Consts::ptrCharY = (unsigned int*)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrCharZ") {
-					ptrCharZ = (int*)ReadDWord(Buffer, &position);
+					Consts::ptrCharZ = (unsigned int*)Packet::ReadDWord(Buffer, &position);
 				}
 			}
 			break;
 		case 2: // Hook WND_PROC
 			{
-				BYTE Hook = ReadByte(Buffer, &position);
+				BYTE Hook = Packet::ReadByte(Buffer, &position);
 				if (Hook){
 					WndProc = (WNDPROC)SetWindowLongPtr(TibiaWindowHandle, GWLP_WNDPROC, (LONG)WindowProc);
 				} else {
@@ -342,59 +389,37 @@ void PipeOnRead(){
 				}
 			}
 			break;
-		case 3: // Test
+		case 3: // Testing
 			{
-				//const unsigned int* HeapHandlePointer = (const unsigned int*)0x772500;
-				//const unsigned int MaxItems = 7441;
-				//const unsigned int structSize = 19*sizeof(int);
-
-				//PROCESS_HEAP_ENTRY phe;
-				//phe.lpData = NULL;
-				//unsigned int HeapEntryStartAddress=0;
-				//while (HeapWalk((HANDLE)*HeapHandlePointer, &phe)) {
-				//	if ((unsigned int)phe.cbData == MaxItems*structSize) {
-				//		HeapEntryStartAddress = (unsigned int)phe.lpData;
-				//		break;
-				//	}
-				//}
-				/*const unsigned int* TibiaDat = (const unsigned int*)0x768C9C;
-				const unsigned int* HeapEntryStartAddress = (const unsigned int*)(*TibiaDat + 0x8);
-				char la[125];
-				sprintf(la,"%x",*HeapEntryStartAddress);
-				MessageBoxA(0,la,"la",0);*/
-				Battlelist BL(BLConsts);
-				char la[125];
-				LocationDefinition Dist = {0, 0, 0};
-				Dist.x = abs(*ptrCharX - BL.GetLocation("Seymour").x);
-				Dist.y = abs(*ptrCharY - BL.GetLocation("Seymour").y);
-				sprintf(la, "%d, %d", Dist.x, Dist.y);
-				MessageBoxA(0, la, "Distances: x,y", 0);
+				Battlelist BL;
+				std::string name = BL.Name();
+				MessageBoxA(0,name.c_str(),"duud",0);
 			}
 			break;
 		case 4: // DisplayText
 			{
-				int TextId = ReadByte(Buffer, &position);
-				int PosX = ReadWord(Buffer, &position);
-				int PosY = ReadWord(Buffer, &position);
-				int ColorRed = ReadWord(Buffer, &position);
-				int ColorGreen = ReadWord(Buffer, &position);
-				int ColorBlue = ReadWord(Buffer, &position);
-				int Font = ReadWord(Buffer, &position);
-				string Text = ReadString(Buffer, &position);
+				int TextId = Packet::ReadByte(Buffer, &position);
+				int PosX = Packet::ReadWord(Buffer, &position);
+				int PosY = Packet::ReadWord(Buffer, &position);
+				int ColorRed = Packet::ReadWord(Buffer, &position);
+				int ColorGreen = Packet::ReadWord(Buffer, &position);
+				int ColorBlue = Packet::ReadWord(Buffer, &position);
+				int Font = Packet::ReadWord(Buffer, &position);
+				string Text = Packet::ReadString(Buffer, &position);
 
-				char *lpText;
-				
-				lpText = new char [Text.size() +1];
-				strcpy (lpText, Text.c_str());
+				 char *lpText = (char*)Text.c_str();
+
+				//lpText = (char*)malloc(Text.size()+1);
+				strcpy(lpText, Text.c_str());
 
 				SetText(TextId, true, PosX, PosY, ColorRed, ColorGreen, ColorBlue, Font, lpText);
 			}
 			break;
 		case 5: //RemoveText
 			{
-				int TextId = ReadByte(Buffer, &position);
-				if(TextId > MAX_TEXT-1){break;}
-				texts[TextId].used = false;
+				int TextId = Packet::ReadByte(Buffer, &position);
+				if(TextId < MAX_TEXT)
+					texts[TextId].used = false;
 			}
 			break;
 		case 6: //Remove All
@@ -408,19 +433,40 @@ void PipeOnRead(){
 		case 7: //Inject Display
 			{
 				/* Testing that every constant have a value */
-				if(address == 0){break;}
-				if(startadr == 0){break;}
-				if(jmpback == 0){break;}
-				if(showfps == 0){break;}
-				if(jmpfps == 0){break;}
-
+				if(!address || !startadr || !jmpback || !showfps || !jmpfps)
+					break;
 				InjectDisplay();
 				InjectShowPlayer();
+			}
+			break;
+		case 8: // Keyboard Enable/Disable
+			{
+				BYTE enabled = Packet::ReadByte(Buffer, &position);
+				KeyboardEnabled = (enabled == 1);
+				KeyboardSayMode = false;
+			}
+			break;
+		case 9: // Keyboard Populate VK Entries
+			{
+				int entries = Packet::ReadDWord(Buffer, &position);
+				if (KeyboardVKEntries){
+					delete [] KeyboardVKEntries;
+				}
+				KeyboardVKEntries = new KeyboardVKEntry[entries];
+				int i;
+				for (i=0;i<entries;i++){
+					KeyboardVKEntries[i].VirtualKeyOriginalCode = Packet::ReadByte(Buffer, &position);
+					KeyboardVKEntries[i].VirtualKeyNewCode = Packet::ReadByte(Buffer, &position);
+					KeyboardVKEntries[i].State = (KeyboardState)Packet::ReadByte(Buffer, &position);
+				}
+				KeyboardVKEntriesCount = entries;
 			}
 			break;
 	}
 
 }
+
+
 
 
 void PipeThreadProc(HMODULE Module){
@@ -429,7 +475,7 @@ void PipeThreadProc(HMODULE Module){
 		PipeHandle = CreateFileA(PipeName.c_str(), GENERIC_READ | GENERIC_WRITE , 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 		PipeConnected = PipeHandle > 0;
 		if (!PipeConnected){
-			MessageBoxA(0, "Pipe connection failed!", "DLL - Fatal Error", MB_ICONERROR);
+			MessageBoxA(0, "Pipe connection failed!", "TibiaTekBot Injected DLL - Fatal Error", MB_ICONERROR);
 			return;
 		} else {
 			do {
@@ -441,7 +487,7 @@ void PipeThreadProc(HMODULE Module){
 			} while (true);
 		}
 	} else {
-		MessageBoxA(0, "Failed waiting for pipe, maybe pipe is not ready?.", "DLL - Fatal Error", 0);
+		MessageBoxA(0, "Failed waiting for pipe, maybe pipe is not ready?.", "TibiaTekBot Injected DLL - Fatal Error", 0);
 	}
 }
 
@@ -452,7 +498,6 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 	switch (reason){
 		case DLL_PROCESS_ATTACH:
         {
-			//InjectShowPlayer();
 			hMod = hModule;
 			string CmdArgs = GetCommandLineA();
 			int pos = CmdArgs.find("-pipe:");

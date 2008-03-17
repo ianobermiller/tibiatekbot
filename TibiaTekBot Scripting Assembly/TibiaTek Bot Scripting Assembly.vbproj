@@ -31,6 +31,9 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Events.vb" />
+    <Compile Include="Classes\IrcPacketBuilder.vb" />
     <Compile Include="Classes\PipePacketBuilder.vb" />
     <Compile Include="Classes\ServerPacketBuilder.vb" />
     <Compile Include="Classes\Packet.vb" />
@@ -76,6 +80,7 @@
     <Compile Include="Classes\ThreadTimer.vb" />
     <Compile Include="Interfaces\ICommandParser.vb" />
     <Compile Include="Interfaces\IIrcClient.vb" />
+    <Compile Include="Interfaces\IIrcPacketBuilder.vb" />
     <Compile Include="Interfaces\IKernel.vb" />
     <Compile Include="Interfaces\IObjects.vb" />
     <Compile Include="Interfaces\IOutfits.vb" />

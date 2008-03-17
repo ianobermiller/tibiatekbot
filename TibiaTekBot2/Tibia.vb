@@ -43,7 +43,13 @@ Public NotInheritable Class Tibia
     Private Declare Function GetProcAddress Lib "kernel32" (ByVal hModule As Int32, <MarshalAs(UnmanagedType.LPStr)> ByVal lpProcName As String) As Int32
     Private Declare Function VirtualFreeEx Lib "kernel32" (ByVal hProcess As Int32, ByVal lpAddress As Int32, ByVal dwSize As Int32, ByVal dwFreeType As Int32) As Boolean
     Private Declare Function SetWindowPos Lib "user32" (ByVal hWnd As Int32, ByVal hWndInsertAfter As Int32, ByVal X As Int32, ByVal Y As Int32, ByVal CX As Int32, ByVal CY As Int32, ByVal uFlags As UInt32) As Boolean
-
+    Private Declare Function GetDC Lib "user32" (ByVal hWnd As Int32) As IntPtr
+    Private Declare Function CreateCompatibleDC Lib "gdi32" (ByVal HDC As IntPtr) As IntPtr
+    Private Declare Function CreateCompatibleBitmap Lib "gdi32" (ByVal HDC As IntPtr, ByVal Width As Int32, ByVal Height As Int32) As IntPtr
+    Private Declare Function SelectObject Lib "gdi32" (ByVal hdc As IntPtr, ByVal hgdiobj As IntPtr) As IntPtr
+    Private Declare Function BitBlt Lib "gdi32" (ByVal hdc As IntPtr, ByVal nXDest As Integer, ByVal nYDest As Integer, ByVal nWidth As Integer, ByVal nHeight As Integer, ByVal hdcSrc As IntPtr, ByVal nXSrc As Integer, ByVal nYSrc As Integer, ByVal dwRop As TernaryRasterOperations) As Boolean
+    Private Declare Function DeleteDC Lib "gdi32" (ByVal hdc As IntPtr) As Boolean
+    Private Declare Function ReleaseDC Lib "user32" (ByVal hWnd As IntPtr, ByVal hDC As IntPtr) As Integer
 #End Region
 
 #Region " Constants "
@@ -127,6 +133,23 @@ Public NotInheritable Class Tibia
         FLASHW_TIMERNOFG = 12
     End Enum
 
+    Private Enum TernaryRasterOperations
+        SRCCOPY = &HCC0020 ' dest = source
+        SRCPAINT = &HEE0086 ' dest = source OR dest
+        SRCAND = &H8800C6 ' dest = source AND dest
+        SRCINVERT = &H660046 ' dest = source XOR dest
+        SRCERASE = &H440328 ' dest = source AND (NOT dest )
+        NOTSRCCOPY = &H330008 ' dest = (NOT source)
+        NOTSRCERASE = &H1100A6 ' dest = (NOT src) AND (NOT dest)
+        MERGECOPY = &HC000CA ' dest = (source AND pattern)
+        MERGEPAINT = &HBB0226 ' dest = (NOT source) OR dest
+        PATCOPY = &HF00021 ' dest = pattern
+        PATPAINT = &HFB0A09 ' dest = DPSnoo
+        PATINVERT = &H5A0049 ' dest = pattern XOR dest
+        DSTINVERT = &H550009 ' dest = (NOT dest)
+        BLACKNESS = &H42 ' dest = BLACK
+        WHITENESS = &HFF0062 ' dest = WHITE
+    End Enum
 #End Region
 
 #Region " Objects/Variables "
@@ -827,9 +850,14 @@ Public NotInheritable Class Tibia
         Try
             'Send Constants First!
             Dim PPB As New PipePacketBuilder(Pipe, False)
+            PPB.SetConstant("ptrCharX", Consts.ptrCoordX)
+            PPB.SetConstant("ptrCharY", Consts.ptrCoordY)
+            PPB.SetConstant("ptrCharZ", Consts.ptrCoordZ)
+
             PPB.SetConstant("ptrInGame", Consts.ptrInGame)
             PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
             PPB.SetConstant("TibiaWindowHandle", WindowHandle)
+
             PPB.SetConstant("ptrDisplayAddress", Consts.ptrDisplayAddress)
             PPB.SetConstant("ptrDisplayStartAddress", Consts.ptrDisplayStartAddress)
             PPB.SetConstant("ptrDisplayJmpBack", Consts.ptrDisplayJmpBack)
@@ -838,16 +866,14 @@ Public NotInheritable Class Tibia
             PPB.SetConstant("ptrSPAddress", Consts.ptrSPAddress)
             PPB.SetConstant("ptrSPStartAdr", Consts.ptrSPStartAdr)
             PPB.SetConstant("ptrSPJmpAdr", Consts.ptrSPJmpAdr)
+
             PPB.SetConstant("ptrBattlelistBegin", Consts.ptrBattleListBegin)
             PPB.SetConstant("BLMax", Consts.BLMax)
             PPB.SetConstant("BLDist", Consts.BLDist)
-            PPB.SetConstant("BLName", Consts.BLNameOffset)
-            PPB.SetConstant("BLXCoordOffset", Consts.BLCoordXOffset)
-            PPB.SetConstant("BLYCoordOffset", Consts.BLCoordYOffset)
-            PPB.SetConstant("BLZCoordOffset", Consts.BLCoordZOffset)
-            PPB.SetConstant("ptrCharX", Consts.ptrCoordX)
-            PPB.SetConstant("ptrCharY", Consts.ptrCoordY)
-            PPB.SetConstant("ptrCharZ", Consts.ptrCoordZ)
+            PPB.SetConstant("BLNameOffset", Consts.BLNameOffset)
+            PPB.SetConstant("BLLocationOffset", Consts.BLCoordXOffset)
+            PPB.SetConstant("BLOnScreenOffset", Consts.BLOnScreenOffset)
+            PPB.SetConstant("BLHPPercentOffset", Consts.BLHPPercentOffset)
             PPB.HookWndProc(True)
             PPB.Send()
             PPB.InjectDisplay()
@@ -1157,10 +1183,14 @@ Public NotInheritable Class Tibia
     End Sub
 
     Public Sub SetFramesPerSecond(ByVal FPS As Double) Implements Scripting.ITibia.SetFramesPerSecond
-        Dim NewFPS As Double = Round((1110 / FPS) - 5, 1)
-        Dim FrameRateBegin As Integer = 0
-        ReadMemory(Consts.ptrScreenInfoBegin, FrameRateBegin, 4)
-        WriteMemory(FrameRateBegin + Consts.ScreenInfoFrameRateLimitOffset, NewFPS)
+        Try
+            Dim NewFPS As Double = Round((1110 / FPS) - 5, 1)
+            Dim FrameRateBegin As Integer = 0
+            ReadMemory(Consts.ptrScreenInfoBegin, FrameRateBegin, 4)
+            WriteMemory(FrameRateBegin + Consts.ScreenInfoFrameRateLimitOffset, NewFPS)
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Public Sub CharacterMove(ByVal Location As ITibia.LocationDefinition) Implements Scripting.ITibia.CharacterMove
@@ -1176,18 +1206,58 @@ Public NotInheritable Class Tibia
     End Sub
 
     Public Sub Click(ByVal X As Integer, ByVal Y As Integer) Implements Scripting.ITibia.Click
-        SendMessage(&H202, 0, 0)
-        SendMessage(&H201, 0, (Y << &H10) + (X And &HFFFF))
-        SendMessage(&H202, 0, (Y << &H10) + (X And &HFFFF))
+        Try
+            SendMessage(&H202, 0, 0)
+            SendMessage(&H201, 0, (Y << &H10) + (X And &HFFFF))
+            SendMessage(&H202, 0, (Y << &H10) + (X And &HFFFF))
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Public Sub Click(ByVal Point As System.Drawing.Point) Implements Scripting.ITibia.Click
-        Click(Point.X, Point.Y)
+        Try
+            Click(Point.X, Point.Y)
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
-    Public Sub SendKey(ByVal Key As Integer) Implements Scripting.ITibia.SendKey
-
-    End Sub
+    Public Function Screenshot(Optional ByVal BringToTop As Boolean = True) As System.Drawing.Image Implements Scripting.ITibia.Screenshot
+        Try
+            If BringToTop Then
+                If WindowState = ITibia.WindowStates.Minimized Then
+                    Restore()
+                    System.Threading.Thread.Sleep(300)
+                End If
+                BringToFront()
+                TopMost = True
+            End If
+            Dim DesktopDeviceContext As IntPtr = 0
+            Dim NewDeviceContext As IntPtr = 0
+            Dim NewObject As IntPtr = 0
+            Dim OldObject As IntPtr = 0
+            DesktopDeviceContext = GetDC(WindowHandle)
+            NewDeviceContext = CreateCompatibleDC(DesktopDeviceContext)
+            NewObject = CreateCompatibleBitmap(DesktopDeviceContext, ScreenWidth, ScreenHeight)
+            If NewObject <> IntPtr.Zero Then
+                OldObject = SelectObject(NewDeviceContext, NewObject)
+                BitBlt(NewDeviceContext, 0, 0, ScreenWidth, ScreenHeight, DesktopDeviceContext, 0, 0, TernaryRasterOperations.SRCCOPY)
+                SelectObject(NewDeviceContext, OldObject)
+                DeleteDC(NewDeviceContext)
+                ReleaseDC(WindowHandle, DesktopDeviceContext)
+                Return Image.FromHbitmap(NewObject)
+            Else
+                Throw New Exception("CreateCompatibleBitmap failed.")
+            End If
+            If BringToTop Then
+                TopMost = False
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
 
 #Region " Event Raising"
 
@@ -1209,5 +1279,6 @@ Public NotInheritable Class Tibia
 #End Region
 
 #End Region
+
 
 End Class

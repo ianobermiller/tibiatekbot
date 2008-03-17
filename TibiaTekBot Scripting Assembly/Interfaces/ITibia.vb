@@ -17,7 +17,7 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Imports Scripting, System.Net, System.Windows.Forms
+Imports Scripting, System.Net, System.Windows.Forms, System.Drawing
 
 Public Interface ITibia
 
@@ -341,7 +341,7 @@ Public Interface ITibia
     Sub Click(ByVal Point As System.Drawing.Point)
     Sub ProtectMemory(ByVal Address As Integer, ByVal Length As Integer)
     Sub UnprotectMemory(ByVal Address As Integer, ByVal Length As Integer)
-    Sub SendKey(ByVal Key As Integer)
+    Function Screenshot(Optional ByVal BringToTop As Boolean = True) As Image
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value As Integer, ByVal Size As Integer)
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value() As Byte)
     'Sub WriteMemory(ByVal Address As Integer, ByVal Value() As Byte, ByVal Offset As Integer, ByVal Length As Integer)

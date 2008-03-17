@@ -2719,19 +2719,34 @@ Public Class frmMain
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Kernel.Client.TestPipe()
+        'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)
+        'If Not Img Is Nothing Then
+        '    Img.Save("c:\test.png", Drawing.Imaging.ImageFormat.Png)
+        'End If
+        ''Kernel.Client.Screenshot("c:\test.jpg")
+
         'Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+        'PPB.Keyboard(True)
+        'Dim KVKEs(0 To 0) As IKernel.KeyboardVKEntry
+        'Dim KVKE As New IKernel.KeyboardVKEntry
+        'KVKE.VirtualKeyOriginalCode = IKernel.VirtualKey.Q
+        'KVKE.VirtualKeyNewCode = IKernel.VirtualKey.Up
+        'KVKEs(0) = KVKE
+        'PPB.KeyboardPopulateVKEntries(KVKEs)
+
         'Dim Location As New ITibia.LocationDefinition
         'Location.X = 300
         'Location.Y = 300
         'Location.Z = 0 'Not used
         'Dim S As Integer = 0
         'For I As Integer = 1 To 30
-        'PPB.DisplayText(S, Location, 255, 0, 0, 2, "TTB ROX!")
-        'S += 1
-        'Location.Y += 10
+        '    PPB.DisplayText(S, Location, 255, 0, 0, 2, "TTB ROX!")
+        '    S += 1
+        '    Location.Y += 10
         'Next
         'MessageBox.Show("DONE")
         'PPB.RemoveAllText()
+
         'Dim T As New System.Threading.Thread(AddressOf AutoLogin)
         ''T.Start()
     End Sub

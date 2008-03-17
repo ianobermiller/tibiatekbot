@@ -235,10 +235,6 @@
   <data name="KeyboardToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Keyboard</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="KeyboardToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="ToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>235, 22</value>
   </data>
@@ -373,7 +369,7 @@
     <value>TibiaTek Bot Menu</value>
   </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 314</value>
+    <value>236, 336</value>
   </data>
   <data name="&gt;&gt;PopupMenu.Name" xml:space="preserve">
     <value>PopupMenu</value>
@@ -384,6 +380,7 @@
   <data name="NotifyIcon.Text" xml:space="preserve">
     <value>TibiaTek Bot</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>

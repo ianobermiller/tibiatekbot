@@ -1,30 +1,39 @@
 #pragma once
-
-struct BLAddress
-{
-	unsigned int *ptrBattlelistBegin;
-	unsigned int BLMax;
-	unsigned int BLDist;
-	unsigned int BLName;
-	unsigned int BLXCoordOffset;
-	unsigned int BLYCoordOffset;
-	unsigned int BLZCoordOffset;
-};
+#ifndef _BATTLELIST_H_
+#define _BATTLELIST_H_
 
 struct LocationDefinition
 {
-	int x;
-	int y;
-	int z;
+	unsigned int x;
+	unsigned int y;
+	unsigned int z;
 };
+
+class Battlelist;
 
 class Battlelist
 {
 private:
-	int IndexPosition;
-	int ID;
-	BLAddress BLConst;
+	unsigned int *Address;
+	unsigned int IndexPosition;
+
 public:
-	Battlelist(BLAddress Addresses);
-	LocationDefinition GetLocation(char *CreatureName);
+	/* Constructors/Destructors */
+	Battlelist();
+	//~Battlelist();
+
+	std::string Name();
+	void Reset();
+	unsigned int ID();
+	bool NextEntity();
+	bool PrevEntity();
+	bool IsVisible();
+	int GetIndexPosition();
+	bool IsOnScreen();
+	bool IsPlayer();
+	unsigned int HPPercentage();
+	static bool FindByName(Battlelist*, std::string);
+	LocationDefinition GetLocation();
 };
+
+#endif

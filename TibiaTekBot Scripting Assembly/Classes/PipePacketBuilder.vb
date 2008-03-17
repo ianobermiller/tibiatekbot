@@ -185,6 +185,35 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
+    Public Sub Keyboard(ByVal Enable As Boolean)
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(8)
+            _Packet.AddByte(Enable)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Public Sub KeyboardPopulateVKEntries(ByVal KeyboardVKEntries() As IKernel.KeyboardVKEntry)
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(9)
+            _Packet.AddDWord(KeyboardVKEntries.Length)
+            For Each Entry As IKernel.KeyboardVKEntry In KeyboardVKEntries
+                _Packet.AddByte(Entry.VirtualKeyOriginalCode)
+                _Packet.AddByte(Entry.VirtualKeyNewCode)
+                _Packet.AddByte(Entry.State)
+            Next
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Public Sub Send() Implements IPacketBuilder.Send
         Try
             While Packets.Count > 0

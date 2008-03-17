@@ -17,21 +17,22 @@
 '    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
 '    Boston, MA 02111-1307, USA.
 
-Public Interface IPacket
+Public Interface IIrcPacketBuilder
+    Inherits IPacketBuilder
 
-#Region " Properties "
-    ReadOnly Property GetBytes() As Byte()
-    Property GetByte(ByVal Offset As UInteger) As Byte
+#Region " Enumerations "
+    Enum Destinataries
+        Player = 0
+        All
+        Party
+        Guild
+        World
+    End Enum
 #End Region
 
 #Region " Methods "
-    Sub AddString(ByVal str As String)
-    Sub AddByte(ByVal Value As Byte)
-    Sub AddWord(ByVal Value As UInt16)
-    Sub AddDWord(ByVal Value As UInt32)
-    Sub AddDouble(ByVal Value As Double)
-    Sub AddLocation(ByVal Location As ITibia.LocationDefinition)
-    Function ToString() As String
+    Overloads Sub Send(ByVal Destinatary As IIrcPacketBuilder.Destinataries)
+    Overloads Sub Send(ByVal Destinatary As String)
 #End Region
 
 End Interface
