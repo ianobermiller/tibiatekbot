@@ -1,6 +1,6 @@
 #pragma once
 
-public class Packet {
+class Packet {
 
 public:
 	static BYTE ReadByte(BYTE *buffer, int *offset);

@@ -382,22 +382,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\Alarms\Battlelist.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Config\Alarms\Items.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Config\Alarms\Private Message.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Config\Alarms\Public Message.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Alarms\Battlelist.wav" />
+    <Content Include="Alarms\Highlight.wav" />
+    <Content Include="Alarms\Items.wav" />
+    <Content Include="Alarms\Private Message.wav" />
+    <Content Include="Alarms\Public Message.wav" />
+    <Content Include="Alarms\Status.wav" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
-    <Content Include="Config\Alarms\Status.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="app.config" />
     <None Include="Resources\Image1.jpg" />
     <None Include="MapReader\notwalkable.gif" />
@@ -503,148 +494,103 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="Config\Alarms\Battlelist.wav">
-      <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="Config\Alarms\Items.wav">
-      <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="Config\Alarms\Private Message.wav">
-      <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="Config\Alarms\Public Message.wav">
-      <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="Config\Alarms\Status.wav">
-      <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <FileType>File</FileType>
-    </PublishFile>
     <PublishFile Include="Config\Constants.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Config\Creatures.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Config\LootItems.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Config\Outfits.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Config\Spells.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="COPYING.txt">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="CPargermer.Tibia.Crypt">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="Resources\ttb21.ico">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Resources\ttb21_16.ico">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="TibiaTekBot Injected DLL.dll">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="TibiaTekBot Scripting Assembly">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
