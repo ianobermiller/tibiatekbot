@@ -326,7 +326,7 @@ void PipeOnRead(){
 			{
 				Battlelist BL;
 				BL.Reset();
-				if (Battlelist::FindByName(&BL, "Seymour")) {
+				if (Battlelist::FindByName(&BL, "Fynn")) {
 					PlayerText Creature;
 					Creature.cB = 0x00;
 					Creature.cG = 0x00;
