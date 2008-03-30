@@ -858,14 +858,10 @@ Public NotInheritable Class Tibia
             PPB.SetConstant("ptrWASDPopup", Consts.ptrWASDPopup)
             PPB.SetConstant("TibiaWindowHandle", WindowHandle)
 
-            PPB.SetConstant("ptrDisplayAddress", Consts.ptrDisplayAddress)
-            PPB.SetConstant("ptrDisplayStartAddress", Consts.ptrDisplayStartAddress)
-            PPB.SetConstant("ptrDisplayJmpBack", Consts.ptrDisplayJmpBack)
-            PPB.SetConstant("ptrDisplayShowFps", Consts.ptrDisplayShowFps)
-            PPB.SetConstant("ptrDisplayJmpFps", Consts.ptrDisplayJmpFps)
-            PPB.SetConstant("ptrSPAddress", Consts.ptrSPAddress)
-            PPB.SetConstant("ptrSPStartAdr", Consts.ptrSPStartAdr)
-            PPB.SetConstant("ptrSPJmpAdr", Consts.ptrSPJmpAdr)
+            PPB.SetConstant("ptrPrintName", Consts.ptrPrintName)
+            PPB.SetConstant("ptrPrintFPS", Consts.ptrPrintFPS)
+            PPB.SetConstant("ptrShowFPS", Consts.ptrShowFPS)
+            PPB.SetConstant("ptrPrintTextFunc", Consts.ptrPrintTextFunc)
 
             PPB.SetConstant("ptrBattlelistBegin", Consts.ptrBattleListBegin)
             PPB.SetConstant("BLMax", Consts.BLMax)
@@ -876,7 +872,7 @@ Public NotInheritable Class Tibia
             PPB.SetConstant("BLHPPercentOffset", Consts.BLHPPercentOffset)
             PPB.HookWndProc(True)
             PPB.Send()
-            PPB.InjectDisplay()
+            'PPB.InjectDisplay()
             PPB.Send()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

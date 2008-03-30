@@ -259,12 +259,8 @@
   <Const Name="AutoLoginPatch2" Value="90,90,90,90,90" />
   <Const Name="AutoLoginPatchOriginal2" Value="E8,C8,15,09,00" />
   
-  <Const Name="ptrDisplayAddress" Value="H4A3C00" />
-  <Const Name="ptrDisplayStartAddress" Value="H44E68D" />
-  <Const Name="ptrDisplayJmpBack" Value="H44E690" />
-  <Const Name="ptrDisplayShowFps" Value="H611874" />
-  <Const Name="ptrDisplayJmpFps" Value="H44E762" />
-  <Const Name="ptrSPAddress" Value="H4A2DC0" />
-  <Const Name="ptrSPStartAdr" Value="H4A3F48" />
-  <Const Name="ptrSPJmpAdr" Value="H4A3F4D" />
+  <Const Name="ptrPrintName" Value="H4E228A" />
+  <Const Name="ptrPrintFPS" Value="H44E753" />
+  <Const Name="ptrShowFPS" Value="H611874" />
+  <Const Name="ptrPrintTextFunc" Value="H4A3C00" />
 </Constants>

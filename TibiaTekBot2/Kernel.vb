@@ -4364,7 +4364,7 @@ ContinueAttack:
                 Dim BL As New BattleList
                 BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 If Consts.DebugOnLog Then Log("FromClient", BytesToStr(bytBuffer))
-                'ConsoleRead(BytesToStr(bytBuffer))
+                ConsoleRead(BytesToStr(bytBuffer))
                 Dim CP As New ClientPacketBuilder(Proxy)
                 Dim SP As New ServerPacketBuilder(Proxy)
                 Dim ID As UShort = GetByte(bytBuffer, Pos)

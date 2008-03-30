@@ -25,6 +25,10 @@ namespace Consts {
 	extern unsigned int BLOnScreenOffset;
 	extern unsigned int BLHPPercentOffset;
 
+	/* Displaying Text Stuff */
+	extern DWORD ptrPrintName;
+	extern DWORD ptrPrintFPS;
+	extern DWORD ptrShowFPS;
 }
 
 enum KeyboardState {
@@ -70,7 +74,21 @@ struct Ctext
 	int font;
 	bool used;
 	int EntityID;
-}; //Display Text Structure
+}; 
+
+//Display Text Structure
+struct PlayerText
+{
+	char *DisplayText;
+	int CreatureId;
+	int cR;
+	int cG;
+	int cB;
+	int TextFont;
+	int RelativeX;
+	int RelativeY;
+	bool InUse;
+};
 
 
 
