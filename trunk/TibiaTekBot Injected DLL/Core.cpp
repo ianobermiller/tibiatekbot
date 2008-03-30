@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <windows.h>
 #include <string>
+#include <list>
 #include "Constants.h"
 #include "Core.h"
 #include "Packet.h"
@@ -17,10 +18,9 @@ using namespace std;
 
 /* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
 Ctext texts[MAX_TEXT] = {0};
+list<PlayerText> CreatureTexts;
 //BLAddress BLConsts;
-void PrintFunction();
-void ShowPlayer();
-void GetPlayerInfo(int Surface, int nX, int nY, int Font, int nR, int nG, int nB, char *lpText, int len, int align);
+int PlayerCount = 0;
 
 int n_text=0;
 char g_Text[1024] = "";
@@ -36,50 +36,89 @@ char tbuff[2048];
 
 /*Address are loaded from Constants.xml file */
 
-DWORD address;
-DWORD startadr;
-DWORD jmpback;
-DWORD showfps; //Show fps flag (0-1)
-DWORD jmpfps; // jmp to skip fps
-
-DWORD SPAddress; //ShowPlayerAddress
-DWORD SPStartAdr;
-DWORD SPJmpAdr;
 bool FirstTime = true;
 
 inline bool InGame(){ return (*Consts::INGAME == 8); }
 
 inline bool PopupOpened() { return (*Consts::POPUP == 11); }
 
-void InjectDisplay()
+void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, int nBlue, char* lpText, int nAlign)
 {
-	BYTE jmpByte[8] = {0xE9, 0x00, 0x00, 0x00, 0x00, 0x90, 0x90, 0x90};
-	int pointer = (int)&PrintFunction + 3;
-	int jmp = pointer - startadr - 5;
-	memcpy(&jmpByte[1], &jmp, 4);
-	DWORD dwOldProtect, dwNewProtect;
-	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(startadr), 8, PAGE_READWRITE, &dwOldProtect);
-	memcpy((LPVOID)(startadr), &jmpByte, 8);
-	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(startadr), 8, dwOldProtect, &dwNewProtect);
+	//TODO Calling this will fuck up the EIP
+	PrintText(nSurface, nX, nY, nFont, nRed, nGreen, nBlue, lpText, nAlign);
+	/*MessageBoxA(0, "Drawn Normal Text", "Info",0);
+	//Write text above player
+	DWORD *EntityID = (DWORD*)(lpText - 4);
+	if (*EntityID < 0x40000000)
+	{
+		for(list<PlayerText>::iterator it=CreatureTexts.begin(); it!=CreatureTexts.end(); ++it) {
+			if (*EntityID = (*it).CreatureId) {
+				PrintText(0x01, (*it).RelativeX, (*it).RelativeY, (*it).TextFont, (*it).cR, (*it).cG, (*it).cB, (*it).DisplayText, 0x00);
+			}
+		}
+	}*/
+}
 
-	//Initialize
-	int i;
-	for(i=0; i<MAX_TEXT; i++){
-		texts[i].used = false;
+void MyPrintFps(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, int nBlue, char* lpText, int nAlign)
+{
+	bool *fps = (bool*)Consts::ptrShowFPS;
+	if(*fps == true)
+	{
+		PrintText(nSurface, nX, nY, nFont, nRed, nGreen, nBlue, lpText, nAlign);
+		nY += 12;
+	}
+	//TODO Normal Writing DONE but not tested
+	for(int i=0; i<MAX_TEXT; i++){
+		if(!texts[i].used)
+			continue;
+		
+		strcpy(g_Text,texts[i].text);
+		g_Blue = texts[i].b;
+		g_Green = texts[i].g;
+		g_Red = texts[i].r;
+		g_Y = texts[i].y;
+		g_X = texts[i].x;
+		g_Font = texts[i].font;
+
+		PrintText(0x01, g_X, g_Y, g_Font, g_Red, g_Green, g_Blue, g_Text, 0x00); //0x01 Surface, 0x00 Align
 	}
 }
 
-void InjectShowPlayer()
+DWORD HookCall(DWORD dwAddress, DWORD dwFunction)
 {
-	BYTE jmpByte[8] = {0xE9, 0x00, 0x00, 0x00, 0x00, 0x90, 0x90, 0x90};
-	int pointer = (int)&ShowPlayer + 3;
-	int jmp = pointer - SPStartAdr - 5;
-	memcpy(&jmpByte[1], &jmp, 4);
-	DWORD dwOldProtect, dwNewProtect;
-	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(SPStartAdr), 8, PAGE_READWRITE, &dwOldProtect);
-	memcpy((LPVOID)(SPStartAdr), &jmpByte, 8);
-	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(SPStartAdr), 8, dwOldProtect, &dwNewProtect);
+	DWORD dwOldProtect, dwNewProtect, dwOldCall, dwNewCall;
+	BYTE callByte[5] = {0xE8, 0x00, 0x00, 0x00, 0x00};
+
+	dwNewCall = dwFunction - dwAddress - 5;
+	memcpy(&callByte[1], &dwNewCall, 4);
+	
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(dwAddress), 5, PAGE_READWRITE, &dwOldProtect);
+	memcpy(&dwOldCall, (LPVOID)(dwAddress+1), 4);
+	memcpy((LPVOID)(dwAddress), &callByte, 5);
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(dwAddress), 5, dwOldProtect, &dwNewProtect);
+	return dwOldCall;
 }
+
+void UnhookCall(DWORD dwAddress, DWORD dwOldCall)
+{
+	DWORD dwOldProtect, dwNewProtect;
+	BYTE callByte[5] = {0xE8, 0x00, 0x00, 0x00, 0x00};
+
+	memcpy(&callByte[1], &dwOldCall, 4);
+	
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(dwAddress), 5, PAGE_READWRITE, &dwOldProtect);
+	memcpy((LPVOID)(dwAddress), &callByte, 5);
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(dwAddress), 5, dwOldProtect, &dwNewProtect);
+}
+
+void Nop(DWORD dwAddress, int size)
+{
+	DWORD dwOldProtect, dwNewProtect;
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(dwAddress), size, PAGE_READWRITE, &dwOldProtect);
+	memset((LPVOID)(dwAddress), 0x90, size);
+	VirtualProtectEx(GetCurrentProcess(), (LPVOID)(dwAddress), size, dwOldProtect, &dwNewProtect);
+}
+
 
 void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText, int id = 0)
 {
@@ -99,105 +138,6 @@ void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int n
 	texts[TextNum].font = font;
 	if (texts[TextNum].EntityID != id)
 		texts[TextNum].EntityID = id;
-}
-
-void ShowPlayer()
-{
-	__asm
-	{
-		call GetPlayerInfo;
-		jmp SPJmpAdr;
-	}
-}
-
-int GetFreeSlot()
-{
-	int i;
-	for(i=150; i<MAX_TEXT; i++){
-		if(!texts[i].used){return i;}
-	}
-	return 0;
-}
-
-void GetPlayerInfo(int Surface, int nX, int nY, int Font, int nR, int nG, int nB, char *lpText, int len, int aligment)
-{
-	static Battlelist BL;
-	if (InGame()) {
-		BL.Reset();
-		if (Battlelist::FindByName(&BL, lpText) && !BL.IsPlayer() && BL.IsOnScreen() && BL.IsVisible()) {
-			SetText(BL.GetIndexPosition()+150, true, nX, nY-10, 0, 0xBF, 0, 2, "NPC", BL.ID());
-		}
-	}
-
-	BL.Reset();
-	do {
-		if ((!BL.HPPercentage() || (!BL.IsPlayer() && !BL.IsVisible())) && texts[BL.GetIndexPosition()+150].used) {
-			texts[BL.GetIndexPosition()+150].used = false;
-		}
-	} while(BL.NextEntity());
-
-	__asm
-	{
-		push aligment;//4
-		push len;//8
-		push lpText;//12
-		push nB;//16
-		push nG;//20
-		push nR;//24
-		push Font;//28
-		push nY;//32
-		push nX;//36
-		push Surface;//40
-		call SPAddress;//44
-		add ESP, 0x28;
-	}
-}
-
-void PrintFunction()
-{
-	int i;
-	char flagfps; 
-	memcpy(&flagfps, (DWORD*)showfps, 1);
-	
-	for(i=0; i<MAX_TEXT; i++){
-		if(!texts[i].used)
-			continue;
-		
-		strcpy(g_Text,texts[i].text);
-		g_Blue = texts[i].b;
-		g_Green = texts[i].g;
-		g_Red = texts[i].r;
-		g_Y = texts[i].y;
-		g_X = texts[i].x;
-		g_Font = texts[i].font;
-
-		__asm
-		{
-			push 0x00; // Align
-			push offset g_Text; // Text
-			push g_Blue; // Blue
-			push g_Green; // Green
-			push g_Red; // Red
-			push g_Font; // Font number 1 - 4
-			push g_Y; // Y
-			push g_X; // X
-			push 0x01; // Surface
-			call address;
-		}
-	}
-
-	//Fix broken FPS counter
-	if(flagfps==1){
-		__asm
-		{
-			jmp jmpback;
-		}
-	}else{
-		__asm
-		{
-			jmp jmpfps;
-		}
-	}
 }
 
 void __declspec(noreturn) UninjectSelf(HMODULE Module)
@@ -340,24 +280,17 @@ void PipeOnRead(){
 					Consts::POPUP = (const unsigned int*)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "TibiaWindowHandle") {
 					TibiaWindowHandle = (HWND)Packet::ReadDWord(Buffer, &position);
-				} else if (ConstantName == "ptrDisplayAddress") { //Display
-					address = (const DWORD)Packet::ReadDWord(Buffer, &position);
-				} else if (ConstantName == "ptrDisplayStartAddress") {
-					startadr = (const DWORD)Packet::ReadDWord(Buffer, &position);
-				} else if (ConstantName == "ptrDisplayJmpBack") {
-					jmpback = (const DWORD)Packet::ReadDWord(Buffer, &position);
-				} else if (ConstantName == "ptrDisplayShowFps") {
-					showfps = (const DWORD)Packet::ReadDWord(Buffer, &position);
-				} else if (ConstantName == "ptrDisplayJmpFps") {
-					jmpfps = (const DWORD)Packet::ReadDWord(Buffer, &position);
-				} else if (ConstantName == "ptrSPAddress") {
-					SPAddress = (const DWORD)Packet::ReadDWord(Buffer, &position);
-				} else if (ConstantName == "ptrSPStartAdr") {
-					SPStartAdr = (const DWORD)Packet::ReadDWord(Buffer, &position);
-				} else if (ConstantName == "ptrSPJmpAdr") {
-					SPJmpAdr = (const DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrBattlelistBegin") {
 					Consts::ptrBattlelistBegin = (unsigned int*)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrPrintName") {
+					Consts::ptrPrintName = (DWORD)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrPrintFPS") {
+					Consts::ptrPrintFPS = (DWORD)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrShowFPS") {
+					Consts::ptrShowFPS = (DWORD)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrPrintTextFunc") {
+					//PrintText = (_PrintText*)Packet::ReadDWord(Buffer, &position);
+					PrintText = (_PrintText*)0x4A3C00;
 				} else if (ConstantName == "BLMax") {
 					Consts::BLMax = (const int)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "BLDist") {
@@ -392,8 +325,21 @@ void PipeOnRead(){
 		case 3: // Testing
 			{
 				Battlelist BL;
-				std::string name = BL.Name();
-				MessageBoxA(0,name.c_str(),"duud",0);
+				BL.Reset();
+				if (Battlelist::FindByName(&BL, "Seymour")) {
+					PlayerText Creature;
+					Creature.cB = 0x00;
+					Creature.cG = 0x00;
+					Creature.cR = 0xEE;
+					Creature.CreatureId = (int)BL.ID();
+					Creature.DisplayText = "PWNS";
+					Creature.InUse = true;
+					Creature.RelativeX = 0;
+					Creature.RelativeY = -10;
+					Creature.TextFont = 1;
+
+					CreatureTexts.push_back(Creature);
+				}
 			}
 			break;
 		case 4: // DisplayText
@@ -433,10 +379,13 @@ void PipeOnRead(){
 		case 7: //Inject Display
 			{
 				/* Testing that every constant have a value */
-				if(!address || !startadr || !jmpback || !showfps || !jmpfps)
+				if(!Consts::ptrPrintFPS || !Consts::ptrPrintName || !Consts::ptrShowFPS) {
+					MessageBoxA(0, "Error. All the constant doesn't contain a value", "Error", 0);
 					break;
-				InjectDisplay();
-				InjectShowPlayer();
+				}
+				HookCall(Consts::ptrPrintName, (DWORD)&MyPrintName);
+				HookCall(Consts::ptrPrintFPS, (DWORD)&MyPrintFps);
+				Nop(0x44E68F, 6); //Showing the FPS all the time..
 			}
 			break;
 		case 8: // Keyboard Enable/Disable
@@ -460,6 +409,18 @@ void PipeOnRead(){
 					KeyboardVKEntries[i].State = (KeyboardState)Packet::ReadByte(Buffer, &position);
 				}
 				KeyboardVKEntriesCount = entries;
+			}
+			break;
+		case 0xA: //Set Text Above Player
+			{
+				int TextId = Packet::ReadByte(Buffer, &position);
+				int PosX = Packet::ReadWord(Buffer, &position);
+				int PosY = Packet::ReadWord(Buffer, &position);
+				int ColorRed = Packet::ReadWord(Buffer, &position);
+				int ColorGreen = Packet::ReadWord(Buffer, &position);
+				int ColorBlue = Packet::ReadWord(Buffer, &position);
+				int Font = Packet::ReadWord(Buffer, &position);
+				string Text = Packet::ReadString(Buffer, &position);
 			}
 			break;
 	}
@@ -498,13 +459,21 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 	switch (reason){
 		case DLL_PROCESS_ATTACH:
         {
+			if(!Consts::ptrPrintFPS || !Consts::ptrPrintName || !Consts::ptrShowFPS) {
+					MessageBoxA(0, "Error. All the constant doesn't contain a value", "Error", 0);
+					break;
+				}
+			HookCall(Consts::ptrPrintName, (DWORD)&MyPrintName);
+			HookCall(Consts::ptrPrintFPS, (DWORD)&MyPrintFps);
+			Nop(0x44E68F, 6); //Showing the FPS all the time..
+			/*
 			hMod = hModule;
 			string CmdArgs = GetCommandLineA();
 			int pos = CmdArgs.find("-pipe:");
 			PipeName = "\\\\.\\pipe\\ttb" + CmdArgs.substr(pos + 6, 5);
 			InitializeCriticalSection(&PipeReadCriticalSection);
 			PipeConnected=false;
-			PipeThread = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)PipeThreadProc, hMod, NULL, NULL);
+			PipeThread = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)PipeThreadProc, hMod, NULL, NULL);*/
 		}
         break;
 		case DLL_PROCESS_DETACH:
