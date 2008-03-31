@@ -6,27 +6,27 @@
 namespace Consts {
 
 	/* General */
-	const unsigned int * INGAME = (unsigned int *)0x76c2c8;
-	const unsigned int * ptrCharX = (unsigned int *)0x61e9c8;
-	const unsigned int * ptrCharY = (unsigned int *)0x61e9c4;
-	const unsigned int * ptrCharZ = (unsigned int *)0x61e9c0;
+	const unsigned int * INGAME = 0;
+	const unsigned int * ptrCharX = 0;
+	const unsigned int * ptrCharY = 0;
+	const unsigned int * ptrCharZ = 0;
 
 	/* Keyboard */
 	const unsigned int * POPUP = NULL;
 
 	/* Battlelist */
-	const unsigned int * ptrBattlelistBegin = (unsigned int *)0x613bd0;
-	unsigned int BLMax = 0x96;
-	unsigned int BLDist = 0xA0;
+	const unsigned int * ptrBattlelistBegin = 0;
+	unsigned int BLMax = 0;
+	unsigned int BLDist = 0;
 	unsigned int BLNameOffset = 0x4;
-	unsigned int BLLocationOffset = 0x24;
-	unsigned int BLOnScreenOffset = 0x90;
-	unsigned int BLHPPercentOffset = 0x88;
+	unsigned int BLLocationOffset = 0;
+	unsigned int BLOnScreenOffset = 0;
+	unsigned int BLHPPercentOffset = 0;
 
 	/* Displaying Text Stuff */
-	DWORD ptrPrintName = 0x4E228A;
-	DWORD ptrPrintFPS = 0x44E753;
-	DWORD ptrShowFPS = 0x611874;
+	DWORD ptrPrintName = 0;
+	DWORD ptrPrintFPS = 0;
+	DWORD ptrShowFPS = 0;
 }
 
 /* DLL Injection Related Stuff */

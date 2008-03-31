@@ -2729,7 +2729,7 @@ Public Class frmMain
         'PPB.Keyboard(True)
         'Dim KVKEs(0 To 0) As IKernel.KeyboardVKEntry
         'Dim KVKE As New IKernel.KeyboardVKEntry
-        'KVKE.VirtualKeyOriginalCode = IKernel.VirtualKey.Q
+        'KVKE.VirtualKeyOriginalCode = IKernel.VirtualKey.Q 
         'KVKE.VirtualKeyNewCode = IKernel.VirtualKey.Up
         'KVKEs(0) = KVKE
         'PPB.KeyboardPopulateVKEntries(KVKEs)
