@@ -19,6 +19,7 @@ using namespace std;
 /* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
 Ctext texts[MAX_TEXT] = {0};
 list<PlayerText> CreatureTexts;
+list<PlayerText>::iterator it;
 //BLAddress BLConsts;
 int PlayerCount = 0;
 
@@ -44,19 +45,16 @@ inline bool PopupOpened() { return (*Consts::POPUP == 11); }
 
 void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, int nBlue, char* lpText, int nAlign)
 {
-	//TODO Calling this will fuck up the EIP
 	PrintText(nSurface, nX, nY, nFont, nRed, nGreen, nBlue, lpText, nAlign);
-	/*MessageBoxA(0, "Drawn Normal Text", "Info",0);
 	//Write text above player
 	DWORD *EntityID = (DWORD*)(lpText - 4);
-	if (*EntityID < 0x40000000)
 	{
-		for(list<PlayerText>::iterator it=CreatureTexts.begin(); it!=CreatureTexts.end(); ++it) {
-			if (*EntityID = (*it).CreatureId) {
-				PrintText(0x01, (*it).RelativeX, (*it).RelativeY, (*it).TextFont, (*it).cR, (*it).cG, (*it).cB, (*it).DisplayText, 0x00);
+		for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ++it) {
+			if (*EntityID == (*it).CreatureId) {
+				PrintText(0x01, nX + (*it).RelativeX, nY + (*it).RelativeY, (*it).TextFont, (*it).cR, (*it).cG, (*it).cB, (*it).DisplayText, 0x00);
 			}
 		}
-	}*/
+	}
 }
 
 void MyPrintFps(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, int nBlue, char* lpText, int nAlign)
@@ -289,8 +287,7 @@ void PipeOnRead(){
 				} else if (ConstantName == "ptrShowFPS") {
 					Consts::ptrShowFPS = (DWORD)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrPrintTextFunc") {
-					//PrintText = (_PrintText*)Packet::ReadDWord(Buffer, &position);
-					PrintText = (_PrintText*)0x4A3C00;
+					PrintText = (_PrintText*)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "BLMax") {
 					Consts::BLMax = (const int)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "BLDist") {
@@ -326,7 +323,7 @@ void PipeOnRead(){
 			{
 				Battlelist BL;
 				BL.Reset();
-				if (Battlelist::FindByName(&BL, "Fynn")) {
+				if (Battlelist::FindByName(&BL, "Seymour")) {
 					PlayerText Creature;
 					Creature.cB = 0x00;
 					Creature.cG = 0x00;
@@ -459,21 +456,13 @@ extern "C" bool APIENTRY DllMain (HMODULE hModule, DWORD reason, LPVOID reserved
 	switch (reason){
 		case DLL_PROCESS_ATTACH:
         {
-			if(!Consts::ptrPrintFPS || !Consts::ptrPrintName || !Consts::ptrShowFPS) {
-					MessageBoxA(0, "Error. All the constant doesn't contain a value", "Error", 0);
-					break;
-				}
-			HookCall(Consts::ptrPrintName, (DWORD)&MyPrintName);
-			HookCall(Consts::ptrPrintFPS, (DWORD)&MyPrintFps);
-			Nop(0x44E68F, 6); //Showing the FPS all the time..
-			/*
 			hMod = hModule;
 			string CmdArgs = GetCommandLineA();
 			int pos = CmdArgs.find("-pipe:");
 			PipeName = "\\\\.\\pipe\\ttb" + CmdArgs.substr(pos + 6, 5);
 			InitializeCriticalSection(&PipeReadCriticalSection);
 			PipeConnected=false;
-			PipeThread = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)PipeThreadProc, hMod, NULL, NULL);*/
+			PipeThread = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)PipeThreadProc, hMod, NULL, NULL);
 		}
         break;
 		case DLL_PROCESS_DETACH:
