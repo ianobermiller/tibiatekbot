@@ -10,6 +10,7 @@ namespace Consts {
 	const unsigned int * ptrCharX = 0;
 	const unsigned int * ptrCharY = 0;
 	const unsigned int * ptrCharZ = 0;
+	const unsigned int * ptrCharacterID = 0;
 
 	/* Keyboard */
 	const unsigned int * POPUP = NULL;
@@ -27,6 +28,7 @@ namespace Consts {
 	DWORD ptrPrintName = 0;
 	DWORD ptrPrintFPS = 0;
 	DWORD ptrShowFPS = 0;
+	DWORD ptrNopFPS = 0;
 }
 
 /* DLL Injection Related Stuff */

@@ -20,6 +20,8 @@ using namespace std;
 Ctext texts[MAX_TEXT] = {0};
 list<PlayerText> CreatureTexts;
 list<PlayerText>::iterator it;
+list<PlayerText> UsedCreatures; //Used to save creatures in screen
+list<PlayerText> AddedCreatures;
 //BLAddress BLConsts;
 int PlayerCount = 0;
 
@@ -43,16 +45,33 @@ inline bool InGame(){ return (*Consts::INGAME == 8); }
 
 inline bool PopupOpened() { return (*Consts::POPUP == 11); }
 
+bool CompareLists(PlayerText first, PlayerText second) {
+	return true;
+}
+
 void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, int nBlue, char* lpText, int nAlign)
 {
+	//Displaying Original Text
 	PrintText(nSurface, nX, nY, nFont, nRed, nGreen, nBlue, lpText, nAlign);
+
 	//Write text above player
 	DWORD *EntityID = (DWORD*)(lpText - 4);
-	{
-		for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ++it) {
-			if (*EntityID == (*it).CreatureId) {
-				PrintText(0x01, nX + (*it).RelativeX, nY + (*it).RelativeY, (*it).TextFont, (*it).cR, (*it).cG, (*it).cB, (*it).DisplayText, 0x00);
-			}
+
+	//Removing unused text
+	if (*EntityID == *Consts::ptrCharacterID) { //New "round" begins in the drawing routine
+		CreatureTexts.assign(UsedCreatures.begin(), UsedCreatures.end());
+		if (AddedCreatures.size() > 0) {
+			CreatureTexts.merge(AddedCreatures, CompareLists); //Adding Added creatures to the showing list
+			AddedCreatures.clear();
+		}
+		UsedCreatures.clear();
+	}
+
+	//Displaying texts
+	for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ++it) {
+		if (*EntityID == (*it).CreatureId) {
+			UsedCreatures.push_back(*it);
+			PrintText(0x01, nX + (*it).RelativeX, nY + (*it).RelativeY, (*it).TextFont, (*it).cR, (*it).cG, (*it).cB, (*it).DisplayText, 0x00);
 		}
 	}
 }
@@ -65,7 +84,7 @@ void MyPrintFps(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, i
 		PrintText(nSurface, nX, nY, nFont, nRed, nGreen, nBlue, lpText, nAlign);
 		nY += 12;
 	}
-	//TODO Normal Writing DONE but not tested
+
 	for(int i=0; i<MAX_TEXT; i++){
 		if(!texts[i].used)
 			continue;
@@ -118,7 +137,7 @@ void Nop(DWORD dwAddress, int size)
 }
 
 
-void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText, int id = 0)
+void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText)
 {
 	if(TextNum > MAX_TEXT-1){return;}
 	if(font<1 || font >4){return;}
@@ -134,8 +153,6 @@ void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int n
 	texts[TextNum].y=nY;
 	texts[TextNum].used = enabled;
 	texts[TextNum].font = font;
-	if (texts[TextNum].EntityID != id)
-		texts[TextNum].EntityID = id;
 }
 
 void __declspec(noreturn) UninjectSelf(HMODULE Module)
@@ -306,6 +323,10 @@ void PipeOnRead(){
 					Consts::ptrCharY = (unsigned int*)Packet::ReadDWord(Buffer, &position);
 				} else if (ConstantName == "ptrCharZ") {
 					Consts::ptrCharZ = (unsigned int*)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrNopFPS") {
+					Consts::ptrNopFPS = (DWORD)Packet::ReadDWord(Buffer, &position);
+				} else if (ConstantName == "ptrCharacterID") {
+					Consts::ptrCharacterID = (unsigned int*)Packet::ReadDWord(Buffer, &position);
 				}
 			}
 			break;
@@ -321,22 +342,21 @@ void PipeOnRead(){
 			break;
 		case 3: // Testing
 			{
-				Battlelist BL;
-				BL.Reset();
-				if (Battlelist::FindByName(&BL, "Seymour")) {
-					PlayerText Creature;
-					Creature.cB = 0x00;
-					Creature.cG = 0x00;
-					Creature.cR = 0xEE;
-					Creature.CreatureId = (int)BL.ID();
+				//Battlelist BL;
+				//BL.Reset();
+				//if (Battlelist::FindByName(&BL, "Seymour")) {
+				PlayerText Creature = {0};
+					Creature.cB = 0x55;
+					Creature.cG = 0x55;
+					Creature.cR = 0xFF;
+					Creature.CreatureId = *Consts::ptrCharacterID;//(int)BL.ID();
 					Creature.DisplayText = "PWNS";
-					Creature.InUse = true;
 					Creature.RelativeX = 0;
 					Creature.RelativeY = -10;
 					Creature.TextFont = 1;
 
-					CreatureTexts.push_back(Creature);
-				}
+					AddedCreatures.push_back(Creature);
+				//}
 			}
 			break;
 		case 4: // DisplayText
@@ -375,14 +395,19 @@ void PipeOnRead(){
 			break;
 		case 7: //Inject Display
 			{
-				/* Testing that every constant have a value */
-				if(!Consts::ptrPrintFPS || !Consts::ptrPrintName || !Consts::ptrShowFPS) {
-					MessageBoxA(0, "Error. All the constant doesn't contain a value", "Error", 0);
-					break;
+				BYTE Inject = Packet::ReadByte(Buffer, &position);
+				if(Inject) {
+					/* Testing that every constant have a value */
+					if(!Consts::ptrPrintFPS || !Consts::ptrPrintName || !Consts::ptrShowFPS) {
+						MessageBoxA(0, "Error. All the constant doesn't contain a value", "Error", 0);
+						break;
+					}
+					HookCall(Consts::ptrPrintName, (DWORD)&MyPrintName);
+					HookCall(Consts::ptrPrintFPS, (DWORD)&MyPrintFps);
+					Nop(Consts::ptrNopFPS, 6); //Showing the FPS all the time..
+				} else {
+					//TODO Restore Calls
 				}
-				HookCall(Consts::ptrPrintName, (DWORD)&MyPrintName);
-				HookCall(Consts::ptrPrintFPS, (DWORD)&MyPrintFps);
-				Nop(0x44E68F, 6); //Showing the FPS all the time..
 			}
 			break;
 		case 8: // Keyboard Enable/Disable
@@ -409,15 +434,29 @@ void PipeOnRead(){
 			}
 			break;
 		case 0xA: //Set Text Above Player
-			{
-				int TextId = Packet::ReadByte(Buffer, &position);
-				int PosX = Packet::ReadWord(Buffer, &position);
-				int PosY = Packet::ReadWord(Buffer, &position);
-				int ColorRed = Packet::ReadWord(Buffer, &position);
-				int ColorGreen = Packet::ReadWord(Buffer, &position);
-				int ColorBlue = Packet::ReadWord(Buffer, &position);
-				int Font = Packet::ReadWord(Buffer, &position);
-				string Text = Packet::ReadString(Buffer, &position);
+			{	
+				//TODO Doesn't work yet..
+				int Id = Packet::ReadDWord(Buffer, &position);
+                int nX = Packet::ReadWord(Buffer, &position);
+                int nY = Packet::ReadWord(Buffer, &position);
+                int ColorR = Packet::ReadWord(Buffer, &position);
+                int ColorG = Packet::ReadWord(Buffer, &position);
+                int ColorB = Packet::ReadWord(Buffer, &position);
+                int TxtFont = Packet::ReadWord(Buffer, &position);
+                string Text = Packet::ReadString(Buffer, &position);
+                char *lpText = (char*)calloc(Text.size(), sizeof(char));
+                strcpy(lpText, Text.c_str());
+                PlayerText Creature = {0};
+                Creature.cB = ColorB;
+                Creature.cG = ColorG;
+                Creature.cR = ColorR;
+                Creature.CreatureId = Id;
+                Creature.DisplayText = lpText; //<-- Doesn't work.
+                Creature.RelativeX = nX;
+                Creature.RelativeY = nY;
+                Creature.TextFont = TxtFont;
+
+                AddedCreatures.push_back(Creature);
 			}
 			break;
 	}

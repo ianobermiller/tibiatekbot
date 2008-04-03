@@ -870,9 +870,12 @@ Public NotInheritable Class Tibia
             PPB.SetConstant("BLLocationOffset", Consts.BLCoordXOffset)
             PPB.SetConstant("BLOnScreenOffset", Consts.BLOnScreenOffset)
             PPB.SetConstant("BLHPPercentOffset", Consts.BLHPPercentOffset)
+            PPB.SetConstant("ptrNopFPS", Consts.ptrNopFPS)
+            PPB.SetConstant("ptrCharacterID", Consts.ptrCharacterID)
+
             PPB.HookWndProc(True)
             PPB.Send()
-            PPB.InjectDisplay()
+            PPB.InjectDisplay(True)
             PPB.Send()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

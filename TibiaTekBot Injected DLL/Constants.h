@@ -12,6 +12,7 @@ namespace Consts {
 	extern const unsigned int * ptrCharX;
 	extern const unsigned int * ptrCharY;
 	extern const unsigned int * ptrCharZ;
+	extern const unsigned int * ptrCharacterID;
 
 	/* Keyboard */
 	extern const unsigned int * POPUP;
@@ -29,6 +30,7 @@ namespace Consts {
 	extern DWORD ptrPrintName;
 	extern DWORD ptrPrintFPS;
 	extern DWORD ptrShowFPS;
+	extern DWORD ptrNopFPS;
 }
 
 enum KeyboardState {
@@ -87,7 +89,6 @@ struct PlayerText
 	int TextFont;
 	int RelativeX;
 	int RelativeY;
-	bool InUse;
 };
 
 
