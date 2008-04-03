@@ -1,4 +1,4 @@
-﻿Imports System.Drawing
+﻿Imports System.Drawing, System.Net.Sockets
 Public Class frmLagBar
     Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
 
@@ -7,6 +7,7 @@ Public Class frmLagBar
         Hide()
     End Sub
 
+    Dim S As New Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
     Dim Socket As New Winsock
     Dim Time As Date
     Dim Elapsed As Double = 0
@@ -68,10 +69,10 @@ Public Class frmLagBar
     End Sub
 
     Private Sub frmLagBar_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Me.ControlBox = False
-        Me.FormBorderStyle = _
-            System.Windows.Forms.FormBorderStyle.None
-        Me.TransparencyKey = System.Drawing.Color.Magenta
+        'Me.ControlBox = False
+        'Me.FormBorderStyle = _
+        '    System.Windows.Forms.FormBorderStyle.None
+        'Me.TransparencyKey = System.Drawing.Color.Magenta
     End Sub
 
     Private Sub frmLagBar_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseDown, Label2.MouseDown
@@ -89,4 +90,7 @@ Public Class frmLagBar
         End If
     End Sub
 
+    Private Sub PictureBox2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox2.Click
+        Hide()
+    End Sub
 End Class

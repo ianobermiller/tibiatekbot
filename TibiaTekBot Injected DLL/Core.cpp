@@ -14,12 +14,10 @@
 using namespace std;
 
 #define MAX_TEXT 512
-#define PTEXT_FIRST 150
 
 /* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
 Ctext texts[MAX_TEXT] = {0};
 list<PlayerText> CreatureTexts;
-list<PlayerText>::iterator it;
 list<PlayerText> UsedCreatures; //Used to save creatures in screen
 list<PlayerText> AddedCreatures;
 //BLAddress BLConsts;
@@ -34,9 +32,6 @@ int g_X = 0;
 int g_Y = 0;
 int g_Font = 1;
 
-char ttext[1024]="'(use object on target)',0";
-char tbuff[2048];
-
 /*Address are loaded from Constants.xml file */
 
 bool FirstTime = true;
@@ -45,12 +40,20 @@ inline bool InGame(){ return (*Consts::INGAME == 8); }
 
 inline bool PopupOpened() { return (*Consts::POPUP == 11); }
 
+int KeyboardEntriesCount = 0;
+KeyboardEntry *KeyboardEntries = NULL;
+bool KeyboardEnabled = false;
+bool KeyboardSayMode = false;
+KeyboardModifier KeyboardModifiers;
+
 bool CompareLists(PlayerText first, PlayerText second) {
 	return true;
 }
 
 void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, int nBlue, char* lpText, int nAlign)
 {
+	list<PlayerText>::iterator it;
+
 	//Displaying Original Text
 	PrintText(nSurface, nX, nY, nFont, nRed, nGreen, nBlue, lpText, nAlign);
 
@@ -62,6 +65,11 @@ void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, 
 		CreatureTexts.assign(UsedCreatures.begin(), UsedCreatures.end());
 		if (AddedCreatures.size() > 0) {
 			CreatureTexts.merge(AddedCreatures, CompareLists); //Adding Added creatures to the showing list
+			for(it=AddedCreatures.begin(); it!=AddedCreatures.end(); ++it) {
+				if ((*it).DisplayText != NULL) {
+					free((*it).DisplayText);
+				}
+			}
 			AddedCreatures.clear();
 		}
 		UsedCreatures.clear();
@@ -169,7 +177,6 @@ void __declspec(noreturn) UninjectSelf(HMODULE Module)
    }
 }
 
-
 LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam){
 	static int i;
 	switch (uMsg) {
@@ -223,13 +230,15 @@ LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam){
 				}
 			}
 			break;
-		/*case WM_KEYUP:
+		case WM_KEYUP:
 			{
-				if (wParam == 'q'){
-					return 0;
+				switch (wParam){
+					case VK_CONTROL:	KeyboardModifiers = (KeyboardModifier)(KeyboardModifiers & !KMCtrl);	break;
+					case VK_SHIFT:		KeyboardModifiers = (KeyboardModifier)(KeyboardModifiers & !KMShift);	break;
+					case VK_MENU:		KeyboardModifiers = (KeyboardModifier)(KeyboardModifiers & !KMAlt);		break;
 				}
 			}
-			break;*/
+			break;
 		case WM_KEYDOWN:
 			{
 				/*
@@ -246,7 +255,7 @@ LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam){
 					
 					return 0;
 				}*/
-				if (wParam == VK_F1){
+				/*if (wParam == VK_F1){
 					char output[256];
 					FILE *fp = fopen("c:/test.txt","a+");
 					sprintf(output, "wParam=%x,lParam=%x\n", wParam, lParam);
@@ -254,6 +263,12 @@ LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam){
 					fclose(fp);
 					break;
 					//CallWindowProc(WndProc, hWnd, uMsg, wParam, lParam );
+				}*/
+
+				switch (wParam){
+					case VK_CONTROL:	KeyboardModifiers = (KeyboardModifier)(KeyboardModifiers | KMCtrl);		break;
+					case VK_SHIFT:		KeyboardModifiers = (KeyboardModifier)(KeyboardModifiers | KMShift);	break;
+					case VK_MENU:		KeyboardModifiers = (KeyboardModifier)(KeyboardModifiers | KMAlt);		break;
 				}
 				if (KeyboardEnabled && InGame() && !PopupOpened()){
 					if (KeyboardSayMode){
@@ -265,12 +280,29 @@ LRESULT __stdcall WindowProc(HWND hWnd, int uMsg, WPARAM wParam, LPARAM lParam){
 							break;
 						}
 					} else {
-						for (i=0;i<KeyboardVKEntriesCount;i++){
-							if (KeyboardVKEntries[i].VirtualKeyOriginalCode == wParam){
-								wParam = KeyboardVKEntries[i].VirtualKeyNewCode;
+						for (i=0;i<KeyboardEntriesCount;i++){
+							if (KeyboardEntries[i].OldVirtualKey == wParam
+								&& ((KeyboardModifier)(KeyboardEntries[i].OldModifier & 0x7) == KeyboardModifiers)){
+								if (KeyboardEntries[i].Kind == KEKPressKey){
+									if ((KeyboardEntries[i].NewModifier & KMCtrl) == KMCtrl)
+										CallWindowProc(WndProc, hWnd, WM_KEYDOWN, VK_CONTROL, 0x00000001);
+									if ((KeyboardEntries[i].NewModifier & KMShift) == KMShift)
+										CallWindowProc(WndProc, hWnd, WM_KEYDOWN, VK_SHIFT, 0x00000001);
+									if ((KeyboardEntries[i].NewModifier & KMAlt) == KMAlt)
+										CallWindowProc(WndProc, hWnd, WM_KEYDOWN, VK_MENU, 0x00000001);
+									CallWindowProc(WndProc, hWnd, WM_KEYDOWN, KeyboardEntries[i].NewVirtualKey, 0x00000001);
+									CallWindowProc(WndProc, hWnd, WM_KEYUP, KeyboardEntries[i].NewVirtualKey, 0xC0000001);
+									if ((KeyboardEntries[i].NewModifier & KMCtrl) == KMCtrl)
+										CallWindowProc(WndProc, hWnd, WM_KEYUP, VK_CONTROL, 0xC0000001);
+									if ((KeyboardEntries[i].NewModifier & KMShift) == KMShift)
+										CallWindowProc(WndProc, hWnd, WM_KEYUP, VK_SHIFT, 0xC0000001);
+									if ((KeyboardEntries[i].NewModifier & KMAlt) == KMAlt)
+										CallWindowProc(WndProc, hWnd, WM_KEYUP, VK_MENU, 0xC0000001);
+								}
 								break;
 							}
 						}
+						return 0;
 					}
 				}
 			}
@@ -370,9 +402,7 @@ void PipeOnRead(){
 				int Font = Packet::ReadWord(Buffer, &position);
 				string Text = Packet::ReadString(Buffer, &position);
 
-				 char *lpText = (char*)Text.c_str();
-
-				//lpText = (char*)malloc(Text.size()+1);
+				char *lpText = (char*)malloc((Text.size()+1)*sizeof(char));
 				strcpy(lpText, Text.c_str());
 
 				SetText(TextId, true, PosX, PosY, ColorRed, ColorGreen, ColorBlue, Font, lpText);
@@ -420,17 +450,19 @@ void PipeOnRead(){
 		case 9: // Keyboard Populate VK Entries
 			{
 				int entries = Packet::ReadDWord(Buffer, &position);
-				if (KeyboardVKEntries){
-					delete [] KeyboardVKEntries;
+				if (KeyboardEntries){
+					delete [] KeyboardEntries;
 				}
-				KeyboardVKEntries = new KeyboardVKEntry[entries];
+				KeyboardEntries = new KeyboardEntry[entries];
 				int i;
 				for (i=0;i<entries;i++){
-					KeyboardVKEntries[i].VirtualKeyOriginalCode = Packet::ReadByte(Buffer, &position);
-					KeyboardVKEntries[i].VirtualKeyNewCode = Packet::ReadByte(Buffer, &position);
-					KeyboardVKEntries[i].State = (KeyboardState)Packet::ReadByte(Buffer, &position);
+					KeyboardEntries[i].Kind = (KeyboardEntryKind)Packet::ReadByte(Buffer, &position);
+					KeyboardEntries[i].NewVirtualKey = Packet::ReadByte(Buffer, &position);
+					KeyboardEntries[i].OldVirtualKey = Packet::ReadByte(Buffer, &position);
+					KeyboardEntries[i].NewModifier  = (KeyboardModifier)Packet::ReadByte(Buffer, &position);
+					KeyboardEntries[i].OldModifier  = (KeyboardModifier)Packet::ReadByte(Buffer, &position);
 				}
-				KeyboardVKEntriesCount = entries;
+				KeyboardEntriesCount = entries;
 			}
 			break;
 		case 0xA: //Set Text Above Player
@@ -462,9 +494,6 @@ void PipeOnRead(){
 	}
 
 }
-
-
-
 
 void PipeThreadProc(HMODULE Module){
 	DWORD br;

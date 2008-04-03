@@ -217,15 +217,19 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub KeyboardPopulateVKEntries(ByVal KeyboardVKEntries() As IKernel.KeyboardVKEntry)
+    Public Sub KeyboardPopulateEntries(ByVal KeyboardEntries() As IKernel.KeyboardEntry)
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(9)
-            _Packet.AddDWord(KeyboardVKEntries.Length)
-            For Each Entry As IKernel.KeyboardVKEntry In KeyboardVKEntries
-                _Packet.AddByte(Entry.VirtualKeyOriginalCode)
-                _Packet.AddByte(Entry.VirtualKeyNewCode)
-                _Packet.AddByte(Entry.State)
+            _Packet.AddDWord(KeyboardEntries.Length)
+            For Each Entry As IKernel.KeyboardEntry In KeyboardEntries
+                If Entry.Action = IKernel.KeyboardEntryAction.PressKey Then
+                    _Packet.AddByte(Entry.Action)
+                    _Packet.AddByte(Entry.NewVirtualKey)
+                    _Packet.AddByte(Entry.OldVirtualKey)
+                    _Packet.AddByte(Entry.NewModifier)
+                    _Packet.AddByte(Entry.OldModifier)
+                End If
             Next
             Packets.Enqueue(_Packet)
             If _AutoSend Then Send()

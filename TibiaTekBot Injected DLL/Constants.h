@@ -33,26 +33,29 @@ namespace Consts {
 	extern DWORD ptrNopFPS;
 }
 
-enum KeyboardState {
-	None =	0x0,
-	Alt =	0x1,
-	Shift =	0x2,
-	Ctrl =	0x4
+enum KeyboardModifier {
+	KMNone =	0x0,
+	KMAlt =		0x1,
+	KMShift =	0x2,
+	KMCtrl =	0x4
 };
 
-typedef struct KeyboardVKEntry {
-	int VirtualKeyOriginalCode;
-	int VirtualKeyNewCode;
-	KeyboardState State; //bit 0 = Alt, bit 1 = Shift, bit 2 = Ctrl
+enum KeyboardEntryKind { KEKNone, KEKPressKey };
+
+typedef struct KeyboardEntry {
+	KeyboardEntryKind Kind;
+	int NewVirtualKey;
+	int OldVirtualKey;
+	KeyboardModifier NewModifier;
+	KeyboardModifier OldModifier;
 } KeyboardVKEntry;
 
-extern int KeyboardVKEntriesCount;
-extern KeyboardVKEntry *KeyboardVKEntries;
+extern int KeyboardEntriesCount;
+extern KeyboardEntry *KeyboardEntries;
 
 extern bool KeyboardEnabled;
 extern bool KeyboardSayMode;
 
-/*  */
 /* DLL Injection Related Stuff */
 extern WNDPROC WndProc;
 extern HINSTANCE hMod;

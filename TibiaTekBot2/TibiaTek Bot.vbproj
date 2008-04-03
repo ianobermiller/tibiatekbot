@@ -461,6 +461,8 @@
     <None Include="Resources\LagBar.ico" />
     <None Include="Resources\keyboard.png" />
     <None Include="Resources\lagbar_interface.png" />
+    <None Include="Resources\lagbar_close.png" />
+    <None Include="Resources\lagbar_close.bmp" />
     <Content Include="Resources\ttb21.ico" />
     <Content Include="Resources\ttb21_16.ico" />
     <None Include="Resources\ttb.ico" />

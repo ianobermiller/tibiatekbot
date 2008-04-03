@@ -387,7 +387,9 @@ Public Module KernelModule
         Public FavoredWeaponShield As Integer = 0
 
 
-        Public ARisActive As Boolean = False
+        Public AutoResponderActivated As Boolean = False
+
+        Public KeyboardEntries As SortedList(Of String, IKernel.KeyboardEntry)
 #End Region
 
 #Region " Initialization"
@@ -403,13 +405,28 @@ Public Module KernelModule
                 Scripts = New List(Of ScriptDefinition)
                 CommandParser = New CommandParser()
                 HotkeySettings = New HotkeySettings()
+
                 BGWOpenCommand = New BackgroundWorker()
+                BGWOpenCommand.WorkerSupportsCancellation = True
+
                 BGWCharCommand = New BackgroundWorker()
+                BGWCharCommand.WorkerSupportsCancellation = True
+
                 BGWGuildMembersCommand = New BackgroundWorker()
+                BGWGuildMembersCommand.WorkerSupportsCancellation = True
+
                 BGWConnectIrc = New BackgroundWorker
+                BGWConnectIrc.WorkerSupportsCancellation = True
+
                 BGWUpdateChecker = New BackgroundWorker()
+                BGWUpdateChecker.WorkerSupportsCancellation = True
+
                 BGWMapViewer = New BackgroundWorker()
+                BGWMapViewer.WorkerSupportsCancellation = True
+
                 BGWSendLocation = New BackgroundWorker()
+                BGWSendLocation.WorkerSupportsCancellation = True
+
                 StatsTimerObj = New ThreadTimer(300)
                 LightTimerObj = New ThreadTimer(500)
                 ExpCheckerTimerObj = New ThreadTimer(1000)
@@ -457,6 +474,7 @@ Public Module KernelModule
                 AmmoMakerTimerObj = New ThreadTimer(1000)
                 RenameBackpackObj = New ThreadTimer(100)
                 FavoredWeapon = New List(Of WeaponFavoritDefinition)
+                KeyboardEntries = New SortedList(Of String, IKernel.KeyboardEntry)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -1636,7 +1654,7 @@ Public Module KernelModule
                 If HealTimerObj.Interval > Consts.HealersCheckInterval Then HealTimerObj.Interval = Consts.HealersCheckInterval
                 If HealMinimumHP = 0 OrElse HitPoints > HealMinimumHP Then Exit Sub
                 Dim Output As String = HealSpell.Words
-                If ManaPoints < Spells.GetSpellMana(HealSpell.Name) Then Exit Sub
+                If ManaPoints < Spells.GetSpellMana(HealSpell.Words) Then Exit Sub
                 If String.Compare(HealSpell.Name, "heal friend", True) = 0 Then
                     Dim BL As New BattleList
                     BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -4820,7 +4838,7 @@ ContinueAttack:
                         IsGreetingSent = True
                         CP.OpenChannel(ConsoleName, ConsoleChannelID)
                         'OpenChannel()
-                        GreetingTimerObj.StartTimer(1500)
+                        If GreetingTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then GreetingTimerObj.StartTimer(1500)
                         Client.MapTiles.RefreshMapBeginning()
                         MapReaderTimerObj.StartTimer()
                         If Consts.TTMessagesEnabled Then

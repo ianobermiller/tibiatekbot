@@ -26,7 +26,9 @@ Partial Class frmLagBar
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Label2 = New System.Windows.Forms.Label
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Timer1
@@ -54,15 +56,31 @@ Partial Class frmLagBar
         Me.PictureBox1.TabIndex = 6
         Me.PictureBox1.TabStop = False
         '
+        'PictureBox2
+        '
+        'Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
+        Dim img2 As System.Drawing.Bitmap = New System.Drawing.Bitmap(Global.TibiaTekBot.My.Resources.Resources.lagbar_close)
+        img2.MakeTransparent(Drawing.Color.Fuchsia)
+        Me.PictureBox2.Image = img2
+        Me.PictureBox2.Location = New System.Drawing.Point(84, 23)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(12, 12)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
+        Me.PictureBox2.TabIndex = 7
+        Me.PictureBox2.TabStop = False
+        '
         'frmLagBar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Magenta
-        Me.BackgroundImage = Global.TibiaTekBot.My.Resources.Resources.lagbar_interface
+        Me.BackColor = System.Drawing.Color.Fuchsia
+        Dim img As System.Drawing.Bitmap = New System.Drawing.Bitmap(Global.TibiaTekBot.My.Resources.Resources.lagbar_interface)
+        img.MakeTransparent(System.Drawing.Color.Fuchsia)
+        Me.BackgroundImage = img
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ClientSize = New System.Drawing.Size(98, 37)
         Me.ControlBox = False
+        Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -74,12 +92,15 @@ Partial Class frmLagBar
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.Text = "Lag Bar"
         Me.TopMost = True
-        Me.TransparencyKey = System.Drawing.Color.Magenta
+        Me.TransparencyKey = System.Drawing.Color.Fuchsia
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
 End Class

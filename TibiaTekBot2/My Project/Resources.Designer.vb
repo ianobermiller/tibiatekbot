@@ -179,9 +179,30 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property lagbar_close() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("lagbar_close", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property lagbar_close1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("lagbar_close1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property lagbar_interface() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("lagbar_interface", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property lagbar_interface1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("lagbar_interface1", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
