@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="us-ascii"?>
-<!--
-    Copyright (C) 2007 TibiaTek Development Team
-
+<!--    Copyright (C) 2007 TibiaTek Development Team
     This file is part of TibiaTek Bot.
 
     TibiaTek Bot is free software: you can redistribute it and/or modify
@@ -17,11 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
     or write to the Free Software Foundation, 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
--->
+    Boston, MA 02111-1307, USA.-->
 <Constants>
-  <Const Name="IRCConnectOnStartUp" Value="True" />
-  <Const Name="IRCJoinAfterConnected" Value="True" />
+  <Const Name="IRCConnectOnStartUp" Value="False" />
+  <Const Name="IRCJoinAfterConnected" Value="False" />
   <Const Name="IRCJoinChannels" Value="#tibiatekbot" />
   <Const Name="IRCNickname" Value="" />
   <Const Name="IRCPassword" Value="" />
@@ -91,7 +88,7 @@
   <Const Name="ptrAutoLoginPatch2" Value="H47A2B3" />
   <Const Name="ptrAutoLoginAccountString" Value="H76c2b4" />
   <Const Name="ptrAutoLoginPassword" Value="H76c294" />
-  <Const Name="ptrInGame" Value="H76c2c8" /> 
+  <Const Name="ptrInGame" Value="H76c2c8" />
   <Const Name="ptrScreenInfoBegin" Value="H76CE0C" />
   <Const Name="ptrEnterOneNamePerLine" Value="H598670" />
   <Const Name="ptrForYourInformation" Value="H599990" />
@@ -99,46 +96,46 @@
   <Const Name="ptrEncryptionKey" Value="H768C7C" />
   <Const Name="ptrRSAKey" Value="H597610" />
   <Const Name="RSAKeyOpenTibia" Value="109120132967399429278860960508995541528237502902798129123468757937266291492576446330739696001110603907230888610072655818825358503429057592827629436413108566029093628212635953836686562675849720620786279431090218017681061521755056710823876476444260558147179707119674283982419152118103759076030616683978566631413" />
-  <Const Name="ptrServerAddressBegin" Value="H763BB8" /> 
-  <Const Name="ptrServerPortBegin" Value="H763C1C" /> 
-  <Const Name="ServerAddressDist" Value="H70" /> 
-  <Const Name="ServerAddressCount" Value="HA" /> 
-  <Const Name="ptrCharacterID" Value="H613b70" /> 
-  <Const Name="ptrBattleListBegin" Value="H613bd0" /> 
+  <Const Name="ptrServerAddressBegin" Value="H763BB8" />
+  <Const Name="ptrServerPortBegin" Value="H763C1C" />
+  <Const Name="ServerAddressDist" Value="H70" />
+  <Const Name="ServerAddressCount" Value="HA" />
+  <Const Name="ptrCharacterID" Value="H613b70" />
+  <Const Name="ptrBattleListBegin" Value="H613bd0" />
   <Const Name="ptrFirstContainer" Value="H61C0D0" />
   <Const Name="ptrInventoryBegin" Value="H61c058" />
-  <Const Name="ptrLevel" Value="H613b60" /> 
-  <Const Name="ptrLevelPercent" Value="H613b58" />  
-  <Const Name="ptrMagicLevel" Value="H613b5c" /> 
-  <Const Name="ptrMagicLevelPercent" Value="H613b54" /> 
-  <Const Name="ptrExperience" Value="H613b64" /> 
-  <Const Name="ptrFollowedEntityID" Value="H613B38" /> 
-  <Const Name="ptrAttackedEntityID" Value="H613B3C" /> 
-  <Const Name="ptrLastAttackedEntityID" Value="H76DA10" /> 
-  <Const Name="ptrMaxHitPoints" Value="H613b68" /> 
-  <Const Name="ptrHitPoints" Value="H613b6c" /> 
-  <Const Name="ptrMaxManaPoints" Value="H613b4c" /> 
-  <Const Name="ptrManaPoints" Value="H613b50" /> 
-  <Const Name="ptrSoulPoints" Value="H613b48" /> 
-  <Const Name="ptrCapacity" Value="H613b40" /> 
-  <Const Name="ptrCoordX" Value="H61e9c8" /> 
-  <Const Name="ptrCoordY" Value="H61e9c4" /> 
-  <Const Name="ptrCoordZ" Value="H61e9c0" /> 
-  <Const Name="ptrSecureMode" Value="H76909C" /> 
-  <Const Name="ptrFightingMode" Value="H7690A4" /> 
-  <Const Name="ptrChasingMode" Value="H7690A0" /> 
-  <Const Name="ptrMapPointer" Value="H6234D8" /> 
-  <Const Name="ptrConditions" Value="H613AF8" /> 
-  <Const Name="ptrVipListBegin" Value="H611894" /> 
-  <Const Name="ptrSkillsBegin" Value="H613b18" /> 
-  <Const Name="ptrSkillsPercentBegin" Value="H613afc" /> 
-  <Const Name="ptrStamina" Value="H613b44" /> 
-  <Const Name="ptrGoToX" Value="H613BB4" /> 
-  <Const Name="ptrGoToY" Value="H613BB0" /> 
-  <Const Name="ptrGoToZ" Value="H613BAC" /> 
+  <Const Name="ptrLevel" Value="H613b60" />
+  <Const Name="ptrLevelPercent" Value="H613b58" />
+  <Const Name="ptrMagicLevel" Value="H613b5c" />
+  <Const Name="ptrMagicLevelPercent" Value="H613b54" />
+  <Const Name="ptrExperience" Value="H613b64" />
+  <Const Name="ptrFollowedEntityID" Value="H613B38" />
+  <Const Name="ptrAttackedEntityID" Value="H613B3C" />
+  <Const Name="ptrLastAttackedEntityID" Value="H76DA10" />
+  <Const Name="ptrMaxHitPoints" Value="H613b68" />
+  <Const Name="ptrHitPoints" Value="H613b6c" />
+  <Const Name="ptrMaxManaPoints" Value="H613b4c" />
+  <Const Name="ptrManaPoints" Value="H613b50" />
+  <Const Name="ptrSoulPoints" Value="H613b48" />
+  <Const Name="ptrCapacity" Value="H613b40" />
+  <Const Name="ptrCoordX" Value="H61e9c8" />
+  <Const Name="ptrCoordY" Value="H61e9c4" />
+  <Const Name="ptrCoordZ" Value="H61e9c0" />
+  <Const Name="ptrSecureMode" Value="H76909C" />
+  <Const Name="ptrFightingMode" Value="H7690A4" />
+  <Const Name="ptrChasingMode" Value="H7690A0" />
+  <Const Name="ptrMapPointer" Value="H6234D8" />
+  <Const Name="ptrConditions" Value="H613AF8" />
+  <Const Name="ptrVipListBegin" Value="H611894" />
+  <Const Name="ptrSkillsBegin" Value="H613b18" />
+  <Const Name="ptrSkillsPercentBegin" Value="H613afc" />
+  <Const Name="ptrStamina" Value="H613b44" />
+  <Const Name="ptrGoToX" Value="H613BB4" />
+  <Const Name="ptrGoToY" Value="H613BB0" />
+  <Const Name="ptrGoToZ" Value="H613BAC" />
   <Const Name="ptrHotkeyBegin" Value="H7690E8" />
-  <Const Name="ptrStatusMessage" Value="H76d928" /> 
-  <Const Name="ptrStatusMessageTimer" Value="H76d924" /> 
+  <Const Name="ptrStatusMessage" Value="H76d928" />
+  <Const Name="ptrStatusMessageTimer" Value="H76d924" />
   <Const Name="ptrCharacterListBegin" Value="H76C28C" />
   <Const Name="ptrWASDPopup" Value="H76C328" />
   <Const Name="CharacterListDist" Value="H54" />
@@ -204,24 +201,21 @@
   <Const Name="ScreenInfoDX9TopOffset" Value="H1D8" />
   <Const Name="ScreenInfoDX9RightOffset" Value="H1DC" />
   <Const Name="ScreenInfoDX9BottomOffset" Value="H1F0" />
-  
   <Const Name="ScreenInfoDX5WidthOffset" Value="HE8" />
   <Const Name="ScreenInfoDX5HeightOffset" Value="HEC" />
   <Const Name="ScreenInfoDX5LeftOffset" Value="H78" />
   <Const Name="ScreenInfoDX5TopOffset" Value="H7C" />
   <Const Name="ScreenInfoDX5RightOffset" Value="H80" />
   <Const Name="ScreenInfoDX5BottomOffset" Value="H84" />
-
   <Const Name="ScreenInfoOGLWidthOffset" Value="H7C" />
   <Const Name="ScreenInfoOGLHeightOffset" Value="H80" />
   <Const Name="ScreenInfoOGLLeftOffset" Value="H28" />
   <Const Name="ScreenInfoOGLTopOffset" Value="H2C" />
   <Const Name="ScreenInfoOGLRightOffset" Value="H30" />
-  <Const Name="ScreenInfoOGLBottomOffset" Value="H34" />  
-  
-  <Const Name="ptrNameSpy" Value="H4DF469" /> 
-  <Const Name="ptrNameSpy2" Value="H4DF473" /> 
-  <Const Name="NameSpyDefault" Value="H4A75" /> 
+  <Const Name="ScreenInfoOGLBottomOffset" Value="H34" />
+  <Const Name="ptrNameSpy" Value="H4DF469" />
+  <Const Name="ptrNameSpy2" Value="H4DF473" />
+  <Const Name="NameSpyDefault" Value="H4A75" />
   <Const Name="NameSpy2Default" Value="H4075" />
   <Const Name="LevelSpy1" Value="H4E115A" />
   <Const Name="LevelSpy2" Value="H4E125F" />
@@ -253,14 +247,13 @@
   <Const Name="ObjectAutoMapColorOffset" Value="H44" />
   <Const Name="ObjectLensHelpOffset" Value="H48" />
   <Const Name="ObjectDist" Value="H4C" />
-
   <Const Name="AutoLoginPatch" Value="90,90,90,90,90" />
   <Const Name="AutoLoginPatchOriginal" Value="E8,0D,1D,09,00" />
   <Const Name="AutoLoginPatch2" Value="90,90,90,90,90" />
   <Const Name="AutoLoginPatchOriginal2" Value="E8,C8,15,09,00" />
-  
   <Const Name="ptrPrintName" Value="H4E228A" />
   <Const Name="ptrPrintFPS" Value="H44E753" />
   <Const Name="ptrShowFPS" Value="H611874" />
   <Const Name="ptrPrintTextFunc" Value="H4A3C00" />
+  <Const Name="ptrNopFPS" Value="H44E68F" />
 </Constants>

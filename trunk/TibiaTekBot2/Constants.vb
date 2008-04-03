@@ -298,6 +298,7 @@ Public Module ConstantsModule
         Public ptrPrintFPS As Integer = &H44E753
         Public ptrShowFPS As Integer = &H611874
         Public ptrPrintTextFunc As Integer = &H4A3C00
+        Public ptrNopFPS As Integer = &H44E68F
 
         Public Sub New()
             LoadConstants()
@@ -806,6 +807,8 @@ Public Module ConstantsModule
                                                     ptrShowFPS = CInt(Value)
                                                 Case "ptrPrintTextFunc"
                                                     ptrPrintTextFunc = CInt(Value)
+                                                Case "ptrNopFPS"
+                                                    ptrNopFPS = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then

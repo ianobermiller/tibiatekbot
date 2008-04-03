@@ -2718,7 +2718,15 @@ Public Class frmMain
     End Sub
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        Kernel.Client.TestPipe()
+        Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+        Dim BL As New BattleList
+        BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+        Dim Loc As New ITibia.LocationDefinition
+        Loc.X = 0
+        Loc.Y = 10
+        Loc.Z = 0 'No need though
+        PPB.DisplayTextAboveCreature(BL.GetEntityID, Loc, &H55, &H55, &HFF, 1, "PWNS")
+        'Kernel.Client.TestPipe()
         'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)
         'If Not Img Is Nothing Then
         '    Img.Save("c:\test.png", Drawing.Imaging.ImageFormat.Png)
