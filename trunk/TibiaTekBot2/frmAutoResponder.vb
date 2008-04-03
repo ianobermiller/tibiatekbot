@@ -33,7 +33,7 @@ Public Class frmAutoResponder
     Public Sub AREnable()
         If DataGridView1.RowCount = 1 Then
             Kernel.ConsoleError("There's no Auto Responders. Please edit your AutoResponder. Go to TibiaTek Bot Main menu and select Auto Responder.")
-            Kernel.ARisActive = False
+            Kernel.AutoResponderActivated = False
             Exit Sub
         End If
         ActivateBtn.Text = "Desactivate"
@@ -134,7 +134,7 @@ Public Class frmAutoResponder
                 StatusLblHelp.Text = ""
                 Exit Sub
             End If
-            Kernel.ARisActive = True
+            Kernel.AutoResponderActivated = True
             AR_Activated = True
             ActivateBtn.Text = "Desactivate"
             LoadBtn.Enabled = False
@@ -150,7 +150,7 @@ Public Class frmAutoResponder
         Else
             ActivateBtn.Text = "Activate"
             AR_Activated = False
-            Kernel.ARisActive = False
+            Kernel.AutoResponderActivated = False
             LoadBtn.Enabled = True
             SaveBtn.Enabled = True
             ClearBtn.Enabled = True
@@ -723,7 +723,7 @@ Public Class frmAutoResponder
     End Sub
 
     Private Sub TimerChk_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TimerChk.Tick
-        If Kernel.ARisActive Then
+        If Kernel.AutoResponderActivated Then
             If ActivateBtn.Text = "Activate" Then
                 AREnable()
             End If

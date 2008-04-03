@@ -207,13 +207,13 @@ Partial Class frmMain
         Me.ConstantsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TibiadatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PatchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutUsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.WebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
         Me.TabPage10 = New System.Windows.Forms.TabPage
@@ -1507,11 +1507,6 @@ Partial Class frmMain
         Me.PatchToolStripMenuItem.Name = "PatchToolStripMenuItem"
         resources.ApplyResources(Me.PatchToolStripMenuItem, "PatchToolStripMenuItem")
         '
-        'TestToolStripMenuItem1
-        '
-        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
-        resources.ApplyResources(Me.TestToolStripMenuItem1, "TestToolStripMenuItem1")
-        '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutUsToolStripMenuItem, Me.WebsiteToolStripMenuItem, Me.VersionToolStripMenuItem, Me.DevelopmentWebsiteToolStripMenuItem, Me.LicenseToolStripMenuItem})
@@ -1542,6 +1537,11 @@ Partial Class frmMain
         '
         Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
         resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
+        '
+        'TestToolStripMenuItem1
+        '
+        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
+        resources.ApplyResources(Me.TestToolStripMenuItem1, "TestToolStripMenuItem1")
         '
         'TestToolStripMenuItem
         '

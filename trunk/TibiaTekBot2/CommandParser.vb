@@ -3419,10 +3419,10 @@ Public Class CommandParser
             Select Case StrToShort(Arguments(2).ToString)
                 Case 0
                     Kernel.ConsoleWrite("AutoResponer is now disabled.")
-                    Kernel.ARisActive = False
+                    Kernel.AutoResponderActivated = False
                 Case 1
                     Kernel.ConsoleWrite("AutoResponer is now enabled.")
-                    Kernel.ARisActive = True
+                    Kernel.AutoResponderActivated = True
                 Case Else
                     Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select

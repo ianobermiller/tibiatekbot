@@ -19,7 +19,7 @@
 
 Imports System.Windows, TibiaTekBot.PProxy2, System.Runtime.InteropServices, _
  System.ComponentModel, System.IO, System.Xml, System.Text.RegularExpressions, _
- System.Windows.Forms, Scripting
+ System.Windows.Forms, Scripting, System.Net.Sockets, System.Net
 
 Public Class frmMain
 
@@ -2725,8 +2725,9 @@ Public Class frmMain
         Loc.X = 0
         Loc.Y = 10
         Loc.Z = 0 'No need though
-        PPB.DisplayTextAboveCreature(BL.GetEntityID, Loc, &H55, &H55, &HFF, 1, "PWNS")
+        PPB.DisplayTextAboveCreature(Kernel.CharacterID, Loc, &H55, &H55, &HFF, 1, "PWNS")
         'Kernel.Client.TestPipe()
+
         'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)
         'If Not Img Is Nothing Then
         '    Img.Save("c:\test.png", Drawing.Imaging.ImageFormat.Png)

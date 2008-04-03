@@ -85,9 +85,11 @@ Public Class Spells
     Public Function GetSpellMana(ByVal Name As String) As UShort Implements ISpells.GetSpellMana
         Try
             For Each Spell As ISpells.SpellDefinition In SpellsList
-                If String.Compare(Name, Spell.Name, True) = 0 Then
+                If String.Equals(Name, Spell.Name, StringComparison.CurrentCultureIgnoreCase) OrElse _
+                   String.Equals(Name, Spell.Words, StringComparison.CurrentCultureIgnoreCase) Then
                     Return Spell.ManaPoints
                 End If
+
             Next
             Return 0
         Catch Ex As Exception

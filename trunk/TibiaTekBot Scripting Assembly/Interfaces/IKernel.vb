@@ -22,7 +22,7 @@ Imports System.Windows.Forms
 Public Interface IKernel
 
 #Region " Enumerations "
-    <Flags()> Enum KeyboardState
+    <Flags()> Enum KeyboardModifier
         None = 0
         Alt = 1
         Shift = 2
@@ -133,14 +133,21 @@ Public Interface IKernel
         SingleQuote
         Reserved = &HFF
     End Enum
+
+    Enum KeyboardEntryAction
+        None
+        PressKey
+    End Enum
 #End Region
 
 #Region " Structures "
-    Structure KeyboardVKEntry
+    Structure KeyboardEntry
+        Dim Action As KeyboardEntryAction
+        Dim NewVirtualKey As VirtualKey
+        Dim OldVirtualKey As VirtualKey
+        Dim NewModifier As KeyboardModifier
+        Dim OldModifier As KeyboardModifier
         Dim Name As String
-        Dim VirtualKeyOriginalCode As VirtualKey
-        Dim VirtualKeyNewCode As VirtualKey
-        Dim State As KeyboardState
     End Structure
 
 #End Region

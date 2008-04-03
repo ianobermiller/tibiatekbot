@@ -45,8 +45,3 @@ HANDLE PipeThread = 0;
 BYTE Buffer[1024] = {0};
 CRITICAL_SECTION PipeReadCriticalSection;
 
-int KeyboardVKEntriesCount = 0;
-KeyboardVKEntry *KeyboardVKEntries = NULL;
-
-bool KeyboardEnabled = false;
-bool KeyboardSayMode = false;

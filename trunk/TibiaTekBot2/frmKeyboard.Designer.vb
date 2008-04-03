@@ -108,28 +108,33 @@ Partial Class frmKeyboard
         Me.HKeyCtrl = New System.Windows.Forms.CheckBox
         Me.HKeyShift = New System.Windows.Forms.CheckBox
         Me.SelectedCombinationLabel = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.Button4 = New System.Windows.Forms.Button
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.ListBox1 = New System.Windows.Forms.ListBox
+        Me.KeyboardEntriesGrid = New System.Windows.Forms.DataGridView
+        Me.Add = New System.Windows.Forms.Button
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox
+        Me.PressKeyAlt = New System.Windows.Forms.CheckBox
+        Me.PressKeyCtrl = New System.Windows.Forms.CheckBox
+        Me.PressKeyShift = New System.Windows.Forms.CheckBox
         Me.WithSelectedNothing = New System.Windows.Forms.RadioButton
         Me.PressKeyKeyList = New System.Windows.Forms.ComboBox
         Me.WithSelectedPressKey = New System.Windows.Forms.RadioButton
         Me.KeyboardActivateButton = New System.Windows.Forms.RadioButton
+        Me.Button5 = New System.Windows.Forms.Button
+        Me.Button6 = New System.Windows.Forms.Button
+        Me.Key = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Control = New System.Windows.Forms.DataGridViewCheckBoxColumn
+        Me.Alt = New System.Windows.Forms.DataGridViewCheckBoxColumn
+        Me.Shift = New System.Windows.Forms.DataGridViewCheckBoxColumn
+        Me.Action = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.MainKeys.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        CType(Me.KeyboardEntriesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -1311,26 +1316,6 @@ Partial Class frmKeyboard
         Me.SelectedCombinationLabel.TabIndex = 0
         Me.SelectedCombinationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Button1
-        '
-        Me.Button1.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Button1.Location = New System.Drawing.Point(520, 365)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 54
-        Me.Button1.Text = "OK"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Button2.Location = New System.Drawing.Point(601, 365)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 55
-        Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.MainKeys)
@@ -1365,86 +1350,88 @@ Partial Class frmKeyboard
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.Button4)
-        Me.GroupBox4.Controls.Add(Me.Button3)
-        Me.GroupBox4.Controls.Add(Me.ListBox1)
-        Me.GroupBox4.Location = New System.Drawing.Point(388, 220)
+        Me.GroupBox4.Controls.Add(Me.KeyboardEntriesGrid)
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 281)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(288, 139)
+        Me.GroupBox4.Size = New System.Drawing.Size(370, 142)
         Me.GroupBox4.TabIndex = 59
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Saved Combinations"
         '
-        'Button4
+        'KeyboardEntriesGrid
         '
-        Me.Button4.Location = New System.Drawing.Point(6, 17)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(29, 23)
-        Me.Button4.TabIndex = 2
-        Me.Button4.Text = ">"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.KeyboardEntriesGrid.AllowUserToAddRows = False
+        Me.KeyboardEntriesGrid.AllowUserToDeleteRows = False
+        Me.KeyboardEntriesGrid.AllowUserToResizeColumns = False
+        Me.KeyboardEntriesGrid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.KeyboardEntriesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.KeyboardEntriesGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Key, Me.Control, Me.Alt, Me.Shift, Me.Action})
+        Me.KeyboardEntriesGrid.Location = New System.Drawing.Point(6, 19)
+        Me.KeyboardEntriesGrid.MultiSelect = False
+        Me.KeyboardEntriesGrid.Name = "KeyboardEntriesGrid"
+        Me.KeyboardEntriesGrid.ReadOnly = True
+        Me.KeyboardEntriesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.KeyboardEntriesGrid.ShowCellErrors = False
+        Me.KeyboardEntriesGrid.ShowCellToolTips = False
+        Me.KeyboardEntriesGrid.ShowEditingIcon = False
+        Me.KeyboardEntriesGrid.ShowRowErrors = False
+        Me.KeyboardEntriesGrid.Size = New System.Drawing.Size(358, 117)
+        Me.KeyboardEntriesGrid.TabIndex = 0
         '
-        'Button3
+        'Add
         '
-        Me.Button3.Location = New System.Drawing.Point(6, 104)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(29, 23)
-        Me.Button3.TabIndex = 1
-        Me.Button3.Text = "<"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'ListBox1
-        '
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.Location = New System.Drawing.Point(41, 19)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(241, 108)
-        Me.ListBox1.TabIndex = 0
+        Me.Add.Location = New System.Drawing.Point(11, 145)
+        Me.Add.Name = "Add"
+        Me.Add.Size = New System.Drawing.Size(61, 23)
+        Me.Add.TabIndex = 2
+        Me.Add.Text = "Add"
+        Me.Add.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
-        Me.GroupBox5.Controls.Add(Me.CheckBox3)
-        Me.GroupBox5.Controls.Add(Me.CheckBox2)
-        Me.GroupBox5.Controls.Add(Me.CheckBox1)
+        Me.GroupBox5.Controls.Add(Me.PressKeyAlt)
+        Me.GroupBox5.Controls.Add(Me.Add)
+        Me.GroupBox5.Controls.Add(Me.PressKeyCtrl)
+        Me.GroupBox5.Controls.Add(Me.PressKeyShift)
         Me.GroupBox5.Controls.Add(Me.WithSelectedNothing)
         Me.GroupBox5.Controls.Add(Me.PressKeyKeyList)
         Me.GroupBox5.Controls.Add(Me.WithSelectedPressKey)
-        Me.GroupBox5.Location = New System.Drawing.Point(12, 281)
+        Me.GroupBox5.Location = New System.Drawing.Point(388, 220)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(370, 107)
+        Me.GroupBox5.Size = New System.Drawing.Size(288, 174)
         Me.GroupBox5.TabIndex = 60
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "With Selected Combination"
         '
-        'CheckBox3
+        'PressKeyAlt
         '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(275, 45)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(38, 17)
-        Me.CheckBox3.TabIndex = 5
-        Me.CheckBox3.Text = "Alt"
-        Me.CheckBox3.UseVisualStyleBackColor = True
+        Me.PressKeyAlt.AutoSize = True
+        Me.PressKeyAlt.Location = New System.Drawing.Point(137, 70)
+        Me.PressKeyAlt.Name = "PressKeyAlt"
+        Me.PressKeyAlt.Size = New System.Drawing.Size(38, 17)
+        Me.PressKeyAlt.TabIndex = 5
+        Me.PressKeyAlt.Text = "Alt"
+        Me.PressKeyAlt.UseVisualStyleBackColor = True
         '
-        'CheckBox2
+        'PressKeyCtrl
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(178, 45)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(41, 17)
-        Me.CheckBox2.TabIndex = 4
-        Me.CheckBox2.Text = "Ctrl"
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.PressKeyCtrl.AutoSize = True
+        Me.PressKeyCtrl.Location = New System.Drawing.Point(181, 70)
+        Me.PressKeyCtrl.Name = "PressKeyCtrl"
+        Me.PressKeyCtrl.Size = New System.Drawing.Size(41, 17)
+        Me.PressKeyCtrl.TabIndex = 4
+        Me.PressKeyCtrl.Text = "Ctrl"
+        Me.PressKeyCtrl.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'PressKeyShift
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(222, 45)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(47, 17)
-        Me.CheckBox1.TabIndex = 3
-        Me.CheckBox1.Text = "Shift"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.PressKeyShift.AutoSize = True
+        Me.PressKeyShift.Location = New System.Drawing.Point(84, 70)
+        Me.PressKeyShift.Name = "PressKeyShift"
+        Me.PressKeyShift.Size = New System.Drawing.Size(47, 17)
+        Me.PressKeyShift.TabIndex = 3
+        Me.PressKeyShift.Text = "Shift"
+        Me.PressKeyShift.UseVisualStyleBackColor = True
         '
         'WithSelectedNothing
         '
@@ -1463,7 +1450,7 @@ Partial Class frmKeyboard
         Me.PressKeyKeyList.FormattingEnabled = True
         Me.PressKeyKeyList.Location = New System.Drawing.Point(84, 43)
         Me.PressKeyKeyList.Name = "PressKeyKeyList"
-        Me.PressKeyKeyList.Size = New System.Drawing.Size(88, 21)
+        Me.PressKeyKeyList.Size = New System.Drawing.Size(70, 21)
         Me.PressKeyKeyList.TabIndex = 1
         '
         'WithSelectedPressKey
@@ -1480,30 +1467,81 @@ Partial Class frmKeyboard
         'KeyboardActivateButton
         '
         Me.KeyboardActivateButton.Appearance = System.Windows.Forms.Appearance.Button
-        Me.KeyboardActivateButton.Location = New System.Drawing.Point(388, 365)
+        Me.KeyboardActivateButton.Location = New System.Drawing.Point(616, 399)
         Me.KeyboardActivateButton.Name = "KeyboardActivateButton"
-        Me.KeyboardActivateButton.Size = New System.Drawing.Size(88, 24)
+        Me.KeyboardActivateButton.Size = New System.Drawing.Size(60, 24)
         Me.KeyboardActivateButton.TabIndex = 61
         Me.KeyboardActivateButton.TabStop = True
         Me.KeyboardActivateButton.Text = "Activate"
         Me.KeyboardActivateButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.KeyboardActivateButton.UseVisualStyleBackColor = True
         '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(450, 400)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(56, 23)
+        Me.Button5.TabIndex = 62
+        Me.Button5.Text = "Load"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(388, 400)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(56, 23)
+        Me.Button6.TabIndex = 63
+        Me.Button6.Text = "Save"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Key
+        '
+        Me.Key.HeaderText = "Key"
+        Me.Key.Name = "Key"
+        Me.Key.ReadOnly = True
+        Me.Key.Width = 48
+        '
+        'Control
+        '
+        Me.Control.HeaderText = "Control"
+        Me.Control.Name = "Control"
+        Me.Control.ReadOnly = True
+        Me.Control.Width = 44
+        '
+        'Alt
+        '
+        Me.Alt.HeaderText = "Alt"
+        Me.Alt.Name = "Alt"
+        Me.Alt.ReadOnly = True
+        Me.Alt.Width = 23
+        '
+        'Shift
+        '
+        Me.Shift.HeaderText = "Shift"
+        Me.Shift.Name = "Shift"
+        Me.Shift.ReadOnly = True
+        Me.Shift.Width = 32
+        '
+        'Action
+        '
+        Me.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Action.HeaderText = "Action"
+        Me.Action.Name = "Action"
+        Me.Action.ReadOnly = True
+        '
         'frmKeyboard
         '
-        Me.AcceptButton = Me.Button1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.Button2
-        Me.ClientSize = New System.Drawing.Size(688, 400)
+        Me.ClientSize = New System.Drawing.Size(688, 435)
+        Me.Controls.Add(Me.Button6)
+        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.KeyboardActivateButton)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -1517,6 +1555,7 @@ Partial Class frmKeyboard
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
+        CType(Me.KeyboardEntriesGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
@@ -1589,8 +1628,6 @@ Partial Class frmKeyboard
     Friend WithEvents HKeyNP7 As System.Windows.Forms.RadioButton
     Friend WithEvents HKeyTick As System.Windows.Forms.RadioButton
     Friend WithEvents HKeyBSlsh As System.Windows.Forms.RadioButton
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents HKeyF12 As System.Windows.Forms.RadioButton
     Friend WithEvents HKeyF11 As System.Windows.Forms.RadioButton
     Friend WithEvents HKeyF10 As System.Windows.Forms.RadioButton
@@ -1611,9 +1648,7 @@ Partial Class frmKeyboard
     Friend WithEvents PressKeyKeyList As System.Windows.Forms.ComboBox
     Friend WithEvents WithSelectedPressKey As System.Windows.Forms.RadioButton
     Friend WithEvents WithSelectedNothing As System.Windows.Forms.RadioButton
-    Friend WithEvents ListBox1 As System.Windows.Forms.ListBox
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents Add As System.Windows.Forms.Button
     Friend WithEvents HKeyNP0 As System.Windows.Forms.RadioButton
     Friend WithEvents HKeyNPDivide As System.Windows.Forms.RadioButton
     Friend WithEvents HKeyNPAdd As System.Windows.Forms.RadioButton
@@ -1621,7 +1656,15 @@ Partial Class frmKeyboard
     Friend WithEvents HKeyNPMultiply As System.Windows.Forms.RadioButton
     Friend WithEvents HKeyNPDecimal As System.Windows.Forms.RadioButton
     Friend WithEvents KeyboardActivateButton As System.Windows.Forms.RadioButton
-    Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents PressKeyAlt As System.Windows.Forms.CheckBox
+    Friend WithEvents PressKeyCtrl As System.Windows.Forms.CheckBox
+    Friend WithEvents PressKeyShift As System.Windows.Forms.CheckBox
+    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents KeyboardEntriesGrid As System.Windows.Forms.DataGridView
+    Friend WithEvents Key As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Control As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents Alt As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents Shift As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents Action As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
