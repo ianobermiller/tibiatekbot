@@ -4691,7 +4691,7 @@ ContinueAttack:
                 'BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                 If Consts.DebugOnLog Then Log("FromClient", BytesToStr(bytBuffer))
 
-                ConsoleRead(BytesToStr(bytBuffer))
+                'ConsoleRead(BytesToStr(bytBuffer))
 
                 Dim ID As UShort = GetByte(bytBuffer, Pos)
                 Select Case ID

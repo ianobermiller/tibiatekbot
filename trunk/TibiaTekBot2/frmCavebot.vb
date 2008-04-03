@@ -158,11 +158,26 @@ Public Class frmCavebot
                         Exit Sub
                     End If
                     Character.Info = Info
+                Case Walker.WaypointType.Turn
+                    Character.Type = Walker.WaypointType.Turn
+                    WpType = "T"
+                    If dUp.Checked = True Then
+                        Info = Walker.Directions.Up
+                    ElseIf dLeft.Checked = True Then
+                        Info = Walker.Directions.Left
+                    ElseIf dDown.Checked = True Then
+                        Info = Walker.Directions.Down
+                    ElseIf dRight.Checked = True Then
+                        Info = Walker.Directions.Right
+                    Else
+                        Beep()
+                        Exit Sub
+                    End If
+                    Character.Info = Info
                 Case Else 'shouldnt happen but just in case o.o
                     Beep()
                     Exit Sub
             End Select
-
 
             Kernel.Walker_Waypoints.Add(Character)
             If Character.Type = Walker.WaypointType.Wait Then
@@ -194,6 +209,10 @@ Public Class frmCavebot
                     Waitbox.Visible = True
                     Direction.Visible = False
                     Infobox.Visible = False
+                Case Walker.WaypointType.Turn
+                    Direction.Visible = True
+                    Infobox.Visible = False
+                    Waitbox.Visible = False
                 Case Else
                     Direction.Visible = False
                     Infobox.Visible = False
