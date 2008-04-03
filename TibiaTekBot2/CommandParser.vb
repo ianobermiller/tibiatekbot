@@ -837,7 +837,7 @@ Public Class CommandParser
                     "Note: Uses same delays as auto healer.")
                 Case "cavebot"
                     Kernel.ConsoleWrite("«Cavebot»" & Ret & _
-                    "Usage: &cavebot <on | off | continue | load ""Waypoint file"" | add <walk | rope | ladder | sewer> <hole | stairs | shovel <up | down | left | right>>" & Ret & _
+                    "Usage: &cavebot <on | off | continue | load ""Waypoint file"" | add <walk | rope | ladder | sewer> <hole | stairs | shovel | turn <up | down | left | right>>" & Ret & _
                     "Example: &cavebot on." & Ret & _
                     "Example: &cavebot add stairs up." & Ret & _
                     "Comment: " & Ret & _
@@ -2634,6 +2634,7 @@ Public Class CommandParser
                     'Core.Proxy.SendPacketToServer(ChangeChasingMode(ChasingMode.Chasing))
                     Kernel.ConsoleWrite("Cavebot is now Enabled.")
                     Kernel.CBState = CavebotState.Walking
+
                 Case Else 'ADD or Continue
                     If Arguments(2).ToString.ToLower = "continue" Then
                         If Kernel.Walker_Waypoints.Count = 0 Then
@@ -2663,7 +2664,7 @@ Public Class CommandParser
                         Kernel.CBState = CavebotState.Walking
                         Exit Sub
                     End If
-                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|se)", RegexOptions.IgnoreCase)
+                    Dim MatchObj As Match = Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w$|l$|r$|se$)", RegexOptions.IgnoreCase)
                     If MatchObj.Success Then
                         Dim BL As New BattleList
                         Dim Character As New Walker
@@ -2677,6 +2678,7 @@ Public Class CommandParser
                                 Character.Type = Walker.WaypointType.Walk
                                 WPType = "W"
                                 Kernel.ConsoleWrite("Walking waypoint added.")
+
                             Case "ladder", "l"
                                 Character.Type = Walker.WaypointType.Ladder
                                 WPType = "L"
@@ -2696,30 +2698,51 @@ Public Class CommandParser
 
                         Kernel.Walker_Waypoints.Add(Character)
                     Else
-                        MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
+                        MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(turn|hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
                         If MatchObj.Success Then
                             Dim BL As New BattleList
                             Dim Character As New Walker
                             Dim WPType As String
                             BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                             Character.Coordinates = BL.GetLocation
-                            If Walker.CheckDistance = False Then Exit Sub
 
-                            Character.Type = Walker.WaypointType.StairsOrHole
-                            WPType = "S/H"
-                            Select Case MatchObj.Groups(2).ToString
-                                Case "up", "north"
-                                    Character.Coordinates.Y -= 1
-                                Case "left", "west"
-                                    Character.Coordinates.X -= 1
-                                Case "down", "south"
-                                    Character.Coordinates.Y += 1
-                                Case "right", "east"
-                                    Character.Coordinates.X += 1
-                                Case Else
-                                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                    Exit Sub
+                            Select Case MatchObj.Groups(1).ToString
+                                Case "hole", "stairs"
+                                    If Walker.CheckDistance = False Then Exit Sub
+                                    Character.Type = Walker.WaypointType.StairsOrHole
+                                    WPType = "S/H"
+                                    Select Case MatchObj.Groups(2).ToString
+                                        Case "up", "north"
+                                            Character.Coordinates.Y -= 1
+                                        Case "left", "west"
+                                            Character.Coordinates.X -= 1
+                                        Case "down", "south"
+                                            Character.Coordinates.Y += 1
+                                        Case "right", "east"
+                                            Character.Coordinates.X += 1
+                                        Case Else
+                                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                            Exit Sub
+                                    End Select
+                                Case "turn"
+                                    Character.Type = Walker.WaypointType.Turn
+                                    WPType = "T"
+                                    Select Case MatchObj.Groups(2).ToString
+                                        Case "up", "north"
+                                            Character.Info = Walker.Directions.Up
+                                        Case "left", "west"
+                                            Character.Info = Walker.Directions.Left
+                                        Case "down", "south"
+                                            Character.Info = Walker.Directions.Down
+                                        Case "right", "east"
+                                            Character.Info = Walker.Directions.Right
+                                        Case Else
+                                            Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                            Exit Sub
+                                    End Select
                             End Select
+
+
 
                             Kernel.Walker_Waypoints.Add(Character)
                             Kernel.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")
@@ -2854,7 +2877,7 @@ Public Class CommandParser
                         Kernel.WalkerLoop = True
                         Kernel.ConsoleWrite("Walker On With Continue Mode")
                     Else
-                        MatchObj = (Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w|l|r|se)", RegexOptions.IgnoreCase))
+                        MatchObj = (Regex.Match(Arguments(2).ToString, "add\s+(walk|ladder|rope|sewer|w$|l$|r$|se$)", RegexOptions.IgnoreCase))
                         If MatchObj.Success Then
                             Dim BL As New BattleList
                             Dim Character As New Walker
@@ -2887,30 +2910,50 @@ Public Class CommandParser
 
                             Kernel.Walker_Waypoints.Add(Character)
                         Else
-                            MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs*)\s+(up|down|left|right|north|south|east|west)")
+                            MatchObj = Regex.Match(Arguments(2).ToString, "add\s+(hole|stairs|turn*)\s+(up|down|left|right|north|south|east|west)")
                             If MatchObj.Success Then
                                 Dim BL As New BattleList
                                 Dim Character As New Walker
                                 Dim WPType As String
                                 BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
                                 Character.Coordinates = BL.GetLocation
-                                If Walker.CheckDistance = False Then Exit Sub
 
-                                Character.Type = Walker.WaypointType.StairsOrHole
-                                WPType = "S/H"
-                                Select Case MatchObj.Groups(2).ToString
-                                    Case "up", "north"
-                                        Character.Coordinates.Y -= 1
-                                    Case "left", "west"
-                                        Character.Coordinates.X -= 1
-                                    Case "down", "south"
-                                        Character.Coordinates.Y += 1
-                                    Case "right", "east"
-                                        Character.Coordinates.X += 1
-                                    Case Else
-                                        Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
-                                        Exit Sub
+                                Select Case MatchObj.Groups(1).ToString
+                                    Case "hole", "stairs"
+                                        If Walker.CheckDistance = False Then Exit Sub
+                                        Character.Type = Walker.WaypointType.StairsOrHole
+                                        WPType = "S/H"
+                                        Select Case MatchObj.Groups(2).ToString
+                                            Case "up", "north"
+                                                Character.Coordinates.Y -= 1
+                                            Case "left", "west"
+                                                Character.Coordinates.X -= 1
+                                            Case "down", "south"
+                                                Character.Coordinates.Y += 1
+                                            Case "right", "east"
+                                                Character.Coordinates.X += 1
+                                            Case Else
+                                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                                Exit Sub
+                                        End Select
+                                    Case "turn"
+                                        Character.Type = Walker.WaypointType.Turn
+                                        WPType = "T"
+                                        Select Case MatchObj.Groups(2).ToString
+                                            Case "up", "north"
+                                                Character.Info = Walker.Directions.Up
+                                            Case "left", "west"
+                                                Character.Info = Walker.Directions.Left
+                                            Case "down", "south"
+                                                Character.Info = Walker.Directions.Down
+                                            Case "right", "east"
+                                                Character.Info = Walker.Directions.Right
+                                            Case Else
+                                                Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
+                                                Exit Sub
+                                        End Select
                                 End Select
+
 
                                 Kernel.Walker_Waypoints.Add(Character)
                                 Kernel.ConsoleWrite(MatchObj.Groups(1).ToString & " waypoint added to direction " & MatchObj.Groups(2).ToString & ".")

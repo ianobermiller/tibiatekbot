@@ -36,6 +36,7 @@ Public Module WalkerModule
             Wait = 5
             Sewer = 6
             Shovel = 7
+            Turn = 8
         End Enum
 
         Public Enum Directions
@@ -312,6 +313,33 @@ Public Module WalkerModule
                                 End If
                             End If
                         End If
+                    Case WaypointType.Turn
+                        If Kernel.CharacterLoc.X = Coordinates.X AndAlso Kernel.CharacterLoc.Y = Coordinates.Y AndAlso Kernel.CharacterLoc.Z = Coordinates.Z Then
+                            Dim ServerPacket As New ServerPacketBuilder(Kernel.Proxy)
+                            Select Case CType(Info, Directions)
+                                Case Directions.Down
+                                    ServerPacket.CharacterTurn(IBattlelist.Directions.Down)
+                                Case Directions.Up
+                                    ServerPacket.CharacterTurn(IBattlelist.Directions.Up)
+                                Case Directions.Left
+                                    ServerPacket.CharacterTurn(IBattlelist.Directions.Left)
+                                Case Directions.Right
+                                    ServerPacket.CharacterTurn(IBattlelist.Directions.Right)
+                            End Select
+                            ServerPacket.Send()
+                            System.Threading.Thread.Sleep(1000)
+                            IsReady = True
+                            Return True
+                        Else
+                            If BL.IsWalking = False Then
+                                Kernel.Client.WriteMemory(Consts.ptrGoToX, Coordinates.X, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToY, Coordinates.Y, 2)
+                                Kernel.Client.WriteMemory(Consts.ptrGoToZ, Coordinates.Z, 1)
+                                BL.IsWalking = True
+                                IsReady = False
+                                Return False
+                            End If
+                        End If
                 End Select
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -483,15 +511,15 @@ Public Module WalkerModule
                         WPType = "SE"
                     Case Walker.WaypointType.Shovel
                         WPType = "SH"
+                    Case Walker.WaypointType.Turn
+                        WPType = "T"
                     Case Else
                         WPType = "NotFound"
                 End Select
 
                 If Character.Type = Walker.WaypointType.Wait Then
                     Kernel.CavebotForm.Waypointslst.Items.Add(WPType & ": Wait: " & Character.Info)
-
                 Else
-
                     Kernel.CavebotForm.Waypointslst.Items.Add(WPType & ":" & Character.Coordinates.X _
             & ":" & Character.Coordinates.Y _
             & ":" & Character.Coordinates.Z & " " & Character.Info)

@@ -116,7 +116,7 @@ Partial Class frmCavebot
         '
         Me.Typecmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Typecmb.FormattingEnabled = True
-        Me.Typecmb.Items.AddRange(New Object() {"Walk", "Stairs/Hole", "Rope", "Ladder", "Say", "Wait", "Sewer", "Shovel"})
+        Me.Typecmb.Items.AddRange(New Object() {"Walk", "Stairs/Hole", "Rope", "Ladder", "Say", "Wait", "Sewer", "Shovel", "Turn"})
         Me.Typecmb.Location = New System.Drawing.Point(9, 32)
         Me.Typecmb.Name = "Typecmb"
         Me.Typecmb.Size = New System.Drawing.Size(131, 21)
@@ -368,7 +368,7 @@ Partial Class frmCavebot
         Me.EatFromCorpses.AutoSize = True
         Me.EatFromCorpses.Location = New System.Drawing.Point(6, 19)
         Me.EatFromCorpses.Name = "EatFromCorpses"
-        Me.EatFromCorpses.Size = New System.Drawing.Size(109, 17)
+        Me.EatFromCorpses.Size = New System.Drawing.Size(107, 17)
         Me.EatFromCorpses.TabIndex = 3
         Me.EatFromCorpses.Text = "Eat From Corpses"
         Me.EatFromCorpses.UseVisualStyleBackColor = True
@@ -396,7 +396,7 @@ Partial Class frmCavebot
         Me.LootFromCorpses.AutoSize = True
         Me.LootFromCorpses.Location = New System.Drawing.Point(6, 43)
         Me.LootFromCorpses.Name = "LootFromCorpses"
-        Me.LootFromCorpses.Size = New System.Drawing.Size(114, 17)
+        Me.LootFromCorpses.Size = New System.Drawing.Size(112, 17)
         Me.LootFromCorpses.TabIndex = 0
         Me.LootFromCorpses.Text = "Loot From Corpses"
         Me.LootFromCorpses.UseVisualStyleBackColor = True
