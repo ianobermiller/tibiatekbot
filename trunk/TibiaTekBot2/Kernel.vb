@@ -3052,7 +3052,7 @@ ContinueAttack:
 
                 ConsoleWrite("Welcome " & Client.CharacterName & "!" & Ret & _
                 "Don't forget to visit us at: www.tibiatek.com." & Ret & _
-                "Please report any bug you may found!" & Ret & _
+                "Please report any bug you may find!" & Ret & _
                 "For a list of available commands type: &help.")
 
                 Dim Reader As IO.StreamReader
