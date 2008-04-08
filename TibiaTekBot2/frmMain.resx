@@ -1305,12 +1305,6 @@
   <data name="AboutToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;About</value>
   </data>
-  <data name="TestToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 20</value>
-  </data>
-  <data name="TestToolStripMenuItem1.Text" xml:space="preserve">
-    <value>&amp;Test</value>
-  </data>
   <data name="MenuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -7885,6 +7879,434 @@
   <data name="&gt;&gt;TabPage6.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="RichTextBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 67</value>
+  </data>
+  <data name="RichTextBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 228</value>
+  </data>
+  <data name="RichTextBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="RichTextBox1.Text" xml:space="preserve">
+    <value>How to setup Irc Location
+
+1. Choose a channel to use
+
+2. Write the names of all characters that will be involved
+
+3. Press Activate Broadcaster to start broadcast your location
+
+4. Press Show Map to view your and your friend location and information</value>
+  </data>
+  <data name="&gt;&gt;RichTextBox1.Name" xml:space="preserve">
+    <value>RichTextBox1</value>
+  </data>
+  <data name="&gt;&gt;RichTextBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RichTextBox1.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;RichTextBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="frmILMapShowButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="frmILMapShowButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>297, 41</value>
+  </data>
+  <data name="frmILMapShowButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="frmILMapShowButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="frmILMapShowButton.Text" xml:space="preserve">
+    <value>Show Map</value>
+  </data>
+  <data name="&gt;&gt;frmILMapShowButton.Name" xml:space="preserve">
+    <value>frmILMapShowButton</value>
+  </data>
+  <data name="&gt;&gt;frmILMapShowButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;frmILMapShowButton.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;frmILMapShowButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Button6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 41</value>
+  </data>
+  <data name="Button6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="Button6.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="Button6.Text" xml:space="preserve">
+    <value>Join IRC</value>
+  </data>
+  <data name="&gt;&gt;Button6.Name" xml:space="preserve">
+    <value>Button6</value>
+  </data>
+  <data name="&gt;&gt;Button6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Button6.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;Button6.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ILPlayer9Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 275</value>
+  </data>
+  <data name="ILPlayer9Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer9Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer9Namebox.Name" xml:space="preserve">
+    <value>ILPlayer9Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer9Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer9Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer9Namebox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ILPlayer1Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 67</value>
+  </data>
+  <data name="ILPlayer1Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer1Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="ILPlayer1Namebox.Text" xml:space="preserve">
+    <value>You</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer1Namebox.Name" xml:space="preserve">
+    <value>ILPlayer1Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer1Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer1Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer1Namebox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="ILActivateButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 14</value>
+  </data>
+  <data name="ILActivateButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 25</value>
+  </data>
+  <data name="ILActivateButton.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="ILActivateButton.Text" xml:space="preserve">
+    <value>Activate Broadcaster</value>
+  </data>
+  <data name="&gt;&gt;ILActivateButton.Name" xml:space="preserve">
+    <value>ILActivateButton</value>
+  </data>
+  <data name="&gt;&gt;ILActivateButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILActivateButton.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILActivateButton.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="ILPlayer8Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 249</value>
+  </data>
+  <data name="ILPlayer8Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer8Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer8Namebox.Name" xml:space="preserve">
+    <value>ILPlayer8Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer8Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer8Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer8Namebox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="ILPlayer7Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 223</value>
+  </data>
+  <data name="ILPlayer7Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer7Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer7Namebox.Name" xml:space="preserve">
+    <value>ILPlayer7Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer7Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer7Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer7Namebox.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="ILChannelTextbox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 18</value>
+  </data>
+  <data name="ILChannelTextbox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 20</value>
+  </data>
+  <data name="ILChannelTextbox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="ILChannelTextbox.Text" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="&gt;&gt;ILChannelTextbox.Name" xml:space="preserve">
+    <value>ILChannelTextbox</value>
+  </data>
+  <data name="&gt;&gt;ILChannelTextbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILChannelTextbox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILChannelTextbox.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Label33.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label33.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 21</value>
+  </data>
+  <data name="Label33.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 13</value>
+  </data>
+  <data name="Label33.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="Label33.Text" xml:space="preserve">
+    <value>Channel to use:</value>
+  </data>
+  <data name="&gt;&gt;Label33.Name" xml:space="preserve">
+    <value>Label33</value>
+  </data>
+  <data name="&gt;&gt;Label33.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label33.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;Label33.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="ILPlayer6Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 197</value>
+  </data>
+  <data name="ILPlayer6Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer6Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer6Namebox.Name" xml:space="preserve">
+    <value>ILPlayer6Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer6Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer6Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer6Namebox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="Label35.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label35.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 51</value>
+  </data>
+  <data name="Label35.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 13</value>
+  </data>
+  <data name="Label35.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="Label35.Text" xml:space="preserve">
+    <value>Name of players:</value>
+  </data>
+  <data name="&gt;&gt;Label35.Name" xml:space="preserve">
+    <value>Label35</value>
+  </data>
+  <data name="&gt;&gt;Label35.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label35.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;Label35.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="ILPlayer5Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 171</value>
+  </data>
+  <data name="ILPlayer5Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer5Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer5Namebox.Name" xml:space="preserve">
+    <value>ILPlayer5Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer5Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer5Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer5Namebox.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="ILPlayer4Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 145</value>
+  </data>
+  <data name="ILPlayer4Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer4Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer4Namebox.Name" xml:space="preserve">
+    <value>ILPlayer4Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer4Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer4Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer4Namebox.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="ILPlayer2Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 93</value>
+  </data>
+  <data name="ILPlayer2Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer2Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer2Namebox.Name" xml:space="preserve">
+    <value>ILPlayer2Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer2Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer2Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer2Namebox.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="ILPlayer3Namebox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 119</value>
+  </data>
+  <data name="ILPlayer3Namebox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 20</value>
+  </data>
+  <data name="ILPlayer3Namebox.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer3Namebox.Name" xml:space="preserve">
+    <value>ILPlayer3Namebox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer3Namebox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer3Namebox.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILPlayer3Namebox.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="ILSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 8</value>
+  </data>
+  <data name="ILSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>393, 325</value>
+  </data>
+  <data name="ILSettingsBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ILSettingsBox.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="&gt;&gt;ILSettingsBox.Name" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;ILSettingsBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ILSettingsBox.Parent" xml:space="preserve">
+    <value>TabPage8</value>
+  </data>
+  <data name="&gt;&gt;ILSettingsBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabPage8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage8.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="TabPage8.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="TabPage8.Text" xml:space="preserve">
+    <value>Irc Loc</value>
+  </data>
+  <data name="&gt;&gt;TabPage8.Name" xml:space="preserve">
+    <value>TabPage8</value>
+  </data>
+  <data name="&gt;&gt;TabPage8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage8.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage8.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
   <data name="MainTabControl.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -10148,12 +10570,6 @@
     <value>LicenseToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;LicenseToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TestToolStripMenuItem1.Name" xml:space="preserve">
-    <value>TestToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;TestToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TestToolStripMenuItem.Name" xml:space="preserve">
