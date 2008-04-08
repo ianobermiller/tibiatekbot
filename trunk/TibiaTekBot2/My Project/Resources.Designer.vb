@@ -81,6 +81,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property Character() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Character", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property CharacterStatistics() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("CharacterStatistics", resourceCulture)
@@ -147,6 +154,13 @@ Namespace My.Resources
         Friend ReadOnly Property holeopen() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("holeopen", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property ILMap() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ILMap", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

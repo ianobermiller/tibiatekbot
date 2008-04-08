@@ -2717,7 +2717,7 @@ Public Class frmMain
         Kernel.KeyboardForm.ShowDialog()
     End Sub
 
-    Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
+    Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
         Dim BL As New BattleList
         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
@@ -2880,4 +2880,89 @@ Public Class frmMain
             Kernel.AutoResponderForm.Show()
         End If
     End Sub
+#Region "Irc Location"
+    Private Sub ILActivateButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ILActivateButton.Click
+        Try
+            If ILActivateButton.Text = "Deactivate" Then
+                Kernel.ILBroadcasterTimerObj.StopTimer()
+                Kernel.ILProcessTimerObj.StopTimer()
+                Kernel.ILChannelName = ""
+                Kernel.ILNumberofPlayers = 0
+                Kernel.IRCClient.Part(ILChannelTextbox.Text, "Deactivating broadcaster, bye")
+                ILChannelTextbox.ReadOnly = False
+                frmILMapShowButton.Enabled = False
+                ILActivateButton.Text = "Activate"
+                frmILMap.ILMapUpdate.Stop()
+                frmILMap.Close()
+            Else
+                If Kernel.ILBroadcasterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
+                ILPlayer1Namebox.Text = Kernel.Client.CharacterName
+                Dim nop As Integer = 0
+                If ILPlayer1Namebox.Text <> "" Then
+                    Kernel.ILPlayer1Name = ILPlayer1Namebox.Text
+                    nop = nop + 1
+                    If ILPlayer2Namebox.Text <> "" Then
+                        Kernel.ILPlayer2Name = ILPlayer2Namebox.Text
+                        nop = nop + 1
+                        If ILPlayer3Namebox.Text <> "" Then
+                            Kernel.ILPlayer3Name = ILPlayer3Namebox.Text
+                            nop = nop + 1
+                            If ILPlayer4Namebox.Text <> "" Then
+                                Kernel.ILPlayer4Name = ILPlayer4Namebox.Text
+                                nop = nop + 1
+                                If ILPlayer5Namebox.Text <> "" Then
+                                    Kernel.ILPlayer5Name = ILPlayer5Namebox.Text
+                                    nop = nop + 1
+                                    If ILPlayer6Namebox.Text <> "" Then
+                                        Kernel.ILPlayer6Name = ILPlayer6Namebox.Text
+                                        nop = nop + 1
+                                        If ILPlayer7Namebox.Text <> "" Then
+                                            Kernel.ILPlayer7Name = ILPlayer7Namebox.Text
+                                            nop = nop + 1
+                                            If ILPlayer8Namebox.Text <> "" Then
+                                                Kernel.ILPlayer8Name = ILPlayer8Namebox.Text
+                                                nop = nop + 1
+                                                If ILPlayer9Namebox.Text <> "" Then
+                                                    Kernel.ILPlayer9Name = ILPlayer9Namebox.Text
+                                                    nop = nop + 1
+                                                End If
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+                If ILChannelTextbox.Text = "" Or ILChannelTextbox.Text = "#" Then
+                    MessageBox.Show("You must choose a IRC channel to use.")
+                    Exit Sub
+                End If
+                Kernel.IRCClient.Join(ILChannelTextbox.Text)
+                ILChannelTextbox.ReadOnly = True
+                Kernel.ILNumberofPlayers = nop
+                Kernel.ILChannelName = ILChannelTextbox.Text
+                Kernel.ILBroadcasterTimerObj.StartTimer()
+                frmILMapShowButton.Enabled = True
+                ILActivateButton.Text = "Deactivate"
+            End If
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
+        Kernel.ConnectToIrc()
+    End Sub
+
+    Private Sub frmILMapShowButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmILMapShowButton.Click
+        Try
+            frmILMap.Show()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End
+        End Try
+    End Sub
+#End Region
 End Class

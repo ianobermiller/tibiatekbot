@@ -213,7 +213,6 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
         Me.TabPage10 = New System.Windows.Forms.TabPage
@@ -461,6 +460,24 @@ Partial Class frmMain
         Me.FakeTitleTrigger = New System.Windows.Forms.CheckBox
         Me.FakeTitle = New System.Windows.Forms.TextBox
         Me.FakeTitlelbl = New System.Windows.Forms.Label
+        Me.TabPage8 = New System.Windows.Forms.TabPage
+        Me.ILSettingsBox = New System.Windows.Forms.GroupBox
+        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox
+        Me.frmILMapShowButton = New System.Windows.Forms.Button
+        Me.Button6 = New System.Windows.Forms.Button
+        Me.ILPlayer9Namebox = New System.Windows.Forms.TextBox
+        Me.ILPlayer1Namebox = New System.Windows.Forms.TextBox
+        Me.ILActivateButton = New System.Windows.Forms.Button
+        Me.ILPlayer8Namebox = New System.Windows.Forms.TextBox
+        Me.ILPlayer7Namebox = New System.Windows.Forms.TextBox
+        Me.ILChannelTextbox = New System.Windows.Forms.TextBox
+        Me.Label33 = New System.Windows.Forms.Label
+        Me.ILPlayer6Namebox = New System.Windows.Forms.TextBox
+        Me.Label35 = New System.Windows.Forms.Label
+        Me.ILPlayer5Namebox = New System.Windows.Forms.TextBox
+        Me.ILPlayer4Namebox = New System.Windows.Forms.TextBox
+        Me.ILPlayer2Namebox = New System.Windows.Forms.TextBox
+        Me.ILPlayer3Namebox = New System.Windows.Forms.TextBox
         Me.GroupBox11 = New System.Windows.Forms.GroupBox
         Me.Button1 = New System.Windows.Forms.Button
         Me.CheckBox1 = New System.Windows.Forms.CheckBox
@@ -598,6 +615,8 @@ Partial Class frmMain
         Me.TabPage6.SuspendLayout()
         Me.ChameleonBox.SuspendLayout()
         Me.FakeTitleBox.SuspendLayout()
+        Me.TabPage8.SuspendLayout()
+        Me.ILSettingsBox.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
@@ -724,7 +743,7 @@ Partial Class frmMain
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem, Me.TestToolStripMenuItem1})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FunctionsToolStripMenuItem, Me.TibiaTekBotMenuToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.MenuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         resources.ApplyResources(Me.MenuStrip1, "MenuStrip1")
         Me.MenuStrip1.Name = "MenuStrip1"
@@ -1538,11 +1557,6 @@ Partial Class frmMain
         Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
         resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
         '
-        'TestToolStripMenuItem1
-        '
-        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
-        resources.ApplyResources(Me.TestToolStripMenuItem1, "TestToolStripMenuItem1")
-        '
         'TestToolStripMenuItem
         '
         Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
@@ -1559,6 +1573,7 @@ Partial Class frmMain
         Me.MainTabControl.Controls.Add(Me.TabPage4)
         Me.MainTabControl.Controls.Add(Me.TabPage5)
         Me.MainTabControl.Controls.Add(Me.TabPage6)
+        Me.MainTabControl.Controls.Add(Me.TabPage8)
         Me.MainTabControl.Name = "MainTabControl"
         Me.MainTabControl.SelectedIndex = 0
         '
@@ -3237,6 +3252,120 @@ Partial Class frmMain
         resources.ApplyResources(Me.FakeTitlelbl, "FakeTitlelbl")
         Me.FakeTitlelbl.Name = "FakeTitlelbl"
         '
+        'TabPage8
+        '
+        Me.TabPage8.Controls.Add(Me.ILSettingsBox)
+        resources.ApplyResources(Me.TabPage8, "TabPage8")
+        Me.TabPage8.Name = "TabPage8"
+        Me.TabPage8.UseVisualStyleBackColor = True
+        '
+        'ILSettingsBox
+        '
+        Me.ILSettingsBox.Controls.Add(Me.RichTextBox1)
+        Me.ILSettingsBox.Controls.Add(Me.frmILMapShowButton)
+        Me.ILSettingsBox.Controls.Add(Me.Button6)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer9Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer1Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.ILActivateButton)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer8Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer7Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.ILChannelTextbox)
+        Me.ILSettingsBox.Controls.Add(Me.Label33)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer6Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.Label35)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer5Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer4Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer2Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.ILPlayer3Namebox)
+        resources.ApplyResources(Me.ILSettingsBox, "ILSettingsBox")
+        Me.ILSettingsBox.Name = "ILSettingsBox"
+        Me.ILSettingsBox.TabStop = False
+        '
+        'RichTextBox1
+        '
+        resources.ApplyResources(Me.RichTextBox1, "RichTextBox1")
+        Me.RichTextBox1.Name = "RichTextBox1"
+        Me.RichTextBox1.ReadOnly = True
+        '
+        'frmILMapShowButton
+        '
+        resources.ApplyResources(Me.frmILMapShowButton, "frmILMapShowButton")
+        Me.frmILMapShowButton.Name = "frmILMapShowButton"
+        Me.frmILMapShowButton.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        resources.ApplyResources(Me.Button6, "Button6")
+        Me.Button6.Name = "Button6"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'ILPlayer9Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer9Namebox, "ILPlayer9Namebox")
+        Me.ILPlayer9Namebox.Name = "ILPlayer9Namebox"
+        '
+        'ILPlayer1Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer1Namebox, "ILPlayer1Namebox")
+        Me.ILPlayer1Namebox.Name = "ILPlayer1Namebox"
+        Me.ILPlayer1Namebox.ReadOnly = True
+        '
+        'ILActivateButton
+        '
+        resources.ApplyResources(Me.ILActivateButton, "ILActivateButton")
+        Me.ILActivateButton.Name = "ILActivateButton"
+        Me.ILActivateButton.UseVisualStyleBackColor = True
+        '
+        'ILPlayer8Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer8Namebox, "ILPlayer8Namebox")
+        Me.ILPlayer8Namebox.Name = "ILPlayer8Namebox"
+        '
+        'ILPlayer7Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer7Namebox, "ILPlayer7Namebox")
+        Me.ILPlayer7Namebox.Name = "ILPlayer7Namebox"
+        '
+        'ILChannelTextbox
+        '
+        resources.ApplyResources(Me.ILChannelTextbox, "ILChannelTextbox")
+        Me.ILChannelTextbox.Name = "ILChannelTextbox"
+        '
+        'Label33
+        '
+        resources.ApplyResources(Me.Label33, "Label33")
+        Me.Label33.Name = "Label33"
+        '
+        'ILPlayer6Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer6Namebox, "ILPlayer6Namebox")
+        Me.ILPlayer6Namebox.Name = "ILPlayer6Namebox"
+        '
+        'Label35
+        '
+        resources.ApplyResources(Me.Label35, "Label35")
+        Me.Label35.Name = "Label35"
+        '
+        'ILPlayer5Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer5Namebox, "ILPlayer5Namebox")
+        Me.ILPlayer5Namebox.Name = "ILPlayer5Namebox"
+        '
+        'ILPlayer4Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer4Namebox, "ILPlayer4Namebox")
+        Me.ILPlayer4Namebox.Name = "ILPlayer4Namebox"
+        '
+        'ILPlayer2Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer2Namebox, "ILPlayer2Namebox")
+        Me.ILPlayer2Namebox.Name = "ILPlayer2Namebox"
+        '
+        'ILPlayer3Namebox
+        '
+        resources.ApplyResources(Me.ILPlayer3Namebox, "ILPlayer3Namebox")
+        Me.ILPlayer3Namebox.Name = "ILPlayer3Namebox"
+        '
         'GroupBox11
         '
         Me.GroupBox11.Controls.Add(Me.Button1)
@@ -3671,6 +3800,9 @@ Partial Class frmMain
         Me.ChameleonBox.PerformLayout()
         Me.FakeTitleBox.ResumeLayout(False)
         Me.FakeTitleBox.PerformLayout()
+        Me.TabPage8.ResumeLayout(False)
+        Me.ILSettingsBox.ResumeLayout(False)
+        Me.ILSettingsBox.PerformLayout()
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
@@ -4156,7 +4288,6 @@ Partial Class frmMain
     Friend WithEvents TestToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ScriptsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents KeyboardToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TestToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ComboLeaders As System.Windows.Forms.ListBox
     Friend WithEvents LeadersContextMenuStrip As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents AddLeader As System.Windows.Forms.ToolStripMenuItem
@@ -4165,4 +4296,22 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents AutoResponderToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TabPage8 As System.Windows.Forms.TabPage
+    Friend WithEvents ILSettingsBox As System.Windows.Forms.GroupBox
+    Friend WithEvents ILChannelTextbox As System.Windows.Forms.TextBox
+    Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents ILActivateButton As System.Windows.Forms.Button
+    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents frmILMapShowButton As System.Windows.Forms.Button
+    Friend WithEvents ILPlayer9Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents ILPlayer1Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents ILPlayer8Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents ILPlayer7Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents ILPlayer6Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents Label35 As System.Windows.Forms.Label
+    Friend WithEvents ILPlayer5Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents ILPlayer4Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents ILPlayer2Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents ILPlayer3Namebox As System.Windows.Forms.TextBox
+    Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
 End Class

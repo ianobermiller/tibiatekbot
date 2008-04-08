@@ -192,6 +192,8 @@ Public Module KernelModule
         Public WithEvents MagicWallTimerObj As ThreadTimer
         Public WithEvents DancerTimerObj As ThreadTimer
         Public WithEvents AmmoMakerTimerObj As ThreadTimer
+        Public WithEvents ILBroadcasterTimerObj As ThreadTimer
+        Public WithEvents ILProcessTimerObj As ThreadTimer
         Public Scripts As List(Of ScriptDefinition)
         Public CommandParser As CommandParser
         Public WithEvents RenameBackpackObj As ThreadTimer
@@ -386,6 +388,65 @@ Public Module KernelModule
         Public FavoredWeaponEnabled As Boolean = False
         Public FavoredWeaponShield As Integer = 0
 
+        Public ILChannelName As String = ""
+        Public ILNumberofPlayers As Integer = 0
+        Public ILLastMessage As String = ""
+        Public ILLastChannel As String = ""
+        Public ILNewMessage As Boolean = False
+
+        Public ILPlayer1LocX As Integer = 0
+        Public ILPlayer1LocY As Integer = 0
+        Public ILPlayer1Name As String = ""
+        Public ILPlayer1HP As Integer = 0
+        Public ILPlayer1MP As Integer = 0
+
+        Public ILPlayer2LocX As Integer = 0
+        Public ILPlayer2LocY As Integer = 0
+        Public ILPlayer2Name As String = ""
+        Public ILPlayer2HP As Integer = 0
+        Public ILPlayer2MP As Integer = 0
+
+        Public ILPlayer3LocX As Integer = 0
+        Public ILPlayer3LocY As Integer = 0
+        Public ILPlayer3Name As String = ""
+        Public ILPlayer3HP As Integer = 0
+        Public ILPlayer3MP As Integer = 0
+
+        Public ILPlayer4LocX As Integer = 0
+        Public ILPlayer4LocY As Integer = 0
+        Public ILPlayer4Name As String = ""
+        Public ILPlayer4HP As Integer = 0
+        Public ILPlayer4MP As Integer = 0
+
+        Public ILPlayer5LocX As Integer = 0
+        Public ILPlayer5LocY As Integer = 0
+        Public ILPlayer5Name As String = ""
+        Public ILPlayer5HP As Integer = 0
+        Public ILPlayer5MP As Integer = 0
+
+        Public ILPlayer6LocX As Integer = 0
+        Public ILPlayer6LocY As Integer = 0
+        Public ILPlayer6Name As String = ""
+        Public ILPlayer6HP As Integer = 0
+        Public ILPlayer6MP As Integer = 0
+
+        Public ILPlayer7LocX As Integer = 0
+        Public ILPlayer7LocY As Integer = 0
+        Public ILPlayer7Name As String = ""
+        Public ILPlayer7HP As Integer = 0
+        Public ILPlayer7MP As Integer = 0
+
+        Public ILPlayer8LocX As Integer = 0
+        Public ILPlayer8LocY As Integer = 0
+        Public ILPlayer8Name As String = ""
+        Public ILPlayer8HP As Integer = 0
+        Public ILPlayer8MP As Integer = 0
+
+        Public ILPlayer9LocX As Integer = 0
+        Public ILPlayer9LocY As Integer = 0
+        Public ILPlayer9Name As String = ""
+        Public ILPlayer9HP As Integer = 0
+        Public ILPlayer9MP As Integer = 0
 
         Public AutoResponderActivated As Boolean = False
 
@@ -474,6 +535,8 @@ Public Module KernelModule
                 AmmoMakerTimerObj = New ThreadTimer(1000)
                 RenameBackpackObj = New ThreadTimer(100)
                 FavoredWeapon = New List(Of WeaponFavoritDefinition)
+                ILBroadcasterTimerObj = New ThreadTimer(5000)
+                ILProcessTimerObj = New ThreadTimer(100)
                 KeyboardEntries = New SortedList(Of String, IKernel.KeyboardEntry)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -965,6 +1028,58 @@ Public Module KernelModule
                 End If
                 TTMessagesTimerObj.StopTimer()
                 FPSChangerTimerObj.StopTimer()
+                ILBroadcasterTimerObj.StopTimer()
+                ILProcessTimerObj.StopTimer()
+                ILChannelName = ""
+                ILNumberofPlayers = 0
+                ILLastChannel = ""
+                ILLastMessage = ""
+                ILNewMessage = False
+                ILPlayer1LocX = 0
+                ILPlayer1LocY = 0
+                ILPlayer1Name = ""
+                ILPlayer1HP = 0
+                ILPlayer1MP = 0
+                ILPlayer2LocX = 0
+                ILPlayer2LocY = 0
+                ILPlayer2Name = ""
+                ILPlayer2HP = 0
+                ILPlayer2MP = 0
+                ILPlayer3LocX = 0
+                ILPlayer3LocY = 0
+                ILPlayer3Name = ""
+                ILPlayer3HP = 0
+                ILPlayer3MP = 0
+                ILPlayer4LocX = 0
+                ILPlayer4LocY = 0
+                ILPlayer4Name = ""
+                ILPlayer4HP = 0
+                ILPlayer4MP = 0
+                ILPlayer5LocX = 0
+                ILPlayer5LocY = 0
+                ILPlayer5Name = ""
+                ILPlayer5HP = 0
+                ILPlayer5MP = 0
+                ILPlayer6LocX = 0
+                ILPlayer6LocY = 0
+                ILPlayer6Name = ""
+                ILPlayer6HP = 0
+                ILPlayer6MP = 0
+                ILPlayer7LocX = 0
+                ILPlayer7LocY = 0
+                ILPlayer7Name = ""
+                ILPlayer7HP = 0
+                ILPlayer7MP = 0
+                ILPlayer8LocX = 0
+                ILPlayer8LocY = 0
+                ILPlayer8Name = ""
+                ILPlayer8HP = 0
+                ILPlayer8MP = 0
+                ILPlayer9LocX = 0
+                ILPlayer9LocY = 0
+                ILPlayer9Name = ""
+                ILPlayer9HP = 0
+                ILPlayer9MP = 0
                 Thread.Sleep(500)
                 MagicWalls.Clear()
                 Client.SetFramesPerSecond(Consts.FPSWhenActive)
@@ -3703,6 +3818,117 @@ ContinueAttack:
 
 #End Region
 
+#Region " IL Broadcaster Timer "
+        Private Sub ILBroadcasterTimerObj_OnExecute() Handles ILBroadcasterTimerObj.OnExecute
+            Try
+                Dim CST As String = ILChannelName
+                Dim CID As Integer = IrcChannelNameToID(CST)
+                Dim message As String
+                message = "IL-" & Client.CharacterName & "-" & Client.CharacterLocation.X & "-" & Client.CharacterLocation.Y & "-" & Client.CharacterHitPoints & "-" & Client.CharacterManaPoints
+                IrcChannelSpeakNormal(Kernel.IRCClient.Nick, message, CID)
+                IRCClient.Speak(message, CST)
+                ILPlayer1LocX = Client.CharacterLocation.X
+                ILPlayer1LocY = Client.CharacterLocation.Y
+                ILPlayer1Name = Client.CharacterName
+                ILPlayer1HP = Client.CharacterHitPoints
+                ILPlayer1MP = Client.CharacterManaPoints
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Kernel.ConsoleError("Unkown Error occured while broadcasting your location thru IRC.")
+                ILBroadcasterTimerObj.StopTimer()
+            End Try
+        End Sub
+#End Region
+
+#Region " IL Process Timer "
+        Private Sub ILProcessTimerObj_OnExecute() Handles ILProcessTimerObj.OnExecute
+            Try
+                If ILNewMessage = False Then
+                    Exit Sub
+                End If
+                ILNewMessage = False
+                Dim messagearray() As String = ILLastMessage.Split("-")
+                If messagearray(1).ToLower = ILPlayer1Name.ToLower Then
+                    ILPlayer1LocX = messagearray(2)
+                    ILPlayer1LocY = messagearray(3)
+                    ILPlayer1HP = messagearray(4)
+                    ILPlayer1MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+                If messagearray(1).ToLower = ILPlayer2Name.ToLower Then
+                    ILPlayer2LocX = messagearray(2)
+                    ILPlayer2LocY = messagearray(3)
+                    ILPlayer2HP = messagearray(4)
+                    ILPlayer2MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+                If messagearray(1).ToLower = ILPlayer3Name.ToLower Then
+                    ILPlayer3LocX = messagearray(2)
+                    ILPlayer3LocY = messagearray(3)
+                    ILPlayer3HP = messagearray(4)
+                    ILPlayer3MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+                If messagearray(1).ToLower = ILPlayer4Name.ToLower Then
+                    ILPlayer4LocX = messagearray(2)
+                    ILPlayer4LocY = messagearray(3)
+                    ILPlayer4HP = messagearray(4)
+                    ILPlayer4MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+                If messagearray(1).ToLower = ILPlayer5Name.ToLower Then
+                    ILPlayer5LocX = messagearray(2)
+                    ILPlayer5LocY = messagearray(3)
+                    ILPlayer5HP = messagearray(4)
+                    ILPlayer5MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+                If messagearray(1).ToLower = ILPlayer6Name.ToLower Then
+                    ILPlayer6LocX = messagearray(2)
+                    ILPlayer6LocY = messagearray(3)
+                    ILPlayer6HP = messagearray(4)
+                    ILPlayer6MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+                If messagearray(1).ToLower = ILPlayer7Name.ToLower Then
+                    ILPlayer7LocX = messagearray(2)
+                    ILPlayer7LocY = messagearray(3)
+                    ILPlayer7HP = messagearray(4)
+                    ILPlayer7MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+                If messagearray(1).ToLower = ILPlayer8Name.ToLower Then
+                    ILPlayer8LocX = messagearray(2)
+                    ILPlayer8LocY = messagearray(3)
+                    ILPlayer8HP = messagearray(4)
+                    ILPlayer8MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+                If messagearray(1).ToLower = ILPlayer9Name.ToLower Then
+                    ILPlayer9LocX = messagearray(2)
+                    ILPlayer9LocY = messagearray(3)
+                    ILPlayer9HP = messagearray(4)
+                    ILPlayer9MP = messagearray(5)
+                    ILLastMessage = ""
+                    Exit Sub
+                End If
+
+            Catch ex As Exception
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Kernel.ConsoleError("Unkown Error occured with the Irc Location Map.")
+                ILProcessTimerObj.StopTimer()
+            End Try
+        End Sub
+#End Region
+
 #End Region
 
 #Region " IRC Client "
@@ -4069,6 +4295,14 @@ ContinueAttack:
 
         Private Sub IrcClient_ChannelMessage(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Handles IRCClient.ChannelMessage
             Try
+                Try
+                    Dim checkarray() As String = Message.Split("-")
+                    If checkarray(0) = "IL" Then
+                        ILLastMessage = Message
+                        ILNewMessage = True
+                    End If
+                Catch ex As Exception
+                End Try
                 If IrcChannelIsOpened(Channel) Then
                     Select Case IRCClient.GetUserLevel(Nick, Channel)
                         Case 1
