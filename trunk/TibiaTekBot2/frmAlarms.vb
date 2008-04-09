@@ -592,7 +592,7 @@ Public Class frmAlarms
                 If BattlelistPlaySound.Checked Then
                     Dim Sound As New Audio
                     Try
-                        Sound.Play(Kernel.ExecutablePath & "\Alarms\Battlelist.wav", AudioPlayMode.Background)
+                        Sound.Play(Kernel.ExecutablePath & "\Alarms\" & BlSoundBox.Text & ".wav", AudioPlayMode.Background)
                     Catch
                     End Try
                 End If
@@ -760,7 +760,7 @@ Public Class frmAlarms
                 If StatusPlaySound.Checked Then
                     Dim Sound As New Audio
                     Try
-                        Sound.Play(Kernel.ExecutablePath & "\Alarms\Status.wav", AudioPlayMode.Background)
+                        Sound.Play(Kernel.ExecutablePath & "\Alarms\" & StSoundBox.Text & ".wav", AudioPlayMode.Background)
                     Catch
                     End Try
                 End If
@@ -1073,7 +1073,7 @@ Public Class frmAlarms
                 If ItemsPlaySound.Checked Then
                     Dim Sound As New Audio
                     Try
-                        Sound.Play(Kernel.ExecutablePath & "\Alarms\Items.wav", AudioPlayMode.Background)
+                        Sound.Play(Kernel.ExecutablePath & "\Alarms\" & ItSoundBox.Text & ".wav", AudioPlayMode.Background)
                     Catch
                     End Try
                 End If
@@ -1135,6 +1135,128 @@ Public Class frmAlarms
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
+        End Try
+    End Sub
+
+    Private Sub frmAlarms_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
+        Try
+            SoundUpdate()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub BlSoundTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BlSoundTest.Click
+        Try
+            Dim Sound As New Audio
+            Sound.Play(Kernel.ExecutablePath & "\Alarms\" & BlSoundBox.Text & ".wav", AudioPlayMode.Background)
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub StSoundTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles StSoundTest.Click
+        Try
+            Dim Sound As New Audio
+            Sound.Play(Kernel.ExecutablePath & "\Alarms\" & StSoundBox.Text & ".wav", AudioPlayMode.Background)
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    Private Sub ItSoundTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItSoundTest.Click
+        Try
+            Dim Sound As New Audio
+            Sound.Play(Kernel.ExecutablePath & "\Alarms\" & ItSoundBox.Text & ".wav", AudioPlayMode.Background)
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub SoundFileBrowseButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SoundFileBrowseButton.Click
+        Try
+            Dim dialog As New OpenFileDialog
+            Dim filename As String = ""
+            With dialog
+                .Title = "Choose Audio File"
+                .Filter = "Audio Files (*.wav)|*.wav"
+                .FilterIndex = 1
+                .RestoreDirectory = True
+                If .ShowDialog() = DialogResult.OK Then
+                    filename = .FileName
+                End If
+            End With
+            SoundFilePath.Text = filename
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    Private Sub SoundUpdate()
+        Try
+            BlSoundBox.Items.Clear()
+            PubMsgSoundBox.Items.Clear()
+            StSoundBox.Items.Clear()
+            ItSoundBox.Items.Clear()
+            PrivMsgSoundBox.Items.Clear()
+            Dim dirinfo As New DirectoryInfo("Alarms")
+            Dim fileinfo As FileInfo
+            For Each fileinfo In dirinfo.GetFiles
+                If Path.GetExtension(fileinfo.FullName).ToLower = ".wav" Then
+                    BlSoundBox.Items.Add(Path.GetFileNameWithoutExtension(fileinfo.FullName))
+                    PubMsgSoundBox.Items.Add(Path.GetFileNameWithoutExtension(fileinfo.FullName))
+                    StSoundBox.Items.Add(Path.GetFileNameWithoutExtension(fileinfo.FullName))
+                    ItSoundBox.Items.Add(Path.GetFileNameWithoutExtension(fileinfo.FullName))
+                    PrivMsgSoundBox.Items.Add(Path.GetFileNameWithoutExtension(fileinfo.FullName))
+                End If
+            Next
+            If BlSoundBox.Items.Count > 0 Then
+                BlSoundBox.Text = BlSoundBox.Items.Item(0)
+                PubMsgSoundBox.Text = PubMsgSoundBox.Items.Item(0)
+                StSoundBox.Text = StSoundBox.Items.Item(0)
+                ItSoundBox.Text = ItSoundBox.Items.Item(0)
+                PrivMsgSoundBox.Text = PrivMsgSoundBox.Items.Item(0)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub SoundFileAddButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SoundFileAddButton.Click
+        Try
+            If SoundFilePath.Text <> "" Then
+                File.Copy(SoundFilePath.Text, Kernel.ExecutablePath & "\Alarms\" & Path.GetFileName(SoundFilePath.Text))
+                SoundUpdate()
+                Exit Sub
+            End If
+            MessageBox.Show("You must choose a file to add.")
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub MessagePlaySound_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MessagePlaySound.CheckedChanged
+        Try
+            Kernel.PublicMessageFile = PubMsgSoundBox.Text
+            Kernel.PrivateMessageFile = PrivMsgSoundBox.Text
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub PrivMsgSoundTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrivMsgSoundTest.Click
+        Try
+            Dim Sound As New Audio
+            Sound.Play(Kernel.ExecutablePath & "\Alarms\" & PrivMsgSoundBox.Text & ".wav", AudioPlayMode.Background)
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub PubMsgSoundTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PubMsgSoundTest.Click
+        Try
+            Dim Sound As New Audio
+            Sound.Play(Kernel.ExecutablePath & "\Alarms\" & PubMsgSoundBox.Text & ".wav", AudioPlayMode.Background)
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 End Class

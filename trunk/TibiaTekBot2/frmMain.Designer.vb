@@ -213,6 +213,7 @@ Partial Class frmMain
         Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MainTabControl = New System.Windows.Forms.TabControl
         Me.TabPage10 = New System.Windows.Forms.TabPage
@@ -464,7 +465,6 @@ Partial Class frmMain
         Me.ILSettingsBox = New System.Windows.Forms.GroupBox
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox
         Me.frmILMapShowButton = New System.Windows.Forms.Button
-        Me.Button6 = New System.Windows.Forms.Button
         Me.ILPlayer9Namebox = New System.Windows.Forms.TextBox
         Me.ILPlayer1Namebox = New System.Windows.Forms.TextBox
         Me.ILActivateButton = New System.Windows.Forms.Button
@@ -524,7 +524,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -1557,6 +1556,11 @@ Partial Class frmMain
         '
         Me.LicenseToolStripMenuItem.Name = "LicenseToolStripMenuItem"
         resources.ApplyResources(Me.LicenseToolStripMenuItem, "LicenseToolStripMenuItem")
+        '
+        'TestToolStripMenuItem1
+        '
+        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
+        resources.ApplyResources(Me.TestToolStripMenuItem1, "TestToolStripMenuItem1")
         '
         'TestToolStripMenuItem
         '
@@ -3264,7 +3268,6 @@ Partial Class frmMain
         '
         Me.ILSettingsBox.Controls.Add(Me.RichTextBox1)
         Me.ILSettingsBox.Controls.Add(Me.frmILMapShowButton)
-        Me.ILSettingsBox.Controls.Add(Me.Button6)
         Me.ILSettingsBox.Controls.Add(Me.ILPlayer9Namebox)
         Me.ILSettingsBox.Controls.Add(Me.ILPlayer1Namebox)
         Me.ILSettingsBox.Controls.Add(Me.ILActivateButton)
@@ -3293,12 +3296,6 @@ Partial Class frmMain
         resources.ApplyResources(Me.frmILMapShowButton, "frmILMapShowButton")
         Me.frmILMapShowButton.Name = "frmILMapShowButton"
         Me.frmILMapShowButton.UseVisualStyleBackColor = True
-        '
-        'Button6
-        '
-        resources.ApplyResources(Me.Button6, "Button6")
-        Me.Button6.Name = "Button6"
-        Me.Button6.UseVisualStyleBackColor = True
         '
         'ILPlayer9Namebox
         '
@@ -3658,11 +3655,6 @@ Partial Class frmMain
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 2000
-        '
-        'TestToolStripMenuItem1
-        '
-        Me.TestToolStripMenuItem1.Name = "TestToolStripMenuItem1"
-        resources.ApplyResources(Me.TestToolStripMenuItem1, "TestToolStripMenuItem1")
         '
         'frmMain
         '
@@ -4307,7 +4299,6 @@ Partial Class frmMain
     Friend WithEvents ILChannelTextbox As System.Windows.Forms.TextBox
     Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents ILActivateButton As System.Windows.Forms.Button
-    Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents frmILMapShowButton As System.Windows.Forms.Button
     Friend WithEvents ILPlayer9Namebox As System.Windows.Forms.TextBox
     Friend WithEvents ILPlayer1Namebox As System.Windows.Forms.TextBox
