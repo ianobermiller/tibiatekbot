@@ -69,6 +69,10 @@ Partial Class frmAlarms
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.MultiFloorGroupBox = New System.Windows.Forms.GroupBox
+        Me.Label3 = New System.Windows.Forms.Label
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.BattlelistMultiFloorRange = New System.Windows.Forms.NumericUpDown
+        Me.Label1 = New System.Windows.Forms.Label
         Me.BattlelistMultiFloorAbove = New System.Windows.Forms.CheckBox
         Me.BattlelistMultiFloorBelow = New System.Windows.Forms.CheckBox
         Me.GroupBox6 = New System.Windows.Forms.GroupBox
@@ -106,6 +110,9 @@ Partial Class frmAlarms
         Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
         Me.GroupBox12 = New System.Windows.Forms.GroupBox
+        Me.StatusConditionFreezing = New System.Windows.Forms.CheckBox
+        Me.StatusConditionCursed = New System.Windows.Forms.CheckBox
+        Me.StatusConditionDazzled = New System.Windows.Forms.CheckBox
         Me.StatusConditionCombatSign = New System.Windows.Forms.CheckBox
         Me.StatusConditionDrowning = New System.Windows.Forms.CheckBox
         Me.StatusConditionParalized = New System.Windows.Forms.CheckBox
@@ -127,6 +134,32 @@ Partial Class frmAlarms
         Me.Label5 = New System.Windows.Forms.Label
         Me.StatusHitPoints = New System.Windows.Forms.NumericUpDown
         Me.Label4 = New System.Windows.Forms.Label
+        Me.TabPage4 = New System.Windows.Forms.TabPage
+        Me.ChangeSoundGrpBox = New System.Windows.Forms.GroupBox
+        Me.PrivMsgGrpBox = New System.Windows.Forms.GroupBox
+        Me.PrivMsgSoundTest = New System.Windows.Forms.Button
+        Me.Label15 = New System.Windows.Forms.Label
+        Me.PrivMsgSoundBox = New System.Windows.Forms.ComboBox
+        Me.GroupBox21 = New System.Windows.Forms.GroupBox
+        Me.SoundFileAddButton = New System.Windows.Forms.Button
+        Me.SoundFileBrowseButton = New System.Windows.Forms.Button
+        Me.SoundFilePath = New System.Windows.Forms.TextBox
+        Me.ItGrpBox = New System.Windows.Forms.GroupBox
+        Me.ItSoundTest = New System.Windows.Forms.Button
+        Me.Label14 = New System.Windows.Forms.Label
+        Me.ItSoundBox = New System.Windows.Forms.ComboBox
+        Me.StGrpBox = New System.Windows.Forms.GroupBox
+        Me.StSoundTest = New System.Windows.Forms.Button
+        Me.Label12 = New System.Windows.Forms.Label
+        Me.StSoundBox = New System.Windows.Forms.ComboBox
+        Me.PubMsgGrpBox = New System.Windows.Forms.GroupBox
+        Me.PubMsgSoundTest = New System.Windows.Forms.Button
+        Me.Label13 = New System.Windows.Forms.Label
+        Me.PubMsgSoundBox = New System.Windows.Forms.ComboBox
+        Me.BlGrpBox = New System.Windows.Forms.GroupBox
+        Me.BlSoundTest = New System.Windows.Forms.Button
+        Me.Label11 = New System.Windows.Forms.Label
+        Me.BlSoundBox = New System.Windows.Forms.ComboBox
         Me.AlarmsSave = New System.Windows.Forms.Button
         Me.AlarmsHide = New System.Windows.Forms.Button
         Me.AlarmsLoad = New System.Windows.Forms.Button
@@ -134,13 +167,7 @@ Partial Class frmAlarms
         Me.BattlelistAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StatusAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ItemsAlarmTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.StatusConditionDazzled = New System.Windows.Forms.CheckBox
-        Me.StatusConditionCursed = New System.Windows.Forms.CheckBox
-        Me.StatusConditionFreezing = New System.Windows.Forms.CheckBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.BattlelistMultiFloorRange = New System.Windows.Forms.NumericUpDown
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
+        Me.Label16 = New System.Windows.Forms.Label
         tablalala = New System.Windows.Forms.TabPage
         tablalala.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -151,6 +178,7 @@ Partial Class frmAlarms
         Me.TabPage1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.MultiFloorGroupBox.SuspendLayout()
+        CType(Me.BattlelistMultiFloorRange, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -168,7 +196,14 @@ Partial Class frmAlarms
         CType(Me.StatusSoulPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StatusManaPoints, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StatusHitPoints, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.BattlelistMultiFloorRange, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage4.SuspendLayout()
+        Me.ChangeSoundGrpBox.SuspendLayout()
+        Me.PrivMsgGrpBox.SuspendLayout()
+        Me.GroupBox21.SuspendLayout()
+        Me.ItGrpBox.SuspendLayout()
+        Me.StGrpBox.SuspendLayout()
+        Me.PubMsgGrpBox.SuspendLayout()
+        Me.BlGrpBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'tablalala
@@ -361,6 +396,7 @@ Partial Class frmAlarms
         Me.Tabs.Controls.Add(Me.TabPage3)
         Me.Tabs.Controls.Add(Me.TabPage2)
         Me.Tabs.Controls.Add(tablalala)
+        Me.Tabs.Controls.Add(Me.TabPage4)
         Me.Tabs.Location = New System.Drawing.Point(12, 12)
         Me.Tabs.Name = "Tabs"
         Me.Tabs.SelectedIndex = 0
@@ -408,6 +444,42 @@ Partial Class frmAlarms
         Me.MultiFloorGroupBox.TabIndex = 17
         Me.MultiFloorGroupBox.TabStop = False
         Me.MultiFloorGroupBox.Text = "Multi-Floor Triggers"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(124, 50)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(32, 13)
+        Me.Label3.TabIndex = 5
+        Me.Label3.Text = "floors"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(51, 50)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(13, 13)
+        Me.Label2.TabIndex = 4
+        Me.Label2.Text = "±"
+        '
+        'BattlelistMultiFloorRange
+        '
+        Me.BattlelistMultiFloorRange.Location = New System.Drawing.Point(70, 48)
+        Me.BattlelistMultiFloorRange.Maximum = New Decimal(New Integer() {7, 0, 0, 0})
+        Me.BattlelistMultiFloorRange.Name = "BattlelistMultiFloorRange"
+        Me.BattlelistMultiFloorRange.Size = New System.Drawing.Size(48, 20)
+        Me.BattlelistMultiFloorRange.TabIndex = 3
+        Me.BattlelistMultiFloorRange.Value = New Decimal(New Integer() {7, 0, 0, 0})
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(3, 50)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(42, 13)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Range:"
         '
         'BattlelistMultiFloorAbove
         '
@@ -818,6 +890,37 @@ Partial Class frmAlarms
         Me.GroupBox12.TabStop = False
         Me.GroupBox12.Text = "If Conditioned"
         '
+        'StatusConditionFreezing
+        '
+        Me.StatusConditionFreezing.AutoSize = True
+        Me.StatusConditionFreezing.Location = New System.Drawing.Point(6, 109)
+        Me.StatusConditionFreezing.Name = "StatusConditionFreezing"
+        Me.StatusConditionFreezing.Size = New System.Drawing.Size(66, 17)
+        Me.StatusConditionFreezing.TabIndex = 22
+        Me.StatusConditionFreezing.Text = "Freezing"
+        Me.StatusConditionFreezing.UseVisualStyleBackColor = True
+        '
+        'StatusConditionCursed
+        '
+        Me.StatusConditionCursed.AutoSize = True
+        Me.StatusConditionCursed.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.StatusConditionCursed.Location = New System.Drawing.Point(110, 86)
+        Me.StatusConditionCursed.Name = "StatusConditionCursed"
+        Me.StatusConditionCursed.Size = New System.Drawing.Size(59, 17)
+        Me.StatusConditionCursed.TabIndex = 21
+        Me.StatusConditionCursed.Text = "Cursed"
+        Me.StatusConditionCursed.UseVisualStyleBackColor = True
+        '
+        'StatusConditionDazzled
+        '
+        Me.StatusConditionDazzled.AutoSize = True
+        Me.StatusConditionDazzled.Location = New System.Drawing.Point(6, 86)
+        Me.StatusConditionDazzled.Name = "StatusConditionDazzled"
+        Me.StatusConditionDazzled.Size = New System.Drawing.Size(64, 17)
+        Me.StatusConditionDazzled.TabIndex = 20
+        Me.StatusConditionDazzled.Text = "Dazzled"
+        Me.StatusConditionDazzled.UseVisualStyleBackColor = True
+        '
         'StatusConditionCombatSign
         '
         Me.StatusConditionCombatSign.AutoSize = True
@@ -1030,6 +1133,265 @@ Partial Class frmAlarms
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Hit Points below:"
         '
+        'TabPage4
+        '
+        Me.TabPage4.Controls.Add(Me.ChangeSoundGrpBox)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage4.Size = New System.Drawing.Size(360, 296)
+        Me.TabPage4.TabIndex = 5
+        Me.TabPage4.Text = "Sound"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'ChangeSoundGrpBox
+        '
+        Me.ChangeSoundGrpBox.Controls.Add(Me.PrivMsgGrpBox)
+        Me.ChangeSoundGrpBox.Controls.Add(Me.GroupBox21)
+        Me.ChangeSoundGrpBox.Controls.Add(Me.ItGrpBox)
+        Me.ChangeSoundGrpBox.Controls.Add(Me.StGrpBox)
+        Me.ChangeSoundGrpBox.Controls.Add(Me.PubMsgGrpBox)
+        Me.ChangeSoundGrpBox.Controls.Add(Me.BlGrpBox)
+        Me.ChangeSoundGrpBox.Location = New System.Drawing.Point(6, 6)
+        Me.ChangeSoundGrpBox.Name = "ChangeSoundGrpBox"
+        Me.ChangeSoundGrpBox.Size = New System.Drawing.Size(348, 284)
+        Me.ChangeSoundGrpBox.TabIndex = 0
+        Me.ChangeSoundGrpBox.TabStop = False
+        Me.ChangeSoundGrpBox.Text = "Choose Sound"
+        '
+        'PrivMsgGrpBox
+        '
+        Me.PrivMsgGrpBox.Controls.Add(Me.PrivMsgSoundTest)
+        Me.PrivMsgGrpBox.Controls.Add(Me.Label15)
+        Me.PrivMsgGrpBox.Controls.Add(Me.PrivMsgSoundBox)
+        Me.PrivMsgGrpBox.Location = New System.Drawing.Point(179, 105)
+        Me.PrivMsgGrpBox.Name = "PrivMsgGrpBox"
+        Me.PrivMsgGrpBox.Size = New System.Drawing.Size(160, 85)
+        Me.PrivMsgGrpBox.TabIndex = 6
+        Me.PrivMsgGrpBox.TabStop = False
+        Me.PrivMsgGrpBox.Text = "Private Messages"
+        '
+        'PrivMsgSoundTest
+        '
+        Me.PrivMsgSoundTest.Location = New System.Drawing.Point(79, 56)
+        Me.PrivMsgSoundTest.Name = "PrivMsgSoundTest"
+        Me.PrivMsgSoundTest.Size = New System.Drawing.Size(75, 23)
+        Me.PrivMsgSoundTest.TabIndex = 5
+        Me.PrivMsgSoundTest.Text = "Play"
+        Me.PrivMsgSoundTest.UseVisualStyleBackColor = True
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(3, 16)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(147, 13)
+        Me.Label15.TabIndex = 3
+        Me.Label15.Text = "Choose file for message alarm"
+        '
+        'PrivMsgSoundBox
+        '
+        Me.PrivMsgSoundBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.PrivMsgSoundBox.FormattingEnabled = True
+        Me.PrivMsgSoundBox.Location = New System.Drawing.Point(6, 32)
+        Me.PrivMsgSoundBox.Name = "PrivMsgSoundBox"
+        Me.PrivMsgSoundBox.Size = New System.Drawing.Size(148, 21)
+        Me.PrivMsgSoundBox.TabIndex = 0
+        '
+        'GroupBox21
+        '
+        Me.GroupBox21.Controls.Add(Me.Label16)
+        Me.GroupBox21.Controls.Add(Me.SoundFileAddButton)
+        Me.GroupBox21.Controls.Add(Me.SoundFileBrowseButton)
+        Me.GroupBox21.Controls.Add(Me.SoundFilePath)
+        Me.GroupBox21.Location = New System.Drawing.Point(179, 193)
+        Me.GroupBox21.Name = "GroupBox21"
+        Me.GroupBox21.Size = New System.Drawing.Size(160, 85)
+        Me.GroupBox21.TabIndex = 4
+        Me.GroupBox21.TabStop = False
+        Me.GroupBox21.Text = "Add new audio / music file"
+        '
+        'SoundFileAddButton
+        '
+        Me.SoundFileAddButton.Location = New System.Drawing.Point(6, 56)
+        Me.SoundFileAddButton.Name = "SoundFileAddButton"
+        Me.SoundFileAddButton.Size = New System.Drawing.Size(70, 23)
+        Me.SoundFileAddButton.TabIndex = 3
+        Me.SoundFileAddButton.Text = "Add"
+        Me.SoundFileAddButton.UseVisualStyleBackColor = True
+        '
+        'SoundFileBrowseButton
+        '
+        Me.SoundFileBrowseButton.Location = New System.Drawing.Point(83, 56)
+        Me.SoundFileBrowseButton.Name = "SoundFileBrowseButton"
+        Me.SoundFileBrowseButton.Size = New System.Drawing.Size(70, 23)
+        Me.SoundFileBrowseButton.TabIndex = 2
+        Me.SoundFileBrowseButton.Text = "Browse"
+        Me.SoundFileBrowseButton.UseVisualStyleBackColor = True
+        '
+        'SoundFilePath
+        '
+        Me.SoundFilePath.Location = New System.Drawing.Point(8, 32)
+        Me.SoundFilePath.Name = "SoundFilePath"
+        Me.SoundFilePath.Size = New System.Drawing.Size(145, 20)
+        Me.SoundFilePath.TabIndex = 1
+        '
+        'ItGrpBox
+        '
+        Me.ItGrpBox.Controls.Add(Me.ItSoundTest)
+        Me.ItGrpBox.Controls.Add(Me.Label14)
+        Me.ItGrpBox.Controls.Add(Me.ItSoundBox)
+        Me.ItGrpBox.Location = New System.Drawing.Point(6, 193)
+        Me.ItGrpBox.Name = "ItGrpBox"
+        Me.ItGrpBox.Size = New System.Drawing.Size(160, 85)
+        Me.ItGrpBox.TabIndex = 3
+        Me.ItGrpBox.TabStop = False
+        Me.ItGrpBox.Text = "Items"
+        '
+        'ItSoundTest
+        '
+        Me.ItSoundTest.Location = New System.Drawing.Point(79, 56)
+        Me.ItSoundTest.Name = "ItSoundTest"
+        Me.ItSoundTest.Size = New System.Drawing.Size(75, 23)
+        Me.ItSoundTest.TabIndex = 3
+        Me.ItSoundTest.Text = "Play"
+        Me.ItSoundTest.UseVisualStyleBackColor = True
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(3, 16)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(129, 13)
+        Me.Label14.TabIndex = 4
+        Me.Label14.Text = "Choose file for items alarm"
+        '
+        'ItSoundBox
+        '
+        Me.ItSoundBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ItSoundBox.FormattingEnabled = True
+        Me.ItSoundBox.Location = New System.Drawing.Point(6, 32)
+        Me.ItSoundBox.Name = "ItSoundBox"
+        Me.ItSoundBox.Size = New System.Drawing.Size(147, 21)
+        Me.ItSoundBox.TabIndex = 0
+        '
+        'StGrpBox
+        '
+        Me.StGrpBox.Controls.Add(Me.StSoundTest)
+        Me.StGrpBox.Controls.Add(Me.Label12)
+        Me.StGrpBox.Controls.Add(Me.StSoundBox)
+        Me.StGrpBox.Location = New System.Drawing.Point(179, 19)
+        Me.StGrpBox.Name = "StGrpBox"
+        Me.StGrpBox.Size = New System.Drawing.Size(160, 85)
+        Me.StGrpBox.TabIndex = 2
+        Me.StGrpBox.TabStop = False
+        Me.StGrpBox.Text = "Status"
+        '
+        'StSoundTest
+        '
+        Me.StSoundTest.Location = New System.Drawing.Point(78, 56)
+        Me.StSoundTest.Name = "StSoundTest"
+        Me.StSoundTest.Size = New System.Drawing.Size(75, 23)
+        Me.StSoundTest.TabIndex = 2
+        Me.StSoundTest.Text = "Play"
+        Me.StSoundTest.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(3, 16)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(133, 13)
+        Me.Label12.TabIndex = 2
+        Me.Label12.Text = "Choose file for status alarm"
+        '
+        'StSoundBox
+        '
+        Me.StSoundBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.StSoundBox.FormattingEnabled = True
+        Me.StSoundBox.Location = New System.Drawing.Point(6, 32)
+        Me.StSoundBox.Name = "StSoundBox"
+        Me.StSoundBox.Size = New System.Drawing.Size(148, 21)
+        Me.StSoundBox.TabIndex = 0
+        '
+        'PubMsgGrpBox
+        '
+        Me.PubMsgGrpBox.Controls.Add(Me.PubMsgSoundTest)
+        Me.PubMsgGrpBox.Controls.Add(Me.Label13)
+        Me.PubMsgGrpBox.Controls.Add(Me.PubMsgSoundBox)
+        Me.PubMsgGrpBox.Location = New System.Drawing.Point(6, 105)
+        Me.PubMsgGrpBox.Name = "PubMsgGrpBox"
+        Me.PubMsgGrpBox.Size = New System.Drawing.Size(160, 85)
+        Me.PubMsgGrpBox.TabIndex = 1
+        Me.PubMsgGrpBox.TabStop = False
+        Me.PubMsgGrpBox.Text = "Public Messages"
+        '
+        'PubMsgSoundTest
+        '
+        Me.PubMsgSoundTest.Location = New System.Drawing.Point(79, 56)
+        Me.PubMsgSoundTest.Name = "PubMsgSoundTest"
+        Me.PubMsgSoundTest.Size = New System.Drawing.Size(75, 23)
+        Me.PubMsgSoundTest.TabIndex = 5
+        Me.PubMsgSoundTest.Text = "Play"
+        Me.PubMsgSoundTest.UseVisualStyleBackColor = True
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(3, 16)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(147, 13)
+        Me.Label13.TabIndex = 3
+        Me.Label13.Text = "Choose file for message alarm"
+        '
+        'PubMsgSoundBox
+        '
+        Me.PubMsgSoundBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.PubMsgSoundBox.FormattingEnabled = True
+        Me.PubMsgSoundBox.Location = New System.Drawing.Point(6, 32)
+        Me.PubMsgSoundBox.Name = "PubMsgSoundBox"
+        Me.PubMsgSoundBox.Size = New System.Drawing.Size(148, 21)
+        Me.PubMsgSoundBox.TabIndex = 0
+        '
+        'BlGrpBox
+        '
+        Me.BlGrpBox.Controls.Add(Me.BlSoundTest)
+        Me.BlGrpBox.Controls.Add(Me.Label11)
+        Me.BlGrpBox.Controls.Add(Me.BlSoundBox)
+        Me.BlGrpBox.Location = New System.Drawing.Point(6, 19)
+        Me.BlGrpBox.Name = "BlGrpBox"
+        Me.BlGrpBox.Size = New System.Drawing.Size(160, 85)
+        Me.BlGrpBox.TabIndex = 0
+        Me.BlGrpBox.TabStop = False
+        Me.BlGrpBox.Text = "Battlelist"
+        '
+        'BlSoundTest
+        '
+        Me.BlSoundTest.Location = New System.Drawing.Point(79, 56)
+        Me.BlSoundTest.Name = "BlSoundTest"
+        Me.BlSoundTest.Size = New System.Drawing.Size(75, 23)
+        Me.BlSoundTest.TabIndex = 0
+        Me.BlSoundTest.Text = "Play"
+        Me.BlSoundTest.UseVisualStyleBackColor = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(3, 16)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(143, 13)
+        Me.Label11.TabIndex = 1
+        Me.Label11.Text = "Choose file for battlelist alarm"
+        '
+        'BlSoundBox
+        '
+        Me.BlSoundBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.BlSoundBox.FormattingEnabled = True
+        Me.BlSoundBox.Location = New System.Drawing.Point(6, 32)
+        Me.BlSoundBox.Name = "BlSoundBox"
+        Me.BlSoundBox.Size = New System.Drawing.Size(148, 21)
+        Me.BlSoundBox.TabIndex = 0
+        '
         'AlarmsSave
         '
         Me.AlarmsSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom
@@ -1082,72 +1444,14 @@ Partial Class frmAlarms
         '
         Me.ItemsAlarmTimer.Interval = 1000
         '
-        'StatusConditionDazzled
+        'Label16
         '
-        Me.StatusConditionDazzled.AutoSize = True
-        Me.StatusConditionDazzled.Location = New System.Drawing.Point(6, 86)
-        Me.StatusConditionDazzled.Name = "StatusConditionDazzled"
-        Me.StatusConditionDazzled.Size = New System.Drawing.Size(64, 17)
-        Me.StatusConditionDazzled.TabIndex = 20
-        Me.StatusConditionDazzled.Text = "Dazzled"
-        Me.StatusConditionDazzled.UseVisualStyleBackColor = True
-        '
-        'StatusConditionCursed
-        '
-        Me.StatusConditionCursed.AutoSize = True
-        Me.StatusConditionCursed.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.StatusConditionCursed.Location = New System.Drawing.Point(110, 86)
-        Me.StatusConditionCursed.Name = "StatusConditionCursed"
-        Me.StatusConditionCursed.Size = New System.Drawing.Size(59, 17)
-        Me.StatusConditionCursed.TabIndex = 21
-        Me.StatusConditionCursed.Text = "Cursed"
-        Me.StatusConditionCursed.UseVisualStyleBackColor = True
-        '
-        'StatusConditionFreezing
-        '
-        Me.StatusConditionFreezing.AutoSize = True
-        Me.StatusConditionFreezing.Location = New System.Drawing.Point(6, 109)
-        Me.StatusConditionFreezing.Name = "StatusConditionFreezing"
-        Me.StatusConditionFreezing.Size = New System.Drawing.Size(66, 17)
-        Me.StatusConditionFreezing.TabIndex = 22
-        Me.StatusConditionFreezing.Text = "Freezing"
-        Me.StatusConditionFreezing.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 50)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(42, 13)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Range:"
-        '
-        'BattlelistMultiFloorRange
-        '
-        Me.BattlelistMultiFloorRange.Location = New System.Drawing.Point(70, 48)
-        Me.BattlelistMultiFloorRange.Maximum = New Decimal(New Integer() {7, 0, 0, 0})
-        Me.BattlelistMultiFloorRange.Name = "BattlelistMultiFloorRange"
-        Me.BattlelistMultiFloorRange.Size = New System.Drawing.Size(48, 20)
-        Me.BattlelistMultiFloorRange.TabIndex = 3
-        Me.BattlelistMultiFloorRange.Value = New Decimal(New Integer() {7, 0, 0, 0})
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(51, 50)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(13, 13)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "±"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(124, 50)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(32, 13)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "floors"
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(5, 16)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(129, 13)
+        Me.Label16.TabIndex = 5
+        Me.Label16.Text = "Choose file for items alarm"
         '
         'frmAlarms
         '
@@ -1175,6 +1479,7 @@ Partial Class frmAlarms
         Me.GroupBox1.ResumeLayout(False)
         Me.MultiFloorGroupBox.ResumeLayout(False)
         Me.MultiFloorGroupBox.PerformLayout()
+        CType(Me.BattlelistMultiFloorRange, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
@@ -1201,7 +1506,20 @@ Partial Class frmAlarms
         CType(Me.StatusSoulPoints, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StatusManaPoints, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StatusHitPoints, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.BattlelistMultiFloorRange, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage4.ResumeLayout(False)
+        Me.ChangeSoundGrpBox.ResumeLayout(False)
+        Me.PrivMsgGrpBox.ResumeLayout(False)
+        Me.PrivMsgGrpBox.PerformLayout()
+        Me.GroupBox21.ResumeLayout(False)
+        Me.GroupBox21.PerformLayout()
+        Me.ItGrpBox.ResumeLayout(False)
+        Me.ItGrpBox.PerformLayout()
+        Me.StGrpBox.ResumeLayout(False)
+        Me.StGrpBox.PerformLayout()
+        Me.PubMsgGrpBox.ResumeLayout(False)
+        Me.PubMsgGrpBox.PerformLayout()
+        Me.BlGrpBox.ResumeLayout(False)
+        Me.BlGrpBox.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1297,4 +1615,31 @@ Partial Class frmAlarms
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents BattlelistMultiFloorRange As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
+    Friend WithEvents ChangeSoundGrpBox As System.Windows.Forms.GroupBox
+    Friend WithEvents ItGrpBox As System.Windows.Forms.GroupBox
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents ItSoundBox As System.Windows.Forms.ComboBox
+    Friend WithEvents StGrpBox As System.Windows.Forms.GroupBox
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents StSoundBox As System.Windows.Forms.ComboBox
+    Friend WithEvents PubMsgGrpBox As System.Windows.Forms.GroupBox
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents PubMsgSoundBox As System.Windows.Forms.ComboBox
+    Friend WithEvents BlGrpBox As System.Windows.Forms.GroupBox
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents BlSoundBox As System.Windows.Forms.ComboBox
+    Friend WithEvents GroupBox21 As System.Windows.Forms.GroupBox
+    Friend WithEvents ItSoundTest As System.Windows.Forms.Button
+    Friend WithEvents StSoundTest As System.Windows.Forms.Button
+    Friend WithEvents PubMsgSoundTest As System.Windows.Forms.Button
+    Friend WithEvents BlSoundTest As System.Windows.Forms.Button
+    Friend WithEvents SoundFileAddButton As System.Windows.Forms.Button
+    Friend WithEvents SoundFileBrowseButton As System.Windows.Forms.Button
+    Friend WithEvents SoundFilePath As System.Windows.Forms.TextBox
+    Friend WithEvents PrivMsgGrpBox As System.Windows.Forms.GroupBox
+    Friend WithEvents PrivMsgSoundTest As System.Windows.Forms.Button
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents PrivMsgSoundBox As System.Windows.Forms.ComboBox
+    Friend WithEvents Label16 As System.Windows.Forms.Label
 End Class

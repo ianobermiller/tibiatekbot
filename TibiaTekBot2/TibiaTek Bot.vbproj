@@ -392,12 +392,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Alarms\Battlelist.wav" />
-    <Content Include="Alarms\Highlight.wav" />
-    <Content Include="Alarms\Items.wav" />
-    <Content Include="Alarms\Private Message.wav" />
-    <Content Include="Alarms\Public Message.wav" />
-    <Content Include="Alarms\Status.wav" />
     <BaseApplicationManifest Include="My Project\app.manifest" />
     <None Include="app.config" />
     <None Include="Resources\Image1.jpg" />
@@ -422,6 +416,15 @@
     <None Include="MapReader\doorclosed.gif" />
     <None Include="MapReader\doorlocked.gif" />
     <None Include="MapReader\dooropen.gif" />
+    <Content Include="Alarms\Dong Dong.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Alarms\Ring Ring.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Alarms\Tune.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Config\Constants.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -448,6 +448,9 @@ Public Module KernelModule
         Public ILPlayer9HP As Integer = 0
         Public ILPlayer9MP As Integer = 0
 
+        Public PublicMessageFile As String = ""
+        Public PrivateMessageFile As String = ""
+
         Public AutoResponderActivated As Boolean = False
 
         Public KeyboardEntries As SortedList(Of String, IKernel.KeyboardEntry)
@@ -1080,6 +1083,8 @@ Public Module KernelModule
                 ILPlayer9Name = ""
                 ILPlayer9HP = 0
                 ILPlayer9MP = 0
+                PublicMessageFile = ""
+                PrivateMessageFile = ""
                 Thread.Sleep(500)
                 MagicWalls.Clear()
                 Client.SetFramesPerSecond(Consts.FPSWhenActive)
@@ -5522,9 +5527,9 @@ ContinueAttack:
                     Try
                         Select Case MessageType
                             Case ITibia.MessageType.Default
-                                If AlarmsForm.MessagePublic.Checked Then Sound.Play(ExecutablePath & "\Alarms\Public Message.wav", AudioPlayMode.Background)
+                                If AlarmsForm.MessagePublic.Checked Then Sound.Play(ExecutablePath & "\Alarms\" & PublicMessageFile & ".wav", AudioPlayMode.Background)
                             Case ITibia.MessageType.PrivateMessage
-                                If AlarmsForm.MessagePrivate.Checked Then Sound.Play(ExecutablePath & "\Alarms\Private Message.wav", AudioPlayMode.Background)
+                                If AlarmsForm.MessagePrivate.Checked Then Sound.Play(ExecutablePath & "\Alarms\" & PrivateMessageFile & ".wav", AudioPlayMode.Background)
                         End Select
                     Catch
                     End Try

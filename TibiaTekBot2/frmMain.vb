@@ -2880,6 +2880,7 @@ Public Class frmMain
             Kernel.AutoResponderForm.Show()
         End If
     End Sub
+
 #Region "Irc Location"
     Private Sub ILActivateButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ILActivateButton.Click
         Try
@@ -2952,10 +2953,6 @@ Public Class frmMain
         End Try
     End Sub
 
-    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
-        Kernel.ConnectToIrc()
-    End Sub
-
     Private Sub frmILMapShowButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmILMapShowButton.Click
         Try
             frmILMap.Show()
@@ -2965,4 +2962,5 @@ Public Class frmMain
         End Try
     End Sub
 #End Region
+
 End Class
