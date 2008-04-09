@@ -2717,7 +2717,7 @@ Public Class frmMain
         Kernel.KeyboardForm.ShowDialog()
     End Sub
 
-    Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
         Dim BL As New BattleList
         BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
