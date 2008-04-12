@@ -158,6 +158,7 @@ Public Class PipePacketBuilder
             _Packet.AddDWord(CharacterID)
             _Packet.AddWord(RelativeLocation.X)
             _Packet.AddWord(RelativeLocation.Y)
+            _Packet.AddWord(RelativeLocation.Z)
             _Packet.AddWord(ColorRed)
             _Packet.AddWord(ColorGreen)
             _Packet.AddWord(ColorBlue)

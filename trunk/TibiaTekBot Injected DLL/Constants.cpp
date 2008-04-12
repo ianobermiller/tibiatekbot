@@ -45,3 +45,4 @@ HANDLE PipeThread = 0;
 BYTE Buffer[1024] = {0};
 CRITICAL_SECTION PipeReadCriticalSection;
 
+
