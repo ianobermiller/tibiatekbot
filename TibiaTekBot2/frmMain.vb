@@ -2719,13 +2719,16 @@ Public Class frmMain
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
-        Dim BL As New BattleList
-        BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
         Dim Loc As New ITibia.LocationDefinition
         Loc.X = 0
         Loc.Y = 10
         Loc.Z = 0 'No need though
-        PPB.DisplayTextAboveCreature(Kernel.CharacterID, Loc, &H55, &H55, &HFF, 1, "PWNS")
+        Dim BL As New BattleList
+        Do
+            If BL.IsOnScreen AndAlso BL.IsPlayer Then
+                PPB.DisplayTextAboveCreature(BL.GetEntityID, Loc, 100, 100, 255, 1, "PLAYER")
+            End If
+        Loop While BL.NextEntity
         'Kernel.Client.TestPipe()
 
         'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)
