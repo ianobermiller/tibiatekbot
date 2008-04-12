@@ -64,10 +64,10 @@ void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, 
 	if (*EntityID == *Consts::ptrCharacterID) { //New "round" begins in the drawing routine
 		CreatureTexts.assign(UsedCreatures.begin(), UsedCreatures.end());
 		if (AddedCreatures.size() > 0) {
-			CreatureTexts.merge(AddedCreatures, CompareLists); //Adding Added creatures to the showing list
+			CreatureTexts.insert(CreatureTexts.begin(), AddedCreatures.begin(), AddedCreatures.end()); //Adding Added creatures to the showing list
 			for(it=AddedCreatures.begin(); it!=AddedCreatures.end(); ++it) {
 				if ((*it).DisplayText != NULL) {
-					free((*it).DisplayText);
+					//free((*it).DisplayText);
 				}
 			}
 			AddedCreatures.clear();
