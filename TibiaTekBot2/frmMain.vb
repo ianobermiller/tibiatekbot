@@ -2722,11 +2722,11 @@ Public Class frmMain
         Dim Loc As New ITibia.LocationDefinition
         Loc.X = 0
         Loc.Y = 10
-        Loc.Z = 0 'No need though
+        Loc.Z = 0 '0 Above player name, 1 Below player name
         Dim BL As New BattleList
         Do
             If BL.IsOnScreen AndAlso BL.IsPlayer Then
-                PPB.DisplayTextAboveCreature(BL.GetEntityID, Loc, 100, 100, 255, 1, "PLAYER")
+                PPB.DisplayTextAboveCreature(BL.GetEntityID, Loc, 255, 20, 20, 2, BL.GetHPPercentage & "%")
             End If
         Loop While BL.NextEntity
         'Kernel.Client.TestPipe()

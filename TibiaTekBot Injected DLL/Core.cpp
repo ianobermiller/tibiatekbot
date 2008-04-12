@@ -20,6 +20,7 @@ Ctext texts[MAX_TEXT] = {0};
 list<PlayerText> CreatureTexts;
 list<PlayerText> UsedCreatures; //Used to save creatures in screen
 list<PlayerText> AddedCreatures;
+list<PlayerText> UnusedCreatures;
 //BLAddress BLConsts;
 int PlayerCount = 0;
 
@@ -40,15 +41,19 @@ inline bool InGame(){ return (*Consts::INGAME == 8); }
 
 inline bool PopupOpened() { return (*Consts::POPUP == 11); }
 
+bool ComparePlayerText(PlayerText first, PlayerText second) {
+	if(first.CreatureId == second.CreatureId) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 int KeyboardEntriesCount = 0;
 KeyboardEntry *KeyboardEntries = NULL;
 bool KeyboardEnabled = false;
 bool KeyboardSayMode = false;
 KeyboardModifier KeyboardModifiers;
-
-bool CompareLists(PlayerText first, PlayerText second) {
-	return true;
-}
 
 void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, int nBlue, char* lpText, int nAlign)
 {
@@ -62,24 +67,31 @@ void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, 
 
 	//Removing unused text
 	if (*EntityID == *Consts::ptrCharacterID) { //New "round" begins in the drawing routine
+		if (!UsedCreatures.empty()) {
+			CreatureTexts.unique(ComparePlayerText);
+			char *TempChar = 0;
+			for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ) {
+				TempChar = (*it).DisplayText;
+				it = CreatureTexts.erase(it);
+				free(TempChar);
+			}
+		}
 		CreatureTexts.assign(UsedCreatures.begin(), UsedCreatures.end());
 		if (AddedCreatures.size() > 0) {
 			CreatureTexts.insert(CreatureTexts.begin(), AddedCreatures.begin(), AddedCreatures.end()); //Adding Added creatures to the showing list
-			for(it=AddedCreatures.begin(); it!=AddedCreatures.end(); ++it) {
-				if ((*it).DisplayText != NULL) {
-					//free((*it).DisplayText);
-				}
-			}
 			AddedCreatures.clear();
 		}
 		UsedCreatures.clear();
 	}
 
 	//Displaying texts
-	for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ++it) {
+	for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ) {
 		if (*EntityID == (*it).CreatureId) {
 			UsedCreatures.push_back(*it);
 			PrintText(0x01, nX + (*it).RelativeX, nY + (*it).RelativeY, (*it).TextFont, (*it).cR, (*it).cG, (*it).cB, (*it).DisplayText, 0x00);
+			it = CreatureTexts.erase(it);
+		} else {
+			++it;
 		}
 	}
 }
@@ -413,6 +425,7 @@ void PipeOnRead(){
 				int TextId = Packet::ReadByte(Buffer, &position);
 				if(TextId < MAX_TEXT)
 					texts[TextId].used = false;
+					free(texts[TextId].text);
 			}
 			break;
 		case 6: //Remove All
@@ -471,21 +484,26 @@ void PipeOnRead(){
 				int Id = Packet::ReadDWord(Buffer, &position);
                 int nX = Packet::ReadWord(Buffer, &position);
                 int nY = Packet::ReadWord(Buffer, &position);
+				int Pos = Packet::ReadWord(Buffer, &position);
                 int ColorR = Packet::ReadWord(Buffer, &position);
                 int ColorG = Packet::ReadWord(Buffer, &position);
                 int ColorB = Packet::ReadWord(Buffer, &position);
                 int TxtFont = Packet::ReadWord(Buffer, &position);
                 string Text = Packet::ReadString(Buffer, &position);
-                char *lpText = (char*)calloc(Text.size(), sizeof(char));
+                char *lpText = (char*)calloc(Text.size() + 1, sizeof(char));
                 strcpy(lpText, Text.c_str());
                 PlayerText Creature = {0};
                 Creature.cB = ColorB;
                 Creature.cG = ColorG;
                 Creature.cR = ColorR;
                 Creature.CreatureId = Id;
-                Creature.DisplayText = lpText; //<-- Doesn't work.
+                Creature.DisplayText = lpText;
                 Creature.RelativeX = nX;
-                Creature.RelativeY = nY;
+				if (Pos) {
+					Creature.RelativeY = nY;
+				} else {
+					Creature.RelativeY = -nY;
+				}
                 Creature.TextFont = TxtFont;
 
                 AddedCreatures.push_back(Creature);

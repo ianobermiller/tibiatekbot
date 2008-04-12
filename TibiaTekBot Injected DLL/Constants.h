@@ -92,6 +92,7 @@ struct PlayerText
 	int TextFont;
 	int RelativeX;
 	int RelativeY;
+
 };
 
 
