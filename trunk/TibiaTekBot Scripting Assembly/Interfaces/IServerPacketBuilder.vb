@@ -37,6 +37,7 @@ Public Interface IServerPacketBuilder
     Sub UseObject(ByVal Item As IContainer.ContainerItemDefinition, Optional ByVal ContainerIndex As Byte = &HF)
     Sub UseHotkey(ByVal ItemID As Int32, ByVal CharacterID As Int32, Optional ByVal ExtraByte As Integer = 0)
     Sub StopEverything()
+    Sub LookAtObject(ByVal ItemID As Integer, ByVal Location As ITibia.LocationDefinition, ByVal StackPos As Integer)
     Sub MoveObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, ByVal Destination As ITibia.LocationDefinition, Optional ByVal Count As Byte = &HFF)
     Sub MoveObject(ByVal Item As IContainer.ContainerItemDefinition, ByVal Destination As ITibia.LocationDefinition, Optional ByVal Count As Byte = &HFF)
     Sub UseObject(ByVal ItemID As Integer, ByVal Source As ITibia.LocationDefinition, Optional ByVal ContainerIndex As Byte = 1)

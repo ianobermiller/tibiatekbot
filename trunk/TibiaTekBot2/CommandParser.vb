@@ -89,6 +89,7 @@ Public Class CommandParser
             Add("log", AddressOf CmdLog)
             Add(New String() {"favwnp", "favweapon", "favoriteweapon", "fvwpn"}, AddressOf CmdFavWep)
             Add("reload", AddressOf CmdReload)
+            Add("playerinfo", AddressOf CmdPlayerInfo)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -183,7 +184,19 @@ Public Class CommandParser
         End Try
     End Function
 
-#Region " View Message "
+#Region " Player Information Command "
+
+    Private Sub CmdPlayerInfo(ByVal Arguments As GroupCollection)
+        Try
+
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+#End Region
+
+#Region " View Message Command "
 
     Private Sub CmdViewMessage(ByVal Arguments As GroupCollection)
 

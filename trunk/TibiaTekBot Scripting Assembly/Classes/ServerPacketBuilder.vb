@@ -447,6 +447,16 @@ Public Class ServerPacketBuilder
         If _AutoSend Then Send()
     End Sub
 
+    Public Sub LookAtObject(ByVal ItemID As Integer, ByVal Location As ITibia.LocationDefinition, ByVal StackPos As Integer) Implements IServerPacketBuilder.LookAtObject
+        Dim _Packet As New Packet()
+        _Packet.AddByte(&H8C)
+        _Packet.AddLocation(Location)
+        _Packet.AddWord(ItemID)
+        _Packet.AddByte(StackPos)
+        Packets.Enqueue(_Packet)
+        If _AutoSend Then Send()
+    End Sub
+
     Public Sub Send() Implements IPacketBuilder.Send
         Try
             While Packets.Count > 0
@@ -459,4 +469,6 @@ Public Class ServerPacketBuilder
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+
 End Class
