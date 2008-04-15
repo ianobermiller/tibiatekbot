@@ -141,6 +141,16 @@ Public Interface IKernel
 #End Region
 
 #Region " Structures "
+    Structure EntityInfo
+        Dim EntityID As UInt32
+        Dim Name As String
+        Dim Level As UInt32
+        Dim GuildName As String
+        Dim GuildRank As String
+        Dim Vocation As String
+        Dim Looked As Boolean
+    End Structure
+
     Structure KeyboardEntry
         Dim Action As KeyboardEntryAction
         Dim NewVirtualKey As VirtualKey

@@ -334,7 +334,6 @@ Public Class PProxy2
 
         RaiseEvent PacketFromServer(bytArray, Send)
         If Not Send Then Exit Sub
-
         bytArray = xTeaEncrypt(bytArray)
 
         Do Until sckGC.GetState = Winsock.WinsockStates.Connected
