@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Copyright (C) 2007 TibiaTek Development Team
+
+    This file is part of TibiaTek Bot.
+
+    TibiaTek Bot is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TibiaTek Bot is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
+    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
+-->
+<Creatures>
+    <Creature Name="Badger" Experience="5" />
+    <Creature Name="Bat" Experience="10" />
+    <Creature Name="Bear" Experience="23" />
+    <Creature Name="Blood Crab" Experience="160" />
+    <Creature Name="Carrion Worm" Experience="70" />
+    <Creature Name="Cave Rat" Experience="10" />
+    <Creature Name="Crab" Experience="30" />
+    <Creature Name="Crocodile" Experience="40" />
+    <Creature Name="Elephant" Experience="160" />
+    <Creature Name="Hyaena" Experience="20" />
+    <Creature Name="Lion" Experience="30" />
+    <Creature Name="Mammoth" Experience="85" />
+    <Creature Name="Panda" Experience="23" />
+    <Creature Name="Polar Bear" Experience="28" />
+    <Creature Name="Rat" Experience="5" />
+    <Creature Name="Rotworm" Experience="40" />
+    <Creature Name="Skunk" Experience="3" />
+    <Creature Name="Terror Bird" Experience="150" />
+    <Creature Name="Thornback Tortoise" Experience="150" />
+    <Creature Name="Tiger" Experience="40" />
+    <Creature Name="Tortoise" Experience="90" />
+    <Creature Name="War Wolf" Experience="55" />
+    <Creature Name="Winter Wolf" Experience="20" />
+    <Creature Name="Wolf" Experience="18" />
+    <Creature Name="Ancient Scarab" Experience="720" />
+    <Creature Name="Bug" Experience="18" />
+    <Creature Name="Centipede" Experience="30" />
+    <Creature Name="Cobra" Experience="30" />
+    <Creature Name="Defiler" Experience="2500" />
+    <Creature Name="Giant Spider" Experience="900" />
+    <Creature Name="Larva" Experience="44" />
+    <Creature Name="Poison Spider" Experience="22" />
+    <Creature Name="Scarab" Experience="120" />
+    <Creature Name="Scorpion" Experience="45" />
+    <Creature Name="Slime" Experience="160" />
+    <Creature Name="Snake" Experience="10" />
+    <Creature Name="Son of Verminor" Experience="5900" />
+    <Creature Name="Spider" Experience="12" />
+    <Creature Name="Tarantula" Experience="120" />
+    <Creature Name="Tibia Bug" Experience="50" />
+    <Creature Name="Wasp" Experience="24" />
+    <Creature Name="Azure Frog" Experience="20" />
+    <Creature Name="Coral Frog" Experience="20" />
+    <Creature Name="Crimson Frog" Experience="20" />
+    <Creature Name="Orchid Frog" Experience="20" />
+    <Creature Name="Toad" Experience="60" />
+    <Creature Name="Carniphila" Experience="150" />
+    <Creature Name="Spit Nettle" Experience="25" />
+    <Creature Name="Kongra" Experience="115" />
+    <Creature Name="Merlkin" Experience="145" />
+    <Creature Name="Sibang" Experience="105" />
+    <Creature Name="Lizard Sentinel" Experience="110" />
+    <Creature Name="Lizard Snakecharmer" Experience="210" />
+    <Creature Name="Lizard Templar" Experience="155" />
+    <Creature Name="Acolyte of the Cult" Experience="300" />
+    <Creature Name="Adept of the Cult" Experience="400" />
+    <Creature Name="Amazon" Experience="60" />
+    <Creature Name="Assassin" Experience="105" />
+    <Creature Name="Bandit" Experience="65" />
+    <Creature Name="Black Knight" Experience="1600" />
+    <Creature Name="Dark Monk" Experience="145" />
+    <Creature Name="Enlightened of the Cult" Experience="500" />
+    <Creature Name="Hero" Experience="1200" />
+    <Creature Name="Hunter" Experience="150" />
+    <Creature Name="Monk" Experience="200" />
+    <Creature Name="Necromancer" Experience="580" />
+    <Creature Name="Nomad" Experience="60" />
+    <Creature Name="Novice of the Cult" Experience="100" />
+    <Creature Name="Pirate Buccaneer" Experience="250" />
+    <Creature Name="Pirate Corsair" Experience="350" />
+    <Creature Name="Pirate Cutthroat" Experience="175" />
+    <Creature Name="Pirate Marauder" Experience="125" />
+    <Creature Name="Priestess" Experience="420" />
+    <Creature Name="Primitive" Experience="45" />
+    <Creature Name="Smuggler" Experience="48" />
+    <Creature Name="Stalker" Experience="90" />
+    <Creature Name="Valkyrie" Experience="85" />
+    <Creature Name="Wild Warrior" Experience="60" />
+    <Creature Name="Witch" Experience="120" />
+    <Creature Name="Warlock" Experience="4000" />
+    <Creature Name="Elf" Experience="42" />
+    <Creature Name="Elf Arcanist" Experience="175" />
+    <Creature Name="Elf Scout" Experience="75" />
+    <Creature Name="Dwarf" Experience="45" />
+    <Creature Name="Dwarf Geomancer" Experience="245" />
+    <Creature Name="Dwarf Guard" Experience="165" />
+    <Creature Name="Dwarf Soldier" Experience="70" />
+    <Creature Name="Dworc Fleshhunter" Experience="35" />
+    <Creature Name="Dworc Venomsniper" Experience="30" />
+    <Creature Name="Dworc Voodoomaster" Experience="50" />
+    <Creature Name="Goblin" Experience="25" />
+    <Creature Name="Grynch Clan Goblin" Experience="4" />
+    <Creature Name="Hacker" Experience="45" />
+    <Creature Name="Orc" Experience="25" />
+    <Creature Name="Orc Berserker" Experience="195" />
+    <Creature Name="Orc Leader" Experience="270" />
+    <Creature Name="Orc Rider" Experience="110" />
+    <Creature Name="Orc Shaman" Experience="110" />
+    <Creature Name="Orc Spearman" Experience="38" />
+    <Creature Name="Orc Warlord" Experience="670" />
+    <Creature Name="Orc Warrior" Experience="50" />
+    <Creature Name="Frost Troll" Experience="23" />
+    <Creature Name="Island Troll" Experience="20" />
+    <Creature Name="Swamp Troll" Experience="25" />
+    <Creature Name="Troll" Experience="20" />
+    <Creature Name="Minotaur" Experience="50" />
+    <Creature Name="Minotaur Archer" Experience="65" />
+    <Creature Name="Minotaur Guard" Experience="160" />
+    <Creature Name="Minotaur Mage" Experience="150" />
+    <Creature Name="Bonebeast" Experience="580" />
+    <Creature Name="Banshee" Experience="900" />
+    <Creature Name="Betrayed Wraith" Experience="3000" />
+    <Creature Name="Blightwalker" Experience="3350" />
+    <Creature Name="Crypt Shambler" Experience="195" />
+    <Creature Name="Demon Skeleton" Experience="240" />
+    <Creature Name="Gargoyle" Experience="150" />
+    <Creature Name="Ghost" Experience="120" />
+    <Creature Name="Ghoul" Experience="85" />
+    <Creature Name="Lich" Experience="900" />
+    <Creature Name="Lost Soul" Experience="2500" />
+    <Creature Name="Mummy" Experience="150" />
+    <Creature Name="Pirate Ghost" Experience="250" />
+    <Creature Name="Pirate Skeleton" Experience="85" />
+    <Creature Name="Skeleton" Experience="35" />
+    <Creature Name="Spectre" Experience="1350" />
+    <Creature Name="Undead Dragon" Experience="5100" />
+    <Creature Name="Undead Minion" Experience="550" />
+    <Creature Name="Vampire" Experience="290" />
+    <Creature Name="Behemoth" Experience="2500" />
+    <Creature Name="Cyclops" Experience="150" />
+    <Creature Name="Stone Golem" Experience="160" />
+    <Creature Name="Quara Constrictor" Experience="250" />
+    <Creature Name="Quara Hydromancer" Experience="800" />
+    <Creature Name="Quara Mantassin" Experience="400" />
+    <Creature Name="Quara Pincher" Experience="1200" />
+    <Creature Name="Quara Predator" Experience="1600" />
+    <Creature Name="Quara Constrictor Scout" Experience="200" />
+    <Creature Name="Quara Hydromancer Scout" Experience="800" />
+    <Creature Name="Quara Mantassin Scout" Experience="100" />
+    <Creature Name="Quara Pincher Scout" Experience="600" />
+    <Creature Name="Quara Predator Scout" Experience="400" />
+    <Creature Name="Beholder" Experience="170" />
+    <Creature Name="Blue Djinn" Experience="190" />
+    <Creature Name="Demon (Goblin)" Experience="25" />
+    <Creature Name="Efreet" Experience="300" />
+    <Creature Name="Elder Beholder" Experience="280" />
+    <Creature Name="Fire Devil" Experience="110" />
+    <Creature Name="Fire Elemental" Experience="220" />
+    <Creature Name="Gazer" Experience="90" />
+    <Creature Name="Green Djinn" Experience="190" />
+    <Creature Name="Marid" Experience="300" />
+    <Creature Name="Massive Water Elemental" Experience="800" />
+    <Creature Name="Phantasm" Experience="3300" />
+    <Creature Name="Serpent Spawn" Experience="2000" />
+    <Creature Name="Water Elemental" Experience="450" />
+    <Creature Name="Wyvern" Experience="515" />
+    <Creature Name="Dragon" Experience="700" />
+    <Creature Name="Dragon Lord" Experience="2100" />
+    <Creature Name="Hydra" Experience="2100" />
+    <Creature Name="Dark Torturer" Experience="3500" />
+    <Creature Name="Demon" Experience="6000" />
+    <Creature Name="Destroyer" Experience="2000" />
+    <Creature Name="Diabolic Imp" Experience="1950" />
+    <Creature Name="Fury" Experience="4000" />
+    <Creature Name="Hand of Cursed Fate" Experience="3850" />
+    <Creature Name="Hellfire Fighter" Experience="2200" />
+    <Creature Name="Hellhound" Experience="4350" />
+    <Creature Name="Juggernaut" Experience="6500" />
+    <Creature Name="Plaguesmith" Experience="3000" />
+    <Creature Name="Nightmare" Experience="2150" />
+    <Creature Name="Ashmunrah" Experience="3100" />
+    <Creature Name="Dipthrah" Experience="2900" />
+    <Creature Name="Mahrdis" Experience="3050" />
+    <Creature Name="Morguthis" Experience="3000" />
+    <Creature Name="Omruc" Experience="2950" />
+    <Creature Name="Rahemos" Experience="3100" />
+    <Creature Name="Thalas" Experience="2950" />
+    <Creature Name="Vashresamun" Experience="2950" />
+    <Creature Name="Apprentice Sheng" Experience="100" />
+    <Creature Name="Bones" Experience="3750" />
+    <Creature Name="Brutus Bloodbeard" Experience="500" />
+    <Creature Name="Demodras" Experience="4000" />
+    <Creature Name="Dharalion" Experience="380" />
+    <Creature Name="Fernfang" Experience="400" />
+    <Creature Name="Ferumbras" Experience="12000" />
+    <Creature Name="Fluffy" Experience="3550" />
+    <Creature Name="General Murius" Experience="300" />
+    <Creature Name="Grorlam" Experience="1600" />
+    <Creature Name="Lethal Lissy" Experience="500" />
+    <Creature Name="Minishabaal" Experience="4000" />
+    <Creature Name="Munster" Experience="23" />
+    <Creature Name="Necropharus" Experience="700" />
+    <Creature Name="Orshabaal" Experience="10000" />
+    <Creature Name="Ron the Ripper" Experience="500" />
+    <Creature Name="The Evil Eye" Experience="500" />
+    <Creature Name="The Horned Fox" Experience="200" />
+    <Creature Name="The Old Widow" Experience="2800" />
+    <Creature Name="Thul" Experience="1800" />
+    <Creature Name="Tiquandas Revenge" Experience="1755" />
+    <Creature Name="Yeti" Experience="460" />
+    <Creature Name="Morgaroth" Experience="15000" />
+    <Creature Name="Bazir" Experience="30000" />
+    <Creature Name="Infernatil" Experience="85000" />
+</Creatures>

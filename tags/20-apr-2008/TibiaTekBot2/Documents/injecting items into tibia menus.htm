@@ -1,0 +1,3166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta name="generator" content="vBulletin 3.6.5" />
+
+<meta name="keywords" content="Injecting menus and handling tibia's gui, vbulletin,jelsoft,forum,bbs,discussion,bulletin board" />
+<meta name="description" content="Page 3-Injecting menus and handling tibia's gui Programming Chat" />
+
+
+<!-- CSS Stylesheet -->
+<style type="text/css" id="vbulletin_css">
+<!--
+/* vBulletin 3 CSS For Style 'Greenfox' (styleid: 2) */
+body
+{
+	background: #1b1b1b url(images/greenfox/misc/bg_tile.gif);
+	color: #CCCCCC;
+	font: 9pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	margin: 0px 5px 0px 5px;
+}
+a:link, body_alink
+{
+	color: #eeeeee;
+	text-decoration: none;
+}
+a:visited, body_avisited
+{
+	color: #eeeeee;
+	text-decoration: none;
+}
+a:hover, a:active, body_ahover
+{
+	color: #cdf16c;
+	text-decoration: underline;
+}
+.page
+{
+	background: #1b1b1b;
+	color: #CCCCCC;
+}
+.page a:link, .page_alink
+{
+	text-decoration: none;
+}
+.page a:visited, .page_avisited
+{
+	text-decoration: none;
+}
+.page a:hover, .page a:active, .page_ahover
+{
+	text-decoration: underline;
+}
+td, th, p, li
+{
+	font: 9pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.tborder
+{
+	background: #1f1f1f;
+	color: #cccccc;
+	border: 1px solid #363636;
+}
+.tcat
+{
+	background: #5b8d22 url(images/greenfox/gradients/gradient_tcat.gif) repeat-x top left;
+	color: #FFFFFF;
+	font: bold 9pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.tcat a:link, .tcat_alink
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.tcat a:visited, .tcat_avisited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.tcat a:hover, .tcat a:active, .tcat_ahover
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.thead
+{
+	background: #373737 url(images/greenfox/gradients/gradient_thead.gif) repeat-x top left;
+	color: #FFFFFF;
+	font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	border-top: 1px solid #363636;
+}
+.thead a:link, .thead_alink
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.thead a:visited, .thead_avisited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.thead a:hover, .thead a:active, .thead_ahover
+{
+	color: #cdf16c;
+	text-decoration: underline;
+}
+.tfoot
+{
+	background: #282828;
+	color: #cccccc;
+}
+.tfoot a:link, .tfoot_alink
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.tfoot a:visited, .tfoot_avisited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.tfoot a:hover, .tfoot a:active, .tfoot_ahover
+{
+	color: #cdf16c;
+	text-decoration: underline;
+}
+.alt1, .alt1Active
+{
+	background: #2c2c2c;
+	color: #cccccc;
+	font-family: tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	border-top: 1px solid #363636;
+	border-left: 1px solid #363636;
+}
+.alt2, .alt2Active
+{
+	background: #282828;
+	color: #cccccc;
+	font-family: tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	border-top: 1px solid #363636;
+	border-left: 1px solid #363636;
+}
+td.inlinemod
+{
+	background: #333333;
+	color: #FFFFFF;
+	border-top: 1px solid #363636;
+	border-left: 1px solid #363636;
+}
+.wysiwyg
+{
+	background: #2c2c2c;
+	color: #cccccc;
+	font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+textarea, .bginput
+{
+	background: #000000;
+	color: #cdf16c;
+	font: 9pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	border: 1px solid #1f1f1f;
+}
+.button
+{
+	background: #5b8d22 url(images/greenfox/gradients/gradient_tcat.gif) repeat-x top left;
+	color: #FFFFFF;
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	border: 1px solid #5b8d22;
+}
+select
+{
+	background: #000000;
+	color: #FFFFFF;
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	border: 1px solid #1f1f1f;
+}
+option, optgroup
+{
+	font-size: 11px;
+	font-family: verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.smallfont
+{
+	font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.time
+{
+	color: #cdf16c;
+}
+.navbar
+{
+	background: #5b8d22 url(images/greenfox/gradients/gradient_tcat.gif) repeat-x top left;
+	color: #FFFFFF;
+	font: bold 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.navbar a:link, .navbar_alink
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.navbar a:visited, .navbar_avisited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.navbar a:hover, .navbar a:active, .navbar_ahover
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.highlight
+{
+	color: #FF0000;
+	font-weight: bold;
+}
+.fjsel
+{
+	background: #000000;
+	color: #FFFFFF;
+}
+.fjdpth0
+{
+	background: #5b8d22;
+	color: #FFFFFF;
+}
+.fjdpth3
+{
+	background: #3366FF;
+}
+.panel
+{
+	background: #2c2c2c;
+	color: #cccccc;
+	padding: 10px;
+	border: 2px outset;
+}
+.panelsurround
+{
+	background: #282828;
+	color: #cccccc;
+	border-top: 1px solid #363636;
+	border-left: 1px solid #363636;
+	border-right: 1px solid #363636;
+	border-bottom: 1px solid #363636;
+}
+legend
+{
+	color: #cdf16c;
+	font: 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+.vbmenu_control
+{
+	background: #5b8d22 url(images/greenfox/gradients/gradient_tcat.gif) repeat-x top left;
+	color: #FFFFFF;
+	font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	padding: 3px 6px 3px 6px;
+	white-space: nowrap;
+}
+.vbmenu_control a:link, .vbmenu_control_alink
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.vbmenu_control a:visited, .vbmenu_control_avisited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.vbmenu_control a:hover, .vbmenu_control a:active, .vbmenu_control_ahover
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.vbmenu_popup
+{
+	background: #1f1f1f;
+	color: #cccccc;
+	border: 1px solid #363636;
+}
+.vbmenu_option
+{
+	background: #282828;
+	color: #cccccc;
+	font: 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	white-space: nowrap;
+	cursor: pointer;
+	border-top: 1px solid #363636;
+	border-left: 1px solid #363636;
+}
+.vbmenu_option a:link, .vbmenu_option_alink
+{
+	color: #999999;
+	text-decoration: none;
+}
+.vbmenu_option a:visited, .vbmenu_option_avisited
+{
+	color: #999999;
+	text-decoration: none;
+}
+.vbmenu_option a:hover, .vbmenu_option a:active, .vbmenu_option_ahover
+{
+	color: #999999;
+	text-decoration: none;
+}
+.vbmenu_hilite
+{
+	background: #2c2c2c;
+	color: #FFFFFF;
+	font: 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	white-space: nowrap;
+	cursor: pointer;
+	border-top: 1px solid #363636;
+	border-left: 1px solid #363636;
+}
+.vbmenu_hilite a:link, .vbmenu_hilite_alink
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.vbmenu_hilite a:visited, .vbmenu_hilite_avisited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.vbmenu_hilite a:hover, .vbmenu_hilite a:active, .vbmenu_hilite_ahover
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+/* ***** styling for 'big' usernames on postbit etc. ***** */
+.bigusername { font-size: 14pt; }
+
+/* ***** small padding on 'thead' elements ***** */
+td.thead, div.thead { padding: 4px; }
+
+/* ***** basic styles for multi-page nav elements */
+.pagenav a { text-decoration: none; }
+.pagenav td { padding: 2px 4px 2px 4px; }
+
+/* ***** define margin and font-size for elements inside panels ***** */
+.fieldset { margin-bottom: 6px; }
+.fieldset, .fieldset td, .fieldset p, .fieldset li { font-size: 11px; }
+
+/* ***** don't change the following ***** */
+form { display: inline; }
+label { cursor: default; }
+.normal { font-weight: normal; }
+.inlineimg { vertical-align: middle; }
+/* Here you can change the look of the post text and links */
+
+.vb_postbit
+{
+	color: #cccccc;
+    font: 12px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+	text-decoration: none;
+}
+.vb_postbit a:link
+{
+	color: #848484;
+        font: 12px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+        border-bottom: 1px dotted #cdf16c;
+	text-decoration: none;
+}
+.vb_postbit a:visited
+{
+	color: #848484;
+        font: 12px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+        border-bottom: 1px dotted #cdf16c;
+	text-decoration: none;
+}
+.vb_postbit a:hover, .vb_postbit a:active
+{
+	color: #cdf16c;
+        font: 12px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+        border-bottom: 1px dotted #848484;
+	text-decoration: none;
+}
+
+/* ***** Header and Nav  ***** */
+.header_bg {
+background: #000000 url(images/greenfox/misc/nav_bg.gif) ;
+}
+.vb_navigation {
+background: #000000 url(images/greenfox/misc/nav_bg_small.gif) ;
+}
+
+/* ***** navigation roll-overs element */
+
+.css_nav {
+float: left;
+width: 78px;
+height: 34px;
+color: #ffffff;
+font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+font-weight: bold;
+text-align: center;
+margin: 0px;
+padding: 0px;
+border: 0px;
+}
+
+.css_nav a:link , .css_nav a:visited {
+display: block;
+background-image: url(images/greenfox/misc/nav.gif);
+color: #ffffff;
+font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+font-size: 9px;
+font-weight: bold;
+line-height: 31px;
+text-align: center;
+text-decoration: none;
+width: 78px;
+height: 34px;
+}
+
+.css_nav a:hover, .css_nav a:active {
+background-image: url(images/greenfox/misc/nav_over.gif);
+color: #e3f9c2;
+text-decoration: none;
+line-height: 33px;
+width: 78px;
+height: 34px;
+}
+
+/* ***** postbit user info  ***** */
+.postbit_box 
+{
+background-color: #edf3f9;
+color: #000000;
+padding:7px 7px 7px 7px;
+border: 1px dotted #CFCFCF;
+width: 292px;
+}
+
+/* ***** spacers and paddings ***** */
+
+.cat_spacer {
+padding:5px 0px 5px 0px;
+}
+.spacer {
+padding:5px 0px 5px 0px;
+}
+.spacer_small {
+padding:2px 0px 2px 0px;
+}
+/* ***** side borders ***** */ 
+.side_borders {
+width: 762px; 
+border-left: 2px solid #0e0e0f;
+border-right: 2px solid #0e0e0f;
+margin-left: auto;
+margin-right: auto;
+}
+
+
+/* ***** make announcements, stickies moderated, soft deleted posts, poll posts and search result since last visit pretty ***** */
+.announcement {
+background-color: #3d4c3b;
+color: #ffffff;
+border-top: 1px solid #4e4e4e;
+border-left: 1px solid #4e4e4e;
+}
+.sticky {
+background-color: #363d38;
+color: #ffffff;
+border-top: 1px solid #4e4e4e;
+border-left: 1px solid #4e4e4e;
+}
+.poll {
+background-color: #1f2e38;
+color: #ffffff;
+border-top: 1px solid #4e4e4e;
+border-left: 1px solid #4e4e4e;
+}
+.moderated {
+background-color: #3e3e3e;
+color: #ffffff;
+border-top: 1px solid #4e4e4e;
+border-left: 1px solid #4e4e4e;
+}
+.subscribed {
+background-color: #434236;
+color: #ffffff;
+border-top: 1px solid #4e4e4e;
+border-left: 1px solid #4e4e4e;
+}
+.deleted {
+background-color: #1b1b1b;
+color: #ffffff;
+border-top: 1px solid #363636;
+border-left: 1px solid #363636;
+}
+.last_visit {
+background-color: #363d38;
+color: #ffffff;
+border-top: 1px solid #4e4e4e;
+border-left: 1px solid #4e4e4e;
+}
+
+/* ***** dotted hr ***** */
+div.hr {
+height: 2px;
+background: url(images/greenfox/misc/hr.gif) repeat scroll center;
+}
+div.hr hr {
+display: none;
+}
+
+/* ***** make dropdown menu pretty ***** */
+
+.vb_menu_control { 
+background: #373737 url(images/greenfox/gradients/gradient_thead.gif) repeat-x top left;
+color:  #ffffff;
+font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+border-top: 1px solid #363636;
+padding: 3px 6px 3px 6px;
+white-space: nowrap;
+}
+.vb_menu_control a:link {
+color:  #ffffff;
+text-decoration: none;
+}
+.vb_menu_control a:visited {
+color:  #ffffff;
+text-decoration: none;
+}
+.vb_menu_control a:hover, .vb_menu_control a:active {
+color:  #cdf16c;
+text-decoration: underline;
+}
+
+/* ***** navbar dot border ***** */
+.vb_navbar
+{
+	background: #1f1f1f;
+	color: #848484;
+	border: 1px dotted #363636;
+}
+
+/* ***** category bottom ***** */
+.cat_bottom
+{
+background: #1f1f1f url(images/greenfox/gradients/gradient_thead.gif) repeat-x top left;
+border-top: #363636 1px solid;
+}
+-->
+</style>
+
+<!-- / CSS Stylesheet -->
+
+<script type="text/javascript">
+<!--
+var SESSIONURL = "";
+var IMGDIR_MISC = "images/greenfox/misc";
+var vb_disable_ajax = parseInt("0", 10);
+// -->
+</script>
+
+<script type="text/javascript" src="clientscript/vbulletin_global.js?v=365"></script>
+<script type="text/javascript" src="clientscript/vbulletin_menu.js?v=365"></script>
+
+	<title>Injecting menus and handling tibia's gui - Page 3 - TProgramming</title>
+	<script type="text/javascript" src="clientscript/vbulletin_post_loader.js?v=365"></script>
+</head>
+<body onload="">
+<!-- logo -->
+<a name="top"></a>
+<div class="side_borders">
+<table border="0" width="760" cellpadding="0" cellspacing="0" align="center" class="tborder">
+<tr>
+	<td align="center" valign="top">
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+<tr class="header_bg">
+	<td align="left" valign="middle"><a href="index.php"><img src="images/greenfox/misc/logo.gif" border="0" alt="TProgramming" /></a></td>
+
+	
+		<td align="right">
+		&nbsp;
+<!-- banners --></td>
+		
+	
+</tr>
+<tr>
+<td height="34" colspan="2" class="vb_navigation">
+
+<!-- nav buttons bar -->
+<div align="center">
+	<table  cellpadding="0" cellspacing="0" border="0"  align="left" class="vb_navigation">
+	<tr align="center">
+
+<!-- START OF CHANGES MADE BY DARK PALLYS -->
+
+<!-- 
+AREA UNDER TESTS
+CHANGES HERE MADE BY DARK PALLYS
+
+ZYPH.. DELETED IF U WANT..
+ONLY STAFF CAN SEE THIS BUTTON
+-->
+
+
+
+
+<!-- END OF CHANGES MADE BY DARK PALLYS -->
+
+		
+			<td width="78" height="34"  class="css_nav"><a href="usercp.php">User CP</a></td>
+		
+		
+		<td width="78" height="34"  class="css_nav"><a href="faq.php" accesskey="5">FAQ</a></td>
+		<td width="78" height="34"  class="css_nav"><a href="memberlist.php">Members</a></td>
+		<td width="78" height="34"  class="css_nav"><a href="calendar.php">Calendar</a></td>
+				
+			
+				
+				<td width="78" height="34"  class="css_nav"><a href="search.php?do=getnew" accesskey="2">New</a></td>
+				
+				<td id="navbar_search" width="78" height="34" class="css_nav"><a href="search.php" accesskey="4" rel="nofollow">Search</a> <script type="text/javascript"> vbmenu_register("navbar_search", 1); </script></td>
+			
+			
+				<td id="usercptools" width="78" height="34" class="css_nav"><a href="/forum/showthread.php?t=326&amp;page=3&amp;nojs=1#usercptools">Links</a> <script type="text/javascript"> vbmenu_register("usercptools", 1); </script></td>		
+			
+		
+		
+			<td width="78" height="34"  class="css_nav"><a href="login.php?do=logout&amp;logouthash=d2e6a75ccd71404f9ce794e24f7385c7" onclick="return log_out()">Log Out</a></td>
+		
+		<td width="8" height="34" align="left"><img src="images/greenfox/misc/nav_final.gif" width="8" height="34" alt="" border="0" /></td>
+	</tr>
+	</table>
+</div>
+<!-- / nav buttons bar -->
+</td></tr>
+</table>
+<!-- /logo -->
+
+<!-- content table -->
+<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+
+
+
+<script type="text/javascript">
+<!--
+function log_out()
+{
+	ht = document.getElementsByTagName("html");
+	ht[0].style.filter = "progid:DXImageTransform.Microsoft.BasicImage(grayscale=1)";
+	if (confirm('Are you sure you want to log out?'))
+	{
+		return true;
+	}
+	else
+	{
+		ht[0].style.filter = "";
+		return false;
+	}
+}
+//-->
+</script>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<!-- breadcrumb, login, pm info -->
+<table class="vb_navbar" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tr>
+	<td class="alt1" width="100%">
+		
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr valign="bottom">
+				<td><a href="#" onclick="history.back(1); return false;"><img src="images/greenfox/misc/navbits_start.gif" alt="Go Back" border="0" /></a></td>
+				<td>&nbsp;</td>
+				<td width="100%"><span class="smallfont"><a href="index.php" accesskey="1">TProgramming</a></span> 
+	<span class="smallfont">&gt; <a href="forumdisplay.php?f=11">Programmers Lounge</a></span>
+
+
+	<span class="smallfont">&gt; <a href="forumdisplay.php?f=18">Programming Chat</a></span>
+
+</td>
+			</tr>
+			<tr>
+				<td class="smallfont" style="font-size:10pt; padding-top:1px" colspan="3"><a href="/forum/showthread.php?t=326&amp;page=3"><img class="inlineimg" src="images/greenfox/misc/navbits_finallink.gif" alt="Reload this Page" border="0" /></a> <strong>
+	Injecting menus and handling tibia's gui
+
+</strong></td>
+			</tr>
+			</table>			
+		
+	</td>	
+	
+	
+	
+		<td class="alt2" valign="top" nowrap="nowrap">
+		<div class="smallfont">
+			<strong>Welcome, Cameri.</strong><br />
+			You last visited: Today at <span class="time">01:04 PM</span>
+			<br /><a href="private.php">Private Messages</a>: Unread 0, Total 4.
+			
+		</div>
+		</td>
+		
+		
+	
+</tr>
+</table>
+<!-- / breadcrumb, login, pm info -->
+
+<div class="spacer"></div>
+
+
+
+
+<!-- NAVBAR POPUP MENUS -->
+	
+	
+	<!-- header quick search form -->
+	<div class="vbmenu_popup" id="navbar_search_menu" style="display:none">
+		<form action="search.php?do=process" method="post">
+		<table cellpadding="4" cellspacing="1" border="0">
+		<tr>
+			<td class="thead">Search Forums</td>
+		</tr>
+		<tr>
+			<td class="vbmenu_option" title="nohilite">
+				<input type="hidden" name="do" value="process" />
+				<input type="hidden" name="quicksearch" value="1" />
+				<input type="hidden" name="s" value="" />
+				<div><input type="text" class="bginput" name="query" size="25" tabindex="1001" /><input type="submit" class="button" value="Go" tabindex="1004" /></div>
+			</td>
+		</tr>
+		<tr>
+			<td class="vbmenu_option" title="nohilite">
+				<label for="rb_nb_sp0"><input type="radio" name="showposts" value="0" id="rb_nb_sp0" tabindex="1002" checked="checked" />Show Threads</label>
+				&nbsp;
+				<label for="rb_nb_sp1"><input type="radio" name="showposts" value="1" id="rb_nb_sp1" tabindex="1003" />Show Posts</label>
+			</td>
+		</tr>
+<tr>
+			<td class="thead">Other Search Options</td>
+		</tr>
+<tr>
+<td class="vbmenu_option"><a href="search.php?do=getnew">Find New Posts</a></td>
+		</tr>
+		<tr>
+			<td class="vbmenu_option"><a href="search.php?do=getdaily">Find Today's Posts</a></td>
+		</tr>
+
+		<tr>
+			<td class="vbmenu_option"><a href="search.php" accesskey="4" rel="nofollow">Advanced Search</a></td>
+		</tr>
+		</table>
+		</form>
+	</div>
+	<!-- / header quick search form -->
+	
+
+	
+	<!-- user cp tools menu -->
+	<div class="vbmenu_popup" id="usercptools_menu" style="display:none">
+		<table cellpadding="4" cellspacing="1" border="0">
+		
+		<tr><td class="thead">Quick Links</td></tr>		
+		<tr><td class="vbmenu_option"><a href="search.php?do=getdaily">Today's Posts</a></td></tr>
+		<tr><td class="vbmenu_option"><a href="forumdisplay.php?do=markread">Mark Forums Read</a></td></tr>
+		<tr><td class="vbmenu_option"><a href="#" onclick="window.open('misc.php?do=buddylist&amp;focus=1','buddylist','statusbar=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,width=250,height=300'); return false;">Open Buddy List</a></td></tr>
+				
+		<tr><td class="thead"><a href="usercp.php">User Control Panel</a></td></tr>
+		<tr><td class="vbmenu_option"><a href="profile.php?do=editsignature">Edit Signature</a></td></tr>
+		<!--<tr><td class="vbmenu_option"><a href="profile.php?do=editavatar">Edit Avatar</a></td></tr>-->
+		<tr><td class="vbmenu_option"><a href="profile.php?do=editprofile">Edit Profile</a></td></tr>
+		<tr><td class="vbmenu_option"><a href="profile.php?do=editoptions">Edit Options</a></td></tr>
+		
+		<tr><td class="thead">Miscellaneous</td></tr>
+		<tr><td class="vbmenu_option"><a href="private.php" rel="nofollow">Private Messages</a></td></tr>
+		<tr><td class="vbmenu_option"><a href="subscription.php" rel="nofollow">Subscribed Threads</a></td></tr>
+		<tr><td class="vbmenu_option"><a href="member.php?u=38">My Profile</a></td></tr>
+		<tr><td class="vbmenu_option"><a href="online.php">Who's Online</a></td></tr>
+		
+		</table>
+	</div>
+	<!-- / user cp tools menu -->
+	
+<!-- / NAVBAR POPUP MENUS -->
+
+<!-- PAGENAV POPUP -->
+
+	<div class="vbmenu_popup" id="pagenav_menu" style="display:none">
+		<table cellpadding="4" cellspacing="1" border="0">
+		<tr>
+			<td class="thead" nowrap="nowrap">Go to Page...</td>
+		</tr>
+		<tr>
+			<td class="vbmenu_option" title="nohilite">
+			<form action="index.php" method="get" onsubmit="return this.gotopage()" id="pagenav_form">
+				<input type="text" class="bginput" id="pagenav_itxt" style="font-size:11px" size="4" />
+				<input type="button" class="button" id="pagenav_ibtn" value="Go" />
+			</form>
+			</td>
+		</tr>
+		</table>
+	</div>
+
+<!-- / PAGENAV POPUP -->
+
+
+
+
+
+
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+<form action="inlinemod.php?threadid=326&amp;p=" method="post" id="inlinemodform">
+<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+
+
+<a name="poststop" id="poststop"></a>
+
+<!-- controls above postbits -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:3px">
+<tr valign="bottom">
+	
+		<td class="smallfont"><a href="newreply.php?do=newreply&amp;noquote=1&amp;p=2937" rel="nofollow"><img src="images/greenfox/buttons/reply.gif" alt="Reply" border="0" /></a></td>
+	
+	<td align="right"><div class="pagenav" align="right">
+<table class="tborder" cellpadding="3" cellspacing="1" border="0">
+<tr>
+	<td class="vbmenu_control" style="font-weight:normal">Page 3 of 3</td>
+	
+	<td class="alt1"><a class="smallfont" href="showthread.php?t=326&amp;page=2" title="Prev Page - Results 11 to 20 of 25">&lt;</a></td>
+	<td class="alt1"><a class="smallfont" href="showthread.php?t=326" title="Show results 1 to 10 of 25">1</a></td><td class="alt1"><a class="smallfont" href="showthread.php?t=326&amp;page=2" title="Show results 11 to 20 of 25">2</a></td>	<td class="alt2"><span class="smallfont" title="Showing results 21 to 25 of 25"><strong>3</strong></span></td>
+ 
+	
+	
+	<td class="vbmenu_control" title="showthread.php?t=326"><a name="PageNav"></a></td>
+</tr>
+</table>
+</div></td>
+</tr>
+</table>
+<!-- / controls above postbits -->
+
+<!-- toolbar -->
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" style="border-bottom-width:0px">
+<tr>
+	<td class="tcat" width="100%">
+		<div class="smallfont">
+		
+		&nbsp;
+		</div>
+	</td>
+	<td class="vbmenu_control" id="threadtools" nowrap="nowrap">
+		<a href="/forum/showthread.php?t=326&amp;page=3&amp;nojs=1#goto_threadtools">Thread Tools</a>
+		<script type="text/javascript"> vbmenu_register("threadtools"); </script>
+	</td>
+	
+		<td class="vbmenu_control" id="threadsearch" nowrap="nowrap">
+			<a href="/forum/showthread.php?t=326&amp;page=3&amp;nojs=1#goto_threadsearch">Search this Thread</a>
+			<script type="text/javascript"> vbmenu_register("threadsearch"); </script>
+		</td>
+	
+	
+		<td class="vbmenu_control" id="threadrating" nowrap="nowrap">
+			<a href="/forum/showthread.php?t=326&amp;page=3&amp;nojs=1#goto_threadrating"><span id="threadrating_current">Rate Thread</span></a>
+			<script type="text/javascript"> vbmenu_register("threadrating"); </script>
+		</td>
+	
+	
+	<td class="vbmenu_control" id="displaymodes" nowrap="nowrap">
+		<a href="/forum/showthread.php?t=326&amp;page=3&amp;nojs=1#goto_displaymodes">Display Modes</a>
+		<script type="text/javascript"> vbmenu_register("displaymodes"); </script>
+	</td>
+	
+	
+	
+		
+			<td class="vbmenu_control" id="imod" align="center" title="Moderation"><script type="text/javascript"> vbmenu_register('imod'); </script></td>
+		
+	
+	
+</tr>
+</table>
+<!-- / toolbar -->
+
+
+	<div class="vbmenu_popup" id="imod_menu" style="display:none" align="left">
+		<table cellpadding="4" cellspacing="1" border="0">
+
+<tr><td class="thead">From This Page...</td></tr>
+<tr><td class="vbmenu_option" onclick="inlineMod.check_all(true)"><strong>Select</strong> All</td></tr>
+<tr><td class="vbmenu_option" onclick="inlineMod.check_all(false)" id="arse"><strong>Deselect</strong> All</td></tr>
+<tr><td class="vbmenu_option" onclick="inlineMod.check_all('invert')"><strong>Invert</strong> Selection</td></tr>
+
+<tr><td class="thead"><img src="clear.gif" alt="" width="1" height="1" /></td></tr>
+<tr><td class="vbmenu_option" onclick="inlineMod.check_all(true, 1)">Select <strong>Unapproved</strong> Posts</td></tr>
+<tr><td class="vbmenu_option" onclick="inlineMod.check_all(true, 2)">Select <strong>Deleted</strong> Posts</td></tr>
+<tr><td class="vbmenu_option" onclick="inlineMod.check_all(true, 4)">Select Posts with <strong>Attachments</strong></td></tr>
+<tr><td class="vbmenu_option" onclick="inlineMod.check_all(true, 8)">Select Posts from <strong>Guests</strong></td></tr>
+
+</table>
+	</div>
+
+
+<!-- end content table -->
+
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+<!-- / end content table -->
+
+
+
+
+
+<div id="posts"><!-- post #2937 -->
+
+	<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+	<div id="edit2937" style="padding:0px 0px 6px 0px">
+	<!-- this is not the last post shown on the page -->	
+
+
+<table class="tborder" id="post2937" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+	<div class="smallfont" style="float:right"> 
+
+		(#<a href="showpost.php?p=2937&amp;postcount=21" target="new" rel="nofollow" id="postcount2937" name="21">21</a>)
+                   <a href="#top" onClick="return toggle_collapse('postbit_2937')"><img id="collapseimg_postbit_2937" src="images/greenfox/buttons/collapse_thead.gif" alt="" border="0" class="inlineimg" /></a>
+         
+         
+          </div>
+		  
+		  
+		<div class="normal">
+			<a name="post2937"><img class="inlineimg" src="images/greenfox/statusicon/post_old.gif" alt="Old" border="0" /></a><input type="checkbox" name="plist[2937]" id="plist_2937" style="vertical-align:middle; padding:0px; margin:0px 0px 0px 5px" value="0" />
+			
+		</div>
+		
+		
+	</td>
+</tr>
+<tbody id="collapseobj_postbit_2937" style=";">
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="6" border="0" width="100%">
+		<tr>
+			
+			<td valign="top" nowrap="nowrap">
+			
+				<div id="postmenu_2937">
+					
+					<a class="bigusername" href="member.php?u=527">Endop</a>
+					is <span class="smallfont">Offline</span>
+
+
+					<script type="text/javascript"> vbmenu_register("postmenu_2937", true); </script>
+					
+				</div>
+				
+				<div class="smallfont">Member</div>
+				
+				
+					
+
+
+
+
+
+				
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+				
+				<div class="smallfont">
+				<div align="left">
+				    <div>Posts: <span style="color:#cdf16c;">8</span></div>
+					<div>Join Date: <span style="color:#cdf16c;">Apr 2007</span></div>
+					
+					
+					
+					
+					<div style="padding:2px 0px 2px 0px;"></div>
+					<div>    </div>
+
+					
+				</div></div>
+				
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+
+	<td class="alt1" id="td_post_2937" >
+	
+
+
+
+<div style="float:right">
+
+
+ 
+	<a href="postings.php?do=getip&amp;p=2937"><img class="inlineimg" src="images/greenfox/buttons/ip.gif" alt="IP" title="68.73.4.114" border="0" /></a>
+
+<a href="infraction.php?do=report&amp;p=2937" rel="nofollow"><img class="inlineimg" src="images/greenfox/buttons/infraction.gif" alt="Add Infraction for Endop" border="0" /></a>  </div><div class="smallfont">
+		
+            <!-- icon and title -->
+            <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+				
+            <!-- status icon and date -->
+          
+		
+		
+			<!-- status icon and date -->	
+		
+				05-20-2007, 06:03 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+
+	<div class="spacer"></div>	<div class="hr" style="width: 100%;">
+              <hr />
+            </div>		<!-- message, attachments, sig -->
+	
+	
+	
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<div class="spacer"></div>
+		
+		<!-- message -->
+		<div id="post_message_2937" class="vb_postbit">Sure... It is pretty old, and I haven't updated it. I'm posting it mainly so you can see the technique, not to copy code.<br />
+<br />
+TibiaMenu.h<br />
+<div style="margin:20px; margin-top:5px">
+	<div class="smallfont" style="margin-bottom:2px">Code:</div>
+	<pre class="alt2" dir="ltr" style="
+		margin: 0px;
+		padding: 6px;
+		border: 1px inset;
+		width: 640px;
+		height: 498px;
+		text-align: left;
+		overflow: auto">#ifndef __TIBIA_MENU_H__
+#define __TIBIA_MENU_H__
+
+#include &quot;includes.h&quot;
+
+// void* addr = &amp;myFunc;
+// asm(&quot;CALL &lt;addr&gt;&quot;);
+
+class TibiaMenu
+{
+      public:
+             TibiaMenu(int, DWORD);
+             ~TibiaMenu();
+             
+             // Current version of Tibia.
+             int Version;
+             
+             // Index of the address with our version.
+             int VersionIndex;
+             
+             // Process Handle of the current Tibia version.
+             DWORD processHandle;
+             
+             // Function that should be called externally (from tibia)
+             // when a menu item is pressed. 
+             void MenuItemPressed(int);
+             
+             // Function that should b called externally (from tibia)
+             // when we should add menu items.
+             void MenuItemsAdd();
+             
+             // Function to be called in our constructor to
+             // initialize our code.
+             void InitializeASM();
+             
+             // Function to write a uint on a char buffer.
+             // just makes it easier for pointers and such.
+             void WriteUInt(char*, int, int);
+             void WriteUIntEx(char*, int, int);
+};
+
+#endif</pre>
+</div>The source file will be in the next post due to text limitations.</div>
+		<!-- / message -->
+	
+		
+		
+		
+		
+		
+	
+		<div style="margin-top: 10px" align="right">
+			<!-- controls -->
+			<div style="float:left">
+			
+			
+		
+			<a href="report.php?p=2937" rel="nofollow"><img  src="images/greenfox/buttons/report.gif" alt="Report Post" border="0" /></a>
+			
+			
+			
+			
+				
+			
+			
+			
+			</div>
+			
+			 
+				<img style="display: none" id="progress_2937" src="images/greenfox/misc/progress.gif" alt="" />
+				<a href="editpost.php?do=editpost&amp;p=2937" name="vB::QuickEdit::2937"><img src="images/greenfox/buttons/edit.gif" alt="Edit/Delete Message" border="0" /></a>
+			
+			
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2937" rel="nofollow"><img src="images/greenfox/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2937" rel="nofollow" onclick="return false"><img src="images/greenfox/buttons/multiquote_off.gif" alt="Multi-Quote This Message" border="0" id="mq_2937" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2937" rel="nofollow" id="qr_2937" onclick="return false"><img src="images/greenfox/buttons/quickreply.gif" alt="Quick reply to this message" border="0" /></a>
+			
+			
+			
+			<!-- / controls -->
+		</div>
+		
+	<!-- message, attachments, sig -->
+	
+	</td>
+</tr>
+</tbody>
+</table>
+
+<!-- post 2937 popup menu -->
+<div class="vbmenu_popup" id="postmenu_2937_menu" style="display:none;">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">Endop</td>
+	</tr>
+	
+		<tr><td class="vbmenu_option"><a href="member.php?u=527">View Public Profile</a></td></tr>
+	
+	
+		<tr><td class="vbmenu_option"><a href="private.php?do=newpm&amp;u=527" rel="nofollow">Send a private message to Endop</a></td></tr>
+	
+	
+	
+	
+		<tr><td class="vbmenu_option"><a href="search.php?do=finduser&amp;u=527" rel="nofollow">Find all posts by Endop</a></td></tr>
+	
+	
+	<tr><td class="vbmenu_option"><a href="profile.php?do=addlist&amp;userlist=buddy&amp;u=527">Add Endop to Your Buddy List</a></td></tr>
+	
+	</table>
+</div>
+<!-- / post 2937 popup menu -->
+
+
+
+	</div>
+	
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+
+<!-- / post #2937 --><!-- post #2938 -->
+
+	<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+	<div id="edit2938" style="padding:0px 0px 6px 0px">
+	<!-- this is not the last post shown on the page -->	
+
+
+<table class="tborder" id="post2938" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+	<div class="smallfont" style="float:right"> 
+
+		(#<a href="showpost.php?p=2938&amp;postcount=22" target="new" rel="nofollow" id="postcount2938" name="22">22</a>)
+                   <a href="#top" onClick="return toggle_collapse('postbit_2938')"><img id="collapseimg_postbit_2938" src="images/greenfox/buttons/collapse_thead.gif" alt="" border="0" class="inlineimg" /></a>
+         
+         
+          </div>
+		  
+		  
+		<div class="normal">
+			<a name="post2938"><img class="inlineimg" src="images/greenfox/statusicon/post_old.gif" alt="Old" border="0" /></a><input type="checkbox" name="plist[2938]" id="plist_2938" style="vertical-align:middle; padding:0px; margin:0px 0px 0px 5px" value="0" />
+			
+		</div>
+		
+		
+	</td>
+</tr>
+<tbody id="collapseobj_postbit_2938" style=";">
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="6" border="0" width="100%">
+		<tr>
+			
+			<td valign="top" nowrap="nowrap">
+			
+				<div id="postmenu_2938">
+					
+					<a class="bigusername" href="member.php?u=527">Endop</a>
+					is <span class="smallfont">Offline</span>
+
+
+					<script type="text/javascript"> vbmenu_register("postmenu_2938", true); </script>
+					
+				</div>
+				
+				<div class="smallfont">Member</div>
+				
+				
+					
+
+
+
+
+
+				
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+				
+				<div class="smallfont">
+				<div align="left">
+				    <div>Posts: <span style="color:#cdf16c;">8</span></div>
+					<div>Join Date: <span style="color:#cdf16c;">Apr 2007</span></div>
+					
+					
+					
+					
+					<div style="padding:2px 0px 2px 0px;"></div>
+					<div>    </div>
+
+					
+				</div></div>
+				
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+
+	<td class="alt1" id="td_post_2938" >
+	
+
+
+
+<div style="float:right">
+
+
+ 
+	<a href="postings.php?do=getip&amp;p=2938"><img class="inlineimg" src="images/greenfox/buttons/ip.gif" alt="IP" title="68.73.4.114" border="0" /></a>
+
+<a href="infraction.php?do=report&amp;p=2938" rel="nofollow"><img class="inlineimg" src="images/greenfox/buttons/infraction.gif" alt="Add Infraction for Endop" border="0" /></a>  </div><div class="smallfont">
+		
+            <!-- icon and title -->
+            <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+				
+            <!-- status icon and date -->
+          
+		
+		
+			<!-- status icon and date -->	
+		
+				05-20-2007, 06:04 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+
+	<div class="spacer"></div>	<div class="hr" style="width: 100%;">
+              <hr />
+            </div>		<!-- message, attachments, sig -->
+	
+	
+	
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<div class="spacer"></div>
+		
+		<!-- message -->
+		<div id="post_message_2938" class="vb_postbit">TibiaMenu.cpp<br />
+<div style="margin:20px; margin-top:5px">
+	<div class="smallfont" style="margin-bottom:2px">Code:</div>
+	<pre class="alt2" dir="ltr" style="
+		margin: 0px;
+		padding: 6px;
+		border: 1px inset;
+		width: 640px;
+		height: 498px;
+		text-align: left;
+		overflow: auto">#include &quot;includes.h&quot;
+
+TibiaMenu* mTibiaMenu;
+
+struct addr
+{
+       unsigned short version; // Tibia Version
+       char* aCodeCave; // Suitable CodeCave location.
+       char* aItemCall; // Location of the item-menu call we will replace.
+       char* aItemCallNext; // Location of the next opcode following the above call.
+       char* fAddMenuItem; // Location of the AddMenu function.
+       char* mEventErrorLoc; // Location of the &quot;unknown event&quot; junk.
+       char* menuListFuncEnd; // Location of the start of the POP's at the end of the menu switch case.
+       char* JAUnknownEvents; // Location of the JA which would make us debug with a 'unknown events'.
+};
+
+addr mAddresses[] =
+{
+         { 772,
+             (char*)0x004002C3, // CodeCave
+             (char*)0x00443427, // Item-Menu Call (Moveable)
+             (char*)0x0044342C, // Location of next command after Item-Menu Call (Moveable)
+             (char*)0x00442910, // AddMenu Function Location.
+             (char*)0x00421208, // &quot;Unknown Event&quot; function
+             (char*)0x0043F413, // POP after menu-handle code.
+             (char*)0x0043F3D9  // JA where &quot;unknown event&quot; is checked.
+         },
+         
+         { 781,
+             (char*)0x004002C3, // CodeCave
+             (char*)0x00443427, // Item-Menu Call (Moveable)
+             (char*)0x0044342C, // Location of next command after Item-Menu Call (Moveable)
+             (char*)0x00442910, // AddMenu Function Location.
+             (char*)0x00421208, // &quot;Unknown Event&quot; function
+             (char*)0x0043F413, // POP after menu-handle code.
+             (char*)0x0043F3D9  // JA where &quot;unknown event&quot; is checked.
+         },
+         
+     { 0, 0, 0, 0, 0, 0, 0 }
+};
+
+char* txt = &quot;Set Hotkey&quot;;
+
+TibiaMenu::TibiaMenu(int v, DWORD ph)
+{
+     // TibiaMenu Constructor
+     
+     // Make ourself the &quot;main&quot; tibia menu.
+     mTibiaMenu = this;
+     
+     // Set the internal version.
+     Version = v;
+     
+     // Set the internal processHandle.
+     processHandle = ph;
+     
+     // Get the count of the items in the Addresses.
+     unsigned short count = sizeof(mAddresses)/sizeof(addr);
+     
+     // Attempt to find our address index.
+     for (int i = 0; i &lt; count; i++)
+     {
+         if (mAddresses[i].version == Version)
+         {
+            TibiaMenu::VersionIndex = i;                   
+         }
+     }    
+     
+     // Now initialize our ASM code.
+     InitializeASM();    
+}
+
+TibiaMenu::~TibiaMenu()
+{
+     // TibiaMenu Deconstructor                       
+}
+
+static int addr = 0, fAddr = 0;
+static int id = 0;
+
+void TibiaMenu::MenuItemsAdd()
+{
+     // TODO
+     addr = (int)(txt);
+     fAddr = (int)mAddresses[VersionIndex].fAddMenuItem;
+     id = 0x0044D6F0;     
+     
+         asm(&quot;PUSH ECX&quot;);
+         asm(&quot;PUSH 0&quot;);
+         //asm(&quot;PUSH 0x55FB24&quot;);
+         asm(&quot;PUSH DWORD PTR [_addr]&quot;);
+         asm(&quot;PUSH 0x9999&quot;);
+         asm(&quot;MOV ECX,ESI&quot;);
+         asm(&quot;CALL DWORD PTR [_fAddr]&quot;);
+         asm(&quot;POP ECX&quot;);
+     
+     
+     return;
+}
+
+static void sMenuItemsAdd()
+{
+     if (mTibiaMenu != NULL)
+        mTibiaMenu-&gt;MenuItemsAdd();
+        
+     return; 
+}
+
+static void sMenuItemPressed(int index)
+{
+     if (mTibiaMenu != NULL)
+        mTibiaMenu-&gt;MenuItemPressed(index);     
+}
+
+void TibiaMenu::WriteUInt(char* buff, int start, int x)
+{
+   buff[start] =   (char)( x         &amp; 0x000000ff );
+   buff[start+1] = (char)( x &gt;&gt; 8    &amp; 0x000000ff );
+   buff[start+2] = (char)( x &gt;&gt; 16   &amp; 0x000000ff );
+   buff[start+3] = (char)( x &gt;&gt; 24   &amp; 0x000000ff );
+}
+
+void TibiaMenu::MenuItemPressed(int index)
+{
+ // TODO
+    asm(&quot;mov byte ptr[esp],0&quot;);
+}</pre>
+</div>It is continued into the next post...</div>
+		<!-- / message -->
+	
+		
+		
+		
+		
+		
+	
+		<div style="margin-top: 10px" align="right">
+			<!-- controls -->
+			<div style="float:left">
+			
+			
+		
+			<a href="report.php?p=2938" rel="nofollow"><img  src="images/greenfox/buttons/report.gif" alt="Report Post" border="0" /></a>
+			
+			
+			
+			
+				
+			
+			
+			
+			</div>
+			
+			 
+				<img style="display: none" id="progress_2938" src="images/greenfox/misc/progress.gif" alt="" />
+				<a href="editpost.php?do=editpost&amp;p=2938" name="vB::QuickEdit::2938"><img src="images/greenfox/buttons/edit.gif" alt="Edit/Delete Message" border="0" /></a>
+			
+			
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2938" rel="nofollow"><img src="images/greenfox/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2938" rel="nofollow" onclick="return false"><img src="images/greenfox/buttons/multiquote_off.gif" alt="Multi-Quote This Message" border="0" id="mq_2938" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2938" rel="nofollow" id="qr_2938" onclick="return false"><img src="images/greenfox/buttons/quickreply.gif" alt="Quick reply to this message" border="0" /></a>
+			
+			
+			
+			<!-- / controls -->
+		</div>
+		
+	<!-- message, attachments, sig -->
+	
+	</td>
+</tr>
+</tbody>
+</table>
+
+<!-- post 2938 popup menu -->
+<div class="vbmenu_popup" id="postmenu_2938_menu" style="display:none;">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">Endop</td>
+	</tr>
+	
+		<tr><td class="vbmenu_option"><a href="member.php?u=527">View Public Profile</a></td></tr>
+	
+	
+		<tr><td class="vbmenu_option"><a href="private.php?do=newpm&amp;u=527" rel="nofollow">Send a private message to Endop</a></td></tr>
+	
+	
+	
+	
+		<tr><td class="vbmenu_option"><a href="search.php?do=finduser&amp;u=527" rel="nofollow">Find all posts by Endop</a></td></tr>
+	
+	
+	<tr><td class="vbmenu_option"><a href="profile.php?do=addlist&amp;userlist=buddy&amp;u=527">Add Endop to Your Buddy List</a></td></tr>
+	
+	</table>
+</div>
+<!-- / post 2938 popup menu -->
+
+
+
+	</div>
+	
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+
+<!-- / post #2938 --><!-- post #2939 -->
+
+	<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+	<div id="edit2939" style="padding:0px 0px 6px 0px">
+	<!-- this is not the last post shown on the page -->	
+
+
+<table class="tborder" id="post2939" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+	<div class="smallfont" style="float:right"> 
+
+		(#<a href="showpost.php?p=2939&amp;postcount=23" target="new" rel="nofollow" id="postcount2939" name="23">23</a>)
+                   <a href="#top" onClick="return toggle_collapse('postbit_2939')"><img id="collapseimg_postbit_2939" src="images/greenfox/buttons/collapse_thead.gif" alt="" border="0" class="inlineimg" /></a>
+         
+         
+          </div>
+		  
+		  
+		<div class="normal">
+			<a name="post2939"><img class="inlineimg" src="images/greenfox/statusicon/post_old.gif" alt="Old" border="0" /></a><input type="checkbox" name="plist[2939]" id="plist_2939" style="vertical-align:middle; padding:0px; margin:0px 0px 0px 5px" value="0" />
+			
+		</div>
+		
+		
+	</td>
+</tr>
+<tbody id="collapseobj_postbit_2939" style=";">
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="6" border="0" width="100%">
+		<tr>
+			
+			<td valign="top" nowrap="nowrap">
+			
+				<div id="postmenu_2939">
+					
+					<a class="bigusername" href="member.php?u=527">Endop</a>
+					is <span class="smallfont">Offline</span>
+
+
+					<script type="text/javascript"> vbmenu_register("postmenu_2939", true); </script>
+					
+				</div>
+				
+				<div class="smallfont">Member</div>
+				
+				
+					
+
+
+
+
+
+				
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+				
+				<div class="smallfont">
+				<div align="left">
+				    <div>Posts: <span style="color:#cdf16c;">8</span></div>
+					<div>Join Date: <span style="color:#cdf16c;">Apr 2007</span></div>
+					
+					
+					
+					
+					<div style="padding:2px 0px 2px 0px;"></div>
+					<div>    </div>
+
+					
+				</div></div>
+				
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+
+	<td class="alt1" id="td_post_2939" >
+	
+
+
+
+<div style="float:right">
+
+
+ 
+	<a href="postings.php?do=getip&amp;p=2939"><img class="inlineimg" src="images/greenfox/buttons/ip.gif" alt="IP" title="68.73.4.114" border="0" /></a>
+
+<a href="infraction.php?do=report&amp;p=2939" rel="nofollow"><img class="inlineimg" src="images/greenfox/buttons/infraction.gif" alt="Add Infraction for Endop" border="0" /></a>  </div><div class="smallfont">
+		
+            <!-- icon and title -->
+            <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+				
+            <!-- status icon and date -->
+          
+		
+		
+			<!-- status icon and date -->	
+		
+				05-20-2007, 06:05 AM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+
+	<div class="spacer"></div>	<div class="hr" style="width: 100%;">
+              <hr />
+            </div>		<!-- message, attachments, sig -->
+	
+	
+	
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<div class="spacer"></div>
+		
+		<!-- message -->
+		<div id="post_message_2939" class="vb_postbit">TibiaMenu.cpp<br />
+<div style="margin:20px; margin-top:5px">
+	<div class="smallfont" style="margin-bottom:2px">Code:</div>
+	<pre class="alt2" dir="ltr" style="
+		margin: 0px;
+		padding: 6px;
+		border: 1px inset;
+		width: 640px;
+		height: 498px;
+		text-align: left;
+		overflow: auto">void TibiaMenu::InitializeASM()
+{
+     // Here we will write the ASM, and other things, then write
+     // it into memory.
+     
+     // First thing, get a pointer to the static sMenuItemsAdd function.
+     // We'll have Tibia call it, and it will call the last initialized
+     // Menu classes function.
+     int fAddr = (int)(&amp;sMenuItemsAdd);
+     
+     // Now we should get a pointer to the MenuItemPressed function,
+     // so we can handle that.
+     int gAddr = (int)(&amp;sMenuItemPressed);
+     
+     // We will store a position here, a relative &amp; displacement
+     // position for jumps and calls.
+     int RelPosDis = 0;
+     
+     // Our char buffer containing the assembly code we will use to
+     // replace the CALL function at the 'aItemCall' location.
+     char AsmJumpInject[5] =
+     {
+          0xE9, 0x00, 0x00, 0x00, 0x00 // JMP 0 ; Replace with 'aCodeCave'.
+     };
+     
+     // However, it is not complete. We need to fill it in with
+     // the address of our codecave.
+     // First prepare the relative-displacement junk.
+     RelPosDis = (((int)mAddresses[VersionIndex].aCodeCave) - ((int)mAddresses[VersionIndex].aItemCall)) - 5;
+     WriteUInt(AsmJumpInject, 1,  RelPosDis);
+     
+     // The above one is calculated differently than the others
+     // because it it goes up from the position, not down.
+     
+     // Now lets prepare our ASM code that we will inject.
+     // This needs to be written to the codecave location,
+     // and we need to make sure the codecave has enough space
+     // for this call. We should do that before we write this though.
+     char AsmInjectCode[45] =
+     {
+          0xE8, 0x00, 0x00, 0x00, 0x00,         // CALL 0    ; Replace with 'fAddMenuItem'.
+          0xE8, 0x00, 0x00, 0x00, 0x00,         // CALL 0    ; Replace with 'fAddr'.
+          0xE9, 0x00, 0x00, 0x00, 0x00,         // JMP  0    ; Replace with 'aItemCallNext'.
+          
+          0x90, 0x90,                           // 0000      ; Just a blank space for us.
+     };
+     
+     /*
+     char AsmInjectCode[45] =
+     {
+          0xE8, 0x00, 0x00, 0x00, 0x00,         // CALL 0    ; Replace with 'fAddMenuItem'.
+          0xE8, 0x00, 0x00, 0x00, 0x00,         // CALL 0    ; Replace with 'fAddr'.
+          0xE9, 0x00, 0x00, 0x00, 0x00,         // JMP  0    ; Replace with 'aItemCallNext'.
+          
+          0x90, 0x90,                           // 0000      ; Just a blank space for us.
+          
+          // 0x83, 0xEC, 0x04,                     // SUB ESP,4 ; Subtract 4 from ESP for our return.
+          0x90, 0x90, 0x90,
+          0xE8, 0x00, 0x00, 0x00, 0x00,         // CALL 0    ; Replace with 'gAddr'. Call our function.
+          //0x80, 0x3C, 0x24, 0x00,               // CMP ESP,0 ; Compare ESP with 0. 0 means no errors in our call.
+          0x90, 0x90, 0x90, 0x90,
+          //0x83, 0xC4, 0x04,                     // ADD ESP,4 ; Add back the 4 to ESP we subtracted.
+          0x90, 0x90, 0x90,
+          //0x0F, 0x85, 0x00, 0x00, 0x00, 0x00,   // JNZ 0     ; Jump to this location if ESP is not 0. (This is the unknown error thing), so replace it.
+          0x90, 0x90, 0x90, 0x90, 0x90, 0x90,
+          0xE9, 0x00, 0x00, 0x00, 0x00,         // JMP 0     ; Replace with the function end. We'll do this if ESP is 0 (no errors).
+          //0x90, 0x90                            // 0000      ; Just a blank space for us.
+          0x90, 0x90
+     };
+     */
+     
+     // Now we need to do some replacements in that code to make sure
+     // that everything is pointing to the right place.
+     
+     // First calculate the displacement and such.
+     RelPosDis = (((int)mAddresses[VersionIndex].aCodeCave + 20) - gAddr) + 5;
+     WriteUInt(AsmInjectCode, 21, abs(RelPosDis));
+     
+     // Lets start with writing the menu item stuff.
+     // First calculate the displacement and such.
+     RelPosDis = (((int)mAddresses[VersionIndex].aCodeCave) - (int)mAddresses[VersionIndex].fAddMenuItem) + 5;
+     WriteUInt(AsmInjectCode, 1, abs(RelPosDis));
+     
+     // Now lets write the 'fAddr', where our own function is.
+     // First calculate the displacement and such..
+     RelPosDis = (((int)mAddresses[VersionIndex].aCodeCave + 5) - fAddr) + 5;
+     WriteUInt(AsmInjectCode, 6, abs(RelPosDis));
+     
+     // Now we should write 'aItemCallNext' so after it calls our function, it returns
+     // back to the original code.
+     RelPosDis = (((int)mAddresses[VersionIndex].aCodeCave + 10) - (int)mAddresses[VersionIndex].aItemCallNext) + 5;
+     WriteUInt(AsmInjectCode, 11, abs(RelPosDis));
+     
+     // Now we should write the location of the unknown error junk, so
+     // if theres something wrong with Tibia, not us, the player knows it.
+     RelPosDis = (((int)mAddresses[VersionIndex].aCodeCave + 33) - (int)mAddresses[VersionIndex].mEventErrorLoc) + 5;
+     WriteUInt(AsmInjectCode, 34, abs(RelPosDis));
+     
+     // And finally (atleast for now.. maybe not in the future) we will write the location
+     // of the &quot;end of the function&quot;, where the menu handling function ends, and is cleaning up.
+     RelPosDis = (((int)mAddresses[VersionIndex].aCodeCave + 38) - (int)mAddresses[VersionIndex].menuListFuncEnd) + 5;
+     WriteUInt(AsmInjectCode, 39, abs(RelPosDis));
+     
+     // Now that our injection code is finished, we can unprotect the memory of
+     // our ASM code and write it.
+     
+     // The old protection settings of a piece of memory.
+     // We'll use this to reset the last protection setting.
+     DWORD old;
+     
+     // Now lets allow ourselfs to write the code we will inject, from the 'aCodeCave'
+     // position to the size of the AsmInjectCode array.
+     VirtualProtectEx((void*)processHandle, ((char*)mAddresses[VersionIndex].aCodeCave), sizeof(AsmInjectCode), PAGE_EXECUTE_READWRITE, &amp;old);
+     
+     // Now we should write our inject-code into the memory space now, in the
+     // location of our code cave.
+     WriteProcessMemory((void*)processHandle, (void*)mAddresses[VersionIndex].aCodeCave, &amp;AsmInjectCode, sizeof(AsmInjectCode), NULL);
+     
+     // Now that we are done, we should set the protection of the memory
+     // back to its old state.
+     VirtualProtectEx((void*)processHandle, ((char*)mAddresses[VersionIndex].aCodeCave), sizeof(AsmInjectCode), old, &amp;old);
+     
+     // Moving on, we should now unprotect the area for the JumpInject that leads
+     // Tibia to our own code.
+     VirtualProtectEx((void*)processHandle, ((char*)mAddresses[VersionIndex].aItemCall), sizeof(AsmJumpInject), PAGE_EXECUTE_READWRITE, &amp;old);
+     
+     // Now write the code in the position of the item call ASM.
+     WriteProcessMemory((void*)processHandle, (void*)mAddresses[VersionIndex].aItemCall, &amp;AsmJumpInject, sizeof(AsmJumpInject), NULL);
+     
+     // Now restore the protection of that memory with the old protection.
+     VirtualProtectEx((void*)processHandle, ((char*)mAddresses[VersionIndex].aItemCall), sizeof(AsmJumpInject), old, &amp;old);
+     
+     // Prepare our JA modification.
+     // 16 spaces offset.
+     char AsmJumpAboveInject[6] =
+     {
+          0x0F, 0x87, 0x00, 0x00, 0x00, 0x00 // JA 0 ; Replace with the code location.
+     };
+     
+     // Now we should calculate the relative distance and such.
+     RelPosDis = (((int)mAddresses[VersionIndex].aCodeCave + 17) - ((int)mAddresses[VersionIndex].JAUnknownEvents)) - 6;
+     WriteUInt(AsmJumpAboveInject, 2,  RelPosDis);
+     
+     // Now we should unprotect the memory, and then write 
+     // the buffer.
+     VirtualProtectEx((void*)processHandle, ((char*)mAddresses[VersionIndex].JAUnknownEvents), sizeof(AsmJumpAboveInject), PAGE_EXECUTE_READWRITE, &amp;old);
+     
+     // Write the data now..
+     WriteProcessMemory((void*)processHandle, (void*)mAddresses[VersionIndex].JAUnknownEvents, &amp;AsmJumpAboveInject, sizeof(AsmJumpAboveInject), NULL);
+     
+     // Now replace the old protection settings.
+     VirtualProtectEx((void*)processHandle, ((char*)mAddresses[VersionIndex].JAUnknownEvents), sizeof(AsmJumpAboveInject), old, &amp;old);
+     
+     // And wallaah. Our Menu hack is completed :).
+}</pre>
+</div>If you have any questions, feel free to ask.. I probably won't get the new addresses for you. The idea is simple, really... The class is designed to take some memory addresses stored in a struct, and input them into some char arrays which represent compiled x86 assembly code. The idea is that it will fill in the proper values and then write the char array into Tibia's memory, thus overwriting (or patching) the code.</div>
+		<!-- / message -->
+	
+		
+		
+		
+		
+		
+		<!-- edit note -->
+			<div class="smallfont">			<div class="spacer"></div>
+          <div class="hr">
+            <hr />
+          </div><div class="spacer"></div>
+				<em>
+				Last edited by Endop : 05-20-2007 at <span class="time">06:19 AM</span>.
+				
+				</em>
+			</div>
+		<!-- / edit note -->
+		
+	
+		<div style="margin-top: 10px" align="right">
+			<!-- controls -->
+			<div style="float:left">
+			
+			
+		
+			<a href="report.php?p=2939" rel="nofollow"><img  src="images/greenfox/buttons/report.gif" alt="Report Post" border="0" /></a>
+			
+			
+			
+			
+				
+			
+			
+			
+			</div>
+			
+			 
+				<img style="display: none" id="progress_2939" src="images/greenfox/misc/progress.gif" alt="" />
+				<a href="editpost.php?do=editpost&amp;p=2939" name="vB::QuickEdit::2939"><img src="images/greenfox/buttons/edit.gif" alt="Edit/Delete Message" border="0" /></a>
+			
+			
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2939" rel="nofollow"><img src="images/greenfox/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2939" rel="nofollow" onclick="return false"><img src="images/greenfox/buttons/multiquote_off.gif" alt="Multi-Quote This Message" border="0" id="mq_2939" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2939" rel="nofollow" id="qr_2939" onclick="return false"><img src="images/greenfox/buttons/quickreply.gif" alt="Quick reply to this message" border="0" /></a>
+			
+			
+			
+			<!-- / controls -->
+		</div>
+		
+	<!-- message, attachments, sig -->
+	
+	</td>
+</tr>
+</tbody>
+</table>
+
+<!-- post 2939 popup menu -->
+<div class="vbmenu_popup" id="postmenu_2939_menu" style="display:none;">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">Endop</td>
+	</tr>
+	
+		<tr><td class="vbmenu_option"><a href="member.php?u=527">View Public Profile</a></td></tr>
+	
+	
+		<tr><td class="vbmenu_option"><a href="private.php?do=newpm&amp;u=527" rel="nofollow">Send a private message to Endop</a></td></tr>
+	
+	
+	
+	
+		<tr><td class="vbmenu_option"><a href="search.php?do=finduser&amp;u=527" rel="nofollow">Find all posts by Endop</a></td></tr>
+	
+	
+	<tr><td class="vbmenu_option"><a href="profile.php?do=addlist&amp;userlist=buddy&amp;u=527">Add Endop to Your Buddy List</a></td></tr>
+	
+	</table>
+</div>
+<!-- / post 2939 popup menu -->
+
+
+
+	</div>
+	
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+
+<!-- / post #2939 --><!-- post #2952 -->
+
+	<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+	<div id="edit2952" style="padding:0px 0px 6px 0px">
+	<!-- this is not the last post shown on the page -->	
+
+
+<table class="tborder" id="post2952" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+	<div class="smallfont" style="float:right"> 
+
+		(#<a href="showpost.php?p=2952&amp;postcount=24" target="new" rel="nofollow" id="postcount2952" name="24">24</a>)
+                   <a href="#top" onClick="return toggle_collapse('postbit_2952')"><img id="collapseimg_postbit_2952" src="images/greenfox/buttons/collapse_thead.gif" alt="" border="0" class="inlineimg" /></a>
+         
+         
+          </div>
+		  
+		  
+		<div class="normal">
+			<a name="post2952"><img class="inlineimg" src="images/greenfox/statusicon/post_old.gif" alt="Old" border="0" /></a><input type="checkbox" name="plist[2952]" id="plist_2952" style="vertical-align:middle; padding:0px; margin:0px 0px 0px 5px" value="0" />
+			
+		</div>
+		
+		
+	</td>
+</tr>
+<tbody id="collapseobj_postbit_2952" style=";">
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="6" border="0" width="100%">
+		<tr>
+			
+			<td valign="top" nowrap="nowrap">
+			
+				<div id="postmenu_2952">
+					
+					<a class="bigusername" href="member.php?u=142">Hotas</a>
+					is <span class="smallfont">Offline</span>
+
+
+					<script type="text/javascript"> vbmenu_register("postmenu_2952", true); </script>
+					
+				</div>
+				
+				<div class="smallfont">Member</div>
+				
+				
+					
+
+
+
+
+
+				
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+				
+				<div class="smallfont">
+				<div align="left">
+				    <div>Posts: <span style="color:#cdf16c;">9</span></div>
+					<div>Join Date: <span style="color:#cdf16c;">Mar 2007</span></div>
+					
+					
+					
+					
+					<div style="padding:2px 0px 2px 0px;"></div>
+					<div>    </div>
+
+					
+				</div></div>
+				
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+
+	<td class="alt1" id="td_post_2952" >
+	
+
+
+
+<div style="float:right">
+
+
+ 
+	<a href="postings.php?do=getip&amp;p=2952"><img class="inlineimg" src="images/greenfox/buttons/ip.gif" alt="IP" title="83.253.57.206" border="0" /></a>
+
+<a href="infraction.php?do=report&amp;p=2952" rel="nofollow"><img class="inlineimg" src="images/greenfox/buttons/infraction.gif" alt="Add Infraction for Hotas" border="0" /></a>  </div><div class="smallfont">
+		
+            <!-- icon and title -->
+            <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+				
+            <!-- status icon and date -->
+          
+		
+		
+			<!-- status icon and date -->	
+		
+				05-20-2007, 05:54 PM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+
+	<div class="spacer"></div>	<div class="hr" style="width: 100%;">
+              <hr />
+            </div>		<!-- message, attachments, sig -->
+	
+	
+	
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<div class="spacer"></div>
+		
+		<!-- message -->
+		<div id="post_message_2952" class="vb_postbit">Thank you very much!<br />
+now i got some code to study! :P<br />
+<br />
+<br />
+C u around! &lt;3<br />
+<br />
+/Hotas</div>
+		<!-- / message -->
+	
+		
+		
+		
+		
+		
+	
+		<div style="margin-top: 10px" align="right">
+			<!-- controls -->
+			<div style="float:left">
+			
+			
+		
+			<a href="report.php?p=2952" rel="nofollow"><img  src="images/greenfox/buttons/report.gif" alt="Report Post" border="0" /></a>
+			
+			
+			
+			
+				
+			
+			
+			
+			</div>
+			
+			 
+				<img style="display: none" id="progress_2952" src="images/greenfox/misc/progress.gif" alt="" />
+				<a href="editpost.php?do=editpost&amp;p=2952" name="vB::QuickEdit::2952"><img src="images/greenfox/buttons/edit.gif" alt="Edit/Delete Message" border="0" /></a>
+			
+			
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2952" rel="nofollow"><img src="images/greenfox/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2952" rel="nofollow" onclick="return false"><img src="images/greenfox/buttons/multiquote_off.gif" alt="Multi-Quote This Message" border="0" id="mq_2952" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2952" rel="nofollow" id="qr_2952" onclick="return false"><img src="images/greenfox/buttons/quickreply.gif" alt="Quick reply to this message" border="0" /></a>
+			
+			
+			
+			<!-- / controls -->
+		</div>
+		
+	<!-- message, attachments, sig -->
+	
+	</td>
+</tr>
+</tbody>
+</table>
+
+<!-- post 2952 popup menu -->
+<div class="vbmenu_popup" id="postmenu_2952_menu" style="display:none;">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">Hotas</td>
+	</tr>
+	
+		<tr><td class="vbmenu_option"><a href="member.php?u=142">View Public Profile</a></td></tr>
+	
+	
+		<tr><td class="vbmenu_option"><a href="private.php?do=newpm&amp;u=142" rel="nofollow">Send a private message to Hotas</a></td></tr>
+	
+	
+	
+	
+		<tr><td class="vbmenu_option"><a href="search.php?do=finduser&amp;u=142" rel="nofollow">Find all posts by Hotas</a></td></tr>
+	
+	
+	<tr><td class="vbmenu_option"><a href="profile.php?do=addlist&amp;userlist=buddy&amp;u=142">Add Hotas to Your Buddy List</a></td></tr>
+	
+	</table>
+</div>
+<!-- / post 2952 popup menu -->
+
+
+
+	</div>
+	
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+
+<!-- / post #2952 --><!-- post #2982 -->
+
+	<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+	<div id="edit2982" style="padding:0px 0px 6px 0px">
+		
+
+
+<table class="tborder" id="post2982" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<tr>
+	<td class="thead" >
+	<div class="smallfont" style="float:right"> 
+
+		(#<a href="showpost.php?p=2982&amp;postcount=25" target="new" rel="nofollow" id="postcount2982" name="25">25</a>)
+                   <a href="#top" onClick="return toggle_collapse('postbit_2982')"><img id="collapseimg_postbit_2982" src="images/greenfox/buttons/collapse_thead.gif" alt="" border="0" class="inlineimg" /></a>
+         
+         
+          </div>
+		  
+		  
+		<div class="normal">
+			<a name="post2982"><img class="inlineimg" src="images/greenfox/statusicon/post_old.gif" alt="Old" border="0" /></a><input type="checkbox" name="plist[2982]" id="plist_2982" style="vertical-align:middle; padding:0px; margin:0px 0px 0px 5px" value="0" />
+			
+		</div>
+		
+		
+	</td>
+</tr>
+<tbody id="collapseobj_postbit_2982" style=";">
+<tr>
+	<td class="alt2" style="padding:0px">
+		<!-- user info -->
+		<table cellpadding="0" cellspacing="6" border="0" width="100%">
+		<tr>
+			
+			<td valign="top" nowrap="nowrap">
+			
+				<div id="postmenu_2982">
+					
+					<a class="bigusername" href="member.php?u=76">Wateva</a>
+					is <span class="smallfont">Offline</span>
+
+
+					<script type="text/javascript"> vbmenu_register("postmenu_2982", true); </script>
+					
+				</div>
+				
+				<div class="smallfont">Member</div>
+				
+				
+					
+
+
+
+
+
+				
+			</td>
+			<td width="100%">&nbsp;</td>
+			<td valign="top" nowrap="nowrap">
+				
+				<div class="smallfont">
+				<div align="left">
+				    <div>Posts: <span style="color:#cdf16c;">8</span></div>
+					<div>Join Date: <span style="color:#cdf16c;">Mar 2007</span></div>
+					
+					
+					
+					
+					<div style="padding:2px 0px 2px 0px;"></div>
+					<div>    </div>
+
+					
+				</div></div>
+				
+			</td>
+		</tr>
+		</table>
+		<!-- / user info -->
+	</td>
+</tr>
+<tr>
+
+	<td class="alt1" id="td_post_2982" >
+	
+
+
+
+<div style="float:right">
+
+
+ 
+	<a href="postings.php?do=getip&amp;p=2982"><img class="inlineimg" src="images/greenfox/buttons/ip.gif" alt="IP" title="200.181.210.33" border="0" /></a>
+
+<a href="infraction.php?do=report&amp;p=2982" rel="nofollow"><img class="inlineimg" src="images/greenfox/buttons/infraction.gif" alt="Add Infraction for Wateva" border="0" /></a>  </div><div class="smallfont">
+		
+            <!-- icon and title -->
+            <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+				
+            <!-- status icon and date -->
+          
+		
+		
+			<!-- status icon and date -->	
+		
+				05-21-2007, 04:48 PM
+			
+			
+			<!-- / status icon and date -->
+		</div>
+
+	<div class="spacer"></div>	<div class="hr" style="width: 100%;">
+              <hr />
+            </div>		<!-- message, attachments, sig -->
+	
+	
+	
+		
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<div class="spacer"></div>
+		
+		<!-- message -->
+		<div id="post_message_2982" class="vb_postbit">I hope you don't mind, but I think this would be a great addition to TibiaAuto..<br />
+We won't use your code, but we will study it.. ^^</div>
+		<!-- / message -->
+	
+		
+		
+		
+		
+		
+	
+		<div style="margin-top: 10px" align="right">
+			<!-- controls -->
+			<div style="float:left">
+			
+			
+		
+			<a href="report.php?p=2982" rel="nofollow"><img  src="images/greenfox/buttons/report.gif" alt="Report Post" border="0" /></a>
+			
+			
+			
+			
+				
+			
+			
+			
+			</div>
+			
+			 
+				<img style="display: none" id="progress_2982" src="images/greenfox/misc/progress.gif" alt="" />
+				<a href="editpost.php?do=editpost&amp;p=2982" name="vB::QuickEdit::2982"><img src="images/greenfox/buttons/edit.gif" alt="Edit/Delete Message" border="0" /></a>
+			
+			
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2982" rel="nofollow"><img src="images/greenfox/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2982" rel="nofollow" onclick="return false"><img src="images/greenfox/buttons/multiquote_off.gif" alt="Multi-Quote This Message" border="0" id="mq_2982" /></a>
+			
+			
+				<a href="newreply.php?do=newreply&amp;p=2982" rel="nofollow" id="qr_2982" onclick="return false"><img src="images/greenfox/buttons/quickreply.gif" alt="Quick reply to this message" border="0" /></a>
+			
+			
+			
+			<!-- / controls -->
+		</div>
+		
+	<!-- message, attachments, sig -->
+	
+	</td>
+</tr>
+</tbody>
+</table>
+
+<!-- post 2982 popup menu -->
+<div class="vbmenu_popup" id="postmenu_2982_menu" style="display:none;">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">Wateva</td>
+	</tr>
+	
+		<tr><td class="vbmenu_option"><a href="member.php?u=76">View Public Profile</a></td></tr>
+	
+	
+		<tr><td class="vbmenu_option"><a href="private.php?do=newpm&amp;u=76" rel="nofollow">Send a private message to Wateva</a></td></tr>
+	
+	
+	
+	
+		<tr><td class="vbmenu_option"><a href="search.php?do=finduser&amp;u=76" rel="nofollow">Find all posts by Wateva</a></td></tr>
+	
+	
+	<tr><td class="vbmenu_option"><a href="profile.php?do=addlist&amp;userlist=buddy&amp;u=76">Add Wateva to Your Buddy List</a></td></tr>
+	
+	</table>
+</div>
+<!-- / post 2982 popup menu -->
+
+
+
+	</div>
+	
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+
+<!-- / post #2982 --><div id="lastpost"></div></div>
+
+<!-- start content table -->
+<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+<!-- / start content table -->
+
+<!-- controls below postbits -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top">
+	
+		<td class="smallfont"><a href="newreply.php?do=newreply&amp;noquote=1&amp;p=2982" rel="nofollow"><img src="images/greenfox/buttons/reply.gif" alt="Reply" border="0" /></a></td>
+		
+	
+		<td align="right"><div class="pagenav" align="right">
+<table class="tborder" cellpadding="3" cellspacing="1" border="0">
+<tr>
+	<td class="vbmenu_control" style="font-weight:normal">Page 3 of 3</td>
+	
+	<td class="alt1"><a class="smallfont" href="showthread.php?t=326&amp;page=2" title="Prev Page - Results 11 to 20 of 25">&lt;</a></td>
+	<td class="alt1"><a class="smallfont" href="showthread.php?t=326" title="Show results 1 to 10 of 25">1</a></td><td class="alt1"><a class="smallfont" href="showthread.php?t=326&amp;page=2" title="Show results 11 to 20 of 25">2</a></td>	<td class="alt2"><span class="smallfont" title="Showing results 21 to 25 of 25"><strong>3</strong></span></td>
+ 
+	
+	
+	<td class="vbmenu_control" title="showthread.php?t=326"><a name="PageNav"></a></td>
+</tr>
+</table>
+</div>
+		
+			<div class="smallfont" style="text-align:left; white-space:nowrap; float:right">
+			<br /><strong>Moderation</strong><br />
+			<select name="do">
+				<optgroup label="Option">
+					
+					<option value="mergeposts">Merge Posts</option>
+					<option value="moveposts">Move Posts</option>
+					<option value="copyposts">Copy Posts</option>
+					
+					
+					<option value="deleteposts">Delete Posts</option>
+					<option value="undeleteposts">Undelete Posts</option>
+					
+					
+					<option value="approveposts">Approve Posts</option>
+					<option value="unapproveposts">Unapprove Posts</option>
+					
+					
+					<option value="approveattachments">Approve Attachments</option>
+					<option value="unapproveattachments">Unapprove Attachments</option>
+					
+				</optgroup>
+				<optgroup label="____________________">
+					<option value="viewpost">View Selected Posts</option>
+					<option value="clearpost">Deselect All Posts</option>
+				</optgroup>
+			</select><input type="submit" class="button" id="inlinego" value="Go" />
+			<input type="hidden" name="s" value="" />
+			<input type="hidden" name="threadid" value="326" />
+			<input type="hidden" name="p" value="" />
+			<input type="hidden" name="url" value="/forum/showthread.php?t=326&amp;page=3" />
+			</div>
+			<script type="text/javascript" src="clientscript/vbulletin_inlinemod.js?v=365"></script>
+			<script type="text/javascript">
+			<!--
+			inlineMod = new vB_Inline_Mod('inlineMod', 'post', 'inlinemodform', 'Go (%1$s)');
+			//-->
+			</script>
+						
+		</td>
+	
+</tr>
+</table>
+<!-- / controls below postbits -->
+
+
+
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+</form>
+<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:760px; text-align:left">
+		<div style="padding:0px 15px 0px 15px">
+
+
+
+
+<br />
+
+<div class="smallfont" align="center">
+	<strong>&laquo;</strong>
+		<a href="showthread.php?t=326&amp;goto=nextoldest" rel="nofollow">Previous Thread</a>
+		|
+		<a href="showthread.php?t=326&amp;goto=nextnewest" rel="nofollow">Next Thread</a>
+	<strong>&raquo;</strong>
+</div>
+
+
+<br />
+
+
+<script type="text/javascript" src="clientscript/vbulletin_multi_quote.js?v=365"></script>
+<script type="text/javascript">
+var mqlimit = 0;
+</script>
+
+
+
+<!-- ajax errors table -->
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" style="display:none; position:absolute" id="ajax_post_errors">
+<tr>
+	<td class="thead">
+		<span style="float:right"><input type="button" class="button" value=" X " onclick="vB_QuickEditor.hide_errors()" unselectable="true" /></span>
+		vBulletin Message
+	</td>
+</tr>
+<tr>
+	<td class="alt2" colspan="2" id="ajax_post_errors_message">&nbsp;</td>
+</tr>
+<tr>
+	<td class="tfoot" colspan="2" align="center"><a href="#" onclick="vB_QuickEditor.abort(); return false;">Cancel Changes</a></td>
+</tr>
+</table>
+<!-- / ajax errors table -->
+
+<!-- scripts for quick reply and quick edit -->
+<!-- EDITOR SCRIPTS -->
+<script type="text/javascript" src="clientscript/vbulletin_textedit.js?v=365"></script>
+<script type="text/javascript">
+<!--
+var fontoptions = new Array("Arial", "Arial Black", "Arial Narrow", "Book Antiqua", "Century Gothic", "Comic Sans MS", "Courier New", "Fixedsys", "Franklin Gothic Medium", "Garamond", "Georgia", "Impact", "Lucida Console", "Lucida Sans Unicode", "Microsoft Sans Serif", "Palatino Linotype", "System", "Tahoma", "Times New Roman", "Trebuchet MS", "Verdana");
+var sizeoptions = new Array(1, 2, 3, 4, 5, 6, 7);
+var smilieoptions = new Array(); smilieoptions = {  };
+
+var istyles = new Array(); istyles = { "pi_button_down" : [ "#98B5E2", "#000000", "0px", "1px solid #316AC5" ], "pi_button_hover" : [ "#C1D2EE", "#000000", "0px", "1px solid #316AC5" ], "pi_button_normal" : [ "#E1E1E2", "#000000", "1px", "none" ], "pi_button_selected" : [ "#F1F6F8", "#000000", "0px", "1px solid #316AC5" ], "pi_menu_down" : [ "#98B5E2", "#316AC5", "0px", "1px solid #316AC5" ], "pi_menu_hover" : [ "#C1D2EE", "#316AC5", "0px", "1px solid #316AC5" ], "pi_menu_normal" : [ "#FFFFFF", "#000000", "0px", "1px solid #FFFFFF" ], "pi_popup_down" : [ "#98B5E2", "#000000", "0px", "1px solid #316AC5" ] };
+
+var smiliewindow_x = 240;
+var smiliewindow_y = 280;
+
+var ignorequotechars = 1;
+
+// vB Phrases
+vbphrase["wysiwyg_please_wait"]          = "Please wait for the WYSIWYG editor to finish loading...";
+vbphrase["wysiwyg_initialized"]          = "WYSIWYG Editor initialized for %1$s in %2$s seconds.";
+vbphrase["wysiwyg_command_invalid"]      = "This command is invalid or not implemented.";
+vbphrase["moz_must_select_text"]         = "Mozilla requires that you must select some text for this function to work";
+vbphrase["moz_edit_config_file"]         = "You need to edit your Mozilla config file to allow this action.";
+vbphrase["enter_tag_option"]             = "Please enter the option for your %1$s tag:";
+vbphrase["must_select_text_to_use"]      = "You must select some text to use this function.";
+vbphrase["browser_is_safari_no_wysiwyg"] = "The Safari browser does not support WYSIWYG mode.";
+vbphrase["enter_option_x_tag"]           = "Enter the option for the [%1$s] tag:";
+vbphrase["enter_text_to_be_formatted"]   = "Enter the text to be formatted";
+vbphrase["enter_link_text"]              = "Enter the text to be displayed for the link (optional):";
+vbphrase["enter_list_type"]              = "What type of list do you want? Enter '1' for a numbered list, enter 'a' for an alphabetical list, or leave blank for a list with bullet points:";
+vbphrase["enter_list_item"]              = "Enter a list item.\r\nLeave the box empty or press 'Cancel' to complete the list:";
+vbphrase["must_enter_subject"]           = "You must enter a title / subject!";
+vbphrase["message_too_short"]            = "The message you have entered is too short. Please lengthen your message to at least %1$s characters.";
+vbphrase["enter_link_url"]               = "Please enter the URL of your link:";
+vbphrase["enter_image_url"]              = "Please enter the URL of your image:";
+vbphrase["enter_email_link"]             = "Please enter the email address for the link:";
+vbphrase["complete_image_verification"]  = "You did not complete the Image Verification";
+vbphrase["iespell_not_installed"]        = "ieSpell is a spell-checking tool for Internet Explorer.\r\n\r\nIf you would like to download ieSpell, click OK; otherwise click Cancel.\r\n\r\nieSpell can be downloaded from http://www.iespell.com";
+vbphrase["click_quick_reply_icon"]       = "Please click one of the Quick Reply icons in the posts above to activate Quick Reply.";
+vbphrase["insert_all"]                   = "Insert All";
+
+//-->
+</script>
+<!-- END EDITOR SCRIPTS -->
+
+<!-- EDITOR STYLES -->
+<link rel="stylesheet" type="text/css" href="clientscript/vbulletin_editor.css" />
+<style type="text/css">
+<!--
+.vBulletin_editor {
+	background: #E1E1E2;
+	padding: 6px;
+}
+.imagebutton {
+	background: #E1E1E2;
+	color: #000000;
+	padding: 1px;
+	border: none;
+}
+.ocolor, .ofont, .osize, .osmilie, .osyscoloar, .smilietitle {
+	background: #FFFFFF;
+	color: #000000;
+	border: 1px solid #FFFFFF;
+}
+.popup_pickbutton {
+	border: 1px solid #FFFFFF;
+}
+.popup_feedback {
+	background: #FFFFFF;
+	color: #000000;
+	border-right: 1px solid #FFFFFF;
+}
+.popupwindow {
+	background: #FFFFFF;
+}
+#fontOut, #sizeOut, .popup_feedback div {
+	background: #FFFFFF;
+	color: #000000;
+}
+.alt_pickbutton {
+	border-left: 1px solid #E1E1E2;
+}
+.popup_feedback input, .popup_feedback div
+{
+	border: 0px solid;
+	padding: 0px 2px 0px 2px;
+	cursor: default;
+	font: 11px tahoma;
+	overflow: hidden;
+}
+-->
+</style>
+<!-- END EDITOR STYLES -->
+
+<script type="text/javascript" src="clientscript/vbulletin_quick_edit.js?v=365"></script>
+<script type="text/javascript">
+<!--
+vB_AJAX_QuickEdit_Init('posts');
+//-->
+</script>
+
+<!-- / scripts for quick reply and quick edit -->
+
+
+
+
+<!-- quick reply -->
+<script type="text/javascript" src="clientscript/vbulletin_quick_reply.js?v=365"></script>
+<form action="newreply.php?do=postreply&amp;t=326" method="post" name="vbform" onsubmit="return qr_prepare_submit(this, 10);" id="qrform">
+<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+<thead>
+	<tr>
+		<td class="tcat" colspan="2">
+			<a style="float:right" href="#top" onclick="return toggle_collapse('quickreply');"><img id="collapseimg_quickreply" src="images/greenfox/buttons/collapse_tcat.gif" alt="" border="0" /></a>
+			Quick Reply
+		</td>
+	</tr>
+</thead>
+<tbody id="qr_error_tbody" style="display:none">
+<tr>
+	<td class="thead">The following errors occurred when this message was submitted</td>
+</tr>
+<tr>
+	<td class="alt1" id="qr_error_td"></td>
+</tr>
+<tr>
+	<td class="tfoot" align="center"><span class="smallfont"><a href="#" onclick="return qr_hide_errors()">Okay</a></span></td>
+</tr>
+</tbody>
+<tbody id="collapseobj_quickreply" style="">
+<tr>
+	<td class="panelsurround" align="center">
+		<div class="panel">	
+			<table cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td class="smallfont" align="left">Message:</td>
+			</tr>
+			<tr>
+				<td id="vB_Editor_QR" class="vBulletin_editor" align="left">
+		<script type="text/javascript">
+		<!--
+			var threaded_mode = 0;
+			var require_click = 1;
+			var is_last_page = 1; // leave for people with cached JS files
+			var allow_ajax_qr = 1;
+			var ajax_last_post = 1179780500;
+		// -->
+		</script>
+		
+<div id="vB_Editor_QR_controls" class="controlbar">
+	<table cellpadding="0" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td><div class="imagebutton" id="vB_Editor_QR_cmd_removeformat"><img src="images/greenfox/editor/removeformat.gif" width="21" height="20" alt="Remove Text Formatting" /></div></td>
+		<td><img src="images/greenfox/editor/separator.gif" width="6" height="20" alt="" /></td>
+	
+		<td><div class="imagebutton" id="vB_Editor_QR_cmd_bold"><img src="images/greenfox/editor/bold.gif" width="21" height="20" alt="Bold" /></div></td>
+		<td><div class="imagebutton" id="vB_Editor_QR_cmd_italic"><img src="images/greenfox/editor/italic.gif" width="21" height="20" alt="Italic" /></div></td>
+		<td><div class="imagebutton" id="vB_Editor_QR_cmd_underline"><img src="images/greenfox/editor/underline.gif" width="21" height="20" alt="Underline" /></div></td>
+		<td><img src="images/greenfox/editor/separator.gif" width="6" height="20" alt="" /></td>
+	
+	
+		<td><div class="imagebutton" id="vB_Editor_QR_popup_forecolor" title="Colors">
+			<table cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td id="vB_Editor_QR_color_out"><img src="images/greenfox/editor/color.gif" width="21" height="16" alt="" /><br /><img src="clear.gif" id="vB_Editor_QR_color_bar" alt="" style="background-color:black" width="21" height="4" /></td>
+				<td class="alt_pickbutton"><img src="images/greenfox/editor/menupop.gif" alt="" width="11" height="16" /></td>
+			</tr>
+			</table>
+		</div></td>
+	
+		<td><img src="images/greenfox/editor/separator.gif" width="6" height="20" alt="" /></td>
+	
+		<td><div class="imagebutton" id="vB_Editor_QR_cmd_createlink"><img src="images/greenfox/editor/createlink.gif" width="21" height="20" alt="Insert Link" /></div></td>
+	
+	
+		<td><div class="imagebutton" id="vB_Editor_QR_cmd_insertimage"><img src="images/greenfox/editor/insertimage.gif" width="21" height="20" alt="Insert Image" /></div></td>
+	
+		<td><img src="images/greenfox/editor/separator.gif" width="6" height="20" alt="" /></td>
+		<td><div class="imagebutton" id="vB_Editor_QR_cmd_wrap0_quote"><img src="images/greenfox/editor/quote.gif" width="21" height="20" alt="Wrap [QUOTE] tags around selected text" /></div></td>
+	<td width="100%">&nbsp;</td>
+	
+		<td>
+			<div class="imagebutton" id="vB_Editor_QR_cmd_resize_0_99"><img src="images/greenfox/editor/resize_0.gif" width="21" height="9" alt="Decrease Size" /></div>
+			<div class="imagebutton" id="vB_Editor_QR_cmd_resize_1_99"><img src="images/greenfox/editor/resize_1.gif" width="21" height="9" alt="Increase Size" /></div>
+		</td>
+	
+		<td><img src="images/greenfox/editor/separator.gif" width="6" height="20" alt="" /></td>
+		<td><div class="imagebutton" id="vB_Editor_QR_cmd_switchmode"><img src="images/greenfox/editor/switchmode.gif" width="21" height="20" alt="Switch Editor Mode" /></div></td>
+	
+	</tr>
+	</table>
+</div>
+
+<div class="controlbar">
+	
+	<textarea name="message" id="vB_Editor_QR_textarea" rows="10" cols="60" style="width:540px; height:100px" tabindex="1" dir="ltr" disabled="disabled">Please click one of the Quick Reply icons in the posts above to activate Quick Reply.</textarea>
+	
+</div>
+
+<input type="hidden" name="wysiwyg" id="vB_Editor_QR_mode" value="0" />
+<input type="hidden" name="styleid" value="0" />
+
+<script type="text/javascript">
+<!--
+vB_Editor['vB_Editor_QR'] = new vB_Text_Editor('vB_Editor_QR', 0, '18', '1');
+var QR_EditorID = 'vB_Editor_QR';
+//-->
+</script>
+	</td>
+			</tr>
+			<tr>
+				<td align="left">
+				
+					<fieldset class="fieldset" style="margin:3px 0px 0px 0px">
+						<legend>Options</legend>
+						<div>
+							
+								<div style="float:right"><label for="cb_signature"><input type="checkbox" name="signature" value="1" id="cb_signature" tabindex="5" checked="checked" />Show your signature</label></div>
+							
+							<label for="qr_quickreply"><input type="checkbox" name="quickreply" value="1" id="qr_quickreply" accesskey="w" tabindex="4" />Quote message in reply?</label>
+						</div>
+					</fieldset>
+				
+				</td>
+			</tr>
+			</table>
+		</div>	
+
+		<div style="margin-top:6px">
+			<input type="hidden" name="fromquickreply" value="1" />
+			<input type="hidden" name="s" value="" />
+			<input type="hidden" name="do" value="postreply" />
+			<input type="hidden" name="t" value="326" id="qr_threadid" />
+			<input type="hidden" name="p" value="0" id="qr_postid" />
+			<input type="hidden" name="parseurl" value="1" />
+			<input type="hidden" name="loggedinuser" value="38" />
+			<input type="submit" class="button" value="Post Quick Reply" accesskey="s" title="(Alt + S)" name="sbutton" tabindex="2" id="qr_submit" onclick="clickedelm = this.value" />
+			<input type="submit" class="button" value="Go Advanced" accesskey="x" title="(Alt + X)" name="preview" tabindex="3" id="qr_preview" onclick="clickedelm = this.value" />
+		</div>
+
+		<div align="center" id="qr_posting_msg" style="display:none; margin-top:6px">
+			<img style="vertical-align: middle;" src="images/greenfox/misc/progress.gif" alt="Posting Quick Reply - Please Wait" />&nbsp;<strong>Posting Quick Reply - Please Wait</strong>
+		</div>	
+	</td>
+</tr>
+</tbody>
+</table>
+</form>
+
+
+	<!-- Mozilla work around for focusing on QR in WYSIWYG mode -->
+	<div id="qr_scroll"></div>
+
+
+<br />
+
+<script type="text/javascript">
+<!--
+	// initialize quick reply
+	qr_init();
+//-->
+</script>
+
+<!-- end quick reply -->
+
+
+<!-- currently active users -->
+
+<!-- end currently active users -->
+
+
+<!-- popup menu contents -->
+<br />
+
+<!-- thread tools menu -->
+<div class="vbmenu_popup" id="threadtools_menu" style="display:none">
+<form action="postings.php?t=326&amp;pollid=" method="post" name="threadadminform">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">Thread Tools<a name="goto_threadtools"></a></td>
+	</tr>
+	<tr>
+		<td class="vbmenu_option"><img class="inlineimg" src="images/greenfox/buttons/printer.gif" alt="Show Printable Version" /> <a href="printthread.php?t=326" accesskey="3" rel="nofollow">Show Printable Version</a></td>
+	</tr>
+	<tr>
+		<td class="vbmenu_option"><img class="inlineimg" src="images/greenfox/buttons/sendtofriend.gif" alt="Email this Page" /> <a href="sendmessage.php?do=sendtofriend&amp;t=326" rel="nofollow">Email this Page</a></td>
+	</tr>
+	
+	<tr>
+		<td class="vbmenu_option"><img class="inlineimg" src="images/greenfox/buttons/subscribe.gif" alt="Subscription" />
+		
+			<a href="subscription.php?do=addsubscription&amp;t=326" rel="nofollow">Subscribe to this Thread</a>
+		
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td class="vbmenu_option"><img class="inlineimg" src="images/greenfox/buttons/addpoll.gif" alt="Add a Poll" /> <a href="poll.php?do=newpoll&amp;t=326">Add a Poll to this Thread</a></td>
+	</tr>
+	
+	
+	<tr>
+		<td class="thead">Moderation Tools<a name="goto_threadadmin"></a></td>
+	</tr>
+	<tr>
+		<td class="vbmenu_option" title="nohilite">
+		<div><label for="ao_oct"><input type="radio" name="do" id="ao_oct" value="openclosethread" checked="checked" />Close Thread</label></div>
+		<div><label for="ao_mvt"><input type="radio" name="do" id="ao_mvt" value="movethread" />Move Thread</label></div>
+		<div><label for="ao_cpt"><input type="radio" name="do" id="ao_cpt" value="copythread" />Copy Thread</label></div>
+		<div><label for="ao_edt"><input type="radio" name="do" id="ao_edt" value="editthread" />Edit Thread</label></div>
+		<div><label for="ao_dlt"><input type="radio" name="do" id="ao_dlt" value="deletethread" />Delete Thread</label></div>
+		
+			<div><label for="ao_sut"><input type="radio" name="do" id="ao_sut" value="stick" />Stick Thread</label></div>
+			<div><label for="ao_mgt"><input type="radio" name="do" id="ao_mgt" value="mergethread" />Merge Threads</label></div>
+			<div><label for="ao_rrd"><input type="radio" name="do" id="ao_rrd" value="removeredirect" />Remove Redirects</label></div>
+		
+		
+		</td>
+	</tr>
+	<tr>
+		<td class="vbmenu_option" title="nohilite" align="center">
+			<input type="hidden" name="s" value="" />
+			<input type="hidden" name="t" value="326" />
+			<input type="hidden" name="pollid" value="" />
+			<input type="submit" class="button" value="Perform Action" />
+		</td>
+	</tr>
+	
+	</table>
+</form>
+</div>
+<!-- / thread tools menu -->
+
+<!-- **************************************************** -->
+
+<!-- thread display mode menu -->
+<div class="vbmenu_popup" id="displaymodes_menu" style="display:none">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">Display Modes<a name="goto_displaymodes"></a></td>
+	</tr>
+	<tr>
+	
+		<td class="vbmenu_option" title="nohilite"><img class="inlineimg" src="images/greenfox/buttons/mode_linear.gif" alt="Linear Mode" /> <strong>Linear Mode</strong></td>
+	
+	</tr>
+	<tr>
+	
+		<td class="vbmenu_option"><img class="inlineimg" src="images/greenfox/buttons/mode_hybrid.gif" alt="Hybrid Mode" /> <a href="showthread.php?mode=hybrid&amp;t=326">Switch to Hybrid Mode</a></td>
+	
+	</tr>
+	<tr>
+	
+		<td class="vbmenu_option"><img class="inlineimg" src="images/greenfox/buttons/mode_threaded.gif" alt="Threaded Mode" /> <a href="showthread.php?p=2937&amp;mode=threaded#post2937">Switch to Threaded Mode</a></td>
+	
+	</tr>
+	</table>
+</div>
+<!-- / thread display mode menu -->
+
+<!-- **************************************************** -->
+
+
+<!-- thread search menu -->
+<div class="vbmenu_popup" id="threadsearch_menu" style="display:none">
+<form action="search.php?do=process&amp;searchthreadid=326" method="post">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="thead">Search this Thread<a name="goto_threadsearch"></a></td>
+	</tr>
+	<tr>
+		<td class="vbmenu_option" title="nohilite">
+			<input type="hidden" name="s" value="" />
+			<input type="hidden" name="do" value="process" />
+			<input type="hidden" name="searchthreadid" value="326" />
+			<input type="text" class="bginput" name="query" size="25" /><input type="submit" class="button" value="Go"  /><br />
+		</td>
+	</tr>
+	<tr>
+		<td class="vbmenu_option"><a href="search.php?searchthreadid=326">Advanced Search</a></td>
+	</tr>
+	</table>
+</form>
+</div>
+<!-- / thread search menu -->
+
+
+<!-- **************************************************** -->
+
+
+	<!-- thread rating menu -->
+	<div class="vbmenu_popup" id="threadrating_menu" style="display:none">
+	<form action="threadrate.php?t=326" method="post" id="showthread_threadrate_form">
+		<table cellpadding="4" cellspacing="1" border="0">
+		<tr>
+			<td class="thead">Rate This Thread<a name="goto_threadrating"></a></td>
+		</tr>
+		
+		<tr>
+			<td class="vbmenu_option" title="nohilite" id="threadrating_options">
+			<div><img class="inlineimg" src="images/greenfox/rating/rating_5.gif" alt="Excellent" /><label for="vote5"><input type="radio" name="vote" id="vote5" value="5"  />Excellent</label></div>
+			<div><img class="inlineimg" src="images/greenfox/rating/rating_4.gif" alt="Good" /><label for="vote4"><input type="radio" name="vote" id="vote4" value="4"  />Good</label></div>
+			<div><img class="inlineimg" src="images/greenfox/rating/rating_3.gif" alt="Average" /><label for="vote3"><input type="radio" name="vote" id="vote3" value="3"  />Average</label></div>
+			<div><img class="inlineimg" src="images/greenfox/rating/rating_2.gif" alt="Bad" /><label for="vote2"><input type="radio" name="vote" id="vote2" value="2"  />Bad</label></div>
+			<div><img class="inlineimg" src="images/greenfox/rating/rating_1.gif" alt="Terrible" /><label for="vote1"><input type="radio" name="vote" id="vote1" value="1"  />Terrible</label></div>
+			</td>
+		</tr>
+		<tr id="threadrating_submit">
+			<td class="vbmenu_option" title="nohilite" align="center">
+				<input type="hidden" name="s" value="c3b002e8fdd1bf8e1a27f8d737e8ad63" />
+				<input type="hidden" name="t" value="326" />
+				<input type="hidden" name="pp" value="10" />
+				<input type="hidden" name="page" value="3" />
+				<input type="submit" class="button" value="Vote Now" />
+			</td>
+		</tr>
+		
+		</table>
+	</form>
+	</div>
+	<!-- / thread rating menu -->
+
+	<script type="text/javascript" src="clientscript/vbulletin_ajax_threadrate.js?v=365"></script>
+	<script type="text/javascript">
+	<!--
+	vB_AJAX_ThreadRate_Init('showthread_threadrate_form');
+	var threadid = 326;
+	//-->
+	</script>
+
+
+<!-- / popup menu contents -->
+
+
+<!-- forum rules and admin links -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+<tr valign="bottom">
+	<td class="smallfont" align="left">
+		<table class="tborder" cellpadding="6" cellspacing="1" border="0" width="180">
+<thead>
+<tr>
+	<td class="thead">
+		<a style="float:right" href="#top" onclick="return toggle_collapse('forumrules')"><img id="collapseimg_forumrules" src="images/greenfox/buttons/collapse_thead.gif" alt="" border="0" /></a>
+		Posting Rules
+	</td>
+</tr>
+</thead>
+<tbody id="collapseobj_forumrules" style="">
+<tr>
+	<td class="alt1" nowrap="nowrap"><div class="smallfont">
+		
+		<div>You <strong>may </strong> post new threads</div>
+		<div>You <strong>may </strong> post replies</div>
+		<div>You <strong>may </strong> post attachments</div>
+		<div>You <strong>may </strong> edit your posts</div>
+		<hr />
+		
+		<div><a href="misc.php?do=bbcode" target="_blank">vB code</a> is <strong>On</strong></div>
+		<div><a href="misc.php?do=showsmilies" target="_blank">Smilies</a> are <strong>On</strong></div>
+		<div><a href="misc.php?do=bbcode#imgcode" target="_blank">[IMG]</a> code is <strong>On</strong></div>
+		<div>HTML code is <strong>Off</strong></div>
+	</div></td>
+</tr>
+</tbody>
+</table>
+	</td>
+	<td class="smallfont" align="right">
+		<table cellpadding="0" cellspacing="0" border="0">
+		
+		<tr>
+			<td>
+			<div class="smallfont" style="text-align:left; white-space:nowrap">
+	<form action="forumdisplay.php" method="get">
+	<input type="hidden" name="s" value="" />
+	<input type="hidden" name="daysprune" value="" />
+	<strong>Forum Jump</strong><br />
+	<select name="f" onchange="this.form.submit();">
+		<optgroup label="Site Areas">
+			<option value="cp" >User Control Panel</option>
+			<option value="pm" >Private Messages</option>
+			<option value="subs" >Subscriptions</option>
+			<option value="wol" >Who's Online</option>
+			<option value="search" >Search Forums</option>
+			<option value="home" >Forums Home</option>
+		</optgroup>
+		<optgroup label="Forums">
+		<option value="4" class="fjdpth0" > Members</option>
+<option value="5" class="fjdpth1" >&nbsp; &nbsp;  Applications</option>
+<option value="30" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  Accepted Applications</option>
+<option value="6" class="fjdpth1" >&nbsp; &nbsp;  Complaints</option>
+<option value="3" class="fjdpth1" >&nbsp; &nbsp;  Suggestions and Proposals</option>
+<option value="7" class="fjdpth0" > Programs</option>
+<option value="8" class="fjdpth1" >&nbsp; &nbsp;  Verified section</option>
+<option value="39" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  Veritias's Programs</option>
+<option value="32" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  Cameri's Programs</option>
+<option value="34" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  Shade's Programs</option>
+<option value="35" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  Jack's Programs</option>
+<option value="36" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  Stiju's Programs</option>
+<option value="40" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  Dark Pallys' Programs</option>
+<option value="43" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  ExpertMace's Programs</option>
+<option value="42" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  MadPrgmr's Programs</option>
+<option value="48" class="fjdpth2" >&nbsp; &nbsp; &nbsp; &nbsp;  OsQu's Programs</option>
+<option value="9" class="fjdpth1" >&nbsp; &nbsp;  Unverified section</option>
+<option value="10" class="fjdpth1" >&nbsp; &nbsp;  Report program</option>
+<option value="11" class="fjdpth0" > Programmers Lounge</option>
+<option value="38" class="fjdpth1" >&nbsp; &nbsp;  Tutorials</option>
+<option value="47" class="fjdpth1" >&nbsp; &nbsp;  Java</option>
+<option value="13" class="fjdpth1" >&nbsp; &nbsp;  Visual Basic / .NET</option>
+<option value="12" class="fjdpth1" >&nbsp; &nbsp;  C/C++/C#</option>
+<option value="14" class="fjdpth1" >&nbsp; &nbsp;  Delphi</option>
+<option value="15" class="fjdpth1" >&nbsp; &nbsp;  Web Languages</option>
+<option value="18" class="fjsel" selected="selected">&nbsp; &nbsp;  Programming Chat</option>
+<option value="19" class="fjdpth0" > Tibia</option>
+<option value="20" class="fjdpth1" >&nbsp; &nbsp;  General Chat</option>
+<option value="22" class="fjdpth1" >&nbsp; &nbsp;  Trade Chat</option>
+<option value="23" class="fjdpth1" >&nbsp; &nbsp;  Screenshots</option>
+<option value="24" class="fjdpth1" >&nbsp; &nbsp;  Tibiamovies</option>
+<option value="25" class="fjdpth0" > Staff Internal Discussion</option>
+<option value="26" class="fjdpth1" >&nbsp; &nbsp;  Moderator and Global Moderator Discussion</option>
+<option value="27" class="fjdpth1" >&nbsp; &nbsp;  Programmer Discussion</option>
+<option value="44" class="fjdpth0" > Other</option>
+<option value="45" class="fjdpth1" >&nbsp; &nbsp;  Computer Technical Support / Hardware</option>
+<option value="46" class="fjdpth1" >&nbsp; &nbsp;  Graphic Design</option>
+
+		</optgroup>
+	</select><input type="submit" class="button" value="Go"  />
+	</form>
+</div>
+			</td>
+		</tr>		
+		</table>
+	</td>
+</tr>
+</table>
+<!-- /forum rules and admin links -->
+
+<br />
+
+
+
+<br /><br />
+<div align="center">
+    <div class="smallfont" align="center">
+    <!-- Do not remove this copyright notice -->
+    Powered by vBulletin&reg; Version 3.6.5<br />Copyright &copy;2000 - 2007, Jelsoft Enterprises Ltd.<br />
+    vBulletin Skin developed by: <a href="http://www.vbstyles.com">vBStyles.com</a><br />
+<div class="spacer"></div>
+
+    <!-- Do not remove this copyright notice -->
+    </div>
+    
+    <div class="smallfont" align="center">
+    <!-- Do not remove  or your scheduled tasks will cease to function -->
+    
+    <!-- Do not remove  or your scheduled tasks will cease to function -->
+    
+    
+    </div>
+</div>
+<br />
+
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+<!-- /content area table -->
+
+<form action="index.php" method="get">
+	
+<table cellpadding="6" cellspacing="0" border="0" width="760" class="cat_bottom" align="center">
+<tr>
+	
+	
+	<td  align="right" width="100%">
+		<div class="smallfont">
+			<strong>
+				<a href="sendmessage.php" rel="nofollow">Contact Us</a> -
+				<a href="http://www.tpforums.net">TProgramming - Your #1 Source for Tibia Development!</a> -
+				
+				<a href="adminzcp/index.php">Mod</a> -
+				<a href="archive/index.php">Archive</a> -
+				
+				<a href="#top" onclick="self.scrollTo(0, 0); return false;">Top</a>
+			</strong>
+		</div>
+	</td>
+</tr>
+</table></form>
+</td></tr></table></div>
+
+
+<script type="text/javascript">
+<!--
+	// Main vBulletin Javascript Initialization
+	vBulletin_init();
+//-->
+</script>
+
+<!-- temp -->
+<div style="display:none">
+	<!-- thread rate -->
+	
+		<!-- thread ratings form here -->
+	
+	<!-- / thread rate -->
+</div>
+
+</body>
+</html>

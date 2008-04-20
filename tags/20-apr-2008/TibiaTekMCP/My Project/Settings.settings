@@ -1,0 +1,72 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="PatchText" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Patch</Value>
+    </Setting>
+    <Setting Name="CloseText" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Close</Value>
+    </Setting>
+    <Setting Name="BrowseText" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Browse</Value>
+    </Setting>
+    <Setting Name="ProductName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tibia Player</Value>
+    </Setting>
+    <Setting Name="PatchReplacement" Type="System.Byte" Scope="Application">
+      <Value Profile="(Default)">235</Value>
+    </Setting>
+    <Setting Name="ErrorMsg1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Error: The selected application is not the Tibia client.</Value>
+    </Setting>
+    <Setting Name="ErrorMsg2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Error: The version of the Tibia client is not supported.</Value>
+    </Setting>
+    <Setting Name="BackupExecutable" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tibia.Backup.exe</Value>
+    </Setting>
+    <Setting Name="MCExecutable" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">TibiaMC.exe</Value>
+    </Setting>
+    <Setting Name="ErrorMsg3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Error: Already patched.</Value>
+    </Setting>
+    <Setting Name="ErrorCaption" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Error</Value>
+    </Setting>
+    <Setting Name="QuestionCaption" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Question</Value>
+    </Setting>
+    <Setting Name="TibiaExecutableText" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tibia Executable</Value>
+    </Setting>
+    <Setting Name="PatchMsg1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Would you like to make a backup of your Tibia Executable?</Value>
+    </Setting>
+    <Setting Name="PatchMsg2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Backup of the Tibia Executable saved to</Value>
+    </Setting>
+    <Setting Name="PatchCaption1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Backup Complete</Value>
+    </Setting>
+    <Setting Name="CompleteCaption" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Complete</Value>
+    </Setting>
+    <Setting Name="PatchMsg3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Successfully patched.</Value>
+    </Setting>
+    <Setting Name="CreditsTTDT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">TibiaTek Development Team</Value>
+    </Setting>
+    <Setting Name="CreditsTS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tibiasoft.com</Value>
+    </Setting>
+    <Setting Name="CreditsTTDTUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.tibiatek.com/</Value>
+    </Setting>
+    <Setting Name="CreditsTSUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.tibiasoft.com/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

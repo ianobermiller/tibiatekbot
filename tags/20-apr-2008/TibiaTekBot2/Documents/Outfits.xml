@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Outfits>
+	<Outfit ID="3" Name="Warwolf"/>
+	<Outfit ID="4" Name="Orc Rider"/>
+	<Outfit ID="5" Name="Orc"/>
+	<Outfit ID="6" Name="Orc Shaman"/>
+	<Outfit ID="7" Name="Orc Warrior"/>
+	<Outfit ID="8" Name="Orc Berserker"/>
+	<Outfit ID="9" Name="Necromancer"/>
+	<Outfit ID="10" Name="Butterfly Yellow"/>
+	<Outfit ID="11" Name="Water Elemental"/>
+	<Outfit ID="12" Name="Blue Demon"/>
+	<Outfit ID="13" Name="Black Sheep"/>
+	<Outfit ID="14" Name="White Sheep"/>
+	<Outfit ID="15" Name="Troll"/>
+	<Outfit ID="16" Name="Bear"/>
+	<Outfit ID="17" Name="Beholder"/>
+	<Outfit ID="18" Name="Ghoul"/>
+	<Outfit ID="19" Name="Slime"/>
+	<Outfit ID="20" Name="Quara Predator"/>
+	<Outfit ID="21" Name="Rat"/>
+	<Outfit ID="22" Name="Cyclops"/>
+	<Outfit ID="23" Name="Minotaur Mage"/>
+	<Outfit ID="24" Name="Minotaur Archer"/>
+	<Outfit ID="25" Name="Minotaur"/>
+	<Outfit ID="26" Name="Rotworm"/>
+	<Outfit ID="27" Name="Wolf"/>
+	<Outfit ID="28" Name="Snake"/>
+	<Outfit ID="29" Name="Minotaur Guard"/>
+	<Outfit ID="30" Name="Spider"/>
+	<Outfit ID="31" Name="Deer"/>
+	<Outfit ID="32" Name="Dog"/>
+	<Outfit ID="33" Name="Skeleton"/>
+	<Outfit ID="34" Name="Dragon"/>
+	<Outfit ID="35" Name="Demon"/>
+	<Outfit ID="36" Name="Poison Spider"/>
+	<Outfit ID="37" Name="Demon Skeleton"/>
+	<Outfit ID="38" Name="Giant Spider"/>
+	<Outfit ID="39" Name="Dragon Lord"/>
+	<Outfit ID="40" Name="Fire Devil"/>
+	<Outfit ID="41" Name="Lion"/>
+	<Outfit ID="42" Name="Polar Bear"/>
+	<Outfit ID="43" Name="Scorpion"/>
+	<Outfit ID="44" Name="Wasp"/>
+	<Outfit ID="45" Name="Bug"/>
+	<Outfit ID="46" Name="Quara Constrictor"/>
+	<Outfit ID="47" Name="Quara Hydromancer"/>
+	<Outfit ID="48" Name="Ghost"/>
+	<Outfit ID="49" Name="Fire Elemental"/>
+	<Outfit ID="50" Name="Orc Spearman"/>
+	<Outfit ID="51" Name="Green Djinn"/>
+	<Outfit ID="52" Name="Winter Wolf"/>
+	<Outfit ID="53" Name="Frost Troll"/>
+	<Outfit ID="54" Name="Witch"/>
+	<Outfit ID="55" Name="Behemoth"/>
+	<Outfit ID="56" Name="Cave Rat"/>
+	<Outfit ID="57" Name="Monk"/>
+	<Outfit ID="58" Name="Priestess"/>
+	<Outfit ID="59" Name="Orc Leader"/>
+	<Outfit ID="60" Name="Pig"/>
+	<Outfit ID="61" Name="Goblin"/>
+	<Outfit ID="62" Name="Elf"/>
+	<Outfit ID="63" Name="Elf Arcanist"/>
+	<Outfit ID="64" Name="Elf Scout"/>
+	<Outfit ID="65" Name="Mummy"/>
+	<Outfit ID="66" Name="Dwarf Geomancer"/>
+	<Outfit ID="67" Name="Stone Golem"/>
+	<Outfit ID="68" Name="Vampire"/>
+	<Outfit ID="69" Name="Dwarf"/>
+	<Outfit ID="70" Name="Dwarf Guard"/>
+	<Outfit ID="71" Name="Dwarf Soldier"/>
+	<Outfit ID="72" Name="Quara Mantassin"/>
+	<Outfit ID="73" Name="Hero"/>
+	<Outfit ID="74" Name="Rabbit"/>
+	<Outfit ID="75" Name="GM"/>
+	<Outfit ID="76" Name="Swamp Troll"/>
+	<Outfit ID="77" Name="Quara Pincher"/>
+	<Outfit ID="78" Name="Banshee"/>
+	<Outfit ID="79" Name="Ancient Scarab"/>
+	<Outfit ID="80" Name="Blue Djinn"/>
+	<Outfit ID="81" Name="Cobra"/>
+	<Outfit ID="82" Name="Larva"/>
+	<Outfit ID="83" Name="Scarab"/>
+	<Outfit ID="84" Name="Pharaoh"/>
+	<Outfit ID="85" Name="Pharaoh"/>
+	<Outfit ID="86" Name="Pharaoh"/>
+	<Outfit ID="87" Name="Pharaoh Dressed"/>
+	<Outfit ID="88" Name="Pharaoh Dressed"/>
+	<Outfit ID="89" Name="Pharaoh"/>
+	<Outfit ID="90" Name="Pharaoh"/>
+	<Outfit ID="91" Name="Pharaoh Dressed"/>
+	<Outfit ID="92" Name="Mimic"/>
+	<Outfit ID="93" Name="Pirate Marauder"/>
+	<Outfit ID="94" Name="Hyena"/>
+	<Outfit ID="95" Name="Gargoyle"/>
+	<Outfit ID="96" Name="Pirate Cutthroat"/>
+	<Outfit ID="97" Name="Pirate Buccaneer"/>
+	<Outfit ID="98" Name="Pirate Corsair"/>
+	<Outfit ID="99" Name="Lich"/>
+	<Outfit ID="100" Name="Crypt Shambler"/>
+	<Outfit ID="101" Name="Bonebeast"/>
+	<Outfit ID="102" Name="Deathslicer"/>
+	<Outfit ID="103" Name="Efreet"/>
+	<Outfit ID="104" Name="Marid"/>
+	<Outfit ID="105" Name="Badger"/>
+	<Outfit ID="106" Name="Skunk"/>
+	<Outfit ID="107" Name="Demon"/>
+	<Outfit ID="108" Name="Elder Beholder"/>
+	<Outfit ID="109" Name="Gazer"/>
+	<Outfit ID="110" Name="Yeti"/>
+	<Outfit ID="111" Name="Chicken"/>
+	<Outfit ID="112" Name="Crab"/>
+	<Outfit ID="113" Name="Lizard Templar"/>
+	<Outfit ID="114" Name="Lizard Sentinel"/>
+	<Outfit ID="115" Name="Lizard Snakecharmer"/>
+	<Outfit ID="116" Name="Kongra"/>
+	<Outfit ID="117" Name="Merlkin"/>
+	<Outfit ID="118" Name="Sibang"/>
+	<Outfit ID="119" Name="Crocodile"/>
+	<Outfit ID="120" Name="Carniphila"/>
+	<Outfit ID="121" Name="Hydra"/>
+	<Outfit ID="122" Name="Bat"/>
+	<Outfit ID="123" Name="Panda"/>
+	<Outfit ID="124" Name="Centipede"/>
+	<Outfit ID="125" Name="Tiger"/>
+	<Outfit ID="126" Name="Old Woman"/>
+	<Outfit ID="127" Name="Old Man"/>
+	<Outfit ID="128" Name="Citizen"/>
+	<Outfit ID="129" Name="Hunter"/>
+	<Outfit ID="130" Name="Mage"/>
+	<Outfit ID="131" Name="Knight"/>
+	<Outfit ID="132" Name="Nobleman"/>
+	<Outfit ID="133" Name="Summoner"/>
+	<Outfit ID="134" Name="Warrior"/>
+	<Outfit ID="136" Name="Citizen"/>
+	<Outfit ID="137" Name="Hunter"/>
+	<Outfit ID="138" Name="Mage"/>
+	<Outfit ID="139" Name="Knight"/>
+	<Outfit ID="140" Name="Nobleman"/>
+	<Outfit ID="141" Name="Summoner"/>
+	<Outfit ID="142" Name="Warrior"/>
+	<Outfit ID="143" Name="Barbarian"/>
+	<Outfit ID="144" Name="Druid"/>
+	<Outfit ID="145" Name="Wizard"/>
+	<Outfit ID="146" Name="Oriental"/>
+	<Outfit ID="147" Name="Barbarian"/>
+	<Outfit ID="148" Name="Druid"/>
+	<Outfit ID="149" Name="Wizard"/>
+	<Outfit ID="150" Name="Oriental"/>
+	<Outfit ID="151" Name="Pirate"/>
+	<Outfit ID="152" Name="Ninja"/>
+	<Outfit ID="153" Name="Beggar"/>
+	<Outfit ID="154" Name="Shaman"/>
+	<Outfit ID="155" Name="Pirate"/>
+	<Outfit ID="156" Name="Ninja"/>
+	<Outfit ID="157" Name="Beggar"/>
+	<Outfit ID="158" Name="Shaman"/>
+	<Outfit ID="159" Name="Elf NPC"/>
+	<Outfit ID="160" Name="Dwarf NPC"/>
+	<Outfit ID="192" Name="Carrion Worm"/>
+	<Outfit ID="193" Name="Enlightened Of The Cult"/>
+	<Outfit ID="194" Name="Adept Of The Cult"/>
+	<Outfit ID="195" Name="Pirate Skeleton"/>
+	<Outfit ID="196" Name="Pirate Ghost"/>
+	<Outfit ID="197" Name="Tortoise"/>
+	<Outfit ID="198" Name="Thornback Tortoise"/>
+	<Outfit ID="199" Name="Mammoth"/>
+	<Outfit ID="200" Name="Blood Crab"/>
+	<Outfit ID="211" Name="Elephant"/>
+	<Outfit ID="212" Name="Flamingo"/>
+	<Outfit ID="213" Name="Buttefly Pink"/>
+	<Outfit ID="214" Name="Dworc Voodoomaster"/>
+	<Outfit ID="215" Name="Dworc Fleshhunter"/>
+	<Outfit ID="216" Name="Dworc Venomsniper"/>
+	<Outfit ID="217" Name="Parrot"/>
+	<Outfit ID="218" Name="Terror Bird"/>
+	<Outfit ID="219" Name="Tarantula"/>
+	<Outfit ID="220" Name="Serpent Spawn"/>
+	<Outfit ID="221" Name="Spit Nettle"/>
+	<Outfit ID="222" Name="Toad"/>
+	<Outfit ID="223" Name="Seagull"/>
+	<Outfit ID="224" Name="Azure Frog"/>
+	<Outfit ID="225" Name="Juggernaut"/>
+	<Outfit ID="226" Name="Frog"/>
+	<Outfit ID="227" Name="Butterfly Blue"/>
+	<Outfit ID="228" Name="Butterfly Red"/>
+	<Outfit ID="229" Name="Ferumbras"/>
+	<Outfit ID="230" Name="Hand Of Cursed Fate"/>
+	<Outfit ID="231" Name="Undead Dragon"/>
+	<Outfit ID="232" Name="Lost Soul"/>
+	<Outfit ID="233" Name="Betrayed Wraith"/>
+	<Outfit ID="234" Name="Dark Torturer"/>
+	<Outfit ID="235" Name="Spectre"/>
+	<Outfit ID="236" Name="Destroyer"/>
+	<Outfit ID="237" Name="Diabolic Imp"/>
+	<Outfit ID="238" Name="Defiler"/>
+	<Outfit ID="239" Name="Wyvern"/>
+	<Outfit ID="240" Name="Hellhound"/>
+	<Outfit ID="241" Name="Phantasm"/>
+	<Outfit ID="242" Name="Hellfire"/>
+	<Outfit ID="243" Name="Hellfire Fighter"/>
+	<Outfit ID="245" Name="Nightmare"/>
+	<Outfit ID="246" Name="Blightwalker"/>
+	<Outfit ID="247" Name="Plaguesmith"/>
+</Outfits>

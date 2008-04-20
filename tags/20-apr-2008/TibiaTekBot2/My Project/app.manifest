@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2007 TibiaTek Development Team
+
+    This file is part of TibiaTek Bot.
+
+    TibiaTek Bot is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TibiaTek Bot is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
+    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.Imports System.Math
+-->
+<asmv1:assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+    <security>
+      <applicationRequestMinimum>
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+        <PermissionSet class="System.Security.PermissionSet" version="1" Unrestricted="true" ID="Custom" SameSite="site">
+          <IPermission class="System.Security.Permissions.FileIOPermission, 
+            mscorlib, Version=2.0.0.0, Culture=neutral, 
+            PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" />
+          <IPermission class="System.Security.Permissions.ReflectionPermission, 
+            mscorlib, Version=2.0.0.0, Culture=neutral, 
+            PublicKeyToken=b77a5c561934e089" version="1" Flags="MemberAccess" />
+          <IPermission class="System.Security.Permissions.SecurityPermission, 
+            mscorlib, Version=2.0.0.0, Culture=neutral, 
+            PublicKeyToken=b77a5c561934e089" version="1"
+            Flags="Execution, ControlEvidence" />
+          <IPermission class="System.Security.Permissions.UIPermission, 
+            mscorlib, Version=2.0.0.0, Culture=neutral, 
+            PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true" />
+        </PermissionSet >
+      </applicationRequestMinimum>
+    </security>
+  </trustInfo>
+</asmv1:assembly>

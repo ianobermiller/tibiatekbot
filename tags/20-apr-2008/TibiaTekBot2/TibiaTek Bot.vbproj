@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2007 TibiaTek Development Team
+
+    This file is part of TibiaTek Bot.
+
+    TibiaTek Bot is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TibiaTek Bot is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TibiaTek Bot. If not, see http://www.gnu.org/licenses/gpl.txt
+    or write to the Free Software Foundation, 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.Imports System.Math
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C00CA9B5-72A8-4BE5-B78E-15E17A557922}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>TibiaTekBot.My.MyApplication</StartupObject>
+    <RootNamespace>TibiaTekBot</RootNamespace>
+    <AssemblyName>TibiaTekBot</AssemblyName>
+    <MyType>WindowsForms</MyType>
+    <ApplicationIcon>Resources\ttb.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>BA9A2A1B6D67F32BF808EC2918A3629C2CC4BCCA</ManifestCertificateThumbprint>
+    <ManifestKeyFile>TibiaTek Bot_1_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <PublishUrl>C:\</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://www.tibiatek.com/download/</UpdateUrl>
+    <ProductName>TibiaTek Bot</ProductName>
+    <PublisherName>TibiaTek Development Team</PublisherName>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationVersion>2.3.0.8</ApplicationVersion>
+    <UseApplicationTrust>true</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>41999,42016</NoWarn>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>Full</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>false</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>41999,42016</NoWarn>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DebugSymbols>true</DebugSymbols>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <NoWarn>41999,42016</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <NoWarn>41999,42016</NoWarn>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>false</DefineTrace>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Public|AnyCPU' ">
+    <OutputPath>bin\Public\</OutputPath>
+    <Optimize>false</Optimize>
+    <NoWarn>41999,42016</NoWarn>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineTrace>false</DefineTrace>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Public|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Public\</OutputPath>
+    <Optimize>true</Optimize>
+    <NoWarn>41999,42016</NoWarn>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CPargermer.Tibia.Crypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\CPargermer.Tibia.Crypt.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.IO" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandParser.vb" />
+    <Compile Include="Creatures.vb" />
+    <Compile Include="frmAutoResponder.designer.vb">
+      <DependentUpon>frmAutoResponder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAutoResponder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCavebot.Designer.vb">
+      <DependentUpon>frmCavebot.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCavebot.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCharacterStatistics.Designer.vb">
+      <DependentUpon>frmCharacterStatistics.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCharacterStatistics.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfigEdit.Designer.vb">
+      <DependentUpon>frmConfigEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmConfigEdit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConstantsEditor.Designer.vb">
+      <DependentUpon>frmConstantsEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmConstantsEditor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditLoot.Designer.vb">
+      <DependentUpon>frmEditLoot.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEditLoot.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmILMap.Designer.vb">
+      <DependentUpon>frmILMap.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmILMap.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmKeyboard.designer.vb">
+      <DependentUpon>frmKeyboard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmKeyboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLagBar.Designer.vb">
+      <DependentUpon>frmLagBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLagBar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScripts.Designer.vb">
+      <DependentUpon>frmScripts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmScripts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Kernel.vb">
+    </Compile>
+    <Compile Include="BattleList.vb" />
+    <Compile Include="Constants.vb" />
+    <Compile Include="Container.vb" />
+    <Compile Include="frmMapViewer.Designer.vb">
+      <DependentUpon>frmMapViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMapViewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAlarms.Designer.vb">
+      <DependentUpon>frmAlarms.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAlarms.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoginSelectDialog.Designer.vb">
+      <DependentUpon>frmLoginSelectDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoginSelectDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.vb">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegExpBuilder.Designer.vb">
+      <DependentUpon>frmRegExpBuilder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegExpBuilder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HotkeySettings.vb" />
+    <Compile Include="IrcClient.vb" />
+    <Compile Include="Levelspy.vb" />
+    <Compile Include="LootItems.vb" />
+    <Compile Include="MapTiles.vb" />
+    <Compile Include="MiscUtils.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Objects.vb" />
+    <Compile Include="Outfits.vb" />
+    <Compile Include="PacketUtils.vb" />
+    <Compile Include="frmSplashScreen.Designer.vb">
+      <DependentUpon>frmSplashScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSplashScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pipe.vb" />
+    <Compile Include="PProxy2.vb" />
+    <Compile Include="Spells.vb" />
+    <Compile Include="Tibia.vb" />
+    <Compile Include="TileData.vb" />
+    <Compile Include="VipList.vb" />
+    <Compile Include="Walker.vb" />
+    <Compile Include="Winsock.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmAutoResponder.resx">
+      <DependentUpon>frmAutoResponder.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCavebot.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmCavebot.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCharacterStatistics.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmCharacterStatistics.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConfigEdit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmConfigEdit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConstantsEditor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmConstantsEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEditLoot.resx">
+      <DependentUpon>frmEditLoot.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmILMap.resx">
+      <DependentUpon>frmILMap.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmKeyboard.resx">
+      <DependentUpon>frmKeyboard.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLagBar.resx">
+      <DependentUpon>frmLagBar.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMapViewer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmMapViewer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAlarms.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAlarms.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoginSelectDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmLoginSelectDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegExpBuilder.resx">
+      <DependentUpon>frmRegExpBuilder.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScripts.resx">
+      <DependentUpon>frmScripts.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSplashScreen.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BaseApplicationManifest Include="My Project\app.manifest" />
+    <None Include="app.config" />
+    <None Include="Resources\Image1.jpg" />
+    <None Include="MapReader\notwalkable.gif" />
+    <None Include="MapReader\depot.gif" />
+    <None Include="MapReader\holeclosed.gif" />
+    <None Include="MapReader\holeopen.gif" />
+    <None Include="MapReader\ladder.gif" />
+    <None Include="MapReader\lava.gif" />
+    <None Include="MapReader\stairs.gif" />
+    <None Include="MapReader\swamp.gif" />
+    <None Include="MapReader\teleport.gif" />
+    <None Include="MapReader\walkable.gif" />
+    <None Include="MapReader\waterfish.gif" />
+    <None Include="MapReader\waternofish.gif" />
+    <None Include="MapReader\creature.gif" />
+    <None Include="MapReader\player.gif" />
+    <None Include="MapReader\otherplayer.gif" />
+    <None Include="MapReader\mailbox.gif" />
+    <None Include="MapReader\stairsgodown.gif" />
+    <None Include="MapReader\stairsgoup.gif" />
+    <None Include="MapReader\doorclosed.gif" />
+    <None Include="MapReader\doorlocked.gif" />
+    <None Include="MapReader\dooropen.gif" />
+    <Content Include="Alarms\Dong Dong.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Alarms\Ring Ring.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Alarms\Tune.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Constants.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Creatures.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\LootItems.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\NPCs.xml" />
+    <Content Include="Config\Objects.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Outfits.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Spells.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="COPYING.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Alarms.ico" />
+    <None Include="Resources\Cavebot.ico" />
+    <None Include="Resources\ChangeLoginServer.ico" />
+    <None Include="Resources\CharacterStatistics.ico" />
+    <None Include="Resources\Close.ico" />
+    <None Include="Resources\ConstantsEditor.ico" />
+    <None Include="Resources\Tibia.ico" />
+    <None Include="Resources\TibiaMultiClientPatch.ico" />
+    <None Include="Resources\script.png" />
+    <None Include="Resources\script_add.png" />
+    <None Include="Resources\script_delete.png" />
+    <None Include="Resources\script_edit.png" />
+    <None Include="Resources\script_save.png" />
+    <None Include="Resources\script_stop.png" />
+    <None Include="Resources\script_warning.png" />
+    <None Include="Resources\script_pause.png" />
+    <None Include="Resources\ttb splash0.jpg" />
+    <None Include="Resources\ttb splash1.jpg" />
+    <None Include="Resources\ttb splash2.jpg" />
+    <None Include="Resources\ttb splash3.jpg" />
+    <None Include="Resources\ttb splash4.jpg" />
+    <None Include="Resources\ttb splash5.jpg" />
+    <None Include="Resources\ttb splash6.jpg" />
+    <None Include="Resources\lagbar_bar.gif" />
+    <None Include="Resources\LagBar.ico" />
+    <None Include="Resources\keyboard.png" />
+    <None Include="Resources\lagbar_interface.png" />
+    <None Include="Resources\lagbar_close.png" />
+    <None Include="Resources\lagbar_close.bmp" />
+    <None Include="Resources\ILMap.jpg" />
+    <None Include="Resources\Character.JPG" />
+    <Content Include="Resources\ttb21.ico" />
+    <Content Include="Resources\ttb21_16.ico" />
+    <None Include="Resources\ttb.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TibiaTekBot Scripting Assembly\TibiaTek Bot Scripting Assembly.vbproj">
+      <Project>{F4FAE400-FF37-446A-BBEE-31ECED0C8FBA}</Project>
+      <Name>TibiaTek Bot Scripting Assembly</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Config\Constants.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Config\Creatures.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Config\LootItems.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Config\Outfits.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Config\Spells.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="COPYING.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="CPargermer.Tibia.Crypt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\ttb21.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\ttb21_16.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="TibiaTekBot Injected DLL.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="TibiaTekBot Scripting Assembly">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
