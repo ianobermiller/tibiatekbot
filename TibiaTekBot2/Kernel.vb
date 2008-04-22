@@ -4423,7 +4423,7 @@ ContinueAttack:
                 Client.Title = BotName & " - " & Client.CharacterName
                 ExpCheckerActivated = False
                 ExpCheckerTimerObj.StartTimer()
-                EntityInfoTimerObj.StartTimer()
+                'EntityInfoTimerObj.StartTimer()
                 If StatsTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then
                     StatsTimerObj.StartTimer()
                     ChatMessageQueueList.Clear()
@@ -5237,7 +5237,7 @@ ContinueAttack:
                                     locz.X = 0
                                     locz.Y = 12
                                     locz.Z = 0
-                                    ppb.DisplayTextAboveCreature(BL.GetEntityID, locz, &HFF, 0, 0, 2, Name)
+                                    ppb.DisplayCreatureText(BL.GetEntityID, locz, &HFF, 0, 0, 2, Name)
 
                                     'CPB.SystemMessage(ITibia.SysMessageType.StatusConsoleRed, Name)
                                 End If

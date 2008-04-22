@@ -18,9 +18,8 @@ using namespace std;
 /* DisplayText. Credits for Displaying text goes to Stiju and Zionz. Thanks for the help!*/
 Ctext texts[MAX_TEXT] = {0};
 list<PlayerText> CreatureTexts;
-list<PlayerText> UsedCreatures; //Used to save creatures in screen
+list<PlayerText> RemovedCreatures; //Used to save creatures in screen
 list<PlayerText> AddedCreatures;
-list<PlayerText> UnusedCreatures;
 //BLAddress BLConsts;
 int PlayerCount = 0;
 
@@ -63,35 +62,33 @@ void MyPrintName(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, 
 	PrintText(nSurface, nX, nY, nFont, nRed, nGreen, nBlue, lpText, nAlign);
 
 	//Write text above player
-	DWORD *EntityID = (DWORD*)(lpText - 4);
 
-	//Removing unused text
-	if (*EntityID == *Consts::ptrCharacterID) { //New "round" begins in the drawing routine
-		if (!UsedCreatures.empty()) {
-			CreatureTexts.unique(ComparePlayerText);
-			char *TempChar = 0;
+	//Removing Creatures from CreatureTexts
+	if (RemovedCreatures.size() > 0) {
+		list<PlayerText>::iterator rit;
+		for(rit=RemovedCreatures.begin(); rit!=RemovedCreatures.end(); ++rit) {
 			for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ) {
-				TempChar = (*it).DisplayText;
-				it = CreatureTexts.erase(it);
-				free(TempChar);
+				if ((*rit).CreatureId == (*it).CreatureId) {
+					free((*it).DisplayText);
+					it = CreatureTexts.erase(it);
+				} else {
+					it++;
+				}
 			}
 		}
-		CreatureTexts.assign(UsedCreatures.begin(), UsedCreatures.end());
-		if (AddedCreatures.size() > 0) {
-			CreatureTexts.insert(CreatureTexts.begin(), AddedCreatures.begin(), AddedCreatures.end()); //Adding Added creatures to the showing list
-			AddedCreatures.clear();
-		}
-		UsedCreatures.clear();
+		RemovedCreatures.clear();
 	}
 
+	//Taking new ones to the CreatureTexts
+	if (AddedCreatures.size() > 0) {
+		CreatureTexts.splice(CreatureTexts.end(), AddedCreatures);
+	}
+	DWORD *EntityID = (DWORD*)(lpText - 4);
+
 	//Displaying texts
-	for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ) {
+	for(it=CreatureTexts.begin(); it!=CreatureTexts.end(); ++it) {
 		if (*EntityID == (*it).CreatureId) {
-			UsedCreatures.push_back(*it);
 			PrintText(0x01, nX + (*it).RelativeX, nY + (*it).RelativeY, (*it).TextFont, (*it).cR, (*it).cG, (*it).cB, (*it).DisplayText, 0x00);
-			it = CreatureTexts.erase(it);
-		} else {
-			++it;
 		}
 	}
 }
@@ -425,7 +422,8 @@ void PipeOnRead(){
 				int TextId = Packet::ReadByte(Buffer, &position);
 				if(TextId < MAX_TEXT)
 					texts[TextId].used = false;
-					free(texts[TextId].text);
+					if (texts[TextId].text != NULL)
+						free(texts[TextId].text);
 			}
 			break;
 		case 6: //Remove All
@@ -433,6 +431,8 @@ void PipeOnRead(){
 				int i;
 				for(i=0; i<MAX_TEXT; i++){
 					texts[i].used = false;
+					if (texts[i].text != NULL)
+						free(texts[i].text);
 				}
 			}
 			break;
@@ -480,7 +480,6 @@ void PipeOnRead(){
 			break;
 		case 0xA: //Set Text Above Player
 			{	
-				//TODO Doesn't work yet..
 				int Id = Packet::ReadDWord(Buffer, &position);
                 int nX = Packet::ReadWord(Buffer, &position);
                 int nY = Packet::ReadWord(Buffer, &position);
@@ -509,8 +508,16 @@ void PipeOnRead(){
                 AddedCreatures.push_back(Creature);
 			}
 			break;
+		case 0xB: //Remove Text Above Player
+			{
+				int Id = Packet::ReadDWord(Buffer, &position);
+				PlayerText RCreature = {0};
+				RCreature.CreatureId = Id;
+				
+				RemovedCreatures.push_back(RCreature);
+			}
+			break;
 	}
-
 }
 
 void PipeThreadProc(HMODULE Module){
