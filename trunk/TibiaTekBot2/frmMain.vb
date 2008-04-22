@@ -27,6 +27,8 @@ Public Class frmMain
     Dim SC As frmSplashScreen
     Dim IsVisible As Boolean = True
     Public LoginServer As String
+    Dim PPacketFirstTime As Boolean = True
+    Dim PPacketList As New List(Of Integer)
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
@@ -2719,16 +2721,26 @@ Public Class frmMain
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
-        Dim Loc As New ITibia.LocationDefinition
-        Loc.X = 0
-        Loc.Y = 10
-        Loc.Z = 0 '0 Above player name, 1 Below player name
-        Dim BL As New BattleList
-        Do
-            If BL.IsOnScreen AndAlso BL.IsPlayer Then
-                PPB.DisplayTextAboveCreature(BL.GetEntityID, Loc, 255, 20, 20, 2, BL.GetHPPercentage & "%")
-            End If
-        Loop While BL.NextEntity
+        If PPacketFirstTime Then
+            Dim Loc As New ITibia.LocationDefinition
+            Loc.X = 0
+            Loc.Y = 10
+            Loc.Z = 0 '0 Above player name, 1 Below player name
+            Dim BL As New BattleList
+            Do
+                If BL.IsOnScreen AndAlso BL.IsPlayer Then
+                    PPB.DisplayCreatureText(BL.GetEntityID, Loc, 255, 20, 20, 2, BL.GetHPPercentage & "%")
+                    PPacketList.Add(BL.GetEntityID)
+                End If
+            Loop While BL.NextEntity
+            PPacketFirstTime = False
+        Else
+            For Each ID As Integer In PPacketList
+                PPB.RemoveCreatureText(ID)
+            Next
+            PPacketList.Clear()
+            PPacketFirstTime = True
+        End If
         'Kernel.Client.TestPipe()
 
         'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)
