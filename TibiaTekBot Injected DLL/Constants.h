@@ -73,7 +73,7 @@ extern CRITICAL_SECTION PipeReadCriticalSection;
 /* Structures */
 struct Ctext
 {
-	char text[1024];
+	char* text;
 	int r,g,b;
 	int x,y;
 	int font;

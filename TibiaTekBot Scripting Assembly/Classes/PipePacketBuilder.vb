@@ -132,16 +132,16 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub DisplayText(ByVal TextNum As Byte, ByVal Position As ITibia.LocationDefinition, ByVal ColorRed As Integer, ByVal ColorGreen As Integer, ByVal ColorBlue As Integer, ByVal FontNumber As Integer, ByVal Text As String)
+    Public Sub DisplayText(ByVal TextNum As Byte, ByVal Position As ITibia.LocationDefinition, ByVal Colors As IKernel.ColorDefinition, ByVal FontNumber As Integer, ByVal Text As String)
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(4)
             _Packet.AddByte(TextNum)
             _Packet.AddWord(Position.X)
             _Packet.AddWord(Position.Y)
-            _Packet.AddWord(ColorRed)
-            _Packet.AddWord(ColorGreen)
-            _Packet.AddWord(ColorBlue)
+            _Packet.AddWord(Colors.Red)
+            _Packet.AddWord(Colors.Green)
+            _Packet.AddWord(Colors.Blue)
             _Packet.AddWord(FontNumber)
             _Packet.AddString(Text)
             Packets.Enqueue(_Packet)
@@ -151,7 +151,7 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
-    Public Sub DisplayCreatureText(ByVal CharacterID As Integer, ByVal RelativeLocation As ITibia.LocationDefinition, ByVal ColorRed As Integer, ByVal ColorGreen As Integer, ByVal ColorBlue As Integer, ByVal FontNumber As Integer, ByVal Text As String)
+    Public Sub DisplayCreatureText(ByVal CharacterID As Integer, ByVal RelativeLocation As ITibia.LocationDefinition, ByVal Color As IKernel.ColorDefinition, ByVal FontNumber As Integer, ByVal Text As String)
         Try
             Dim _Packet As New Packet
             _Packet.AddByte(&HA)
@@ -159,9 +159,9 @@ Public Class PipePacketBuilder
             _Packet.AddWord(RelativeLocation.X)
             _Packet.AddWord(RelativeLocation.Y)
             _Packet.AddWord(RelativeLocation.Z)
-            _Packet.AddWord(ColorRed)
-            _Packet.AddWord(ColorGreen)
-            _Packet.AddWord(ColorBlue)
+            _Packet.AddWord(Color.Red)
+            _Packet.AddWord(Color.Green)
+            _Packet.AddWord(Color.Blue)
             _Packet.AddWord(FontNumber)
             _Packet.AddString(Text)
             Packets.Enqueue(_Packet)

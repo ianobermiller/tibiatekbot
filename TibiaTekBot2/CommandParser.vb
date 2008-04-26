@@ -90,6 +90,7 @@ Public Class CommandParser
             Add(New String() {"favwnp", "favweapon", "favoriteweapon", "fvwpn"}, AddressOf CmdFavWep)
             Add("reload", AddressOf CmdReload)
             Add("playerinfo", AddressOf CmdPlayerInfo)
+            Add("hud", AddressOf CmdDisplayHUD)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -1338,7 +1339,7 @@ Public Class CommandParser
         Try
             Kernel.ConsoleWrite("Begin Test")
             Select Case Arguments(2).ToString.ToLower
-                Case "HideText"
+                Case "hidetext"
                     Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
                     PPB.RemoveAllText()
                 Case "notify"
@@ -3444,4 +3445,30 @@ Public Class CommandParser
         End Try
     End Sub
 #End Region
+
+#Region " Display HUD Command "
+    Private Sub CmdDisplayHUD(ByVal Arguments As GroupCollection)
+        Try
+            Select Case StrToShort(Arguments(2).ToString)
+                Case 1
+                    'Initializing every entity
+                    For Each HUDEntity As IKernel.HUDInfo In Kernel.HUDText
+                        HUDEntity.Enabled = False
+                    Next
+                    Kernel.HUDTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Displaying HUD")
+                Case 0
+                    Kernel.HUDTimerObj.StopTimer()
+                    Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+                    PPB.RemoveText(IKernel.HUDType.Haste)
+                    PPB.RemoveText(IKernel.HUDType.Invisible)
+                    PPB.RemoveText(IKernel.HUDType.MagicShield)
+                    Kernel.ConsoleWrite("Hiding HUD")
+            End Select
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+#End Region
+
 End Class

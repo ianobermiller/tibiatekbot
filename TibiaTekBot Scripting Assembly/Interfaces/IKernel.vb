@@ -138,6 +138,12 @@ Public Interface IKernel
         None
         PressKey
     End Enum
+
+    Enum HUDType
+        MagicShield = 0
+        Haste = 1
+        Invisible = 2
+    End Enum
 #End Region
 
 #Region " Structures "
@@ -158,6 +164,24 @@ Public Interface IKernel
         Dim NewModifier As KeyboardModifier
         Dim OldModifier As KeyboardModifier
         Dim Name As String
+    End Structure
+
+    Structure ColorDefinition
+        Dim Red As Integer
+        Dim Green As Integer
+        Dim Blue As Integer
+
+        Public Sub New(ByVal Red As Integer, ByVal Green As Integer, ByVal Blue As Integer)
+            Me.Red = Red
+            Me.Green = Green
+            Me.Blue = Blue
+        End Sub
+    End Structure
+
+    Structure HUDInfo
+        Dim EndTime As Date
+        Dim Enabled As Boolean
+        Dim Type As HUDType
     End Structure
 
 #End Region

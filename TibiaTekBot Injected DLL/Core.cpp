@@ -119,7 +119,7 @@ void MyPrintFps(int nSurface, int nX, int nY, int nFont, int nRed, int nGreen, i
 }
 
 DWORD HookCall(DWORD dwAddress, DWORD dwFunction)
-{
+{   
 	DWORD dwOldProtect, dwNewProtect, dwOldCall, dwNewCall;
 	BYTE callByte[5] = {0xE8, 0x00, 0x00, 0x00, 0x00};
 
@@ -154,15 +154,23 @@ void Nop(DWORD dwAddress, int size)
 }
 
 
-void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, char *lpText)
+void SetText(unsigned int TextNum, bool enabled, int nX, int nY, int nRed, int nGreen, int nBlue, int font, string lpText)
 {
+
 	if(TextNum > MAX_TEXT-1){return;}
 	if(font<1 || font >4){return;}
 	if(nRed > 0xFF || nRed < 0){return;}
 	if(nGreen > 0xFF || nGreen < 0){return;}
 	if(nBlue > 0xFF || nBlue < 0){return;}
+	if(lpText.empty()){return;}
 
-	strcpy(texts[TextNum].text, lpText);
+	if (texts[TextNum].text != NULL) {
+		free(texts[TextNum].text);
+		texts[TextNum].text = NULL;
+	}
+	texts[TextNum].text = (char*)malloc((lpText.size()+1)*sizeof(char)); //REMEMBER TO FREE THIS!
+
+	strcpy(texts[TextNum].text, lpText.c_str());
 	texts[TextNum].r=nRed;
 	texts[TextNum].g=nGreen;
 	texts[TextNum].b=nBlue;
@@ -411,19 +419,22 @@ void PipeOnRead(){
 				int Font = Packet::ReadWord(Buffer, &position);
 				string Text = Packet::ReadString(Buffer, &position);
 
-				char *lpText = (char*)malloc((Text.size()+1)*sizeof(char));
-				strcpy(lpText, Text.c_str());
+				//char *lpText = (char*)malloc((Text.size()+1)*sizeof(char));
+				//strcpy(lpText, Text.c_str());
 
-				SetText(TextId, true, PosX, PosY, ColorRed, ColorGreen, ColorBlue, Font, lpText);
+				SetText(TextId, true, PosX, PosY, ColorRed, ColorGreen, ColorBlue, Font, Text);
 			}
 			break;
 		case 5: //RemoveText
 			{
 				int TextId = Packet::ReadByte(Buffer, &position);
-				if(TextId < MAX_TEXT)
+				if(TextId < MAX_TEXT) {
 					texts[TextId].used = false;
-					if (texts[TextId].text != NULL)
+					if (texts[TextId].text != NULL) {
 						free(texts[TextId].text);
+						texts[TextId].text = NULL;
+					}
+				}
 			}
 			break;
 		case 6: //Remove All
@@ -431,8 +442,10 @@ void PipeOnRead(){
 				int i;
 				for(i=0; i<MAX_TEXT; i++){
 					texts[i].used = false;
-					if (texts[i].text != NULL)
+					if (texts[i].text != NULL) {
 						free(texts[i].text);
+						texts[i].text = NULL;
+					}
 				}
 			}
 			break;
