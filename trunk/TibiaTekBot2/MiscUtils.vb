@@ -46,6 +46,21 @@ Module MiscUtils
         Return False
     End Function
 
+    Public Sub UpdateSpellStatus(ByVal Msg As String)
+        Select Case Msg.ToLower
+            Case "utani hur"
+                Kernel.LastHasteType = 1
+                Kernel.LastSaidHaste = Date.Now
+            Case "utani gran hur"
+                Kernel.LastHasteType = 2
+                Kernel.LastSaidHaste = Date.Now
+            Case "utana vid"
+                Kernel.LastSaidInvis = Date.Now
+            Case "utamo vita"
+                Kernel.LastSaidMShield = Date.Now
+        End Select
+    End Sub
+
     Public Function GetWaypointsDirectory() As String
         Return My.Application.Info.DirectoryPath & "\Waypoints"
     End Function

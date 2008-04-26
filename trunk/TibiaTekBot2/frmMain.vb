@@ -1007,6 +1007,7 @@ Public Class frmMain
                 If Not FVI Is Nothing AndAlso Not FVI.FileVersion Is Nothing AndAlso Not FVI.ProductName Is Nothing Then
                     Found = FVI.FileVersion.Equals(TibiaFileVersion) AndAlso FVI.ProductName.Equals(TibiaProductName)
                 End If
+                Found = True 'TODO FIX THIS PATCH CORRECTLY
                 If Not Found Then
                     If MessageBox.Show("You must select a valid Tibia.exe.", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) = Forms.DialogResult.Cancel Then
                         End
@@ -2722,25 +2723,13 @@ Public Class frmMain
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
         If PPacketFirstTime Then
-            Dim Loc As New ITibia.LocationDefinition
-            Loc.X = 0
-            Loc.Y = 10
-            Loc.Z = 0 '0 Above player name, 1 Below player name
-            Dim BL As New BattleList
-            Do
-                If BL.IsOnScreen AndAlso BL.IsPlayer Then
-                    PPB.DisplayCreatureText(BL.GetEntityID, Loc, 255, 20, 20, 2, BL.GetHPPercentage & "%")
-                    PPacketList.Add(BL.GetEntityID)
-                End If
-            Loop While BL.NextEntity
+            PPB.DisplayText(4, New ITibia.LocationDefinition(20, 20, 0), New IKernel.ColorDefinition(255, 0, 0), 2, "TEST STRING")
             PPacketFirstTime = False
         Else
-            For Each ID As Integer In PPacketList
-                PPB.RemoveCreatureText(ID)
-            Next
-            PPacketList.Clear()
+            PPB.DisplayText(4, New ITibia.LocationDefinition(20, 20, 0), New IKernel.ColorDefinition(230, 230, 0), 2, "ANOTHER STRING")
             PPacketFirstTime = True
         End If
+
         'Kernel.Client.TestPipe()
 
         'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)

@@ -200,6 +200,8 @@ Public Module KernelModule
         Public _NotifyIcon As NotifyIcon
         Public WithEvents EntityInfoTimerObj As ThreadTimer
         Public EntityInfoList As SortedList(Of UInt32, IKernel.EntityInfo)
+        Public WithEvents HUDTimerObj As ThreadTimer
+
 #End Region
 
 #Region " Variables "
@@ -458,6 +460,13 @@ Public Module KernelModule
         Public KeyboardEntries As SortedList(Of String, IKernel.KeyboardEntry)
 
         Public EntityInfoDismissLookPacket As Boolean = False
+
+        Public LastHasteType As Integer = 0 '1 = Haste, 2 = Great Haste
+        Public LastSaidHaste As New Date
+        Public LastSaidInvis As New Date
+        Public LastSaidMShield As New Date
+        Public HUDText(2) As IKernel.HUDInfo
+
 #End Region
 
 #Region " Initialization"
@@ -547,6 +556,7 @@ Public Module KernelModule
                 KeyboardEntries = New SortedList(Of String, IKernel.KeyboardEntry)
                 EntityInfoList = New SortedList(Of UInt32, IKernel.EntityInfo)
                 EntityInfoTimerObj = New ThreadTimer(1000)
+                HUDTimerObj = New ThreadTimer(500)
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End
@@ -1150,7 +1160,7 @@ Public Module KernelModule
                                     Exit Sub
                                 End If
                             End If
-                            End If
+                        End If
                     Loop While BL.NextEntity(True)
                 End If
             Catch Ex As Exception
@@ -3999,6 +4009,63 @@ ContinueAttack:
         End Sub
 #End Region
 
+#Region "HUD Timer"
+
+        Private Sub HUDTimerObj_OnExecute() Handles HUDTimerObj.OnExecute
+            Try
+                Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+                Dim Offset As Integer = 0
+                Dim YPlace As Integer = 20 'Change this to constant at the end!
+                Dim SpaceBetweenText As Integer = 15
+                Dim RemainingTime As New TimeSpan
+                Dim DisplayText As String = ""
+                For Each HUDItem As IKernel.HUDInfo In HUDText
+                    DisplayText = ""
+                    If HUDItem.Enabled Then
+                        If HUDItem.EndTime > Date.Now Then
+                            RemainingTime = HUDItem.EndTime - Date.Now
+                            Dim TextLocation As New ITibia.LocationDefinition(20, YPlace + Offset * SpaceBetweenText, 0)
+                            Dim Colors As New IKernel.ColorDefinition
+                            If RemainingTime.TotalSeconds > 10 Then
+                                Colors.Red = 0
+                                Colors.Green = 230
+                                Colors.Blue = 0
+                            ElseIf RemainingTime.TotalSeconds > 5 Then
+                                Colors.Red = 230
+                                Colors.Green = 230
+                                Colors.Blue = 0
+                            Else
+                                Colors.Red = 230
+                                Colors.Green = 0
+                                Colors.Blue = 0
+                            End If
+                            Select Case HUDItem.Type
+                                Case IKernel.HUDType.Haste
+                                    DisplayText = "Haste: " & TimeSpanToString(RemainingTime)
+                                Case IKernel.HUDType.Invisible
+                                    DisplayText = "Invis: " & TimeSpanToString(RemainingTime)
+                                Case IKernel.HUDType.MagicShield
+                                    DisplayText = "MShield: " & TimeSpanToString(RemainingTime)
+                            End Select
+                            PPB.DisplayText(HUDItem.Type, TextLocation, Colors, 2, DisplayText)
+                            Offset += 1
+                        Else
+                            PPB.RemoveText(HUDItem.Type)
+                            HUDItem.Enabled = False
+                        End If
+                    End If
+                Next
+            Catch ex As Exception
+                Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+                PPB.RemoveText(1) '1,2,3 reserved for huds
+                PPB.RemoveText(2)
+                PPB.RemoveText(3)
+                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Sub
+
+#End Region
+
 #End Region
 
 #Region " IRC Client "
@@ -4775,6 +4842,8 @@ ContinueAttack:
             Dim Message As String
             Dim CP As New ClientPacketBuilder(Proxy)
             Dim SP As New ServerPacketBuilder(Proxy)
+            Dim MatchObj As Match
+            Dim MatchString As String = "utani\shur|utani\sgran\shur|utana\svid|utamo\svita"
             SP.AutoSend = False
             Select Case MType
                 Case 1 To 3, 10 To 11
@@ -4791,10 +4860,15 @@ ContinueAttack:
                 Case Else
                     Exit Sub 'ok unexpected!
             End Select
+
             If MessageType = ITibia.MessageType.Channel AndAlso bytBuffer(4) = ITibia.Channel.Console Then
                 Message = GetString(bytBuffer, 6)
                 Send = False
                 If MessageIsSpell(Message) Then
+                    MatchObj = Regex.Match(Message, MatchString, RegexOptions.IgnoreCase)
+                    If MatchObj.Success Then
+                        UpdateSpellStatus(MatchObj.Value.ToString)
+                    End If
                     SP.Speak(Message)
                     SP.Send()
                     'MsgBox(Message)
@@ -4812,6 +4886,10 @@ ContinueAttack:
                 Dim ChannelID As Int16 = bytBuffer(4)
                 Message = GetString(bytBuffer, 6)
                 If MessageIsSpell(Message) Then
+                    MatchObj = Regex.Match(Message, MatchString, RegexOptions.IgnoreCase)
+                    If MatchObj.Success Then
+                        UpdateSpellStatus(MatchObj.Value.ToString)
+                    End If
                     SP.Speak(Message)
                     SP.Send()
                     Exit Sub
@@ -4887,6 +4965,10 @@ ContinueAttack:
                         ChatMessage.Message = GetString(bytBuffer, Pos)
                         'MsgBox(ChatMessage.Message)
                         If MessageIsSpell(ChatMessage.Message) Then
+                            MatchObj = Regex.Match(ChatMessage.Message, MatchString, RegexOptions.IgnoreCase)
+                            If MatchObj.Success Then
+                                UpdateSpellStatus(MatchObj.Value.ToString)
+                            End If
                             SP.Speak(ChatMessage.Message)
                             SP.Send()
                             Send = False
@@ -4926,6 +5008,12 @@ ContinueAttack:
                         ChatMessage.ChannelMessageType = ChannelMessageType
                         ChatMessage.Channel = GetWord(bytBuffer, Pos)
                         ChatMessage.Message = GetString(bytBuffer, Pos)
+                        If MessageIsSpell(ChatMessage.Message) Then
+                            MatchObj = Regex.Match(ChatMessage.Message, MatchString, RegexOptions.IgnoreCase)
+                            If MatchObj.Success Then
+                                UpdateSpellStatus(MatchObj.Value.ToString)
+                            End If
+                        End If
                         If ChatMessage.Message.StartsWith("&") Then
                             MCollection = RegExp.Matches(ChatMessage.Message)
                             For Each GroupMatch In MCollection
@@ -4942,6 +5030,12 @@ ContinueAttack:
                     Case Else
                         ChatMessage.DefaultMessageType = DefaultMessageType
                         ChatMessage.Message = GetString(bytBuffer, Pos)
+                        If MessageIsSpell(ChatMessage.Message) Then
+                            MatchObj = Regex.Match(ChatMessage.Message, MatchString, RegexOptions.IgnoreCase)
+                            If MatchObj.Success Then
+                                UpdateSpellStatus(MatchObj.Value.ToString)
+                            End If
+                        End If
                         If ChatMessage.Message.StartsWith("&") Then
                             MCollection = RegExp.Matches(ChatMessage.Message)
                             For Each GroupMatch In MCollection
@@ -5237,7 +5331,7 @@ ContinueAttack:
                                     locz.X = 0
                                     locz.Y = 12
                                     locz.Z = 0
-                                    ppb.DisplayCreatureText(BL.GetEntityID, locz, &HFF, 0, 0, 2, Name)
+                                    ppb.DisplayCreatureText(BL.GetEntityID, locz, New IKernel.ColorDefinition(&HFF, 0, 0), 2, Name)
 
                                     'CPB.SystemMessage(ITibia.SysMessageType.StatusConsoleRed, Name)
                                 End If
@@ -5476,12 +5570,20 @@ ContinueAttack:
                         Case &H8D 'creature light
                             Pos += 6 'id, light intensity, light color
                         Case &H8E 'add creature, or invisible creature
-                            Pos += 4
+                            ID = GetDWord(bytBuffer, Pos)
                             Word = GetWord(bytBuffer, Pos)
                             If Word <> 0 Then
                                 Pos += 5
-                            Else
-                                Pos += 2
+                            Else 'INVISIBLE
+                                Pos += 2 'msg->AddU32(0)
+                                If ID = CharacterID Then
+                                    Dim TS As TimeSpan = Date.Now - LastSaidInvis
+                                    If TS.TotalMilliseconds < 1000 Then
+                                        Kernel.HUDText(IKernel.HUDType.Invisible).EndTime = Date.Now.AddSeconds(200)
+                                        Kernel.HUDText(IKernel.HUDType.Invisible).Enabled = True
+                                        Kernel.HUDText(IKernel.HUDType.Invisible).Type = IKernel.HUDType.Invisible
+                                    End If
+                                End If
                             End If
                         Case &H90 'creature got skull change
                             Pos += 5 'id, skull
@@ -5499,6 +5601,29 @@ ContinueAttack:
                                 MagicShieldActivated = False
                                 CP.SystemMessage(SysMessageType.Information, "Your Magic Shield is now over.")
                                 'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))
+                            End If
+                            'TODO IF HUD DISPLAYED:
+                            Dim TS As New TimeSpan
+                            If (Condition And Scripting.ITibia.Conditions.MagicShield) = Scripting.ITibia.Conditions.MagicShield Then
+                                TS = Date.Now - LastSaidMShield
+                                If TS.TotalMilliseconds < 1000 Then
+                                    HUDText(IKernel.HUDType.MagicShield).EndTime = Date.Now.AddSeconds(200)
+                                    HUDText(IKernel.HUDType.MagicShield).Enabled = True
+                                    HUDText(IKernel.HUDType.MagicShield).Type = IKernel.HUDType.MagicShield
+                                End If
+                            End If
+                            If (Condition And Scripting.ITibia.Conditions.Haste) = Scripting.ITibia.Conditions.Haste Then
+                                TS = Date.Now - LastSaidHaste
+                                If TS.TotalMilliseconds < 1000 Then
+                                    Select Case LastHasteType
+                                        Case 1
+                                            HUDText(IKernel.HUDType.Haste).EndTime = Date.Now.AddSeconds(32)
+                                        Case 2
+                                            HUDText(IKernel.HUDType.Haste).EndTime = Date.Now.AddSeconds(22)
+                                    End Select
+                                    HUDText(IKernel.HUDType.Haste).Enabled = True
+                                    HUDText(IKernel.HUDType.Haste).Type = IKernel.HUDType.Haste
+                                End If
                             End If
                             Client.RaiseEvent(ITibia.EventKind.CharacterConditionsChanged, New Events.CharacterConditionsChangedEventArgs(Condition))
                         Case &HAA 'received message
