@@ -27,7 +27,6 @@ Public Class frmMain
     Dim SC As frmSplashScreen
     Dim IsVisible As Boolean = True
     Public LoginServer As String
-    Dim PPacketFirstTime As Boolean = True
     Dim PPacketList As New List(Of Integer)
 
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -2722,14 +2721,17 @@ Public Class frmMain
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
-        If PPacketFirstTime Then
-            PPB.DisplayText(4, New ITibia.LocationDefinition(20, 20, 0), New IKernel.ColorDefinition(255, 0, 0), 2, "TEST STRING")
-            PPacketFirstTime = False
-        Else
-            PPB.DisplayText(4, New ITibia.LocationDefinition(20, 20, 0), New IKernel.ColorDefinition(230, 230, 0), 2, "ANOTHER STRING")
-            PPacketFirstTime = True
-        End If
-
+        Dim BL As New BattleList(IBattlelist.SpecialEntity.Myself)
+        Select Case BL.GetDirection
+            Case IBattlelist.Directions.Down
+                Kernel.ConsoleWrite("DOWN")
+            Case IBattlelist.Directions.Left
+                Kernel.ConsoleWrite("LEFT")
+            Case IBattlelist.Directions.Up
+                Kernel.ConsoleWrite("UP")
+            Case IBattlelist.Directions.Right
+                Kernel.ConsoleWrite("RIGHT")
+        End Select
         'Kernel.Client.TestPipe()
 
         'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)

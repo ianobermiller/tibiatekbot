@@ -827,6 +827,8 @@ Public NotInheritable Class Tibia
             ClientProcess.Refresh()
             ClientProcess.WaitForInputIdle()
             RaiseEvent Started()
+            Dim FVI As FileVersionInfo = FileVersionInfo.GetVersionInfo(_Directory & "\" & _Filename)
+            Kernel.CurrentTibiaVersion = FVI.FileVersion
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End

@@ -460,12 +460,15 @@ Public Module KernelModule
         Public KeyboardEntries As SortedList(Of String, IKernel.KeyboardEntry)
 
         Public EntityInfoDismissLookPacket As Boolean = False
+        Public BattlelistEntitys As New List(Of Integer)
 
         Public LastHasteType As Integer = 0 '1 = Haste, 2 = Great Haste
         Public LastSaidHaste As New Date
         Public LastSaidInvis As New Date
         Public LastSaidMShield As New Date
         Public HUDText(2) As IKernel.HUDInfo
+
+        Public CurrentTibiaVersion As String = ""
 
 #End Region
 
@@ -1113,10 +1116,25 @@ Public Module KernelModule
             End Try
         End Sub
 
-#Region " Entity Info Timer "
+#Region " Entity Info Timers "
+
+        Private Sub CleanEntityList()
+            Dim EntitysRemoved As New List(Of Integer)
+            For Each Entity As IKernel.EntityInfo In EntityInfoList.Values
+                If Not BattlelistEntitys.Contains(Entity.EntityID) Then
+                    EntitysRemoved.Add(Entity.EntityID)
+                End If
+            Next
+            For Each RemovalEntity As Integer In EntitysRemoved
+                EntityInfoList.Remove(RemovalEntity)
+            Next
+            BattlelistEntitys.Clear()
+            EntitysRemoved.Clear()
+        End Sub
 
         Private Sub EntityInfoTimerObj_Execute() Handles EntityInfoTimerObj.OnExecute
             Try
+                Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
                 Static Loc As ITibia.LocationDefinition
                 If Client.IsConnected Then
                     Dim BL As New BattleList()
@@ -1124,29 +1142,48 @@ Public Module KernelModule
                     Do
                         If BL.IsMyself Then Continue Do
                         If Not BL.IsPlayer Then Continue Do
+                        BattlelistEntitys.Add(BL.GetEntityID)
                         Loc = BL.GetLocation
                         If EntityInfoList.ContainsKey(BL.GetEntityID) Then
-                            If Loc.Z <> CharacterLoc.Z _
-                                OrElse Abs(Loc.X - CharacterLoc.X) >= 8 _
-                                OrElse Abs(Loc.Y - CharacterLoc.Y) >= 6 _
-                                OrElse BL.GetHPPercentage = 0 Then
+                            'If Loc.Z <> CharacterLoc.Z Then _
+                            'OrElse Abs(Loc.X - CharacterLoc.X) >= 8 Then _
+                            'OrElse Abs(Loc.Y - CharacterLoc.Y) >= 6 Then _
+                            'OrElse BL.GetHPPercentage = 0 Then
+                            If Not BL.IsOnScreen Then
+                                PPB.RemoveCreatureText(BL.GetEntityID)
                                 EntityInfoList.Remove(BL.GetEntityID)
                             Else
                                 If Not EntityInfoList(BL.GetEntityID).Looked Then
                                     'look
                                     If Not BL.IsWalking Then ' make sure target is not moving
                                         Dim SPB As New ServerPacketBuilder(Proxy)
-                                        EntityInfoDismissLookPacket = True
+                                        'EntityInfoDismissLookPacket = True
                                         SPB.LookAtObject(&H63, BL.GetLocation, 1)
-                                        Exit Sub
+                                        Continue Do
+                                    Else
+                                        Dim LookLoc As ITibia.LocationDefinition = BL.GetLocation
+                                        Dim SPB As New ServerPacketBuilder(Proxy)
+                                        SPB.LookAtObject(&H63, LookLoc, 1)
+                                        Select Case BL.GetDirection
+                                            Case IBattlelist.Directions.Down
+                                                LookLoc.Y += 1
+                                            Case IBattlelist.Directions.Left
+                                                LookLoc.X -= 1
+                                            Case IBattlelist.Directions.Up
+                                                LookLoc.Y -= 1
+                                            Case IBattlelist.Directions.Right
+                                                LookLoc.X += 1
+                                        End Select
+                                        SPB.LookAtObject(&H63, LookLoc, 1)
                                     End If
                                 End If
                             End If
                         Else
-                            If Loc.Z = CharacterLoc.Z _
-                                AndAlso Abs(Loc.X - CharacterLoc.X) < 8 _
-                                AndAlso Abs(Loc.Y - CharacterLoc.Y) < 6 _
-                                AndAlso BL.GetHPPercentage > 0 Then
+                                'If Loc.Z = CharacterLoc.Z _
+                                '   AndAlso Abs(Loc.X - CharacterLoc.X) < 8 _
+                                '   AndAlso Abs(Loc.Y - CharacterLoc.Y) < 6 _
+                                '   AndAlso BL.GetHPPercentage > 0 Then
+                            If BL.IsOnScreen Then
                                 Dim EI As New IKernel.EntityInfo
                                 EI.EntityID = BL.GetEntityID
                                 EI.Name = BL.GetName
@@ -1155,13 +1192,30 @@ Public Module KernelModule
                                 ' look
                                 If Not BL.IsWalking Then
                                     Dim SPB As New ServerPacketBuilder(Proxy)
-                                    EntityInfoDismissLookPacket = True
+                                    'EntityInfoDismissLookPacket = True
                                     SPB.LookAtObject(&H63, BL.GetLocation, 1)
-                                    Exit Sub
+                                    Continue Do
+                                Else
+                                    Dim LookLoc As ITibia.LocationDefinition = BL.GetLocation
+                                    Dim SPB As New ServerPacketBuilder(Proxy)
+                                    SPB.LookAtObject(&H63, LookLoc, 1)
+                                    Select Case BL.GetDirection
+                                        Case IBattlelist.Directions.Down
+                                            LookLoc.Y += 1
+                                        Case IBattlelist.Directions.Left
+                                            LookLoc.X -= 1
+                                        Case IBattlelist.Directions.Up
+                                            LookLoc.Y -= 1
+                                        Case IBattlelist.Directions.Right
+                                            LookLoc.X += 1
+                                    End Select
+                                    SPB.LookAtObject(&H63, LookLoc, 1)
                                 End If
                             End If
-                        End If
+                            End If
                     Loop While BL.NextEntity(True)
+                    'Kernel.ConsoleRead("Tick")
+                    CleanEntityList()
                 End If
             Catch Ex As Exception
                 MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -3876,6 +3930,7 @@ ContinueAttack:
 
         Private Sub RenameBackpackObj_OnExecute() Handles RenameBackpackObj.OnExecute
             Try
+                If Not Client.IsConnected Then Exit Sub
                 'If LooterTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
                 Dim BP As New Container
                 BP.Reset()
@@ -4009,22 +4064,29 @@ ContinueAttack:
         End Sub
 #End Region
 
-#Region "HUD Timer"
+#Region " HUD Timer "
 
         Private Sub HUDTimerObj_OnExecute() Handles HUDTimerObj.OnExecute
             Try
+                If Not Client.IsConnected Then Exit Sub
                 Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
                 Dim Offset As Integer = 0
                 Dim YPlace As Integer = 20 'Change this to constant at the end!
                 Dim SpaceBetweenText As Integer = 15
                 Dim RemainingTime As New TimeSpan
                 Dim DisplayText As String = ""
+                Dim BottomLoc As Integer = 0
                 For Each HUDItem As IKernel.HUDInfo In HUDText
                     DisplayText = ""
                     If HUDItem.Enabled Then
                         If HUDItem.EndTime > Date.Now Then
                             RemainingTime = HUDItem.EndTime - Date.Now
                             Dim TextLocation As New ITibia.LocationDefinition(20, YPlace + Offset * SpaceBetweenText, 0)
+                            'TO KEEP TTB WORKING CORRECTLY WITH 8.1 CLIENT
+                            If Kernel.CurrentTibiaVersion = "8.11" Then
+                                Kernel.Client.ReadMemory(Consts.ScreenChatBarLoc, BottomLoc, 4)
+                                TextLocation.Y = BottomLoc - YPlace - Offset * SpaceBetweenText
+                            End If
                             Dim Colors As New IKernel.ColorDefinition
                             If RemainingTime.TotalSeconds > 10 Then
                                 Colors.Red = 0
@@ -4057,9 +4119,9 @@ ContinueAttack:
                 Next
             Catch ex As Exception
                 Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
-                PPB.RemoveText(1) '1,2,3 reserved for huds
-                PPB.RemoveText(2)
-                PPB.RemoveText(3)
+                PPB.RemoveText(IKernel.HUDType.Haste)
+                PPB.RemoveText(IKernel.HUDType.Invisible)
+                PPB.RemoveText(IKernel.HUDType.MagicShield)
                 MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Sub
@@ -5099,6 +5161,11 @@ ContinueAttack:
                 End If
             End If
         End Sub
+
+        Private Sub ClientParseLook(ByRef Send As Boolean)
+            Kernel.EntityInfoDismissLookPacket = False
+            Send = True
+        End Sub
 #End Region
 
         Private Sub Proxy_PacketFromClient(ByRef bytBuffer() As Byte, ByRef Send As Boolean) Handles Proxy.PacketFromClient
@@ -5191,7 +5258,9 @@ ContinueAttack:
                     Case &H8A
                         ClientParseGetDataFromDialog(bytBuffer, Pos, Send)
                         Proxy.LastAction = Date.Now.Ticks
-
+                    Case &H8C 'Look
+                        ClientParseLook(Send)
+                        Proxy.LastAction = Date.Now.Ticks
                     Case &H96 'Send message
                         ClientParseSendMessage(bytBuffer, Pos, Send)
                         Proxy.LastAction = Date.Now.Ticks
@@ -5286,57 +5355,61 @@ ContinueAttack:
                             Dim Text As String = GetString(bytBuffer, Pos)
                             If Type = ITibia.SysMessageType.Information Then
                                 Dim Match As Match = Regex.Match(Text, "^You\ssee\s(.*)\s\(Level\s(\d+)\)\.\ss?he\s(?:is\san?|has\sno)\s([^\.]+)\.(?:$|\ss?He\sis\s(.+)\sof\sthe\s(?:([^\.]+)\s\((.+)\)|([^\.]+)).)$", RegexOptions.IgnoreCase)
-                                If Not Match.Success Then Continue While
-                                Dim CPB As New ClientPacketBuilder(Proxy)
-                                Dim output As String = ""
-                                If Match.Groups.Count >= 4 Then
-                                    Dim Name As String = Match.Groups(1).Value
-                                    Dim BL As New BattleList()
-                                    If Not BL.Find(Name) Then Continue While
-                                    If EntityInfoList.ContainsKey(BL.GetEntityID) Then
-                                        Dim EI As IKernel.EntityInfo
-                                        EI = EntityInfoList(BL.GetEntityID)
-                                        EI.Level = Integer.Parse(Match.Groups(2).Value)
-                                        Select Case Match.Groups(3).Value.ToLower
-                                            Case "knight"
-                                                EI.Vocation = "K"
-                                            Case "elite knight"
-                                                EI.Vocation = "EK"
-                                            Case "paladin"
-                                                EI.Vocation = "P"
-                                            Case "royal paladin"
-                                                EI.Vocation = "RP"
-                                            Case "druid"
-                                                EI.Vocation = "D"
-                                            Case "elder druid"
-                                                EI.Vocation = "ED"
-                                            Case "sorcerer"
-                                                EI.Vocation = "S"
-                                            Case "master sorcerer"
-                                                EI.Vocation = "MS"
-                                            Case Else
-                                                EI.Vocation = "N"
-                                        End Select
-                                        EI.Looked = True
-                                        EntityInfoList(BL.GetEntityID) = EI
+                                If Match.Success Then
+                                    Dim CPB As New ClientPacketBuilder(Proxy)
+                                    Dim output As String = ""
+                                    If Match.Groups.Count >= 4 Then
+                                        Dim Name As String = Match.Groups(1).Value
+                                        Dim BL As New BattleList()
+                                        If Not BL.Find(Name) Then Continue While
+                                        If EntityInfoList.ContainsKey(BL.GetEntityID) Then
+                                            Dim EI As IKernel.EntityInfo
+                                            EI = EntityInfoList(BL.GetEntityID)
+                                            EI.Level = Integer.Parse(Match.Groups(2).Value)
+                                            If String.IsNullOrEmpty(Match.Groups(5).Value) Then
+                                                EI.GuildName = Match.Groups(7).Value
+                                            Else
+                                                EI.GuildName = Match.Groups(5).Value
+                                            End If
+
+                                            Select Case Match.Groups(3).Value.ToLower
+                                                Case "knight"
+                                                    EI.Vocation = "K"
+                                                Case "elite knight"
+                                                    EI.Vocation = "EK"
+                                                Case "paladin"
+                                                    EI.Vocation = "P"
+                                                Case "royal paladin"
+                                                    EI.Vocation = "RP"
+                                                Case "druid"
+                                                    EI.Vocation = "D"
+                                                Case "elder druid"
+                                                    EI.Vocation = "ED"
+                                                Case "sorcerer"
+                                                    EI.Vocation = "S"
+                                                Case "master sorcerer"
+                                                    EI.Vocation = "MS"
+                                                Case Else
+                                                    EI.Vocation = "N"
+                                            End Select
+                                            EI.Looked = True
+                                            EntityInfoList(BL.GetEntityID) = EI
+                                            Dim ppb As New PipePacketBuilder(Client.Pipe)
+                                            ppb.DisplayCreatureText(BL.GetEntityID, New ITibia.LocationDefinition(0, 10, 0), New IKernel.ColorDefinition(240, 180, 0), 2, "Lvl " & EI.Level & " " & EI.Vocation)
+                                            If Not String.IsNullOrEmpty(EI.GuildName) Then
+                                                ppb.DisplayCreatureText(BL.GetEntityID, New ITibia.LocationDefinition(0, 21, 0), New IKernel.ColorDefinition(240, 180, 0), 2, EI.GuildName)
+                                            End If
+                                        End If
+                                        For Each G As Group In Match.Groups
+                                            If G.Index = 0 Then Continue For
+                                            output &= """" & G.Value & """ "
+                                        Next
+                                        'CPB.SystemMessage(ITibia.SysMessageType.StatusConsoleRed, output)
+                                        'CPB.SystemMessage(ITibia.SysMessageType.StatusConsoleRed, Name)
                                     End If
-                                    For Each G As Group In Match.Groups
-
-                                        If G.Index = 0 Then Continue For
-                                        output &= """" & G.Value & """ "
-                                    Next
-                                    CPB.SystemMessage(ITibia.SysMessageType.StatusConsoleRed, output)
-                                    Dim ppb As New PipePacketBuilder(Client.Pipe)
-                                    Dim locz As ITibia.LocationDefinition
-                                    locz.X = 0
-                                    locz.Y = 12
-                                    locz.Z = 0
-                                    ppb.DisplayCreatureText(BL.GetEntityID, locz, New IKernel.ColorDefinition(&HFF, 0, 0), 2, Name)
-
-                                    'CPB.SystemMessage(ITibia.SysMessageType.StatusConsoleRed, Name)
                                 End If
                                 If EntityInfoDismissLookPacket Then
-                                    EntityInfoDismissLookPacket = False
+                                    'EntityInfoDismissLookPacket = False
                                     Dim InitPos As Integer = Pos - Text.Length() - 4
                                     Dim EndPos As Integer = Pos
                                     Dim PLength As Integer = 4 + Text.Length()
@@ -5357,7 +5430,10 @@ ContinueAttack:
                                     End If
                                     Pos = InitPos
                                     PacketLength -= PLength
-
+                                Else
+                                    If Kernel.EntityInfoTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                                        EntityInfoDismissLookPacket = True
+                                    End If
                                 End If
                             End If
                         Case &H6A 'add object to map

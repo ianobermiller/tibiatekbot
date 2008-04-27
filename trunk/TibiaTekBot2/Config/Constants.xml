@@ -17,8 +17,8 @@
     or write to the Free Software Foundation, 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.-->
 <Constants>
-  <Const Name="IRCConnectOnStartUp" Value="True" />
-  <Const Name="IRCJoinAfterConnected" Value="True" />
+  <Const Name="IRCConnectOnStartUp" Value="False" />
+  <Const Name="IRCJoinAfterConnected" Value="False" />
   <Const Name="IRCJoinChannels" Value="#tibiatekbot" />
   <Const Name="IRCNickname" Value="" />
   <Const Name="IRCPassword" Value="" />
@@ -256,4 +256,5 @@
   <Const Name="ptrShowFPS" Value="H611874" />
   <Const Name="ptrPrintTextFunc" Value="H4A3C00" />
   <Const Name="ptrNopFPS" Value="H44E68F" />
+  <Const Name="ScreenChatBarLoc" Value="HDD2EB8" /> <!-- ONLY FOR TIBIA 8.11 -->
 </Constants>
