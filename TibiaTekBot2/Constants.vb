@@ -300,6 +300,8 @@ Public Module ConstantsModule
         Public ptrPrintTextFunc As Integer = &H4A3C00
         Public ptrNopFPS As Integer = &H44E68F
 
+        Public ScreenChatBarLoc As Integer = &HDD2EB8
+
         Public Sub New()
             LoadConstants()
         End Sub
@@ -809,6 +811,8 @@ Public Module ConstantsModule
                                                     ptrPrintTextFunc = CInt(Value)
                                                 Case "ptrNopFPS"
                                                     ptrNopFPS = CInt(Value)
+                                                Case "ScreenChatBarLoc"
+                                                    ScreenChatBarLoc = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
@@ -838,7 +842,7 @@ Public Module ConstantsModule
         "Have a great day!" & Ret & _
         "Dont forget to visit us at:" & Ret & _
         "http://www.tibiatek.com/ and " & Ret & _
-        "http://www.xcreations.net/~tpforums/forum/"
+        "http://tpforums.org"
     Public Const IRCServer As String = "pacifica.dairc.us"
     Public Const IRCPort As Integer = 6669
     'Public Const IRCChannel As String = "#TibiaTekBot"

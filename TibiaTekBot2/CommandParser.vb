@@ -89,7 +89,7 @@ Public Class CommandParser
             Add("log", AddressOf CmdLog)
             Add(New String() {"favwnp", "favweapon", "favoriteweapon", "fvwpn"}, AddressOf CmdFavWep)
             Add("reload", AddressOf CmdReload)
-            Add("playerinfo", AddressOf CmdPlayerInfo)
+            Add("playerinfo", AddressOf CmdEntityInfo)
             Add("hud", AddressOf CmdDisplayHUD)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -184,18 +184,6 @@ Public Class CommandParser
             Return False
         End Try
     End Function
-
-#Region " Player Information Command "
-
-    Private Sub CmdPlayerInfo(ByVal Arguments As GroupCollection)
-        Try
-
-        Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
-#End Region
 
 #Region " View Message Command "
 
@@ -922,6 +910,12 @@ Public Class CommandParser
                     "You will be afk for a while? AutoResponder will answer for you. " & Ret & _
                     "Just add the possible responses to the messages they might say." & Ret & _
                     "Note: To edit your AutoResponder go to TibiaTek Bot Main menu and select Auto Responer.")
+                Case "hud"
+                    Kernel.ConsoleWrite("«HUD Display»" & Ret & _
+                    "USage: &hud <on | off>" & Ret & _
+                    "Example: &hud on." & Ret & _
+                    "Comment: " & Ret & _
+                    "  Shows time when spell ends for spells Haste, Invisible and Magic Shield")
                 Case Else
                     Select Case Topic.ToLower
                         Case "general", "general tools", "a"
@@ -939,7 +933,8 @@ Public Class CommandParser
                             "  Amulet Changer -> &amuletchanger" & Ret & _
                             "  Ring Changer -> &ringchanger" & Ret & _
                             "  Combobot -> &combobot" & Ret & _
-                            "  Dancer -> &dancer")
+                            "  Dancer -> &dancer" & Ret & _
+                            "  HUD-Display -> &hud")
                         Case "healing", "healing tools", "b"
                             Kernel.ConsoleWrite("Healing Tools:" & Ret & _
                             "  NAME -> COMMAND" & Ret & _
@@ -3344,7 +3339,7 @@ Public Class CommandParser
     End Sub
 #End Region
 
-#Region "Favored Weapon"
+#Region " Favored Weapon "
     Private Sub CmdFavWep(ByVal Arguments As GroupCollection)
         Try
             Select Case Arguments(2).ToString.ToLower
@@ -3464,6 +3459,30 @@ Public Class CommandParser
                     PPB.RemoveText(IKernel.HUDType.Invisible)
                     PPB.RemoveText(IKernel.HUDType.MagicShield)
                     Kernel.ConsoleWrite("Hiding HUD")
+            End Select
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+#End Region
+
+#Region " Entity Info Command "
+    Private Sub CmdEntityInfo(ByVal Arguments As GroupCollection)
+        Try
+            Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+            Select Case StrToShort(Arguments(2).ToString)
+                Case 1
+                    Kernel.EntityInfoDismissLookPacket = True
+                    Kernel.EntityInfoTimerObj.StartTimer()
+                    Kernel.ConsoleWrite("Showing Entity Information")
+                Case 0
+                    Kernel.EntityInfoDismissLookPacket = False
+                    Kernel.EntityInfoTimerObj.StopTimer()
+                    For Each Entity As IKernel.EntityInfo In Kernel.EntityInfoList.Values
+                        PPB.RemoveCreatureText(Entity.EntityID)
+                    Next
+                    Kernel.EntityInfoList.Clear()
+                    Kernel.ConsoleWrite("Hiding Entity Information")
             End Select
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
