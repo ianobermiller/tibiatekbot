@@ -61,6 +61,24 @@ Module MiscUtils
         End Select
     End Sub
 
+    Public Function CalculateHP(ByVal Level As Integer, ByVal Vocation As String) As UInteger
+        Dim MaxHP As UInteger = 185
+        If Level <= 8 Then
+            Return 150 + (Level - 1) * 5
+        End If
+        Dim LevelGain As Integer = 0
+        Select Case Vocation.ToLower
+            Case "s", "ms", "d", "ed"
+                LevelGain = 5
+            Case "k", "ek"
+                LevelGain = 15
+            Case "p", "rp"
+                LevelGain = 10
+        End Select
+
+        Return 185 + (Level - 8) * LevelGain
+    End Function
+
     Public Function GetWaypointsDirectory() As String
         Return My.Application.Info.DirectoryPath & "\Waypoints"
     End Function
