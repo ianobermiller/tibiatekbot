@@ -26,6 +26,7 @@ Public Class frmMain
     Dim LoginSelectForm As frmLoginSelectDialog
     Dim SC As frmSplashScreen
     Dim IsVisible As Boolean = True
+    Dim PPBFirstTime As Boolean = True
     Public LoginServer As String
     Dim PPacketList As New List(Of Integer)
 
@@ -2721,17 +2722,15 @@ Public Class frmMain
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
         Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
-        Dim BL As New BattleList(IBattlelist.SpecialEntity.Myself)
-        Select Case BL.GetDirection
-            Case IBattlelist.Directions.Down
-                Kernel.ConsoleWrite("DOWN")
-            Case IBattlelist.Directions.Left
-                Kernel.ConsoleWrite("LEFT")
-            Case IBattlelist.Directions.Up
-                Kernel.ConsoleWrite("UP")
-            Case IBattlelist.Directions.Right
-                Kernel.ConsoleWrite("RIGHT")
-        End Select
+        If PPBFirstTime Then
+            PPBFirstTime = False
+            PPB.RemoveCreatureText(Kernel.CharacterID)
+            PPB.DisplayCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 20, 0), New IKernel.ColorDefinition(0, 189, 3), 2, "First Text")
+            PPB.DisplayCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 30, 0), New IKernel.ColorDefinition(255, 255, 0), 2, "Uselss Text")
+        Else
+            PPBFirstTime = True
+            PPB.UpdateCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 20, 0), "Second String")
+        End If
         'Kernel.Client.TestPipe()
 
         'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)

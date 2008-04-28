@@ -171,6 +171,22 @@ Public Class PipePacketBuilder
         End Try
     End Sub
 
+    Public Sub UpdateCreatureText(ByVal CharacterID As Integer, ByVal Location As ITibia.LocationDefinition, ByVal NewText As String)
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(&HC)
+            _Packet.AddDWord(CharacterID)
+            _Packet.AddWord(Location.X)
+            _Packet.AddWord(Location.Y)
+            _Packet.AddWord(Location.Z)
+            _Packet.AddString(NewText)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Public Sub RemoveCreatureText(ByVal CharacterID As Integer)
         Try
             Dim _Packet As New Packet

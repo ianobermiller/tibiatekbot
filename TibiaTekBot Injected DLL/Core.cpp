@@ -491,7 +491,7 @@ void PipeOnRead(){
 				KeyboardEntriesCount = entries;
 			}
 			break;
-		case 0xA: //Set Text Above Player
+		case 0xA: //Set Text Above Creature
 			{	
 				int Id = Packet::ReadDWord(Buffer, &position);
                 int nX = Packet::ReadWord(Buffer, &position);
@@ -521,13 +521,43 @@ void PipeOnRead(){
                 AddedCreatures.push_back(Creature);
 			}
 			break;
-		case 0xB: //Remove Text Above Player
+		case 0xB: //Remove Text Above Creature
 			{
 				int Id = Packet::ReadDWord(Buffer, &position);
 				PlayerText RCreature = {0};
 				RCreature.CreatureId = Id;
 				
 				RemovedCreatures.push_back(RCreature);
+			}
+			break;
+		case 0xC: //Update Text Above Creature
+			{
+				int ID = Packet::ReadDWord(Buffer, &position);
+				int PosX = Packet::ReadWord(Buffer, &position);
+				int PosY = Packet::ReadWord(Buffer, &position);
+				int Dir = Packet::ReadWord(Buffer, &position);
+				string NewText = Packet::ReadString(Buffer, &position);
+				char *lpNewText = (char*)calloc(NewText.size() + 1, sizeof(char));
+				char *OldText;
+				strcpy(lpNewText, NewText.c_str());
+				list<PlayerText>::iterator newit;
+				if (!Dir) {
+					PosY = -PosY;
+				}
+				for(newit = CreatureTexts.begin(); newit != CreatureTexts.end(); ++newit) {
+					/*char asd[205], dsa[205];
+					sprintf(asd, "ID: %d X: %d Y: %d", newit->CreatureId, newit->RelativeX, newit->RelativeY);
+					sprintf(dsa, "ID: %d X: %d Y: %d", ID, PosX, PosY);
+					MessageBoxA(0, asd, "List", 0);
+					MessageBoxA(0, dsa, "Packet", 0);*/
+					if (newit->CreatureId == ID && newit->RelativeX == PosX && newit->RelativeY == PosY) {
+						OldText = newit->DisplayText;
+						strcpy(OldText, "");
+						newit->DisplayText = lpNewText;
+						free(OldText);
+						break;
+					}
+				}
 			}
 			break;
 	}
