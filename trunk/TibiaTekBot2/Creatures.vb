@@ -23,6 +23,7 @@ Public Module CreaturesModule
     Public Structure Creature
         Dim Name As String
         Dim Experience As Integer
+        Dim HitPoints As Integer
     End Structure
 
     Public Class Creatures
@@ -41,6 +42,7 @@ Public Module CreaturesModule
                     Dim NewC As Creature
                     NewC.Name = Element.GetAttribute("Name")
                     NewC.Experience = CInt(Element.GetAttribute("Experience"))
+                    NewC.HitPoints = CInt(Element.GetAttribute("HitPoints"))
                     Creatures.Add(NewC.Name, NewC)
                 Next
                 Return True
