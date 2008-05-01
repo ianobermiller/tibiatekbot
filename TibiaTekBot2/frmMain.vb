@@ -2721,16 +2721,76 @@ Public Class frmMain
     End Sub
 
     Private Sub TestToolStripMenuItem1_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestToolStripMenuItem1.Click
-        Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
-        If PPBFirstTime Then
-            PPBFirstTime = False
-            PPB.RemoveCreatureText(Kernel.CharacterID)
-            PPB.DisplayCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 20, 0), New IKernel.ColorDefinition(0, 189, 3), 2, "First Text")
-            PPB.DisplayCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 30, 0), New IKernel.ColorDefinition(255, 255, 0), 2, "Uselss Text")
-        Else
-            PPBFirstTime = True
-            PPB.UpdateCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 20, 0), "Second String")
-        End If
+        'Get Creature HP's
+        Try
+            Dim WClient As WebClient
+            Dim Document As New Xml.XmlDocument
+            Document.Load(GetConfigurationDirectory() & "\Creatures.xml")
+            Dim MatchObj As Match = Nothing
+            WClient = New WebClient
+            Dim Data As Stream
+            Data = WClient.OpenRead("http://tibia.wikia.com/wiki/List_of_Creatures_by_Type_and_by_Hit_Points")
+            Dim Reader As StreamReader
+            Reader = New StreamReader(Data)
+            Dim Line As String
+            Dim CreatureName As String
+            Dim CreatureHP As Integer
+            Dim CreatureExp As Integer
+            Dim XmlAttribute As Xml.XmlAttribute
+            Dim Found As Boolean = False
+            For I As Integer = 0 To 280
+                Reader.ReadLine()
+            Next
+            Line = Reader.ReadLine
+            While (Not Line Is Nothing)
+                MatchObj = Regex.Match(Line, "title=""(.*?)"".*?<td.*?>.*?</td>.*?<td.*?>\s(\d+)\s</td>.*?<td.*?>\s(\d+)\s</td>")
+                If MatchObj.Success Then
+                    CreatureName = MatchObj.Groups(1).ToString
+                    CreatureExp = CInt(MatchObj.Groups(2).ToString)
+                    CreatureHP = CInt(MatchObj.Groups(3).ToString)
+                    For Each Element As Xml.XmlElement In Document.Item("Creatures")
+                        If Element.GetAttribute("Name") = CreatureName Then
+                            XmlAttribute = Document.CreateAttribute("HitPoints")
+                            XmlAttribute.InnerText = CreatureHP
+                            Element.Attributes.Append(XmlAttribute)
+                            Found = True
+                            Exit For
+                        End If
+                    Next
+                    If Not Found Then
+                        Dim NewCreature As XmlElement = Document.CreateElement("Creature")
+                        Dim NCName As XmlAttribute = Document.CreateAttribute("Name")
+                        NCName.InnerText = CreatureName
+                        Dim NCExp As XmlAttribute = Document.CreateAttribute("Experience")
+                        NCExp.InnerText = CreatureExp
+                        Dim NCHP As XmlAttribute = Document.CreateAttribute("HitPoints")
+                        NCHP.InnerText = CreatureHP
+                        NewCreature.Attributes.Append(NCName)
+                        NewCreature.Attributes.Append(NCExp)
+                        NewCreature.Attributes.Append(NCHP)
+                        Dim CreatureElement As Xml.XmlElement = Document.Item("Creatures")
+                        CreatureElement.AppendChild(NewCreature)
+                    End If
+                End If
+                Line = Reader.ReadLine
+                Found = False
+            End While
+            Document.Save(GetConfigurationDirectory() & "\Creatures1.xml")
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+
+        'Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+        'If PPBFirstTime Then
+        'PPBFirstTime = False
+        'PPB.RemoveCreatureText(Kernel.CharacterID)
+        'PPB.DisplayCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 20, 0), New IKernel.ColorDefinition(0, 189, 3), 2, "First Text")
+        'PPB.DisplayCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 30, 0), New IKernel.ColorDefinition(255, 255, 0), 2, "Uselss Text")
+        'Else
+        'PPBFirstTime = True
+        'PPB.UpdateCreatureText(Kernel.CharacterID, New ITibia.LocationDefinition(0, 20, 0), "Second String")
+        'End If
         'Kernel.Client.TestPipe()
 
         'Dim Img As System.Drawing.Image = Kernel.Client.Screenshot(True)

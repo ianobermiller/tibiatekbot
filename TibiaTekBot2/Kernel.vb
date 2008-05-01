@@ -462,6 +462,7 @@ Public Module KernelModule
         Public EntityInfoDismissLookPacket As Boolean = False
         Public BattlelistEntitys As New List(Of Integer)
         Public InfoTextColor As New IKernel.ColorDefinition(0, 189, 3) '0,189,3
+        Public ShowCreatureHP As Boolean = True
 
         Public LastHasteType As Integer = 0 '1 = Haste, 2 = Great Haste
         Public LastSaidHaste As New Date
@@ -1121,6 +1122,7 @@ Public Module KernelModule
         'TODO CHANGE THIS TO FUNCTION
         Private Sub CleanEntityList()
             Dim EntitysRemoved As New List(Of Integer)
+            Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
             For Each Entity As IKernel.EntityInfo In EntityInfoList.Values
                 If Not BattlelistEntitys.Contains(Entity.EntityID) Then
                     EntitysRemoved.Add(Entity.EntityID)
@@ -1128,6 +1130,7 @@ Public Module KernelModule
             Next
             For Each RemovalEntity As Integer In EntitysRemoved
                 EntityInfoList.Remove(RemovalEntity)
+                PPB.RemoveCreatureText(RemovalEntity)
             Next
             BattlelistEntitys.Clear()
             EntitysRemoved.Clear()
@@ -1142,21 +1145,71 @@ Public Module KernelModule
                     BL.Reset(True)
                     Do
                         If BL.IsMyself Then Continue Do
-                        If Not BL.IsPlayer Then Continue Do
-                        Loc = BL.GetLocation
-                        If EntityInfoList.ContainsKey(BL.GetEntityID) Then
-                            'If Loc.Z <> CharacterLoc.Z Then _
-                            'OrElse Abs(Loc.X - CharacterLoc.X) >= 8 Then _
-                            'OrElse Abs(Loc.Y - CharacterLoc.Y) >= 6 Then _
-                            'OrElse BL.GetHPPercentage = 0 Then
-                            If Not BL.IsOnScreen Then
-                                PPB.RemoveCreatureText(BL.GetEntityID)
-                                EntityInfoList.Remove(BL.GetEntityID)
+                        If Not BL.IsPlayer Then
+                            If Not ShowCreatureHP Then Continue Do
+                            If Kernel.Creatures.Creatures.ContainsKey(BL.GetName) Then
+                                Dim CreatureMaxHP As Integer = Kernel.Creatures.Creatures(BL.GetName).HitPoints
+                                Dim CreatureHP As Integer = (BL.GetHPPercentage / 100) * CreatureMaxHP
+                                If Not EntityInfoList.ContainsKey(BL.GetEntityID) Then 'TODO MOVE THIS TO PACKET!
+                                    Dim EI As New IKernel.EntityInfo
+                                    EI.EntityID = BL.GetEntityID
+                                    EI.Name = BL.GetName
+                                    PPB.DisplayCreatureText(BL.GetEntityID, New ITibia.LocationDefinition(0, 13, 0), InfoTextColor, 2, CreatureHP & "/" & CreatureMaxHP)
+                                    BattlelistEntitys.Add(BL.GetEntityID)
+                                    EntityInfoList.Add(BL.GetEntityID, EI)
+                                End If
+                            End If
+                        End If
+                            Loc = BL.GetLocation
+                            If EntityInfoList.ContainsKey(BL.GetEntityID) Then
+                                'If Loc.Z <> CharacterLoc.Z Then _
+                                'OrElse Abs(Loc.X - CharacterLoc.X) >= 8 Then _
+                                'OrElse Abs(Loc.Y - CharacterLoc.Y) >= 6 Then _
+                                'OrElse BL.GetHPPercentage = 0 Then
+                                If Not BL.IsOnScreen Then
+                                    PPB.RemoveCreatureText(BL.GetEntityID)
+                                    EntityInfoList.Remove(BL.GetEntityID)
+                                Else
+                                    BattlelistEntitys.Add(BL.GetEntityID)
+                                    If Not EntityInfoList(BL.GetEntityID).Looked Then
+                                        'look
+                                        If Not BL.IsWalking Then ' make sure target is not moving
+                                            Dim SPB As New ServerPacketBuilder(Proxy)
+                                            'EntityInfoDismissLookPacket = True
+                                            SPB.LookAtObject(&H63, BL.GetLocation, 1)
+                                            Continue Do
+                                        Else
+                                            Dim LookLoc As ITibia.LocationDefinition = BL.GetLocation
+                                            Dim SPB As New ServerPacketBuilder(Proxy)
+                                            SPB.LookAtObject(&H63, LookLoc, 1)
+                                            Select Case BL.GetDirection
+                                                Case IBattlelist.Directions.Down
+                                                    LookLoc.Y += 1
+                                                Case IBattlelist.Directions.Left
+                                                    LookLoc.X -= 1
+                                                Case IBattlelist.Directions.Up
+                                                    LookLoc.Y -= 1
+                                                Case IBattlelist.Directions.Right
+                                                    LookLoc.X += 1
+                                            End Select
+                                            SPB.LookAtObject(&H63, LookLoc, 1)
+                                        End If
+                                    End If
+                                End If
                             Else
-                                BattlelistEntitys.Add(BL.GetEntityID)
-                                If Not EntityInfoList(BL.GetEntityID).Looked Then
-                                    'look
-                                    If Not BL.IsWalking Then ' make sure target is not moving
+                                'If Loc.Z = CharacterLoc.Z _
+                                '   AndAlso Abs(Loc.X - CharacterLoc.X) < 8 _
+                                '   AndAlso Abs(Loc.Y - CharacterLoc.Y) < 6 _
+                                '   AndAlso BL.GetHPPercentage > 0 Then
+                                If BL.IsOnScreen Then
+                                    BattlelistEntitys.Add(BL.GetEntityID)
+                                    Dim EI As New IKernel.EntityInfo
+                                    EI.EntityID = BL.GetEntityID
+                                    EI.Name = BL.GetName
+                                    EI.Looked = False
+                                    EntityInfoList.Add(EI.EntityID, EI)
+                                    ' look
+                                    If Not BL.IsWalking Then
                                         Dim SPB As New ServerPacketBuilder(Proxy)
                                         'EntityInfoDismissLookPacket = True
                                         SPB.LookAtObject(&H63, BL.GetLocation, 1)
@@ -1178,42 +1231,6 @@ Public Module KernelModule
                                         SPB.LookAtObject(&H63, LookLoc, 1)
                                     End If
                                 End If
-                            End If
-                        Else
-                                'If Loc.Z = CharacterLoc.Z _
-                                '   AndAlso Abs(Loc.X - CharacterLoc.X) < 8 _
-                                '   AndAlso Abs(Loc.Y - CharacterLoc.Y) < 6 _
-                                '   AndAlso BL.GetHPPercentage > 0 Then
-                            If BL.IsOnScreen Then
-                                BattlelistEntitys.Add(BL.GetEntityID)
-                                Dim EI As New IKernel.EntityInfo
-                                EI.EntityID = BL.GetEntityID
-                                EI.Name = BL.GetName
-                                EI.Looked = False
-                                EntityInfoList.Add(EI.EntityID, EI)
-                                ' look
-                                If Not BL.IsWalking Then
-                                    Dim SPB As New ServerPacketBuilder(Proxy)
-                                    'EntityInfoDismissLookPacket = True
-                                    SPB.LookAtObject(&H63, BL.GetLocation, 1)
-                                    Continue Do
-                                Else
-                                    Dim LookLoc As ITibia.LocationDefinition = BL.GetLocation
-                                    Dim SPB As New ServerPacketBuilder(Proxy)
-                                    SPB.LookAtObject(&H63, LookLoc, 1)
-                                    Select Case BL.GetDirection
-                                        Case IBattlelist.Directions.Down
-                                            LookLoc.Y += 1
-                                        Case IBattlelist.Directions.Left
-                                            LookLoc.X -= 1
-                                        Case IBattlelist.Directions.Up
-                                            LookLoc.Y -= 1
-                                        Case IBattlelist.Directions.Right
-                                            LookLoc.X += 1
-                                    End Select
-                                    SPB.LookAtObject(&H63, LookLoc, 1)
-                                End If
-                            End If
                             End If
                     Loop While BL.NextEntity(True)
                     'Kernel.ConsoleRead("Tick")
@@ -5636,31 +5653,40 @@ ContinueAttack:
                             If Kernel.EntityInfoTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
                                 'UPDATE HP
                                 If EntityInfoList.ContainsKey(ID) Then
-                                    Dim EI As IKernel.EntityInfo = EntityInfoList(ID)
                                     Dim HP As Integer = 0
                                     Dim MaxHp As Integer = 0
-                                    MaxHp = CalculateHP(EI.Level, EI.Vocation)
-                                    HP = (OneByte / 100) * MaxHp
-                                    Dim ppb As New PipePacketBuilder(Client.Pipe)
-                                    ppb.UpdateCreatureText(ID, New ITibia.LocationDefinition(0, 13, 0), "Lvl " & EI.Level & " " & EI.Vocation & " " & HP & "/" & MaxHp)
-                                End If
-                            End If
-                            If OneByte > 0 Then Continue While
-                            CBCreatureDied = True
-                            If ShowCreaturesUntilNextLevel Then
-                                Dim LastAttackedID As Integer = 0
-                                Client.ReadMemory(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
-                                If ID = LastAttackedID Then
-                                    Dim BL As New BattleList
-                                    Dim Name As String = 0
-                                    If Not BL.Find(ID) Then Continue While
-                                    Name = BL.GetName()
-                                    If Creatures.Creatures.ContainsKey(Name) Then
-                                        Dim N As Integer = (NextLevelExp - Experience) / (Creatures.Creatures(Name).Experience * Consts.CreatureExpMultiplier)
-                                        CP.SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up.")
+                                    If ID >= &H40000000 Then 'CREATURE/NPC
+                                        Dim EI As IKernel.EntityInfo = EntityInfoList(ID)
+                                        MaxHp = Kernel.Creatures.Creatures(EI.Name).HitPoints
+                                        HP = (OneByte / 100) * MaxHp
+                                        Dim ppb As New PipePacketBuilder(Client.Pipe)
+                                        ppb.UpdateCreatureText(ID, New ITibia.LocationDefinition(0, 13, 0), HP & "/" & MaxHp)
+
+                                    Else
+                                        Dim EI As IKernel.EntityInfo = EntityInfoList(ID)
+                                        MaxHp = CalculateHP(EI.Level, EI.Vocation)
+                                        HP = (OneByte / 100) * MaxHp
+                                        Dim ppb As New PipePacketBuilder(Client.Pipe)
+                                        ppb.UpdateCreatureText(ID, New ITibia.LocationDefinition(0, 13, 0), "Lvl " & EI.Level & " " & EI.Vocation & " " & HP & "/" & MaxHp)
                                     End If
                                 End If
-                            End If
+                                End If
+                                If OneByte > 0 Then Continue While
+                                CBCreatureDied = True
+                                If ShowCreaturesUntilNextLevel Then
+                                    Dim LastAttackedID As Integer = 0
+                                    Client.ReadMemory(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
+                                    If ID = LastAttackedID Then
+                                        Dim BL As New BattleList
+                                        Dim Name As String = 0
+                                        If Not BL.Find(ID) Then Continue While
+                                        Name = BL.GetName()
+                                        If Creatures.Creatures.ContainsKey(Name) Then
+                                            Dim N As Integer = (NextLevelExp - Experience) / (Creatures.Creatures(Name).Experience * Consts.CreatureExpMultiplier)
+                                            CP.SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up.")
+                                        End If
+                                    End If
+                                End If
                         Case &H8D 'creature light
                                 Pos += 6 'id, light intensity, light color
                         Case &H8E 'add creature, or invisible creature
