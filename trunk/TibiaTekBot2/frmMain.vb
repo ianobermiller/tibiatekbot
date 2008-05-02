@@ -730,10 +730,13 @@ Public Class frmMain
         Try
             ComboBotTrigger.Checked = Kernel.ComboBotEnabled = True
             If ComboBotTrigger.Checked Then
-                ComboLeader.Text = Kernel.ComboBotLeader
-                ComboLeader.Enabled = False
+                ComboLeaders.Items.Clear()
+                For Each Leader As String In Kernel.Combobotleaders
+                    ComboLeaders.Items.Add(Leader)
+                Next
+                ComboLeaders.Enabled = False
             Else
-                ComboLeader.Enabled = True
+                ComboLeaders.Enabled = True
             End If
         Catch ex As Exception
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

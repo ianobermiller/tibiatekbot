@@ -362,7 +362,7 @@ Public Module KernelModule
         Public LastFloor As Integer = 0
 
         Public ComboBotEnabled As Boolean = False
-        Public ComboBotLeader As String = ""
+        'Public ComboBotLeader As String = ""
         Public Combobotleaders As New Collection
 
         Public AmuletID As Integer = 0

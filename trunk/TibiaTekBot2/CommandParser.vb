@@ -3101,7 +3101,7 @@ Public Class CommandParser
                                     Kernel.Combobotleaders.Clear()
                                     Kernel.Combobotleaders.Add(BL.GetName)
                                     Kernel.ComboBotEnabled = True
-                                    Kernel.ConsoleWrite("Combobot is now Enabled with Leader: " & Kernel.ComboBotLeader)
+                                    Kernel.ConsoleWrite("Combobot is now Enabled with Leader: " & BL.GetName)
                                     Exit Sub
                                 Else
                                     Kernel.ConsoleError("You can only set players as leader.")
