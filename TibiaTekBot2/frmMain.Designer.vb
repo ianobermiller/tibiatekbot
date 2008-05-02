@@ -227,7 +227,6 @@ Partial Class frmMain
         Me.LeadersContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AddLeader = New System.Windows.Forms.ToolStripMenuItem
         Me.RemoveLeader = New System.Windows.Forms.ToolStripMenuItem
-        Me.ComboLeader = New System.Windows.Forms.TextBox
         Me.ComboBotTrigger = New System.Windows.Forms.CheckBox
         Me.ComboBotLeaderlbl = New System.Windows.Forms.Label
         Me.AutoStackerBox = New System.Windows.Forms.GroupBox
@@ -1632,7 +1631,6 @@ Partial Class frmMain
         'ComboBotBox
         '
         Me.ComboBotBox.Controls.Add(Me.ComboLeaders)
-        Me.ComboBotBox.Controls.Add(Me.ComboLeader)
         Me.ComboBotBox.Controls.Add(Me.ComboBotTrigger)
         Me.ComboBotBox.Controls.Add(Me.ComboBotLeaderlbl)
         resources.ApplyResources(Me.ComboBotBox, "ComboBotBox")
@@ -1661,11 +1659,6 @@ Partial Class frmMain
         '
         Me.RemoveLeader.Name = "RemoveLeader"
         resources.ApplyResources(Me.RemoveLeader, "RemoveLeader")
-        '
-        'ComboLeader
-        '
-        resources.ApplyResources(Me.ComboLeader, "ComboLeader")
-        Me.ComboLeader.Name = "ComboLeader"
         '
         'ComboBotTrigger
         '
@@ -4061,7 +4054,6 @@ Partial Class frmMain
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents ComboBotBox As System.Windows.Forms.GroupBox
     Friend WithEvents ComboBotTrigger As System.Windows.Forms.CheckBox
-    Friend WithEvents ComboLeader As System.Windows.Forms.TextBox
     Friend WithEvents ComboBotLeaderlbl As System.Windows.Forms.Label
     Friend WithEvents AmmunitionRestackerBox As System.Windows.Forms.GroupBox
     Friend WithEvents AmmunitionRestackerTrigger As System.Windows.Forms.CheckBox
