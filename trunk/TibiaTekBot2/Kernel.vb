@@ -1572,6 +1572,45 @@ Public Module KernelModule
                                             Containers(ActualIndex).RemoveItem(Item.Location.Z)
                                             Containers(ActualIndex2).AddItem(Item.ID, RemainingCount)
                                             RemainingCount = 0
+                                        Else 'Open New Container
+                                            Dim FoundBp As Boolean = False
+                                            For S As Integer = 0 To Containers(ActualIndex2).GetItemCount - 1
+                                                If Kernel.Client.Objects.HasFlags(Containers(ActualIndex2).Item(S).ID, IObjects.ObjectFlags.IsContainer) Then
+                                                    ServerPacket.UseObject(Containers(ActualIndex2).Item(S), Containers(ActualIndex2).Index) 'Opening new backpack
+                                                    FoundBp = True
+                                                    Exit For
+                                                End If
+                                            Next
+                                            If Not FoundBp Then
+                                                'BP IS FULL AND NO OTHER BPS, GIVE SOME ERROR/NOTIFICATION/ETC..
+                                                Kernel.ConsoleWrite("WARNING: BP #" & ActualIndex2 & " IS FULL AND COULDN'T FIND ANOTHER BP INSIDE")
+                                                Continue For
+                                            Else 'Found new BP, Move items
+                                                System.Threading.Thread.Sleep(500) 'Wait for new BP to open
+                                                Dim BP As New Container
+                                                Dim Loc As ITibia.LocationDefinition
+                                                BP.JumpToContainer(ActualIndex2)
+                                                'Updating the InternalContainer structure
+                                                With Containers(ActualIndex2)
+                                                    .SetSize(BP.GetContainerSize)
+                                                    .Index = BP.GetContainerIndex
+                                                    .ItemCount = BP.GetItemCount
+                                                    .ID = BP.GetContainerID
+                                                    .Name = BP.GetName
+                                                    .Parent = BP.HasParent
+                                                    For AI As Integer = Container.GetItemCount() - 1 To 0 Step -1 'AI = ActualItem
+                                                        .SetItem(AI, BP.Items(AI))
+                                                    Next AI
+                                                End With
+                                                Loc.X = &HFFFF
+                                                Loc.Y = &H40 + BP.GetContainerIndex
+                                                Loc.Z = BP.GetContainerSize - 1
+                                                ServerPacket.MoveObject(Item, Loc, RemainingCount)
+                                                WaitMillis = 1000
+                                                Containers(ActualIndex).RemoveItem(Item.Location.Z)
+                                                Containers(ActualIndex2).AddItem(Item.ID, RemainingCount)
+                                                RemainingCount = 0
+                                            End If
                                         End If
                                     Next ActualIndex2
                                 End If
