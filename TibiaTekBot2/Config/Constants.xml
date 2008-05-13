@@ -256,5 +256,4 @@
   <Const Name="ptrShowFPS" Value="H611874" />
   <Const Name="ptrPrintTextFunc" Value="H4A3C00" />
   <Const Name="ptrNopFPS" Value="H44E68F" />
-  <Const Name="ScreenChatBarLoc" Value="HDD2EB8" /> <!-- ONLY FOR TIBIA 8.11 -->
 </Constants>

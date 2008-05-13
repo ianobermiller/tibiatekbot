@@ -237,6 +237,7 @@ Public Class frmMain
             RefreshDancerControls()
             RefreshAmmoMakerControls()
             RefreshAntiIdlerControls()
+            RefreshScreenInfo()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -341,6 +342,37 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+    Private Sub RefreshScreenInfo()
+        Try
+            If Kernel.HUDTimerObj.State = IThreadTimer.ThreadTimerState.Stopped And Kernel.EntityInfoTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then
+                ScreenInfoTrigger.Checked = False
+            Else
+                ScreenInfoTrigger.Checked = True
+            End If
+
+            If ScreenInfoTrigger.Checked Then
+                ShowHUD.Enabled = False
+                ShowCreatureInfo.Enabled = False
+                If Kernel.HUDTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                    ShowHUD.Checked = True
+                Else
+                    ShowHUD.Checked = False
+                End If
+
+                If Kernel.EntityInfoTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                    ShowCreatureInfo.Checked = True
+                Else
+                    ShowCreatureInfo.Checked = False
+                End If
+            Else
+                ShowHUD.Enabled = True
+                ShowCreatureInfo.Enabled = True
+            End If
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
     Private Sub RefreshTrainerControls()
         Try
             TrainerTrigger.Checked = Kernel.AutoTrainerTimerObj.State = IThreadTimer.ThreadTimerState.Running
@@ -412,6 +444,7 @@ Public Class frmMain
             MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
     Private Sub RefreshExpCheckerControls()
         Try
             If Kernel.ExpCheckerActivated Or Kernel.ShowCreaturesUntilNextLevel Then
@@ -2707,6 +2740,57 @@ Public Class frmMain
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End
+        End Try
+    End Sub
+
+    Private Sub ScreenInfoTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ScreenInfoTrigger.CheckedChanged
+        Try
+            If ScreenInfoTrigger.Checked Then
+                If Kernel.EntityInfoTimerObj.State = IThreadTimer.ThreadTimerState.Running Or Kernel.HUDTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                    Exit Sub
+                End If
+                If ShowHUD.Checked Then
+                    For Each HUDEntity As IKernel.HUDInfo In Kernel.HUDText
+                        HUDEntity.Enabled = False
+                    Next
+                    Kernel.HUDTimerObj.StartTimer()
+                Else
+                    Kernel.HUDTimerObj.StopTimer()
+                    Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+                    PPB.RemoveText(IKernel.HUDType.Haste)
+                    PPB.RemoveText(IKernel.HUDType.Invisible)
+                    PPB.RemoveText(IKernel.HUDType.MagicShield)
+                End If
+                If ShowCreatureInfo.Checked Then
+                    Kernel.EntityInfoDismissLookPacket = True
+                    Kernel.EntityInfoTimerObj.StartTimer()
+                Else
+                    Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+                    Kernel.EntityInfoTimerObj.StopTimer()
+                    For Each Entity As IKernel.EntityInfo In Kernel.EntityInfoList.Values
+                        PPB.RemoveCreatureText(Entity.EntityID)
+                    Next
+                    Kernel.EntityInfoList.Clear()
+                    Kernel.EntityInfoDismissLookPacket = False
+                End If
+            Else
+                'Disable Entity Info
+                Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
+                Kernel.EntityInfoTimerObj.StopTimer()
+                For Each Entity As IKernel.EntityInfo In Kernel.EntityInfoList.Values
+                    PPB.RemoveCreatureText(Entity.EntityID)
+                Next
+                Kernel.EntityInfoList.Clear()
+                Kernel.EntityInfoDismissLookPacket = False
+                'Disable HUD
+                Kernel.HUDTimerObj.StopTimer()
+                PPB.RemoveText(IKernel.HUDType.Haste)
+                PPB.RemoveText(IKernel.HUDType.Invisible)
+                PPB.RemoveText(IKernel.HUDType.MagicShield)
+            End If
+            RefreshScreenInfo()
+        Catch ex As Exception
+            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 #End Region

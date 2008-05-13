@@ -3476,12 +3476,12 @@ Public Class CommandParser
                     Kernel.EntityInfoTimerObj.StartTimer()
                     Kernel.ConsoleWrite("Showing Entity Information")
                 Case 0
-                    Kernel.EntityInfoDismissLookPacket = False
                     Kernel.EntityInfoTimerObj.StopTimer()
                     For Each Entity As IKernel.EntityInfo In Kernel.EntityInfoList.Values
                         PPB.RemoveCreatureText(Entity.EntityID)
                     Next
                     Kernel.EntityInfoList.Clear()
+                    Kernel.EntityInfoDismissLookPacket = False
                     Kernel.ConsoleWrite("Hiding Entity Information")
             End Select
         Catch ex As Exception

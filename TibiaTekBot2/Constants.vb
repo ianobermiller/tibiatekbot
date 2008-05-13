@@ -300,8 +300,6 @@ Public Module ConstantsModule
         Public ptrPrintTextFunc As Integer = &H4A3C00
         Public ptrNopFPS As Integer = &H44E68F
 
-        Public ScreenChatBarLoc As Integer = &HDD2EB8
-
         Public Sub New()
             LoadConstants()
         End Sub
@@ -811,8 +809,6 @@ Public Module ConstantsModule
                                                     ptrPrintTextFunc = CInt(Value)
                                                 Case "ptrNopFPS"
                                                     ptrNopFPS = CInt(Value)
-                                                Case "ScreenChatBarLoc"
-                                                    ScreenChatBarLoc = CInt(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then

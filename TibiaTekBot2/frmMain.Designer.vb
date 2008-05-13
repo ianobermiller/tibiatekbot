@@ -404,6 +404,10 @@ Partial Class frmMain
         Me.MiscReloadItemsButton = New System.Windows.Forms.Button
         Me.MiscReloadSpellsButton = New System.Windows.Forms.Button
         Me.TabPage4 = New System.Windows.Forms.TabPage
+        Me.InfoInScreenBox = New System.Windows.Forms.GroupBox
+        Me.ScreenInfoTrigger = New System.Windows.Forms.CheckBox
+        Me.ShowHUD = New System.Windows.Forms.CheckBox
+        Me.ShowCreatureInfo = New System.Windows.Forms.CheckBox
         Me.SendLocationBox = New System.Windows.Forms.GroupBox
         Me.SendLocationTo = New System.Windows.Forms.TextBox
         Me.SendLocationToWhomlbl = New System.Windows.Forms.Label
@@ -600,6 +604,7 @@ Partial Class frmMain
         Me.MCPatcherBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TabPage4.SuspendLayout()
+        Me.InfoInScreenBox.SuspendLayout()
         Me.SendLocationBox.SuspendLayout()
         Me.OpenWebsiteBox.SuspendLayout()
         Me.NameSpyBox.SuspendLayout()
@@ -2862,6 +2867,7 @@ Partial Class frmMain
         '
         'TabPage4
         '
+        Me.TabPage4.Controls.Add(Me.InfoInScreenBox)
         Me.TabPage4.Controls.Add(Me.SendLocationBox)
         Me.TabPage4.Controls.Add(Me.OpenWebsiteBox)
         Me.TabPage4.Controls.Add(Me.NameSpyBox)
@@ -2870,6 +2876,33 @@ Partial Class frmMain
         resources.ApplyResources(Me.TabPage4, "TabPage4")
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'InfoInScreenBox
+        '
+        Me.InfoInScreenBox.Controls.Add(Me.ScreenInfoTrigger)
+        Me.InfoInScreenBox.Controls.Add(Me.ShowHUD)
+        Me.InfoInScreenBox.Controls.Add(Me.ShowCreatureInfo)
+        resources.ApplyResources(Me.InfoInScreenBox, "InfoInScreenBox")
+        Me.InfoInScreenBox.Name = "InfoInScreenBox"
+        Me.InfoInScreenBox.TabStop = False
+        '
+        'ScreenInfoTrigger
+        '
+        resources.ApplyResources(Me.ScreenInfoTrigger, "ScreenInfoTrigger")
+        Me.ScreenInfoTrigger.Name = "ScreenInfoTrigger"
+        Me.ScreenInfoTrigger.UseVisualStyleBackColor = True
+        '
+        'ShowHUD
+        '
+        resources.ApplyResources(Me.ShowHUD, "ShowHUD")
+        Me.ShowHUD.Name = "ShowHUD"
+        Me.ShowHUD.UseVisualStyleBackColor = True
+        '
+        'ShowCreatureInfo
+        '
+        resources.ApplyResources(Me.ShowCreatureInfo, "ShowCreatureInfo")
+        Me.ShowCreatureInfo.Name = "ShowCreatureInfo"
+        Me.ShowCreatureInfo.UseVisualStyleBackColor = True
         '
         'SendLocationBox
         '
@@ -3770,6 +3803,8 @@ Partial Class frmMain
         Me.MCPatcherBox.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.TabPage4.ResumeLayout(False)
+        Me.InfoInScreenBox.ResumeLayout(False)
+        Me.InfoInScreenBox.PerformLayout()
         Me.SendLocationBox.ResumeLayout(False)
         Me.SendLocationBox.PerformLayout()
         Me.OpenWebsiteBox.ResumeLayout(False)
@@ -4304,4 +4339,8 @@ Partial Class frmMain
     Friend WithEvents ILPlayer3Namebox As System.Windows.Forms.TextBox
     Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
     Friend WithEvents TestToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents InfoInScreenBox As System.Windows.Forms.GroupBox
+    Friend WithEvents ScreenInfoTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents ShowHUD As System.Windows.Forms.CheckBox
+    Friend WithEvents ShowCreatureInfo As System.Windows.Forms.CheckBox
 End Class

@@ -4140,11 +4140,6 @@ ContinueAttack:
                         If HUDItem.EndTime > Date.Now Then
                             RemainingTime = HUDItem.EndTime - Date.Now
                             Dim TextLocation As New ITibia.LocationDefinition(20, YPlace + Offset * SpaceBetweenText, 0)
-                            'TO KEEP TTB WORKING CORRECTLY WITH 8.1 CLIENT
-                            If Kernel.CurrentTibiaVersion = "8.11" Then
-                                Kernel.Client.ReadMemory(Consts.ScreenChatBarLoc, BottomLoc, 4)
-                                TextLocation.Y = BottomLoc - YPlace - Offset * SpaceBetweenText
-                            End If
                             Dim Colors As New IKernel.ColorDefinition
                             If RemainingTime.TotalSeconds > 10 Then
                                 Colors.Red = 0
