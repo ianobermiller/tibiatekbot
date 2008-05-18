@@ -38,10 +38,21 @@ Public Class Packet
     Public Shadows Function ToString() As String Implements IPacket.ToString
         Try
             Dim Result As String = String.Empty
-            For Each B As Byte In GetBytes
+            Dim Bs() As Byte = GetBytes()
+            For Each B As Byte In Bs
                 Result &= Hex(B).PadLeft(2, "0"c)
             Next
             Return Result
+            'Return System.Convert.ToBase64String(GetBytes)
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return String.Empty
+        End Try
+    End Function
+
+    Public Shadows Function ToBase64String() As String Implements IPacket.ToBase64String
+        Try
+            Return System.Convert.ToBase64String(GetBytes)
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return String.Empty

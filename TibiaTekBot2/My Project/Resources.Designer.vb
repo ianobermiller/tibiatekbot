@@ -67,6 +67,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property AutoResponder() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("AutoResponder", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
         Friend ReadOnly Property Cavebot() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("Cavebot", resourceCulture)
@@ -221,9 +228,51 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property location_pointer_blue() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("location_pointer_blue", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property location_pointer_bw() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("location_pointer_bw", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property location_pointer_green() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("location_pointer_green", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property location_pointer_red() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("location_pointer_red", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property location_pointer_yellow() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("location_pointer_yellow", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property mailbox() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("mailbox", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property map_big() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("map_big", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -406,6 +455,20 @@ Namespace My.Resources
         Friend ReadOnly Property ttb_splash6() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("ttb_splash6", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property ttb_splash7() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ttb_splash7", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property ttb_splash8() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ttb_splash8", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

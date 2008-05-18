@@ -4,13 +4,17 @@ Imports System, System.Net, System.Net.Sockets, System.IO, System.Math, _
 Public Class IrcClient
     Implements IIrcClient
 
+    Public Event ChannelMessageHidden(ByVal Nick As String, ByVal Message As String, ByVal Channel As String) Implements Scripting.IIrcClient.ChannelMessageHidden
+    Public Event ChannelSelfKickHidden(ByVal NickKicker As String, ByVal KickMessage As String, ByVal Channel As String) Implements Scripting.IIrcClient.ChannelSelfKickHidden
     Public Event ChannelJoin(ByVal Nick As String, ByVal Channel As String) Implements IIrcClient.ChannelJoin
+    Public Event ChannelSelfJoinHidden(ByVal Channel As String) Implements IIrcClient.ChannelSelfJoinHidden
     Public Event ChannelSelfJoin(ByVal Channel As String) Implements IIrcClient.ChannelSelfJoin
     Public Event ChannelKick(ByVal NickKicker As String, ByVal NickKicked As String, ByVal KickMessage As String, ByVal Channel As String) Implements IIrcClient.ChannelKick
     Public Event ChannelSelfKick(ByVal NickKicker As String, ByVal KickMessage As String, ByVal Channel As String) Implements IIrcClient.ChannelSelfKick
     Public Event NickChange(ByVal UserOldNick As String, ByVal UserNewNick As String) Implements IIrcClient.NickChange
     Public Event ChannelPart(ByVal Nick As String, ByVal Channel As String) Implements IIrcClient.ChannelPart
     Public Event ChannelSelfPart(ByVal Channel As String) Implements IIrcClient.ChannelSelfPart
+    Public Event ChannelSelfPartHidden(ByVal Channel As String) Implements IIrcClient.ChannelSelfPartHidden
     Public Event QuitIrc(ByVal Nick As String, ByVal Message As String) Implements IIrcClient.QuitIrc
     Public Event RawMessage(ByVal RawMessage As String) Implements IIrcClient.RawMessage
     Public Event Connecting() Implements IIrcClient.Connecting
@@ -34,6 +38,7 @@ Public Class IrcClient
 
     Public Channels As New SortedList(Of String, IIrcClient.ChannelInformation)
     Public HiddenChannels As New SortedList(Of String, IIrcClient.ChannelInformation)
+    Public HiddenChannelNames As New List(Of String)
 
     Const NickMaxLen As Integer = 15
 
@@ -63,7 +68,7 @@ Public Class IrcClient
             End If
             While Not MainThread Is Nothing : End While
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -74,7 +79,7 @@ Public Class IrcClient
             Me.Server = Server
             Me.Port = Port
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -87,7 +92,7 @@ Public Class IrcClient
             Try
                 Return (Not Client Is Nothing AndAlso Not Client.Client Is Nothing AndAlso Client.Client.Connected)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Get
@@ -97,7 +102,7 @@ Public Class IrcClient
             Try
                 Return Me._Password
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
             Return String.Empty
         End Get
@@ -110,7 +115,7 @@ Public Class IrcClient
             Try
                 Return Me._User
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
             Return String.Empty
         End Get
@@ -123,7 +128,7 @@ Public Class IrcClient
             Try
                 Return Me._IsInvisible
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
             Return String.Empty
         End Get
@@ -136,7 +141,7 @@ Public Class IrcClient
             Try
                 Return Me._RealName
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
             Return String.Empty
         End Get
@@ -159,7 +164,7 @@ Public Class IrcClient
                     Return Me._Port
                 End If
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Get
@@ -172,7 +177,7 @@ Public Class IrcClient
             Try
                 Return Me._Nick
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
             Return String.Empty
         End Get
@@ -180,7 +185,7 @@ Public Class IrcClient
             Try
                 Me._Nick = FormatNick(value)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Set
@@ -220,7 +225,7 @@ Public Class IrcClient
             RaiseEvent Connected()
             Return True
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             Return False
         End Try
     End Function
@@ -249,7 +254,7 @@ Public Class IrcClient
                 Next
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Function
 
@@ -259,7 +264,7 @@ Public Class IrcClient
             Writer.WriteLine(Command)
             Writer.Flush()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
     Public Sub DoMainThread() Implements IIrcClient.DoMainThread
@@ -268,7 +273,7 @@ Public Class IrcClient
             MainThread = New Thread(New ThreadStart(AddressOf Me.DoMainLoop))
             MainThread.Start()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -281,21 +286,21 @@ Public Class IrcClient
             Next
             Return False
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             Return False
         End Try
     End Function
 
     Public Function IsHiddenChannelOpened(ByVal Channel As String) As Boolean Implements Scripting.IIrcClient.IsHiddenChannelOpened
         Try
-            For Each ChannelKVP As System.Collections.Generic.KeyValuePair(Of String, IIrcClient.ChannelInformation) In HiddenChannels
-                If String.Equals(Channel, ChannelKVP.Key, StringComparison.CurrentCultureIgnoreCase) AndAlso ChannelKVP.Value.ID > 0 Then
+            For Each _Channel As String In HiddenChannels.Keys
+                If Channel.Equals(_Channel, StringComparison.CurrentCultureIgnoreCase) Then
                     Return True
                 End If
             Next
             Return False
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             Return False
         End Try
     End Function
@@ -328,7 +333,7 @@ Public Class IrcClient
             Next
             WriteLine(String.Format("NICK {0}", NewNick))
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
     Public Sub Identify()
@@ -337,7 +342,7 @@ Public Class IrcClient
             WriteLine(String.Format("USER {0} {1} * :{2}", Me._User, IIf(Me._IsInvisible, "8", "0"), Me.RealName))
             ChangeNick(Me._Nick)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
     Public Sub Part(ByVal Channel As String, Optional ByVal Reason As String = "Good Bye!") Implements Scripting.IIrcClient.Part
@@ -347,7 +352,7 @@ Public Class IrcClient
                 WriteLine(String.Format("PART {0}", Channel))
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
     Public Sub SendNotice(ByVal Destinatary As String, ByVal Message As String) Implements Scripting.IIrcClient.SendNotice
@@ -355,7 +360,7 @@ Public Class IrcClient
             If Not WasConnected Then Exit Sub
             WriteLine(String.Format("NOTICE {0} :{1}", Destinatary, Message))
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -364,7 +369,7 @@ Public Class IrcClient
             If Not WasConnected Then Exit Sub
             WriteLine(String.Format("PRIVMSG {0} :{1}", Destinatary, Message))
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -376,21 +381,32 @@ Public Class IrcClient
                 Join(Channel)
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
-    Public Sub Join(ByVal Channel As String) Implements Scripting.IIrcClient.Join
+    Public Sub Join(ByVal Channel As String, Optional ByVal Password As String = "") Implements Scripting.IIrcClient.Join
         Try
             If Not WasConnected Then Exit Sub
             If Not String.IsNullOrEmpty(Channel) AndAlso Not Channels.ContainsKey(Channel) Then
                 WriteLine(String.Format("JOIN {0}", Channel))
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
+    Public Sub JoinHidden(ByVal Channel As String, Optional ByVal Password As String = "") Implements Scripting.IIrcClient.JoinHidden
+        Try
+            If Not WasConnected Then Exit Sub
+            If Not String.IsNullOrEmpty(Channel) AndAlso Not HiddenChannels.ContainsKey(Channel) Then
+                HiddenChannelNames.Add(Channel.ToLower)
+                WriteLine(String.Format("JOIN {0} {1}", Channel, Password))
+            End If
+        Catch Ex As Exception
+            ShowError(Ex)
+        End Try
+    End Sub
 
 #End Region
 
@@ -424,7 +440,7 @@ Public Class IrcClient
             Next
             Return System.Text.ASCIIEncoding.ASCII.GetString(ResultByteArray)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
         Return String.Empty
     End Function
@@ -433,7 +449,7 @@ Public Class IrcClient
             Return (Asc(C) >= &H5B AndAlso Asc(C) <= &H60) _
                  OrElse (Asc(C) >= &H7B AndAlso Asc(C) <= &H7D)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
         Return False
     End Function
@@ -447,7 +463,7 @@ Public Class IrcClient
             If Not Me.MainThread Is Nothing Then Me.MainThread.Abort()
             MyBase.Finalize()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 #End Region
@@ -485,8 +501,8 @@ Public Class IrcClient
                                 Case "332" ' Topic
                                     Temp = Command(1).Split(New Char() {" "c}, 3)
                                     Dim Channel As String = Temp(1)
-
                                     If Channels.ContainsKey(Channel) Then
+
                                         Dim CI As IIrcClient.ChannelInformation = Channels(Channel)
                                         CI.Topic = Temp(2).Substring(1)
                                         Channels(Channel) = CI
@@ -562,7 +578,9 @@ Public Class IrcClient
                                                 If Match2.Success Then
                                                     Dim Destinatary As String = Match2.Groups(1).Value
                                                     Dim Msg As String = Match2.Groups(2).Value
-                                                    If Channels.ContainsKey(Destinatary) Then
+                                                    If HiddenChannels.ContainsKey(Destinatary) Then
+                                                        RaiseEvent PacketReceived(From, Destinatary, Msg)
+                                                    ElseIf Channels.ContainsKey(Destinatary) Then
                                                         If Msg.StartsWith(Chr(1) & "ACTION") Then
                                                             RaiseEvent ChannelAction(From, Msg.Substring(8, Msg.Length - 9), Destinatary)
                                                         Else
@@ -587,34 +605,54 @@ Public Class IrcClient
                                                 Match2 = Regex.Match(Arguments, ":?(.+)")
                                                 If Match2.Success Then
                                                     Dim Channel As String = Match2.Groups(1).Value
-                                                    If String.Equals(From, Me.Nick) Then
-                                                        Dim CI As New IIrcClient.ChannelInformation
-                                                        CI.Name = Channel
-                                                        CI.ID = 0
-                                                        CI.Users = New SortedList(Of String, IIrcClient.UserInformation)
-                                                        If Channels.ContainsKey(Channel) Then
-                                                            Channels.Remove(Channel)
+                                                    If HiddenChannelNames.Contains(Channel.ToLower) Then
+                                                        If String.Equals(From, Me.Nick) Then
+                                                            Dim CI As New IIrcClient.ChannelInformation
+                                                            CI.Name = Channel
+                                                            CI.ID = 0
+                                                            CI.Users = New SortedList(Of String, IIrcClient.UserInformation)
+                                                            If HiddenChannels.ContainsKey(Channel) Then
+                                                                HiddenChannels.Remove(Channel)
+                                                            End If
+                                                            HiddenChannels.Add(Channel, CI)
+                                                            RaiseEvent ChannelSelfJoinHidden(Channel)
                                                         End If
-                                                        Channels.Add(Channel, CI)
-                                                        RaiseEvent ChannelSelfJoin(Channel)
                                                     Else
-                                                        If Channels.ContainsKey(Channel) Then
-                                                            If Not Channels(Channel).Users.ContainsKey(From) Then
-                                                                Channels(Channel).Users.Add(From, New IIrcClient.UserInformation())
-                                                                RaiseEvent ChannelJoin(From, Channel)
+                                                        If String.Equals(From, Me.Nick) Then
+                                                            Dim CI As New IIrcClient.ChannelInformation
+                                                            CI.Name = Channel
+                                                            CI.ID = 0
+                                                            CI.Users = New SortedList(Of String, IIrcClient.UserInformation)
+                                                            If Channels.ContainsKey(Channel) Then
+                                                                Channels.Remove(Channel)
+                                                            End If
+                                                            Channels.Add(Channel, CI)
+                                                            RaiseEvent ChannelSelfJoin(Channel)
+                                                        Else
+                                                            If Channels.ContainsKey(Channel) Then
+                                                                If Not Channels(Channel).Users.ContainsKey(From) Then
+                                                                    Channels(Channel).Users.Add(From, New IIrcClient.UserInformation())
+                                                                    RaiseEvent ChannelJoin(From, Channel)
+                                                                End If
                                                             End If
                                                         End If
                                                     End If
                                                 End If
                                             Case "PART"
-                                                If String.Equals(From, Me.Nick) AndAlso Channels.ContainsKey(Arguments) Then
-                                                    Channels.Remove(Arguments)
-                                                    RaiseEvent ChannelSelfPart(Arguments)
-                                                ElseIf Channels.ContainsKey(Arguments) Then
-                                                    If Channels(Arguments).Users.ContainsKey(From) Then
-                                                        Channels(Arguments).Users.Remove(From)
-                                                        RaiseEvent ChannelPart(From, Arguments)
+                                                If Channels.ContainsKey(Arguments) Then
+                                                    If String.Equals(From, Me.Nick) Then
+                                                        Channels.Remove(Arguments)
+                                                        RaiseEvent ChannelSelfPart(Arguments)
+                                                    Else
+                                                        If Channels(Arguments).Users.ContainsKey(From) Then
+                                                            Channels(Arguments).Users.Remove(From)
+                                                            RaiseEvent ChannelPart(From, Arguments)
+                                                        End If
                                                     End If
+                                                ElseIf HiddenChannels.ContainsKey(Arguments) AndAlso From.Equals(Me.Nick) Then
+                                                    HiddenChannels.Remove(Arguments)
+                                                    HiddenChannelNames.Remove(Arguments.ToLower)
+                                                    RaiseEvent ChannelSelfPartHidden(Arguments)
                                                 End If
                                             Case "NICK"
                                                 Dim NewNick As String = Arguments.Substring(1)
@@ -685,6 +723,12 @@ Public Class IrcClient
                                                                 Channels(Channel).Users.Remove(Nick)
                                                             End If
                                                         End If
+                                                    ElseIf HiddenChannels.ContainsKey(Channel) Then
+                                                        If Nick = Me.Nick Then
+                                                            RaiseEvent ChannelSelfKickHidden(From, KickMessage, Channel)
+                                                            HiddenChannels.Remove(Channel)
+                                                            HiddenChannelNames.Remove(Channel)
+                                                        End If
                                                     End If
                                                 End If
                                             Case "QUIT"
@@ -746,11 +790,14 @@ Public Class IrcClient
             Catch Ex As ThreadAbortException
                 'MsgBox("threadabortexception")
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         Loop While IsConnected
         Disconnect()
     End Sub
+
+
+
 
 
 End Class

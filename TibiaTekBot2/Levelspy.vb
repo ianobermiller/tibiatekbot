@@ -40,7 +40,7 @@ Module LevelspyModule
                     End If
 
                 Catch ex As Exception
-                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(ex)
                 End Try
             End Get
         End Property
@@ -56,7 +56,7 @@ Module LevelspyModule
                 End If
                 Kernel.Client.ReadMemory(LevelSpyPointer, CurrentLevel, 4)
             Catch ex As Exception
-                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(ex)
             End Try
         End Sub
 
@@ -72,7 +72,7 @@ Module LevelspyModule
                     Return False
                 End If
             Catch ex As Exception
-                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(ex)
             End Try
         End Function
 
@@ -88,7 +88,7 @@ Module LevelspyModule
                     Return False
                 End If
             Catch ex As Exception
-                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(ex)
             End Try
         End Function
 
@@ -101,7 +101,7 @@ Module LevelspyModule
                 CurrentLevel += 1
                 Return True
             Catch ex As Exception
-                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(ex)
             End Try
         End Function
 
@@ -114,7 +114,7 @@ Module LevelspyModule
                 CurrentLevel -= 1
                 Return True
             Catch ex As Exception
-                MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(ex)
             End Try
         End Function
 

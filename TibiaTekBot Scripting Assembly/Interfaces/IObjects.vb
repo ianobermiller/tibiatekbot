@@ -57,19 +57,23 @@ Public Interface IObjects
     End Enum
 
     Enum ObjectLensHelp As Integer
-        Ladder = &H44C
-        Sewer = &H44D
-        Door = &H450
-        LockedDoor = &H451
-        RopeSpot = &H44E
-        Switch = &H44F
-        Stairs = &H452
-        Mailbox = &H453
-        Depot = &H454
+        BookOrScroll = &H456
+        Sign = &H457
+        StonePile = &H456
         Trash = &H455
-        Hole = &H456
-        HasSpecialDescription = &H457
-        [ReadOnly] = &H458
+        Depot = &H454
+        Mailbox = &H453
+        Stairs = &H452
+        SpecialDoor = &H451
+        Door = &H450
+        Lever = &H44F
+        DungeonFloor = &H44E
+        SewerGrates = &H44D
+        Ladder = &H44C
+        Container = &H44B
+
+
+
     End Enum
 
     <Flags()> Enum ObjectKind

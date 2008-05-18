@@ -32,6 +32,7 @@ Public Interface IPacket
     Sub AddDouble(ByVal Value As Double)
     Sub AddLocation(ByVal Location As ITibia.LocationDefinition)
     Function ToString() As String
+    Function ToBase64String() As String
 #End Region
 
 End Interface
