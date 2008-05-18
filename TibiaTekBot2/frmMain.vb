@@ -2490,6 +2490,10 @@ Public Class frmMain
                         Kernel.PotionID = Kernel.Client.Objects.ID("Strong Health Potion")
                     Case "Great Health Potion"
                         Kernel.PotionID = Kernel.Client.Objects.ID("Great Health Potion")
+                    Case "Ultimate Health Potion"
+                        Kernel.PotionID = Kernel.Client.Objects.ID("Ultimate Health Potion")
+                    Case "Spirit Potion"
+                        Kernel.PotionID = Kernel.Client.Objects.ID("Great Spirit Potion")
                     Case Else
                         MessageBox.Show("You must select the Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()
@@ -2618,6 +2622,8 @@ Public Class frmMain
                         Kernel.ManaPotionID = Kernel.Client.Objects.ID("Strong Mana Potion")
                     Case "Great Mana Potion"
                         Kernel.ManaPotionID = Kernel.Client.Objects.ID("Great Mana Potion")
+                    Case "Spirit Potion"
+                        Kernel.ManaPotionID = Kernel.Client.Objects.ID("Great Spirit Potion")
                     Case Else
                         MessageBox.Show("You must select the Mana Potion.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         RefreshHealerControls()

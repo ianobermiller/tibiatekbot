@@ -358,6 +358,8 @@
 	<Object Name="Health Potion" Kind="Tool" ID="H10A"/>
 	<Object Name="Strong Health Potion" Kind="Tool" ID="HEC"/>
 	<Object Name="Great Health Potion" Kind="Tool" ID="HEF"/>
+	<Object Name="Ultimate Health Potion" Kind="Tool" ID="H1DDB" />
+	<Object Name="Great Spirit Potion" Kind="Tool" ID="H1DDA" />
 	<Object Name="Mana Potion" Kind="Tool" ID="H10C"/>
 	<Object Name="Strong Mana Potion" Kind="Tool" ID="HED"/>
 	<Object Name="Great Mana Potion" Kind="Tool" ID="HEE"/>

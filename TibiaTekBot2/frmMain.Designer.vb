@@ -2676,7 +2676,7 @@ Partial Class frmMain
         '
         Me.HealPotionName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.HealPotionName.FormattingEnabled = True
-        Me.HealPotionName.Items.AddRange(New Object() {resources.GetString("HealPotionName.Items"), resources.GetString("HealPotionName.Items1"), resources.GetString("HealPotionName.Items2")})
+        Me.HealPotionName.Items.AddRange(New Object() {resources.GetString("HealPotionName.Items"), resources.GetString("HealPotionName.Items1"), resources.GetString("HealPotionName.Items2"), resources.GetString("HealPotionName.Items3"), resources.GetString("HealPotionName.Items4")})
         resources.ApplyResources(Me.HealPotionName, "HealPotionName")
         Me.HealPotionName.Name = "HealPotionName"
         '
@@ -2721,7 +2721,7 @@ Partial Class frmMain
         '
         Me.ManaPotionName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ManaPotionName.FormattingEnabled = True
-        Me.ManaPotionName.Items.AddRange(New Object() {resources.GetString("ManaPotionName.Items"), resources.GetString("ManaPotionName.Items1"), resources.GetString("ManaPotionName.Items2")})
+        Me.ManaPotionName.Items.AddRange(New Object() {resources.GetString("ManaPotionName.Items"), resources.GetString("ManaPotionName.Items1"), resources.GetString("ManaPotionName.Items2"), resources.GetString("ManaPotionName.Items3")})
         resources.ApplyResources(Me.ManaPotionName, "ManaPotionName")
         Me.ManaPotionName.Name = "ManaPotionName"
         '
