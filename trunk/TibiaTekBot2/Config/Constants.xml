@@ -17,8 +17,8 @@
     or write to the Free Software Foundation, 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.-->
 <Constants>
-  <Const Name="IRCConnectOnStartUp" Value="False" />
-  <Const Name="IRCJoinAfterConnected" Value="False" />
+  <Const Name="IRCConnectOnStartUp" Value="True" />
+  <Const Name="IRCJoinAfterConnected" Value="True" />
   <Const Name="IRCJoinChannels" Value="#tibiatekbot" />
   <Const Name="IRCNickname" Value="" />
   <Const Name="IRCPassword" Value="" />

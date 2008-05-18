@@ -209,9 +209,6 @@ Partial Class frmMain
         Me.PatchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutUsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.WebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.VersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.DevelopmentWebsiteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.LicenseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TestToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -248,7 +245,7 @@ Partial Class frmMain
         Me.ConfigLoad = New System.Windows.Forms.Button
         Me.AntiLogoutBox = New System.Windows.Forms.GroupBox
         Me.AntiIdlerTrigger = New System.Windows.Forms.CheckBox
-        Me.GeneralTab2 = New System.Windows.Forms.TabPage
+        Me.GeneralPart2 = New System.Windows.Forms.TabPage
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
         Me.FpsChangerTrigger = New System.Windows.Forms.CheckBox
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
@@ -281,6 +278,13 @@ Partial Class frmMain
         Me.AutoLooterMinCap = New System.Windows.Forms.NumericUpDown
         Me.AutoLooterConfigure = New System.Windows.Forms.Button
         Me.AutoLooterTrigger = New System.Windows.Forms.CheckBox
+        Me.GeneralTab3 = New System.Windows.Forms.TabPage
+        Me.Label33 = New System.Windows.Forms.Label
+        Me.GroupBox18 = New System.Windows.Forms.GroupBox
+        Me.Label37 = New System.Windows.Forms.Label
+        Me.IRCStatusLabel = New System.Windows.Forms.Label
+        Me.Label36 = New System.Windows.Forms.Label
+        Me.UpLinkConnectionsList = New System.Windows.Forms.ListBox
         Me.TabPage2 = New System.Windows.Forms.TabPage
         Me.AFKTabControl = New System.Windows.Forms.TabControl
         Me.TabPage14 = New System.Windows.Forms.TabPage
@@ -405,6 +409,7 @@ Partial Class frmMain
         Me.MiscReloadSpellsButton = New System.Windows.Forms.Button
         Me.TabPage4 = New System.Windows.Forms.TabPage
         Me.InfoInScreenBox = New System.Windows.Forms.GroupBox
+        Me.ScreenInfoHelp = New System.Windows.Forms.Button
         Me.ScreenInfoTrigger = New System.Windows.Forms.CheckBox
         Me.ShowHUD = New System.Windows.Forms.CheckBox
         Me.ShowCreatureInfo = New System.Windows.Forms.CheckBox
@@ -464,23 +469,19 @@ Partial Class frmMain
         Me.FakeTitleTrigger = New System.Windows.Forms.CheckBox
         Me.FakeTitle = New System.Windows.Forms.TextBox
         Me.FakeTitlelbl = New System.Windows.Forms.Label
+        Me.WarPage = New System.Windows.Forms.TabPage
+        Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage8 = New System.Windows.Forms.TabPage
         Me.ILSettingsBox = New System.Windows.Forms.GroupBox
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox
-        Me.frmILMapShowButton = New System.Windows.Forms.Button
-        Me.ILPlayer9Namebox = New System.Windows.Forms.TextBox
-        Me.ILPlayer1Namebox = New System.Windows.Forms.TextBox
-        Me.ILActivateButton = New System.Windows.Forms.Button
-        Me.ILPlayer8Namebox = New System.Windows.Forms.TextBox
-        Me.ILPlayer7Namebox = New System.Windows.Forms.TextBox
-        Me.ILChannelTextbox = New System.Windows.Forms.TextBox
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.ILPlayer6Namebox = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.ILPlayer5Namebox = New System.Windows.Forms.TextBox
-        Me.ILPlayer4Namebox = New System.Windows.Forms.TextBox
-        Me.ILPlayer2Namebox = New System.Windows.Forms.TextBox
-        Me.ILPlayer3Namebox = New System.Windows.Forms.TextBox
+        Me.GPSChannelTextbox = New System.Windows.Forms.ComboBox
+        Me.GPSBroadcastStats = New System.Windows.Forms.CheckBox
+        Me.GPSChannelPassword = New System.Windows.Forms.TextBox
+        Me.Label34 = New System.Windows.Forms.Label
+        Me.GPSTrigger = New System.Windows.Forms.CheckBox
+        Me.GPSHelp = New System.Windows.Forms.Button
+        Me.GPSShowMapButton = New System.Windows.Forms.Button
+        Me.GPSUpLink = New System.Windows.Forms.Label
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.GroupBox11 = New System.Windows.Forms.GroupBox
         Me.Button1 = New System.Windows.Forms.Button
         Me.CheckBox1 = New System.Windows.Forms.CheckBox
@@ -544,7 +545,7 @@ Partial Class frmMain
         CType(Me.AmmunitionRestackerMinAmmo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ConfigManagerbox.SuspendLayout()
         Me.AntiLogoutBox.SuspendLayout()
-        Me.GeneralTab2.SuspendLayout()
+        Me.GeneralPart2.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.FpsActive, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -556,6 +557,8 @@ Partial Class frmMain
         Me.AutoLooterBox.SuspendLayout()
         CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AutoLooterMinCap, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GeneralTab3.SuspendLayout()
+        Me.GroupBox18.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.AFKTabControl.SuspendLayout()
         Me.TabPage14.SuspendLayout()
@@ -619,6 +622,8 @@ Partial Class frmMain
         Me.TabPage6.SuspendLayout()
         Me.ChameleonBox.SuspendLayout()
         Me.FakeTitleBox.SuspendLayout()
+        Me.WarPage.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
         Me.TabPage8.SuspendLayout()
         Me.ILSettingsBox.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
@@ -696,8 +701,8 @@ Partial Class frmMain
         '
         'AutoResponderToolStripMenuItem
         '
-        Me.AutoResponderToolStripMenuItem.Name = "AutoResponderToolStripMenuItem"
         resources.ApplyResources(Me.AutoResponderToolStripMenuItem, "AutoResponderToolStripMenuItem")
+        Me.AutoResponderToolStripMenuItem.Name = "AutoResponderToolStripMenuItem"
         '
         'ToolStripSeparator5
         '
@@ -1532,7 +1537,7 @@ Partial Class frmMain
         '
         'AboutToolStripMenuItem
         '
-        Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutUsToolStripMenuItem, Me.WebsiteToolStripMenuItem, Me.VersionToolStripMenuItem, Me.DevelopmentWebsiteToolStripMenuItem, Me.LicenseToolStripMenuItem})
+        Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutUsToolStripMenuItem, Me.LicenseToolStripMenuItem})
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         resources.ApplyResources(Me.AboutToolStripMenuItem, "AboutToolStripMenuItem")
         '
@@ -1540,21 +1545,6 @@ Partial Class frmMain
         '
         Me.AboutUsToolStripMenuItem.Name = "AboutUsToolStripMenuItem"
         resources.ApplyResources(Me.AboutUsToolStripMenuItem, "AboutUsToolStripMenuItem")
-        '
-        'WebsiteToolStripMenuItem
-        '
-        Me.WebsiteToolStripMenuItem.Name = "WebsiteToolStripMenuItem"
-        resources.ApplyResources(Me.WebsiteToolStripMenuItem, "WebsiteToolStripMenuItem")
-        '
-        'VersionToolStripMenuItem
-        '
-        Me.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem"
-        resources.ApplyResources(Me.VersionToolStripMenuItem, "VersionToolStripMenuItem")
-        '
-        'DevelopmentWebsiteToolStripMenuItem
-        '
-        Me.DevelopmentWebsiteToolStripMenuItem.Name = "DevelopmentWebsiteToolStripMenuItem"
-        resources.ApplyResources(Me.DevelopmentWebsiteToolStripMenuItem, "DevelopmentWebsiteToolStripMenuItem")
         '
         'LicenseToolStripMenuItem
         '
@@ -1582,7 +1572,7 @@ Partial Class frmMain
         Me.MainTabControl.Controls.Add(Me.TabPage4)
         Me.MainTabControl.Controls.Add(Me.TabPage5)
         Me.MainTabControl.Controls.Add(Me.TabPage6)
-        Me.MainTabControl.Controls.Add(Me.TabPage8)
+        Me.MainTabControl.Controls.Add(Me.WarPage)
         Me.MainTabControl.Name = "MainTabControl"
         Me.MainTabControl.SelectedIndex = 0
         '
@@ -1616,7 +1606,8 @@ Partial Class frmMain
         'GeneralTabControl
         '
         Me.GeneralTabControl.Controls.Add(Me.GeneralTab1)
-        Me.GeneralTabControl.Controls.Add(Me.GeneralTab2)
+        Me.GeneralTabControl.Controls.Add(Me.GeneralPart2)
+        Me.GeneralTabControl.Controls.Add(Me.GeneralTab3)
         resources.ApplyResources(Me.GeneralTabControl, "GeneralTabControl")
         Me.GeneralTabControl.Name = "GeneralTabControl"
         Me.GeneralTabControl.SelectedIndex = 0
@@ -1802,15 +1793,15 @@ Partial Class frmMain
         Me.AntiIdlerTrigger.Name = "AntiIdlerTrigger"
         Me.AntiIdlerTrigger.UseVisualStyleBackColor = True
         '
-        'GeneralTab2
+        'GeneralPart2
         '
-        Me.GeneralTab2.Controls.Add(Me.GroupBox9)
-        Me.GeneralTab2.Controls.Add(Me.DancerBox)
-        Me.GeneralTab2.Controls.Add(Me.ChangersBox)
-        Me.GeneralTab2.Controls.Add(Me.AutoLooterBox)
-        resources.ApplyResources(Me.GeneralTab2, "GeneralTab2")
-        Me.GeneralTab2.Name = "GeneralTab2"
-        Me.GeneralTab2.UseVisualStyleBackColor = True
+        Me.GeneralPart2.Controls.Add(Me.GroupBox9)
+        Me.GeneralPart2.Controls.Add(Me.DancerBox)
+        Me.GeneralPart2.Controls.Add(Me.ChangersBox)
+        Me.GeneralPart2.Controls.Add(Me.AutoLooterBox)
+        resources.ApplyResources(Me.GeneralPart2, "GeneralPart2")
+        Me.GeneralPart2.Name = "GeneralPart2"
+        Me.GeneralPart2.UseVisualStyleBackColor = True
         '
         'GroupBox9
         '
@@ -2019,6 +2010,51 @@ Partial Class frmMain
         resources.ApplyResources(Me.AutoLooterTrigger, "AutoLooterTrigger")
         Me.AutoLooterTrigger.Name = "AutoLooterTrigger"
         Me.AutoLooterTrigger.UseVisualStyleBackColor = True
+        '
+        'GeneralTab3
+        '
+        Me.GeneralTab3.Controls.Add(Me.Label33)
+        Me.GeneralTab3.Controls.Add(Me.GroupBox18)
+        resources.ApplyResources(Me.GeneralTab3, "GeneralTab3")
+        Me.GeneralTab3.Name = "GeneralTab3"
+        Me.GeneralTab3.UseVisualStyleBackColor = True
+        '
+        'Label33
+        '
+        resources.ApplyResources(Me.Label33, "Label33")
+        Me.Label33.Name = "Label33"
+        '
+        'GroupBox18
+        '
+        Me.GroupBox18.Controls.Add(Me.Label37)
+        Me.GroupBox18.Controls.Add(Me.IRCStatusLabel)
+        Me.GroupBox18.Controls.Add(Me.Label36)
+        Me.GroupBox18.Controls.Add(Me.UpLinkConnectionsList)
+        resources.ApplyResources(Me.GroupBox18, "GroupBox18")
+        Me.GroupBox18.Name = "GroupBox18"
+        Me.GroupBox18.TabStop = False
+        '
+        'Label37
+        '
+        resources.ApplyResources(Me.Label37, "Label37")
+        Me.Label37.Name = "Label37"
+        '
+        'IRCStatusLabel
+        '
+        resources.ApplyResources(Me.IRCStatusLabel, "IRCStatusLabel")
+        Me.IRCStatusLabel.ForeColor = System.Drawing.Color.Red
+        Me.IRCStatusLabel.Name = "IRCStatusLabel"
+        '
+        'Label36
+        '
+        resources.ApplyResources(Me.Label36, "Label36")
+        Me.Label36.Name = "Label36"
+        '
+        'UpLinkConnectionsList
+        '
+        Me.UpLinkConnectionsList.FormattingEnabled = True
+        resources.ApplyResources(Me.UpLinkConnectionsList, "UpLinkConnectionsList")
+        Me.UpLinkConnectionsList.Name = "UpLinkConnectionsList"
         '
         'TabPage2
         '
@@ -2879,12 +2915,19 @@ Partial Class frmMain
         '
         'InfoInScreenBox
         '
+        Me.InfoInScreenBox.Controls.Add(Me.ScreenInfoHelp)
         Me.InfoInScreenBox.Controls.Add(Me.ScreenInfoTrigger)
         Me.InfoInScreenBox.Controls.Add(Me.ShowHUD)
         Me.InfoInScreenBox.Controls.Add(Me.ShowCreatureInfo)
         resources.ApplyResources(Me.InfoInScreenBox, "InfoInScreenBox")
         Me.InfoInScreenBox.Name = "InfoInScreenBox"
         Me.InfoInScreenBox.TabStop = False
+        '
+        'ScreenInfoHelp
+        '
+        resources.ApplyResources(Me.ScreenInfoHelp, "ScreenInfoHelp")
+        Me.ScreenInfoHelp.Name = "ScreenInfoHelp"
+        Me.ScreenInfoHelp.UseVisualStyleBackColor = True
         '
         'ScreenInfoTrigger
         '
@@ -3283,6 +3326,20 @@ Partial Class frmMain
         resources.ApplyResources(Me.FakeTitlelbl, "FakeTitlelbl")
         Me.FakeTitlelbl.Name = "FakeTitlelbl"
         '
+        'WarPage
+        '
+        Me.WarPage.Controls.Add(Me.TabControl1)
+        resources.ApplyResources(Me.WarPage, "WarPage")
+        Me.WarPage.Name = "WarPage"
+        Me.WarPage.UseVisualStyleBackColor = True
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage8)
+        resources.ApplyResources(Me.TabControl1, "TabControl1")
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        '
         'TabPage8
         '
         Me.TabPage8.Controls.Add(Me.ILSettingsBox)
@@ -3292,103 +3349,67 @@ Partial Class frmMain
         '
         'ILSettingsBox
         '
-        Me.ILSettingsBox.Controls.Add(Me.RichTextBox1)
-        Me.ILSettingsBox.Controls.Add(Me.frmILMapShowButton)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer9Namebox)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer1Namebox)
-        Me.ILSettingsBox.Controls.Add(Me.ILActivateButton)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer8Namebox)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer7Namebox)
-        Me.ILSettingsBox.Controls.Add(Me.ILChannelTextbox)
-        Me.ILSettingsBox.Controls.Add(Me.Label33)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer6Namebox)
-        Me.ILSettingsBox.Controls.Add(Me.Label35)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer5Namebox)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer4Namebox)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer2Namebox)
-        Me.ILSettingsBox.Controls.Add(Me.ILPlayer3Namebox)
+        Me.ILSettingsBox.Controls.Add(Me.GPSChannelTextbox)
+        Me.ILSettingsBox.Controls.Add(Me.GPSBroadcastStats)
+        Me.ILSettingsBox.Controls.Add(Me.GPSChannelPassword)
+        Me.ILSettingsBox.Controls.Add(Me.Label34)
+        Me.ILSettingsBox.Controls.Add(Me.GPSTrigger)
+        Me.ILSettingsBox.Controls.Add(Me.GPSHelp)
+        Me.ILSettingsBox.Controls.Add(Me.GPSShowMapButton)
+        Me.ILSettingsBox.Controls.Add(Me.GPSUpLink)
         resources.ApplyResources(Me.ILSettingsBox, "ILSettingsBox")
         Me.ILSettingsBox.Name = "ILSettingsBox"
         Me.ILSettingsBox.TabStop = False
         '
-        'RichTextBox1
+        'GPSChannelTextbox
         '
-        resources.ApplyResources(Me.RichTextBox1, "RichTextBox1")
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.ReadOnly = True
+        Me.GPSChannelTextbox.FormattingEnabled = True
+        resources.ApplyResources(Me.GPSChannelTextbox, "GPSChannelTextbox")
+        Me.GPSChannelTextbox.Name = "GPSChannelTextbox"
         '
-        'frmILMapShowButton
+        'GPSBroadcastStats
         '
-        resources.ApplyResources(Me.frmILMapShowButton, "frmILMapShowButton")
-        Me.frmILMapShowButton.Name = "frmILMapShowButton"
-        Me.frmILMapShowButton.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.GPSBroadcastStats, "GPSBroadcastStats")
+        Me.GPSBroadcastStats.Name = "GPSBroadcastStats"
+        Me.GPSBroadcastStats.UseVisualStyleBackColor = True
         '
-        'ILPlayer9Namebox
+        'GPSChannelPassword
         '
-        resources.ApplyResources(Me.ILPlayer9Namebox, "ILPlayer9Namebox")
-        Me.ILPlayer9Namebox.Name = "ILPlayer9Namebox"
+        resources.ApplyResources(Me.GPSChannelPassword, "GPSChannelPassword")
+        Me.GPSChannelPassword.Name = "GPSChannelPassword"
         '
-        'ILPlayer1Namebox
+        'Label34
         '
-        resources.ApplyResources(Me.ILPlayer1Namebox, "ILPlayer1Namebox")
-        Me.ILPlayer1Namebox.Name = "ILPlayer1Namebox"
-        Me.ILPlayer1Namebox.ReadOnly = True
+        resources.ApplyResources(Me.Label34, "Label34")
+        Me.Label34.Name = "Label34"
         '
-        'ILActivateButton
+        'GPSTrigger
         '
-        resources.ApplyResources(Me.ILActivateButton, "ILActivateButton")
-        Me.ILActivateButton.Name = "ILActivateButton"
-        Me.ILActivateButton.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.GPSTrigger, "GPSTrigger")
+        Me.GPSTrigger.Name = "GPSTrigger"
+        Me.GPSTrigger.UseVisualStyleBackColor = True
         '
-        'ILPlayer8Namebox
+        'GPSHelp
         '
-        resources.ApplyResources(Me.ILPlayer8Namebox, "ILPlayer8Namebox")
-        Me.ILPlayer8Namebox.Name = "ILPlayer8Namebox"
+        resources.ApplyResources(Me.GPSHelp, "GPSHelp")
+        Me.GPSHelp.Name = "GPSHelp"
+        Me.GPSHelp.UseVisualStyleBackColor = True
         '
-        'ILPlayer7Namebox
+        'GPSShowMapButton
         '
-        resources.ApplyResources(Me.ILPlayer7Namebox, "ILPlayer7Namebox")
-        Me.ILPlayer7Namebox.Name = "ILPlayer7Namebox"
+        resources.ApplyResources(Me.GPSShowMapButton, "GPSShowMapButton")
+        Me.GPSShowMapButton.Name = "GPSShowMapButton"
+        Me.GPSShowMapButton.UseVisualStyleBackColor = True
         '
-        'ILChannelTextbox
+        'GPSUpLink
         '
-        resources.ApplyResources(Me.ILChannelTextbox, "ILChannelTextbox")
-        Me.ILChannelTextbox.Name = "ILChannelTextbox"
+        resources.ApplyResources(Me.GPSUpLink, "GPSUpLink")
+        Me.GPSUpLink.Name = "GPSUpLink"
         '
-        'Label33
+        'ContextMenuStrip1
         '
-        resources.ApplyResources(Me.Label33, "Label33")
-        Me.Label33.Name = "Label33"
-        '
-        'ILPlayer6Namebox
-        '
-        resources.ApplyResources(Me.ILPlayer6Namebox, "ILPlayer6Namebox")
-        Me.ILPlayer6Namebox.Name = "ILPlayer6Namebox"
-        '
-        'Label35
-        '
-        resources.ApplyResources(Me.Label35, "Label35")
-        Me.Label35.Name = "Label35"
-        '
-        'ILPlayer5Namebox
-        '
-        resources.ApplyResources(Me.ILPlayer5Namebox, "ILPlayer5Namebox")
-        Me.ILPlayer5Namebox.Name = "ILPlayer5Namebox"
-        '
-        'ILPlayer4Namebox
-        '
-        resources.ApplyResources(Me.ILPlayer4Namebox, "ILPlayer4Namebox")
-        Me.ILPlayer4Namebox.Name = "ILPlayer4Namebox"
-        '
-        'ILPlayer2Namebox
-        '
-        resources.ApplyResources(Me.ILPlayer2Namebox, "ILPlayer2Namebox")
-        Me.ILPlayer2Namebox.Name = "ILPlayer2Namebox"
-        '
-        'ILPlayer3Namebox
-        '
-        resources.ApplyResources(Me.ILPlayer3Namebox, "ILPlayer3Namebox")
-        Me.ILPlayer3Namebox.Name = "ILPlayer3Namebox"
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        resources.ApplyResources(Me.ContextMenuStrip1, "ContextMenuStrip1")
         '
         'GroupBox11
         '
@@ -3721,7 +3742,7 @@ Partial Class frmMain
         CType(Me.AmmunitionRestackerMinAmmo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ConfigManagerbox.ResumeLayout(False)
         Me.AntiLogoutBox.ResumeLayout(False)
-        Me.GeneralTab2.ResumeLayout(False)
+        Me.GeneralPart2.ResumeLayout(False)
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -3738,6 +3759,10 @@ Partial Class frmMain
         Me.AutoLooterBox.PerformLayout()
         CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AutoLooterMinCap, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GeneralTab3.ResumeLayout(False)
+        Me.GeneralTab3.PerformLayout()
+        Me.GroupBox18.ResumeLayout(False)
+        Me.GroupBox18.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.AFKTabControl.ResumeLayout(False)
         Me.TabPage14.ResumeLayout(False)
@@ -3826,6 +3851,8 @@ Partial Class frmMain
         Me.ChameleonBox.PerformLayout()
         Me.FakeTitleBox.ResumeLayout(False)
         Me.FakeTitleBox.PerformLayout()
+        Me.WarPage.ResumeLayout(False)
+        Me.TabControl1.ResumeLayout(False)
         Me.TabPage8.ResumeLayout(False)
         Me.ILSettingsBox.ResumeLayout(False)
         Me.ILSettingsBox.PerformLayout()
@@ -3913,8 +3940,6 @@ Partial Class frmMain
     Friend WithEvents ReloadDataFilesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AboutUsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents WebsiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents VersionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OnToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OffToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OnToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
@@ -4019,7 +4044,6 @@ Partial Class frmMain
     Friend WithEvents OnToolStripMenuItem27 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OffToolStripMenuItem27 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MCPatchMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents DevelopmentWebsiteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PatchToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents LicenseToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MainTabControl As System.Windows.Forms.TabControl
@@ -4243,7 +4267,7 @@ Partial Class frmMain
     Friend WithEvents AntiIdlerTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents GeneralTabControl As System.Windows.Forms.TabControl
     Friend WithEvents GeneralTab1 As System.Windows.Forms.TabPage
-    Friend WithEvents GeneralTab2 As System.Windows.Forms.TabPage
+    Friend WithEvents GeneralPart2 As System.Windows.Forms.TabPage
     Friend WithEvents ChangersBox As System.Windows.Forms.GroupBox
     Friend WithEvents RingTypelbl As System.Windows.Forms.Label
     Friend WithEvents RingChangerTrigger As System.Windows.Forms.CheckBox
@@ -4321,26 +4345,30 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents AutoResponderToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TabPage8 As System.Windows.Forms.TabPage
     Friend WithEvents ILSettingsBox As System.Windows.Forms.GroupBox
-    Friend WithEvents ILChannelTextbox As System.Windows.Forms.TextBox
-    Friend WithEvents Label33 As System.Windows.Forms.Label
-    Friend WithEvents ILActivateButton As System.Windows.Forms.Button
-    Friend WithEvents frmILMapShowButton As System.Windows.Forms.Button
-    Friend WithEvents ILPlayer9Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents ILPlayer1Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents ILPlayer8Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents ILPlayer7Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents ILPlayer6Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents Label35 As System.Windows.Forms.Label
-    Friend WithEvents ILPlayer5Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents ILPlayer4Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents ILPlayer2Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents ILPlayer3Namebox As System.Windows.Forms.TextBox
-    Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
+    Friend WithEvents GPSUpLink As System.Windows.Forms.Label
+    Friend WithEvents GPSShowMapButton As System.Windows.Forms.Button
     Friend WithEvents TestToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents WarPage As System.Windows.Forms.TabPage
+    Friend WithEvents GPSHelp As System.Windows.Forms.Button
+    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents TabPage8 As System.Windows.Forms.TabPage
+    Friend WithEvents GPSTrigger As System.Windows.Forms.CheckBox
+    Friend WithEvents GPSChannelPassword As System.Windows.Forms.TextBox
+    Friend WithEvents Label34 As System.Windows.Forms.Label
+    Friend WithEvents IRCStatusLabel As System.Windows.Forms.Label
+    Friend WithEvents GPSBroadcastStats As System.Windows.Forms.CheckBox
+    Friend WithEvents GeneralTab3 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox18 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label37 As System.Windows.Forms.Label
+    Friend WithEvents Label36 As System.Windows.Forms.Label
+    Friend WithEvents UpLinkConnectionsList As System.Windows.Forms.ListBox
+    Friend WithEvents GPSChannelTextbox As System.Windows.Forms.ComboBox
+    Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents InfoInScreenBox As System.Windows.Forms.GroupBox
     Friend WithEvents ScreenInfoTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents ShowHUD As System.Windows.Forms.CheckBox
     Friend WithEvents ShowCreatureInfo As System.Windows.Forms.CheckBox
+    Friend WithEvents ScreenInfoHelp As System.Windows.Forms.Button
 End Class

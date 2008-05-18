@@ -31,7 +31,7 @@ Public Class Objects
                 Next
                 Return L
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return New IObjects.ObjectDefinition() {}
             End Try
         End Get
@@ -45,7 +45,7 @@ Public Class Objects
                 _Client.ReadMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectAutoMapColorOffset, Temp, 4)
                 Return Temp
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -54,7 +54,7 @@ Public Class Objects
                 If Not (ItemID >= MinimumItemID AndAlso ItemID <= MaximumItemID) Then Exit Property
                 _Client.WriteMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectAutoMapColorOffset, value, 4)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -67,7 +67,7 @@ Public Class Objects
                 _Client.ReadMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectHeightedOffset, Temp, 4)
                 Return Temp
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -76,7 +76,7 @@ Public Class Objects
                 If Not (ItemID >= MinimumItemID AndAlso ItemID <= MaximumItemID) Then Exit Property
                 _Client.WriteMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectHeightedOffset, value, 4)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -89,7 +89,7 @@ Public Class Objects
                 _Client.ReadMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectLensHelpOffset, Temp, 4)
                 Return Temp
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -98,7 +98,7 @@ Public Class Objects
                 If Not (ItemID >= MinimumItemID AndAlso ItemID <= MaximumItemID) Then Exit Property
                 _Client.WriteMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectLensHelpOffset, value, 4)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -111,7 +111,7 @@ Public Class Objects
                 _Client.ReadMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectLightColorOffset, Temp, 4)
                 Return Temp
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -120,7 +120,7 @@ Public Class Objects
                 If Not (ItemID >= MinimumItemID AndAlso ItemID <= MaximumItemID) Then Exit Property
                 _Client.WriteMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectLightColorOffset, value, 4)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -133,7 +133,7 @@ Public Class Objects
                 _Client.ReadMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectLightRadiusOffset, Temp, 4)
                 Return Temp
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -142,7 +142,7 @@ Public Class Objects
                 If Not (ItemID >= MinimumItemID AndAlso ItemID <= MaximumItemID) Then Exit Property
                 _Client.WriteMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectLightRadiusOffset, value, 4)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -155,7 +155,7 @@ Public Class Objects
                 _Client.ReadMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectTextLimitOffset, Temp, 4)
                 Return Temp
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -164,7 +164,7 @@ Public Class Objects
                 If Not (ItemID >= MinimumItemID AndAlso ItemID <= MaximumItemID) Then Exit Property
                 _Client.WriteMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectTextLimitOffset, value, 4)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -177,7 +177,7 @@ Public Class Objects
                 _Client.ReadMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectWalkSpeedOffset, Temp, 4)
                 Return Temp
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -186,7 +186,7 @@ Public Class Objects
                 If Not (ItemID >= MinimumItemID AndAlso ItemID <= MaximumItemID) Then Exit Property
                 _Client.WriteMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectWalkSpeedOffset, value, 4)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -199,7 +199,7 @@ Public Class Objects
                 _Client.ReadMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectFlagsOffset, Temp, 4)
                 Return Temp
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -208,7 +208,7 @@ Public Class Objects
                 If Not (ItemID >= MinimumItemID AndAlso ItemID <= MaximumItemID) Then Exit Property
                 _Client.WriteMemory(GetPtrObjectsBegin() + (ItemID - MinimumItemID) * Consts.ObjectDist + Consts.ObjectFlagsOffset, value, 4)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -220,7 +220,7 @@ Public Class Objects
             End If
             Return ptrObjectsStruct
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             Return 0
         End Try
     End Function
@@ -232,7 +232,7 @@ Public Class Objects
             End If
             Return ptrObjectsBegin
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             Return 0
         End Try
     End Function
@@ -246,7 +246,7 @@ Public Class Objects
                 End If
                 Return _MaximumItemID
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -258,7 +258,7 @@ Public Class Objects
                 If _MinimumItemID = 0 Then _Client.ReadMemory(GetPtrObjectsStruct, _MinimumItemID, 4)
                 Return _MinimumItemID
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -270,7 +270,7 @@ Public Class Objects
             Dim _Flags As IObjects.ObjectFlags = Me.Flags(ItemID)
             Return CBool((_Flags And Flags) = Flags)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             Return False
         End Try
     End Function
@@ -283,7 +283,7 @@ Public Class Objects
                 OrElse HasFlags(ItemID, IObjects.ObjectFlags.IsRune) _
                 OrElse HasFlags(ItemID, IObjects.ObjectFlags.IsSplash)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             Return False
         End Try
     End Function
@@ -295,7 +295,7 @@ Public Class Objects
                     OrElse Not _Objects.ContainsKey(ItemID) Then Return String.Empty
                 Return _Objects(ItemID).Name
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return String.Empty
             End Try
         End Get
@@ -314,7 +314,7 @@ Public Class Objects
                     _Objects.Add(ItemID, OD)
                 End If
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -326,7 +326,7 @@ Public Class Objects
                     OrElse Not _Objects.ContainsKey(ItemID) Then Return IObjects.ObjectKind.None
                 Return _Objects(ItemID).Kind
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return IObjects.ObjectKind.None
             End Try
         End Get
@@ -338,7 +338,7 @@ Public Class Objects
                 OD.Kind = value
                 _Objects(ItemID) = OD
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
             End Try
         End Set
     End Property
@@ -353,7 +353,7 @@ Public Class Objects
                 Next
                 Return 0
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 Return 0
             End Try
         End Get
@@ -381,7 +381,7 @@ Public Class Objects
                 End If
             Next
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -413,7 +413,7 @@ Public Class Objects
             Document.AppendChild(Objects)
             Document.Save(GetConfigurationDirectory() & "\Objects.xml")
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -421,7 +421,7 @@ Public Class Objects
         Try
             Return ((Me.Kind(ItemID) And Kind) = Kind)
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             Return False
         End Try
     End Function

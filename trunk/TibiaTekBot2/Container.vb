@@ -43,7 +43,7 @@ Public Module ContainerModule
                 End If
                 Return Me.ContainerIsOpened
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -60,7 +60,7 @@ Public Module ContainerModule
                     Return False
                 End If
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -102,7 +102,7 @@ Public Module ContainerModule
                 Next
                 Return False
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -121,7 +121,7 @@ Public Module ContainerModule
                 Next
                 Return False
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -137,7 +137,7 @@ Public Module ContainerModule
                 Loop While Cont.NextContainer()
                 Return ContCount
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -155,7 +155,7 @@ Public Module ContainerModule
                     Loop While Cont.NextContainer()
                     Return ContCount
                 Catch ex As Exception
-                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(ex)
                 End Try
             End Get
         End Property
@@ -166,7 +166,7 @@ Public Module ContainerModule
                 Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (Index * Consts.ContainerDist), mIsOpened, 1)
                 Return CBool(mIsOpened)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -177,7 +177,7 @@ Public Module ContainerModule
                 Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist), mIsOpened, 1)
                 Return CBool(mIsOpened)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -189,7 +189,7 @@ Public Module ContainerModule
                     Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerNameOffset, Name)
                     Return Name
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -209,7 +209,7 @@ Public Module ContainerModule
                 Next
                 Return False
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -238,7 +238,7 @@ Public Module ContainerModule
                 Loop While MyC.NextContainer()
                 Return Count
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -250,7 +250,7 @@ Public Module ContainerModule
                     Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerItemCountOffset, ItemCount, 1)
                     Return CInt(ItemCount)
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -263,7 +263,7 @@ Public Module ContainerModule
                     Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerSizeOffset, Size, 1)
                     Return CInt(Size)
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -276,7 +276,7 @@ Public Module ContainerModule
                     Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerIDOffset, ID, 4)
                     Return CInt(ID)
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -288,7 +288,7 @@ Public Module ContainerModule
                 Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (CIndex * Consts.ContainerDist) + Consts.ContainerHasParentOffset, HasP, 1)
                 Return (HasP = 1)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -300,7 +300,7 @@ Public Module ContainerModule
                     Kernel.Client.ReadMemory(Consts.ptrFirstContainer + (ContainerIndex * Consts.ContainerDist) + Consts.ContainerHasParentOffset, HasP, 1)
                     Return (HasP = 1)
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -333,7 +333,7 @@ Public Module ContainerModule
                     End If
                     Return Item
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -346,7 +346,7 @@ Public Module ContainerModule
                     Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((Slot - 1) * Consts.ItemDist), SlotId, 2)
                     Return SlotId
                 Catch ex As Exception
-                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(ex)
                 End Try
             End Get
         End Property
@@ -358,7 +358,7 @@ Public Module ContainerModule
                     Kernel.Client.ReadMemory(Consts.ptrInventoryBegin + ((Slot) * Consts.ItemDist) + Consts.ItemCountOffset, SlotCount, 1)
                     Return SlotCount
                 Catch ex As Exception
-                    MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(ex)
                 End Try
             End Get
         End Property
@@ -387,7 +387,7 @@ Public Module ContainerModule
                 Try
                     Return Name
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -398,7 +398,7 @@ Public Module ContainerModule
                 Try
                     Return ItemCount
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -409,7 +409,7 @@ Public Module ContainerModule
                 Try
                     Return Size
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -420,7 +420,7 @@ Public Module ContainerModule
                 Try
                     Return ID
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -431,7 +431,7 @@ Public Module ContainerModule
                 Try
                     Return Parent
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get
@@ -448,7 +448,7 @@ Public Module ContainerModule
                 Try
                     Return Item(GetIndex)
                 Catch Ex As Exception
-                    MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    ShowError(Ex)
                     End
                 End Try
             End Get

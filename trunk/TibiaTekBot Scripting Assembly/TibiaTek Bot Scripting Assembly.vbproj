@@ -114,10 +114,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Test Script\CharacterSkills.tts.vb" />
+    <None Include="Test Script\CharacterSkills.tts.vb" />
     <None Include="Test Script\ReadBattlelist.tts.vb" />
     <None Include="Test Script\UsingTimers.tts.vb" />
-    <Compile Include="Test Script\login.tts.vb" />
+    <None Include="Test Script\login.tts.vb" />
     <None Include="Test Script\CharacterConditionsChanged.tts.vb" />
     <None Include="Test Script\UsingCommandParser.tts.vb" />
     <None Include="Test Script\UsingComputerObject.tts.vb" />

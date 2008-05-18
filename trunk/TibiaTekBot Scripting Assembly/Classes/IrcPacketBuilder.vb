@@ -24,17 +24,17 @@ Public Class IrcPacketBuilder
     Private Packets As New Queue(Of Packet)
     Private _IrcClient As IIrcClient
     Private _AutoSend As Boolean = True
-
     Private _Channel As String
 
-    Public Sub New(ByVal IrcClient As IIrcClient, ByVal Channel As String, ByVal Destinatary As String, Optional ByVal AutoSend As Boolean = True)
+    Public Sub New(ByVal IrcClient As IIrcClient, ByVal Channel As String, Optional ByVal AutoSend As Boolean = True)
         _IrcClient = IrcClient
+        _Channel = Channel
         _AutoSend = AutoSend
     End Sub
 
     Public Overloads Sub Send() Implements IPacketBuilder.Send
         Try
-            Send("All")
+            Send("")
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -45,7 +45,7 @@ Public Class IrcPacketBuilder
             While Packets.Count > 0
                 Dim P As Packet = Packets.Dequeue()
                 If _IrcClient.IsConnected AndAlso _IrcClient.IsHiddenChannelOpened(_Channel) Then
-                    _IrcClient.Speak("$" & Destinatary.ToString & "$" & P.ToString & "$", _Channel)
+                    _IrcClient.Speak("$" & Destinatary.ToString & "$" & P.ToBase64String & "$", _Channel)
                 End If
             End While
         Catch Ex As System.InvalidOperationException
@@ -59,10 +59,54 @@ Public Class IrcPacketBuilder
             While Packets.Count > 0
                 Dim P As Packet = Packets.Dequeue()
                 If _IrcClient.IsConnected AndAlso _IrcClient.IsHiddenChannelOpened(_Channel) Then
-                    _IrcClient.Speak("$" & DestinataryExpression & "$" & P.ToString & "$", _Channel)
+                    _IrcClient.Speak("$" & DestinataryExpression & "$" & P.ToBase64String & "$", _Channel)
                 End If
             End While
         Catch Ex As System.InvalidOperationException
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+    Public Sub BroadcastLocation(ByVal EntityName As String, ByVal Location As ITibia.LocationDefinition) Implements IIrcPacketBuilder.BroadcastLocation
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(&H1)
+            _Packet.AddString(EntityName)
+            _Packet.AddLocation(Location)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Public Sub BroadcastStats(ByVal EntityName As String, ByVal Level As UInteger, ByVal Health As UInteger, ByVal Mana As UInteger) Implements IIrcPacketBuilder.BroadcastStats
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(&H2)
+            _Packet.AddString(EntityName)
+            _Packet.AddDWord(Level)
+            _Packet.AddDWord(Health)
+            _Packet.AddDWord(Mana)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
+        Catch Ex As Exception
+            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
+    Public Sub BroadcastEntityStats(ByVal EntityName As String, ByVal HealthPercent As Byte, ByVal Location As ITibia.LocationDefinition) Implements IIrcPacketBuilder.BroadcastEntityStats
+        Try
+            Dim _Packet As New Packet
+            _Packet.AddByte(&H3)
+            _Packet.AddString(EntityName)
+            _Packet.AddByte(HealthPercent)
+            _Packet.AddLocation(Location)
+            Packets.Enqueue(_Packet)
+            If _AutoSend Then Send()
         Catch Ex As Exception
             MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try

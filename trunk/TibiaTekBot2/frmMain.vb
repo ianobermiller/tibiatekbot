@@ -33,7 +33,7 @@ Public Class frmMain
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             Dim R As New Random(System.DateTime.Now.Millisecond)
-            Select Case R.Next(0, 7)
+            Select Case R.Next(0, 9)
                 Case 0
                     Me.PictureBox1.Image = My.Resources.ttb_splash0
                 Case 1
@@ -48,6 +48,10 @@ Public Class frmMain
                     Me.PictureBox1.Image = My.Resources.ttb_splash5
                 Case 6
                     Me.PictureBox1.Image = My.Resources.ttb_splash6
+                Case 7
+                    Me.PictureBox1.Image = My.Resources.ttb_splash7
+                Case 8
+                    Me.PictureBox1.Image = My.Resources.ttb_splash8
             End Select
             SC = New frmSplashScreen
             SC.ShowDialog()
@@ -55,7 +59,7 @@ Public Class frmMain
             System.GC.Collect()
             InitializeControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -156,7 +160,7 @@ Public Class frmMain
             If AmmoMakerSpell.Items.Count > 0 Then AmmoMakerSpell.SelectedIndex = 0
 
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -170,7 +174,7 @@ Public Class frmMain
                 e.Cancel = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -200,7 +204,7 @@ Public Class frmMain
                 MainTabControl.Enabled = False
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -237,11 +241,36 @@ Public Class frmMain
             RefreshDancerControls()
             RefreshAmmoMakerControls()
             RefreshAntiIdlerControls()
+            RefreshGPSControls()
             RefreshScreenInfo()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
+
+    Private Sub RefreshGPSControls()
+        Try
+            GPSTrigger.Checked = Kernel.GPSBroadcasterTimerObj.State = IThreadTimer.ThreadTimerState.Running
+            If GPSTrigger.Checked Then
+                GPSChannelTextbox.Text = Kernel.GPSChannelName
+                GPSChannelPassword.Text = Kernel.GPSChannelPassword
+                GPSBroadcastStats.Checked = Kernel.GPSBroadcastStats
+
+                GPSShowMapButton.Enabled = True
+                GPSChannelTextbox.Enabled = False
+                GPSChannelPassword.Enabled = False
+                GPSBroadcastStats.Enabled = False
+            Else
+                GPSShowMapButton.Enabled = False
+                GPSChannelTextbox.Enabled = True
+                GPSChannelPassword.Enabled = True
+                GPSBroadcastStats.Enabled = True
+            End If
+        Catch ex As Exception
+            ShowError(ex)
+        End Try
+    End Sub
+
     Private Sub RefreshAmmoMakerControls()
         Try
             AmmoMakerTrigger.Checked = Kernel.AmmoMakerTimerObj.State = IThreadTimer.ThreadTimerState.Running
@@ -260,7 +289,7 @@ Public Class frmMain
                 AmmoMakerMinMana.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
     Private Sub RefreshDancerControls()
@@ -283,7 +312,7 @@ Public Class frmMain
                 DancerSpeed.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
     Private Sub RefreshChangerControls()
@@ -304,7 +333,7 @@ Public Class frmMain
                 ChangerAmuletType.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
     Private Sub RefreshAntiIdlerControls()
@@ -314,7 +343,7 @@ Public Class frmMain
         Try
             PickuperTrigger.Checked = Kernel.PickUpTimerObj.State = IThreadTimer.ThreadTimerState.Running
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
     Private Sub RefreshAutoAttackerControls()
@@ -339,7 +368,7 @@ Public Class frmMain
                 AttackAutomatically.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
     Private Sub RefreshScreenInfo()
@@ -393,7 +422,7 @@ Public Class frmMain
                 MaxPercentageHP.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
     Private Sub RefreshChameleonControls()
@@ -416,7 +445,7 @@ Public Class frmMain
                     ChameleonNone.Checked = True
             End Select
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -429,7 +458,7 @@ Public Class frmMain
                 FakeTitle.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -441,7 +470,7 @@ Public Class frmMain
                 NameSpyTrigger.Checked = False
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -463,7 +492,7 @@ Public Class frmMain
                 ExpShowCreatures.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -477,7 +506,7 @@ Public Class frmMain
             '  DrinkerManaPoints.Enabled = True
             '  End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -501,7 +530,7 @@ Public Class frmMain
                 HealPHp.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -528,7 +557,7 @@ Public Class frmMain
                 HealFHp.Enabled = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -646,7 +675,7 @@ Public Class frmMain
                 End If
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
     Private Sub RefreshAdvertiserControls()
@@ -659,7 +688,7 @@ Public Class frmMain
                 TradeChannelAdvertiserAdvertisement.Enabled = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
     Private Sub RefreshFpsChangerControls()
@@ -681,7 +710,7 @@ Public Class frmMain
                 FPSHidden.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -707,7 +736,7 @@ Public Class frmMain
             StatsUploaderUser.Enabled = Not StatsUploaderSaveToDisk.Checked
             StatsUploaderPassword.Enabled = Not StatsUploaderSaveToDisk.Checked
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -721,7 +750,7 @@ Public Class frmMain
                 TradeChannelWatcherExpression.Enabled = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -734,7 +763,7 @@ Public Class frmMain
                 CavebotConfigure.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -755,7 +784,7 @@ Public Class frmMain
                 AutoFisherMinimumCapacity.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -772,7 +801,7 @@ Public Class frmMain
                 ComboLeaders.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -811,7 +840,7 @@ Public Class frmMain
                 LightEffect.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -828,7 +857,7 @@ Public Class frmMain
                 SpellCasterMinimumManaPoints.Enabled = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -848,7 +877,7 @@ Public Class frmMain
                 AutoLooterEatFromCorpse.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -862,7 +891,7 @@ Public Class frmMain
                 AmmunitionRestackerMinAmmo.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -875,7 +904,7 @@ Public Class frmMain
                 AutoStackerDelay.Enabled = True
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -895,7 +924,7 @@ Public Class frmMain
                 RunemakerMinimumSoulPoints.Enabled = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -929,7 +958,7 @@ Public Class frmMain
                 AutoEaterInterval.Enabled = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -999,7 +1028,7 @@ Public Class frmMain
             Kernel._NotifyIcon = Me.NotifyIcon
             Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - Not logged in"
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1106,7 +1135,7 @@ Public Class frmMain
             If IO.File.Exists(GetConfigurationDirectory() & "\Data.xml") Then IO.File.Delete(GetConfigurationDirectory() & "\Data.xml")
             Document.Save(GetConfigurationDirectory() & "\Data.xml")
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1128,7 +1157,7 @@ Public Class frmMain
                 ShowHideTibiaWindow.Name = "Show Tibia Window"
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1149,7 +1178,7 @@ Public Class frmMain
                 End Try
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1162,7 +1191,7 @@ Public Class frmMain
             End If
             Kernel.AlarmsForm.Show()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1191,13 +1220,16 @@ Public Class frmMain
         Try
             Kernel.ConstantsEditorForm.Show()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
 
     Public Sub MCPatcher()
         Try
+            If System.IO.File.Exists(Kernel.Client.Directory & "\_Tibia.exe.tmp") Then
+                System.IO.File.Delete(Kernel.Client.Directory & "\_Tibia.exe.tmp")
+            End If
             System.IO.File.Copy(Kernel.Client.Directory & "\" & Kernel.Client.Filename, Kernel.Client.Directory & "\_Tibia.exe.tmp")
             Dim FSR As New FileStream(Kernel.Client.Directory & "\_Tibia.exe.tmp", FileMode.Open, FileAccess.Read)
             Dim FSW As New FileStream(Kernel.Client.Directory & "\TibiaMC.exe", FileMode.OpenOrCreate, FileAccess.Write)
@@ -1228,7 +1260,7 @@ Public Class frmMain
                 Document.Save(GetConfigurationDirectory() & "\Data.xml")
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         Finally
             If System.IO.File.Exists(Kernel.Client.Directory & "\_Tibia.exe.tmp") Then
@@ -1253,7 +1285,7 @@ Public Class frmMain
             End If
             Kernel.CavebotForm.Show()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1266,7 +1298,7 @@ Public Class frmMain
             End If
             Kernel.CharacterStatisticsForm.Show()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1281,7 +1313,7 @@ Public Class frmMain
                 IsVisible = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1303,7 +1335,7 @@ Public Class frmMain
                 MessageBox.Show("You must be logged out to change the login server.")
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -1333,7 +1365,7 @@ Public Class frmMain
         Try
             System.Diagnostics.Process.Start("COPYING.txt")
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1364,7 +1396,7 @@ Public Class frmMain
             End If
             RefreshSpellCasterControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1407,7 +1439,7 @@ Public Class frmMain
             End If
             RefreshRunemakerControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1416,7 +1448,7 @@ Public Class frmMain
         Try
             AutoEaterMinimumHitPoints.Enabled = AutoEaterSmart.Checked
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1448,7 +1480,7 @@ Public Class frmMain
             End If
             RefreshAutoEaterControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1528,7 +1560,7 @@ Public Class frmMain
             End If
             RefreshAutoLooterControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1549,7 +1581,7 @@ Public Class frmMain
             End If
             RefreshAutoStackerControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1595,7 +1627,7 @@ Public Class frmMain
             End If
             RefreshLightEffectsControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1622,7 +1654,7 @@ Public Class frmMain
             End If
             RefreshAmmoRestackerControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1644,7 +1676,7 @@ Public Class frmMain
             End If
             RefreshComboBotControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1677,7 +1709,7 @@ Public Class frmMain
             End If
             RefreshAutoFisherControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -1723,7 +1755,7 @@ Public Class frmMain
             End If
             RefreshCavebotControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -1756,7 +1788,7 @@ Public Class frmMain
             End If
             RefreshTradeChannelWatcherControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -1802,7 +1834,7 @@ Public Class frmMain
             End If
             RefreshStatsUploaderControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -1837,7 +1869,7 @@ Public Class frmMain
             End If
             RefreshFpsChangerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
@@ -1856,7 +1888,7 @@ Public Class frmMain
             End If
             RefreshAdvertiserControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1895,7 +1927,7 @@ Public Class frmMain
             Kernel.Spells.LoadSpells()
             MessageBox.Show("Done loading the Spells configuration file.")
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -1904,7 +1936,7 @@ Public Class frmMain
             CType(Kernel.Client.Objects, Objects).Refresh()
             MessageBox.Show("Done loading the Objects configuration file.")
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -1914,7 +1946,7 @@ Public Class frmMain
             Kernel.Outfits.LoadOutfits()
             MessageBox.Show("Done loading the Outfits configuration file.")
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -1923,7 +1955,7 @@ Public Class frmMain
             Consts.LoadConstants()
             MessageBox.Show("Done loading the Constants configuration file.")
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -1951,7 +1983,7 @@ Public Class frmMain
             End If
 
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1990,7 +2022,7 @@ Public Class frmMain
                 MessageBox.Show("Unable to copy outfit, the player was not found.", "Sorry", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -2012,7 +2044,7 @@ Public Class frmMain
                 MessageBox.Show("Unknown outfit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
 
@@ -2057,7 +2089,7 @@ Public Class frmMain
             End If
             RefreshExpCheckerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2108,7 +2140,7 @@ Public Class frmMain
             End If
             MessageBox.Show(Output & ".", "Entities Found:")
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2137,7 +2169,7 @@ Public Class frmMain
             End If
             RefreshNameSpyControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2201,7 +2233,7 @@ Public Class frmMain
                 MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2218,7 +2250,7 @@ Public Class frmMain
                 MessageBox.Show("Busy.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2238,7 +2270,7 @@ Public Class frmMain
                 MessageBox.Show("This entity has been added to your list.")
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2258,7 +2290,7 @@ Public Class frmMain
                 MessageBox.Show("This entity is not on your list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2267,7 +2299,7 @@ Public Class frmMain
             Kernel.AutoTrainerEntities.Clear()
             MessageBox.Show("Auto Trainer entities list cleared.")
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2292,7 +2324,7 @@ Public Class frmMain
             End If
             RefreshTrainerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2335,7 +2367,7 @@ Public Class frmMain
             End If
             RefreshAutoAttackerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2361,7 +2393,7 @@ Public Class frmMain
             End If
             RefreshPickuperControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2382,7 +2414,7 @@ Public Class frmMain
             End If
             RefreshAntiIdlerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2402,7 +2434,7 @@ Public Class frmMain
             End If
             RefreshChangerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2422,7 +2454,7 @@ Public Class frmMain
             End If
             RefreshChangerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2477,7 +2509,7 @@ Public Class frmMain
             End If
             RefreshHealerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2519,7 +2551,7 @@ Public Class frmMain
             End If
             RefreshHealerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2558,7 +2590,7 @@ Public Class frmMain
             End If
             RefreshHealerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2605,7 +2637,7 @@ Public Class frmMain
             End If
             RefreshHealerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
 
     End Sub
@@ -2640,7 +2672,7 @@ Public Class frmMain
             End If
             RefreshDancerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2676,7 +2708,7 @@ Public Class frmMain
             End If
             RefreshAmmoMakerControls()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2710,7 +2742,7 @@ Public Class frmMain
             End If
             RefreshHealFriendControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -2738,7 +2770,7 @@ Public Class frmMain
             End If
             RefreshHealPartyControls()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -2970,7 +3002,7 @@ Public Class frmMain
                 End If
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2980,7 +3012,7 @@ Public Class frmMain
                 ComboLeaders.Items.RemoveAt(ComboLeaders.SelectedIndex)
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -2996,7 +3028,7 @@ Public Class frmMain
                 IsVisible = True
             End If
         Catch ex As Exception
-            'MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'ShowError(Ex)
         End Try
     End Sub
 
@@ -3010,7 +3042,7 @@ Public Class frmMain
                 Kernel.Client.Hide()
             End If
         Catch ex As Exception
-            'MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'ShowError(Ex)
         End Try
     End Sub
 
@@ -3022,8 +3054,33 @@ Public Class frmMain
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         If Kernel.Client Is Nothing Then Exit Sub
         If Kernel.Client.IsConnected Then
-            Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName
-            Timer1.Enabled = False
+            If Kernel.NotifyIcon.Text <> "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName Then
+                Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName
+            End If
+            If Not MainTabControl.Enabled Then
+                MainTabControl.Enabled = True
+            End If
+        Else
+            If Kernel.NotifyIcon.Text <> "TibiaTek Bot v" & BotVersion & " - Not Logged In" Then
+                Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - Not Logged In"
+            End If
+            If MainTabControl.Enabled Then
+                MainTabControl.Enabled = False
+            End If
+        End If
+        If Kernel.IRCClient.IsConnected Then
+            If Not IRCStatusLabel.Text.Equals("Connected") Then
+                IRCStatusLabel.Text = "Connected"
+                IRCStatusLabel.ForeColor = Drawing.Color.LightGreen
+            End If
+        Else
+            If Not IRCStatusLabel.Text.Equals("Disconnected") Then
+                IRCStatusLabel.Text = "Disconnected"
+                IRCStatusLabel.ForeColor = Drawing.Color.Red
+            End If
+            If GPSTrigger.Checked Then
+                GPSTrigger.Checked = False
+            End If
         End If
     End Sub
 
@@ -3033,86 +3090,81 @@ Public Class frmMain
         End If
     End Sub
 
-#Region "Irc Location"
-    Private Sub ILActivateButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ILActivateButton.Click
+#Region "GPS"
+    Private Sub ILActivateButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GPSTrigger.CheckedChanged
         Try
-            If ILActivateButton.Text = "Deactivate" Then
-                Kernel.ILBroadcasterTimerObj.StopTimer()
-                Kernel.ILProcessTimerObj.StopTimer()
-                Kernel.ILChannelName = ""
-                Kernel.ILNumberofPlayers = 0
-                Kernel.IRCClient.Part(ILChannelTextbox.Text, "Deactivating broadcaster, bye")
-                ILChannelTextbox.ReadOnly = False
-                frmILMapShowButton.Enabled = False
-                ILActivateButton.Text = "Activate"
-                frmILMap.ILMapUpdate.Stop()
-                frmILMap.Close()
-            Else
-                If Kernel.ILBroadcasterTimerObj.State = IThreadTimer.ThreadTimerState.Running Then Exit Sub
-                ILPlayer1Namebox.Text = Kernel.Client.CharacterName
-                Dim nop As Integer = 0
-                If ILPlayer1Namebox.Text <> "" Then
-                    Kernel.ILPlayer1Name = ILPlayer1Namebox.Text
-                    nop = nop + 1
-                    If ILPlayer2Namebox.Text <> "" Then
-                        Kernel.ILPlayer2Name = ILPlayer2Namebox.Text
-                        nop = nop + 1
-                        If ILPlayer3Namebox.Text <> "" Then
-                            Kernel.ILPlayer3Name = ILPlayer3Namebox.Text
-                            nop = nop + 1
-                            If ILPlayer4Namebox.Text <> "" Then
-                                Kernel.ILPlayer4Name = ILPlayer4Namebox.Text
-                                nop = nop + 1
-                                If ILPlayer5Namebox.Text <> "" Then
-                                    Kernel.ILPlayer5Name = ILPlayer5Namebox.Text
-                                    nop = nop + 1
-                                    If ILPlayer6Namebox.Text <> "" Then
-                                        Kernel.ILPlayer6Name = ILPlayer6Namebox.Text
-                                        nop = nop + 1
-                                        If ILPlayer7Namebox.Text <> "" Then
-                                            Kernel.ILPlayer7Name = ILPlayer7Namebox.Text
-                                            nop = nop + 1
-                                            If ILPlayer8Namebox.Text <> "" Then
-                                                Kernel.ILPlayer8Name = ILPlayer8Namebox.Text
-                                                nop = nop + 1
-                                                If ILPlayer9Namebox.Text <> "" Then
-                                                    Kernel.ILPlayer9Name = ILPlayer9Namebox.Text
-                                                    nop = nop + 1
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
+            If Not GPSTrigger.Checked Then
+                Kernel.GPSBroadcasterTimerObj.StopTimer()
+                Kernel.IRCClient.Part(Kernel.GPSChannelName)
+                Kernel.GPSChannelName = ""
+                Kernel.GPSChannelPassword = ""
+                Kernel.GPSBroadcastStats = False
+                Kernel.GPSBroadcastBattlelist = False
+                GPSChannelTextbox.Enabled = True
+                GPSChannelPassword.Enabled = True
+                GPSShowMapButton.Enabled = False
+                GPSBroadcastStats.Enabled = True
+                Kernel.GPSMapForm.GPSMapUpdate.Stop()
+                If Kernel.GPSMapForm.Visible Then
+                    Kernel.GPSMapForm.Hide()
                 End If
-                If ILChannelTextbox.Text = "" Or ILChannelTextbox.Text = "#" Then
-                    MessageBox.Show("You must choose a IRC channel to use.")
+            Else
+                If Not Regex.IsMatch(GPSChannelTextbox.Text, "^#[a-z-]+$", RegexOptions.IgnoreCase) Then
+                    MessageBox.Show("The channel you provided is invalid. It must start with a pound sign, followed by one or more alphabetical letters.", "Error", MessageBoxButtons.OK)
+                    GPSTrigger.Checked = False
                     Exit Sub
                 End If
-                Kernel.IRCClient.Join(ILChannelTextbox.Text)
-                ILChannelTextbox.ReadOnly = True
-                Kernel.ILNumberofPlayers = nop
-                Kernel.ILChannelName = ILChannelTextbox.Text
-                Kernel.ILBroadcasterTimerObj.StartTimer()
-                frmILMapShowButton.Enabled = True
-                ILActivateButton.Text = "Deactivate"
+                GPSChannelTextbox.Enabled = False
+                GPSShowMapButton.Enabled = True
+                GPSChannelPassword.Enabled = False
+                GPSBroadcastStats.Enabled = False
+                Kernel.GPSChannelName = GPSChannelTextbox.Text
+                Kernel.GPSChannelPassword = GPSChannelPassword.Text
+                Kernel.GPSBroadcastStats = GPSBroadcastStats.Checked
+                Kernel.IRCClient.JoinHidden(Kernel.GPSChannelName, Kernel.GPSChannelPassword)
+                Kernel.GPSBroadcasterTimerObj.StartTimer()
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
 
-    Private Sub frmILMapShowButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmILMapShowButton.Click
+    Private Sub frmILMapShowButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GPSShowMapButton.Click
         Try
-            frmILMap.Show()
+            frmGPSMap.Show()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
             End
         End Try
     End Sub
+
+    Private Sub GPSHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GPSHelp.Click
+        MessageBox.Show("<<What is IRC Location?>>" & vbCrLf & vbCrLf & _
+            "1. It's a feature that allows you and your friends to keep track of your positions in-game." & vbCrLf & _
+            "2. It allows you to see your friends stats and the people that are near them." & vbCrLf & _
+            "<<How to setup Irc Location>>" & vbCrLf & vbCrLf & _
+            "1. Write a channel name to use." & vbCrLf & _
+            "2. Press Activate to start broadcasting your character information." & vbCrLf & _
+            "3. Press Show Map to view your and your friends location and player information" & vbCrLf & vbCrLf & _
+            "Note: Make sure your friends broadcast using the same channel.", "Help for IRC Location", MessageBoxButtons.OK)
+    End Sub
 #End Region
+
+    Private Sub ScreenInfoHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ScreenInfoHelp.Click
+        MessageBox.Show("The Show Creature Info option will enable showing information about creatures that appear in your screen." & vbCrLf & _
+                        "The HUD (or Head's On Display) is used to show information such as:" & vbCrLf & _
+                        "  1. Mana Shield Remaining Time" & vbCrLf & _
+                        "  2. Haste Remaining Time" & vbCrLf & _
+                        "  3. Invisible Remaining Time" & vbCrLf & _
+                        "  Etc.", "In-Game Screen Information Help")
+    End Sub
+
+    Private Sub AboutUsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AboutUsToolStripMenuItem.Click
+        MessageBox.Show(BotName & " v" & BotVersion & "." & vbCrLf & _
+            "Written by the TibiaTek Development Team." & vbCrLf & _
+            "Source code and download at http://tibiatekbot.googlecode.com/." & vbCrLf & _
+            "Official Website: http://www.tibiatek.com/.", "About Us", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 
 End Class

@@ -31,6 +31,9 @@ Public Interface IIrcPacketBuilder
 #End Region
 
 #Region " Methods "
+    Sub BroadcastLocation(ByVal EntityName As String, ByVal Location As ITibia.LocationDefinition)
+    Sub BroadcastStats(ByVal EntityName As String, ByVal Level As UInteger, ByVal Health As UInteger, ByVal Mana As UInteger)
+    Sub BroadcastEntityStats(ByVal EntityName As String, ByVal HealthPercent As Byte, ByVal Location As ITibia.LocationDefinition)
     Overloads Sub Send(ByVal Destinatary As IIrcPacketBuilder.Destinataries)
     Overloads Sub Send(ByVal Destinatary As String)
 #End Region

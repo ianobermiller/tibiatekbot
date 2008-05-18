@@ -53,7 +53,7 @@ Public Class frmCavebot
                 Me.Loadcmd.Enabled = True
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
         End Try
     End Sub
     Private Sub frmCavebot_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -61,7 +61,7 @@ Public Class frmCavebot
             e.Cancel = True
             Me.Hide()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -73,7 +73,7 @@ Public Class frmCavebot
             LootFromCorpses.Checked = Consts.LootWithCavebot
             EatFromCorpses.Checked = Consts.LootEatFromCorpse
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -188,7 +188,7 @@ Public Class frmCavebot
                 & ":" & Character.Coordinates.Z & " " & Character.Info)
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -219,7 +219,7 @@ Public Class frmCavebot
                     Waitbox.Visible = False
             End Select
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -237,7 +237,7 @@ Public Class frmCavebot
             Kernel.Walker_Waypoints.RemoveAt(Waypointslst.SelectedIndex)
             Waypointslst.Items.RemoveAt(Waypointslst.SelectedIndex)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -258,7 +258,7 @@ Public Class frmCavebot
             Kernel.Walker_Waypoints.Clear()
             Waypointslst.Items.Clear()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -283,7 +283,7 @@ Public Class frmCavebot
             End If
             WalkerModule.Save(SaveDlg.FileName)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -307,7 +307,7 @@ Public Class frmCavebot
             End If
             WalkerModule.Load(OpenDlg.FileName)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -326,7 +326,7 @@ Public Class frmCavebot
                 RemoveMonster.Enabled = False
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -337,7 +337,7 @@ Public Class frmCavebot
             MonsterList.Items.Add(Monster)
             Kernel.AutoAttackerList.Add(Monster.ToLower)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -351,7 +351,7 @@ Public Class frmCavebot
             Kernel.AutoAttackerList.RemoveAt(MonsterList.SelectedIndex.ToString.ToLower)
             MonsterList.Items.RemoveAt(MonsterList.SelectedIndex)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub

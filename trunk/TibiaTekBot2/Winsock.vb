@@ -66,7 +66,7 @@ Public Module WinsockModule
                 _bufferCol = New Collection
                 AddHandler NetworkChange.NetworkAvailabilityChanged, AddressOf Me.NetWorkAvailabilityChangedCallback
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Sub
@@ -78,7 +78,7 @@ Public Module WinsockModule
                     ChangeState(WinsockStates.Closed)
                 End If
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Sub
@@ -134,7 +134,7 @@ Public Module WinsockModule
                 Dim x As New System.Threading.Thread(AddressOf DoListen)
                 x.Start()
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Sub
@@ -232,7 +232,7 @@ Public Module WinsockModule
                 Dim h As System.Net.IPHostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName)
                 Return CType(h.AddressList.GetValue(0), Net.IPAddress).ToString
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -241,7 +241,7 @@ Public Module WinsockModule
                 Dim iEP As IPEndPoint = _Client.RemoteEndPoint
                 Return iEP.Address.ToString
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -254,7 +254,7 @@ Public Module WinsockModule
                 Dim sendBytes() As Byte = System.Text.Encoding.ASCII.GetBytes(Data)
                 Me.Send(sendBytes)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Sub
@@ -287,7 +287,7 @@ Public Module WinsockModule
                     End If
                 Next
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Sub
@@ -300,7 +300,7 @@ Public Module WinsockModule
                 ReDim bytes(UBound(byt))
                 byt.CopyTo(bytes, 0)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Sub
@@ -313,7 +313,7 @@ Public Module WinsockModule
                 _State = new_state
                 RaiseEvent StateChanged(Me, _State)
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Sub
@@ -439,7 +439,7 @@ Public Module WinsockModule
                     _buffer = Nothing
                 End If
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Sub

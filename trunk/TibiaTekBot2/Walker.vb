@@ -211,7 +211,7 @@ Public Module WalkerModule
                             TileObjects = Kernel.Client.MapTiles.GetTileObjects(8, 6, Kernel.Client.MapTiles.WorldZToClientZ(Kernel.CharacterLoc.Z))
                             For Each TileObject In TileObjects
                                 'With Kernel.Client.Dat.GetInfo(TileObject.GetObjectID)
-                                If Kernel.Client.Objects.LensHelp(TileObject.GetObjectID) = IObjects.ObjectLensHelp.Sewer Then
+                                If Kernel.Client.Objects.LensHelp(TileObject.GetObjectID) = IObjects.ObjectLensHelp.SewerGrates Then
                                     Dim SPB As New ServerPacketBuilder(Kernel.Proxy)
                                     SPB.UseObject(TileObject.GetObjectID, Coordinates)
                                 End If
@@ -342,7 +342,7 @@ Public Module WalkerModule
                         End If
                 End Select
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -363,7 +363,7 @@ Public Module WalkerModule
                     Return True
                 End If
             Catch Ex As Exception
-                MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError(Ex)
                 End
             End Try
         End Function
@@ -398,7 +398,7 @@ Public Module WalkerModule
             Document.AppendChild(xmlWayPoints)
             Document.Save(Path)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -526,7 +526,7 @@ Public Module WalkerModule
                 End If
             Next
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub

@@ -56,7 +56,7 @@ Public Class frmAlarms
             e.Cancel = True
             Me.Hide()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -65,7 +65,7 @@ Public Class frmAlarms
         Try
             Me.Hide()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -150,7 +150,7 @@ Public Class frmAlarms
                 ItemsMessagePlayer.Checked = Boolean.Parse(ItemsNode.Item("MessagePlayer").InnerText)
                 ItemsMessagePlayerName.Text = ItemsNode.Item("MessagePlayer").GetAttribute("Player")
             End If
-            
+
             If Not ItemsNode.Item("List") Is Nothing Then
                 Dim ListNode As XmlNode = ItemsNode.Item("List")
                 If Not ListNode.Item("Food") Is Nothing Then
@@ -203,8 +203,8 @@ Public Class frmAlarms
                     AmmunitionCond.CheckInventory = Boolean.Parse(AmmunitionNode.GetAttribute("CheckInventory"))
                 End If
             End If
-       Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch Ex As Exception
+            ShowError(Ex)
             End
         Finally
             Tabs.Enabled = True
@@ -234,7 +234,7 @@ Public Class frmAlarms
                 BattlelistIgnoredPlayers.Items.RemoveAt(BattlelistIgnoredPlayers.SelectedIndex)
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -518,7 +518,7 @@ Public Class frmAlarms
             AlarmsActivate.Enabled = True
             AlarmsSave.Enabled = True
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -632,7 +632,7 @@ Public Class frmAlarms
                 If Not Kernel.TTBState = BotState.Running Then Kernel.TTBState = BotState.Running
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -660,7 +660,7 @@ Public Class frmAlarms
                 MessageIgnoredPlayers.Items.RemoveAt(MessageIgnoredPlayers.SelectedIndex)
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -684,7 +684,7 @@ Public Class frmAlarms
             AmmunitionCond.Count = 0
             Button8_Click(Nothing, Nothing)
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -795,7 +795,7 @@ Public Class frmAlarms
                 If Not Kernel.TTBState = BotState.Running Then Kernel.TTBState = BotState.Running
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -846,7 +846,7 @@ Public Class frmAlarms
                 '            ItemsApply.Enabled = False
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -887,7 +887,7 @@ Public Class frmAlarms
                     AmmunitionCond.CheckInventory = ItemsCheckInventory.Checked
             End Select
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -907,7 +907,7 @@ Public Class frmAlarms
                     AmmunitionCond.Active = e.NewValue = CheckState.Checked
             End Select
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1108,7 +1108,7 @@ Public Class frmAlarms
                 If Not Kernel.TTBState = BotState.Running Then Kernel.TTBState = BotState.Running
             End If
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1133,7 +1133,7 @@ Public Class frmAlarms
         Try
             Me.Text = "Alarms for " & Kernel.Client.CharacterName
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -1142,7 +1142,7 @@ Public Class frmAlarms
         Try
             SoundUpdate()
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -1151,7 +1151,7 @@ Public Class frmAlarms
             Dim Sound As New Audio
             Sound.Play(Kernel.ExecutablePath & "\Alarms\" & BlSoundBox.Text & ".wav", AudioPlayMode.Background)
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -1160,7 +1160,7 @@ Public Class frmAlarms
             Dim Sound As New Audio
             Sound.Play(Kernel.ExecutablePath & "\Alarms\" & StSoundBox.Text & ".wav", AudioPlayMode.Background)
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
     Private Sub ItSoundTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ItSoundTest.Click
@@ -1168,7 +1168,7 @@ Public Class frmAlarms
             Dim Sound As New Audio
             Sound.Play(Kernel.ExecutablePath & "\Alarms\" & ItSoundBox.Text & ".wav", AudioPlayMode.Background)
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -1187,7 +1187,7 @@ Public Class frmAlarms
             End With
             SoundFilePath.Text = filename
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
     Private Sub SoundUpdate()
@@ -1216,7 +1216,7 @@ Public Class frmAlarms
                 PrivMsgSoundBox.Text = PrivMsgSoundBox.Items.Item(0)
             End If
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -1229,7 +1229,7 @@ Public Class frmAlarms
             End If
             MessageBox.Show("You must choose a file to add.")
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -1238,7 +1238,7 @@ Public Class frmAlarms
             Kernel.PublicMessageFile = PubMsgSoundBox.Text
             Kernel.PrivateMessageFile = PrivMsgSoundBox.Text
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -1247,7 +1247,7 @@ Public Class frmAlarms
             Dim Sound As New Audio
             Sound.Play(Kernel.ExecutablePath & "\Alarms\" & PrivMsgSoundBox.Text & ".wav", AudioPlayMode.Background)
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 
@@ -1256,7 +1256,7 @@ Public Class frmAlarms
             Dim Sound As New Audio
             Sound.Play(Kernel.ExecutablePath & "\Alarms\" & PubMsgSoundBox.Text & ".wav", AudioPlayMode.Background)
         Catch ex As Exception
-            MessageBox.Show("TargetSite: " & ex.TargetSite.Name & vbCrLf & "Message: " & ex.Message & vbCrLf & "Source: " & ex.Source & vbCrLf & "Stack Trace: " & ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(ex)
         End Try
     End Sub
 End Class

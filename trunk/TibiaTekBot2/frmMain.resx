@@ -235,11 +235,30 @@
   <data name="KeyboardToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Keyboard</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="KeyboardToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="ToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>235, 22</value>
   </data>
   <data name="ToolStripMenuItem1.Text" xml:space="preserve">
     <value>&amp;Lag Bar</value>
+  </data>
+  <data name="AutoResponderToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAhJJREFUOE+Vkk1r
+        E1EUhkfFhSsX6g/oD9D/oP9CtKLdCIL4Ae50a7GlHRGtCi5EF1VDdaGLNtFpmxZUTEyqi9ZOPyRpnM5M
+        kplJ5jOT9PWcmyDGhkgHXoZ7OM97zzn37CuVXeVDvnhStwOp13fwwH7pxMAR6fjA0dljhw+d2pXzNLWM
+        3LoJL4x3yaWY5YZIfy8hsaCi5w0jiawA66RaQPJj2CyPYK8h4obl48Hbb/0NGLY6UNVtoFyPYNYiYfJ/
+        gyiGQ7dycoXg7JqJm88+4cL4ewyR+H92JIkhmc6kS/fnMDm3Cp6fNP46B4fAuLkjYL75FsHK0ha10yDj
+        jiiH82ySbvuYWlwDs5KSLyqv5lWoJQtxa0fo/FhKwFwRt1OpN2B2WtKdUMQLRh1XH6Xbc1kpVpW7b/Ji
+        4l9WDZy5MyNuZtigOTC0bYf4ZQXYqgbi3GXAJhM05Yxq4PaLTLuCgNuhcilZ+wsulH1oZET94/LEfLuC
+        KG7K/JzDLzPQqp588Z6CMoFh3OqCuQqD4hHFf+o1XH+80DZwvEhOpFXoli/zeXL2h8IDWtow0Wi2hNis
+        aLpY1xw8V1ZwbjSFd583la7lAiAM+Pu4rCn8fI4fYSZbwOnhaVx5mMaNJ4vg7aXl+5Pbc0PJDNeoxOTX
+        AgZpBza3nf7Avy5B1BQLNDiaxIa2R5jNKrUAY1M5fq693dyznz7B34xKPly0pmqMAAAAAElFTkSuQmCC
+</value>
   </data>
   <data name="AutoResponderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>235, 22</value>
@@ -380,7 +399,6 @@
   <data name="NotifyIcon.Text" xml:space="preserve">
     <value>TibiaTek Bot</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1270,31 +1288,13 @@
     <value>False</value>
   </data>
   <data name="AboutUsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="AboutUsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;About Us</value>
   </data>
-  <data name="WebsiteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
-  </data>
-  <data name="WebsiteToolStripMenuItem.Text" xml:space="preserve">
-    <value>Official &amp;Website</value>
-  </data>
-  <data name="VersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
-  </data>
-  <data name="VersionToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Version</value>
-  </data>
-  <data name="DevelopmentWebsiteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
-  </data>
-  <data name="DevelopmentWebsiteToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Development Website</value>
-  </data>
   <data name="LicenseToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="LicenseToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;License</value>
@@ -1310,6 +1310,9 @@
   </data>
   <data name="TestToolStripMenuItem1.Text" xml:space="preserve">
     <value>Test</value>
+  </data>
+  <data name="TestToolStripMenuItem1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="MenuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1333,7 +1336,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MenuStrip1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="TestToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 19</value>
@@ -2435,7 +2438,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;GroupBox9.Parent" xml:space="preserve">
-    <value>GeneralTab2</value>
+    <value>GeneralPart2</value>
   </data>
   <data name="&gt;&gt;GroupBox9.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -2549,7 +2552,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;DancerBox.Parent" xml:space="preserve">
-    <value>GeneralTab2</value>
+    <value>GeneralPart2</value>
   </data>
   <data name="&gt;&gt;DancerBox.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -2723,7 +2726,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ChangersBox.Parent" xml:space="preserve">
-    <value>GeneralTab2</value>
+    <value>GeneralPart2</value>
   </data>
   <data name="&gt;&gt;ChangersBox.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -2981,37 +2984,220 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;AutoLooterBox.Parent" xml:space="preserve">
-    <value>GeneralTab2</value>
+    <value>GeneralPart2</value>
   </data>
   <data name="&gt;&gt;AutoLooterBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="GeneralTab2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="GeneralPart2.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="GeneralTab2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="GeneralPart2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="GeneralTab2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="GeneralPart2.Size" type="System.Drawing.Size, System.Drawing">
     <value>392, 304</value>
   </data>
-  <data name="GeneralTab2.TabIndex" type="System.Int32, mscorlib">
+  <data name="GeneralPart2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="GeneralTab2.Text" xml:space="preserve">
+  <data name="GeneralPart2.Text" xml:space="preserve">
     <value>Part II</value>
   </data>
-  <data name="&gt;&gt;GeneralTab2.Name" xml:space="preserve">
-    <value>GeneralTab2</value>
+  <data name="&gt;&gt;GeneralPart2.Name" xml:space="preserve">
+    <value>GeneralPart2</value>
   </data>
-  <data name="&gt;&gt;GeneralTab2.Type" xml:space="preserve">
+  <data name="&gt;&gt;GeneralPart2.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GeneralTab2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GeneralPart2.Parent" xml:space="preserve">
     <value>GeneralTabControl</value>
   </data>
-  <data name="&gt;&gt;GeneralTab2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;GeneralPart2.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="Label33.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label33.Location" type="System.Drawing.Point, System.Drawing">
+    <value>209, 288</value>
+  </data>
+  <data name="Label33.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 13</value>
+  </data>
+  <data name="Label33.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="Label33.Text" xml:space="preserve">
+    <value>This page was left blank in purpose.</value>
+  </data>
+  <data name="&gt;&gt;Label33.Name" xml:space="preserve">
+    <value>Label33</value>
+  </data>
+  <data name="&gt;&gt;Label33.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label33.Parent" xml:space="preserve">
+    <value>GeneralTab3</value>
+  </data>
+  <data name="&gt;&gt;Label33.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Label37.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label37.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 143</value>
+  </data>
+  <data name="Label37.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 13</value>
+  </data>
+  <data name="Label37.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="Label37.Text" xml:space="preserve">
+    <value>IRC Status:</value>
+  </data>
+  <data name="&gt;&gt;Label37.Name" xml:space="preserve">
+    <value>Label37</value>
+  </data>
+  <data name="&gt;&gt;Label37.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label37.Parent" xml:space="preserve">
+    <value>GroupBox18</value>
+  </data>
+  <data name="&gt;&gt;Label37.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="IRCStatusLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="IRCStatusLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>72, 143</value>
+  </data>
+  <data name="IRCStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 13</value>
+  </data>
+  <data name="IRCStatusLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="IRCStatusLabel.Text" xml:space="preserve">
+    <value>Disconnected</value>
+  </data>
+  <data name="&gt;&gt;IRCStatusLabel.Name" xml:space="preserve">
+    <value>IRCStatusLabel</value>
+  </data>
+  <data name="&gt;&gt;IRCStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;IRCStatusLabel.Parent" xml:space="preserve">
+    <value>GroupBox18</value>
+  </data>
+  <data name="&gt;&gt;IRCStatusLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Label36.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label36.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="Label36.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 13</value>
+  </data>
+  <data name="Label36.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="Label36.Text" xml:space="preserve">
+    <value>Established Connections:</value>
+  </data>
+  <data name="&gt;&gt;Label36.Name" xml:space="preserve">
+    <value>Label36</value>
+  </data>
+  <data name="&gt;&gt;Label36.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label36.Parent" xml:space="preserve">
+    <value>GroupBox18</value>
+  </data>
+  <data name="&gt;&gt;Label36.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="UpLinkConnectionsList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 32</value>
+  </data>
+  <data name="UpLinkConnectionsList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 108</value>
+  </data>
+  <data name="UpLinkConnectionsList.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;UpLinkConnectionsList.Name" xml:space="preserve">
+    <value>UpLinkConnectionsList</value>
+  </data>
+  <data name="&gt;&gt;UpLinkConnectionsList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UpLinkConnectionsList.Parent" xml:space="preserve">
+    <value>GroupBox18</value>
+  </data>
+  <data name="&gt;&gt;UpLinkConnectionsList.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="GroupBox18.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 6</value>
+  </data>
+  <data name="GroupBox18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 166</value>
+  </data>
+  <data name="GroupBox18.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="GroupBox18.Text" xml:space="preserve">
+    <value>Up-Link</value>
+  </data>
+  <data name="GroupBox18.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;GroupBox18.Name" xml:space="preserve">
+    <value>GroupBox18</value>
+  </data>
+  <data name="&gt;&gt;GroupBox18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox18.Parent" xml:space="preserve">
+    <value>GeneralTab3</value>
+  </data>
+  <data name="&gt;&gt;GroupBox18.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GeneralTab3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="GeneralTab3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="GeneralTab3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 304</value>
+  </data>
+  <data name="GeneralTab3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="GeneralTab3.Text" xml:space="preserve">
+    <value>Part III</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab3.Name" xml:space="preserve">
+    <value>GeneralTab3</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab3.Parent" xml:space="preserve">
+    <value>GeneralTabControl</value>
+  </data>
+  <data name="&gt;&gt;GeneralTab3.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="GeneralTabControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -6337,11 +6523,35 @@
   <data name="&gt;&gt;TabPage7.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="ScreenInfoHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 79</value>
+  </data>
+  <data name="ScreenInfoHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="ScreenInfoHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="ScreenInfoHelp.Text" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="&gt;&gt;ScreenInfoHelp.Name" xml:space="preserve">
+    <value>ScreenInfoHelp</value>
+  </data>
+  <data name="&gt;&gt;ScreenInfoHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ScreenInfoHelp.Parent" xml:space="preserve">
+    <value>InfoInScreenBox</value>
+  </data>
+  <data name="&gt;&gt;ScreenInfoHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ScreenInfoTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
   <data name="ScreenInfoTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 72</value>
+    <value>16, 79</value>
   </data>
   <data name="ScreenInfoTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -6365,7 +6575,7 @@
     <value>InfoInScreenBox</value>
   </data>
   <data name="&gt;&gt;ScreenInfoTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="ShowHUD.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -6392,7 +6602,7 @@
     <value>InfoInScreenBox</value>
   </data>
   <data name="&gt;&gt;ShowHUD.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="ShowCreatureInfo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -6419,7 +6629,7 @@
     <value>InfoInScreenBox</value>
   </data>
   <data name="&gt;&gt;ShowCreatureInfo.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="InfoInScreenBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>191, 224</value>
@@ -6431,7 +6641,7 @@
     <value>5</value>
   </data>
   <data name="InfoInScreenBox.Text" xml:space="preserve">
-    <value>Info in Game Screen</value>
+    <value>In-Game Screen Information</value>
   </data>
   <data name="&gt;&gt;InfoInScreenBox.Name" xml:space="preserve">
     <value>InfoInScreenBox</value>
@@ -7972,370 +8182,230 @@
   <data name="&gt;&gt;TabPage6.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="RichTextBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>181, 67</value>
+  <data name="GPSChannelTextbox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>58, 18</value>
   </data>
-  <data name="RichTextBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 228</value>
+  <data name="GPSChannelTextbox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 21</value>
   </data>
-  <data name="RichTextBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
+  <data name="GPSChannelTextbox.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
   </data>
-  <data name="RichTextBox1.Text" xml:space="preserve">
-    <value>How to setup Irc Location
-
-1. Choose a channel to use
-
-2. Write the names of all characters that will be involved
-
-3. Press Activate Broadcaster to start broadcast your location
-
-4. Press Show Map to view your and your friend location and information</value>
-  </data>
-  <data name="&gt;&gt;RichTextBox1.Name" xml:space="preserve">
-    <value>RichTextBox1</value>
-  </data>
-  <data name="&gt;&gt;RichTextBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RichTextBox1.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;RichTextBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="frmILMapShowButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="frmILMapShowButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 41</value>
-  </data>
-  <data name="frmILMapShowButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="frmILMapShowButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="frmILMapShowButton.Text" xml:space="preserve">
-    <value>Show Map</value>
-  </data>
-  <data name="&gt;&gt;frmILMapShowButton.Name" xml:space="preserve">
-    <value>frmILMapShowButton</value>
-  </data>
-  <data name="&gt;&gt;frmILMapShowButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;frmILMapShowButton.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;frmILMapShowButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ILPlayer9Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 275</value>
-  </data>
-  <data name="ILPlayer9Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
-  </data>
-  <data name="ILPlayer9Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer9Namebox.Name" xml:space="preserve">
-    <value>ILPlayer9Namebox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer9Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer9Namebox.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer9Namebox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ILPlayer1Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 67</value>
-  </data>
-  <data name="ILPlayer1Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
-  </data>
-  <data name="ILPlayer1Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="ILPlayer1Namebox.Text" xml:space="preserve">
-    <value>You</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer1Namebox.Name" xml:space="preserve">
-    <value>ILPlayer1Namebox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer1Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer1Namebox.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer1Namebox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="ILActivateButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 14</value>
-  </data>
-  <data name="ILActivateButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 25</value>
-  </data>
-  <data name="ILActivateButton.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="ILActivateButton.Text" xml:space="preserve">
-    <value>Activate Broadcaster</value>
-  </data>
-  <data name="&gt;&gt;ILActivateButton.Name" xml:space="preserve">
-    <value>ILActivateButton</value>
-  </data>
-  <data name="&gt;&gt;ILActivateButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ILActivateButton.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;ILActivateButton.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="ILPlayer8Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 249</value>
-  </data>
-  <data name="ILPlayer8Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
-  </data>
-  <data name="ILPlayer8Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer8Namebox.Name" xml:space="preserve">
-    <value>ILPlayer8Namebox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer8Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer8Namebox.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer8Namebox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="ILPlayer7Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 223</value>
-  </data>
-  <data name="ILPlayer7Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
-  </data>
-  <data name="ILPlayer7Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer7Namebox.Name" xml:space="preserve">
-    <value>ILPlayer7Namebox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer7Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer7Namebox.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer7Namebox.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="ILChannelTextbox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 18</value>
-  </data>
-  <data name="ILChannelTextbox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 20</value>
-  </data>
-  <data name="ILChannelTextbox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="ILChannelTextbox.Text" xml:space="preserve">
+  <data name="GPSChannelTextbox.Text" xml:space="preserve">
     <value>#</value>
   </data>
-  <data name="&gt;&gt;ILChannelTextbox.Name" xml:space="preserve">
-    <value>ILChannelTextbox</value>
+  <data name="&gt;&gt;GPSChannelTextbox.Name" xml:space="preserve">
+    <value>GPSChannelTextbox</value>
   </data>
-  <data name="&gt;&gt;ILChannelTextbox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;GPSChannelTextbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ILChannelTextbox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GPSChannelTextbox.Parent" xml:space="preserve">
     <value>ILSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ILChannelTextbox.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="Label33.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label33.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 21</value>
-  </data>
-  <data name="Label33.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 13</value>
-  </data>
-  <data name="Label33.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;GPSChannelTextbox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="Label33.Text" xml:space="preserve">
-    <value>Channel to use:</value>
-  </data>
-  <data name="&gt;&gt;Label33.Name" xml:space="preserve">
-    <value>Label33</value>
-  </data>
-  <data name="&gt;&gt;Label33.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label33.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;Label33.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="ILPlayer6Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 197</value>
-  </data>
-  <data name="ILPlayer6Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
-  </data>
-  <data name="ILPlayer6Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer6Namebox.Name" xml:space="preserve">
-    <value>ILPlayer6Namebox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer6Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer6Namebox.Parent" xml:space="preserve">
-    <value>ILSettingsBox</value>
-  </data>
-  <data name="&gt;&gt;ILPlayer6Namebox.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="Label35.AutoSize" type="System.Boolean, mscorlib">
+  <data name="GPSBroadcastStats.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="Label35.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 51</value>
+  <data name="GPSBroadcastStats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 72</value>
   </data>
-  <data name="Label35.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 13</value>
+  <data name="GPSBroadcastStats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 17</value>
   </data>
-  <data name="Label35.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="GPSBroadcastStats.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
   </data>
-  <data name="Label35.Text" xml:space="preserve">
-    <value>Name of players:</value>
+  <data name="GPSBroadcastStats.Text" xml:space="preserve">
+    <value>Broadcast Your Stats</value>
   </data>
-  <data name="&gt;&gt;Label35.Name" xml:space="preserve">
-    <value>Label35</value>
+  <data name="&gt;&gt;GPSBroadcastStats.Name" xml:space="preserve">
+    <value>GPSBroadcastStats</value>
   </data>
-  <data name="&gt;&gt;Label35.Type" xml:space="preserve">
+  <data name="&gt;&gt;GPSBroadcastStats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GPSBroadcastStats.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;GPSBroadcastStats.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GPSChannelPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>65, 46</value>
+  </data>
+  <data name="GPSChannelPassword.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="GPSChannelPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 20</value>
+  </data>
+  <data name="GPSChannelPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;GPSChannelPassword.Name" xml:space="preserve">
+    <value>GPSChannelPassword</value>
+  </data>
+  <data name="&gt;&gt;GPSChannelPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GPSChannelPassword.Parent" xml:space="preserve">
+    <value>ILSettingsBox</value>
+  </data>
+  <data name="&gt;&gt;GPSChannelPassword.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label34.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label34.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 46</value>
+  </data>
+  <data name="Label34.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
+  </data>
+  <data name="Label34.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="Label34.Text" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="&gt;&gt;Label34.Name" xml:space="preserve">
+    <value>Label34</value>
+  </data>
+  <data name="&gt;&gt;Label34.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Label35.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Label34.Parent" xml:space="preserve">
     <value>ILSettingsBox</value>
   </data>
-  <data name="&gt;&gt;Label35.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="&gt;&gt;Label34.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="ILPlayer5Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 171</value>
+  <data name="GPSTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
   </data>
-  <data name="ILPlayer5Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
+  <data name="GPSTrigger.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="ILPlayer5Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+  <data name="GPSTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 95</value>
   </data>
-  <data name="&gt;&gt;ILPlayer5Namebox.Name" xml:space="preserve">
-    <value>ILPlayer5Namebox</value>
+  <data name="GPSTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 23</value>
   </data>
-  <data name="&gt;&gt;ILPlayer5Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="GPSTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
   </data>
-  <data name="&gt;&gt;ILPlayer5Namebox.Parent" xml:space="preserve">
+  <data name="GPSTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="&gt;&gt;GPSTrigger.Name" xml:space="preserve">
+    <value>GPSTrigger</value>
+  </data>
+  <data name="&gt;&gt;GPSTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GPSTrigger.Parent" xml:space="preserve">
     <value>ILSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ILPlayer5Namebox.ZOrder" xml:space="preserve">
-    <value>11</value>
+  <data name="&gt;&gt;GPSTrigger.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="ILPlayer4Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 145</value>
+  <data name="GPSHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 95</value>
   </data>
-  <data name="ILPlayer4Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
+  <data name="GPSHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 23</value>
   </data>
-  <data name="ILPlayer4Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+  <data name="GPSHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
   </data>
-  <data name="&gt;&gt;ILPlayer4Namebox.Name" xml:space="preserve">
-    <value>ILPlayer4Namebox</value>
+  <data name="GPSHelp.Text" xml:space="preserve">
+    <value>?</value>
   </data>
-  <data name="&gt;&gt;ILPlayer4Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;GPSHelp.Name" xml:space="preserve">
+    <value>GPSHelp</value>
   </data>
-  <data name="&gt;&gt;ILPlayer4Namebox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GPSHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GPSHelp.Parent" xml:space="preserve">
     <value>ILSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ILPlayer4Namebox.ZOrder" xml:space="preserve">
-    <value>12</value>
+  <data name="&gt;&gt;GPSHelp.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <data name="ILPlayer2Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 93</value>
+  <data name="GPSShowMapButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="ILPlayer2Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
+  <data name="GPSShowMapButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>101, 95</value>
   </data>
-  <data name="ILPlayer2Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+  <data name="GPSShowMapButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
-  <data name="&gt;&gt;ILPlayer2Namebox.Name" xml:space="preserve">
-    <value>ILPlayer2Namebox</value>
+  <data name="GPSShowMapButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;ILPlayer2Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="GPSShowMapButton.Text" xml:space="preserve">
+    <value>Show Map</value>
   </data>
-  <data name="&gt;&gt;ILPlayer2Namebox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GPSShowMapButton.Name" xml:space="preserve">
+    <value>GPSShowMapButton</value>
+  </data>
+  <data name="&gt;&gt;GPSShowMapButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GPSShowMapButton.Parent" xml:space="preserve">
     <value>ILSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ILPlayer2Namebox.ZOrder" xml:space="preserve">
-    <value>13</value>
+  <data name="&gt;&gt;GPSShowMapButton.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="ILPlayer3Namebox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 119</value>
+  <data name="GPSUpLink.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="ILPlayer3Namebox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
+  <data name="GPSUpLink.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="ILPlayer3Namebox.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+  <data name="GPSUpLink.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
   </data>
-  <data name="&gt;&gt;ILPlayer3Namebox.Name" xml:space="preserve">
-    <value>ILPlayer3Namebox</value>
+  <data name="GPSUpLink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 13</value>
   </data>
-  <data name="&gt;&gt;ILPlayer3Namebox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="GPSUpLink.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;ILPlayer3Namebox.Parent" xml:space="preserve">
+  <data name="GPSUpLink.Text" xml:space="preserve">
+    <value>Channel:</value>
+  </data>
+  <data name="&gt;&gt;GPSUpLink.Name" xml:space="preserve">
+    <value>GPSUpLink</value>
+  </data>
+  <data name="&gt;&gt;GPSUpLink.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GPSUpLink.Parent" xml:space="preserve">
     <value>ILSettingsBox</value>
   </data>
-  <data name="&gt;&gt;ILPlayer3Namebox.ZOrder" xml:space="preserve">
-    <value>14</value>
+  <data name="&gt;&gt;GPSUpLink.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="ILSettingsBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 8</value>
+    <value>6, 3</value>
   </data>
   <data name="ILSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>393, 325</value>
+    <value>184, 128</value>
   </data>
   <data name="ILSettingsBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="ILSettingsBox.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>GPS</value>
   </data>
   <data name="&gt;&gt;ILSettingsBox.Name" xml:space="preserve">
     <value>ILSettingsBox</value>
@@ -8356,13 +8426,13 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="TabPage8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 339</value>
+    <value>385, 301</value>
   </data>
   <data name="TabPage8.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>0</value>
   </data>
   <data name="TabPage8.Text" xml:space="preserve">
-    <value>Irc Loc</value>
+    <value>Part I</value>
   </data>
   <data name="&gt;&gt;TabPage8.Name" xml:space="preserve">
     <value>TabPage8</value>
@@ -8371,9 +8441,57 @@
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;TabPage8.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
+    <value>TabControl1</value>
   </data>
   <data name="&gt;&gt;TabPage8.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 6</value>
+  </data>
+  <data name="TabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>393, 327</value>
+  </data>
+  <data name="TabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TabControl1.Name" xml:space="preserve">
+    <value>TabControl1</value>
+  </data>
+  <data name="&gt;&gt;TabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabControl1.Parent" xml:space="preserve">
+    <value>WarPage</value>
+  </data>
+  <data name="&gt;&gt;TabControl1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="WarPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="WarPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="WarPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 339</value>
+  </data>
+  <data name="WarPage.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="WarPage.Text" xml:space="preserve">
+    <value>War</value>
+  </data>
+  <data name="&gt;&gt;WarPage.Name" xml:space="preserve">
+    <value>WarPage</value>
+  </data>
+  <data name="&gt;&gt;WarPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WarPage.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;WarPage.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="MainTabControl.Enabled" type="System.Boolean, mscorlib">
@@ -8398,7 +8516,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MainTabControl.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
+  </data>
+  <metadata name="ContextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>625, 2</value>
+  </metadata>
+  <data name="ContextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 4</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuStrip1.Name" xml:space="preserve">
+    <value>ContextMenuStrip1</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -10615,24 +10745,6 @@
     <value>AboutUsToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;AboutUsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;WebsiteToolStripMenuItem.Name" xml:space="preserve">
-    <value>WebsiteToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;WebsiteToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;VersionToolStripMenuItem.Name" xml:space="preserve">
-    <value>VersionToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;VersionToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DevelopmentWebsiteToolStripMenuItem.Name" xml:space="preserve">
-    <value>DevelopmentWebsiteToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;DevelopmentWebsiteToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;LicenseToolStripMenuItem.Name" xml:space="preserve">

@@ -26,7 +26,7 @@ Public NotInheritable Class frmSplashScreen
     Private Sub SplashScreen1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         'Set up the dialog text at runtime according to the application's assembly information.  
         Dim R As New Random(System.DateTime.Now.Millisecond)
-        Select Case R.Next(0, 7)
+        Select Case R.Next(0, 9)
             Case 0
                 Me.BackgroundImage = My.Resources.ttb_splash0
             Case 1
@@ -41,6 +41,10 @@ Public NotInheritable Class frmSplashScreen
                 Me.BackgroundImage = My.Resources.ttb_splash5
             Case 6
                 Me.BackgroundImage = My.Resources.ttb_splash6
+            Case 7
+                Me.BackgroundImage = My.Resources.ttb_splash7
+            Case 8
+                Me.BackgroundImage = My.Resources.ttb_splash8
         End Select
 
         'TODO: Customize the application's assembly information in the "Application" pane of the project 
@@ -72,7 +76,7 @@ Public NotInheritable Class frmSplashScreen
         Try
             Me.Close()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub
@@ -81,7 +85,7 @@ Public NotInheritable Class frmSplashScreen
         Try
             Me.Close()
         Catch Ex As Exception
-            MessageBox.Show("TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ShowError(Ex)
             End
         End Try
     End Sub

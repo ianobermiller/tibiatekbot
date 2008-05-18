@@ -828,7 +828,7 @@ Public Module ConstantsModule
     End Class
 
     Public Const Ret As Char = Chr(&HA)
-    Public Const BotVersion As String = "2.3.1"
+    Public Const BotVersion As String = "2.5"
     Public Const TibiaFileVersion As String = "8.11"
     Public Const TibiaProductName As String = "Tibia Player"
     Public Const BotStage As String = "Final" 'Alpha,Beta,Final,etc
