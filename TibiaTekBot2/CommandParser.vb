@@ -1737,7 +1737,7 @@ Public Class CommandParser
                                 Kernel.ConsoleWrite("Auto Fisher is now Enabled.")
                             Case "turbo", "nitro", "fast", "faster", "fastest"
                                 Kernel.FisherMinimumCapacity = CInt(MatchObj.Groups(1).Value)
-                                Kernel.FisherSpeed = 500
+                                Kernel.FisherSpeed = 400
                                 Kernel.FisherTurbo = True
                                 Kernel.FisherTimerObj.StartTimer()
                                 Kernel.ConsoleWrite("Auto Fisher (Turbo Mode) is now Enabled.")
