@@ -88,13 +88,17 @@ Public Class frmGPSMap
                     End If
                     Dim p As New Point(GPE.Loc.X - 31790, GPE.Loc.Y - 30856)
 
-                    SplitContainer1.Panel2.HorizontalScroll.Value = p.X
-                    SplitContainer1.Panel2.VerticalScroll.Value = p.Y
+                    SplitContainer1.Panel2.HorizontalScroll.Value = System.Math.Min(System.Math.Max(p.X - SplitContainer1.Panel2.Width / 2, 0), SplitContainer1.Panel2.HorizontalScroll.Maximum - 1)
+                    SplitContainer1.Panel2.VerticalScroll.Value = System.Math.Min(System.Math.Max(p.Y - SplitContainer1.Panel2.Height / 2, 0), SplitContainer1.Panel2.VerticalScroll.Maximum - 1)
                 End If
             End SyncLock
         Catch
         End Try
     End Sub
 
-
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim p As New Point(Kernel.Client.CharacterLocation.X - 31790, Kernel.Client.CharacterLocation.Y - 30856)
+        SplitContainer1.Panel2.HorizontalScroll.Value = System.Math.Min(System.Math.Max(p.X - SplitContainer1.Panel2.Width / 2, 0), SplitContainer1.Panel2.HorizontalScroll.Maximum - 1)
+        SplitContainer1.Panel2.VerticalScroll.Value = System.Math.Min(System.Math.Max(p.Y - SplitContainer1.Panel2.Height / 2, 0), SplitContainer1.Panel2.VerticalScroll.Maximum - 1)
+    End Sub
 End Class

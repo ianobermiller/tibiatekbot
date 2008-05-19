@@ -277,10 +277,7 @@ Partial Class frmMain
         Me.RingChangerTrigger = New System.Windows.Forms.CheckBox
         Me.AutoLooterBox = New System.Windows.Forms.GroupBox
         Me.AutoLooterHelp = New System.Windows.Forms.Button
-        Me.AutoLooterlvl3 = New System.Windows.Forms.Label
         Me.AutoLooterEatFromCorpse = New System.Windows.Forms.CheckBox
-        Me.AutoLooterDelay = New System.Windows.Forms.NumericUpDown
-        Me.AutoLooterlbl2 = New System.Windows.Forms.Label
         Me.AutoLooterlbl = New System.Windows.Forms.Label
         Me.AutoLooterMinCap = New System.Windows.Forms.NumericUpDown
         Me.AutoLooterConfigure = New System.Windows.Forms.Button
@@ -311,6 +308,7 @@ Partial Class frmMain
         Me.AutoEaterTrigger = New System.Windows.Forms.CheckBox
         Me.AutoEaterSmart = New System.Windows.Forms.CheckBox
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
+        Me.RunemakerHelp = New System.Windows.Forms.Button
         Me.RunemakerTrigger = New System.Windows.Forms.CheckBox
         Me.RunemakerMinimumSoulPoints = New System.Windows.Forms.NumericUpDown
         Me.Label5 = New System.Windows.Forms.Label
@@ -319,6 +317,7 @@ Partial Class frmMain
         Me.RunemakerSpell = New System.Windows.Forms.ComboBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.SpellCasterHelp = New System.Windows.Forms.Button
         Me.SpellCasterTrigger = New System.Windows.Forms.CheckBox
         Me.SpellCasterMinimumManaPoints = New System.Windows.Forms.NumericUpDown
         Me.Label3 = New System.Windows.Forms.Label
@@ -330,6 +329,7 @@ Partial Class frmMain
         Me.TradeChannelAdvertiserAdvertisement = New System.Windows.Forms.TextBox
         Me.TradeChannelAdvertiserLabel = New System.Windows.Forms.Label
         Me.GroupBox8 = New System.Windows.Forms.GroupBox
+        Me.CavebotHelp = New System.Windows.Forms.Button
         Me.CavebotTrigger = New System.Windows.Forms.CheckBox
         Me.CavebotConfigure = New System.Windows.Forms.Button
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
@@ -537,9 +537,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.RunemakerHelp = New System.Windows.Forms.Button
-        Me.SpellCasterHelp = New System.Windows.Forms.Button
-        Me.CavebotHelp = New System.Windows.Forms.Button
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -567,7 +564,6 @@ Partial Class frmMain
         Me.DancerBox.SuspendLayout()
         Me.ChangersBox.SuspendLayout()
         Me.AutoLooterBox.SuspendLayout()
-        CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AutoLooterMinCap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GeneralTab3.SuspendLayout()
         Me.GroupBox18.SuspendLayout()
@@ -664,7 +660,6 @@ Partial Class frmMain
         '
         Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.KeyboardToolStripMenuItem, Me.ToolStripMenuItem1, Me.AutoResponderToolStripMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
-        Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
@@ -2009,10 +2004,7 @@ Partial Class frmMain
         'AutoLooterBox
         '
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterHelp)
-        Me.AutoLooterBox.Controls.Add(Me.AutoLooterlvl3)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterEatFromCorpse)
-        Me.AutoLooterBox.Controls.Add(Me.AutoLooterDelay)
-        Me.AutoLooterBox.Controls.Add(Me.AutoLooterlbl2)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterlbl)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterMinCap)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterConfigure)
@@ -2027,27 +2019,11 @@ Partial Class frmMain
         Me.AutoLooterHelp.Name = "AutoLooterHelp"
         Me.AutoLooterHelp.UseVisualStyleBackColor = True
         '
-        'AutoLooterlvl3
-        '
-        resources.ApplyResources(Me.AutoLooterlvl3, "AutoLooterlvl3")
-        Me.AutoLooterlvl3.Name = "AutoLooterlvl3"
-        '
         'AutoLooterEatFromCorpse
         '
         resources.ApplyResources(Me.AutoLooterEatFromCorpse, "AutoLooterEatFromCorpse")
         Me.AutoLooterEatFromCorpse.Name = "AutoLooterEatFromCorpse"
         Me.AutoLooterEatFromCorpse.UseVisualStyleBackColor = True
-        '
-        'AutoLooterDelay
-        '
-        resources.ApplyResources(Me.AutoLooterDelay, "AutoLooterDelay")
-        Me.AutoLooterDelay.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
-        Me.AutoLooterDelay.Name = "AutoLooterDelay"
-        '
-        'AutoLooterlbl2
-        '
-        resources.ApplyResources(Me.AutoLooterlbl2, "AutoLooterlbl2")
-        Me.AutoLooterlbl2.Name = "AutoLooterlbl2"
         '
         'AutoLooterlbl
         '
@@ -2257,6 +2233,12 @@ Partial Class frmMain
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.TabStop = False
         '
+        'RunemakerHelp
+        '
+        resources.ApplyResources(Me.RunemakerHelp, "RunemakerHelp")
+        Me.RunemakerHelp.Name = "RunemakerHelp"
+        Me.RunemakerHelp.UseVisualStyleBackColor = True
+        '
         'RunemakerTrigger
         '
         resources.ApplyResources(Me.RunemakerTrigger, "RunemakerTrigger")
@@ -2310,6 +2292,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.GroupBox2, "GroupBox2")
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.TabStop = False
+        '
+        'SpellCasterHelp
+        '
+        resources.ApplyResources(Me.SpellCasterHelp, "SpellCasterHelp")
+        Me.SpellCasterHelp.Name = "SpellCasterHelp"
+        Me.SpellCasterHelp.UseVisualStyleBackColor = True
         '
         'SpellCasterTrigger
         '
@@ -2383,6 +2371,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.GroupBox8, "GroupBox8")
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.TabStop = False
+        '
+        'CavebotHelp
+        '
+        resources.ApplyResources(Me.CavebotHelp, "CavebotHelp")
+        Me.CavebotHelp.Name = "CavebotHelp"
+        Me.CavebotHelp.UseVisualStyleBackColor = True
         '
         'CavebotTrigger
         '
@@ -3781,24 +3775,6 @@ Partial Class frmMain
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 2000
         '
-        'RunemakerHelp
-        '
-        resources.ApplyResources(Me.RunemakerHelp, "RunemakerHelp")
-        Me.RunemakerHelp.Name = "RunemakerHelp"
-        Me.RunemakerHelp.UseVisualStyleBackColor = True
-        '
-        'SpellCasterHelp
-        '
-        resources.ApplyResources(Me.SpellCasterHelp, "SpellCasterHelp")
-        Me.SpellCasterHelp.Name = "SpellCasterHelp"
-        Me.SpellCasterHelp.UseVisualStyleBackColor = True
-        '
-        'CavebotHelp
-        '
-        resources.ApplyResources(Me.CavebotHelp, "CavebotHelp")
-        Me.CavebotHelp.Name = "CavebotHelp"
-        Me.CavebotHelp.UseVisualStyleBackColor = True
-        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
@@ -3853,7 +3829,6 @@ Partial Class frmMain
         Me.ChangersBox.PerformLayout()
         Me.AutoLooterBox.ResumeLayout(False)
         Me.AutoLooterBox.PerformLayout()
-        CType(Me.AutoLooterDelay, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AutoLooterMinCap, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GeneralTab3.ResumeLayout(False)
         Me.GeneralTab3.PerformLayout()
@@ -4269,10 +4244,7 @@ Partial Class frmMain
     Friend WithEvents TradeChannelAdvertiserTrigger As System.Windows.Forms.CheckBox
     Friend WithEvents TradeChannelAdvertiserAdvertisement As System.Windows.Forms.TextBox
     Friend WithEvents TradeChannelAdvertiserLabel As System.Windows.Forms.Label
-    Friend WithEvents AutoLooterDelay As System.Windows.Forms.NumericUpDown
-    Friend WithEvents AutoLooterlbl2 As System.Windows.Forms.Label
     Friend WithEvents AutoLooterEatFromCorpse As System.Windows.Forms.CheckBox
-    Friend WithEvents AutoLooterlvl3 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox

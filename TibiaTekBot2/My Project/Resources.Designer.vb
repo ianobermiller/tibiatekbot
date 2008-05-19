@@ -151,6 +151,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property GPS() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("GPS", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
         Friend ReadOnly Property holeclosed() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("holeclosed", resourceCulture)

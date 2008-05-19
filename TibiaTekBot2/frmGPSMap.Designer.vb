@@ -32,6 +32,7 @@ Partial Class frmGPSMap
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.Players = New System.Windows.Forms.GroupBox
+        Me.Button1 = New System.Windows.Forms.Button
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -69,7 +70,7 @@ Partial Class frmGPSMap
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.Location = New System.Drawing.Point(3, 16)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(109, 134)
+        Me.ListBox1.Size = New System.Drawing.Size(117, 173)
         Me.ListBox1.TabIndex = 7
         '
         'SplitContainer1
@@ -80,6 +81,7 @@ Partial Class frmGPSMap
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Button1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Players)
         Me.SplitContainer1.Panel1MinSize = 100
@@ -89,7 +91,7 @@ Partial Class frmGPSMap
         Me.SplitContainer1.Panel2.AutoScroll = True
         Me.SplitContainer1.Panel2.Controls.Add(Me.PictureBox1)
         Me.SplitContainer1.Panel2MinSize = 100
-        Me.SplitContainer1.Size = New System.Drawing.Size(692, 333)
+        Me.SplitContainer1.Size = New System.Drawing.Size(692, 390)
         Me.SplitContainer1.SplitterDistance = 138
         Me.SplitContainer1.TabIndex = 8
         '
@@ -98,9 +100,9 @@ Partial Class frmGPSMap
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 177)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 213)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(112, 140)
+        Me.GroupBox1.Size = New System.Drawing.Size(123, 136)
         Me.GroupBox1.TabIndex = 9
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Information"
@@ -122,17 +124,26 @@ Partial Class frmGPSMap
         Me.Players.Controls.Add(Me.ListBox1)
         Me.Players.Location = New System.Drawing.Point(12, 12)
         Me.Players.Name = "Players"
-        Me.Players.Size = New System.Drawing.Size(115, 162)
+        Me.Players.Size = New System.Drawing.Size(123, 195)
         Me.Players.TabIndex = 8
         Me.Players.TabStop = False
         Me.Players.Text = "Players"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(12, 355)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(120, 23)
+        Me.Button1.TabIndex = 1
+        Me.Button1.Text = "Locate Yourself"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'frmGPSMap
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(692, 333)
+        Me.ClientSize = New System.Drawing.Size(692, 390)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.ILInfoLabel)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -162,4 +173,5 @@ Partial Class frmGPSMap
     Friend WithEvents Players As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class
