@@ -231,7 +231,7 @@ Partial Class frmAutoResponder
         Me.ChkDistance.AutoSize = True
         Me.ChkDistance.Location = New System.Drawing.Point(5, 22)
         Me.ChkDistance.Name = "ChkDistance"
-        Me.ChkDistance.Size = New System.Drawing.Size(13, 12)
+        Me.ChkDistance.Size = New System.Drawing.Size(15, 14)
         Me.ChkDistance.TabIndex = 11
         Me.ChkDistance.UseVisualStyleBackColor = True
         '

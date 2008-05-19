@@ -101,7 +101,6 @@ Public Class frmMain
             AutoEaterEatFromFloorFirst.Checked = Consts.EatFromFloorFirst
             ' Auto Looter
             AutoLooterMinCap.Value = Consts.CavebotLootMinCap
-            AutoLooterDelay.Value = Consts.LootDelay
             AutoLooterEatFromCorpse.Checked = Consts.LootEatFromCorpse
             ' FPS changer
             FpsActive.Value = Consts.FPSWhenActive
@@ -868,12 +867,10 @@ Public Class frmMain
                 AutoLooterMinCap.Value = Kernel.LooterMinimumCapacity
                 AutoLooterMinCap.Enabled = False
                 AutoLooterConfigure.Enabled = False
-                AutoLooterDelay.Enabled = False
                 AutoLooterEatFromCorpse.Enabled = False
             Else
                 AutoLooterMinCap.Enabled = True
                 AutoLooterConfigure.Enabled = True
-                AutoLooterDelay.Enabled = True
                 AutoLooterEatFromCorpse.Enabled = True
             End If
         Catch ex As Exception
@@ -1895,10 +1892,6 @@ Public Class frmMain
 
     Private Sub AutoLooterEatFromCorpse_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterEatFromCorpse.CheckedChanged
         Consts.LootEatFromCorpse = AutoLooterEatFromCorpse.Checked
-    End Sub
-
-    Private Sub AutoLooterDelay_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterDelay.ValueChanged
-        Consts.LootDelay = AutoLooterDelay.Value
     End Sub
 
     Private Sub AutoStackerDelay_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoStackerDelay.ValueChanged

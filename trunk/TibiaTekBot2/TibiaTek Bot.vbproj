@@ -493,6 +493,7 @@
     <None Include="Resources\location_pointer_red.png" />
     <None Include="Resources\location_pointer_yellow.png" />
     <None Include="Resources\ttb splash8.jpg" />
+    <None Include="Resources\GPS.ico" />
     <Content Include="Resources\ttb21.ico" />
     <Content Include="Resources\ttb21_16.ico" />
     <None Include="Resources\ttb.ico" />
