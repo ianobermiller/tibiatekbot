@@ -194,7 +194,7 @@ Public Class frmMain
                 MainTabControl.Enabled = True
             Else
                 If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                    Me.Text = "TibiaTek Bot v" & BotVersion & " - " & Hex(Kernel.Client.ProcessHandle)
+                    Me.Text = "TibiaTek Bot v" & BotVersion & " - " & Hex(Kernel.Client.ProcessHandle.ToInt64)
                 Else
                     Me.Text = "TibiaTek Bot v" & BotVersion
                 End If
@@ -1023,7 +1023,7 @@ Public Class frmMain
                 Kernel.Client.WriteMemory(Consts.ptrRSAKey, Consts.RSAKeyOpenTibia)
             End If
             Kernel._NotifyIcon = Me.NotifyIcon
-            Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - Not logged in"
+            Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - Not Logged In"
         Catch Ex As Exception
             ShowError(Ex)
             End
@@ -1056,22 +1056,23 @@ Public Class frmMain
             With dlgOpen
                 .Title = "Tibia's Location"
                 .Filter = "Executable|*.exe"
+                .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.ProgramFiles & "\Tibia\"
             End With
             If MessageBox.Show("Please find the location of your Tibia Client.", "Notice", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) = Forms.DialogResult.Cancel Then
                 End
             End If
             Dim Found As Boolean = False
             Do
-                If dlgOpen.ShowDialog() = Forms.DialogResult.Cancel Then
-                    End
-                End If
-                Dim FVI As FileVersionInfo = FileVersionInfo.GetVersionInfo(dlgOpen.FileName)
-                If Not FVI Is Nothing AndAlso Not FVI.FileVersion Is Nothing AndAlso Not FVI.ProductName Is Nothing Then
+                Try
+                    If dlgOpen.ShowDialog() = Forms.DialogResult.Cancel Then
+                        End
+                    End If
+                    Dim FVI As FileVersionInfo = FileVersionInfo.GetVersionInfo(dlgOpen.FileName)
                     Found = FVI.FileVersion.Equals(TibiaFileVersion) AndAlso FVI.ProductName.Equals(TibiaProductName)
-                End If
-                Found = True 'TODO FIX THIS PATCH CORRECTLY
+                Catch
+                End Try
                 If Not Found Then
-                    If MessageBox.Show("You must select a valid Tibia.exe.", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) = Forms.DialogResult.Cancel Then
+                    If MessageBox.Show("You must select a valid Tibia Executable.", "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) = Forms.DialogResult.Cancel Then
                         End
                     End If
                 End If
@@ -1195,17 +1196,13 @@ Public Class frmMain
 
     Private Sub ShowHideTibiaWindow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowHideTibiaWindow.Click
         Try
-            If Not Kernel.Proxy Is Nothing Then
-                If Not Kernel.Client Is Nothing Then
-                    If Kernel.Client.WindowHandle = 0 Then Exit Sub
-                    If Kernel.TibiaClientIsVisible Then
-                        Kernel.Client.Hide()
-                        'Win32API.ShowWindow(Core.Client.GetWindowHandle, Win32API.ShowState.SW_HIDE)
-                    Else
-                        Kernel.Client.Show()
-                        'Win32API.ShowWindow(Core.Client.GetWindowHandle, Win32API.ShowState.SW_SHOW)
-                    End If
-                    Kernel.TibiaClientIsVisible = Not Kernel.TibiaClientIsVisible
+            If Not Kernel.Client Is Nothing Then
+                If Kernel.TibiaClientIsVisible Then
+                    Kernel.TibiaClientIsVisible = False
+                    Kernel.Client.Hide()
+                Else
+                    Kernel.TibiaClientIsVisible = True
+                    Kernel.Client.Show()
                 End If
             End If
         Catch
@@ -1901,7 +1898,7 @@ Public Class frmMain
 
     Private Sub TabPage10_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TabPage10.Enter
         Dim R As New Random(System.DateTime.Now.Millisecond)
-        Select Case R.Next(0, 5)
+        Select Case R.Next(0, 9)
             Case 0
                 Me.PictureBox1.Image = My.Resources.ttb_splash0
             Case 1
@@ -1912,6 +1909,14 @@ Public Class frmMain
                 Me.PictureBox1.Image = My.Resources.ttb_splash3
             Case 4
                 Me.PictureBox1.Image = My.Resources.ttb_splash4
+            Case 5
+                Me.PictureBox1.Image = My.Resources.ttb_splash5
+            Case 6
+                Me.PictureBox1.Image = My.Resources.ttb_splash6
+            Case 7
+                Me.PictureBox1.Image = My.Resources.ttb_splash7
+            Case 8
+                Me.PictureBox1.Image = My.Resources.ttb_splash8
         End Select
     End Sub
 

@@ -89,7 +89,7 @@ Public Class CommandParser
             Add("log", AddressOf CmdLog)
             Add(New String() {"favwnp", "favweapon", "favoriteweapon", "fvwpn"}, AddressOf CmdFavWep)
             Add("reload", AddressOf CmdReload)
-            Add("playerinfo", AddressOf CmdEntityInfo)
+            Add(New String() {"playerinfo", "creatureinfo", "entityinfo", "charinfo"}, AddressOf CmdEntityInfo)
             Add("hud", AddressOf CmdDisplayHUD)
         Catch Ex As Exception
             ShowError(Ex)
@@ -3451,14 +3451,16 @@ Public Class CommandParser
                         HUDEntity.Enabled = False
                     Next
                     Kernel.HUDTimerObj.StartTimer()
-                    Kernel.ConsoleWrite("Displaying HUD")
+                    Kernel.ConsoleWrite("HUD Display is now Enabled.")
                 Case 0
                     Kernel.HUDTimerObj.StopTimer()
                     Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
                     PPB.RemoveText(IKernel.HUDType.Haste)
                     PPB.RemoveText(IKernel.HUDType.Invisible)
                     PPB.RemoveText(IKernel.HUDType.MagicShield)
-                    Kernel.ConsoleWrite("Hiding HUD")
+                    Kernel.ConsoleWrite("HUD Display is now Disabled.")
+                Case Else
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch ex As Exception
             ShowError(ex)
@@ -3474,7 +3476,7 @@ Public Class CommandParser
                 Case 1
                     Kernel.EntityInfoDismissLookPacket = True
                     Kernel.EntityInfoTimerObj.StartTimer()
-                    Kernel.ConsoleWrite("Showing Entity Information")
+                    Kernel.ConsoleWrite("Showing Player/Creatures Information.")
                 Case 0
                     Kernel.EntityInfoTimerObj.StopTimer()
                     For Each Entity As IKernel.EntityInfo In Kernel.EntityInfoList.Values
@@ -3482,7 +3484,9 @@ Public Class CommandParser
                     Next
                     Kernel.EntityInfoList.Clear()
                     Kernel.EntityInfoDismissLookPacket = False
-                    Kernel.ConsoleWrite("Hiding Entity Information")
+                    Kernel.ConsoleWrite("Hiding Player/Creatures Information.")
+                Case Else
+                    Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
             End Select
         Catch ex As Exception
             ShowError(ex)

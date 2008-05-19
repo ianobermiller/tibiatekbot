@@ -27,6 +27,7 @@ Public Interface IPipePacketBuilder
     Sub SetConstant(ByVal ConstantName As String, ByVal Value As String)
     Sub SetConstant(ByVal ConstantName As String, ByVal Value As Integer)
     Sub SetConstant(ByVal ConstantName As String, ByVal Value As Double)
+    Sub SetConstant(ByVal ConstantName As String, ByVal Value As IntPtr)
     Sub HookWndProc(ByVal Hook As Boolean)
     Sub Test()
 #End Region
