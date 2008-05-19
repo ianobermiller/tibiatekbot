@@ -24,18 +24,18 @@ Public NotInheritable Class Tibia
     Implements ITibia
 
 #Region " Windows API Declarations "
-    Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As Int32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
-    Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByRef lpBuffer As UInt32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
-    Private Declare Function WriteProcessMemory Lib "kernel32" (ByVal hProcess As Int32, ByVal lpBaseAddress As Int32, ByVal lpBuffer() As Byte, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
-    Private Declare Function SetWindowText Lib "user32" Alias "SetWindowTextA" (ByVal hwnd As Int32, ByVal lpString As String) As Int32
+    Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As IntPtr, ByVal lpBaseAddress As Int32, ByRef lpBuffer As Int32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
+    Private Declare Function ReadProcessMemory Lib "kernel32" (ByVal hProcess As IntPtr, ByVal lpBaseAddress As Int32, ByRef lpBuffer As UInt32, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
+    Private Declare Function WriteProcessMemory Lib "kernel32" (ByVal hProcess As IntPtr, ByVal lpBaseAddress As Int32, ByVal lpBuffer() As Byte, ByVal nSize As Int32, ByVal lpNumberOfBytesWritten As Int32) As Long
+    Private Declare Function SetWindowText Lib "user32" Alias "SetWindowTextA" (ByVal hwnd As IntPtr, ByVal lpString As String) As Boolean
     Private Declare Function GetWindowPlacement Lib "user32" (ByVal hWnd As IntPtr, ByRef windowPlacement As WindowPlacement) As Boolean
     Private Declare Function GetForegroundWindow Lib "user32" () As Integer
-    Private Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hwnd As Integer, ByRef procid As Integer) As Integer
+    Private Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hwnd As IntPtr, ByRef procid As Integer) As Integer
     Private Declare Function ShowWindow Lib "user32" (ByVal handle As IntPtr, ByVal nCmd As Int32) As Boolean
     Private Declare Function FlashWindowEx Lib "user32" (ByRef fwi As FlashWInfo) As Int32
     Private Declare Function VirtualProtectEx Lib "kernel32" (ByVal hProcess As IntPtr, ByVal lpAddress As IntPtr, ByVal dwSize As UIntPtr, ByVal flNewProtect As UInteger, ByRef lpflOldProtect As UInteger) As Boolean
-    Private Declare Function SetForegroundWindow Lib "user32" (ByVal hwnd As Integer) As Boolean
-    Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
+    Private Declare Function SetForegroundWindow Lib "user32" (ByVal hwnd As IntPtr) As Boolean
+    Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
     Private Declare Function OpenProcess Lib "kernel32" (ByVal dwDesiredAccessas As Int32, ByVal bInheritHandle As Int32, ByVal dwProcId As Int32) As Int32
     Private Declare Function VirtualAllocEx Lib "kernel32" (ByVal hProcess As Int32, ByVal lpAddress As Int32, ByRef dwSize As Int32, ByVal flAllocationType As Int32, ByVal flProtect As Int32) As Int32
     Private Declare Function GetModuleHandle Lib "kernel32" Alias "GetModuleHandleW" (<MarshalAs(UnmanagedType.LPWStr)> ByVal ModuleName As String) As Int32
@@ -296,18 +296,18 @@ Public NotInheritable Class Tibia
         End Get
         Set(ByVal NewTitle As String)
             Try
-                SetWindowText(WindowHandle, NewTitle)
+                SetWindowText(WindowHandle(), NewTitle)
             Catch Ex As Exception
                 ShowError(Ex)
             End Try
         End Set
     End Property
 
-    Public ReadOnly Property ProcessHandle() As Integer Implements Scripting.ITibia.ProcessHandle
+    Public ReadOnly Property ProcessHandle() As IntPtr Implements Scripting.ITibia.ProcessHandle
         Get
             Try
                 If ClientProcess Is Nothing Then Return 0
-                Return ClientProcess.Handle.ToInt32
+                Return ClientProcess.Handle
             Catch Ex As Exception
                 ShowError(Ex)
             End Try
@@ -315,7 +315,7 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property ProcessID() As Integer Implements Scripting.ITibia.ProcessID
+    Public ReadOnly Property ProcessID() As IntPtr Implements Scripting.ITibia.ProcessID
         Get
             Try
                 Return ClientProcess.Id
@@ -326,10 +326,11 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
-    Public ReadOnly Property WindowHandle() As Integer Implements Scripting.ITibia.WindowHandle
+    Public ReadOnly Property WindowHandle() As IntPtr Implements Scripting.ITibia.WindowHandle
         Get
             Try
-                Return ClientProcess.MainWindowHandle.ToInt32
+                If ClientProcess.MainWindowHandle = 0 Then ClientProcess.Refresh()
+                Return ClientProcess.MainWindowHandle
             Catch Ex As Exception
                 ShowError(Ex)
             End Try
@@ -826,6 +827,7 @@ Public NotInheritable Class Tibia
             ClientProcess.EnableRaisingEvents = True
             ClientProcess.Refresh()
             ClientProcess.WaitForInputIdle()
+            ClientProcess.Refresh()
             RaiseEvent Started()
             Dim FVI As FileVersionInfo = FileVersionInfo.GetVersionInfo(_Directory & "\" & _Filename)
             Kernel.CurrentTibiaVersion = FVI.FileVersion

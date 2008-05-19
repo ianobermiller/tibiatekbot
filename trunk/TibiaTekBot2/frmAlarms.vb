@@ -75,6 +75,7 @@ Public Class frmAlarms
         Tabs.Enabled = False
         Try
             If Not IO.File.Exists(Kernel.GetProfileDirectory & "\Alarms.xml") Then
+                MessageBox.Show("Unable to load the alarm configuration. Make sure you have saved it first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Tabs.Enabled = True
                 Exit Sub
             End If

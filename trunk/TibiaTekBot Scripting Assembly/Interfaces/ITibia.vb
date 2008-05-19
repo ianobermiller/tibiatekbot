@@ -275,9 +275,9 @@ Public Interface ITibia
 
     ReadOnly Property Directory() As String
     ReadOnly Property Filename() As String
-    ReadOnly Property ProcessID() As Integer
-    ReadOnly Property ProcessHandle() As Integer
-    ReadOnly Property WindowHandle() As Integer
+    ReadOnly Property ProcessID() As IntPtr
+    ReadOnly Property ProcessHandle() As IntPtr
+    ReadOnly Property WindowHandle() As IntPtr
     ReadOnly Property WindowState() As WindowStates
     Property Title() As String
     ReadOnly Property DialogCaption() As String

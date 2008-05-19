@@ -1166,7 +1166,7 @@ Public Module KernelModule
                 If WindowBegin = 0 Then 'no window opened
                     If Not Client.IsConnected() Then
                         If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                            Title = BotNameStart & " - " & Hex(Kernel.Client.ProcessHandle) & " - Not Logged In"
+                            Title = BotNameStart & " - " & Hex(Kernel.Client.ProcessHandle.ToInt32) & " - Not Logged In"
                         Else
                             Title = BotNameStart & " - Not Logged In"
                         End If
@@ -1188,7 +1188,7 @@ Public Module KernelModule
                     Client.ReadMemory(WindowBegin + Consts.DialogCaptionOffset, WindowCaption)
                     If Not Client.IsConnected() Then
                         If Not (Kernel.Proxy Is Nothing OrElse Kernel.Client Is Nothing) Then
-                            Title = BotNameStart & " - " & Hex(Kernel.Client.ProcessHandle) & " - " & WindowCaption
+                            Title = BotNameStart & " - " & Hex(Kernel.Client.ProcessHandle.ToInt32) & " - " & WindowCaption
                         Else
                             Title = BotNameStart & " - " & WindowCaption
                         End If
