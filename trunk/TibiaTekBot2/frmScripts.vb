@@ -109,6 +109,7 @@ Public Class frmScripts
 
                 FileName = CType(e.Data.GetData(DataFormats.FileDrop, True), String())(0)
                 SafeFileName = System.IO.Path.GetFileName(FileName)
+                OpenScriptDialog.FileName = FileName
 
                 Dim CanClose As Boolean = False
                 Do

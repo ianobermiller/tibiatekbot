@@ -3052,6 +3052,9 @@ Public Class frmMain
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         If Kernel.Client Is Nothing Then Exit Sub
+        If Kernel.NotifyIcon Is Nothing Then
+            Kernel._NotifyIcon = Me.NotifyIcon
+        End If
         If Kernel.Client.IsConnected Then
             If Kernel.NotifyIcon.Text <> "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName Then
                 Kernel.NotifyIcon.Text = "TibiaTek Bot v" & BotVersion & " - " & Kernel.Client.CharacterName
