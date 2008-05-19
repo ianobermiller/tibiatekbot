@@ -1693,7 +1693,7 @@ Public Class frmMain
                 If AutoFisherTurbo.Checked Then
                     Kernel.FisherMinimumCapacity = AutoFisherMinimumCapacity.Value
                     Kernel.FisherTurbo = True
-                    Kernel.FisherSpeed = 500
+                    Kernel.FisherSpeed = 400
                     Kernel.FisherTimerObj.StartTimer()
                 Else
                     Kernel.FisherMinimumCapacity = AutoFisherMinimumCapacity.Value
