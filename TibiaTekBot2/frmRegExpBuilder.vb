@@ -70,4 +70,12 @@
             MessageBox.Show("Enter Items before building the epxression.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
+
+    Private Sub RegularExHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RegularExHelp.Click
+        MessageBox.Show("How to Build a Good Regular Expression:" & vbCrLf & vbCrLf & _
+                        "1. Select the action you're looking for." & vbCrLf & _
+                        "Eg.: if you're looking for someone who sells, select Sell." & vbCrLf & _
+                        "2. Add the an item name or any abbreviation (UH, BP, etc.) to the list, click on Add." & vbCrLf & _
+                        "3. Click on Build.", "Regular Expresion Builder Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class

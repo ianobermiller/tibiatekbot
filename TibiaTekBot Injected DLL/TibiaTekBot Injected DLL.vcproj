@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../TibiaTekBot2/bin/$(ConfigurationName)"
+			OutputDirectory="../TibiaTekBot2/bin/Debug"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"

@@ -34,6 +34,7 @@ Partial Class frmRegExpBuilder
         Me.Generate = New System.Windows.Forms.Button
         Me.Cancel = New System.Windows.Forms.Button
         Me.ConfirmBox = New System.Windows.Forms.GroupBox
+        Me.RegularExHelp = New System.Windows.Forms.Button
         Me.ActionBox.SuspendLayout()
         Me.ItemsBox.SuspendLayout()
         Me.ConfirmBox.SuspendLayout()
@@ -44,9 +45,9 @@ Partial Class frmRegExpBuilder
         Me.ActionBox.Controls.Add(Me.Trade)
         Me.ActionBox.Controls.Add(Me.Buy)
         Me.ActionBox.Controls.Add(Me.Sell)
-        Me.ActionBox.Location = New System.Drawing.Point(13, 12)
+        Me.ActionBox.Location = New System.Drawing.Point(12, 12)
         Me.ActionBox.Name = "ActionBox"
-        Me.ActionBox.Size = New System.Drawing.Size(99, 92)
+        Me.ActionBox.Size = New System.Drawing.Size(170, 49)
         Me.ActionBox.TabIndex = 0
         Me.ActionBox.TabStop = False
         Me.ActionBox.Text = "Action"
@@ -54,7 +55,7 @@ Partial Class frmRegExpBuilder
         'Trade
         '
         Me.Trade.AutoSize = True
-        Me.Trade.Location = New System.Drawing.Point(22, 65)
+        Me.Trade.Location = New System.Drawing.Point(112, 19)
         Me.Trade.Name = "Trade"
         Me.Trade.Size = New System.Drawing.Size(54, 17)
         Me.Trade.TabIndex = 2
@@ -64,7 +65,7 @@ Partial Class frmRegExpBuilder
         'Buy
         '
         Me.Buy.AutoSize = True
-        Me.Buy.Location = New System.Drawing.Point(22, 42)
+        Me.Buy.Location = New System.Drawing.Point(62, 19)
         Me.Buy.Name = "Buy"
         Me.Buy.Size = New System.Drawing.Size(44, 17)
         Me.Buy.TabIndex = 1
@@ -74,7 +75,7 @@ Partial Class frmRegExpBuilder
         'Sell
         '
         Me.Sell.AutoSize = True
-        Me.Sell.Location = New System.Drawing.Point(22, 19)
+        Me.Sell.Location = New System.Drawing.Point(13, 19)
         Me.Sell.Name = "Sell"
         Me.Sell.Size = New System.Drawing.Size(43, 17)
         Me.Sell.TabIndex = 0
@@ -86,18 +87,18 @@ Partial Class frmRegExpBuilder
         Me.ItemsBox.Controls.Add(Me.RemoveItems)
         Me.ItemsBox.Controls.Add(Me.AddItems)
         Me.ItemsBox.Controls.Add(Me.ItemsList)
-        Me.ItemsBox.Location = New System.Drawing.Point(130, 12)
+        Me.ItemsBox.Location = New System.Drawing.Point(12, 67)
         Me.ItemsBox.Name = "ItemsBox"
-        Me.ItemsBox.Size = New System.Drawing.Size(150, 174)
+        Me.ItemsBox.Size = New System.Drawing.Size(170, 174)
         Me.ItemsBox.TabIndex = 1
         Me.ItemsBox.TabStop = False
         Me.ItemsBox.Text = "Items"
         '
         'RemoveItems
         '
-        Me.RemoveItems.Location = New System.Drawing.Point(79, 141)
+        Me.RemoveItems.Location = New System.Drawing.Point(96, 141)
         Me.RemoveItems.Name = "RemoveItems"
-        Me.RemoveItems.Size = New System.Drawing.Size(66, 23)
+        Me.RemoveItems.Size = New System.Drawing.Size(66, 24)
         Me.RemoveItems.TabIndex = 2
         Me.RemoveItems.Text = "Remove"
         Me.RemoveItems.UseVisualStyleBackColor = True
@@ -106,7 +107,7 @@ Partial Class frmRegExpBuilder
         '
         Me.AddItems.Location = New System.Drawing.Point(6, 141)
         Me.AddItems.Name = "AddItems"
-        Me.AddItems.Size = New System.Drawing.Size(66, 23)
+        Me.AddItems.Size = New System.Drawing.Size(66, 24)
         Me.AddItems.TabIndex = 1
         Me.AddItems.Text = "Add"
         Me.AddItems.UseVisualStyleBackColor = True
@@ -116,43 +117,53 @@ Partial Class frmRegExpBuilder
         Me.ItemsList.FormattingEnabled = True
         Me.ItemsList.Location = New System.Drawing.Point(6, 16)
         Me.ItemsList.Name = "ItemsList"
-        Me.ItemsList.Size = New System.Drawing.Size(138, 121)
+        Me.ItemsList.Size = New System.Drawing.Size(156, 121)
         Me.ItemsList.TabIndex = 0
         '
         'Generate
         '
-        Me.Generate.Location = New System.Drawing.Point(16, 19)
+        Me.Generate.Location = New System.Drawing.Point(6, 19)
         Me.Generate.Name = "Generate"
-        Me.Generate.Size = New System.Drawing.Size(66, 23)
+        Me.Generate.Size = New System.Drawing.Size(66, 24)
         Me.Generate.TabIndex = 2
-        Me.Generate.Text = "Build!"
+        Me.Generate.Text = "Build"
         Me.Generate.UseVisualStyleBackColor = True
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(16, 47)
+        Me.Cancel.Location = New System.Drawing.Point(96, 19)
         Me.Cancel.Name = "Cancel"
-        Me.Cancel.Size = New System.Drawing.Size(66, 23)
+        Me.Cancel.Size = New System.Drawing.Size(66, 24)
         Me.Cancel.TabIndex = 3
         Me.Cancel.Text = "Cancel"
         Me.Cancel.UseVisualStyleBackColor = True
         '
         'ConfirmBox
         '
+        Me.ConfirmBox.Controls.Add(Me.RegularExHelp)
         Me.ConfirmBox.Controls.Add(Me.Generate)
         Me.ConfirmBox.Controls.Add(Me.Cancel)
-        Me.ConfirmBox.Location = New System.Drawing.Point(13, 110)
+        Me.ConfirmBox.Location = New System.Drawing.Point(12, 247)
         Me.ConfirmBox.Name = "ConfirmBox"
-        Me.ConfirmBox.Size = New System.Drawing.Size(99, 76)
+        Me.ConfirmBox.Size = New System.Drawing.Size(170, 76)
         Me.ConfirmBox.TabIndex = 4
         Me.ConfirmBox.TabStop = False
         Me.ConfirmBox.Text = "Generate"
+        '
+        'RegularExHelp
+        '
+        Me.RegularExHelp.Location = New System.Drawing.Point(136, 46)
+        Me.RegularExHelp.Name = "RegularExHelp"
+        Me.RegularExHelp.Size = New System.Drawing.Size(26, 24)
+        Me.RegularExHelp.TabIndex = 4
+        Me.RegularExHelp.Text = "?"
+        Me.RegularExHelp.UseVisualStyleBackColor = True
         '
         'frmRegExpBuilder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(292, 201)
+        Me.ClientSize = New System.Drawing.Size(194, 335)
         Me.Controls.Add(Me.ConfirmBox)
         Me.Controls.Add(Me.ItemsBox)
         Me.Controls.Add(Me.ActionBox)
@@ -177,4 +188,5 @@ Partial Class frmRegExpBuilder
     Friend WithEvents Generate As System.Windows.Forms.Button
     Friend WithEvents Cancel As System.Windows.Forms.Button
     Friend WithEvents ConfirmBox As System.Windows.Forms.GroupBox
+    Friend WithEvents RegularExHelp As System.Windows.Forms.Button
 End Class

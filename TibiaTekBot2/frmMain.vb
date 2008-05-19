@@ -3148,7 +3148,7 @@ Public Class frmMain
     Private Sub GPSHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GPSHelp.Click
         MessageBox.Show("<<What is IRC Location?>>" & vbCrLf & vbCrLf & _
             "1. It's a feature that allows you and your friends to keep track of your positions in-game." & vbCrLf & _
-            "2. It allows you to see your friends stats and the people that are near them." & vbCrLf & _
+            "2. It allows you to see your friends stats and the people that are near them." & vbCrLf & vbCrLf & _
             "<<How to setup Irc Location>>" & vbCrLf & vbCrLf & _
             "1. Write a channel name to use." & vbCrLf & _
             "2. Press Activate to start broadcasting your character information." & vbCrLf & _
@@ -3158,7 +3158,7 @@ Public Class frmMain
 #End Region
 
     Private Sub ScreenInfoHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ScreenInfoHelp.Click
-        MessageBox.Show("The Show Creature Info option will enable showing information about creatures that appear in your screen." & vbCrLf & _
+        MessageBox.Show("The Show Creature Info option will enable showing information about players that appear in your screen." & vbCrLf & vbCrLf & _
                         "The HUD (or Head's On Display) is used to show information such as:" & vbCrLf & _
                         "  1. Mana Shield Remaining Time" & vbCrLf & _
                         "  2. Haste Remaining Time" & vbCrLf & _
@@ -3173,4 +3173,75 @@ Public Class frmMain
             "Official Website: http://www.tibiatek.com/.", "About Us", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
+    Private Sub PickupHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PickupHelp.Click
+        MessageBox.Show("The Auto Pick-Up will automatically put throwables in your left hand." & vbCrLf & vbCrLf & _
+                        "Remember there must be a pickupable item (Spear, Small Stone, etc.) in the left hand before you activate this feature." & vbCrLf & vbCrLf & _
+                        "Console Command: &pickup", "Auto Pick-Up Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub ConfigManagerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConfigManagerHelp.Click
+        MessageBox.Show("The Configuration Manager automatically executes a list of commands after the character logs in." & vbCrLf & vbCrLf & _
+                        "Remember, commands must be written in separate lines and each must include an ampersand (&)." & vbCrLf & vbCrLf & _
+                        "Console Command: &config", "Configuration Manager Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AutoAttackerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoAttackerHelp.Click
+        MessageBox.Show("The Auto Attacker will automatically target creatures that attack you." & vbCrLf & vbCrLf & _
+                        "To train with Slimes:" & vbCrLf & _
+                        "1. Put the Mother Slime on follow." & vbCrLf & _
+                        "2. Press Activate." & vbCrLf & vbCrLf & _
+                        "Console Command: &attack", "Auto Attacker Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AntiLogoutHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AntiLogoutHelp.Click
+        MessageBox.Show("The Anti Logout will prevent your character from loging out." & vbCrLf & vbCrLf & _
+                        "Console Command: &antilogout", "Anti Logout Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AmmoResHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmmoResHelp.Click
+        MessageBox.Show("The Ammunition Restacker automatically puts bolts or arrows into your arrow slot." & vbCrLf & vbCrLf & _
+                        "Console Command: &ammorestacker", "Ammunition Restacker Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub LightEffectsHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LightEffectsHelp.Click
+        MessageBox.Show("The Light Effects will lighten the environment for you." & vbCrLf & vbCrLf & _
+                        "Console Command: &light", "Light Effects Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AutoStackerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoStackerHelp.Click
+        MessageBox.Show("The Auto Stacker will automatically pile all stackable items in any opened container." & vbCrLf & vbCrLf & _
+                        "Console Command: &stack", "Auto Stacker Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AutoLooterHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterHelp.Click
+        MessageBox.Show("The Auto Looter will automatically loot items from creature corpses." & vbCrLf & vbCrLf & _
+                        "To edit your loot list press Edit." & vbCrLf & vbCrLf & _
+                        "To add items: drag them inside any of the virtual containers." & vbCrLf & vbCrLf & _
+                        "To remove items: drag them outside." & vbCrLf & vbCrLf & _
+                        "The virtual containers help you organize the items you want to loot." & vbCrLf & vbCrLf & _
+                        "Console Command: &loot", "Auto Looter Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub DancerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DancerHelp.Click
+        MessageBox.Show("The Dancer will make your character dance around." & vbCrLf & vbCrLf & _
+                        "This tool is specially useful if a GM wants you to dance to check if you're multiclienting." & vbCrLf & vbCrLf & _
+                        "Console Command: &dancer", "Dancer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub RunemakerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RunemakerHelp.Click
+        MessageBox.Show("The Runemaker will automatically make runes for you." & vbCrLf & vbCrLf & _
+                        "You have to set the amount of mana at which the rune will be made and the" & vbCrLf & _
+                        "amount of soulpoints you want to cease making runes." & vbCrLf & vbCrLf & _
+                        "Console Command: &runemaker", "Runemaker Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub SpellCasterHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SpellCasterHelp.Click
+        MessageBox.Show("The Spell Caster will automatically cast spells for you. Essential if you want to manatrain." & vbCrLf & vbCrLf & _
+                        "Console Command: &spell", "Spell Caster Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub CavebotHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CavebotHelp.Click
+        MessageBox.Show("The Cavebot can allow your character to kill creatures following a certain given path." & vbCrLf & vbCrLf & _
+                        "Console Command: &cavebot", "Cavebot Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class
