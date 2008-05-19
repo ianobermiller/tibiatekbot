@@ -227,23 +227,28 @@ Partial Class frmMain
         Me.ComboBotTrigger = New System.Windows.Forms.CheckBox
         Me.ComboBotLeaderlbl = New System.Windows.Forms.Label
         Me.AutoStackerBox = New System.Windows.Forms.GroupBox
+        Me.AutoStackerHelp = New System.Windows.Forms.Button
         Me.AutoStackerlvl2 = New System.Windows.Forms.Label
         Me.AutoStackerDelay = New System.Windows.Forms.NumericUpDown
         Me.AutoStackerlbl = New System.Windows.Forms.Label
         Me.AutoStackerTrigger = New System.Windows.Forms.CheckBox
         Me.LightEffectsBox = New System.Windows.Forms.GroupBox
+        Me.LightEffectsHelp = New System.Windows.Forms.Button
         Me.LightEffectsTrigger = New System.Windows.Forms.CheckBox
         Me.LightEffect = New System.Windows.Forms.ComboBox
         Me.LightEffectslbl = New System.Windows.Forms.Label
         Me.AmmunitionRestackerBox = New System.Windows.Forms.GroupBox
+        Me.AmmoResHelp = New System.Windows.Forms.Button
         Me.AmmunitionRestackerTrigger = New System.Windows.Forms.CheckBox
         Me.AmmunitionRestackerlbl = New System.Windows.Forms.Label
         Me.AmmunitionRestackerMinAmmo = New System.Windows.Forms.NumericUpDown
         Me.ConfigManagerbox = New System.Windows.Forms.GroupBox
+        Me.ConfigManagerHelp = New System.Windows.Forms.Button
         Me.ConfigClear = New System.Windows.Forms.Button
         Me.ConfigEdit = New System.Windows.Forms.Button
         Me.ConfigLoad = New System.Windows.Forms.Button
         Me.AntiLogoutBox = New System.Windows.Forms.GroupBox
+        Me.AntiLogoutHelp = New System.Windows.Forms.Button
         Me.AntiIdlerTrigger = New System.Windows.Forms.CheckBox
         Me.GeneralPart2 = New System.Windows.Forms.TabPage
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
@@ -259,6 +264,7 @@ Partial Class frmMain
         Me.FPSHiddenlbl = New System.Windows.Forms.Label
         Me.FPSHidden = New System.Windows.Forms.NumericUpDown
         Me.DancerBox = New System.Windows.Forms.GroupBox
+        Me.DancerHelp = New System.Windows.Forms.Button
         Me.DancerSpeed = New System.Windows.Forms.ComboBox
         Me.DancerSpeedlbl = New System.Windows.Forms.Label
         Me.DancerTrigger = New System.Windows.Forms.CheckBox
@@ -270,6 +276,7 @@ Partial Class frmMain
         Me.RingTypelbl = New System.Windows.Forms.Label
         Me.RingChangerTrigger = New System.Windows.Forms.CheckBox
         Me.AutoLooterBox = New System.Windows.Forms.GroupBox
+        Me.AutoLooterHelp = New System.Windows.Forms.Button
         Me.AutoLooterlvl3 = New System.Windows.Forms.Label
         Me.AutoLooterEatFromCorpse = New System.Windows.Forms.CheckBox
         Me.AutoLooterDelay = New System.Windows.Forms.NumericUpDown
@@ -435,6 +442,7 @@ Partial Class frmMain
         Me.ExpShowNext = New System.Windows.Forms.CheckBox
         Me.TabPage5 = New System.Windows.Forms.TabPage
         Me.PickuperBox = New System.Windows.Forms.GroupBox
+        Me.PickupHelp = New System.Windows.Forms.Button
         Me.PickuperTrigger = New System.Windows.Forms.CheckBox
         Me.TrainerBox = New System.Windows.Forms.GroupBox
         Me.TrainerInfo = New System.Windows.Forms.Button
@@ -447,6 +455,7 @@ Partial Class frmMain
         Me.MinPercentageHplbl = New System.Windows.Forms.Label
         Me.TrainerAdd = New System.Windows.Forms.Button
         Me.AutoAttackerBox = New System.Windows.Forms.GroupBox
+        Me.AutoAttackerHelp = New System.Windows.Forms.Button
         Me.AutoAttackerTrigger = New System.Windows.Forms.CheckBox
         Me.AttackAutomatically = New System.Windows.Forms.CheckBox
         Me.AttackChasingMode = New System.Windows.Forms.ComboBox
@@ -528,6 +537,9 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.RunemakerHelp = New System.Windows.Forms.Button
+        Me.SpellCasterHelp = New System.Windows.Forms.Button
+        Me.CavebotHelp = New System.Windows.Forms.Button
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -1669,6 +1681,7 @@ Partial Class frmMain
         '
         'AutoStackerBox
         '
+        Me.AutoStackerBox.Controls.Add(Me.AutoStackerHelp)
         Me.AutoStackerBox.Controls.Add(Me.AutoStackerlvl2)
         Me.AutoStackerBox.Controls.Add(Me.AutoStackerDelay)
         Me.AutoStackerBox.Controls.Add(Me.AutoStackerlbl)
@@ -1676,6 +1689,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.AutoStackerBox, "AutoStackerBox")
         Me.AutoStackerBox.Name = "AutoStackerBox"
         Me.AutoStackerBox.TabStop = False
+        '
+        'AutoStackerHelp
+        '
+        resources.ApplyResources(Me.AutoStackerHelp, "AutoStackerHelp")
+        Me.AutoStackerHelp.Name = "AutoStackerHelp"
+        Me.AutoStackerHelp.UseVisualStyleBackColor = True
         '
         'AutoStackerlvl2
         '
@@ -1701,12 +1720,19 @@ Partial Class frmMain
         '
         'LightEffectsBox
         '
+        Me.LightEffectsBox.Controls.Add(Me.LightEffectsHelp)
         Me.LightEffectsBox.Controls.Add(Me.LightEffectsTrigger)
         Me.LightEffectsBox.Controls.Add(Me.LightEffect)
         Me.LightEffectsBox.Controls.Add(Me.LightEffectslbl)
         resources.ApplyResources(Me.LightEffectsBox, "LightEffectsBox")
         Me.LightEffectsBox.Name = "LightEffectsBox"
         Me.LightEffectsBox.TabStop = False
+        '
+        'LightEffectsHelp
+        '
+        resources.ApplyResources(Me.LightEffectsHelp, "LightEffectsHelp")
+        Me.LightEffectsHelp.Name = "LightEffectsHelp"
+        Me.LightEffectsHelp.UseVisualStyleBackColor = True
         '
         'LightEffectsTrigger
         '
@@ -1729,12 +1755,19 @@ Partial Class frmMain
         '
         'AmmunitionRestackerBox
         '
+        Me.AmmunitionRestackerBox.Controls.Add(Me.AmmoResHelp)
         Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerTrigger)
         Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerlbl)
         Me.AmmunitionRestackerBox.Controls.Add(Me.AmmunitionRestackerMinAmmo)
         resources.ApplyResources(Me.AmmunitionRestackerBox, "AmmunitionRestackerBox")
         Me.AmmunitionRestackerBox.Name = "AmmunitionRestackerBox"
         Me.AmmunitionRestackerBox.TabStop = False
+        '
+        'AmmoResHelp
+        '
+        resources.ApplyResources(Me.AmmoResHelp, "AmmoResHelp")
+        Me.AmmoResHelp.Name = "AmmoResHelp"
+        Me.AmmoResHelp.UseVisualStyleBackColor = True
         '
         'AmmunitionRestackerTrigger
         '
@@ -1755,12 +1788,19 @@ Partial Class frmMain
         '
         'ConfigManagerbox
         '
+        Me.ConfigManagerbox.Controls.Add(Me.ConfigManagerHelp)
         Me.ConfigManagerbox.Controls.Add(Me.ConfigClear)
         Me.ConfigManagerbox.Controls.Add(Me.ConfigEdit)
         Me.ConfigManagerbox.Controls.Add(Me.ConfigLoad)
         resources.ApplyResources(Me.ConfigManagerbox, "ConfigManagerbox")
         Me.ConfigManagerbox.Name = "ConfigManagerbox"
         Me.ConfigManagerbox.TabStop = False
+        '
+        'ConfigManagerHelp
+        '
+        resources.ApplyResources(Me.ConfigManagerHelp, "ConfigManagerHelp")
+        Me.ConfigManagerHelp.Name = "ConfigManagerHelp"
+        Me.ConfigManagerHelp.UseVisualStyleBackColor = True
         '
         'ConfigClear
         '
@@ -1782,10 +1822,17 @@ Partial Class frmMain
         '
         'AntiLogoutBox
         '
+        Me.AntiLogoutBox.Controls.Add(Me.AntiLogoutHelp)
         Me.AntiLogoutBox.Controls.Add(Me.AntiIdlerTrigger)
         resources.ApplyResources(Me.AntiLogoutBox, "AntiLogoutBox")
         Me.AntiLogoutBox.Name = "AntiLogoutBox"
         Me.AntiLogoutBox.TabStop = False
+        '
+        'AntiLogoutHelp
+        '
+        resources.ApplyResources(Me.AntiLogoutHelp, "AntiLogoutHelp")
+        Me.AntiLogoutHelp.Name = "AntiLogoutHelp"
+        Me.AntiLogoutHelp.UseVisualStyleBackColor = True
         '
         'AntiIdlerTrigger
         '
@@ -1878,12 +1925,19 @@ Partial Class frmMain
         '
         'DancerBox
         '
+        Me.DancerBox.Controls.Add(Me.DancerHelp)
         Me.DancerBox.Controls.Add(Me.DancerSpeed)
         Me.DancerBox.Controls.Add(Me.DancerSpeedlbl)
         Me.DancerBox.Controls.Add(Me.DancerTrigger)
         resources.ApplyResources(Me.DancerBox, "DancerBox")
         Me.DancerBox.Name = "DancerBox"
         Me.DancerBox.TabStop = False
+        '
+        'DancerHelp
+        '
+        resources.ApplyResources(Me.DancerHelp, "DancerHelp")
+        Me.DancerHelp.Name = "DancerHelp"
+        Me.DancerHelp.UseVisualStyleBackColor = True
         '
         'DancerSpeed
         '
@@ -1954,6 +2008,7 @@ Partial Class frmMain
         '
         'AutoLooterBox
         '
+        Me.AutoLooterBox.Controls.Add(Me.AutoLooterHelp)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterlvl3)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterEatFromCorpse)
         Me.AutoLooterBox.Controls.Add(Me.AutoLooterDelay)
@@ -1965,6 +2020,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.AutoLooterBox, "AutoLooterBox")
         Me.AutoLooterBox.Name = "AutoLooterBox"
         Me.AutoLooterBox.TabStop = False
+        '
+        'AutoLooterHelp
+        '
+        resources.ApplyResources(Me.AutoLooterHelp, "AutoLooterHelp")
+        Me.AutoLooterHelp.Name = "AutoLooterHelp"
+        Me.AutoLooterHelp.UseVisualStyleBackColor = True
         '
         'AutoLooterlvl3
         '
@@ -2184,6 +2245,7 @@ Partial Class frmMain
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.RunemakerHelp)
         Me.GroupBox3.Controls.Add(Me.RunemakerTrigger)
         Me.GroupBox3.Controls.Add(Me.RunemakerMinimumSoulPoints)
         Me.GroupBox3.Controls.Add(Me.Label5)
@@ -2239,6 +2301,7 @@ Partial Class frmMain
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.SpellCasterHelp)
         Me.GroupBox2.Controls.Add(Me.SpellCasterTrigger)
         Me.GroupBox2.Controls.Add(Me.SpellCasterMinimumManaPoints)
         Me.GroupBox2.Controls.Add(Me.Label3)
@@ -2314,6 +2377,7 @@ Partial Class frmMain
         '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.CavebotHelp)
         Me.GroupBox8.Controls.Add(Me.CavebotTrigger)
         Me.GroupBox8.Controls.Add(Me.CavebotConfigure)
         resources.ApplyResources(Me.GroupBox8, "GroupBox8")
@@ -3090,10 +3154,17 @@ Partial Class frmMain
         '
         'PickuperBox
         '
+        Me.PickuperBox.Controls.Add(Me.PickupHelp)
         Me.PickuperBox.Controls.Add(Me.PickuperTrigger)
         resources.ApplyResources(Me.PickuperBox, "PickuperBox")
         Me.PickuperBox.Name = "PickuperBox"
         Me.PickuperBox.TabStop = False
+        '
+        'PickupHelp
+        '
+        resources.ApplyResources(Me.PickupHelp, "PickupHelp")
+        Me.PickupHelp.Name = "PickupHelp"
+        Me.PickupHelp.UseVisualStyleBackColor = True
         '
         'PickuperTrigger
         '
@@ -3170,6 +3241,7 @@ Partial Class frmMain
         '
         'AutoAttackerBox
         '
+        Me.AutoAttackerBox.Controls.Add(Me.AutoAttackerHelp)
         Me.AutoAttackerBox.Controls.Add(Me.AutoAttackerTrigger)
         Me.AutoAttackerBox.Controls.Add(Me.AttackAutomatically)
         Me.AutoAttackerBox.Controls.Add(Me.AttackChasingMode)
@@ -3179,6 +3251,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.AutoAttackerBox, "AutoAttackerBox")
         Me.AutoAttackerBox.Name = "AutoAttackerBox"
         Me.AutoAttackerBox.TabStop = False
+        '
+        'AutoAttackerHelp
+        '
+        resources.ApplyResources(Me.AutoAttackerHelp, "AutoAttackerHelp")
+        Me.AutoAttackerHelp.Name = "AutoAttackerHelp"
+        Me.AutoAttackerHelp.UseVisualStyleBackColor = True
         '
         'AutoAttackerTrigger
         '
@@ -3702,6 +3780,24 @@ Partial Class frmMain
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 2000
+        '
+        'RunemakerHelp
+        '
+        resources.ApplyResources(Me.RunemakerHelp, "RunemakerHelp")
+        Me.RunemakerHelp.Name = "RunemakerHelp"
+        Me.RunemakerHelp.UseVisualStyleBackColor = True
+        '
+        'SpellCasterHelp
+        '
+        resources.ApplyResources(Me.SpellCasterHelp, "SpellCasterHelp")
+        Me.SpellCasterHelp.Name = "SpellCasterHelp"
+        Me.SpellCasterHelp.UseVisualStyleBackColor = True
+        '
+        'CavebotHelp
+        '
+        resources.ApplyResources(Me.CavebotHelp, "CavebotHelp")
+        Me.CavebotHelp.Name = "CavebotHelp"
+        Me.CavebotHelp.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -4371,4 +4467,16 @@ Partial Class frmMain
     Friend WithEvents ShowHUD As System.Windows.Forms.CheckBox
     Friend WithEvents ShowCreatureInfo As System.Windows.Forms.CheckBox
     Friend WithEvents ScreenInfoHelp As System.Windows.Forms.Button
+    Friend WithEvents PickupHelp As System.Windows.Forms.Button
+    Friend WithEvents ConfigManagerHelp As System.Windows.Forms.Button
+    Friend WithEvents AutoAttackerHelp As System.Windows.Forms.Button
+    Friend WithEvents AntiLogoutHelp As System.Windows.Forms.Button
+    Friend WithEvents AmmoResHelp As System.Windows.Forms.Button
+    Friend WithEvents LightEffectsHelp As System.Windows.Forms.Button
+    Friend WithEvents AutoStackerHelp As System.Windows.Forms.Button
+    Friend WithEvents AutoLooterHelp As System.Windows.Forms.Button
+    Friend WithEvents DancerHelp As System.Windows.Forms.Button
+    Friend WithEvents RunemakerHelp As System.Windows.Forms.Button
+    Friend WithEvents SpellCasterHelp As System.Windows.Forms.Button
+    Friend WithEvents CavebotHelp As System.Windows.Forms.Button
 End Class
