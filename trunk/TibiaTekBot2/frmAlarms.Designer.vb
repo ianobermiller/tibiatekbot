@@ -141,6 +141,7 @@ Partial Class frmAlarms
         Me.Label15 = New System.Windows.Forms.Label
         Me.PrivMsgSoundBox = New System.Windows.Forms.ComboBox
         Me.GroupBox21 = New System.Windows.Forms.GroupBox
+        Me.Label16 = New System.Windows.Forms.Label
         Me.SoundFileAddButton = New System.Windows.Forms.Button
         Me.SoundFileBrowseButton = New System.Windows.Forms.Button
         Me.SoundFilePath = New System.Windows.Forms.TextBox
@@ -167,7 +168,7 @@ Partial Class frmAlarms
         Me.BattlelistAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StatusAlarmTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ItemsAlarmTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.Label16 = New System.Windows.Forms.Label
+        Me.AlarmsHelp = New System.Windows.Forms.Button
         tablalala = New System.Windows.Forms.TabPage
         tablalala.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -1211,6 +1212,15 @@ Partial Class frmAlarms
         Me.GroupBox21.TabStop = False
         Me.GroupBox21.Text = "Add new audio / music file"
         '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(5, 16)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(129, 13)
+        Me.Label16.TabIndex = 5
+        Me.Label16.Text = "Choose file for items alarm"
+        '
         'SoundFileAddButton
         '
         Me.SoundFileAddButton.Location = New System.Drawing.Point(6, 56)
@@ -1397,7 +1407,7 @@ Partial Class frmAlarms
         Me.AlarmsSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.AlarmsSave.Location = New System.Drawing.Point(12, 340)
         Me.AlarmsSave.Name = "AlarmsSave"
-        Me.AlarmsSave.Size = New System.Drawing.Size(75, 23)
+        Me.AlarmsSave.Size = New System.Drawing.Size(75, 24)
         Me.AlarmsSave.TabIndex = 1
         Me.AlarmsSave.Text = "Save"
         Me.AlarmsSave.UseVisualStyleBackColor = True
@@ -1405,9 +1415,9 @@ Partial Class frmAlarms
         'AlarmsHide
         '
         Me.AlarmsHide.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.AlarmsHide.Location = New System.Drawing.Point(305, 340)
+        Me.AlarmsHide.Location = New System.Drawing.Point(268, 340)
         Me.AlarmsHide.Name = "AlarmsHide"
-        Me.AlarmsHide.Size = New System.Drawing.Size(75, 23)
+        Me.AlarmsHide.Size = New System.Drawing.Size(75, 24)
         Me.AlarmsHide.TabIndex = 2
         Me.AlarmsHide.Text = "Hide"
         Me.AlarmsHide.UseVisualStyleBackColor = True
@@ -1417,7 +1427,7 @@ Partial Class frmAlarms
         Me.AlarmsLoad.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.AlarmsLoad.Location = New System.Drawing.Point(93, 340)
         Me.AlarmsLoad.Name = "AlarmsLoad"
-        Me.AlarmsLoad.Size = New System.Drawing.Size(75, 23)
+        Me.AlarmsLoad.Size = New System.Drawing.Size(75, 24)
         Me.AlarmsLoad.TabIndex = 3
         Me.AlarmsLoad.Text = "Load"
         Me.AlarmsLoad.UseVisualStyleBackColor = True
@@ -1425,9 +1435,9 @@ Partial Class frmAlarms
         'AlarmsActivate
         '
         Me.AlarmsActivate.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.AlarmsActivate.Location = New System.Drawing.Point(224, 340)
+        Me.AlarmsActivate.Location = New System.Drawing.Point(188, 340)
         Me.AlarmsActivate.Name = "AlarmsActivate"
-        Me.AlarmsActivate.Size = New System.Drawing.Size(75, 23)
+        Me.AlarmsActivate.Size = New System.Drawing.Size(75, 24)
         Me.AlarmsActivate.TabIndex = 4
         Me.AlarmsActivate.Text = "Activate"
         Me.AlarmsActivate.UseVisualStyleBackColor = True
@@ -1444,20 +1454,21 @@ Partial Class frmAlarms
         '
         Me.ItemsAlarmTimer.Interval = 1000
         '
-        'Label16
+        'AlarmsHelp
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(5, 16)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(129, 13)
-        Me.Label16.TabIndex = 5
-        Me.Label16.Text = "Choose file for items alarm"
+        Me.AlarmsHelp.Location = New System.Drawing.Point(353, 340)
+        Me.AlarmsHelp.Name = "AlarmsHelp"
+        Me.AlarmsHelp.Size = New System.Drawing.Size(26, 24)
+        Me.AlarmsHelp.TabIndex = 5
+        Me.AlarmsHelp.Text = "?"
+        Me.AlarmsHelp.UseVisualStyleBackColor = True
         '
         'frmAlarms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(395, 375)
+        Me.Controls.Add(Me.AlarmsHelp)
         Me.Controls.Add(Me.AlarmsActivate)
         Me.Controls.Add(Me.AlarmsLoad)
         Me.Controls.Add(Me.AlarmsHide)
@@ -1642,4 +1653,5 @@ Partial Class frmAlarms
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents PrivMsgSoundBox As System.Windows.Forms.ComboBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents AlarmsHelp As System.Windows.Forms.Button
 End Class

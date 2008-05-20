@@ -45,6 +45,7 @@ Partial Class frmConstantsEditor
         Me.Button2 = New System.Windows.Forms.Button
         Me.Button3 = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.ConstEditHelp = New System.Windows.Forms.Button
         CType(Me.DataGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -74,25 +75,25 @@ Partial Class frmConstantsEditor
         '
         Me.Button1.Location = New System.Drawing.Point(12, 349)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(89, 23)
+        Me.Button1.Size = New System.Drawing.Size(89, 24)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "Save"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(217, 349)
+        Me.Button2.Location = New System.Drawing.Point(206, 349)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(115, 23)
+        Me.Button2.Size = New System.Drawing.Size(115, 24)
         Me.Button2.TabIndex = 2
         Me.Button2.Text = "Save And Close"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(458, 349)
+        Me.Button3.Location = New System.Drawing.Point(420, 350)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(89, 23)
+        Me.Button3.Size = New System.Drawing.Size(89, 24)
         Me.Button3.TabIndex = 3
         Me.Button3.Text = "Close"
         Me.Button3.UseVisualStyleBackColor = True
@@ -107,11 +108,21 @@ Partial Class frmConstantsEditor
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Constants"
         '
+        'ConstEditHelp
+        '
+        Me.ConstEditHelp.Location = New System.Drawing.Point(515, 350)
+        Me.ConstEditHelp.Name = "ConstEditHelp"
+        Me.ConstEditHelp.Size = New System.Drawing.Size(26, 24)
+        Me.ConstEditHelp.TabIndex = 5
+        Me.ConstEditHelp.Text = "?"
+        Me.ConstEditHelp.UseVisualStyleBackColor = True
+        '
         'frmConstantsEditor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(559, 384)
+        Me.Controls.Add(Me.ConstEditHelp)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
@@ -132,4 +143,5 @@ Partial Class frmConstantsEditor
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents ConstEditHelp As System.Windows.Forms.Button
 End Class

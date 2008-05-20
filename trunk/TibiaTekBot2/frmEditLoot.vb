@@ -54,4 +54,11 @@ Public Class frmEditLoot
             LootTo.SelectedIndex = Kernel.LootItems.GetLootItem(LootCategoryItems.SelectedRows(0).Cells(1).Value).GetLootBackpack
         End If
     End Sub
+
+    Private Sub EditLootHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditLootHelp.Click
+        MessageBox.Show("How to select to which backpack loot certain items:" & vbCrLf & _
+                        "1. Select a Loot Category (Virtual Container)." & vbCrLf & _
+                        "2. Select an Item from the Loot Category." & vbCrLf & _
+                        "3. Select the Backpack Number you wish to loot that certain item to.", "Edit Loot Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class

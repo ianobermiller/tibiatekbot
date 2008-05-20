@@ -39,11 +39,12 @@ Partial Class frmLoginSelectDialog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
+        Me.privateServer = New System.Windows.Forms.CheckBox
         Me.OK_Button = New System.Windows.Forms.Button
         Me.Cancel_Button = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.loginServers = New System.Windows.Forms.ComboBox
-        Me.privateServer = New System.Windows.Forms.CheckBox
+        Me.SelectLoginHelp = New System.Windows.Forms.Button
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -52,9 +53,9 @@ Partial Class frmLoginSelectDialog
         '
         Me.TableLayoutPanel1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TableLayoutPanel1.ColumnCount = 3
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.25547!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.0073!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.37226!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.39095!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.09877!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.09877!))
         Me.TableLayoutPanel1.Controls.Add(Me.privateServer, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 2, 0)
@@ -62,13 +63,23 @@ Partial Class frmLoginSelectDialog
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(274, 29)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(243, 29)
         Me.TableLayoutPanel1.TabIndex = 0
+        '
+        'privateServer
+        '
+        Me.privateServer.AutoSize = True
+        Me.privateServer.Location = New System.Drawing.Point(3, 3)
+        Me.privateServer.Name = "privateServer"
+        Me.privateServer.Size = New System.Drawing.Size(75, 17)
+        Me.privateServer.TabIndex = 3
+        Me.privateServer.Text = "OT Server"
+        Me.privateServer.UseVisualStyleBackColor = True
         '
         'OK_Button
         '
         Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.OK_Button.Location = New System.Drawing.Point(127, 3)
+        Me.OK_Button.Location = New System.Drawing.Point(91, 3)
         Me.OK_Button.Name = "OK_Button"
         Me.OK_Button.Size = New System.Drawing.Size(67, 23)
         Me.OK_Button.TabIndex = 0
@@ -78,7 +89,7 @@ Partial Class frmLoginSelectDialog
         '
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel_Button.Location = New System.Drawing.Point(202, 3)
+        Me.Cancel_Button.Location = New System.Drawing.Point(170, 3)
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
         Me.Cancel_Button.TabIndex = 1
@@ -102,15 +113,14 @@ Partial Class frmLoginSelectDialog
         Me.loginServers.Size = New System.Drawing.Size(262, 21)
         Me.loginServers.TabIndex = 2
         '
-        'privateServer
+        'SelectLoginHelp
         '
-        Me.privateServer.AutoSize = True
-        Me.privateServer.Location = New System.Drawing.Point(3, 3)
-        Me.privateServer.Name = "privateServer"
-        Me.privateServer.Size = New System.Drawing.Size(112, 17)
-        Me.privateServer.TabIndex = 3
-        Me.privateServer.Text = "Open Tibia Server"
-        Me.privateServer.UseVisualStyleBackColor = True
+        Me.SelectLoginHelp.Location = New System.Drawing.Point(257, 77)
+        Me.SelectLoginHelp.Name = "SelectLoginHelp"
+        Me.SelectLoginHelp.Size = New System.Drawing.Size(22, 23)
+        Me.SelectLoginHelp.TabIndex = 3
+        Me.SelectLoginHelp.Text = "?"
+        Me.SelectLoginHelp.UseVisualStyleBackColor = True
         '
         'frmLoginSelectDialog
         '
@@ -119,6 +129,7 @@ Partial Class frmLoginSelectDialog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(298, 115)
+        Me.Controls.Add(Me.SelectLoginHelp)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -141,5 +152,6 @@ Partial Class frmLoginSelectDialog
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents loginServers As System.Windows.Forms.ComboBox
     Friend WithEvents privateServer As System.Windows.Forms.CheckBox
+    Friend WithEvents SelectLoginHelp As System.Windows.Forms.Button
 
 End Class

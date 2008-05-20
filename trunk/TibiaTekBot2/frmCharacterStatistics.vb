@@ -320,4 +320,9 @@ Public Class frmCharacterStatistics
             End
         End Try
     End Sub
+
+    Private Sub CharStatsHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CharStatsHelp.Click
+        MessageBox.Show("Note: these values are only approximates." & vbCrLf & vbCrLf & _
+                        "When skills are too high the estimated values are innacurate.", "Character Statistics Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class

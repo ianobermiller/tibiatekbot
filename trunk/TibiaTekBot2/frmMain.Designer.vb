@@ -220,6 +220,7 @@ Partial Class frmMain
         Me.GeneralTabControl = New System.Windows.Forms.TabControl
         Me.GeneralTab1 = New System.Windows.Forms.TabPage
         Me.ComboBotBox = New System.Windows.Forms.GroupBox
+        Me.CombobotHelp = New System.Windows.Forms.Button
         Me.ComboLeaders = New System.Windows.Forms.ListBox
         Me.LeadersContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.AddLeader = New System.Windows.Forms.ToolStripMenuItem
@@ -252,6 +253,7 @@ Partial Class frmMain
         Me.AntiIdlerTrigger = New System.Windows.Forms.CheckBox
         Me.GeneralPart2 = New System.Windows.Forms.TabPage
         Me.GroupBox9 = New System.Windows.Forms.GroupBox
+        Me.FPSChangerHelp = New System.Windows.Forms.Button
         Me.FpsChangerTrigger = New System.Windows.Forms.CheckBox
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
         Me.Label10 = New System.Windows.Forms.Label
@@ -269,6 +271,7 @@ Partial Class frmMain
         Me.DancerSpeedlbl = New System.Windows.Forms.Label
         Me.DancerTrigger = New System.Windows.Forms.CheckBox
         Me.ChangersBox = New System.Windows.Forms.GroupBox
+        Me.AmuletRingChangerHelp = New System.Windows.Forms.Button
         Me.ChangerAmuletType = New System.Windows.Forms.ComboBox
         Me.AmuletChangerTypelbl = New System.Windows.Forms.Label
         Me.AmuletChangerTrigger = New System.Windows.Forms.CheckBox
@@ -293,11 +296,13 @@ Partial Class frmMain
         Me.AFKTabControl = New System.Windows.Forms.TabControl
         Me.TabPage14 = New System.Windows.Forms.TabPage
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
+        Me.AutoFisherHelp = New System.Windows.Forms.Button
         Me.AutoFisherTrigger = New System.Windows.Forms.CheckBox
         Me.AutoFisherTurbo = New System.Windows.Forms.CheckBox
         Me.AutoFisherMinimumCapacity = New System.Windows.Forms.NumericUpDown
         Me.Label7 = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
+        Me.AutoEaterHelp = New System.Windows.Forms.Button
         Me.AutoEaterEatFromFloorFirst = New System.Windows.Forms.CheckBox
         Me.Label20 = New System.Windows.Forms.Label
         Me.AutoEaterInterval = New System.Windows.Forms.NumericUpDown
@@ -325,6 +330,7 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label
         Me.TabPage17 = New System.Windows.Forms.TabPage
         Me.TradeChannelAdvertiserGroup = New System.Windows.Forms.GroupBox
+        Me.TradeChanAdvertHelp = New System.Windows.Forms.Button
         Me.TradeChannelAdvertiserTrigger = New System.Windows.Forms.CheckBox
         Me.TradeChannelAdvertiserAdvertisement = New System.Windows.Forms.TextBox
         Me.TradeChannelAdvertiserLabel = New System.Windows.Forms.Label
@@ -333,12 +339,14 @@ Partial Class frmMain
         Me.CavebotTrigger = New System.Windows.Forms.CheckBox
         Me.CavebotConfigure = New System.Windows.Forms.Button
         Me.GroupBox7 = New System.Windows.Forms.GroupBox
+        Me.TradeChanWatchHelp = New System.Windows.Forms.Button
         Me.TradeChannelWatcherBuilder = New System.Windows.Forms.Button
         Me.TradeChannelWatcherTrigger = New System.Windows.Forms.CheckBox
         Me.TradeChannelWatcherExpression = New System.Windows.Forms.TextBox
         Me.Label9 = New System.Windows.Forms.Label
         Me.TabPage9 = New System.Windows.Forms.TabPage
         Me.AmmoMakerBox = New System.Windows.Forms.GroupBox
+        Me.AmmoMakerHelp = New System.Windows.Forms.Button
         Me.AmmoMakerMinCap = New System.Windows.Forms.NumericUpDown
         Me.AmmoMakerMinCaplbl = New System.Windows.Forms.Label
         Me.AmmoMakerTrigger = New System.Windows.Forms.CheckBox
@@ -421,6 +429,7 @@ Partial Class frmMain
         Me.ShowHUD = New System.Windows.Forms.CheckBox
         Me.ShowCreatureInfo = New System.Windows.Forms.CheckBox
         Me.SendLocationBox = New System.Windows.Forms.GroupBox
+        Me.SendLocHelp = New System.Windows.Forms.Button
         Me.SendLocationTo = New System.Windows.Forms.TextBox
         Me.SendLocationToWhomlbl = New System.Windows.Forms.Label
         Me.SendLocation = New System.Windows.Forms.Button
@@ -431,12 +440,14 @@ Partial Class frmMain
         Me.WebsiteName = New System.Windows.Forms.ComboBox
         Me.Websitelbl = New System.Windows.Forms.Label
         Me.NameSpyBox = New System.Windows.Forms.GroupBox
+        Me.NameSpyHelp = New System.Windows.Forms.Button
         Me.NameSpyTrigger = New System.Windows.Forms.CheckBox
         Me.FloorLookBox = New System.Windows.Forms.GroupBox
         Me.FloorDown = New System.Windows.Forms.Button
         Me.FloorAround = New System.Windows.Forms.Button
         Me.FloorUp = New System.Windows.Forms.Button
         Me.ExpCheckerBox = New System.Windows.Forms.GroupBox
+        Me.ExpCheckerHelp = New System.Windows.Forms.Button
         Me.ExpCheckerTrigger = New System.Windows.Forms.CheckBox
         Me.ExpShowCreatures = New System.Windows.Forms.CheckBox
         Me.ExpShowNext = New System.Windows.Forms.CheckBox
@@ -445,6 +456,7 @@ Partial Class frmMain
         Me.PickupHelp = New System.Windows.Forms.Button
         Me.PickuperTrigger = New System.Windows.Forms.CheckBox
         Me.TrainerBox = New System.Windows.Forms.GroupBox
+        Me.AutoTrainerHelp = New System.Windows.Forms.Button
         Me.TrainerInfo = New System.Windows.Forms.Button
         Me.TrainerClear = New System.Windows.Forms.Button
         Me.TrainerRemove = New System.Windows.Forms.Button
@@ -475,6 +487,7 @@ Partial Class frmMain
         Me.Chameleonlbl = New System.Windows.Forms.Label
         Me.ChameleonOutfit = New System.Windows.Forms.ComboBox
         Me.FakeTitleBox = New System.Windows.Forms.GroupBox
+        Me.FakeTitleHelp = New System.Windows.Forms.Button
         Me.FakeTitleTrigger = New System.Windows.Forms.CheckBox
         Me.FakeTitle = New System.Windows.Forms.TextBox
         Me.FakeTitlelbl = New System.Windows.Forms.Label
@@ -537,6 +550,8 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.FriendHealerHelp = New System.Windows.Forms.Button
+        Me.PartyHealerHelp = New System.Windows.Forms.Button
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -660,6 +675,7 @@ Partial Class frmMain
         '
         Me.PopupMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ToolStripSeparator4, Me.ScriptsToolStripMenuItem, Me.AlarmsToolStripMenuItem, Me.CavebotMenuItem, Me.CharacterStatisticsMenuItem, Me.KeyboardToolStripMenuItem, Me.ToolStripMenuItem1, Me.AutoResponderToolStripMenuItem, Me.ToolStripSeparator5, Me.ChangeLoginServerPopupItem, Me.ConstantsEditorMenuItem, Me.MCPatchMenuItem, Me.ToolStripSeparator2, Me.ShowHideTibiaWindow, Me.ToolStripSeparator1, Me.ClosePopupItem})
         Me.PopupMenu.Name = "PopupMenu"
+        Me.PopupMenu.OwnerItem = Me.TibiaTekBotMenuToolStripMenuItem
         Me.PopupMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         resources.ApplyResources(Me.PopupMenu, "PopupMenu")
         '
@@ -1633,12 +1649,19 @@ Partial Class frmMain
         '
         'ComboBotBox
         '
+        Me.ComboBotBox.Controls.Add(Me.CombobotHelp)
         Me.ComboBotBox.Controls.Add(Me.ComboLeaders)
         Me.ComboBotBox.Controls.Add(Me.ComboBotTrigger)
         Me.ComboBotBox.Controls.Add(Me.ComboBotLeaderlbl)
         resources.ApplyResources(Me.ComboBotBox, "ComboBotBox")
         Me.ComboBotBox.Name = "ComboBotBox"
         Me.ComboBotBox.TabStop = False
+        '
+        'CombobotHelp
+        '
+        resources.ApplyResources(Me.CombobotHelp, "CombobotHelp")
+        Me.CombobotHelp.Name = "CombobotHelp"
+        Me.CombobotHelp.UseVisualStyleBackColor = True
         '
         'ComboLeaders
         '
@@ -1847,11 +1870,18 @@ Partial Class frmMain
         '
         'GroupBox9
         '
+        Me.GroupBox9.Controls.Add(Me.FPSChangerHelp)
         Me.GroupBox9.Controls.Add(Me.FpsChangerTrigger)
         Me.GroupBox9.Controls.Add(Me.TableLayoutPanel1)
         resources.ApplyResources(Me.GroupBox9, "GroupBox9")
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.TabStop = False
+        '
+        'FPSChangerHelp
+        '
+        resources.ApplyResources(Me.FPSChangerHelp, "FPSChangerHelp")
+        Me.FPSChangerHelp.Name = "FPSChangerHelp"
+        Me.FPSChangerHelp.UseVisualStyleBackColor = True
         '
         'FpsChangerTrigger
         '
@@ -1955,6 +1985,7 @@ Partial Class frmMain
         '
         'ChangersBox
         '
+        Me.ChangersBox.Controls.Add(Me.AmuletRingChangerHelp)
         Me.ChangersBox.Controls.Add(Me.ChangerAmuletType)
         Me.ChangersBox.Controls.Add(Me.AmuletChangerTypelbl)
         Me.ChangersBox.Controls.Add(Me.AmuletChangerTrigger)
@@ -1964,6 +1995,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.ChangersBox, "ChangersBox")
         Me.ChangersBox.Name = "ChangersBox"
         Me.ChangersBox.TabStop = False
+        '
+        'AmuletRingChangerHelp
+        '
+        resources.ApplyResources(Me.AmuletRingChangerHelp, "AmuletRingChangerHelp")
+        Me.AmuletRingChangerHelp.Name = "AmuletRingChangerHelp"
+        Me.AmuletRingChangerHelp.UseVisualStyleBackColor = True
         '
         'ChangerAmuletType
         '
@@ -2122,6 +2159,7 @@ Partial Class frmMain
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.AutoFisherHelp)
         Me.GroupBox5.Controls.Add(Me.AutoFisherTrigger)
         Me.GroupBox5.Controls.Add(Me.AutoFisherTurbo)
         Me.GroupBox5.Controls.Add(Me.AutoFisherMinimumCapacity)
@@ -2129,6 +2167,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.GroupBox5, "GroupBox5")
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.TabStop = False
+        '
+        'AutoFisherHelp
+        '
+        resources.ApplyResources(Me.AutoFisherHelp, "AutoFisherHelp")
+        Me.AutoFisherHelp.Name = "AutoFisherHelp"
+        Me.AutoFisherHelp.UseVisualStyleBackColor = True
         '
         'AutoFisherTrigger
         '
@@ -2155,6 +2199,7 @@ Partial Class frmMain
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.AutoEaterHelp)
         Me.GroupBox4.Controls.Add(Me.AutoEaterEatFromFloorFirst)
         Me.GroupBox4.Controls.Add(Me.Label20)
         Me.GroupBox4.Controls.Add(Me.AutoEaterInterval)
@@ -2167,6 +2212,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.GroupBox4, "GroupBox4")
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.TabStop = False
+        '
+        'AutoEaterHelp
+        '
+        resources.ApplyResources(Me.AutoEaterHelp, "AutoEaterHelp")
+        Me.AutoEaterHelp.Name = "AutoEaterHelp"
+        Me.AutoEaterHelp.UseVisualStyleBackColor = True
         '
         'AutoEaterEatFromFloorFirst
         '
@@ -2340,12 +2391,19 @@ Partial Class frmMain
         '
         'TradeChannelAdvertiserGroup
         '
+        Me.TradeChannelAdvertiserGroup.Controls.Add(Me.TradeChanAdvertHelp)
         Me.TradeChannelAdvertiserGroup.Controls.Add(Me.TradeChannelAdvertiserTrigger)
         Me.TradeChannelAdvertiserGroup.Controls.Add(Me.TradeChannelAdvertiserAdvertisement)
         Me.TradeChannelAdvertiserGroup.Controls.Add(Me.TradeChannelAdvertiserLabel)
         resources.ApplyResources(Me.TradeChannelAdvertiserGroup, "TradeChannelAdvertiserGroup")
         Me.TradeChannelAdvertiserGroup.Name = "TradeChannelAdvertiserGroup"
         Me.TradeChannelAdvertiserGroup.TabStop = False
+        '
+        'TradeChanAdvertHelp
+        '
+        resources.ApplyResources(Me.TradeChanAdvertHelp, "TradeChanAdvertHelp")
+        Me.TradeChanAdvertHelp.Name = "TradeChanAdvertHelp"
+        Me.TradeChanAdvertHelp.UseVisualStyleBackColor = True
         '
         'TradeChannelAdvertiserTrigger
         '
@@ -2392,6 +2450,7 @@ Partial Class frmMain
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.TradeChanWatchHelp)
         Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherBuilder)
         Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherTrigger)
         Me.GroupBox7.Controls.Add(Me.TradeChannelWatcherExpression)
@@ -2399,6 +2458,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.GroupBox7, "GroupBox7")
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.TabStop = False
+        '
+        'TradeChanWatchHelp
+        '
+        resources.ApplyResources(Me.TradeChanWatchHelp, "TradeChanWatchHelp")
+        Me.TradeChanWatchHelp.Name = "TradeChanWatchHelp"
+        Me.TradeChanWatchHelp.UseVisualStyleBackColor = True
         '
         'TradeChannelWatcherBuilder
         '
@@ -2432,6 +2497,7 @@ Partial Class frmMain
         '
         'AmmoMakerBox
         '
+        Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerHelp)
         Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinCap)
         Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerMinCaplbl)
         Me.AmmoMakerBox.Controls.Add(Me.AmmoMakerTrigger)
@@ -2442,6 +2508,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.AmmoMakerBox, "AmmoMakerBox")
         Me.AmmoMakerBox.Name = "AmmoMakerBox"
         Me.AmmoMakerBox.TabStop = False
+        '
+        'AmmoMakerHelp
+        '
+        resources.ApplyResources(Me.AmmoMakerHelp, "AmmoMakerHelp")
+        Me.AmmoMakerHelp.Name = "AmmoMakerHelp"
+        Me.AmmoMakerHelp.UseVisualStyleBackColor = True
         '
         'AmmoMakerMinCap
         '
@@ -2810,6 +2882,7 @@ Partial Class frmMain
         '
         'GroupBox17
         '
+        Me.GroupBox17.Controls.Add(Me.FriendHealerHelp)
         Me.GroupBox17.Controls.Add(Me.HealFriendTrigger)
         Me.GroupBox17.Controls.Add(Me.HealFHp)
         Me.GroupBox17.Controls.Add(Me.HealFHplbl)
@@ -2864,6 +2937,7 @@ Partial Class frmMain
         '
         'GroupBox19
         '
+        Me.GroupBox19.Controls.Add(Me.PartyHealerHelp)
         Me.GroupBox19.Controls.Add(Me.HealPartyTrigger)
         Me.GroupBox19.Controls.Add(Me.HealPHp)
         Me.GroupBox19.Controls.Add(Me.HealP)
@@ -3007,12 +3081,19 @@ Partial Class frmMain
         '
         'SendLocationBox
         '
+        Me.SendLocationBox.Controls.Add(Me.SendLocHelp)
         Me.SendLocationBox.Controls.Add(Me.SendLocationTo)
         Me.SendLocationBox.Controls.Add(Me.SendLocationToWhomlbl)
         Me.SendLocationBox.Controls.Add(Me.SendLocation)
         resources.ApplyResources(Me.SendLocationBox, "SendLocationBox")
         Me.SendLocationBox.Name = "SendLocationBox"
         Me.SendLocationBox.TabStop = False
+        '
+        'SendLocHelp
+        '
+        resources.ApplyResources(Me.SendLocHelp, "SendLocHelp")
+        Me.SendLocHelp.Name = "SendLocHelp"
+        Me.SendLocHelp.UseVisualStyleBackColor = True
         '
         'SendLocationTo
         '
@@ -3072,10 +3153,17 @@ Partial Class frmMain
         '
         'NameSpyBox
         '
+        Me.NameSpyBox.Controls.Add(Me.NameSpyHelp)
         Me.NameSpyBox.Controls.Add(Me.NameSpyTrigger)
         resources.ApplyResources(Me.NameSpyBox, "NameSpyBox")
         Me.NameSpyBox.Name = "NameSpyBox"
         Me.NameSpyBox.TabStop = False
+        '
+        'NameSpyHelp
+        '
+        resources.ApplyResources(Me.NameSpyHelp, "NameSpyHelp")
+        Me.NameSpyHelp.Name = "NameSpyHelp"
+        Me.NameSpyHelp.UseVisualStyleBackColor = True
         '
         'NameSpyTrigger
         '
@@ -3112,12 +3200,19 @@ Partial Class frmMain
         '
         'ExpCheckerBox
         '
+        Me.ExpCheckerBox.Controls.Add(Me.ExpCheckerHelp)
         Me.ExpCheckerBox.Controls.Add(Me.ExpCheckerTrigger)
         Me.ExpCheckerBox.Controls.Add(Me.ExpShowCreatures)
         Me.ExpCheckerBox.Controls.Add(Me.ExpShowNext)
         resources.ApplyResources(Me.ExpCheckerBox, "ExpCheckerBox")
         Me.ExpCheckerBox.Name = "ExpCheckerBox"
         Me.ExpCheckerBox.TabStop = False
+        '
+        'ExpCheckerHelp
+        '
+        resources.ApplyResources(Me.ExpCheckerHelp, "ExpCheckerHelp")
+        Me.ExpCheckerHelp.Name = "ExpCheckerHelp"
+        Me.ExpCheckerHelp.UseVisualStyleBackColor = True
         '
         'ExpCheckerTrigger
         '
@@ -3168,6 +3263,7 @@ Partial Class frmMain
         '
         'TrainerBox
         '
+        Me.TrainerBox.Controls.Add(Me.AutoTrainerHelp)
         Me.TrainerBox.Controls.Add(Me.TrainerInfo)
         Me.TrainerBox.Controls.Add(Me.TrainerClear)
         Me.TrainerBox.Controls.Add(Me.TrainerRemove)
@@ -3180,6 +3276,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.TrainerBox, "TrainerBox")
         Me.TrainerBox.Name = "TrainerBox"
         Me.TrainerBox.TabStop = False
+        '
+        'AutoTrainerHelp
+        '
+        resources.ApplyResources(Me.AutoTrainerHelp, "AutoTrainerHelp")
+        Me.AutoTrainerHelp.Name = "AutoTrainerHelp"
+        Me.AutoTrainerHelp.UseVisualStyleBackColor = True
         '
         'TrainerInfo
         '
@@ -3375,12 +3477,19 @@ Partial Class frmMain
         '
         'FakeTitleBox
         '
+        Me.FakeTitleBox.Controls.Add(Me.FakeTitleHelp)
         Me.FakeTitleBox.Controls.Add(Me.FakeTitleTrigger)
         Me.FakeTitleBox.Controls.Add(Me.FakeTitle)
         Me.FakeTitleBox.Controls.Add(Me.FakeTitlelbl)
         resources.ApplyResources(Me.FakeTitleBox, "FakeTitleBox")
         Me.FakeTitleBox.Name = "FakeTitleBox"
         Me.FakeTitleBox.TabStop = False
+        '
+        'FakeTitleHelp
+        '
+        resources.ApplyResources(Me.FakeTitleHelp, "FakeTitleHelp")
+        Me.FakeTitleHelp.Name = "FakeTitleHelp"
+        Me.FakeTitleHelp.UseVisualStyleBackColor = True
         '
         'FakeTitleTrigger
         '
@@ -3775,14 +3884,26 @@ Partial Class frmMain
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 2000
         '
+        'FriendHealerHelp
+        '
+        resources.ApplyResources(Me.FriendHealerHelp, "FriendHealerHelp")
+        Me.FriendHealerHelp.Name = "FriendHealerHelp"
+        Me.FriendHealerHelp.UseVisualStyleBackColor = True
+        '
+        'PartyHealerHelp
+        '
+        resources.ApplyResources(Me.PartyHealerHelp, "PartyHealerHelp")
+        Me.PartyHealerHelp.Name = "PartyHealerHelp"
+        Me.PartyHealerHelp.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.Controls.Add(Me.MainTabControl)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.MainTabControl)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = Global.TibiaTekBot.My.Resources.Resources.ttb
         Me.KeyPreview = True
@@ -4451,4 +4572,19 @@ Partial Class frmMain
     Friend WithEvents RunemakerHelp As System.Windows.Forms.Button
     Friend WithEvents SpellCasterHelp As System.Windows.Forms.Button
     Friend WithEvents CavebotHelp As System.Windows.Forms.Button
+    Friend WithEvents NameSpyHelp As System.Windows.Forms.Button
+    Friend WithEvents ExpCheckerHelp As System.Windows.Forms.Button
+    Friend WithEvents SendLocHelp As System.Windows.Forms.Button
+    Friend WithEvents AutoTrainerHelp As System.Windows.Forms.Button
+    Friend WithEvents TradeChanWatchHelp As System.Windows.Forms.Button
+    Friend WithEvents TradeChanAdvertHelp As System.Windows.Forms.Button
+    Friend WithEvents FakeTitleHelp As System.Windows.Forms.Button
+    Friend WithEvents CombobotHelp As System.Windows.Forms.Button
+    Friend WithEvents AmmoMakerHelp As System.Windows.Forms.Button
+    Friend WithEvents AutoEaterHelp As System.Windows.Forms.Button
+    Friend WithEvents AutoFisherHelp As System.Windows.Forms.Button
+    Friend WithEvents FPSChangerHelp As System.Windows.Forms.Button
+    Friend WithEvents AmuletRingChangerHelp As System.Windows.Forms.Button
+    Friend WithEvents FriendHealerHelp As System.Windows.Forms.Button
+    Friend WithEvents PartyHealerHelp As System.Windows.Forms.Button
 End Class

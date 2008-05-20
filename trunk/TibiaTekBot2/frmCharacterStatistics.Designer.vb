@@ -110,6 +110,7 @@ Partial Class frmCharacterStatistics
         Me.Button1 = New System.Windows.Forms.Button
         Me.Label09 = New System.Windows.Forms.Label
         Me.ElapsedTimeLabel = New System.Windows.Forms.Label
+        Me.CharStatsHelp = New System.Windows.Forms.Button
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
@@ -848,11 +849,21 @@ Partial Class frmCharacterStatistics
         Me.ElapsedTimeLabel.TabIndex = 3
         Me.ElapsedTimeLabel.Text = "~"
         '
+        'CharStatsHelp
+        '
+        Me.CharStatsHelp.Location = New System.Drawing.Point(409, 402)
+        Me.CharStatsHelp.Name = "CharStatsHelp"
+        Me.CharStatsHelp.Size = New System.Drawing.Size(26, 23)
+        Me.CharStatsHelp.TabIndex = 4
+        Me.CharStatsHelp.Text = "?"
+        Me.CharStatsHelp.UseVisualStyleBackColor = True
+        '
         'frmCharacterStatistics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(453, 441)
+        Me.Controls.Add(Me.CharStatsHelp)
         Me.Controls.Add(Me.ElapsedTimeLabel)
         Me.Controls.Add(Me.Label09)
         Me.Controls.Add(Me.Button1)
@@ -941,4 +952,5 @@ Partial Class frmCharacterStatistics
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Label09 As System.Windows.Forms.Label
     Friend WithEvents ElapsedTimeLabel As System.Windows.Forms.Label
+    Friend WithEvents CharStatsHelp As System.Windows.Forms.Button
 End Class

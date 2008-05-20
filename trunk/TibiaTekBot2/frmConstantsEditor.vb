@@ -113,4 +113,9 @@ Public Class frmConstantsEditor
             End
         End Try
     End Sub
+
+    Private Sub ConstEditHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConstEditHelp.Click
+        MessageBox.Show("The Constants Editor simplifies modifying the Constants XML file." & vbCrLf & vbCrLf & _
+                        "Warning: if you don't know what you're doing do not change any of these values.", "Constants Editor Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class

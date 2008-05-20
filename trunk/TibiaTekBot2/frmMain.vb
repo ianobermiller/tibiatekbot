@@ -3147,14 +3147,14 @@ Public Class frmMain
     End Sub
 
     Private Sub GPSHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GPSHelp.Click
-        MessageBox.Show("<<What is IRC Location?>>" & vbCrLf & vbCrLf & _
-            "1. It's a feature that allows you and your friends to keep track of your positions in-game." & vbCrLf & _
-            "2. It allows you to see your friends stats and the people that are near them." & vbCrLf & vbCrLf & _
-            "<<How to setup Irc Location>>" & vbCrLf & vbCrLf & _
-            "1. Write a channel name to use." & vbCrLf & _
-            "2. Press Activate to start broadcasting your character information." & vbCrLf & _
-            "3. Press Show Map to view your and your friends location and player information" & vbCrLf & vbCrLf & _
-            "Note: Make sure your friends broadcast using the same channel.", "Help for IRC Location", MessageBoxButtons.OK)
+        MessageBox.Show("IRC Location is a feature that allows you and your friends to keep track of your positions in-game." & vbCrLf & _
+            "It allows you to see your friends stats and the people that are near them." & vbCrLf & vbCrLf & _
+            "How to setup Irc Location:" & vbCrLf & vbCrLf & _
+            "  1. Write a channel name to use." & vbCrLf & _
+            "  2. Press Activate to start broadcasting your character information." & vbCrLf & _
+            "  3. Press Show Map to view your and your friends location and player information." & vbCrLf & vbCrLf & _
+            "Note: make sure your friends broadcast using the same channel." & vbCrLf & vbCrLf & _
+            "Caution: if you want to make your channel restricted for thirds don't forget to set a password.", "IRC Location Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 #End Region
 
@@ -3164,7 +3164,7 @@ Public Class frmMain
                         "  1. Mana Shield Remaining Time" & vbCrLf & _
                         "  2. Haste Remaining Time" & vbCrLf & _
                         "  3. Invisible Remaining Time" & vbCrLf & _
-                        "  Etc.", "In-Game Screen Information Help")
+                        "  Etc.", "In-Game Screen Information Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub AboutUsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AboutUsToolStripMenuItem.Click
@@ -3189,8 +3189,8 @@ Public Class frmMain
     Private Sub AutoAttackerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoAttackerHelp.Click
         MessageBox.Show("The Auto Attacker will automatically target creatures that attack you." & vbCrLf & vbCrLf & _
                         "To train with Slimes:" & vbCrLf & _
-                        "1. Put the Mother Slime on follow." & vbCrLf & _
-                        "2. Press Activate." & vbCrLf & vbCrLf & _
+                        "  1. Put the Mother Slime on follow." & vbCrLf & _
+                        "  2. Press Activate." & vbCrLf & vbCrLf & _
                         "Console Command: &attack", "Auto Attacker Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
@@ -3216,9 +3216,9 @@ Public Class frmMain
 
     Private Sub AutoLooterHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoLooterHelp.Click
         MessageBox.Show("The Auto Looter will automatically loot items from creature corpses." & vbCrLf & vbCrLf & _
-                        "To edit your loot list press Edit." & vbCrLf & vbCrLf & _
-                        "To add items: drag them inside any of the virtual containers." & vbCrLf & vbCrLf & _
-                        "To remove items: drag them outside." & vbCrLf & vbCrLf & _
+                        "To edit your loot list press Configure and then press Edit Loot Items." & vbCrLf & vbCrLf & _
+                        "  -To add items: drag them inside any of the virtual containers." & vbCrLf & vbCrLf & _
+                        "  -To remove items: drag them outside." & vbCrLf & vbCrLf & _
                         "The virtual containers help you organize the items you want to loot." & vbCrLf & vbCrLf & _
                         "Console Command: &loot", "Auto Looter Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
@@ -3242,7 +3242,86 @@ Public Class frmMain
     End Sub
 
     Private Sub CavebotHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CavebotHelp.Click
-        MessageBox.Show("The Cavebot can allow your character to kill creatures following a certain given path." & vbCrLf & vbCrLf & _
+        MessageBox.Show("The Cavebot allows your character to kill creatures following a given path." & vbCrLf & vbCrLf & _
                         "Console Command: &cavebot", "Cavebot Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub NameSpyHelp_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NameSpyHelp.Click
+        MessageBox.Show("The Name Spy will show the names of creatures and players below or above you." & vbCrLf & vbCrLf & _
+                        "Console Command: &namespy", "Name Spy Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
+
+    Private Sub ExpCheckerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExpCheckerHelp.Click
+        MessageBox.Show("The Experience Checker shows the experience left and the percent reached for that particular level." & vbCrLf & vbCrLf & _
+                        "Console Command: &exp", "Experience Checker Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub SendLocHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SendLocHelp.Click
+        MessageBox.Show("The Send Location tool lets you share your location in the Tibia World with other players." & vbCrLf & vbCrLf & _
+                        "Console Command: &sendlocation", "Send Location Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AutoTrainerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoTrainerHelp.Click
+        MessageBox.Show("The Auto Trainer helps you attack creatures without killing them." & vbCrLf & vbCrLf & _
+                        "Console Command: &trainer", "Auto Trainer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub TradeChanWatchHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChanWatchHelp.Click
+        MessageBox.Show("The Trade Channel Watcher checks all messages sent to the Trade Channel by other players to alert you of potential buyers or sellers." & vbCrLf & vbCrLf & _
+                        "Console Command: &watcher", "Trade Channel Watcher Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub TradeChanAdvertHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChanAdvertHelp.Click
+        MessageBox.Show("The Trade Channel Advertiser will automatically post messages on the Trade Channel for you every 2 minutes." & vbCrLf & vbCrLf & _
+                        "Console Command: &advertise", "Trade Channel Advertiser Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AmmoMakerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmmoMakerHelp.Click
+        MessageBox.Show("The Ammunition Maker will automatically make arrows or bolts for you." & vbCrLf & vbCrLf & _
+                        "Console Command: &ammomaker", "Ammunition Maker Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AutoEaterHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoEaterHelp.Click
+        MessageBox.Show("The Auto Eater will automatically eat food for you." & vbCrLf & vbCrLf & _
+                        "The Eat Smart Option will make you eat only when your HP has lowered to a certain amount, this is to help save food." & vbCrLf & vbCrLf & _
+                        "Console Command: &eat", "Auto Eater Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AutoFisherHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoFisherHelp.Click
+        MessageBox.Show("The Auto Fisher will automatically catch fishes for you." & vbCrLf & vbCrLf & _
+                        "Remember, the Fishing Rod and the Worms must be in the same backpack. You cannot put the rod in your arrow slot." & vbCrLf & vbCrLf & _
+                        "Tip: use the Auto Stacker feature to automatically stack fishes." & vbCrLf & vbCrLf & _
+                        "Console Command: &fish", "Auto Fisher Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub FPSChangerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FPSChangerHelp.Click
+        MessageBox.Show("The FPS Changer automatically sets the FPS to a certain limit depending on the Tibia client window's status." & vbCrLf & vbCrLf & _
+                        "Console Command: &fps", "FPS Changer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub AmuletRingChangerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AmuletRingChangerHelp.Click
+        MessageBox.Show("The Amulet and Ring Changer will automatically put a new amulet or ring in their respective slots after they wear out.", "Amulet and Ring Changer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub FriendHealerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FriendHealerHelp.Click
+        MessageBox.Show("The Friend Healer will automatically heal a predetermined player with a certain spell or item when the player reaches a certain percent of HP." & vbCrLf & vbCrLf & _
+                        "Warning: this tool can make you run out of mana/healing items fast." & vbCrLf & vbCrLf & _
+                        "Console Command: &healfriend", "Friend Healer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub PartyHealerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PartyHealerHelp.Click
+        MessageBox.Show("The Party Healer will automatically heal any party member with a certain spell or item when any of them reaches a certain percent of HP." & vbCrLf & vbCrLf & _
+                        "Console Command: &healparty", "Party Healer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub CombobotHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CombobotHelp.Click
+        MessageBox.Show("The Combobot will automatically shoot Sudden Death runes at a target if a given Leader does it first." & vbCrLf & vbCrLf & _
+                        "Console Command: &combobot", "Combobot Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub FakeTitleHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FakeTitleHelp.Click
+        MessageBox.Show("The Fake Title will change Tibia's window title for you." & vbCrLf & vbCrLf & _
+                        "Console Command: &faketitle", "Fake Title Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Class

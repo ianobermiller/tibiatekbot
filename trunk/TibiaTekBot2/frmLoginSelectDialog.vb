@@ -91,4 +91,16 @@ Public Class frmLoginSelectDialog
         End Try
     End Sub
 
+    Private Sub SelectLoginHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SelectLoginHelp.Click
+        MessageBox.Show("To login you must first select a login server from the list and click OK." & vbCrLf & _
+                        "Remember all login servers must be written in the correct format: server:port." & vbCrLf & vbCrLf & _
+                        "How to login to an OT Server" & vbCrLf & _
+                        "1. Write the login server address." & vbCrLf & _
+                        "2. Mark the OT Server checkbox." & vbCrLf & _
+                        "3. Click OK." & vbCrLf & vbCrLf & _
+                        "Warning: do not attempt to use an IP Changer with TibiaTek Bot." & vbCrLf & vbCrLf & _
+                        "Remember:" & vbCrLf & _
+                        "Sometimes Login Servers are down and you won't be able to login, if that is the case," & vbCrLf & _
+                        "select another login server from the list.", "Select a Login Server Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class
