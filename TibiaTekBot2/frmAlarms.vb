@@ -1260,4 +1260,9 @@ Public Class frmAlarms
             ShowError(ex)
         End Try
     End Sub
+
+    Private Sub AlarmsHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AlarmsHelp.Click
+        MessageBox.Show("Use the Alarms to alert you of other players in your screen, messages, amount of items, etc." & vbCrLf & vbCrLf & _
+                        "Tip: always test and double check the alarms.", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class

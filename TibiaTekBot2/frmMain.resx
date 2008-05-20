@@ -381,6 +381,12 @@
   <data name="ClosePopupItem.Text" xml:space="preserve">
     <value>&amp;Exit</value>
   </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 20</value>
+  </data>
+  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
+    <value>TibiaTek Bot Menu</value>
+  </data>
   <data name="PopupMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>236, 314</value>
   </data>
@@ -395,12 +401,6 @@
   </data>
   <data name="NotifyIcon.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 20</value>
-  </data>
-  <data name="TibiaTekBotMenuToolStripMenuItem.Text" xml:space="preserve">
-    <value>TibiaTek Bot Menu</value>
   </data>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
@@ -427,7 +427,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MenuStrip1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="FunctionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 20</value>
@@ -1435,699 +1435,6 @@
   <data name="&gt;&gt;TabPage1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="AFKTabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;GroupBox5.Name" xml:space="preserve">
-    <value>GroupBox5</value>
-  </data>
-  <data name="&gt;&gt;GroupBox5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox5.Parent" xml:space="preserve">
-    <value>TabPage14</value>
-  </data>
-  <data name="&gt;&gt;GroupBox5.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;GroupBox4.Name" xml:space="preserve">
-    <value>GroupBox4</value>
-  </data>
-  <data name="&gt;&gt;GroupBox4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox4.Parent" xml:space="preserve">
-    <value>TabPage14</value>
-  </data>
-  <data name="&gt;&gt;GroupBox4.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;GroupBox3.Name" xml:space="preserve">
-    <value>GroupBox3</value>
-  </data>
-  <data name="&gt;&gt;GroupBox3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox3.Parent" xml:space="preserve">
-    <value>TabPage14</value>
-  </data>
-  <data name="&gt;&gt;GroupBox3.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;GroupBox2.Name" xml:space="preserve">
-    <value>GroupBox2</value>
-  </data>
-  <data name="&gt;&gt;GroupBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox2.Parent" xml:space="preserve">
-    <value>TabPage14</value>
-  </data>
-  <data name="&gt;&gt;GroupBox2.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="TabPage14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage14.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>386, 301</value>
-  </data>
-  <data name="TabPage14.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="TabPage14.Text" xml:space="preserve">
-    <value>Part I</value>
-  </data>
-  <data name="&gt;&gt;TabPage14.Name" xml:space="preserve">
-    <value>TabPage14</value>
-  </data>
-  <data name="&gt;&gt;TabPage14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage14.Parent" xml:space="preserve">
-    <value>AFKTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage14.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;TradeChannelAdvertiserGroup.Name" xml:space="preserve">
-    <value>TradeChannelAdvertiserGroup</value>
-  </data>
-  <data name="&gt;&gt;TradeChannelAdvertiserGroup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TradeChannelAdvertiserGroup.Parent" xml:space="preserve">
-    <value>TabPage17</value>
-  </data>
-  <data name="&gt;&gt;TradeChannelAdvertiserGroup.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;GroupBox8.Name" xml:space="preserve">
-    <value>GroupBox8</value>
-  </data>
-  <data name="&gt;&gt;GroupBox8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox8.Parent" xml:space="preserve">
-    <value>TabPage17</value>
-  </data>
-  <data name="&gt;&gt;GroupBox8.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;GroupBox7.Name" xml:space="preserve">
-    <value>GroupBox7</value>
-  </data>
-  <data name="&gt;&gt;GroupBox7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox7.Parent" xml:space="preserve">
-    <value>TabPage17</value>
-  </data>
-  <data name="&gt;&gt;GroupBox7.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="TabPage17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage17.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>386, 301</value>
-  </data>
-  <data name="TabPage17.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="TabPage17.Text" xml:space="preserve">
-    <value>Part II</value>
-  </data>
-  <data name="&gt;&gt;TabPage17.Name" xml:space="preserve">
-    <value>TabPage17</value>
-  </data>
-  <data name="&gt;&gt;TabPage17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage17.Parent" xml:space="preserve">
-    <value>AFKTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage17.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinCap.Name" xml:space="preserve">
-    <value>AmmoMakerMinCap</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinCap.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinCap.Parent" xml:space="preserve">
-    <value>AmmoMakerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinCap.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinCaplbl.Name" xml:space="preserve">
-    <value>AmmoMakerMinCaplbl</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinCaplbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinCaplbl.Parent" xml:space="preserve">
-    <value>AmmoMakerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinCaplbl.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerTrigger.Name" xml:space="preserve">
-    <value>AmmoMakerTrigger</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerTrigger.Parent" xml:space="preserve">
-    <value>AmmoMakerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerTrigger.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinMana.Name" xml:space="preserve">
-    <value>AmmoMakerMinMana</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinMana.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinMana.Parent" xml:space="preserve">
-    <value>AmmoMakerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinMana.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinManalbl.Name" xml:space="preserve">
-    <value>AmmoMakerMinManalbl</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinManalbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinManalbl.Parent" xml:space="preserve">
-    <value>AmmoMakerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerMinManalbl.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerSpell.Name" xml:space="preserve">
-    <value>AmmoMakerSpell</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerSpell.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerSpell.Parent" xml:space="preserve">
-    <value>AmmoMakerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerSpell.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerSpelllbl.Name" xml:space="preserve">
-    <value>AmmoMakerSpelllbl</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerSpelllbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerSpelllbl.Parent" xml:space="preserve">
-    <value>AmmoMakerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerSpelllbl.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="AmmoMakerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="AmmoMakerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 130</value>
-  </data>
-  <data name="AmmoMakerBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="AmmoMakerBox.Text" xml:space="preserve">
-    <value>Ammunition Maker</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerBox.Name" xml:space="preserve">
-    <value>AmmoMakerBox</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerBox.Parent" xml:space="preserve">
-    <value>TabPage9</value>
-  </data>
-  <data name="&gt;&gt;AmmoMakerBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="StatsUploaderSaveToDisk.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="StatsUploaderSaveToDisk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="StatsUploaderSaveToDisk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 108</value>
-  </data>
-  <data name="StatsUploaderSaveToDisk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 17</value>
-  </data>
-  <data name="StatsUploaderSaveToDisk.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="StatsUploaderSaveToDisk.Text" xml:space="preserve">
-    <value>Save To Disk</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderSaveToDisk.Name" xml:space="preserve">
-    <value>StatsUploaderSaveToDisk</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderSaveToDisk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderSaveToDisk.Parent" xml:space="preserve">
-    <value>GroupBox10</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderSaveToDisk.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="TableLayoutPanel3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="TableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="StatsUploaderPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>67, 28</value>
-  </data>
-  <data name="StatsUploaderPassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="StatsUploaderPassword.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderPassword.Name" xml:space="preserve">
-    <value>StatsUploaderPassword</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderPassword.Parent" xml:space="preserve">
-    <value>TableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderPassword.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="Label17.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="Label17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
-  </data>
-  <data name="Label17.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="Label17.Text" xml:space="preserve">
-    <value>Username:</value>
-  </data>
-  <data name="&gt;&gt;Label17.Name" xml:space="preserve">
-    <value>Label17</value>
-  </data>
-  <data name="&gt;&gt;Label17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label17.Parent" xml:space="preserve">
-    <value>TableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;Label17.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="StatsUploaderUser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>67, 3</value>
-  </data>
-  <data name="StatsUploaderUser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="StatsUploaderUser.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderUser.Name" xml:space="preserve">
-    <value>StatsUploaderUser</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderUser.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderUser.Parent" xml:space="preserve">
-    <value>TableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderUser.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Label19.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 25</value>
-  </data>
-  <data name="Label19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 13</value>
-  </data>
-  <data name="Label19.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="Label19.Text" xml:space="preserve">
-    <value>Password:</value>
-  </data>
-  <data name="&gt;&gt;Label19.Name" xml:space="preserve">
-    <value>Label19</value>
-  </data>
-  <data name="&gt;&gt;Label19.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label19.Parent" xml:space="preserve">
-    <value>TableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;Label19.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="TableLayoutPanel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 30</value>
-  </data>
-  <data name="TableLayoutPanel3.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="TableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 52</value>
-  </data>
-  <data name="TableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;TableLayoutPanel3.Name" xml:space="preserve">
-    <value>TableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;TableLayoutPanel3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TableLayoutPanel3.Parent" xml:space="preserve">
-    <value>GroupBox10</value>
-  </data>
-  <data name="&gt;&gt;TableLayoutPanel3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="StatsUploaderPassword" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label17" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderUser" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label19" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,25,Absolute,25,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="StatsUploaderTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
-    <value>Button</value>
-  </data>
-  <data name="StatsUploaderTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="StatsUploaderTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 103</value>
-  </data>
-  <data name="StatsUploaderTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 24</value>
-  </data>
-  <data name="StatsUploaderTrigger.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="StatsUploaderTrigger.Text" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="StatsUploaderTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderTrigger.Name" xml:space="preserve">
-    <value>StatsUploaderTrigger</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderTrigger.Parent" xml:space="preserve">
-    <value>GroupBox10</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderTrigger.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="TableLayoutPanel2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="TableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="StatsUploaderPath.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 53</value>
-  </data>
-  <data name="StatsUploaderPath.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="StatsUploaderPath.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderPath.Name" xml:space="preserve">
-    <value>StatsUploaderPath</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderPath.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderPath.Parent" xml:space="preserve">
-    <value>TableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderPath.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="StatsUploaderFilename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 28</value>
-  </data>
-  <data name="StatsUploaderFilename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="StatsUploaderFilename.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderFilename.Name" xml:space="preserve">
-    <value>StatsUploaderFilename</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderFilename.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderFilename.Parent" xml:space="preserve">
-    <value>TableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderFilename.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="Label14.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="Label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 13</value>
-  </data>
-  <data name="Label14.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="Label14.Text" xml:space="preserve">
-    <value>Url:</value>
-  </data>
-  <data name="&gt;&gt;Label14.Name" xml:space="preserve">
-    <value>Label14</value>
-  </data>
-  <data name="&gt;&gt;Label14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label14.Parent" xml:space="preserve">
-    <value>TableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;Label14.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Label15.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 50</value>
-  </data>
-  <data name="Label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 13</value>
-  </data>
-  <data name="Label15.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="Label15.Text" xml:space="preserve">
-    <value>Path:</value>
-  </data>
-  <data name="&gt;&gt;Label15.Name" xml:space="preserve">
-    <value>Label15</value>
-  </data>
-  <data name="&gt;&gt;Label15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label15.Parent" xml:space="preserve">
-    <value>TableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;Label15.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="Label16.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 25</value>
-  </data>
-  <data name="Label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 13</value>
-  </data>
-  <data name="Label16.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="Label16.Text" xml:space="preserve">
-    <value>Filename:</value>
-  </data>
-  <data name="&gt;&gt;Label16.Name" xml:space="preserve">
-    <value>Label16</value>
-  </data>
-  <data name="&gt;&gt;Label16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label16.Parent" xml:space="preserve">
-    <value>TableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;Label16.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="StatsUploaderUrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 3</value>
-  </data>
-  <data name="StatsUploaderUrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="StatsUploaderUrl.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderUrl.Name" xml:space="preserve">
-    <value>StatsUploaderUrl</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderUrl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderUrl.Parent" xml:space="preserve">
-    <value>TableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;StatsUploaderUrl.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="TableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 19</value>
-  </data>
-  <data name="TableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="TableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 80</value>
-  </data>
-  <data name="TableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;TableLayoutPanel2.Name" xml:space="preserve">
-    <value>TableLayoutPanel2</value>
-  </data>
-  <data name="&gt;&gt;TableLayoutPanel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TableLayoutPanel2.Parent" xml:space="preserve">
-    <value>GroupBox10</value>
-  </data>
-  <data name="&gt;&gt;TableLayoutPanel2.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="TableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="StatsUploaderPath" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderFilename" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label14" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label15" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label16" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderUrl" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,25,Absolute,25,Absolute,19,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="GroupBox10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 162</value>
-  </data>
-  <data name="GroupBox10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>374, 133</value>
-  </data>
-  <data name="GroupBox10.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="GroupBox10.Text" xml:space="preserve">
-    <value>Stats Uploader</value>
-  </data>
-  <data name="&gt;&gt;GroupBox10.Name" xml:space="preserve">
-    <value>GroupBox10</value>
-  </data>
-  <data name="&gt;&gt;GroupBox10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupBox10.Parent" xml:space="preserve">
-    <value>TabPage9</value>
-  </data>
-  <data name="&gt;&gt;GroupBox10.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="TabPage9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabPage9.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="TabPage9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>386, 301</value>
-  </data>
-  <data name="TabPage9.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="TabPage9.Text" xml:space="preserve">
-    <value>Part III</value>
-  </data>
-  <data name="&gt;&gt;TabPage9.Name" xml:space="preserve">
-    <value>TabPage9</value>
-  </data>
-  <data name="&gt;&gt;TabPage9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabPage9.Parent" xml:space="preserve">
-    <value>AFKTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabPage9.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="AFKTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="AFKTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 327</value>
-  </data>
-  <data name="AFKTabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;AFKTabControl.Name" xml:space="preserve">
     <value>AFKTabControl</value>
   </data>
@@ -2419,6 +1726,138 @@
   <data name="&gt;&gt;TabPage5.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="&gt;&gt;ChameleonPlayer.Name" xml:space="preserve">
+    <value>ChameleonPlayer</value>
+  </data>
+  <data name="&gt;&gt;ChameleonPlayer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonPlayer.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonPlayer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Label32.Name" xml:space="preserve">
+    <value>Label32</value>
+  </data>
+  <data name="&gt;&gt;Label32.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label32.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;Label32.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ChameleonCopy.Name" xml:space="preserve">
+    <value>ChameleonCopy</value>
+  </data>
+  <data name="&gt;&gt;ChameleonCopy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonCopy.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonCopy.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ChameleonSecond.Name" xml:space="preserve">
+    <value>ChameleonSecond</value>
+  </data>
+  <data name="&gt;&gt;ChameleonSecond.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonSecond.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonSecond.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBoth.Name" xml:space="preserve">
+    <value>ChameleonBoth</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBoth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBoth.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBoth.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;ChameleonFirst.Name" xml:space="preserve">
+    <value>ChameleonFirst</value>
+  </data>
+  <data name="&gt;&gt;ChameleonFirst.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonFirst.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonFirst.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl2.Name" xml:space="preserve">
+    <value>Chameleonlbl2</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl2.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl2.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;ChameleonNone.Name" xml:space="preserve">
+    <value>ChameleonNone</value>
+  </data>
+  <data name="&gt;&gt;ChameleonNone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonNone.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonNone.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl.Name" xml:space="preserve">
+    <value>Chameleonlbl</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;ChameleonOutfit.Name" xml:space="preserve">
+    <value>ChameleonOutfit</value>
+  </data>
+  <data name="&gt;&gt;ChameleonOutfit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonOutfit.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonOutfit.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="ChameleonBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 90</value>
+  </data>
+  <data name="ChameleonBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 133</value>
+  </data>
+  <data name="ChameleonBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="ChameleonBox.Text" xml:space="preserve">
+    <value>Chameleon</value>
+  </data>
   <data name="&gt;&gt;ChameleonBox.Name" xml:space="preserve">
     <value>ChameleonBox</value>
   </data>
@@ -2430,6 +1869,126 @@
   </data>
   <data name="&gt;&gt;ChameleonBox.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="FakeTitleHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 44</value>
+  </data>
+  <data name="FakeTitleHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="FakeTitleHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="FakeTitleHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Name" xml:space="preserve">
+    <value>FakeTitleHelp</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="FakeTitleTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="FakeTitleTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="FakeTitleTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 44</value>
+  </data>
+  <data name="FakeTitleTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="FakeTitleTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="FakeTitleTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="FakeTitleTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Name" xml:space="preserve">
+    <value>FakeTitleTrigger</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="FakeTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 18</value>
+  </data>
+  <data name="FakeTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 20</value>
+  </data>
+  <data name="FakeTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Name" xml:space="preserve">
+    <value>FakeTitle</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="FakeTitlelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FakeTitlelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="FakeTitlelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="FakeTitlelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="FakeTitlelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="FakeTitlelbl.Text" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Name" xml:space="preserve">
+    <value>FakeTitlelbl</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="FakeTitleBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="FakeTitleBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 78</value>
+  </data>
+  <data name="FakeTitleBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="FakeTitleBox.Text" xml:space="preserve">
+    <value>Fake Title</value>
   </data>
   <data name="&gt;&gt;FakeTitleBox.Name" xml:space="preserve">
     <value>FakeTitleBox</value>
@@ -2531,7 +2090,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MainTabControl.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="LinkLabel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2737,6 +2296,18 @@
   <data name="&gt;&gt;GeneralTab1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;CombobotHelp.Name" xml:space="preserve">
+    <value>CombobotHelp</value>
+  </data>
+  <data name="&gt;&gt;CombobotHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CombobotHelp.Parent" xml:space="preserve">
+    <value>ComboBotBox</value>
+  </data>
+  <data name="&gt;&gt;CombobotHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;ComboLeaders.Name" xml:space="preserve">
     <value>ComboLeaders</value>
   </data>
@@ -2747,7 +2318,7 @@
     <value>ComboBotBox</value>
   </data>
   <data name="&gt;&gt;ComboLeaders.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;ComboBotTrigger.Name" xml:space="preserve">
     <value>ComboBotTrigger</value>
@@ -2759,7 +2330,7 @@
     <value>ComboBotBox</value>
   </data>
   <data name="&gt;&gt;ComboBotTrigger.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;ComboBotLeaderlbl.Name" xml:space="preserve">
     <value>ComboBotLeaderlbl</value>
@@ -2771,7 +2342,7 @@
     <value>ComboBotBox</value>
   </data>
   <data name="&gt;&gt;ComboBotLeaderlbl.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="ComboBotBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>216, 138</value>
@@ -2797,6 +2368,30 @@
   <data name="&gt;&gt;ComboBotBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="CombobotHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>136, 104</value>
+  </data>
+  <data name="CombobotHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="CombobotHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="CombobotHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;CombobotHelp.Name" xml:space="preserve">
+    <value>CombobotHelp</value>
+  </data>
+  <data name="&gt;&gt;CombobotHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CombobotHelp.Parent" xml:space="preserve">
+    <value>ComboBotBox</value>
+  </data>
+  <data name="&gt;&gt;CombobotHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="LeadersContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>360, 2</value>
   </metadata>
@@ -2810,10 +2405,10 @@
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ComboLeaders.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 36</value>
+    <value>9, 36</value>
   </data>
   <data name="ComboLeaders.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 56</value>
+    <value>153, 56</value>
   </data>
   <data name="ComboLeaders.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -2828,7 +2423,7 @@
     <value>ComboBotBox</value>
   </data>
   <data name="&gt;&gt;ComboLeaders.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="AddLeader.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 22</value>
@@ -2873,7 +2468,7 @@
     <value>ComboBotBox</value>
   </data>
   <data name="&gt;&gt;ComboBotTrigger.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="ComboBotLeaderlbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2903,7 +2498,7 @@
     <value>ComboBotBox</value>
   </data>
   <data name="&gt;&gt;ComboBotLeaderlbl.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;AutoStackerHelp.Name" xml:space="preserve">
     <value>AutoStackerHelp</value>
@@ -2990,7 +2585,7 @@
     <value>1</value>
   </data>
   <data name="AutoStackerHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>138, 39</value>
+    <value>136, 39</value>
   </data>
   <data name="AutoStackerHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 24</value>
@@ -3743,7 +3338,7 @@
     <value>5</value>
   </data>
   <data name="AntiLogoutHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>138, 17</value>
+    <value>136, 17</value>
   </data>
   <data name="AntiLogoutHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 24</value>
@@ -3874,6 +3469,18 @@
   <data name="&gt;&gt;GeneralPart2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;FPSChangerHelp.Name" xml:space="preserve">
+    <value>FPSChangerHelp</value>
+  </data>
+  <data name="&gt;&gt;FPSChangerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FPSChangerHelp.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;FPSChangerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;FpsChangerTrigger.Name" xml:space="preserve">
     <value>FpsChangerTrigger</value>
   </data>
@@ -3884,7 +3491,7 @@
     <value>GroupBox9</value>
   </data>
   <data name="&gt;&gt;FpsChangerTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;TableLayoutPanel1.Name" xml:space="preserve">
     <value>TableLayoutPanel1</value>
@@ -3896,7 +3503,7 @@
     <value>GroupBox9</value>
   </data>
   <data name="&gt;&gt;TableLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="TableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="Label10" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label11" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label12" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label13" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="FpsActive" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FpsInactive" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FpsMinimized" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FPSHiddenlbl" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="FPSHidden" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,0,Percent,0" /&gt;&lt;Rows Styles="Absolute,20,Absolute,23,Absolute,23,Absolute,25,Absolute,10" /&gt;&lt;/TableLayoutSettings&gt;</value>
@@ -3923,6 +3530,30 @@
     <value>GeneralPart2</value>
   </data>
   <data name="&gt;&gt;GroupBox9.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="FPSChangerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>133, 139</value>
+  </data>
+  <data name="FPSChangerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="FPSChangerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="FPSChangerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;FPSChangerHelp.Name" xml:space="preserve">
+    <value>FPSChangerHelp</value>
+  </data>
+  <data name="&gt;&gt;FPSChangerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FPSChangerHelp.Parent" xml:space="preserve">
+    <value>GroupBox9</value>
+  </data>
+  <data name="&gt;&gt;FPSChangerHelp.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="FpsChangerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
@@ -3956,7 +3587,7 @@
     <value>GroupBox9</value>
   </data>
   <data name="&gt;&gt;FpsChangerTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="TableLayoutPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4094,7 +3725,7 @@
     <value>GroupBox9</value>
   </data>
   <data name="&gt;&gt;TableLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="TableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="Label10" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label11" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label12" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label13" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="FpsActive" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FpsInactive" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FpsMinimized" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="FPSHiddenlbl" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="FPSHidden" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,0,Percent,0" /&gt;&lt;Rows Styles="Absolute,20,Absolute,23,Absolute,23,Absolute,25,Absolute,10" /&gt;&lt;/TableLayoutSettings&gt;</value>
@@ -4436,7 +4067,7 @@
     <value>Turbo</value>
   </data>
   <data name="DancerSpeed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>53, 13</value>
+    <value>50, 13</value>
   </data>
   <data name="DancerSpeed.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 21</value>
@@ -4516,6 +4147,18 @@
   <data name="&gt;&gt;DancerTrigger.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="&gt;&gt;AmuletRingChangerHelp.Name" xml:space="preserve">
+    <value>AmuletRingChangerHelp</value>
+  </data>
+  <data name="&gt;&gt;AmuletRingChangerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmuletRingChangerHelp.Parent" xml:space="preserve">
+    <value>ChangersBox</value>
+  </data>
+  <data name="&gt;&gt;AmuletRingChangerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;ChangerAmuletType.Name" xml:space="preserve">
     <value>ChangerAmuletType</value>
   </data>
@@ -4526,7 +4169,7 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;ChangerAmuletType.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;AmuletChangerTypelbl.Name" xml:space="preserve">
     <value>AmuletChangerTypelbl</value>
@@ -4538,7 +4181,7 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;AmuletChangerTypelbl.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;AmuletChangerTrigger.Name" xml:space="preserve">
     <value>AmuletChangerTrigger</value>
@@ -4550,7 +4193,7 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;AmuletChangerTrigger.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;ChangerRingType.Name" xml:space="preserve">
     <value>ChangerRingType</value>
@@ -4562,7 +4205,7 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;ChangerRingType.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;RingTypelbl.Name" xml:space="preserve">
     <value>RingTypelbl</value>
@@ -4574,7 +4217,7 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;RingTypelbl.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;RingChangerTrigger.Name" xml:space="preserve">
     <value>RingChangerTrigger</value>
@@ -4586,13 +4229,13 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;RingChangerTrigger.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="ChangersBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 107</value>
   </data>
   <data name="ChangersBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 139</value>
+    <value>206, 146</value>
   </data>
   <data name="ChangersBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -4612,8 +4255,32 @@
   <data name="&gt;&gt;ChangersBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="AmuletRingChangerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 116</value>
+  </data>
+  <data name="AmuletRingChangerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="AmuletRingChangerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="AmuletRingChangerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;AmuletRingChangerHelp.Name" xml:space="preserve">
+    <value>AmuletRingChangerHelp</value>
+  </data>
+  <data name="&gt;&gt;AmuletRingChangerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmuletRingChangerHelp.Parent" xml:space="preserve">
+    <value>ChangersBox</value>
+  </data>
+  <data name="&gt;&gt;AmuletRingChangerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ChangerAmuletType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 102</value>
+    <value>73, 89</value>
   </data>
   <data name="ChangerAmuletType.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 21</value>
@@ -4631,13 +4298,13 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;ChangerAmuletType.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="AmuletChangerTypelbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="AmuletChangerTypelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 105</value>
+    <value>18, 89</value>
   </data>
   <data name="AmuletChangerTypelbl.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 13</value>
@@ -4658,13 +4325,13 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;AmuletChangerTypelbl.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="AmuletChangerTrigger.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="AmuletChangerTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 79</value>
+    <value>6, 63</value>
   </data>
   <data name="AmuletChangerTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>123, 17</value>
@@ -4685,10 +4352,10 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;AmuletChangerTrigger.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="ChangerRingType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 42</value>
+    <value>73, 36</value>
   </data>
   <data name="ChangerRingType.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 21</value>
@@ -4706,13 +4373,13 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;ChangerRingType.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="RingTypelbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="RingTypelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 45</value>
+    <value>18, 41</value>
   </data>
   <data name="RingTypelbl.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 13</value>
@@ -4733,7 +4400,7 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;RingTypelbl.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="RingChangerTrigger.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4760,7 +4427,7 @@
     <value>ChangersBox</value>
   </data>
   <data name="&gt;&gt;RingChangerTrigger.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;AutoLooterHelp.Name" xml:space="preserve">
     <value>AutoLooterHelp</value>
@@ -4859,7 +4526,7 @@
     <value>3</value>
   </data>
   <data name="AutoLooterHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>174, 63</value>
+    <value>172, 63</value>
   </data>
   <data name="AutoLooterHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 24</value>
@@ -4949,7 +4616,7 @@
     <value>107, 14</value>
   </data>
   <data name="AutoLooterMinCap.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 20</value>
+    <value>91, 20</value>
   </data>
   <data name="AutoLooterMinCap.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -5287,6 +4954,153 @@
   <data name="&gt;&gt;UpLinkConnectionsList.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="AFKTabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;TabPage14.Name" xml:space="preserve">
+    <value>TabPage14</value>
+  </data>
+  <data name="&gt;&gt;TabPage14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage14.Parent" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage14.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TabPage17.Name" xml:space="preserve">
+    <value>TabPage17</value>
+  </data>
+  <data name="&gt;&gt;TabPage17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage17.Parent" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage17.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TabPage9.Name" xml:space="preserve">
+    <value>TabPage9</value>
+  </data>
+  <data name="&gt;&gt;TabPage9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage9.Parent" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage9.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="AFKTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="AFKTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>394, 327</value>
+  </data>
+  <data name="AFKTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Name" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.Parent" xml:space="preserve">
+    <value>TabPage2</value>
+  </data>
+  <data name="&gt;&gt;AFKTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBox5.Name" xml:space="preserve">
+    <value>GroupBox5</value>
+  </data>
+  <data name="&gt;&gt;GroupBox5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox5.Parent" xml:space="preserve">
+    <value>TabPage14</value>
+  </data>
+  <data name="&gt;&gt;GroupBox5.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBox4.Name" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;GroupBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox4.Parent" xml:space="preserve">
+    <value>TabPage14</value>
+  </data>
+  <data name="&gt;&gt;GroupBox4.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;GroupBox3.Name" xml:space="preserve">
+    <value>GroupBox3</value>
+  </data>
+  <data name="&gt;&gt;GroupBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox3.Parent" xml:space="preserve">
+    <value>TabPage14</value>
+  </data>
+  <data name="&gt;&gt;GroupBox3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;GroupBox2.Name" xml:space="preserve">
+    <value>GroupBox2</value>
+  </data>
+  <data name="&gt;&gt;GroupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox2.Parent" xml:space="preserve">
+    <value>TabPage14</value>
+  </data>
+  <data name="&gt;&gt;GroupBox2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="TabPage14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage14.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 301</value>
+  </data>
+  <data name="TabPage14.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TabPage14.Text" xml:space="preserve">
+    <value>Part I</value>
+  </data>
+  <data name="&gt;&gt;TabPage14.Name" xml:space="preserve">
+    <value>TabPage14</value>
+  </data>
+  <data name="&gt;&gt;TabPage14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage14.Parent" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage14.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;AutoFisherHelp.Name" xml:space="preserve">
+    <value>AutoFisherHelp</value>
+  </data>
+  <data name="&gt;&gt;AutoFisherHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoFisherHelp.Parent" xml:space="preserve">
+    <value>GroupBox5</value>
+  </data>
+  <data name="&gt;&gt;AutoFisherHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;AutoFisherTrigger.Name" xml:space="preserve">
     <value>AutoFisherTrigger</value>
   </data>
@@ -5297,7 +5111,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;AutoFisherTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;AutoFisherTurbo.Name" xml:space="preserve">
     <value>AutoFisherTurbo</value>
@@ -5309,7 +5123,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;AutoFisherTurbo.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;AutoFisherMinimumCapacity.Name" xml:space="preserve">
     <value>AutoFisherMinimumCapacity</value>
@@ -5321,7 +5135,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;AutoFisherMinimumCapacity.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;Label7.Name" xml:space="preserve">
     <value>Label7</value>
@@ -5333,7 +5147,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;Label7.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="GroupBox5.Location" type="System.Drawing.Point, System.Drawing">
     <value>196, 179</value>
@@ -5357,6 +5171,30 @@
     <value>TabPage14</value>
   </data>
   <data name="&gt;&gt;GroupBox5.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AutoFisherHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 64</value>
+  </data>
+  <data name="AutoFisherHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="AutoFisherHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="AutoFisherHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;AutoFisherHelp.Name" xml:space="preserve">
+    <value>AutoFisherHelp</value>
+  </data>
+  <data name="&gt;&gt;AutoFisherHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoFisherHelp.Parent" xml:space="preserve">
+    <value>GroupBox5</value>
+  </data>
+  <data name="&gt;&gt;AutoFisherHelp.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="AutoFisherTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
@@ -5390,7 +5228,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;AutoFisherTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="AutoFisherTurbo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5417,7 +5255,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;AutoFisherTurbo.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="AutoFisherMinimumCapacity.Location" type="System.Drawing.Point, System.Drawing">
     <value>94, 37</value>
@@ -5444,7 +5282,7 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;AutoFisherMinimumCapacity.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5474,7 +5312,19 @@
     <value>GroupBox5</value>
   </data>
   <data name="&gt;&gt;Label7.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;AutoEaterHelp.Name" xml:space="preserve">
+    <value>AutoEaterHelp</value>
+  </data>
+  <data name="&gt;&gt;AutoEaterHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoEaterHelp.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;AutoEaterHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;AutoEaterEatFromFloorFirst.Name" xml:space="preserve">
     <value>AutoEaterEatFromFloorFirst</value>
@@ -5486,7 +5336,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterEatFromFloorFirst.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;Label20.Name" xml:space="preserve">
     <value>Label20</value>
@@ -5498,7 +5348,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label20.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;AutoEaterInterval.Name" xml:space="preserve">
     <value>AutoEaterInterval</value>
@@ -5510,7 +5360,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterInterval.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;Label18.Name" xml:space="preserve">
     <value>Label18</value>
@@ -5522,7 +5372,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label18.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;AutoEaterEatFromFloor.Name" xml:space="preserve">
     <value>AutoEaterEatFromFloor</value>
@@ -5534,7 +5384,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterEatFromFloor.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;AutoEaterMinimumHitPoints.Name" xml:space="preserve">
     <value>AutoEaterMinimumHitPoints</value>
@@ -5546,7 +5396,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterMinimumHitPoints.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;Label6.Name" xml:space="preserve">
     <value>Label6</value>
@@ -5558,7 +5408,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;AutoEaterTrigger.Name" xml:space="preserve">
     <value>AutoEaterTrigger</value>
@@ -5570,7 +5420,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterTrigger.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;AutoEaterSmart.Name" xml:space="preserve">
     <value>AutoEaterSmart</value>
@@ -5582,7 +5432,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterSmart.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="GroupBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>196, 6</value>
@@ -5607,6 +5457,30 @@
   </data>
   <data name="&gt;&gt;GroupBox4.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="AutoEaterHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 135</value>
+  </data>
+  <data name="AutoEaterHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="AutoEaterHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="AutoEaterHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;AutoEaterHelp.Name" xml:space="preserve">
+    <value>AutoEaterHelp</value>
+  </data>
+  <data name="&gt;&gt;AutoEaterHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoEaterHelp.Parent" xml:space="preserve">
+    <value>GroupBox4</value>
+  </data>
+  <data name="&gt;&gt;AutoEaterHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="AutoEaterEatFromFloorFirst.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5633,7 +5507,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterEatFromFloorFirst.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Label20.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5660,7 +5534,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label20.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="AutoEaterInterval.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -5690,7 +5564,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterInterval.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5717,7 +5591,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label18.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="AutoEaterEatFromFloor.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5744,16 +5618,16 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterEatFromFloor.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="AutoEaterMinimumHitPoints.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="AutoEaterMinimumHitPoints.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 81</value>
+    <value>90, 81</value>
   </data>
   <data name="AutoEaterMinimumHitPoints.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 20</value>
+    <value>88, 20</value>
   </data>
   <data name="AutoEaterMinimumHitPoints.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -5774,7 +5648,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterMinimumHitPoints.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5801,7 +5675,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="AutoEaterTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -5810,7 +5684,7 @@
     <value>NoControl</value>
   </data>
   <data name="AutoEaterTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>55, 135</value>
+    <value>9, 135</value>
   </data>
   <data name="AutoEaterTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -5834,7 +5708,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterTrigger.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="AutoEaterSmart.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5861,7 +5735,7 @@
     <value>GroupBox4</value>
   </data>
   <data name="&gt;&gt;AutoEaterSmart.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;RunemakerHelp.Name" xml:space="preserve">
     <value>RunemakerHelp</value>
@@ -6463,6 +6337,81 @@
   <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="&gt;&gt;TradeChannelAdvertiserGroup.Name" xml:space="preserve">
+    <value>TradeChannelAdvertiserGroup</value>
+  </data>
+  <data name="&gt;&gt;TradeChannelAdvertiserGroup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TradeChannelAdvertiserGroup.Parent" xml:space="preserve">
+    <value>TabPage17</value>
+  </data>
+  <data name="&gt;&gt;TradeChannelAdvertiserGroup.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBox8.Name" xml:space="preserve">
+    <value>GroupBox8</value>
+  </data>
+  <data name="&gt;&gt;GroupBox8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox8.Parent" xml:space="preserve">
+    <value>TabPage17</value>
+  </data>
+  <data name="&gt;&gt;GroupBox8.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;GroupBox7.Name" xml:space="preserve">
+    <value>GroupBox7</value>
+  </data>
+  <data name="&gt;&gt;GroupBox7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox7.Parent" xml:space="preserve">
+    <value>TabPage17</value>
+  </data>
+  <data name="&gt;&gt;GroupBox7.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TabPage17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage17.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 301</value>
+  </data>
+  <data name="TabPage17.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="TabPage17.Text" xml:space="preserve">
+    <value>Part II</value>
+  </data>
+  <data name="&gt;&gt;TabPage17.Name" xml:space="preserve">
+    <value>TabPage17</value>
+  </data>
+  <data name="&gt;&gt;TabPage17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage17.Parent" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage17.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TradeChanAdvertHelp.Name" xml:space="preserve">
+    <value>TradeChanAdvertHelp</value>
+  </data>
+  <data name="&gt;&gt;TradeChanAdvertHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TradeChanAdvertHelp.Parent" xml:space="preserve">
+    <value>TradeChannelAdvertiserGroup</value>
+  </data>
+  <data name="&gt;&gt;TradeChanAdvertHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;TradeChannelAdvertiserTrigger.Name" xml:space="preserve">
     <value>TradeChannelAdvertiserTrigger</value>
   </data>
@@ -6473,7 +6422,7 @@
     <value>TradeChannelAdvertiserGroup</value>
   </data>
   <data name="&gt;&gt;TradeChannelAdvertiserTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;TradeChannelAdvertiserAdvertisement.Name" xml:space="preserve">
     <value>TradeChannelAdvertiserAdvertisement</value>
@@ -6485,7 +6434,7 @@
     <value>TradeChannelAdvertiserGroup</value>
   </data>
   <data name="&gt;&gt;TradeChannelAdvertiserAdvertisement.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;TradeChannelAdvertiserLabel.Name" xml:space="preserve">
     <value>TradeChannelAdvertiserLabel</value>
@@ -6497,7 +6446,7 @@
     <value>TradeChannelAdvertiserGroup</value>
   </data>
   <data name="&gt;&gt;TradeChannelAdvertiserLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="TradeChannelAdvertiserGroup.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 206</value>
@@ -6523,6 +6472,33 @@
   <data name="&gt;&gt;TradeChannelAdvertiserGroup.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="TradeChanAdvertHelp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="TradeChanAdvertHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 59</value>
+  </data>
+  <data name="TradeChanAdvertHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="TradeChanAdvertHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="TradeChanAdvertHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;TradeChanAdvertHelp.Name" xml:space="preserve">
+    <value>TradeChanAdvertHelp</value>
+  </data>
+  <data name="&gt;&gt;TradeChanAdvertHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TradeChanAdvertHelp.Parent" xml:space="preserve">
+    <value>TradeChannelAdvertiserGroup</value>
+  </data>
+  <data name="&gt;&gt;TradeChanAdvertHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="TradeChannelAdvertiserTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -6530,7 +6506,7 @@
     <value>NoControl</value>
   </data>
   <data name="TradeChannelAdvertiserTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 59</value>
+    <value>5, 59</value>
   </data>
   <data name="TradeChannelAdvertiserTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -6554,7 +6530,7 @@
     <value>TradeChannelAdvertiserGroup</value>
   </data>
   <data name="&gt;&gt;TradeChannelAdvertiserTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="TradeChannelAdvertiserAdvertisement.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 34</value>
@@ -6578,7 +6554,7 @@
     <value>TradeChannelAdvertiserGroup</value>
   </data>
   <data name="&gt;&gt;TradeChannelAdvertiserAdvertisement.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="TradeChannelAdvertiserLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -6608,7 +6584,7 @@
     <value>TradeChannelAdvertiserGroup</value>
   </data>
   <data name="&gt;&gt;TradeChannelAdvertiserLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;CavebotHelp.Name" xml:space="preserve">
     <value>CavebotHelp</value>
@@ -6650,7 +6626,7 @@
     <value>6, 6</value>
   </data>
   <data name="GroupBox8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 80</value>
+    <value>184, 76</value>
   </data>
   <data name="GroupBox8.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -6671,7 +6647,7 @@
     <value>1</value>
   </data>
   <data name="CavebotHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>151, 50</value>
+    <value>152, 46</value>
   </data>
   <data name="CavebotHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 24</value>
@@ -6701,7 +6677,7 @@
     <value>NoControl</value>
   </data>
   <data name="CavebotTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 17</value>
+    <value>9, 19</value>
   </data>
   <data name="CavebotTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -6728,7 +6704,7 @@
     <value>1</value>
   </data>
   <data name="CavebotConfigure.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 17</value>
+    <value>103, 19</value>
   </data>
   <data name="CavebotConfigure.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 24</value>
@@ -6751,6 +6727,18 @@
   <data name="&gt;&gt;CavebotConfigure.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;TradeChanWatchHelp.Name" xml:space="preserve">
+    <value>TradeChanWatchHelp</value>
+  </data>
+  <data name="&gt;&gt;TradeChanWatchHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TradeChanWatchHelp.Parent" xml:space="preserve">
+    <value>GroupBox7</value>
+  </data>
+  <data name="&gt;&gt;TradeChanWatchHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;TradeChannelWatcherBuilder.Name" xml:space="preserve">
     <value>TradeChannelWatcherBuilder</value>
   </data>
@@ -6761,7 +6749,7 @@
     <value>GroupBox7</value>
   </data>
   <data name="&gt;&gt;TradeChannelWatcherBuilder.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;TradeChannelWatcherTrigger.Name" xml:space="preserve">
     <value>TradeChannelWatcherTrigger</value>
@@ -6773,7 +6761,7 @@
     <value>GroupBox7</value>
   </data>
   <data name="&gt;&gt;TradeChannelWatcherTrigger.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;TradeChannelWatcherExpression.Name" xml:space="preserve">
     <value>TradeChannelWatcherExpression</value>
@@ -6785,7 +6773,7 @@
     <value>GroupBox7</value>
   </data>
   <data name="&gt;&gt;TradeChannelWatcherExpression.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;Label9.Name" xml:space="preserve">
     <value>Label9</value>
@@ -6797,13 +6785,13 @@
     <value>GroupBox7</value>
   </data>
   <data name="&gt;&gt;Label9.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="GroupBox7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 92</value>
+    <value>6, 85</value>
   </data>
   <data name="GroupBox7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 108</value>
+    <value>184, 118</value>
   </data>
   <data name="GroupBox7.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -6823,8 +6811,35 @@
   <data name="&gt;&gt;GroupBox7.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="TradeChanWatchHelp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="TradeChanWatchHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 88</value>
+  </data>
+  <data name="TradeChanWatchHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="TradeChanWatchHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="TradeChanWatchHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;TradeChanWatchHelp.Name" xml:space="preserve">
+    <value>TradeChanWatchHelp</value>
+  </data>
+  <data name="&gt;&gt;TradeChanWatchHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TradeChanWatchHelp.Parent" xml:space="preserve">
+    <value>GroupBox7</value>
+  </data>
+  <data name="&gt;&gt;TradeChanWatchHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="TradeChannelWatcherBuilder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 66</value>
+    <value>104, 61</value>
   </data>
   <data name="TradeChannelWatcherBuilder.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 24</value>
@@ -6845,7 +6860,7 @@
     <value>GroupBox7</value>
   </data>
   <data name="&gt;&gt;TradeChannelWatcherBuilder.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="TradeChannelWatcherTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -6854,7 +6869,7 @@
     <value>NoControl</value>
   </data>
   <data name="TradeChannelWatcherTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 66</value>
+    <value>5, 61</value>
   </data>
   <data name="TradeChannelWatcherTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -6878,13 +6893,13 @@
     <value>GroupBox7</value>
   </data>
   <data name="&gt;&gt;TradeChannelWatcherTrigger.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="TradeChannelWatcherExpression.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 39</value>
+    <value>6, 35</value>
   </data>
   <data name="TradeChannelWatcherExpression.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 20</value>
+    <value>172, 20</value>
   </data>
   <data name="TradeChannelWatcherExpression.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -6899,7 +6914,7 @@
     <value>GroupBox7</value>
   </data>
   <data name="&gt;&gt;TradeChannelWatcherExpression.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -6908,7 +6923,7 @@
     <value>NoControl</value>
   </data>
   <data name="Label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 23</value>
+    <value>7, 19</value>
   </data>
   <data name="Label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 13</value>
@@ -6929,10 +6944,205 @@
     <value>GroupBox7</value>
   </data>
   <data name="&gt;&gt;Label9.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerBox.Name" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerBox.Parent" xml:space="preserve">
+    <value>TabPage9</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Name" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Parent" xml:space="preserve">
+    <value>TabPage9</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TabPage9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabPage9.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabPage9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 301</value>
+  </data>
+  <data name="TabPage9.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="TabPage9.Text" xml:space="preserve">
+    <value>Part III</value>
+  </data>
+  <data name="&gt;&gt;TabPage9.Name" xml:space="preserve">
+    <value>TabPage9</value>
+  </data>
+  <data name="&gt;&gt;TabPage9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabPage9.Parent" xml:space="preserve">
+    <value>AFKTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabPage9.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerHelp.Name" xml:space="preserve">
+    <value>AmmoMakerHelp</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerHelp.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinCap.Name" xml:space="preserve">
+    <value>AmmoMakerMinCap</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinCap.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinCap.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinCap.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinCaplbl.Name" xml:space="preserve">
+    <value>AmmoMakerMinCaplbl</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinCaplbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinCaplbl.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinCaplbl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerTrigger.Name" xml:space="preserve">
+    <value>AmmoMakerTrigger</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerTrigger.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerTrigger.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="&gt;&gt;AmmoMakerMinMana.Name" xml:space="preserve">
+    <value>AmmoMakerMinMana</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinMana.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinMana.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinMana.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinManalbl.Name" xml:space="preserve">
+    <value>AmmoMakerMinManalbl</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinManalbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinManalbl.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerMinManalbl.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerSpell.Name" xml:space="preserve">
+    <value>AmmoMakerSpell</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerSpell.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerSpell.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerSpell.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerSpelllbl.Name" xml:space="preserve">
+    <value>AmmoMakerSpelllbl</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerSpelllbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerSpelllbl.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerSpelllbl.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="AmmoMakerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="AmmoMakerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 124</value>
+  </data>
+  <data name="AmmoMakerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="AmmoMakerBox.Text" xml:space="preserve">
+    <value>Ammunition Maker</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerBox.Name" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerBox.Parent" xml:space="preserve">
+    <value>TabPage9</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AmmoMakerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 94</value>
+  </data>
+  <data name="AmmoMakerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="AmmoMakerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="AmmoMakerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerHelp.Name" xml:space="preserve">
+    <value>AmmoMakerHelp</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerHelp.Parent" xml:space="preserve">
+    <value>AmmoMakerBox</value>
+  </data>
+  <data name="&gt;&gt;AmmoMakerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="AmmoMakerMinCap.Location" type="System.Drawing.Point, System.Drawing">
-    <value>120, 70</value>
+    <value>119, 70</value>
   </data>
   <data name="AmmoMakerMinCap.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 20</value>
@@ -6950,7 +7160,7 @@
     <value>AmmoMakerBox</value>
   </data>
   <data name="&gt;&gt;AmmoMakerMinCap.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="AmmoMakerMinCaplbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -6977,7 +7187,7 @@
     <value>AmmoMakerBox</value>
   </data>
   <data name="&gt;&gt;AmmoMakerMinCaplbl.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="AmmoMakerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -6986,7 +7196,7 @@
     <value>NoControl</value>
   </data>
   <data name="AmmoMakerTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>58, 97</value>
+    <value>9, 94</value>
   </data>
   <data name="AmmoMakerTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -7010,10 +7220,10 @@
     <value>AmmoMakerBox</value>
   </data>
   <data name="&gt;&gt;AmmoMakerTrigger.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="AmmoMakerMinMana.Location" type="System.Drawing.Point, System.Drawing">
-    <value>120, 45</value>
+    <value>120, 44</value>
   </data>
   <data name="AmmoMakerMinMana.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 20</value>
@@ -7031,7 +7241,7 @@
     <value>AmmoMakerBox</value>
   </data>
   <data name="&gt;&gt;AmmoMakerMinMana.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="AmmoMakerMinManalbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -7061,7 +7271,7 @@
     <value>AmmoMakerBox</value>
   </data>
   <data name="&gt;&gt;AmmoMakerMinManalbl.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="AmmoMakerSpell.Location" type="System.Drawing.Point, System.Drawing">
     <value>58, 15</value>
@@ -7082,7 +7292,7 @@
     <value>AmmoMakerBox</value>
   </data>
   <data name="&gt;&gt;AmmoMakerSpell.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="AmmoMakerSpelllbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -7112,7 +7322,589 @@
     <value>AmmoMakerBox</value>
   </data>
   <data name="&gt;&gt;AmmoMakerSpelllbl.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderSaveToDisk.Name" xml:space="preserve">
+    <value>StatsUploaderSaveToDisk</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderSaveToDisk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderSaveToDisk.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderSaveToDisk.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel3.Name" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel3.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="StatsUploaderPassword" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label17" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderUser" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label19" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,25,Absolute,25,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderTrigger.Name" xml:space="preserve">
+    <value>StatsUploaderTrigger</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderTrigger.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderTrigger.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel2.Name" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel2.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="TableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="StatsUploaderPath" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderFilename" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label14" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label15" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label16" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderUrl" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,25,Absolute,25,Absolute,19,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="GroupBox10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 162</value>
+  </data>
+  <data name="GroupBox10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>374, 133</value>
+  </data>
+  <data name="GroupBox10.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="GroupBox10.Text" xml:space="preserve">
+    <value>Stats Uploader</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Name" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.Parent" xml:space="preserve">
+    <value>TabPage9</value>
+  </data>
+  <data name="&gt;&gt;GroupBox10.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="StatsUploaderSaveToDisk.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="StatsUploaderSaveToDisk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="StatsUploaderSaveToDisk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 108</value>
+  </data>
+  <data name="StatsUploaderSaveToDisk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 17</value>
+  </data>
+  <data name="StatsUploaderSaveToDisk.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="StatsUploaderSaveToDisk.Text" xml:space="preserve">
+    <value>Save To Disk</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderSaveToDisk.Name" xml:space="preserve">
+    <value>StatsUploaderSaveToDisk</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderSaveToDisk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderSaveToDisk.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderSaveToDisk.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TableLayoutPanel3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPassword.Name" xml:space="preserve">
+    <value>StatsUploaderPassword</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPassword.Parent" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPassword.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Label17.Name" xml:space="preserve">
+    <value>Label17</value>
+  </data>
+  <data name="&gt;&gt;Label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label17.Parent" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;Label17.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUser.Name" xml:space="preserve">
+    <value>StatsUploaderUser</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUser.Parent" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUser.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Label19.Name" xml:space="preserve">
+    <value>Label19</value>
+  </data>
+  <data name="&gt;&gt;Label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label19.Parent" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;Label19.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="TableLayoutPanel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>190, 30</value>
+  </data>
+  <data name="TableLayoutPanel3.RowCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="TableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 52</value>
+  </data>
+  <data name="TableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel3.Name" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel3.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="StatsUploaderPassword" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label17" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderUser" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label19" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,25,Absolute,25,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="StatsUploaderPassword.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 28</value>
+  </data>
+  <data name="StatsUploaderPassword.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="StatsUploaderPassword.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPassword.Name" xml:space="preserve">
+    <value>StatsUploaderPassword</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPassword.Parent" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPassword.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Label17.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label17.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <data name="Label17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 13</value>
+  </data>
+  <data name="Label17.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="Label17.Text" xml:space="preserve">
+    <value>Username:</value>
+  </data>
+  <data name="&gt;&gt;Label17.Name" xml:space="preserve">
+    <value>Label17</value>
+  </data>
+  <data name="&gt;&gt;Label17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label17.Parent" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;Label17.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="StatsUploaderUser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 3</value>
+  </data>
+  <data name="StatsUploaderUser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="StatsUploaderUser.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUser.Name" xml:space="preserve">
+    <value>StatsUploaderUser</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUser.Parent" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUser.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label19.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 25</value>
+  </data>
+  <data name="Label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
+  </data>
+  <data name="Label19.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="Label19.Text" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="&gt;&gt;Label19.Name" xml:space="preserve">
+    <value>Label19</value>
+  </data>
+  <data name="&gt;&gt;Label19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label19.Parent" xml:space="preserve">
+    <value>TableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;Label19.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="StatsUploaderTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="StatsUploaderTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="StatsUploaderTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 103</value>
+  </data>
+  <data name="StatsUploaderTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="StatsUploaderTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="StatsUploaderTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="StatsUploaderTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderTrigger.Name" xml:space="preserve">
+    <value>StatsUploaderTrigger</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderTrigger.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderTrigger.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TableLayoutPanel2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPath.Name" xml:space="preserve">
+    <value>StatsUploaderPath</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPath.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPath.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPath.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderFilename.Name" xml:space="preserve">
+    <value>StatsUploaderFilename</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderFilename.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderFilename.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderFilename.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;Label14.Name" xml:space="preserve">
+    <value>Label14</value>
+  </data>
+  <data name="&gt;&gt;Label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label14.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;Label14.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Label15.Name" xml:space="preserve">
+    <value>Label15</value>
+  </data>
+  <data name="&gt;&gt;Label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label15.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;Label15.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;Label16.Name" xml:space="preserve">
+    <value>Label16</value>
+  </data>
+  <data name="&gt;&gt;Label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label16.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;Label16.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUrl.Name" xml:space="preserve">
+    <value>StatsUploaderUrl</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUrl.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUrl.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="TableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 19</value>
+  </data>
+  <data name="TableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="TableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 80</value>
+  </data>
+  <data name="TableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel2.Name" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel2.Parent" xml:space="preserve">
+    <value>GroupBox10</value>
+  </data>
+  <data name="&gt;&gt;TableLayoutPanel2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="TableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="StatsUploaderPath" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderFilename" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="Label14" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label15" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="Label16" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="StatsUploaderUrl" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,25,Absolute,25,Absolute,19,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="StatsUploaderPath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 53</value>
+  </data>
+  <data name="StatsUploaderPath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="StatsUploaderPath.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPath.Name" xml:space="preserve">
+    <value>StatsUploaderPath</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPath.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPath.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderPath.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="StatsUploaderFilename.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 28</value>
+  </data>
+  <data name="StatsUploaderFilename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="StatsUploaderFilename.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderFilename.Name" xml:space="preserve">
+    <value>StatsUploaderFilename</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderFilename.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderFilename.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderFilename.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Label14.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <data name="Label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 13</value>
+  </data>
+  <data name="Label14.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="Label14.Text" xml:space="preserve">
+    <value>Url:</value>
+  </data>
+  <data name="&gt;&gt;Label14.Name" xml:space="preserve">
+    <value>Label14</value>
+  </data>
+  <data name="&gt;&gt;Label14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label14.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;Label14.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label15.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 50</value>
+  </data>
+  <data name="Label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 13</value>
+  </data>
+  <data name="Label15.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="Label15.Text" xml:space="preserve">
+    <value>Path:</value>
+  </data>
+  <data name="&gt;&gt;Label15.Name" xml:space="preserve">
+    <value>Label15</value>
+  </data>
+  <data name="&gt;&gt;Label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label15.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;Label15.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 25</value>
+  </data>
+  <data name="Label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 13</value>
+  </data>
+  <data name="Label16.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="Label16.Text" xml:space="preserve">
+    <value>Filename:</value>
+  </data>
+  <data name="&gt;&gt;Label16.Name" xml:space="preserve">
+    <value>Label16</value>
+  </data>
+  <data name="&gt;&gt;Label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label16.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;Label16.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="StatsUploaderUrl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 3</value>
+  </data>
+  <data name="StatsUploaderUrl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="StatsUploaderUrl.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUrl.Name" xml:space="preserve">
+    <value>StatsUploaderUrl</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUrl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUrl.Parent" xml:space="preserve">
+    <value>TableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;StatsUploaderUrl.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="&gt;&gt;HealingTab1.Name" xml:space="preserve">
     <value>HealingTab1</value>
@@ -8096,7 +8888,7 @@
     <value>22</value>
   </data>
   <data name="DrinkerBox.Text" xml:space="preserve">
-    <value>Mana Fluid Drinker</value>
+    <value>Mana Potion Drinker</value>
   </data>
   <data name="&gt;&gt;DrinkerBox.Name" xml:space="preserve">
     <value>DrinkerBox</value>
@@ -8278,6 +9070,18 @@
   <data name="&gt;&gt;HealingTab2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;FriendHealerHelp.Name" xml:space="preserve">
+    <value>FriendHealerHelp</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;HealFriendTrigger.Name" xml:space="preserve">
     <value>HealFriendTrigger</value>
   </data>
@@ -8288,7 +9092,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFriendTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;HealFHp.Name" xml:space="preserve">
     <value>HealFHp</value>
@@ -8300,7 +9104,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFHp.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;HealFHplbl.Name" xml:space="preserve">
     <value>HealFHplbl</value>
@@ -8312,7 +9116,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFHplbl.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;HealFName.Name" xml:space="preserve">
     <value>HealFName</value>
@@ -8324,7 +9128,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFName.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;HealFNamelbl.Name" xml:space="preserve">
     <value>HealFNamelbl</value>
@@ -8336,7 +9140,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFNamelbl.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;HealFType.Name" xml:space="preserve">
     <value>HealFType</value>
@@ -8348,7 +9152,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFType.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;HealFTypelbl.Name" xml:space="preserve">
     <value>HealFTypelbl</value>
@@ -8360,13 +9164,13 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFTypelbl.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="GroupBox17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 118</value>
+    <value>6, 114</value>
   </data>
   <data name="GroupBox17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 130</value>
+    <value>195, 129</value>
   </data>
   <data name="GroupBox17.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -8393,7 +9197,7 @@
     <value>NoControl</value>
   </data>
   <data name="HealFriendTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 95</value>
+    <value>5, 96</value>
   </data>
   <data name="HealFriendTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -8417,13 +9221,13 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFriendTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="HealFHp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>107, 69</value>
+    <value>104, 69</value>
   </data>
   <data name="HealFHp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 20</value>
+    <value>85, 20</value>
   </data>
   <data name="HealFHp.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -8438,7 +9242,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFHp.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="HealFHplbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -8468,7 +9272,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFHplbl.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="HealFName.Location" type="System.Drawing.Point, System.Drawing">
     <value>50, 16</value>
@@ -8489,7 +9293,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFName.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="HealFNamelbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -8519,7 +9323,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFNamelbl.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="HealFType.Items" xml:space="preserve">
     <value>Ultimate Healing Rune</value>
@@ -8549,7 +9353,7 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFType.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="HealFTypelbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -8579,7 +9383,19 @@
     <value>GroupBox17</value>
   </data>
   <data name="&gt;&gt;HealFTypelbl.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Name" xml:space="preserve">
+    <value>PartyHealerHelp</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;HealPartyTrigger.Name" xml:space="preserve">
     <value>HealPartyTrigger</value>
@@ -8591,7 +9407,7 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealPartyTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;HealPHp.Name" xml:space="preserve">
     <value>HealPHp</value>
@@ -8603,7 +9419,7 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealPHp.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;HealP.Name" xml:space="preserve">
     <value>HealP</value>
@@ -8615,7 +9431,7 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealP.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;HealPType.Name" xml:space="preserve">
     <value>HealPType</value>
@@ -8627,7 +9443,7 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealPType.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;HealPlbl.Name" xml:space="preserve">
     <value>HealPlbl</value>
@@ -8639,13 +9455,13 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealPlbl.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="GroupBox19.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
   </data>
   <data name="GroupBox19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 106</value>
+    <value>198, 102</value>
   </data>
   <data name="GroupBox19.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -8672,7 +9488,7 @@
     <value>NoControl</value>
   </data>
   <data name="HealPartyTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 72</value>
+    <value>5, 69</value>
   </data>
   <data name="HealPartyTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -8696,13 +9512,13 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealPartyTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="HealPHp.Location" type="System.Drawing.Point, System.Drawing">
     <value>107, 43</value>
   </data>
   <data name="HealPHp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
+    <value>85, 20</value>
   </data>
   <data name="HealPHp.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -8717,7 +9533,7 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealPHp.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="HealP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -8747,7 +9563,7 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealP.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="HealPType.Items" xml:space="preserve">
     <value>Ultimate Healing Rune</value>
@@ -8762,7 +9578,7 @@
     <value>65, 13</value>
   </data>
   <data name="HealPType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 21</value>
+    <value>127, 21</value>
   </data>
   <data name="HealPType.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -8777,7 +9593,7 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealPType.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="HealPlbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -8807,7 +9623,7 @@
     <value>GroupBox19</value>
   </data>
   <data name="&gt;&gt;HealPlbl.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;MCPatcherButton.Name" xml:space="preserve">
     <value>MCPatcherButton</value>
@@ -9226,6 +10042,18 @@
   <data name="&gt;&gt;ShowCreatureInfo.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="&gt;&gt;SendLocHelp.Name" xml:space="preserve">
+    <value>SendLocHelp</value>
+  </data>
+  <data name="&gt;&gt;SendLocHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocHelp.Parent" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;SendLocationTo.Name" xml:space="preserve">
     <value>SendLocationTo</value>
   </data>
@@ -9236,7 +10064,7 @@
     <value>SendLocationBox</value>
   </data>
   <data name="&gt;&gt;SendLocationTo.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;SendLocationToWhomlbl.Name" xml:space="preserve">
     <value>SendLocationToWhomlbl</value>
@@ -9248,7 +10076,7 @@
     <value>SendLocationBox</value>
   </data>
   <data name="&gt;&gt;SendLocationToWhomlbl.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;SendLocation.Name" xml:space="preserve">
     <value>SendLocation</value>
@@ -9260,7 +10088,7 @@
     <value>SendLocationBox</value>
   </data>
   <data name="&gt;&gt;SendLocation.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="SendLocationBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>191, 133</value>
@@ -9286,6 +10114,30 @@
   <data name="&gt;&gt;SendLocationBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="SendLocHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>170, 44</value>
+  </data>
+  <data name="SendLocHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="SendLocHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="SendLocHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;SendLocHelp.Name" xml:space="preserve">
+    <value>SendLocHelp</value>
+  </data>
+  <data name="&gt;&gt;SendLocHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SendLocHelp.Parent" xml:space="preserve">
+    <value>SendLocationBox</value>
+  </data>
+  <data name="&gt;&gt;SendLocHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="SendLocationTo.Location" type="System.Drawing.Point, System.Drawing">
     <value>82, 19</value>
   </data>
@@ -9305,7 +10157,7 @@
     <value>SendLocationBox</value>
   </data>
   <data name="&gt;&gt;SendLocationTo.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="SendLocationToWhomlbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -9332,10 +10184,10 @@
     <value>SendLocationBox</value>
   </data>
   <data name="&gt;&gt;SendLocationToWhomlbl.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="SendLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 45</value>
+    <value>9, 44</value>
   </data>
   <data name="SendLocation.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 24</value>
@@ -9356,7 +10208,7 @@
     <value>SendLocationBox</value>
   </data>
   <data name="&gt;&gt;SendLocation.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;OpenWebsite.Name" xml:space="preserve">
     <value>OpenWebsite</value>
@@ -9580,6 +10432,18 @@
   <data name="&gt;&gt;Websitelbl.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="&gt;&gt;NameSpyHelp.Name" xml:space="preserve">
+    <value>NameSpyHelp</value>
+  </data>
+  <data name="&gt;&gt;NameSpyHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NameSpyHelp.Parent" xml:space="preserve">
+    <value>NameSpyBox</value>
+  </data>
+  <data name="&gt;&gt;NameSpyHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;NameSpyTrigger.Name" xml:space="preserve">
     <value>NameSpyTrigger</value>
   </data>
@@ -9590,7 +10454,7 @@
     <value>NameSpyBox</value>
   </data>
   <data name="&gt;&gt;NameSpyTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="NameSpyBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 224</value>
@@ -9616,6 +10480,30 @@
   <data name="&gt;&gt;NameSpyBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="NameSpyHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 19</value>
+  </data>
+  <data name="NameSpyHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="NameSpyHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="NameSpyHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;NameSpyHelp.Name" xml:space="preserve">
+    <value>NameSpyHelp</value>
+  </data>
+  <data name="&gt;&gt;NameSpyHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NameSpyHelp.Parent" xml:space="preserve">
+    <value>NameSpyBox</value>
+  </data>
+  <data name="&gt;&gt;NameSpyHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="NameSpyTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -9623,7 +10511,7 @@
     <value>NoControl</value>
   </data>
   <data name="NameSpyTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 21</value>
+    <value>6, 19</value>
   </data>
   <data name="NameSpyTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 24</value>
@@ -9647,7 +10535,7 @@
     <value>NameSpyBox</value>
   </data>
   <data name="&gt;&gt;NameSpyTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;FloorDown.Name" xml:space="preserve">
     <value>FloorDown</value>
@@ -9710,7 +10598,7 @@
     <value>4</value>
   </data>
   <data name="FloorDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 79</value>
+    <value>6, 75</value>
   </data>
   <data name="FloorDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 24</value>
@@ -9734,7 +10622,7 @@
     <value>0</value>
   </data>
   <data name="FloorAround.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 48</value>
+    <value>6, 45</value>
   </data>
   <data name="FloorAround.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 24</value>
@@ -9758,7 +10646,7 @@
     <value>1</value>
   </data>
   <data name="FloorUp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 18</value>
+    <value>6, 18</value>
   </data>
   <data name="FloorUp.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 24</value>
@@ -9781,6 +10669,18 @@
   <data name="&gt;&gt;FloorUp.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;ExpCheckerHelp.Name" xml:space="preserve">
+    <value>ExpCheckerHelp</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerHelp.Parent" xml:space="preserve">
+    <value>ExpCheckerBox</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;ExpCheckerTrigger.Name" xml:space="preserve">
     <value>ExpCheckerTrigger</value>
   </data>
@@ -9791,7 +10691,7 @@
     <value>ExpCheckerBox</value>
   </data>
   <data name="&gt;&gt;ExpCheckerTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;ExpShowCreatures.Name" xml:space="preserve">
     <value>ExpShowCreatures</value>
@@ -9803,7 +10703,7 @@
     <value>ExpCheckerBox</value>
   </data>
   <data name="&gt;&gt;ExpShowCreatures.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;ExpShowNext.Name" xml:space="preserve">
     <value>ExpShowNext</value>
@@ -9815,7 +10715,7 @@
     <value>ExpCheckerBox</value>
   </data>
   <data name="&gt;&gt;ExpShowNext.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="ExpCheckerBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -9841,6 +10741,30 @@
   <data name="&gt;&gt;ExpCheckerBox.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="ExpCheckerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>146, 63</value>
+  </data>
+  <data name="ExpCheckerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="ExpCheckerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="ExpCheckerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerHelp.Name" xml:space="preserve">
+    <value>ExpCheckerHelp</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerHelp.Parent" xml:space="preserve">
+    <value>ExpCheckerBox</value>
+  </data>
+  <data name="&gt;&gt;ExpCheckerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="ExpCheckerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -9848,7 +10772,7 @@
     <value>NoControl</value>
   </data>
   <data name="ExpCheckerTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 65</value>
+    <value>6, 63</value>
   </data>
   <data name="ExpCheckerTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -9872,7 +10796,7 @@
     <value>ExpCheckerBox</value>
   </data>
   <data name="&gt;&gt;ExpCheckerTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="ExpShowCreatures.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -9899,7 +10823,7 @@
     <value>ExpCheckerBox</value>
   </data>
   <data name="&gt;&gt;ExpShowCreatures.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="ExpShowNext.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -9926,7 +10850,7 @@
     <value>ExpCheckerBox</value>
   </data>
   <data name="&gt;&gt;ExpShowNext.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;PickupHelp.Name" xml:space="preserve">
     <value>PickupHelp</value>
@@ -9956,7 +10880,7 @@
     <value>226, 6</value>
   </data>
   <data name="PickuperBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 60</value>
+    <value>170, 54</value>
   </data>
   <data name="PickuperBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -10007,7 +10931,7 @@
     <value>NoControl</value>
   </data>
   <data name="PickuperTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 19</value>
+    <value>6, 19</value>
   </data>
   <data name="PickuperTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -10033,6 +10957,18 @@
   <data name="&gt;&gt;PickuperTrigger.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;AutoTrainerHelp.Name" xml:space="preserve">
+    <value>AutoTrainerHelp</value>
+  </data>
+  <data name="&gt;&gt;AutoTrainerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoTrainerHelp.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoTrainerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;TrainerInfo.Name" xml:space="preserve">
     <value>TrainerInfo</value>
   </data>
@@ -10043,7 +10979,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerInfo.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;TrainerClear.Name" xml:space="preserve">
     <value>TrainerClear</value>
@@ -10055,7 +10991,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerClear.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;TrainerRemove.Name" xml:space="preserve">
     <value>TrainerRemove</value>
@@ -10067,7 +11003,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerRemove.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;TrainerTrigger.Name" xml:space="preserve">
     <value>TrainerTrigger</value>
@@ -10079,7 +11015,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerTrigger.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;MaxPercentageHP.Name" xml:space="preserve">
     <value>MaxPercentageHP</value>
@@ -10091,7 +11027,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MaxPercentageHP.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;MaxPercentageHPlbl.Name" xml:space="preserve">
     <value>MaxPercentageHPlbl</value>
@@ -10103,7 +11039,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MaxPercentageHPlbl.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;MinPercentageHP.Name" xml:space="preserve">
     <value>MinPercentageHP</value>
@@ -10115,7 +11051,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MinPercentageHP.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;MinPercentageHplbl.Name" xml:space="preserve">
     <value>MinPercentageHplbl</value>
@@ -10127,7 +11063,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MinPercentageHplbl.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;TrainerAdd.Name" xml:space="preserve">
     <value>TrainerAdd</value>
@@ -10139,7 +11075,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerAdd.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="TrainerBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 146</value>
@@ -10165,6 +11101,30 @@
   <data name="&gt;&gt;TrainerBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="AutoTrainerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>177, 140</value>
+  </data>
+  <data name="AutoTrainerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="AutoTrainerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="AutoTrainerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;AutoTrainerHelp.Name" xml:space="preserve">
+    <value>AutoTrainerHelp</value>
+  </data>
+  <data name="&gt;&gt;AutoTrainerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoTrainerHelp.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoTrainerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="TrainerInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>120, 49</value>
   </data>
@@ -10187,7 +11147,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerInfo.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="TrainerClear.Location" type="System.Drawing.Point, System.Drawing">
     <value>120, 19</value>
@@ -10211,7 +11171,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerClear.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="TrainerRemove.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 49</value>
@@ -10235,7 +11195,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerRemove.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="TrainerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -10244,7 +11204,7 @@
     <value>NoControl</value>
   </data>
   <data name="TrainerTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>67, 138</value>
+    <value>9, 140</value>
   </data>
   <data name="TrainerTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -10268,7 +11228,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerTrigger.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="MaxPercentageHP.Location" type="System.Drawing.Point, System.Drawing">
     <value>120, 107</value>
@@ -10289,7 +11249,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MaxPercentageHP.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="MaxPercentageHPlbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -10316,7 +11276,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MaxPercentageHPlbl.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="MinPercentageHP.Location" type="System.Drawing.Point, System.Drawing">
     <value>120, 85</value>
@@ -10337,7 +11297,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MinPercentageHP.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="MinPercentageHplbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -10364,7 +11324,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MinPercentageHplbl.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="TrainerAdd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -10391,7 +11351,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerAdd.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;AutoAttackerHelp.Name" xml:space="preserve">
     <value>AutoAttackerHelp</value>
@@ -10502,7 +11462,7 @@
     <value>2</value>
   </data>
   <data name="AutoAttackerHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>172, 100</value>
+    <value>177, 100</value>
   </data>
   <data name="AutoAttackerHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 24</value>
@@ -10532,7 +11492,7 @@
     <value>NoControl</value>
   </data>
   <data name="AutoAttackerTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 100</value>
+    <value>9, 100</value>
   </data>
   <data name="AutoAttackerTrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 24</value>
@@ -10711,152 +11671,8 @@
   <data name="&gt;&gt;FightingModelbl.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;ChameleonPlayer.Name" xml:space="preserve">
-    <value>ChameleonPlayer</value>
-  </data>
-  <data name="&gt;&gt;ChameleonPlayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonPlayer.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonPlayer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;Label32.Name" xml:space="preserve">
-    <value>Label32</value>
-  </data>
-  <data name="&gt;&gt;Label32.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label32.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;Label32.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ChameleonCopy.Name" xml:space="preserve">
-    <value>ChameleonCopy</value>
-  </data>
-  <data name="&gt;&gt;ChameleonCopy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonCopy.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonCopy.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;ChameleonSecond.Name" xml:space="preserve">
-    <value>ChameleonSecond</value>
-  </data>
-  <data name="&gt;&gt;ChameleonSecond.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonSecond.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonSecond.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBoth.Name" xml:space="preserve">
-    <value>ChameleonBoth</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBoth.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBoth.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBoth.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;ChameleonFirst.Name" xml:space="preserve">
-    <value>ChameleonFirst</value>
-  </data>
-  <data name="&gt;&gt;ChameleonFirst.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonFirst.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonFirst.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl2.Name" xml:space="preserve">
-    <value>Chameleonlbl2</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl2.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl2.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;ChameleonNone.Name" xml:space="preserve">
-    <value>ChameleonNone</value>
-  </data>
-  <data name="&gt;&gt;ChameleonNone.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonNone.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonNone.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl.Name" xml:space="preserve">
-    <value>Chameleonlbl</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;ChameleonOutfit.Name" xml:space="preserve">
-    <value>ChameleonOutfit</value>
-  </data>
-  <data name="&gt;&gt;ChameleonOutfit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonOutfit.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonOutfit.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="ChameleonBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 94</value>
-  </data>
-  <data name="ChameleonBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 133</value>
-  </data>
-  <data name="ChameleonBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="ChameleonBox.Text" xml:space="preserve">
-    <value>Chameleon</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Name" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.Parent" xml:space="preserve">
-    <value>TabPage6</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="ChameleonPlayer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 48</value>
+    <value>47, 47</value>
   </data>
   <data name="ChameleonPlayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 20</value>
@@ -10910,7 +11726,7 @@
     <value>145, 45</value>
   </data>
   <data name="ChameleonCopy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 23</value>
+    <value>43, 24</value>
   </data>
   <data name="ChameleonCopy.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -11128,150 +11944,6 @@
   <data name="&gt;&gt;ChameleonOutfit.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Name" xml:space="preserve">
-    <value>FakeTitleTrigger</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Name" xml:space="preserve">
-    <value>FakeTitle</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Name" xml:space="preserve">
-    <value>FakeTitlelbl</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="FakeTitleBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="FakeTitleBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 82</value>
-  </data>
-  <data name="FakeTitleBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="FakeTitleBox.Text" xml:space="preserve">
-    <value>Fake Title</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Name" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.Parent" xml:space="preserve">
-    <value>TabPage6</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="FakeTitleTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
-    <value>Button</value>
-  </data>
-  <data name="FakeTitleTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="FakeTitleTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>55, 52</value>
-  </data>
-  <data name="FakeTitleTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 24</value>
-  </data>
-  <data name="FakeTitleTrigger.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="FakeTitleTrigger.Text" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="FakeTitleTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Name" xml:space="preserve">
-    <value>FakeTitleTrigger</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="FakeTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 18</value>
-  </data>
-  <data name="FakeTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 20</value>
-  </data>
-  <data name="FakeTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Name" xml:space="preserve">
-    <value>FakeTitle</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="FakeTitlelbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="FakeTitlelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="FakeTitlelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 21</value>
-  </data>
-  <data name="FakeTitlelbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 13</value>
-  </data>
-  <data name="FakeTitlelbl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="FakeTitlelbl.Text" xml:space="preserve">
-    <value>Title:</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Name" xml:space="preserve">
-    <value>FakeTitlelbl</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="&gt;&gt;TabPage8.Name" xml:space="preserve">
     <value>TabPage8</value>
   </data>
@@ -11444,7 +12116,7 @@
     <value>6, 3</value>
   </data>
   <data name="ILSettingsBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 128</value>
+    <value>184, 129</value>
   </data>
   <data name="ILSettingsBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -11597,7 +12269,7 @@
     <value>4</value>
   </data>
   <data name="GPSHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>69, 95</value>
+    <value>152, 95</value>
   </data>
   <data name="GPSHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 23</value>
@@ -11624,7 +12296,7 @@
     <value>False</value>
   </data>
   <data name="GPSShowMapButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 95</value>
+    <value>70, 95</value>
   </data>
   <data name="GPSShowMapButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -13294,6 +13966,54 @@
   <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>539, 2</value>
   </metadata>
+  <data name="FriendHealerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>163, 96</value>
+  </data>
+  <data name="FriendHealerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="FriendHealerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="FriendHealerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.Name" xml:space="preserve">
+    <value>FriendHealerHelp</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PartyHealerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>166, 69</value>
+  </data>
+  <data name="PartyHealerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="PartyHealerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="PartyHealerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Name" xml:space="preserve">
+    <value>PartyHealerHelp</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
