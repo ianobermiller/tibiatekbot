@@ -23,6 +23,7 @@
   <Const Name="IRCNickname" Value="" />
   <Const Name="IRCPassword" Value="" />
   <Const Name="IRCHighlightOpOnly" Value="False" />
+  <Const Name="IRCPlaySoundIfHighlight" Value="True" />
   <Const Name="TTMessagesEnabled" Value="True" />
   <Const Name="TTMessagesInterval" Value="3600000" />
   <Const Name="LatestVersionUrl" Value="http://www.tibiatek.com/version.php" />

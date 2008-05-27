@@ -316,6 +316,8 @@ Public Interface ITibia
     ReadOnly Property ScreenRight() As Integer
     ReadOnly Property ScreenBottom() As Integer
     ReadOnly Property GraphicsEngine() As GraphicsEngines
+    ReadOnly Property GetStatusText() As String
+    ReadOnly Property GetStatusTimer() As Integer
 
 #End Region
 

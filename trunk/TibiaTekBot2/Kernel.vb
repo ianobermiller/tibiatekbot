@@ -209,7 +209,7 @@ Public Module KernelModule
         Public EntityInfoList As SortedList(Of UInt32, IKernel.EntityInfo)
         Public WithEvents GPSMapForm As New frmGPSMap
         Public WithEvents HUDTimerObj As ThreadTimer
-
+        Public WithEvents LootOpenTibiaServerTimerObj As ThreadTimer
 #End Region
 
 #Region " Variables "
@@ -425,7 +425,8 @@ Public Module KernelModule
         Public HUDText(2) As IKernel.HUDInfo
 
         Public CurrentTibiaVersion As String = ""
-
+        Public AntiLogoutMoveNow As Boolean = False
+        Public WaitForLootMonster As New Date
 
 #End Region
 
@@ -516,6 +517,7 @@ Public Module KernelModule
                 EntityInfoList = New SortedList(Of UInt32, IKernel.EntityInfo)
                 EntityInfoTimerObj = New ThreadTimer(1000)
                 HUDTimerObj = New ThreadTimer(500)
+                LootOpenTibiaServerTimerObj = New ThreadTimer(700)
             Catch Ex As Exception
                 ShowError(Ex)
                 End
@@ -533,6 +535,12 @@ Public Module KernelModule
             Try
                 System.Threading.Thread.Sleep(300)
                 If LooterItemID = 0 Then Exit Sub
+                If IsOpenTibiaServer Then
+                    WaitForLootMonster = Date.Now.AddMilliseconds(1200)
+                    LootOpenTibiaServerTimerObj.StartTimer(800)
+                    Exit Sub
+                End If
+
                 Dim N As Byte = 0
                 'N = Container.ContainerCount
                 'If N > &HF Then N = &HF
@@ -1563,6 +1571,48 @@ Public Module KernelModule
             Else
                 LooterNextExecution = Date.Now.Ticks + TimeSpan.TicksPerMillisecond * WaitMillis
             End If
+        End Sub
+
+        Private Sub LootOpenTibiaServerTimerObj_OnExecute() Handles LootOpenTibiaServerTimerObj.OnExecute
+            Try
+                SyncLock LootOpenTibiaServerTimerObj
+                    If LootOpenTibiaServerTimerObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
+                    Dim N As Byte = 0
+                    'N = Container.ContainerCount
+                    'If N > &HF Then N = &HF
+                    N = &HE
+                    'Dim buffer() As Byte
+                    While Date.Now < WaitForLootMonster
+                        System.Threading.Thread.Sleep(5)
+                    End While
+                    Dim ServerPacket As New ServerPacketBuilder(Proxy)
+                    ServerPacket.UseObject(LooterItemID, LooterLoc, N)
+
+                    'buffer = UseObject(LooterItemID, LooterLoc, N)
+                    Static Cont As New Container
+                    If N - 1 = Cont.ContainerCount Then
+                        ReplacedContainer = True
+                    Else
+                        ReplacedContainer = False
+                    End If
+                    'ConsoleWrite(BytesToStr(buffer))
+                    'Proxy.SendPacketToServer(buffer)
+                    LooterItemID = 0
+                    If Kernel.CaveBotTimerObj.State = IThreadTimer.ThreadTimerState.Running Then
+                        Dim WaitMoreTime As Date = Date.Now.AddMilliseconds(400)
+                        While Date.Now < WaitMoreTime
+                            System.Threading.Thread.Sleep(100)
+                        End While
+                        WaitTime = Date.Now.AddSeconds(8)
+                        IsOpeningReady = True
+                        CBCreatureDied = False
+                    End If
+                    LootOpenTibiaServerTimerObj.StopTimer()
+                End SyncLock
+            Catch ex As Exception
+                LootOpenTibiaServerTimerObj.StopTimer()
+            End Try
+
         End Sub
 
 #End Region
@@ -2928,11 +2978,14 @@ Public Module KernelModule
                             CurrentContCount = Cont.ContainerCount
                             If CurrentContCount > CBContainerCount Then
                                 WaitAttacker = Nothing
-                                CBState = CavebotState.Looting ' : Core.ConsoleWrite("Looting state ->")
+                                CBState = CavebotState.Looting
+                                'ConsoleWrite("Looting state ->")
+                                If IsOpenTibiaServer Then
+                                    System.Threading.Thread.Sleep(500)
+                                End If
                             Else
                                 If Date.Now > WaitTime Then
-
-                                    'Core.ConsoleWrite("Running out of time, Walking ->")
+                                    'ConsoleWrite("Running out of time, Walking ->")
                                     WaitAttacker = Nothing
                                     CBState = CavebotState.Walking
                                 End If
@@ -3679,34 +3732,45 @@ ContinueAttack:
 
         Public Sub AntiLogoutObj_Execute() Handles AntiLogoutObj.OnExecute
             Try
-                If Not Client.IsConnected Then Exit Sub
-                Dim IdleTime As TimeSpan = Date.Now.Subtract(LastActivity)
-                If IdleTime.TotalMinutes < 13 Then Exit Sub
-                Dim BL As New BattleList
-                Dim MyLastDirection As Integer
-                Dim RandNum As New Random(Date.Now.Millisecond)
-                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
-                MyLastDirection = BL.GetDirection
-                Dim SPB As New ServerPacketBuilder(Proxy)
-                Select Case BL.GetDirection
-                    Case IBattlelist.Directions.Up
-                        SPB.CharacterTurn(IBattlelist.Directions.Down)
-                        'Proxy.SendPacketToServer(CharacterTurn(IBattlelist.Directions.Down))
-                    Case IBattlelist.Directions.Down
-                        SPB.CharacterTurn(IBattlelist.Directions.Up)
-                        'Proxy.SendPacketToServer(CharacterTurn(IBattlelist.Directions.Up))
-                    Case IBattlelist.Directions.Right
-                        SPB.CharacterTurn(IBattlelist.Directions.Left)
-                        'Proxy.SendPacketToServer(CharacterTurn(IBattlelist.Directions.Left))
-                    Case IBattlelist.Directions.Left
-                        SPB.CharacterTurn(IBattlelist.Directions.Right)
-                        'Proxy.SendPacketToServer(CharacterTurn(IBattlelist.Directions.Right))
-                End Select
+                SyncLock AntiLogoutObj
 
-                System.Threading.Thread.Sleep(RandNum.Next(2000, 5001))
-                SPB.Send()
-                'Proxy.SendPacketToServer(CharacterTurn(MyLastDirection))
-                LastActivity = Date.Now
+                    If Not Kernel.Client.IsConnected Then Exit Sub
+                    Dim IdleTime As TimeSpan = Date.Now.Subtract(LastActivity)
+                    If IdleTime.TotalMinutes < 13 Then
+                        If AntiLogoutMoveNow = False Then Exit Sub
+                    End If
+
+                    Dim BL As New BattleList
+                    Dim MyLastDirection As Scripting.IBattlelist.Directions
+                    Dim RandNum As New Random(Date.Now.Millisecond)
+                    BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                    MyLastDirection = BL.GetDirection
+                    Dim SPB As New ServerPacketBuilder(Kernel.Proxy)
+
+                    SPB.AutoSend = True
+
+                    SPB.CharacterTurn(IBattlelist.Directions.Left)
+                    System.Threading.Thread.Sleep(300)
+
+                    SPB.CharacterTurn(IBattlelist.Directions.Down)
+                    System.Threading.Thread.Sleep(300)
+
+                    SPB.CharacterTurn(IBattlelist.Directions.Right)
+                    System.Threading.Thread.Sleep(300)
+
+                    SPB.CharacterTurn(IBattlelist.Directions.Up)
+                    System.Threading.Thread.Sleep(300)
+
+                    SPB.CharacterTurn(MyLastDirection)
+                    If AntiLogoutMoveNow Then
+                        AntiLogoutObj.StopTimer()
+                        AntiLogoutObj.Interval = Consts.AntiLogoutInterval
+                        AntiLogoutObj.StartTimer()
+                        LastActivity = Date.Now
+                        AntiLogoutMoveNow = False
+                    End If
+
+                End SyncLock
             Catch Ex As Exception
                 ShowError(Ex)
             End Try
@@ -4400,6 +4464,10 @@ ContinueAttack:
                         If (Consts.IRCHighlightOpOnly AndAlso IRCClient.GetUserLevel(Nick, Channel) < 4) Then Exit Sub
                         Dim CPB As New ClientPacketBuilder(Proxy)
                         CPB.SystemMessage(ITibia.SysMessageType.Information, "[" & Channel & "] " & Nick & "@IRC: " & Message)
+                        If Consts.IRCPlaySoundIfHighlight Then
+                            Dim Sound As New Audio
+                            Sound.Play(Kernel.ExecutablePath & "\Alarms\" & "Pinc" & ".wav", AudioPlayMode.Background)
+                        End If
                     End If
                 End If
             Catch Ex As Exception
@@ -5313,8 +5381,11 @@ ContinueAttack:
                             Pos += Word
                         Case &H28 'death message ='(
                         Case &HB4 'sys message ^_^u
+
                             Dim Type As ITibia.SysMessageType = GetByte(bytBuffer, Pos)
+
                             Dim Text As String = GetString(bytBuffer, Pos)
+                            'Kernel.ConsoleRead("SysMsg: " & Text & "::: Type: " & Type)
                             If Type = ITibia.SysMessageType.Information Then
                                 Dim Match As Match = Regex.Match(Text, "^You\ssee\s(.*)\s\(Level\s(\d+)\)\.\ss?he\s(?:is\san?|has\sno)\s([^\.]+)\.(?:$|\ss?He\sis\s(.+)\sof\sthe\s(?:([^\.]+)\s\((.+)\)|([^\.]+)).)$", RegexOptions.IgnoreCase)
                                 If Match.Success Then
@@ -5401,6 +5472,16 @@ ContinueAttack:
                                         EntityInfoDismissLookPacket = True
                                     End If
                                 End If
+                            ElseIf Type = ITibia.SysMessageType.StatusWarning Then
+                                'Lets move
+                                If Text.Contains("You have been idle for 15 minutes") Then
+                                    If Kernel.AntiLogoutObj.State = IThreadTimer.ThreadTimerState.Stopped Then Exit Sub
+                                    Kernel.AntiLogoutMoveNow = True
+                                    Kernel.AntiLogoutObj.StopTimer()
+                                    Kernel.AntiLogoutObj.Interval = 500
+                                    Kernel.AntiLogoutObj.StartTimer()
+                                End If
+ 
                             End If
                         Case &H6A 'add object to map
                             Loc = GetLocation(bytBuffer, Pos)
@@ -5446,7 +5527,12 @@ ContinueAttack:
                                                 BL.IsWalking = False
                                                 CBContainerCount = (New Container).ContainerCount
                                                 IsOpeningReady = False
-                                                WaitTime = Date.Now.AddSeconds(5)
+                                                If IsOpenTibiaServer Then
+                                                    WaitTime = Date.Now.AddSeconds(7)
+                                                Else
+                                                    WaitTime = Date.Now.AddSeconds(5)
+                                                End If
+
                                                 CBCreatureDied = True
                                                 CBState = CavebotState.OpeningBody
                                                 'Core.ConsoleWrite("Looter Part of Proxy: STOP")
@@ -5456,6 +5542,10 @@ ContinueAttack:
                                             LooterItemID = ID
                                             LooterLoc = Loc
                                             'If Not BGWLooter.IsBusy Then BGWLooter.RunWorkerAsync()
+                                            If IsOpenTibiaServer Then
+                                                Client.CharacterMove(Loc)
+                                                ' Dim TileObj As IMapTiles.TileObject
+                                            End If
                                             LootMonster()
                                         End If
                                     End If
@@ -5613,178 +5703,178 @@ ContinueAttack:
                                         ppb.UpdateCreatureText(ID, New ITibia.LocationDefinition(0, 13, 0), "Lvl " & EI.Level & " " & EI.Vocation & " " & HP & "/" & MaxHp)
                                     End If
                                 End If
-                                End If
-                                If OneByte > 0 Then Continue While
-                                CBCreatureDied = True
-                                If ShowCreaturesUntilNextLevel Then
-                                    Dim LastAttackedID As Integer = 0
-                                    Client.ReadMemory(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
-                                    If ID = LastAttackedID Then
-                                        Dim BL As New BattleList
-                                        Dim Name As String = 0
-                                        If Not BL.Find(ID) Then Continue While
-                                        Name = BL.GetName()
-                                        If Creatures.Creatures.ContainsKey(Name) Then
-                                            Dim N As Integer = (NextLevelExp - Experience) / (Creatures.Creatures(Name).Experience * Consts.CreatureExpMultiplier)
-                                            CP.SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up.")
-                                        End If
+                            End If
+                            If OneByte > 0 Then Continue While
+                            CBCreatureDied = True
+                            If ShowCreaturesUntilNextLevel Then
+                                Dim LastAttackedID As Integer = 0
+                                Client.ReadMemory(Consts.ptrLastAttackedEntityID, LastAttackedID, 4)
+                                If ID = LastAttackedID Then
+                                    Dim BL As New BattleList
+                                    Dim Name As String = 0
+                                    If Not BL.Find(ID) Then Continue While
+                                    Name = BL.GetName()
+                                    If Creatures.Creatures.ContainsKey(Name) Then
+                                        Dim N As Integer = (NextLevelExp - Experience) / (Creatures.Creatures(Name).Experience * Consts.CreatureExpMultiplier)
+                                        CP.SystemMessage(SysMessageType.StatusSmall, "You need to kill " & N & " " & Name & " to level up.")
                                     End If
                                 End If
+                            End If
                         Case &H8D 'creature light
-                                Pos += 6 'id, light intensity, light color
+                            Pos += 6 'id, light intensity, light color
                         Case &H8E 'add creature, or invisible creature
-                                ID = GetDWord(bytBuffer, Pos)
-                                Word = GetWord(bytBuffer, Pos)
-                                If Word <> 0 Then
-                                    Pos += 5
-                                Else 'INVISIBLE
-                                    Pos += 2 'msg->AddU32(0)
-                                    If ID = CharacterID Then
-                                        Dim TS As TimeSpan = Date.Now - LastSaidInvis
-                                        If TS.TotalMilliseconds < 1000 Then
-                                            Kernel.HUDText(IKernel.HUDType.Invisible).EndTime = Date.Now.AddSeconds(200)
-                                            Kernel.HUDText(IKernel.HUDType.Invisible).Enabled = True
-                                            Kernel.HUDText(IKernel.HUDType.Invisible).Type = IKernel.HUDType.Invisible
-                                        End If
+                            ID = GetDWord(bytBuffer, Pos)
+                            Word = GetWord(bytBuffer, Pos)
+                            If Word <> 0 Then
+                                Pos += 5
+                            Else 'INVISIBLE
+                                Pos += 2 'msg->AddU32(0)
+                                If ID = CharacterID Then
+                                    Dim TS As TimeSpan = Date.Now - LastSaidInvis
+                                    If TS.TotalMilliseconds < 1000 Then
+                                        Kernel.HUDText(IKernel.HUDType.Invisible).EndTime = Date.Now.AddSeconds(200)
+                                        Kernel.HUDText(IKernel.HUDType.Invisible).Enabled = True
+                                        Kernel.HUDText(IKernel.HUDType.Invisible).Type = IKernel.HUDType.Invisible
                                     End If
                                 End If
+                            End If
                         Case &H90 'creature got skull change
-                                Pos += 5 'id, skull
+                            Pos += 5 'id, skull
                         Case &HA0 'stats
-                                Pos += 22 'constant
+                            Pos += 22 'constant
                         Case &HA1 'player skills
-                                Pos += 14
-                                'skill level+ skill percent
-                                'fist,club,sword,axe,dist,shield,fish
+                            Pos += 14
+                            'skill level+ skill percent
+                            'fist,club,sword,axe,dist,shield,fish
                         Case &HA2 'icons
-                                Dim Condition As Scripting.ITibia.Conditions = CType(GetWord(bytBuffer, Pos), Scripting.ITibia.Conditions)
-                                If Not MagicShieldActivated AndAlso CBool((Condition And Scripting.ITibia.Conditions.MagicShield) = Scripting.ITibia.Conditions.MagicShield) Then 'got magic shield plx
-                                    MagicShieldActivated = True
-                                ElseIf MagicShieldActivated AndAlso Not CBool((Condition And Scripting.ITibia.Conditions.MagicShield)) Then
-                                    MagicShieldActivated = False
-                                    CP.SystemMessage(SysMessageType.Information, "Your Magic Shield is now over.")
-                                    'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))
+                            Dim Condition As Scripting.ITibia.Conditions = CType(GetWord(bytBuffer, Pos), Scripting.ITibia.Conditions)
+                            If Not MagicShieldActivated AndAlso CBool((Condition And Scripting.ITibia.Conditions.MagicShield) = Scripting.ITibia.Conditions.MagicShield) Then 'got magic shield plx
+                                MagicShieldActivated = True
+                            ElseIf MagicShieldActivated AndAlso Not CBool((Condition And Scripting.ITibia.Conditions.MagicShield)) Then
+                                MagicShieldActivated = False
+                                CP.SystemMessage(SysMessageType.Information, "Your Magic Shield is now over.")
+                                'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Your Magic Shield is now over."))
+                            End If
+                            'TODO IF HUD DISPLAYED:
+                            Dim TS As New TimeSpan
+                            If (Condition And Scripting.ITibia.Conditions.MagicShield) = Scripting.ITibia.Conditions.MagicShield Then
+                                TS = Date.Now - LastSaidMShield
+                                If TS.TotalMilliseconds < 1000 Then
+                                    HUDText(IKernel.HUDType.MagicShield).EndTime = Date.Now.AddSeconds(200)
+                                    HUDText(IKernel.HUDType.MagicShield).Enabled = True
+                                    HUDText(IKernel.HUDType.MagicShield).Type = IKernel.HUDType.MagicShield
                                 End If
-                                'TODO IF HUD DISPLAYED:
-                                Dim TS As New TimeSpan
-                                If (Condition And Scripting.ITibia.Conditions.MagicShield) = Scripting.ITibia.Conditions.MagicShield Then
-                                    TS = Date.Now - LastSaidMShield
-                                    If TS.TotalMilliseconds < 1000 Then
-                                        HUDText(IKernel.HUDType.MagicShield).EndTime = Date.Now.AddSeconds(200)
-                                        HUDText(IKernel.HUDType.MagicShield).Enabled = True
-                                        HUDText(IKernel.HUDType.MagicShield).Type = IKernel.HUDType.MagicShield
-                                    End If
+                            End If
+                            If (Condition And Scripting.ITibia.Conditions.Haste) = Scripting.ITibia.Conditions.Haste Then
+                                TS = Date.Now - LastSaidHaste
+                                If TS.TotalMilliseconds < 1000 Then
+                                    Select Case LastHasteType
+                                        Case 1
+                                            HUDText(IKernel.HUDType.Haste).EndTime = Date.Now.AddSeconds(32)
+                                        Case 2
+                                            HUDText(IKernel.HUDType.Haste).EndTime = Date.Now.AddSeconds(22)
+                                    End Select
+                                    HUDText(IKernel.HUDType.Haste).Enabled = True
+                                    HUDText(IKernel.HUDType.Haste).Type = IKernel.HUDType.Haste
                                 End If
-                                If (Condition And Scripting.ITibia.Conditions.Haste) = Scripting.ITibia.Conditions.Haste Then
-                                    TS = Date.Now - LastSaidHaste
-                                    If TS.TotalMilliseconds < 1000 Then
-                                        Select Case LastHasteType
-                                            Case 1
-                                                HUDText(IKernel.HUDType.Haste).EndTime = Date.Now.AddSeconds(32)
-                                            Case 2
-                                                HUDText(IKernel.HUDType.Haste).EndTime = Date.Now.AddSeconds(22)
-                                        End Select
-                                        HUDText(IKernel.HUDType.Haste).Enabled = True
-                                        HUDText(IKernel.HUDType.Haste).Type = IKernel.HUDType.Haste
-                                    End If
-                                End If
-                                Client.RaiseEvent(ITibia.EventKind.CharacterConditionsChanged, New Events.CharacterConditionsChangedEventArgs(Condition))
+                            End If
+                            Client.RaiseEvent(ITibia.EventKind.CharacterConditionsChanged, New Events.CharacterConditionsChangedEventArgs(Condition))
                         Case &HAA 'received message
-                                GetDWord(bytBuffer, Pos)
-                                Dim Name As String = ""
-                                Dim Level As Integer = 0
-                                Dim Message As String = ""
-                                Name = GetString(bytBuffer, Pos)
-                                Level = GetWord(bytBuffer, Pos)
-                                Dim MType As Byte = GetByte(bytBuffer, Pos)
-                                Dim DefaultMessageType As ITibia.DefaultMessageType
-                                Dim PrivateMessageType As ITibia.PrivateMessageType
-                                Dim ChannelMessageType As ITibia.ChannelMessageType
-                                Dim MessageType As ITibia.MessageType
-                                Select Case MType
-                                    Case 1 To 3, 10 To 11
-                                        DefaultMessageType = MType
-                                        MessageType = ITibia.MessageType.Default
-                                    Case 4, &HB
-                                        PrivateMessageType = MType
-                                        MessageType = ITibia.MessageType.PrivateMessage
-                                    Case 5, &HA, &HC, &HE
-                                        ChannelMessageType = MType
-                                        MessageType = ITibia.MessageType.Channel
-                                    Case 9 'broadcast
-                                        Message = GetString(bytBuffer, Pos)
-                                        Continue While
-                                    Case Else
-                                        Exit Sub 'ok unexpected!
-                                End Select
-                                Select Case MessageType
-                                    'cant add monstersay or monsteryell here... or we will have the message alarm alerting when there is no reason to do so
-                                    Case ITibia.MessageType.Default  ', ConstantsModule.MessageType.MonsterSay, ConstantsModule.MessageType.MonsterYell 
-                                        Loc = GetLocation(bytBuffer, Pos)
-                                        Message = GetString(bytBuffer, Pos)
-                                        If DefaultMessageType <> ITibia.DefaultMessageType.MonsterSay AndAlso DefaultMessageType <> ITibia.DefaultMessageType.MonsterYell Then
-                                            MessageAlarm(ITibia.MessageType.Default, Name, Level, Loc, Message)
+                            GetDWord(bytBuffer, Pos)
+                            Dim Name As String = ""
+                            Dim Level As Integer = 0
+                            Dim Message As String = ""
+                            Name = GetString(bytBuffer, Pos)
+                            Level = GetWord(bytBuffer, Pos)
+                            Dim MType As Byte = GetByte(bytBuffer, Pos)
+                            Dim DefaultMessageType As ITibia.DefaultMessageType
+                            Dim PrivateMessageType As ITibia.PrivateMessageType
+                            Dim ChannelMessageType As ITibia.ChannelMessageType
+                            Dim MessageType As ITibia.MessageType
+                            Select Case MType
+                                Case 1 To 3, 10 To 11
+                                    DefaultMessageType = MType
+                                    MessageType = ITibia.MessageType.Default
+                                Case 4, &HB
+                                    PrivateMessageType = MType
+                                    MessageType = ITibia.MessageType.PrivateMessage
+                                Case 5, &HA, &HC, &HE
+                                    ChannelMessageType = MType
+                                    MessageType = ITibia.MessageType.Channel
+                                Case 9 'broadcast
+                                    Message = GetString(bytBuffer, Pos)
+                                    Continue While
+                                Case Else
+                                    Exit Sub 'ok unexpected!
+                            End Select
+                            Select Case MessageType
+                                'cant add monstersay or monsteryell here... or we will have the message alarm alerting when there is no reason to do so
+                                Case ITibia.MessageType.Default  ', ConstantsModule.MessageType.MonsterSay, ConstantsModule.MessageType.MonsterYell 
+                                    Loc = GetLocation(bytBuffer, Pos)
+                                    Message = GetString(bytBuffer, Pos)
+                                    If DefaultMessageType <> ITibia.DefaultMessageType.MonsterSay AndAlso DefaultMessageType <> ITibia.DefaultMessageType.MonsterYell Then
+                                        MessageAlarm(ITibia.MessageType.Default, Name, Level, Loc, Message)
+                                    End If
+                                    Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.Default, Name, Level, Loc, Message, DefaultMessageType))
+                                Case ITibia.MessageType.Channel
+                                    Dim Channel As ITibia.Channel = CType(GetWord(bytBuffer, Pos), ITibia.Channel)
+                                    'MsgBox(BytesToStr(bytBuffer))
+                                    Message = GetString(bytBuffer, Pos)
+                                    If TradeWatcherActive AndAlso Channel = ITibia.Channel.Trade AndAlso Not Name.Equals(Client.CharacterName) Then
+                                        If Regex.IsMatch(Message, TradeWatcherRegex, RegexOptions.IgnoreCase) Then
+                                            CP.SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message)
+                                            'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message))
                                         End If
-                                        Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.Default, Name, Level, Loc, Message, DefaultMessageType))
-                                    Case ITibia.MessageType.Channel
-                                        Dim Channel As ITibia.Channel = CType(GetWord(bytBuffer, Pos), ITibia.Channel)
-                                        'MsgBox(BytesToStr(bytBuffer))
-                                        Message = GetString(bytBuffer, Pos)
-                                        If TradeWatcherActive AndAlso Channel = ITibia.Channel.Trade AndAlso Not Name.Equals(Client.CharacterName) Then
-                                            If Regex.IsMatch(Message, TradeWatcherRegex, RegexOptions.IgnoreCase) Then
-                                                CP.SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message)
-                                                'Proxy.SendPacketToClient(SystemMessage(SysMessageType.Information, "Offer: " & Name & "[" & Level & "]: " & Message))
-                                            End If
-                                        End If
-                                        'MessageAlarm(ChannelMessageType, Name, Level, Loc, Message)
-                                        Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.Channel, Name, Level, Loc, Message, , ChannelMessageType, , Channel))
-                                    Case ITibia.MessageType.PrivateMessage 'private message
-                                        Message = GetString(bytBuffer, Pos)
-                                        MessageAlarm(ITibia.MessageType.PrivateMessage, Name, Level, Loc, Message)
-                                        Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.PrivateMessage, Name, Level, Loc, Message, , , PrivateMessageType))
-                                End Select
+                                    End If
+                                    'MessageAlarm(ChannelMessageType, Name, Level, Loc, Message)
+                                    Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.Channel, Name, Level, Loc, Message, , ChannelMessageType, , Channel))
+                                Case ITibia.MessageType.PrivateMessage 'private message
+                                    Message = GetString(bytBuffer, Pos)
+                                    MessageAlarm(ITibia.MessageType.PrivateMessage, Name, Level, Loc, Message)
+                                    Client.RaiseEvent(ITibia.EventKind.MessageReceived, New Events.MessageReceivedEventArgs(ITibia.MessageType.PrivateMessage, Name, Level, Loc, Message, , , PrivateMessageType))
+                            End Select
                         Case &HAB 'channel dialog
-                                OneByte = GetByte(bytBuffer, Pos)
-                                For I As Byte = 1 To OneByte
-                                    Pos += 2 'channel id
-                                    Word = GetWord(bytBuffer, Pos)
-                                    Pos += Word 'channel name
-                                Next
-                        Case &HAC 'channel
-                                Pos += 2 'channel id o.o
+                            OneByte = GetByte(bytBuffer, Pos)
+                            For I As Byte = 1 To OneByte
+                                Pos += 2 'channel id
                                 Word = GetWord(bytBuffer, Pos)
                                 Pos += Word 'channel name
+                            Next
+                        Case &HAC 'channel
+                            Pos += 2 'channel id o.o
+                            Word = GetWord(bytBuffer, Pos)
+                            Pos += Word 'channel name
                         Case &HAD 'open private
-                                'ConsoleWrite(BytesToStr(bytBuffer))
-                                'Dim Nick As String = GetString(bytBuffer, Pos)
-                                'If Regex.IsMatch(Nick, "") Then
-                                'skip = False
-                                'End If
-                                Word = GetWord(bytBuffer, Pos)
-                                Pos += Word
-                                'Dim Name As String = ""
-                                'Name = 
-                                'GetString(bytBuffer, Pos)
-                                'If Regex.IsMatch(Name, "^[^@]+@irc$", RegexOptions.IgnoreCase) Then
+                            'ConsoleWrite(BytesToStr(bytBuffer))
+                            'Dim Nick As String = GetString(bytBuffer, Pos)
+                            'If Regex.IsMatch(Nick, "") Then
+                            'skip = False
+                            'End If
+                            Word = GetWord(bytBuffer, Pos)
+                            Pos += Word
+                            'Dim Name As String = ""
+                            'Name = 
+                            'GetString(bytBuffer, Pos)
+                            'If Regex.IsMatch(Name, "^[^@]+@irc$", RegexOptions.IgnoreCase) Then
 
-                                'End If
+                            'End If
                         Case &HB3 'close private
-                                Pos += 2
+                            Pos += 2
                         Case &HD2 'get new vip?
-                                Pos += 4 'id
-                                Word = GetWord(bytBuffer, Pos)
-                                Pos += Word + 1 'name, isonline
+                            Pos += 4 'id
+                            Word = GetWord(bytBuffer, Pos)
+                            Pos += Word + 1 'name, isonline
                         Case &HD3 'vip login
-                                Pos += 4
+                            Pos += 4
                         Case &HD4 'viplogout
-                                Pos += 4
+                            Pos += 4
                             'Case &H65
                             'Trace.WriteLine("FromServer: Packet 65=" & BytesToStr(bytBuffer, Pos - 1))
                         Case Else
 #If TRACE Then
                             'Trace.WriteLine("FromServer: " & Hex(PacketID) & " @ Pos " & (Pos - 1) & vbCrLf & "->" & BytesToStr(bytBuffer, Pos - 1))
 #End If
-                                Exit Sub
+                            Exit Sub
                     End Select
                 End While
             Catch Ex As Exception
@@ -6076,7 +6166,18 @@ ContinueAttack:
                 Return _NotifyIcon
             End Get
         End Property
+
+        Public Property TTBotState() As Integer Implements IKernel.BotState
+            Get
+                Return Kernel.TTBState
+            End Get
+            Set(ByVal value As Integer)
+                Kernel.TTBState = value
+            End Set
+        End Property
+
 #End Region
+
 
     End Class
 

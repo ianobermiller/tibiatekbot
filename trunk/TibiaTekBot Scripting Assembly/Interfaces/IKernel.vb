@@ -144,6 +144,7 @@ Public Interface IKernel
         Haste = 1
         Invisible = 2
     End Enum
+
 #End Region
 
 #Region " Structures "
@@ -194,6 +195,7 @@ Public Interface IKernel
     ReadOnly Property IrcClient() As IIrcClient
     ReadOnly Property Computer() As Computer
     ReadOnly Property [NotifyIcon]() As NotifyIcon
+    Property BotState() As Integer
 #End Region
 
 #Region " Methods "
