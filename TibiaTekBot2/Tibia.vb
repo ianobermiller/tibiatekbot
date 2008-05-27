@@ -790,6 +790,35 @@ Public NotInheritable Class Tibia
         End Get
     End Property
 
+    Public ReadOnly Property GetStatusText() As String Implements ITibia.GetStatusText
+        Get
+            Try
+                Dim StatusText As String = ""
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessage, StatusText)
+                Return StatusText
+            Catch ex As Exception
+                ShowError(ex)
+                Return ""
+            End Try
+        End Get
+    End Property
+
+    Public ReadOnly Property GetStatusTimer() As Integer Implements ITibia.GetStatusTimer
+        Get
+            Try
+                Dim StatusTimer As Integer = 0
+                Kernel.Client.ReadMemory(Consts.ptrStatusMessage, StatusTimer, 4)
+                Return StatusTimer
+            Catch ex As Exception
+                ShowError(ex)
+                Return 0
+            End Try
+
+        End Get
+    End Property
+
+
+
 #End Region
 
 #Region " Methods "

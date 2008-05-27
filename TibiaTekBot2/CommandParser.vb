@@ -1334,11 +1334,16 @@ Public Class CommandParser
         Try
             Kernel.ConsoleWrite("Begin Test")
             Select Case Arguments(2).ToString.ToLower
+                Case "antilogout"
+                    Kernel.AntiLogoutMoveNow = True
+                    Kernel.AntiLogoutObj.StopTimer()
+                    Kernel.AntiLogoutObj.Interval = 500
+                    Kernel.AntiLogoutObj.StartTimer()
                 Case "hidetext"
                     Dim PPB As New PipePacketBuilder(Kernel.Client.Pipe)
                     PPB.RemoveAllText()
                 Case "notify"
-                    Kernel.NotifyIcon.Text = "Hola?"
+                    Kernel.NotifyIcon.Text = "Hi There :P"
                     Kernel.ConsoleRead("changed?")
                     Kernel.NotifyIcon.ShowBalloonTip(5, "TibiaTekBot", "Hey there :P", ToolTipIcon.Info)
                 Case "setparcel"

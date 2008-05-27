@@ -281,7 +281,7 @@ Public Module ConstantsModule
         Public IRCJoinAfterConnected As Boolean = True
         Public IRCNickname As String = String.Empty
         Public IRCPassword As String = String.Empty
-
+        Public IRCPlaySoundIfHighlight As Boolean = True
         Public AntiLogoutInterval As Integer = 30000
 
         Public TTMessagesEnabled As Boolean = True
@@ -809,6 +809,8 @@ Public Module ConstantsModule
                                                     ptrPrintTextFunc = CInt(Value)
                                                 Case "ptrNopFPS"
                                                     ptrNopFPS = CInt(Value)
+                                                Case "IRCPlaySoundIfHighlight"
+                                                    IRCPlaySoundIfHighlight = CBool(Value)
                                             End Select
                                         End If
                                     ElseIf Reader.NodeType = XmlNodeType.EndElement AndAlso Reader.Name = "Constants" Then
