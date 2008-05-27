@@ -2398,7 +2398,7 @@ Public Class frmMain
     Private Sub TrainerInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerInfo.Click
         MessageBox.Show("The Auto Trainer helps you attack creatures without killing them." & vbCrLf & vbCrLf & _
                         "You can train with as many monsters as you want. To add monsters, put them on follow and click Add Creature button." & Environment.NewLine & _
-                        "To start training define max hp% and min hp% and press Activate, and you will attack the creatures until <min hp%> and resume attacking after <max hp%>."
+                        "To start training define max hp% and min hp% and press Activate, and you will attack the creatures until <min hp%> and resume attacking after <max hp%>." & vbCrLf & vbCrLf & _
                         "Console Command: &trainer", "Auto Trainer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
