@@ -401,6 +401,7 @@ Partial Class frmMain
         Me.DrinkerManalbl = New System.Windows.Forms.Label
         Me.HealingTab2 = New System.Windows.Forms.TabPage
         Me.GroupBox17 = New System.Windows.Forms.GroupBox
+        Me.FriendHealerHelp = New System.Windows.Forms.Button
         Me.HealFriendTrigger = New System.Windows.Forms.CheckBox
         Me.HealFHp = New System.Windows.Forms.NumericUpDown
         Me.HealFHplbl = New System.Windows.Forms.Label
@@ -409,6 +410,7 @@ Partial Class frmMain
         Me.HealFType = New System.Windows.Forms.ComboBox
         Me.HealFTypelbl = New System.Windows.Forms.Label
         Me.GroupBox19 = New System.Windows.Forms.GroupBox
+        Me.PartyHealerHelp = New System.Windows.Forms.Button
         Me.HealPartyTrigger = New System.Windows.Forms.CheckBox
         Me.HealPHp = New System.Windows.Forms.NumericUpDown
         Me.HealP = New System.Windows.Forms.Label
@@ -456,7 +458,6 @@ Partial Class frmMain
         Me.PickupHelp = New System.Windows.Forms.Button
         Me.PickuperTrigger = New System.Windows.Forms.CheckBox
         Me.TrainerBox = New System.Windows.Forms.GroupBox
-        Me.AutoTrainerHelp = New System.Windows.Forms.Button
         Me.TrainerInfo = New System.Windows.Forms.Button
         Me.TrainerClear = New System.Windows.Forms.Button
         Me.TrainerRemove = New System.Windows.Forms.Button
@@ -550,8 +551,6 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button
         Me.CheckBox8 = New System.Windows.Forms.CheckBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.FriendHealerHelp = New System.Windows.Forms.Button
-        Me.PartyHealerHelp = New System.Windows.Forms.Button
         Me.PopupMenu.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.MainTabControl.SuspendLayout()
@@ -2894,6 +2893,12 @@ Partial Class frmMain
         Me.GroupBox17.Name = "GroupBox17"
         Me.GroupBox17.TabStop = False
         '
+        'FriendHealerHelp
+        '
+        resources.ApplyResources(Me.FriendHealerHelp, "FriendHealerHelp")
+        Me.FriendHealerHelp.Name = "FriendHealerHelp"
+        Me.FriendHealerHelp.UseVisualStyleBackColor = True
+        '
         'HealFriendTrigger
         '
         resources.ApplyResources(Me.HealFriendTrigger, "HealFriendTrigger")
@@ -2946,6 +2951,12 @@ Partial Class frmMain
         resources.ApplyResources(Me.GroupBox19, "GroupBox19")
         Me.GroupBox19.Name = "GroupBox19"
         Me.GroupBox19.TabStop = False
+        '
+        'PartyHealerHelp
+        '
+        resources.ApplyResources(Me.PartyHealerHelp, "PartyHealerHelp")
+        Me.PartyHealerHelp.Name = "PartyHealerHelp"
+        Me.PartyHealerHelp.UseVisualStyleBackColor = True
         '
         'HealPartyTrigger
         '
@@ -3263,7 +3274,6 @@ Partial Class frmMain
         '
         'TrainerBox
         '
-        Me.TrainerBox.Controls.Add(Me.AutoTrainerHelp)
         Me.TrainerBox.Controls.Add(Me.TrainerInfo)
         Me.TrainerBox.Controls.Add(Me.TrainerClear)
         Me.TrainerBox.Controls.Add(Me.TrainerRemove)
@@ -3276,12 +3286,6 @@ Partial Class frmMain
         resources.ApplyResources(Me.TrainerBox, "TrainerBox")
         Me.TrainerBox.Name = "TrainerBox"
         Me.TrainerBox.TabStop = False
-        '
-        'AutoTrainerHelp
-        '
-        resources.ApplyResources(Me.AutoTrainerHelp, "AutoTrainerHelp")
-        Me.AutoTrainerHelp.Name = "AutoTrainerHelp"
-        Me.AutoTrainerHelp.UseVisualStyleBackColor = True
         '
         'TrainerInfo
         '
@@ -3883,18 +3887,6 @@ Partial Class frmMain
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 2000
-        '
-        'FriendHealerHelp
-        '
-        resources.ApplyResources(Me.FriendHealerHelp, "FriendHealerHelp")
-        Me.FriendHealerHelp.Name = "FriendHealerHelp"
-        Me.FriendHealerHelp.UseVisualStyleBackColor = True
-        '
-        'PartyHealerHelp
-        '
-        resources.ApplyResources(Me.PartyHealerHelp, "PartyHealerHelp")
-        Me.PartyHealerHelp.Name = "PartyHealerHelp"
-        Me.PartyHealerHelp.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -4575,7 +4567,6 @@ Partial Class frmMain
     Friend WithEvents NameSpyHelp As System.Windows.Forms.Button
     Friend WithEvents ExpCheckerHelp As System.Windows.Forms.Button
     Friend WithEvents SendLocHelp As System.Windows.Forms.Button
-    Friend WithEvents AutoTrainerHelp As System.Windows.Forms.Button
     Friend WithEvents TradeChanWatchHelp As System.Windows.Forms.Button
     Friend WithEvents TradeChanAdvertHelp As System.Windows.Forms.Button
     Friend WithEvents FakeTitleHelp As System.Windows.Forms.Button

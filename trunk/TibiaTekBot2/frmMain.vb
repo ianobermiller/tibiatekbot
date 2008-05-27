@@ -2396,8 +2396,10 @@ Public Class frmMain
     End Sub
 
     Private Sub TrainerInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrainerInfo.Click
-        MessageBox.Show("Train with as many monsters as you want. To add monsters, put them on follow and click Add Creature button." & Environment.NewLine & _
-                        "To start training define max hp% and min hp% and press Activate, and you will hurt the creatures until <min hp%> and continue attacking after <max hp%>.", "How to use Trainer", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("The Auto Trainer helps you attack creatures without killing them." & vbCrLf & vbCrLf & _
+                        "You can train with as many monsters as you want. To add monsters, put them on follow and click Add Creature button." & Environment.NewLine & _
+                        "To start training define max hp% and min hp% and press Activate, and you will attack the creatures until <min hp%> and resume attacking after <max hp%>."
+                        "Console Command: &trainer", "Auto Trainer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub AntiIdlerTrigger_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AntiIdlerTrigger.CheckedChanged
@@ -3260,11 +3262,6 @@ Public Class frmMain
     Private Sub SendLocHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SendLocHelp.Click
         MessageBox.Show("The Send Location tool lets you share your location in the Tibia World with other players." & vbCrLf & vbCrLf & _
                         "Console Command: &sendlocation", "Send Location Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
-
-    Private Sub AutoTrainerHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AutoTrainerHelp.Click
-        MessageBox.Show("The Auto Trainer helps you attack creatures without killing them." & vbCrLf & vbCrLf & _
-                        "Console Command: &trainer", "Auto Trainer Help", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub TradeChanWatchHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TradeChanWatchHelp.Click

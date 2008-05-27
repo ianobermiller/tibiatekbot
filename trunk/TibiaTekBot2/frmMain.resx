@@ -1663,6 +1663,75 @@
   <data name="&gt;&gt;TabPage4.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="PickupHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>137, 19</value>
+  </data>
+  <data name="PickupHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="PickupHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="PickupHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;PickupHelp.Name" xml:space="preserve">
+    <value>PickupHelp</value>
+  </data>
+  <data name="&gt;&gt;PickupHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PickupHelp.Parent" xml:space="preserve">
+    <value>PickuperBox</value>
+  </data>
+  <data name="&gt;&gt;PickupHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PickuperTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="PickuperTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="PickuperTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="PickuperTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="PickuperTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="PickuperTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="PickuperTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;PickuperTrigger.Name" xml:space="preserve">
+    <value>PickuperTrigger</value>
+  </data>
+  <data name="&gt;&gt;PickuperTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PickuperTrigger.Parent" xml:space="preserve">
+    <value>PickuperBox</value>
+  </data>
+  <data name="&gt;&gt;PickuperTrigger.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PickuperBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 6</value>
+  </data>
+  <data name="PickuperBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 54</value>
+  </data>
+  <data name="PickuperBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="PickuperBox.Text" xml:space="preserve">
+    <value>Auto Pick-Up</value>
+  </data>
   <data name="&gt;&gt;PickuperBox.Name" xml:space="preserve">
     <value>PickuperBox</value>
   </data>
@@ -1675,6 +1744,126 @@
   <data name="&gt;&gt;PickuperBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;TrainerInfo.Name" xml:space="preserve">
+    <value>TrainerInfo</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerInfo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Name" xml:space="preserve">
+    <value>TrainerClear</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerClear.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Name" xml:space="preserve">
+    <value>TrainerRemove</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerRemove.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Name" xml:space="preserve">
+    <value>TrainerTrigger</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerTrigger.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Name" xml:space="preserve">
+    <value>MaxPercentageHP</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHP.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Name" xml:space="preserve">
+    <value>MaxPercentageHPlbl</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MaxPercentageHPlbl.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Name" xml:space="preserve">
+    <value>MinPercentageHP</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHP.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Name" xml:space="preserve">
+    <value>MinPercentageHplbl</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;MinPercentageHplbl.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Name" xml:space="preserve">
+    <value>TrainerAdd</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.Parent" xml:space="preserve">
+    <value>TrainerBox</value>
+  </data>
+  <data name="&gt;&gt;TrainerAdd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="TrainerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 146</value>
+  </data>
+  <data name="TrainerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 170</value>
+  </data>
+  <data name="TrainerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="TrainerBox.Text" xml:space="preserve">
+    <value>Auto Trainer</value>
+  </data>
   <data name="&gt;&gt;TrainerBox.Name" xml:space="preserve">
     <value>TrainerBox</value>
   </data>
@@ -1686,6 +1875,228 @@
   </data>
   <data name="&gt;&gt;TrainerBox.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="AutoAttackerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>177, 100</value>
+  </data>
+  <data name="AutoAttackerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="AutoAttackerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="AutoAttackerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerHelp.Name" xml:space="preserve">
+    <value>AutoAttackerHelp</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerHelp.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AutoAttackerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="AutoAttackerTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="AutoAttackerTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 100</value>
+  </data>
+  <data name="AutoAttackerTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="AutoAttackerTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="AutoAttackerTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="AutoAttackerTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Name" xml:space="preserve">
+    <value>AutoAttackerTrigger</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AutoAttackerTrigger.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="AttackAutomatically.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AttackAutomatically.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="AttackAutomatically.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 77</value>
+  </data>
+  <data name="AttackAutomatically.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 17</value>
+  </data>
+  <data name="AttackAutomatically.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="AttackAutomatically.Text" xml:space="preserve">
+    <value>Attack Automatically</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Name" xml:space="preserve">
+    <value>AttackAutomatically</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackAutomatically.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="AttackChasingMode.Items" xml:space="preserve">
+    <value>Don't Change</value>
+  </data>
+  <data name="AttackChasingMode.Items1" xml:space="preserve">
+    <value>Chase</value>
+  </data>
+  <data name="AttackChasingMode.Items2" xml:space="preserve">
+    <value>Stand</value>
+  </data>
+  <data name="AttackChasingMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 47</value>
+  </data>
+  <data name="AttackChasingMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 21</value>
+  </data>
+  <data name="AttackChasingMode.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Name" xml:space="preserve">
+    <value>AttackChasingMode</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackChasingMode.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ChasingModelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ChasingModelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ChasingModelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 47</value>
+  </data>
+  <data name="ChasingModelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 13</value>
+  </data>
+  <data name="ChasingModelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="ChasingModelbl.Text" xml:space="preserve">
+    <value>Chasing Mode:</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Name" xml:space="preserve">
+    <value>ChasingModelbl</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;ChasingModelbl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="AttackerFightingMode.Items" xml:space="preserve">
+    <value>Don't Change</value>
+  </data>
+  <data name="AttackerFightingMode.Items1" xml:space="preserve">
+    <value>Offensive</value>
+  </data>
+  <data name="AttackerFightingMode.Items2" xml:space="preserve">
+    <value>Balanced</value>
+  </data>
+  <data name="AttackerFightingMode.Items3" xml:space="preserve">
+    <value>Defensive</value>
+  </data>
+  <data name="AttackerFightingMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 16</value>
+  </data>
+  <data name="AttackerFightingMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 21</value>
+  </data>
+  <data name="AttackerFightingMode.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Name" xml:space="preserve">
+    <value>AttackerFightingMode</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;AttackerFightingMode.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="FightingModelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FightingModelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="FightingModelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="FightingModelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 13</value>
+  </data>
+  <data name="FightingModelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="FightingModelbl.Text" xml:space="preserve">
+    <value>Fighting Mode:</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Name" xml:space="preserve">
+    <value>FightingModelbl</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.Parent" xml:space="preserve">
+    <value>AutoAttackerBox</value>
+  </data>
+  <data name="&gt;&gt;FightingModelbl.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="AutoAttackerBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="AutoAttackerBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 134</value>
+  </data>
+  <data name="AutoAttackerBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="AutoAttackerBox.Text" xml:space="preserve">
+    <value>Auto Attacker</value>
   </data>
   <data name="&gt;&gt;AutoAttackerBox.Name" xml:space="preserve">
     <value>AutoAttackerBox</value>
@@ -1726,138 +2137,6 @@
   <data name="&gt;&gt;TabPage5.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;ChameleonPlayer.Name" xml:space="preserve">
-    <value>ChameleonPlayer</value>
-  </data>
-  <data name="&gt;&gt;ChameleonPlayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonPlayer.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonPlayer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;Label32.Name" xml:space="preserve">
-    <value>Label32</value>
-  </data>
-  <data name="&gt;&gt;Label32.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label32.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;Label32.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ChameleonCopy.Name" xml:space="preserve">
-    <value>ChameleonCopy</value>
-  </data>
-  <data name="&gt;&gt;ChameleonCopy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonCopy.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonCopy.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;ChameleonSecond.Name" xml:space="preserve">
-    <value>ChameleonSecond</value>
-  </data>
-  <data name="&gt;&gt;ChameleonSecond.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonSecond.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonSecond.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBoth.Name" xml:space="preserve">
-    <value>ChameleonBoth</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBoth.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBoth.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonBoth.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;ChameleonFirst.Name" xml:space="preserve">
-    <value>ChameleonFirst</value>
-  </data>
-  <data name="&gt;&gt;ChameleonFirst.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonFirst.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonFirst.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl2.Name" xml:space="preserve">
-    <value>Chameleonlbl2</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl2.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl2.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;ChameleonNone.Name" xml:space="preserve">
-    <value>ChameleonNone</value>
-  </data>
-  <data name="&gt;&gt;ChameleonNone.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonNone.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonNone.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl.Name" xml:space="preserve">
-    <value>Chameleonlbl</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;Chameleonlbl.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;ChameleonOutfit.Name" xml:space="preserve">
-    <value>ChameleonOutfit</value>
-  </data>
-  <data name="&gt;&gt;ChameleonOutfit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChameleonOutfit.Parent" xml:space="preserve">
-    <value>ChameleonBox</value>
-  </data>
-  <data name="&gt;&gt;ChameleonOutfit.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="ChameleonBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 90</value>
-  </data>
-  <data name="ChameleonBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 133</value>
-  </data>
-  <data name="ChameleonBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="ChameleonBox.Text" xml:space="preserve">
-    <value>Chameleon</value>
-  </data>
   <data name="&gt;&gt;ChameleonBox.Name" xml:space="preserve">
     <value>ChameleonBox</value>
   </data>
@@ -1869,126 +2148,6 @@
   </data>
   <data name="&gt;&gt;ChameleonBox.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="FakeTitleHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 44</value>
-  </data>
-  <data name="FakeTitleHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 24</value>
-  </data>
-  <data name="FakeTitleHelp.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="FakeTitleHelp.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleHelp.Name" xml:space="preserve">
-    <value>FakeTitleHelp</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleHelp.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleHelp.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="FakeTitleTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
-    <value>Button</value>
-  </data>
-  <data name="FakeTitleTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="FakeTitleTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 44</value>
-  </data>
-  <data name="FakeTitleTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 24</value>
-  </data>
-  <data name="FakeTitleTrigger.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="FakeTitleTrigger.Text" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="FakeTitleTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Name" xml:space="preserve">
-    <value>FakeTitleTrigger</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitleTrigger.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="FakeTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 18</value>
-  </data>
-  <data name="FakeTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 20</value>
-  </data>
-  <data name="FakeTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Name" xml:space="preserve">
-    <value>FakeTitle</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitle.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="FakeTitlelbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="FakeTitlelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="FakeTitlelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 21</value>
-  </data>
-  <data name="FakeTitlelbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 13</value>
-  </data>
-  <data name="FakeTitlelbl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="FakeTitlelbl.Text" xml:space="preserve">
-    <value>Title:</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Name" xml:space="preserve">
-    <value>FakeTitlelbl</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.Parent" xml:space="preserve">
-    <value>FakeTitleBox</value>
-  </data>
-  <data name="&gt;&gt;FakeTitlelbl.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="FakeTitleBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="FakeTitleBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 78</value>
-  </data>
-  <data name="FakeTitleBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="FakeTitleBox.Text" xml:space="preserve">
-    <value>Fake Title</value>
   </data>
   <data name="&gt;&gt;FakeTitleBox.Name" xml:space="preserve">
     <value>FakeTitleBox</value>
@@ -9190,6 +9349,30 @@
   <data name="&gt;&gt;GroupBox17.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="FriendHealerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>163, 96</value>
+  </data>
+  <data name="FriendHealerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="FriendHealerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="FriendHealerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.Name" xml:space="preserve">
+    <value>FriendHealerHelp</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.Parent" xml:space="preserve">
+    <value>GroupBox17</value>
+  </data>
+  <data name="&gt;&gt;FriendHealerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="HealFriendTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -9480,6 +9663,30 @@
   </data>
   <data name="&gt;&gt;GroupBox19.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="PartyHealerHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>166, 69</value>
+  </data>
+  <data name="PartyHealerHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="PartyHealerHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="PartyHealerHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Name" xml:space="preserve">
+    <value>PartyHealerHelp</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.Parent" xml:space="preserve">
+    <value>GroupBox19</value>
+  </data>
+  <data name="&gt;&gt;PartyHealerHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="HealPartyTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -10852,290 +11059,17 @@
   <data name="&gt;&gt;ExpShowNext.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;PickupHelp.Name" xml:space="preserve">
-    <value>PickupHelp</value>
-  </data>
-  <data name="&gt;&gt;PickupHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PickupHelp.Parent" xml:space="preserve">
-    <value>PickuperBox</value>
-  </data>
-  <data name="&gt;&gt;PickupHelp.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;PickuperTrigger.Name" xml:space="preserve">
-    <value>PickuperTrigger</value>
-  </data>
-  <data name="&gt;&gt;PickuperTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PickuperTrigger.Parent" xml:space="preserve">
-    <value>PickuperBox</value>
-  </data>
-  <data name="&gt;&gt;PickuperTrigger.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="PickuperBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>226, 6</value>
-  </data>
-  <data name="PickuperBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 54</value>
-  </data>
-  <data name="PickuperBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="PickuperBox.Text" xml:space="preserve">
-    <value>Auto Pick-Up</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Name" xml:space="preserve">
-    <value>PickuperBox</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;PickuperBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="PickupHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>138, 19</value>
-  </data>
-  <data name="PickupHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 24</value>
-  </data>
-  <data name="PickupHelp.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="PickupHelp.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;PickupHelp.Name" xml:space="preserve">
-    <value>PickupHelp</value>
-  </data>
-  <data name="&gt;&gt;PickupHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PickupHelp.Parent" xml:space="preserve">
-    <value>PickuperBox</value>
-  </data>
-  <data name="&gt;&gt;PickupHelp.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="PickuperTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
-    <value>Button</value>
-  </data>
-  <data name="PickuperTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="PickuperTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="PickuperTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 24</value>
-  </data>
-  <data name="PickuperTrigger.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="PickuperTrigger.Text" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="PickuperTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;PickuperTrigger.Name" xml:space="preserve">
-    <value>PickuperTrigger</value>
-  </data>
-  <data name="&gt;&gt;PickuperTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PickuperTrigger.Parent" xml:space="preserve">
-    <value>PickuperBox</value>
-  </data>
-  <data name="&gt;&gt;PickuperTrigger.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AutoTrainerHelp.Name" xml:space="preserve">
-    <value>AutoTrainerHelp</value>
-  </data>
-  <data name="&gt;&gt;AutoTrainerHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AutoTrainerHelp.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoTrainerHelp.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;TrainerInfo.Name" xml:space="preserve">
-    <value>TrainerInfo</value>
-  </data>
-  <data name="&gt;&gt;TrainerInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TrainerInfo.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;TrainerInfo.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;TrainerClear.Name" xml:space="preserve">
-    <value>TrainerClear</value>
-  </data>
-  <data name="&gt;&gt;TrainerClear.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TrainerClear.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;TrainerClear.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;TrainerRemove.Name" xml:space="preserve">
-    <value>TrainerRemove</value>
-  </data>
-  <data name="&gt;&gt;TrainerRemove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TrainerRemove.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;TrainerRemove.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;TrainerTrigger.Name" xml:space="preserve">
-    <value>TrainerTrigger</value>
-  </data>
-  <data name="&gt;&gt;TrainerTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TrainerTrigger.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;TrainerTrigger.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;MaxPercentageHP.Name" xml:space="preserve">
-    <value>MaxPercentageHP</value>
-  </data>
-  <data name="&gt;&gt;MaxPercentageHP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MaxPercentageHP.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;MaxPercentageHP.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;MaxPercentageHPlbl.Name" xml:space="preserve">
-    <value>MaxPercentageHPlbl</value>
-  </data>
-  <data name="&gt;&gt;MaxPercentageHPlbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MaxPercentageHPlbl.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;MaxPercentageHPlbl.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;MinPercentageHP.Name" xml:space="preserve">
-    <value>MinPercentageHP</value>
-  </data>
-  <data name="&gt;&gt;MinPercentageHP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MinPercentageHP.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;MinPercentageHP.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;MinPercentageHplbl.Name" xml:space="preserve">
-    <value>MinPercentageHplbl</value>
-  </data>
-  <data name="&gt;&gt;MinPercentageHplbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MinPercentageHplbl.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;MinPercentageHplbl.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;TrainerAdd.Name" xml:space="preserve">
-    <value>TrainerAdd</value>
-  </data>
-  <data name="&gt;&gt;TrainerAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TrainerAdd.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;TrainerAdd.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="TrainerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 146</value>
-  </data>
-  <data name="TrainerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 170</value>
-  </data>
-  <data name="TrainerBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="TrainerBox.Text" xml:space="preserve">
-    <value>Auto Trainer</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Name" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
-  </data>
-  <data name="&gt;&gt;TrainerBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="AutoTrainerHelp.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="TrainerInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>177, 140</value>
   </data>
-  <data name="AutoTrainerHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 24</value>
-  </data>
-  <data name="AutoTrainerHelp.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="AutoTrainerHelp.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;AutoTrainerHelp.Name" xml:space="preserve">
-    <value>AutoTrainerHelp</value>
-  </data>
-  <data name="&gt;&gt;AutoTrainerHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AutoTrainerHelp.Parent" xml:space="preserve">
-    <value>TrainerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoTrainerHelp.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="TrainerInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>120, 49</value>
-  </data>
   <data name="TrainerInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 24</value>
+    <value>26, 24</value>
   </data>
   <data name="TrainerInfo.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
   <data name="TrainerInfo.Text" xml:space="preserve">
-    <value>Help!</value>
+    <value>?</value>
   </data>
   <data name="&gt;&gt;TrainerInfo.Name" xml:space="preserve">
     <value>TrainerInfo</value>
@@ -11147,7 +11081,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerInfo.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="TrainerClear.Location" type="System.Drawing.Point, System.Drawing">
     <value>120, 19</value>
@@ -11171,7 +11105,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerClear.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="TrainerRemove.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 49</value>
@@ -11195,7 +11129,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerRemove.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="TrainerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -11228,7 +11162,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerTrigger.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="MaxPercentageHP.Location" type="System.Drawing.Point, System.Drawing">
     <value>120, 107</value>
@@ -11249,7 +11183,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MaxPercentageHP.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="MaxPercentageHPlbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -11276,7 +11210,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MaxPercentageHPlbl.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="MinPercentageHP.Location" type="System.Drawing.Point, System.Drawing">
     <value>120, 85</value>
@@ -11297,7 +11231,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MinPercentageHP.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="MinPercentageHplbl.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -11324,7 +11258,7 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;MinPercentageHplbl.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="TrainerAdd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -11351,325 +11285,151 @@
     <value>TrainerBox</value>
   </data>
   <data name="&gt;&gt;TrainerAdd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;ChameleonPlayer.Name" xml:space="preserve">
+    <value>ChameleonPlayer</value>
+  </data>
+  <data name="&gt;&gt;ChameleonPlayer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonPlayer.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonPlayer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Label32.Name" xml:space="preserve">
+    <value>Label32</value>
+  </data>
+  <data name="&gt;&gt;Label32.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label32.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;Label32.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ChameleonCopy.Name" xml:space="preserve">
+    <value>ChameleonCopy</value>
+  </data>
+  <data name="&gt;&gt;ChameleonCopy.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonCopy.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonCopy.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ChameleonSecond.Name" xml:space="preserve">
+    <value>ChameleonSecond</value>
+  </data>
+  <data name="&gt;&gt;ChameleonSecond.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonSecond.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonSecond.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBoth.Name" xml:space="preserve">
+    <value>ChameleonBoth</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBoth.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBoth.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonBoth.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;ChameleonFirst.Name" xml:space="preserve">
+    <value>ChameleonFirst</value>
+  </data>
+  <data name="&gt;&gt;ChameleonFirst.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonFirst.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonFirst.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl2.Name" xml:space="preserve">
+    <value>Chameleonlbl2</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl2.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl2.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;ChameleonNone.Name" xml:space="preserve">
+    <value>ChameleonNone</value>
+  </data>
+  <data name="&gt;&gt;ChameleonNone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonNone.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonNone.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl.Name" xml:space="preserve">
+    <value>Chameleonlbl</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;Chameleonlbl.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;ChameleonOutfit.Name" xml:space="preserve">
+    <value>ChameleonOutfit</value>
+  </data>
+  <data name="&gt;&gt;ChameleonOutfit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ChameleonOutfit.Parent" xml:space="preserve">
+    <value>ChameleonBox</value>
+  </data>
+  <data name="&gt;&gt;ChameleonOutfit.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;AutoAttackerHelp.Name" xml:space="preserve">
-    <value>AutoAttackerHelp</value>
+  <data name="ChameleonBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 90</value>
   </data>
-  <data name="&gt;&gt;AutoAttackerHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ChameleonBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 133</value>
   </data>
-  <data name="&gt;&gt;AutoAttackerHelp.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerHelp.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerTrigger.Name" xml:space="preserve">
-    <value>AutoAttackerTrigger</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerTrigger.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerTrigger.ZOrder" xml:space="preserve">
+  <data name="ChameleonBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;AttackAutomatically.Name" xml:space="preserve">
-    <value>AttackAutomatically</value>
+  <data name="ChameleonBox.Text" xml:space="preserve">
+    <value>Chameleon</value>
   </data>
-  <data name="&gt;&gt;AttackAutomatically.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;ChameleonBox.Name" xml:space="preserve">
+    <value>ChameleonBox</value>
   </data>
-  <data name="&gt;&gt;AttackAutomatically.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AttackAutomatically.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;AttackChasingMode.Name" xml:space="preserve">
-    <value>AttackChasingMode</value>
-  </data>
-  <data name="&gt;&gt;AttackChasingMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AttackChasingMode.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AttackChasingMode.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ChasingModelbl.Name" xml:space="preserve">
-    <value>ChasingModelbl</value>
-  </data>
-  <data name="&gt;&gt;ChasingModelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChasingModelbl.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;ChasingModelbl.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;AttackerFightingMode.Name" xml:space="preserve">
-    <value>AttackerFightingMode</value>
-  </data>
-  <data name="&gt;&gt;AttackerFightingMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AttackerFightingMode.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AttackerFightingMode.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;FightingModelbl.Name" xml:space="preserve">
-    <value>FightingModelbl</value>
-  </data>
-  <data name="&gt;&gt;FightingModelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FightingModelbl.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;FightingModelbl.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="AutoAttackerBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="AutoAttackerBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 134</value>
-  </data>
-  <data name="AutoAttackerBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="AutoAttackerBox.Text" xml:space="preserve">
-    <value>Auto Attacker</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.Name" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;ChameleonBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;AutoAttackerBox.Parent" xml:space="preserve">
-    <value>TabPage5</value>
+  <data name="&gt;&gt;ChameleonBox.Parent" xml:space="preserve">
+    <value>TabPage6</value>
   </data>
-  <data name="&gt;&gt;AutoAttackerBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="AutoAttackerHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 100</value>
-  </data>
-  <data name="AutoAttackerHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 24</value>
-  </data>
-  <data name="AutoAttackerHelp.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="AutoAttackerHelp.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerHelp.Name" xml:space="preserve">
-    <value>AutoAttackerHelp</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerHelp.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerHelp.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ChameleonBox.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="AutoAttackerTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
-    <value>Button</value>
-  </data>
-  <data name="AutoAttackerTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="AutoAttackerTrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 100</value>
-  </data>
-  <data name="AutoAttackerTrigger.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 24</value>
-  </data>
-  <data name="AutoAttackerTrigger.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="AutoAttackerTrigger.Text" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="AutoAttackerTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerTrigger.Name" xml:space="preserve">
-    <value>AutoAttackerTrigger</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerTrigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerTrigger.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AutoAttackerTrigger.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="AttackAutomatically.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="AttackAutomatically.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="AttackAutomatically.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 77</value>
-  </data>
-  <data name="AttackAutomatically.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 17</value>
-  </data>
-  <data name="AttackAutomatically.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="AttackAutomatically.Text" xml:space="preserve">
-    <value>Attack Automatically</value>
-  </data>
-  <data name="&gt;&gt;AttackAutomatically.Name" xml:space="preserve">
-    <value>AttackAutomatically</value>
-  </data>
-  <data name="&gt;&gt;AttackAutomatically.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AttackAutomatically.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AttackAutomatically.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="AttackChasingMode.Items" xml:space="preserve">
-    <value>Don't Change</value>
-  </data>
-  <data name="AttackChasingMode.Items1" xml:space="preserve">
-    <value>Chase</value>
-  </data>
-  <data name="AttackChasingMode.Items2" xml:space="preserve">
-    <value>Stand</value>
-  </data>
-  <data name="AttackChasingMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 47</value>
-  </data>
-  <data name="AttackChasingMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 21</value>
-  </data>
-  <data name="AttackChasingMode.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;AttackChasingMode.Name" xml:space="preserve">
-    <value>AttackChasingMode</value>
-  </data>
-  <data name="&gt;&gt;AttackChasingMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AttackChasingMode.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AttackChasingMode.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="ChasingModelbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ChasingModelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ChasingModelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 47</value>
-  </data>
-  <data name="ChasingModelbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
-  </data>
-  <data name="ChasingModelbl.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="ChasingModelbl.Text" xml:space="preserve">
-    <value>Chasing Mode:</value>
-  </data>
-  <data name="&gt;&gt;ChasingModelbl.Name" xml:space="preserve">
-    <value>ChasingModelbl</value>
-  </data>
-  <data name="&gt;&gt;ChasingModelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ChasingModelbl.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;ChasingModelbl.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="AttackerFightingMode.Items" xml:space="preserve">
-    <value>Don't Change</value>
-  </data>
-  <data name="AttackerFightingMode.Items1" xml:space="preserve">
-    <value>Offensive</value>
-  </data>
-  <data name="AttackerFightingMode.Items2" xml:space="preserve">
-    <value>Balanced</value>
-  </data>
-  <data name="AttackerFightingMode.Items3" xml:space="preserve">
-    <value>Defensive</value>
-  </data>
-  <data name="AttackerFightingMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 16</value>
-  </data>
-  <data name="AttackerFightingMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 21</value>
-  </data>
-  <data name="AttackerFightingMode.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;AttackerFightingMode.Name" xml:space="preserve">
-    <value>AttackerFightingMode</value>
-  </data>
-  <data name="&gt;&gt;AttackerFightingMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AttackerFightingMode.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;AttackerFightingMode.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="FightingModelbl.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="FightingModelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="FightingModelbl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="FightingModelbl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 13</value>
-  </data>
-  <data name="FightingModelbl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="FightingModelbl.Text" xml:space="preserve">
-    <value>Fighting Mode:</value>
-  </data>
-  <data name="&gt;&gt;FightingModelbl.Name" xml:space="preserve">
-    <value>FightingModelbl</value>
-  </data>
-  <data name="&gt;&gt;FightingModelbl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FightingModelbl.Parent" xml:space="preserve">
-    <value>AutoAttackerBox</value>
-  </data>
-  <data name="&gt;&gt;FightingModelbl.ZOrder" xml:space="preserve">
-    <value>6</value>
   </data>
   <data name="ChameleonPlayer.Location" type="System.Drawing.Point, System.Drawing">
     <value>47, 47</value>
@@ -11943,6 +11703,186 @@
   </data>
   <data name="&gt;&gt;ChameleonOutfit.ZOrder" xml:space="preserve">
     <value>9</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Name" xml:space="preserve">
+    <value>FakeTitleHelp</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Name" xml:space="preserve">
+    <value>FakeTitleTrigger</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Name" xml:space="preserve">
+    <value>FakeTitle</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Name" xml:space="preserve">
+    <value>FakeTitlelbl</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="FakeTitleBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="FakeTitleBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 78</value>
+  </data>
+  <data name="FakeTitleBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="FakeTitleBox.Text" xml:space="preserve">
+    <value>Fake Title</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Name" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.Parent" xml:space="preserve">
+    <value>TabPage6</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="FakeTitleHelp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 44</value>
+  </data>
+  <data name="FakeTitleHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 24</value>
+  </data>
+  <data name="FakeTitleHelp.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="FakeTitleHelp.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Name" xml:space="preserve">
+    <value>FakeTitleHelp</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleHelp.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="FakeTitleTrigger.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="FakeTitleTrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="FakeTitleTrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 44</value>
+  </data>
+  <data name="FakeTitleTrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 24</value>
+  </data>
+  <data name="FakeTitleTrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="FakeTitleTrigger.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="FakeTitleTrigger.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Name" xml:space="preserve">
+    <value>FakeTitleTrigger</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitleTrigger.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="FakeTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>39, 18</value>
+  </data>
+  <data name="FakeTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 20</value>
+  </data>
+  <data name="FakeTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Name" xml:space="preserve">
+    <value>FakeTitle</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitle.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="FakeTitlelbl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FakeTitlelbl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="FakeTitlelbl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="FakeTitlelbl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="FakeTitlelbl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="FakeTitlelbl.Text" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Name" xml:space="preserve">
+    <value>FakeTitlelbl</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.Parent" xml:space="preserve">
+    <value>FakeTitleBox</value>
+  </data>
+  <data name="&gt;&gt;FakeTitlelbl.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;TabPage8.Name" xml:space="preserve">
     <value>TabPage8</value>
@@ -13966,54 +13906,6 @@
   <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>539, 2</value>
   </metadata>
-  <data name="FriendHealerHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>163, 96</value>
-  </data>
-  <data name="FriendHealerHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 24</value>
-  </data>
-  <data name="FriendHealerHelp.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="FriendHealerHelp.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;FriendHealerHelp.Name" xml:space="preserve">
-    <value>FriendHealerHelp</value>
-  </data>
-  <data name="&gt;&gt;FriendHealerHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FriendHealerHelp.Parent" xml:space="preserve">
-    <value>GroupBox17</value>
-  </data>
-  <data name="&gt;&gt;FriendHealerHelp.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="PartyHealerHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 69</value>
-  </data>
-  <data name="PartyHealerHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 24</value>
-  </data>
-  <data name="PartyHealerHelp.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="PartyHealerHelp.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;PartyHealerHelp.Name" xml:space="preserve">
-    <value>PartyHealerHelp</value>
-  </data>
-  <data name="&gt;&gt;PartyHealerHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PartyHealerHelp.Parent" xml:space="preserve">
-    <value>GroupBox19</value>
-  </data>
-  <data name="&gt;&gt;PartyHealerHelp.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
