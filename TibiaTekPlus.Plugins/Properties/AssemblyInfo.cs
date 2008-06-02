@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TibiaTekBot.Plugins")]
+[assembly: AssemblyTitle("TibiaTek Plus Plug-ins")]
 [assembly: AssemblyDescription("This assembly provides the classes and interfaces required to make plug-ins for TibiaTek Bot")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TibiaTek+TibiaAPI Development Team")]

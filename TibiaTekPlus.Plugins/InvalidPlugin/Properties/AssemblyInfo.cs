@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TibiaTek Plus")]
-[assembly: AssemblyDescription("The best open source bot for the Tibia client")]
+[assembly: AssemblyTitle("TibiaTekPlus.Plugins.InvalidPlugin")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TibiaTek+TibiaAPI Development Team")]
-[assembly: AssemblyProduct("TibiaTek Plus")]
-[assembly: AssemblyCopyright("Copyright ©  2006-2008 TibiaTek+TibiaAPI Development Team")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("TibiaTekPlus.Plugins.InvalidPlugin")]
+[assembly: AssemblyCopyright("Copyright ©  2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2048c18f-ac64-4b5c-b722-e17a4409c2e7")]
+[assembly: Guid("357e53ab-e7c6-4820-9ba3-9f812c22540a")]
 
 // Version information for an assembly consists of the following four values:
 //
