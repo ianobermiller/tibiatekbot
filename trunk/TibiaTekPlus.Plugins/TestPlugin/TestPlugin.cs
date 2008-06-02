@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Reflection;
 using TibiaTekPlus.Plugins;
+using Tibia;
 using TestPlugin;
 
 namespace TibiaTekPlus.Plugins
@@ -11,60 +12,86 @@ namespace TibiaTekPlus.Plugins
     {
         MainForm mainForm;
         private string[] supportedVersions = { "8.11" };
+        private string supportedKernel = @"1\.\d+\.\d+\.\d+";
+
+        Tibia.Util.Timer timer;
+
+        #region Initialization/Finalization
 
         public TestPlugin()
         {
             mainForm = new MainForm();
+            timer = new Tibia.Util.Timer(3000, false);
+        }
+        ~TestPlugin()
+        {
         }
 
-        public override bool Load(string path)
+        #endregion
+
+        #region Configuration Settings
+
+        public bool Load(string path)
         {
             MessageBox.Show("Finished loading.");
             return true;
         }
-
-        public override bool Save(string path)
+        public bool Save(string path)
         {
             MessageBox.Show("Finished saving.");
             return true;
         }
 
-        public override void Show()
+        #endregion
+
+        #region Graphic User Interface
+
+        public void Show()
         {
-            mainForm.Show();
+            if (mainForm != null)
+                mainForm.Show();
+        }
+        public void Hide()
+        {
+            if (mainForm != null)
+                mainForm.Hide();
+        }
+        public Form MainForm
+        {
+            get
+            {
+                return mainForm;
+            }
         }
 
-        public override void Hide()
-        {
-            mainForm.Hide();
-        }
+        #endregion
 
-        public void Open()
-        {
-            if (mainForm == null)
-                mainForm = new MainForm();
-            mainForm.Show();
-        }
+        #region Dependencies & Support
 
-        public void Close()
-        {
-            mainForm.Close();
-        }
-
-        public override string[] SupportedTibiaVersions
+        public string[] SupportedTibiaVersions
         {
             get
             {
                 return supportedVersions;
             }
         }
-
-        public override string[] PluginDependencies
+        public string[] PluginDependencies
         {
-            get { 
-                throw new NotImplementedException();
+            get
+            { 
+                return new string[] {};
+            }
+        }
+        public string SupportedKernel
+        {
+            get
+            {
+                return supportedKernel;
             }
         }
 
+        #endregion
+
+        
     }
 }

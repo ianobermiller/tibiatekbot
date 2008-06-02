@@ -8,8 +8,8 @@
     <ProjectGuid>{9E190375-D8FD-4847-B5DB-05455A4B98D2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TibiaTekBot.Plugins</RootNamespace>
-    <AssemblyName>TibiaTekBot.Plugins</AssemblyName>
+    <RootNamespace>TibiaTekPlus.Plugins</RootNamespace>
+    <AssemblyName>TibiaTekPlus.Plugins</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
