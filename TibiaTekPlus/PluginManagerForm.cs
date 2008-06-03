@@ -6,6 +6,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Remoting;
+using System.Security;
+using System.Security.Policy;
+using System.Security.Permissions;
 using TibiaTekPlus.Plugins;
 
 namespace TibiaTekPlus
@@ -28,31 +31,19 @@ namespace TibiaTekPlus
 
         private void installToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // AppDomain creation
+            AppDomain domain = AppDomain.CreateDomain("PluginLoader");
             do {
                 if (openPluginDialog.ShowDialog() == DialogResult.OK)
                 {
                     string destDirectory = Application.StartupPath;
                     string destFileName = Path.Combine(destDirectory, openPluginDialog.SafeFileName);
-                    /*
-                    if (System.IO.File.Exists(destFileName))
-                    {
-                        // Verify if the plug-in is loaded
-                        //foreach (IPlugin plugin in Kernel.plugins)
-                        //{
-                        //    plugin.GetType
-                        //}
-                        MessageBox.Show("Awww... Already installed!");
-                        break;
-                    }
-                */
                     File.Copy(openPluginDialog.FileName, destFileName, true);
                     string assemblyQualifiedName = Path.GetFileNameWithoutExtension(openPluginDialog.FileName);
 
                     /* Validate assembly as a valid plug-in */
                     bool valid = false;
 
-                    // AppDomain creation
-                    AppDomain domain = AppDomain.CreateDomain("PluginLoader");
                     Assembly assembly = domain.Load(assemblyQualifiedName);
                     Type pluginType = null;
                     foreach (Type type in assembly.GetTypes())
@@ -95,8 +86,6 @@ namespace TibiaTekPlus
                     }
                     Kernel.plugins.Add(plugin);
             */
-                    AppDomain.Unload(domain);
-                    MessageBox.Show(plugin.Title);
                     break;
                 }
                 else
@@ -104,6 +93,9 @@ namespace TibiaTekPlus
                     break;
                 }
             } while (true);
+
+            // Unload new AppDomain
+            AppDomain.Unload(domain);
         }
 
 

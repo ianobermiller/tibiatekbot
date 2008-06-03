@@ -2,7 +2,7 @@
 
 namespace TibiaTekPlus.Plugins
 {
-    public class Class1
+    public class InvalidPlugin
     {
     }
 }
