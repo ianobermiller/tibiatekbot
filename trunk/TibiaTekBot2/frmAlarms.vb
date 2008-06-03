@@ -88,10 +88,10 @@ Public Class frmAlarms
             Dim AlarmsNode As XmlNode = Document.Item("Alarms")
             'battlelist alarms
             Dim BattlelistNode As XmlNode = AlarmsNode.Item("Battlelist")
-            If Not BattlelistNode.Item("ActiveIfPlayer") Is Nothing Then BattlelistPlayer.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfPlayer").InnerText)
-            If Not BattlelistNode.Item("ActiveIfMonsterNPC") Is Nothing Then BattlelistMonsterNPC.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfMonsterNPC").InnerText)
-            If Not BattlelistNode.Item("ActiveIfPlayerKiller") Is Nothing Then BattlelistPlayerKiller.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfPlayerKiller").InnerText)
-            If Not BattlelistNode.Item("ActiveIfGMCM") Is Nothing Then BattlelistGMCM.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfGMCM").InnerText)
+            If Not BattlelistNode.Item("ActivateIfPlayer") Is Nothing Then BattlelistPlayer.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfPlayer").InnerText)
+            If Not BattlelistNode.Item("ActivateIfMonsterNPC") Is Nothing Then BattlelistMonsterNPC.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfMonsterNPC").InnerText)
+            If Not BattlelistNode.Item("ActivateIfPlayerKiller") Is Nothing Then BattlelistPlayerKiller.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfPlayerKiller").InnerText)
+            If Not BattlelistNode.Item("ActivateIfGMCM") Is Nothing Then BattlelistGMCM.Checked = Boolean.Parse(BattlelistNode.Item("ActivateIfGMCM").InnerText)
             If Not BattlelistNode.Item("MultiFloorBelow") Is Nothing Then BattlelistMultiFloorBelow.Checked = Boolean.Parse(BattlelistNode.Item("MultiFloorBelow").InnerText)
             If Not BattlelistNode.Item("MultiFloorAbove") Is Nothing Then BattlelistMultiFloorAbove.Checked = Boolean.Parse(BattlelistNode.Item("MultiFloorAbove").InnerText)
             If Not BattlelistNode.Item("MultiFloorRange") Is Nothing Then BattlelistMultiFloorRange.Value = CDec(BattlelistNode.Item("MultiFloorRange").InnerText) Else BattlelistMultiFloorRange.Value = 7
@@ -164,7 +164,7 @@ Public Class frmAlarms
                     FoodCond.CheckInventory = Boolean.Parse(FoodNode.GetAttribute("CheckInventory"))
                 End If
 
-                If Not ListNode.Item("BlackRunes") Is Nothing Then
+                If Not ListNode.Item("BlankRunes") Is Nothing Then
                     Dim BlankRunesNode As XmlElement = ListNode.Item("BlankRunes")
                     BlankRunesCond.Active = Boolean.Parse(BlankRunesNode.InnerText)
                     ItemsList.SetItemChecked(1, BlankRunesCond.Active)
@@ -194,7 +194,7 @@ Public Class frmAlarms
                     ThrowablesCond.CheckInventory = Boolean.Parse(ThrowablesNode.GetAttribute("CheckInventory"))
                 End If
 
-                If ListNode.Item("Ammunition") Is Nothing Then
+                If Not ListNode.Item("Ammunition") Is Nothing Then
                     Dim AmmunitionNode As XmlElement = ListNode.Item("Ammunition")
                     AmmunitionCond.Active = Boolean.Parse(AmmunitionNode.InnerText)
                     ItemsList.SetItemChecked(4, AmmunitionCond.Active)

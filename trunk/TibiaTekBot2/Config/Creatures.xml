@@ -55,7 +55,7 @@
   <Creature Name="Scarab" Experience="120" HitPoints="320" />
   <Creature Name="Scorpion" Experience="45" HitPoints="45" />
   <Creature Name="Snake" Experience="10" HitPoints="15" />
-  <Creature Name="Son of Verminor" Experience="5900" />
+  <Creature Name="Son of Verminor" Experience="5900" HitPoints="0" />
   <Creature Name="Spider" Experience="12" HitPoints="20" />
   <Creature Name="Tarantula" Experience="120" HitPoints="225" />
   <Creature Name="Tibia Bug" Experience="50" HitPoints="270" />
