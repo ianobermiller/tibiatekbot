@@ -2809,7 +2809,7 @@ Public Class frmMain
                         PPB.RemoveCreatureText(Entity.EntityID)
                     Next
                     Kernel.EntityInfoList.Clear()
-                    Kernel.EntityInfoDismissLookPacket = False
+                    'Kernel.EntityInfoDismissLookPacket = False
                 End If
             Else
                 'Disable Entity Info
@@ -2819,7 +2819,7 @@ Public Class frmMain
                     PPB.RemoveCreatureText(Entity.EntityID)
                 Next
                 Kernel.EntityInfoList.Clear()
-                Kernel.EntityInfoDismissLookPacket = False
+                'Kernel.EntityInfoDismissLookPacket = False
                 'Disable HUD
                 Kernel.HUDTimerObj.StopTimer()
                 PPB.RemoveText(IKernel.HUDType.Haste)

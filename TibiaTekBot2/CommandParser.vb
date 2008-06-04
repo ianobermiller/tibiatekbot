@@ -3488,7 +3488,7 @@ Public Class CommandParser
                         PPB.RemoveCreatureText(Entity.EntityID)
                     Next
                     Kernel.EntityInfoList.Clear()
-                    Kernel.EntityInfoDismissLookPacket = False
+                    'Kernel.EntityInfoDismissLookPacket = False
                     Kernel.ConsoleWrite("Hiding Player/Creatures Information.")
                 Case Else
                     Kernel.ConsoleError("Invalid format for this command." & Ret & "For help on the usage, type: &help " & Arguments(1).Value & ".")
