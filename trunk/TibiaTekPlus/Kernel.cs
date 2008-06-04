@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Xml;
+using System.IO;
 using Tibia;
 using Tibia.Util;
 using TibiaTekPlus;
@@ -11,6 +13,22 @@ namespace TibiaTekPlus
 {
     public partial class Kernel
     {
+        #region Events
+
+        /// <summary>
+        /// Prototype for plugin notifications.
+        /// </summary>
+        /// <param name="plugin"></param>
+        public delegate void PluginNotification(Plugin plugin);
+
+        /// <summary>
+        /// Event fired when a plugin is loaded.
+        /// </summary>
+        public PluginNotification PluginLoaded;
+
+        #endregion
+
+
         #region Forms
 
         /// <summary>
@@ -137,6 +155,94 @@ namespace TibiaTekPlus
             {
                 return client;
             }
+        }
+
+        public int PerformPluginUninstallation()
+        {
+            int count = 0;
+            XmlDocument document = new XmlDocument();
+            document.Load("TibiaTekPlus.Plugins.xml");
+            string filepath;
+            foreach (XmlElement element in document["plugins"]["pending"]["uninstall"])
+            {
+                filepath = Path.Combine(Application.StartupPath, element.GetAttribute("fullname") + ".dll");
+                try
+                {
+                    if (File.Exists(filepath))
+                    {
+                        File.SetAttributes(filepath, FileAttributes.Normal);
+                        File.Delete(filepath);
+                        document["plugins"]["pending"]["uninstall"].RemoveChild(element);
+                        count++;
+                    }
+                } catch (Exception){
+                }
+            }
+            document.Save("TibiaTekPlus.Plugins.xml");
+            return count;
+        }
+
+        public int PerformPluginInstallation()
+        {
+            int count = 0;
+            XmlDocument document = new XmlDocument();
+            document.Load("TibiaTekPlus.Plugins.xml");
+            string filepath;
+            foreach (XmlElement element in document["plugins"]["pending"]["install"])
+            {
+                filepath = Path.Combine(Application.StartupPath, element.GetAttribute("fullname") + ".dll");
+                if (File.Exists(filepath))
+                {
+                    XmlElement newelem = (XmlElement)element.Clone();
+                    document["plugins"]["pending"]["install"].RemoveChild(element);
+                    document["plugins"]["installed"].AppendChild(newelem);
+                    count++;
+                }
+                else
+                {
+                    MessageBox.Show("Unable to install the following plug-in:\nTitle: " + element["title"] + ".\nAuthor: " + element["author"] + ".\nReason: The file '" + element.GetAttribute("fullname") + ".dll' was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    document["plugins"]["pending"]["install"].RemoveChild(element);
+                }
+            }
+            document.Save("TibiaTekPlus.Plugins.xml");
+            return count;
+        }
+
+        public int InstalledPluginsCount
+        {
+            get
+            {
+                XmlDocument document = new XmlDocument();
+                document.Load("TibiaTekPlus.Plugins.xml");
+                return document["plugins"]["installed"].ChildNodes.Count;
+            }
+        }
+
+        public int LoadPlugins()
+        {
+            int count = 0;
+            XmlDocument document = new XmlDocument();
+            document.Load("TibiaTekPlus.Plugins.xml");
+            string path;
+            foreach (XmlElement element in document["plugins"]["installed"])
+            {
+                path = Path.Combine(Application.StartupPath, element.GetAttribute("fullname") + ".dll");
+                if (File.Exists(path))
+                {
+                    Plugin plugin = (Plugin)Activator.CreateInstance(Type.GetType(element["assemblyQualifiedName"].InnerText));
+                    plugins.Add(plugin);
+                    count++;
+                    if (PluginLoaded != null)
+                    {
+                        PluginLoaded.Invoke(plugin);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Unable to load the following plug-in:\nTitle: " + element["title"] + ".\nAuthor: " + element["author"] + ".\nReason: The file '" + element.GetAttribute("fullname") + ".dll' was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return count;
         }
 
     }

@@ -15,9 +15,22 @@ namespace TibiaTekPlus
             this.DialogResult = DialogResult.OK;
         }
 
-        private void close(object sender, EventArgs e)
-        {
-            this.Close();
+        public void SetText(string text){
+            pictureBox2.Refresh();
+            Graphics g = pictureBox2.CreateGraphics();
+
+        }
+
+        public int Percent {
+            get
+            {
+                return (pictureBox2.Size.Width * 308) / 100;
+            }
+            set
+            {
+                Size s = new Size((value * 308) / 100, 22);
+                pictureBox2.Size = s;
+            }
         }
 
     }

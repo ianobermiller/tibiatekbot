@@ -76,9 +76,6 @@ namespace TibiaTekPlus
                     Plugin plugin = (Plugin)domain.CreateInstanceAndUnwrap(fname, fname);
                     //MessageBox.Show(plugin.Title);
                     
-                    // Obtain the real fully assembly qualified name
-                    fname = plugin.GetType().AssemblyQualifiedName;
-
                     XmlDocument document = new XmlDocument();
                     document.Load("TibiaTekPlus.Plugins.xml");
 
@@ -87,7 +84,8 @@ namespace TibiaTekPlus
                     // Check if the plug-in is scheduled to be installed
                     foreach (XmlElement installPlugin in plugins["pending"]["install"])
                     {
-                        if (fname.Equals(installPlugin.GetAttribute("fullname")) && plugin.Version.Equals(installPlugin["version"])) {
+                        //MessageBox.Show(plugin.Version + "=" + installPlugin.GetAttribute("fullname"));
+                        if (fname.Equals(installPlugin.GetAttribute("fullname"))) {
                             MessageBox.Show("This plug-in is already scheduled to be installed. Please close all instances of TibiaTek Plus first.");
                             break;
                         }
@@ -96,7 +94,7 @@ namespace TibiaTekPlus
                     // Check if the plug-in is scheduled to be uninstalled
                     foreach (XmlElement uninstallPlugin in plugins["pending"]["uninstall"])
                     {
-                        if (fname.Equals(uninstallPlugin.GetAttribute("fullname")) && plugin.Version.Equals(uninstallPlugin["version"].InnerText))
+                        if (fname.Equals(uninstallPlugin.GetAttribute("fullname")) && plugin.Version.Equals(uninstallPlugin.GetAttribute("version")))
                         {
                             MessageBox.Show("This plug-in is scheduled to be uninstalled. Please close all instances of TibiaTek Plus first.");
                             break;
@@ -104,9 +102,9 @@ namespace TibiaTekPlus
                     }
 
                     // Check if the plug-in is already installed
-                    foreach (XmlElement installedPlugin in plugins["pending"]["uninstall"])
+                    foreach (XmlElement installedPlugin in plugins["installed"])
                     {
-                        if (fname.Equals(installedPlugin.GetAttribute("fullname")) && plugin.Version.Equals(installedPlugin["version"].InnerText))
+                        if (fname.Equals(installedPlugin.GetAttribute("fullname")))
                         {
                             MessageBox.Show("This plug-in is already installed.");
                             break;
@@ -141,7 +139,7 @@ namespace TibiaTekPlus
                     xplugin.AppendChild(description);
 
                     // Assembly Qualified Name
-                    XmlElement aqn = document.CreateElement("fname");
+                    XmlElement aqn = document.CreateElement("assemblyQualifiedName");
                     aqn.InnerText = plugin.GetType().AssemblyQualifiedName;
                     xplugin.AppendChild(aqn);
 
@@ -165,14 +163,13 @@ namespace TibiaTekPlus
                     }
                     xplugin.AppendChild(supportedTibiaVersions);
 
-                    plugins.AppendChild(xplugin);
-
-                    document.AppendChild(plugins["pending"]["install"]);
+                    plugins["pending"]["install"].AppendChild(xplugin);
 
                     document.Save("TibiaTekPlus.Plugins.xml");
 
                     if (MessageBox.Show("The plug-in has been installed.\nIt will ready to use the next time you start TibiaTek Plus.\nWould you like to restart it now?", "Information", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
+                        Application.ExitThread();
                         Application.Restart();
                     }
                     break;
