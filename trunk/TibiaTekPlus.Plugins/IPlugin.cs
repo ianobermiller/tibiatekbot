@@ -92,12 +92,12 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Starts the plug-in.
         /// </summary>
-        void Start();
+        void Enable();
 
         /// <summary>
         /// Stops the plug-in.
         /// </summary>
-        void Stop();
+        void Disable();
 
         /// <summary>
         /// Pauses the plug-in if running.
@@ -113,6 +113,11 @@ namespace TibiaTekPlus.Plugins
         /// Gets the visibility of the plug-in. Plug-ins that work in the background should be invisible.
         /// </summary>
         bool Visible { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the plug-in can interact with the kernel and/or user.
+        /// </summary>
+        bool Enabled { get; }
     }
 
     /// <summary>

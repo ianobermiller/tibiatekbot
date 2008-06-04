@@ -31,12 +31,12 @@ namespace TibiaTekPlus.Plugins
 
         #region Configuration Settings
 
-        public bool Load(string path)
+        public override bool Load(string path)
         {
             MessageBox.Show("Finished loading.");
             return true;
         }
-        public bool Save(string path)
+        public override bool Save(string path)
         {
             MessageBox.Show("Finished saving.");
             return true;
@@ -46,17 +46,17 @@ namespace TibiaTekPlus.Plugins
 
         #region Graphic User Interface
 
-        public void Show()
+        public override void Show()
         {
             if (mainForm != null)
                 mainForm.Show();
         }
-        public void Hide()
+        public override void Hide()
         {
             if (mainForm != null)
                 mainForm.Hide();
         }
-        public Form MainForm
+        public override Form MainForm
         {
             get
             {
@@ -68,21 +68,21 @@ namespace TibiaTekPlus.Plugins
 
         #region Dependencies & Support
 
-        public string[] SupportedTibiaVersions
+        public override string[] SupportedTibiaVersions
         {
             get
             {
                 return supportedVersions;
             }
         }
-        public string[] PluginDependencies
+        public override string[] PluginDependencies
         {
             get
             { 
                 return new string[] {};
             }
         }
-        public string SupportedKernel
+        public override string SupportedKernel
         {
             get
             {

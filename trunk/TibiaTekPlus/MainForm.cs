@@ -69,6 +69,7 @@ namespace TibiaTekPlus
         private void pluginManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Kernel.pluginsForm.Show();
+            //this.en
         }
 
         private void listView1_ItemActivate(object sender, EventArgs e)

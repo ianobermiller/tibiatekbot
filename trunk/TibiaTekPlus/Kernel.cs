@@ -22,12 +22,15 @@ namespace TibiaTekPlus
 
         #region Objects/Variables
 
-        
+        Tibia.Objects.Client client;
         public Tibia.Util.Timer timer;
         public PluginCollection plugins;
 
         #endregion
 
+        /// <summary>
+        /// Constructor of the kernel.
+        /// </summary>
         public Kernel()
         {
             /* Instantiate forms */
@@ -44,7 +47,7 @@ namespace TibiaTekPlus
         /// <summary>
         /// Starts the kernel, enables the use of plug-ins. This function is called when the main form is ready.
         /// </summary>
-        public void Start()
+        public void Enable()
         {
             foreach (IPlugin plugin in plugins)
             {
@@ -52,7 +55,7 @@ namespace TibiaTekPlus
                 {
                     try
                     {
-                        plugin.Start();
+                        plugin.Enable();
                     }
                     catch (NotImplementedException)
                     {
@@ -65,7 +68,7 @@ namespace TibiaTekPlus
         /// <summary>
         /// Stops the kernel, stops all plug-ins currently running. This function is called when disconnected or exiting.
         /// </summary>
-        public void Stop()
+        public void Disable()
         {
             foreach (IPlugin plugin in plugins)
             {
@@ -73,7 +76,7 @@ namespace TibiaTekPlus
                 {
                     try
                     {
-                        plugin.Stop();
+                        plugin.Disable();
                     }
                     catch (NotImplementedException)
                     {
@@ -122,6 +125,17 @@ namespace TibiaTekPlus
                         // Do nothing
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets a reference to the client object.
+        /// </summary>
+        public Tibia.Objects.Client Client
+        {
+            get
+            {
+                return client;
             }
         }
 

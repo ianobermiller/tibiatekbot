@@ -18,13 +18,14 @@ namespace TibiaTekPlus.Plugins
 
         private PluginState state = PluginState.Stopped;
         private bool visible = false;
+        private bool enabled = false;
 
         /// <summary>
         /// Load a configuration for this plug-in.
         /// </summary>
         /// <param name="path">Path to the configuration file</param>
         /// <returns>True if successfull, otherwise false</returns>
-        bool IPlugin.Load(string path)
+        public virtual bool Load(string path)
         {
             throw new NotImplementedException();
         }
@@ -34,7 +35,7 @@ namespace TibiaTekPlus.Plugins
         /// </summary>
         /// <param name="path">Path to the configuration file.</param>
         /// <returns>True if successfull, otherwise false.</returns>
-        bool IPlugin.Save(string path)
+        public virtual bool Save(string path)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +43,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Show the main window of this plug-in.
         /// </summary>
-        void IPlugin.Show()
+        public virtual void Show()
         {
             throw new NotImplementedException();
         }
@@ -50,7 +51,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Hide the main window of this plug-in.
         /// </summary>
-        void IPlugin.Hide()
+        public virtual void Hide()
         {
             throw new NotImplementedException();
         }
@@ -58,11 +59,11 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets the icon of this plug-in (stored in {PluginName}.Resources.Icon.ico).
         /// </summary>
-        Icon IPlugin.Icon
+        public Icon Icon
         {
             get
             {
-                Assembly a = Assembly.GetExecutingAssembly();
+                Assembly a = Assembly.GetAssembly(this.GetType());
                 System.IO.Stream s = a.GetManifestResourceStream(string.Format("{0}.{1}", a.GetName(), "Resources.Icon.ico"));
                 return new Icon(s);
             }
@@ -71,11 +72,11 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets the title of this plug-in.
         /// </summary>
-        string IPlugin.Title
+        public string Title
         {
             get
             {
-                Assembly assembly = Assembly.GetExecutingAssembly();
+                Assembly assembly = Assembly.GetAssembly(this.GetType());
                 AssemblyTitleAttribute title = (AssemblyTitleAttribute)Attribute.GetCustomAttribute(assembly,typeof(AssemblyTitleAttribute));
                 return title.Title;
             }
@@ -84,11 +85,11 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets the author of this plug-in.
         /// </summary>
-        string IPlugin.Author
+        public string Author
         {
             get
             {
-                Assembly assembly = Assembly.GetExecutingAssembly();
+                Assembly assembly = Assembly.GetAssembly(this.GetType());
                 AssemblyCompanyAttribute company = (AssemblyCompanyAttribute)Attribute.GetCustomAttribute(assembly, typeof(AssemblyCompanyAttribute));
                 return company.Company;  
             }
@@ -97,12 +98,12 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets the version of this plug-in.
         /// </summary>
-        string IPlugin.Version
+        public string Version
         {
             get
             {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                AssemblyVersionAttribute version = (AssemblyVersionAttribute)Attribute.GetCustomAttribute(assembly, typeof(AssemblyVersionAttribute));
+                Assembly assembly = Assembly.GetAssembly(this.GetType());
+                AssemblyFileVersionAttribute version = (AssemblyFileVersionAttribute)Attribute.GetCustomAttribute(assembly, typeof(AssemblyFileVersionAttribute));
                 return version.Version; 
             }
         }
@@ -110,11 +111,11 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets the description of this plug-in.
         /// </summary>
-        string IPlugin.Description
+        public string Description
         {
             get
             {
-                Assembly assembly = Assembly.GetExecutingAssembly();
+                Assembly assembly = Assembly.GetAssembly(this.GetType());
                 AssemblyDescriptionAttribute description = (AssemblyDescriptionAttribute)Attribute.GetCustomAttribute(assembly, typeof(AssemblyDescriptionAttribute));
                 return description.Description;
             }
@@ -123,18 +124,18 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets an array of strings containing the supported Tibia versions of this plug-in.
         /// </summary>
-        string[] IPlugin.SupportedTibiaVersions
+        public virtual string[] SupportedTibiaVersions
         {
             get
             {
-                throw new NotImplementedException();
+                return new string[] { };
             }
         }
 
         /// <summary>
         /// Gets an array of strings containing this plug-in's dependencies. Format of each string: FullName, Filename.
         /// </summary>
-        string[] IPlugin.PluginDependencies
+        public virtual string[] PluginDependencies
         {
             get
             {
@@ -145,7 +146,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets the main form of this plug-in, if any.
         /// </summary>
-        Form IPlugin.MainForm
+        public virtual Form MainForm
         {
             get
             {
@@ -156,7 +157,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets the collection of forms whithin this plug-in.
         /// </summary>
-        FormCollection IPlugin.Forms
+        public virtual FormCollection Forms
         {
             get
             {
@@ -169,7 +170,7 @@ namespace TibiaTekPlus.Plugins
         /// Where M stands for Major version, m for Minor version, b for Build version, and r for Revision number.
         /// It must be a valid regular expression. Example: "1\.0\.\d+\.\d+".
         /// </summary>
-        string IPlugin.SupportedKernel
+        public virtual string SupportedKernel
         {
             get
             {
@@ -180,7 +181,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets or sets the state of this plug-in.
         /// </summary>
-        PluginState IPlugin.State
+        public PluginState State
         {
             get
             {
@@ -199,7 +200,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Starts the plug-in.
         /// </summary>
-        void IPlugin.Start()
+        public virtual void Enable()
         {
             throw new NotImplementedException();
         }
@@ -207,7 +208,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Stops the plug-in.
         /// </summary>
-        void IPlugin.Stop()
+        public virtual void Disable()
         {
             throw new NotImplementedException();
         }
@@ -215,7 +216,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Pauses the plug-in if running.
         /// </summary>
-        void IPlugin.Pause()
+        public virtual void Pause()
         {
             throw new NotImplementedException();
         }
@@ -223,7 +224,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Resumes the plug-in if paused.
         /// </summary>
-        void IPlugin.Resume()
+        public virtual void Resume()
         {
             throw new NotImplementedException();
         }
@@ -231,7 +232,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Gets the visibility of the plug-in. Plug-ins that work in the background should be invisible.
         /// </summary>
-        bool IPlugin.Visible
+        public bool Visible
         {
             get
             {
@@ -240,6 +241,17 @@ namespace TibiaTekPlus.Plugins
             set
             {
                 visible = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the plug-in can interact with the kernel and/or user.
+        /// </summary>
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
             }
         }
     }
