@@ -60,9 +60,16 @@ namespace TibiaTekPlus.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap splashScreenImage {
+        internal static System.Drawing.Bitmap splash {
             get {
-                object obj = ResourceManager.GetObject("splashScreenImage", resourceCulture);
+                object obj = ResourceManager.GetObject("splash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap splash_bar {
+            get {
+                object obj = ResourceManager.GetObject("splash_bar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

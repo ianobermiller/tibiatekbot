@@ -12,6 +12,7 @@
     <AssemblyName>TibiaTekPlus</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <StartupObject>TibiaTekPlus.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -126,7 +127,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Resources\ttb splash5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\splash_bar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\splash.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TibiaTekPlus.Plugins.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
