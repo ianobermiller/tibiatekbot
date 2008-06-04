@@ -9,12 +9,12 @@ namespace TibiaTekPlus
     static class Program
     {
         /// <summary>
-        /// Provides access to the Kernel object.
+        /// Instance of the Kernel object.
         /// </summary>
         static public Kernel kernel;
 
         /// <summary>
-        /// Provides access to the main form.
+        /// Instance of the main form.
         /// </summary>
         static public MainForm mainForm;
 
@@ -27,6 +27,11 @@ namespace TibiaTekPlus
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Instantiate the kernel object
+            kernel = new Kernel();
+            
+
+
             // Show timed splash screen
             SplashScreenForm ssf = new SplashScreenForm();
             ssf.ShowDialog();
@@ -34,11 +39,8 @@ namespace TibiaTekPlus
             // Create the main form
             mainForm = new MainForm();
 
-            // Instantiate the kernel object
-            kernel = new Kernel();
-
-            // Start the kernel (initialization prior to main window)
-            kernel.Start();
+            // Enable the kernel (initialization prior to main window)
+            kernel.Enable();
 
             ApplicationContext appContext = new ApplicationContext(mainForm);
             appContext.ThreadExit += new EventHandler(OnApplicationExit);
