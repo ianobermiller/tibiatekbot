@@ -40,7 +40,7 @@ namespace TibiaTekPlus
 
         #region Objects/Variables
 
-        Tibia.Objects.Client client;
+        Tibia.Objects.Client client = null;
         public Tibia.Util.Timer timer;
         public PluginCollection plugins;
 

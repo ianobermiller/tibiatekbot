@@ -58,7 +58,10 @@ namespace TibiaTekPlus
             
             //ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).Save(ConfigurationSaveMode.Minimal, true);
             //ConfigurationManager.RefreshSection("appSettings");
-  
+        }
+
+        private void b_Click(object sender, System.Windows.RoutedEventArgs e){
+            
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -74,28 +77,24 @@ namespace TibiaTekPlus
 
         private void listView1_ItemActivate(object sender, EventArgs e)
         {
-            if (listView1.FocusedItem == null)
-                return;
-            ListViewItem item = listView1.FocusedItem;
-            if (item == null)
-                return;
-            if (item.Tag == null)
-                return;
-            switch (item.Tag.ToString())
-            {
-                case "pluginManager":
-                    Kernel.pluginsForm.Show();
-                    break;
-                case "customize":
+            //if (listView1.FocusedItem == null)
+            //    return;
+            //ListViewItem item = listView1.FocusedItem;
+            //if (item == null)
+            //    return;
+            //if (item.Tag == null)
+            //    return;
+            //switch (item.Tag.ToString())
+            //{
+            //    case "pluginManager":
+            //        Kernel.pluginsForm.Show();
+            //        break;
+            //    case "customize":
                     
-                    break;
-            }
+            //        break;
+            //}
         }
 
-        private void elementHost1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
-        }
 
 
     }
