@@ -49,7 +49,7 @@ namespace TibiaTekPlus
             
             // Install pending plug-ins
             kernel.PerformPluginInstallation();
-            splashScreenForm.Percent = 5;
+            splashScreenForm.Percent = 10;
 
             if (kernel.InstalledPluginsCount > 0)
             {
