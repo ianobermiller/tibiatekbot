@@ -3762,11 +3762,13 @@ ContinueAttack:
                     System.Threading.Thread.Sleep(300)
 
                     SPB.CharacterTurn(MyLastDirection)
+
+                    LastActivity = Date.Now
+
                     If AntiLogoutMoveNow Then
                         AntiLogoutObj.StopTimer()
                         AntiLogoutObj.Interval = Consts.AntiLogoutInterval
                         AntiLogoutObj.StartTimer()
-                        LastActivity = Date.Now
                         AntiLogoutMoveNow = False
                     End If
 
