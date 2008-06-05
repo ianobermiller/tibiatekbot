@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="TibiaTekPlus.Main"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     Width="500" Height="400" Background="White" Canvas.Left="0" Canvas.Top="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Top">
+    <Grid Width="500" Height="400" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="False" ClipToBounds="True" SnapsToDevicePixels="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="377*" />
+            <RowDefinition Height="23*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="164*" MinWidth="150" />
+            <ColumnDefinition Width="5" MinWidth="5" />
+            <ColumnDefinition Width="328*" />
+        </Grid.ColumnDefinitions>
+       
+        <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Background="Silver"></Border>
+        <StatusBar Height="23" Name="statusBar1" VerticalAlignment="Bottom" Grid.Row="1" Grid.ColumnSpan="3" />
+        <TreeView Name="MainTreeView" Margin="0,24,0,0"  SelectedItemChanged="MainTreeView_SelectedItemChange">
+            <TreeViewItem Header="General Purpose" Name="GeneralCategory" />
+            <TreeViewItem Header="Informative" Name="InformativeCategory" />
+            <TreeViewItem Header="Supportive" Name="SupportiveCategory" />
+            <TreeViewItem Header="Miscellaneous" Name="MiscellaneousCategory" />
+            <TreeViewItem Header="Tools" Name="ToolsCategory">
+                <TreeViewItem Header="Plug-in Manager" Name="PluginManagerItem" />
+            </TreeViewItem>
+        </TreeView>
+        <ContentControl Name="ContentCell" Grid.Column="2" />
+        <TextBlock Name="textBlock1" Margin="0,0,0,353" Text="Categories" HorizontalAlignment="Center" VerticalAlignment="Center" />
+       
+    </Grid>
+</UserControl>
