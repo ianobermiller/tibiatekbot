@@ -2464,13 +2464,22 @@ Public Module KernelModule
             Try
                 Dim TileObj As IMapTiles.TileObject
                 Dim TileObjects() As IMapTiles.TileObject
+                Dim HasTopOrder As Integer
                 For Left As Integer = 1 To 17
                     For Top As Integer = 1 To 13
                         Dim Dist As Double = Math.Sqrt(Math.Pow(Left - 8, 2) + Math.Pow(Top - 6, 2))
                         If Dist <= MaxDistance Then
                             TileObjects = Client.MapTiles.GetTileObjects(Left, Top, Client.MapTiles.WorldZToClientZ(CharacterLoc.Z))
+                            HasTopOrder = 0
                             For Each TileObj In TileObjects
+                                If Kernel.Client.Objects.HasFlags(TileObj.GetObjectID, IObjects.ObjectFlags.TopOrder1) Then HasTopOrder += 1
+                                If Kernel.Client.Objects.HasFlags(TileObj.GetObjectID, IObjects.ObjectFlags.TopOrder2) Then HasTopOrder += 1
+                                If Kernel.Client.Objects.HasFlags(TileObj.GetObjectID, IObjects.ObjectFlags.TopOrder3) Then HasTopOrder += 1
+
                                 If Client.Objects.IsKind(TileObj.GetObjectID, IObjects.ObjectKind.Food) Then
+                                    If TileObj.GetStackPosition > (1 + HasTopOrder) Then
+                                        Continue For
+                                    End If
                                     Dim SP As New ServerPacketBuilder(Proxy)
                                     SP.UseObject(TileObj.GetObjectID, TileObj.GetMapLocation)
                                     'Proxy.SendPacketToServer(UseObject(TileObj.GetObjectID, TileObj.GetMapLocation))
