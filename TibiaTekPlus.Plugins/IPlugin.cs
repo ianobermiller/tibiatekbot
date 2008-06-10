@@ -58,6 +58,11 @@ namespace TibiaTekPlus.Plugins
         string Description { get; }
 
         /// <summary>
+        /// Gets the category of this plug-in.
+        /// </summary>
+        string Category { get; }
+
+        /// <summary>
         /// Gets an array of strings containing the supported Tibia versions of this plug-in.
         /// </summary>
         string[] SupportedTibiaVersions { get; }
