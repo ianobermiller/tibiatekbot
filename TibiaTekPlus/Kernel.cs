@@ -41,8 +41,8 @@ namespace TibiaTekPlus
         #region Objects/Variables
 
         Tibia.Objects.Client client = null;
-        public Tibia.Util.Timer timer;
         public PluginCollection plugins;
+        private string tibiaVersion = null;
 
         #endregion
 
@@ -55,8 +55,8 @@ namespace TibiaTekPlus
             pluginsForm = new PluginManagerForm();
 
             /* Instatiate timers */
-            timer = new Tibia.Util.Timer(3000, false);
-            timer.OnExecute += new Tibia.Util.Timer.TimerExecution(timer_OnExecute);
+            //timer = new Tibia.Util.Timer(3000, false);
+            //timer.OnExecute += new Tibia.Util.Timer.TimerExecution(timer_OnExecute);
 
             /* Plug-in related */
             plugins = new PluginCollection();
@@ -155,6 +155,10 @@ namespace TibiaTekPlus
             {
                 return client;
             }
+            set
+            {
+                client = value;
+            }
         }
 
         public int PerformPluginUninstallation()
@@ -243,6 +247,21 @@ namespace TibiaTekPlus
                 }
             }
             return count;
+        }
+
+        /// <summary>
+        /// Gets or sets the current Tibia version
+        /// </summary>
+        public string TibiaVersion
+        {
+            get
+            {
+                return tibiaVersion;
+            }
+            set
+            {
+                tibiaVersion = value;
+            }
         }
 
     }

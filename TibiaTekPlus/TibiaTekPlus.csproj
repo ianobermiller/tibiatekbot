@@ -73,8 +73,8 @@
     </Compile>
     <Compile Include="Kernel.cs" />
     <Compile Include="Kernel.Timers.cs" />
-    <Compile Include="Pages\Main.xaml.cs">
-      <DependentUpon>Main.xaml</DependentUpon>
+    <Compile Include="Presentations\MainFormPresentation.xaml.cs">
+      <DependentUpon>MainFormPresentation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -89,7 +89,7 @@
     <Compile Include="Forms\PluginManagerForm.Designer.cs">
       <DependentUpon>PluginManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PluginManager.xaml.cs">
+    <Compile Include="Presentations\PluginManager.xaml.cs">
       <DependentUpon>PluginManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -161,11 +161,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Pages\Main.xaml">
+    <Page Include="Presentations\MainFormPresentation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PluginManager.xaml">
+    <Page Include="Presentations\PluginManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
