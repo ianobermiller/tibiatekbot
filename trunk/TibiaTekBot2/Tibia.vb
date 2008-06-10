@@ -832,7 +832,7 @@ Public NotInheritable Class Tibia
             _Objects = New Objects(Me)
 
 
-            Dim PipeNum As Integer = (New Random(System.DateTime.Now.Millisecond)).Next(10000, 100000)
+            Dim PipeNum As Integer = (New Random((System.DateTime.Now.Hour * 1000 * 60) + (System.DateTime.Now.Minute * 1000) + System.DateTime.Now.Millisecond)).Next(10000, 100000)
             _PipeName = "ttb" & PipeNum
             Pipe = New Pipe(_PipeName)
 
