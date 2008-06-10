@@ -122,6 +122,17 @@ namespace TibiaTekPlus.Plugins
         }
 
         /// <summary>
+        /// Gets the category of this plug-in.
+        /// </summary>
+        public virtual string Category
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets an array of strings containing the supported Tibia versions of this plug-in.
         /// </summary>
         public virtual string[] SupportedTibiaVersions
