@@ -36,12 +36,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="PresentationFramework">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -51,18 +45,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="UIAutomationProvider">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsFormsIntegration">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\About.cs">
@@ -73,9 +55,6 @@
     </Compile>
     <Compile Include="Kernel.cs" />
     <Compile Include="Kernel.Timers.cs" />
-    <Compile Include="Presentations\MainFormPresentation.xaml.cs">
-      <DependentUpon>MainFormPresentation.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,9 +67,6 @@
     </Compile>
     <Compile Include="Forms\PluginManagerForm.Designer.cs">
       <DependentUpon>PluginManagerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Presentations\PluginManager.xaml.cs">
-      <DependentUpon>PluginManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,13 +113,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\TibiaAPI\tibiaapi\TibiaAPI.csproj">
+      <Project>{4D132EB7-B97D-461D-85CF-949FF5A7BA96}</Project>
+      <Name>TibiaAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TibiaTekPlus.Plugins\TibiaTekPlus.Plugins.csproj">
       <Project>{9E190375-D8FD-4847-B5DB-05455A4B98D2}</Project>
       <Name>TibiaTekPlus.Plugins</Name>
-    </ProjectReference>
-    <ProjectReference Include="C:\Documents and Settings\Arturo.CAMERI\My Documents\Visual Studio 2008\Projects\TibiaAPI\tibiaapi\TibiaAPI.csproj">
-      <Project>{4D132EB7-B97D-461D-85CF-949FF5A7BA96}</Project>
-      <Name>TibiaAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -156,19 +132,28 @@
     <None Include="Resources\splash.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Tibia.ico" />
+    <Content Include="HTML\common.css" />
+    <Content Include="HTML\images\icon_install.gif" />
+    <Content Include="HTML\images\icon_lightning.gif" />
+    <Content Include="HTML\images\icon_plugin.gif" />
+    <Content Include="HTML\images\icon_plugin_add.gif" />
+    <Content Include="HTML\images\plugins_bottom.gif" />
+    <Content Include="HTML\images\plugins_bottom_left.gif" />
+    <Content Include="HTML\images\plugins_bottom_right.gif" />
+    <Content Include="HTML\images\plugins_left.gif" />
+    <Content Include="HTML\images\plugins_right.gif" />
+    <Content Include="HTML\images\plugins_title.gif" />
+    <Content Include="HTML\images\plugins_top_left.gif" />
+    <Content Include="HTML\images\plugins_top_right.gif" />
+    <Content Include="HTML\images\ttplugin_noicon.gif" />
+    <Content Include="HTML\menu.htm" />
     <Content Include="TibiaTekPlus.Plugins.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Presentations\MainFormPresentation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Presentations\PluginManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Folder Include="Presentations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
