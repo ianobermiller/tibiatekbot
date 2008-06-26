@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TibiaTekPlus", "TibiaTekPlu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TibiaTekPlus.Plugins", "..\TibiaTekPlus.Plugins\TibiaTekPlus.Plugins.csproj", "{9E190375-D8FD-4847-B5DB-05455A4B98D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TibiaAPI", "C:\Documents and Settings\Arturo.CAMERI\My Documents\Visual Studio 2008\Projects\TibiaAPI\tibiaapi\TibiaAPI.csproj", "{4D132EB7-B97D-461D-85CF-949FF5A7BA96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TibiaAPI", "..\..\..\TibiaAPI\tibiaapi\TibiaAPI.csproj", "{4D132EB7-B97D-461D-85CF-949FF5A7BA96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
