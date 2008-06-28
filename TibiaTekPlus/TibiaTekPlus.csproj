@@ -134,9 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Tibia.ico" />
-    <None Include="Eval.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="HTML\common.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
