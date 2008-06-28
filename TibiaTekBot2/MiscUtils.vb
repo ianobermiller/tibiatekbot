@@ -282,6 +282,14 @@ Module MiscUtils
     End Function
 
     Public Sub ShowError(ByRef Ex As Exception)
-        MessageBox.Show(BotName & " " & BotVersion & vbCrLf & "TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box or press Ctrl+C to copy the text.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        If Consts.ShowErrorMessages Then
+            MessageBox.Show(BotName & " " & BotVersion & vbCrLf & "TargetSite: " & Ex.TargetSite.Name & vbCrLf & "Message: " & Ex.Message & vbCrLf & "Source: " & Ex.Source & vbCrLf & "Stack Trace: " & Ex.StackTrace & vbCrLf & vbCrLf & "Please report this error to the developers, be sure to take a screenshot of this message box or press Ctrl+C to copy the text.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Public Sub ShowError(ByRef Message As String)
+        If Consts.ShowErrorMessages Then
+            MessageBox.Show(Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
     End Sub
 End Module

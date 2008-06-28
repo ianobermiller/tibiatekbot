@@ -55,6 +55,7 @@ Public Module ConstantsModule
         Public FlashTaskbarWhenMessaged As Boolean = False
         Public FlashTaskbarWhenPMOnly As Boolean = True
         Public FlashTaskbarWhenSpell As Boolean = False
+        Public WalkToTheCorposeToOpenIt As Boolean = False
         Public LootEatFromCorpse As Boolean = True
         Public LootMaxDistance As Double = 2.9
         Public WaypointMaxDistance As Integer = 100
@@ -191,6 +192,8 @@ Public Module ConstantsModule
         Public MapObjectExtraDataOffset As Integer = &HC
         Public MapObjectDist As Integer = &HC
         Public MapTileDist As Integer = &HAC
+
+        Public ShowErrorMessages As Boolean = True
 
         Public DebugOnLog As Boolean = False
 
@@ -574,6 +577,8 @@ Public Module ConstantsModule
                                                     MapObjectDist = CInt(Value)
                                                 Case "MapTileDist"
                                                     MapTileDist = CInt(Value)
+                                                Case "ShowErrorMessages"
+                                                    ShowErrorMessages = System.Boolean.Parse(Value)
                                                 Case "DebugOnLog"
                                                     DebugOnLog = System.Boolean.Parse(Value)
                                                 Case "ClearLogOnStartup"
@@ -676,6 +681,8 @@ Public Module ConstantsModule
                                                     NameSpyDefault = CInt(Value)
                                                 Case "NameSpy2Default"
                                                     NameSpy2Default = CInt(Value)
+                                                Case "WalkToTheCorposeToOpenIt"
+                                                    WalkToTheCorposeToOpenIt = System.Boolean.Parse(Value)
                                                 Case "LootWithCavebot"
                                                     LootWithCavebot = System.Boolean.Parse(Value)
                                                 Case "CavebotLootMinCap"
@@ -822,7 +829,7 @@ Public Module ConstantsModule
                 End While
                 Reader.Close()
             Catch Ex As Exception
-                MessageBox.Show("Failed to load Constants.xml properly. Error Message: " & Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ShowError("Failed to load Constants.xml properly. Error Message: " & Ex.Message)
                 End
             End Try
         End Sub

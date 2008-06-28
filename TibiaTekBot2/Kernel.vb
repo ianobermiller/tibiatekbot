@@ -4112,7 +4112,7 @@ ContinueAttack:
                 IRCClient.User = Environment.MachineName
                 IRCClient.Invisible = True
                 If Not IRCClient.Connect Then
-                    ConsoleError("Unable to connect to ")
+                    ConsoleError("Unable to connect to " & IRCClient.Server)
                     Exit Sub
                 End If
                 IRCClient.DoMainThread()
@@ -5553,9 +5553,11 @@ ContinueAttack:
                                             LooterItemID = ID
                                             LooterLoc = Loc
                                             'If Not BGWLooter.IsBusy Then BGWLooter.RunWorkerAsync()
-                                            If IsOpenTibiaServer Then
-                                                Client.CharacterMove(Loc)
-                                                ' Dim TileObj As IMapTiles.TileObject
+                                            If IsOpenTibiaServer And Consts.WalkToTheCorposeToOpenIt Then
+                                                BL.JumpToEntity(IBattlelist.SpecialEntity.Myself)
+                                                If BL.GetDistanceFromLocation(Loc) > 1.42 Then
+                                                    Client.CharacterMove(Loc)
+                                                End If
                                             End If
                                             LootMonster()
                                         End If

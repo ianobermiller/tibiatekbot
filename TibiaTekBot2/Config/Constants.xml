@@ -32,11 +32,13 @@
   <Const Name="CreatureExpMultiplier" Value="1.0" />
   <Const Name="ShowInvisibleCreatures" Value="True" />
   <Const Name="MusicalNotesOnAlarm" Value="True" />
+  <Const Name="ShowErrorMessages" Value="True" />
   <Const Name="DebugOnLog" Value="False" />
   <Const Name="ClearLogOnStartup" Value="True" />
   <Const Name="LootWithCavebot" Value="True" />
   <Const Name="CavebotLootMinCap" Value="10" />
   <Const Name="CavebotAttackerRadius" Value="5.0" />
+  <const Name="WalkToTheCorposeToOpenIt" Value="False" />
   <Const Name="LootDelay" Value="500" />
   <Const Name="LootInBag" Value="True" />
   <Const Name="LootInBagDelay" Value="500" />
