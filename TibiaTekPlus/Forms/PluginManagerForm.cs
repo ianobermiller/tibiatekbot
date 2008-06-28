@@ -83,6 +83,16 @@ namespace TibiaTekPlus
 
                         XmlElement plugins = (XmlElement)document["plugins"];
 
+                        // Check if the plug-in is scheduled to be uninstalled
+                        foreach (XmlElement uninstallPlugin in plugins["pending"]["uninstall"])
+                        {
+                            if (fname.Equals(uninstallPlugin.GetAttribute("fullname")) && plugin.Version.Equals(uninstallPlugin.GetAttribute("version")))
+                            {
+                                MessageBox.Show("This plug-in is scheduled to be uninstalled. Please close all instances of TibiaTek Plus first.");
+                                break;
+                            }
+                        }
+
                         // Check if the plug-in is scheduled to be installed
                         foreach (XmlElement installPlugin in plugins["pending"]["install"])
                         {
@@ -90,16 +100,6 @@ namespace TibiaTekPlus
                             if (fname.Equals(installPlugin.GetAttribute("fullname")))
                             {
                                 MessageBox.Show("This plug-in is already scheduled to be installed. Please close all instances of TibiaTek Plus first.");
-                                break;
-                            }
-                        }
-
-                        // Check if the plug-in is scheduled to be uninstalled
-                        foreach (XmlElement uninstallPlugin in plugins["pending"]["uninstall"])
-                        {
-                            if (fname.Equals(uninstallPlugin.GetAttribute("fullname")) && plugin.Version.Equals(uninstallPlugin.GetAttribute("version")))
-                            {
-                                MessageBox.Show("This plug-in is scheduled to be uninstalled. Please close all instances of TibiaTek Plus first.");
                                 break;
                             }
                         }

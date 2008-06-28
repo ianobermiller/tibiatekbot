@@ -11,7 +11,7 @@ using TibiaTekPlus.Plugins;
 
 namespace TibiaTekPlus
 {
-    public partial class Kernel
+    public partial class Kernel : Plugins.PluginHost
     {
         #region Events
 
@@ -32,9 +32,14 @@ namespace TibiaTekPlus
         #region Forms
 
         /// <summary>
-        /// Provides access to the Plug-ins Form
+        /// Provides access to the Plug-in Manager form.
         /// </summary>
         public PluginManagerForm pluginsForm;
+
+        /// <summary>
+        /// Provides access to the AboutForm form.
+        /// </summary>
+        public AboutForm aboutForm;
 
         #endregion
 
@@ -53,6 +58,7 @@ namespace TibiaTekPlus
         {
             /* Instantiate forms */
             pluginsForm = new PluginManagerForm();
+            aboutForm = new AboutForm();
 
             /* Instatiate timers */
             //timer = new Tibia.Util.Timer(3000, false);
