@@ -44,14 +44,23 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPlugin.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginCollection.cs" />
+    <Compile Include="PluginHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\TibiaAPI\trunk\tibiaapi\TibiaAPI.csproj">
+      <Project>{4D132EB7-B97D-461D-85CF-949FF5A7BA96}</Project>
+      <Name>TibiaAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

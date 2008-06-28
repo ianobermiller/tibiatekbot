@@ -78,11 +78,6 @@ namespace TibiaTekPlus.Plugins
         Form MainForm { get; }
 
         /// <summary>
-        /// Gets the collection of forms whithin this plug-in.
-        /// </summary>
-        FormCollection Forms { get; }
-
-        /// <summary>
         /// Gets the version of the kernel this plug-in supports. Format: "M\.m\.b\.r".
         /// Where M stands for Major version, m for Minor version, b for Build version, and r for Revision number.
         /// It must be a valid regular expression. Example: "1\.0\.\d+\.\d+".

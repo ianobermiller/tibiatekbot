@@ -77,6 +77,11 @@ namespace TibiaTekPlus
             Application.Run(appContext);
         }
 
+        static public Application Application
+        {
+            get { return Application;  }
+        }
+
         static private void kernel_PluginLoaded(Plugin plugin)
         {
             if (splashScreenForm.Percent + step <= 100)

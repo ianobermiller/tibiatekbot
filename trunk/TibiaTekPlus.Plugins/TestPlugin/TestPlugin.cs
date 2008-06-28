@@ -64,6 +64,15 @@ namespace TibiaTekPlus.Plugins
             }
         }
 
+
+        public override string Category
+        {
+            get
+            {
+                return "Miscellaneous";
+            }
+        }
+
         #endregion
 
         #region Dependencies & Support
