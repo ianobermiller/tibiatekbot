@@ -95,6 +95,8 @@ Public Module HotkeySettingsModule
                             Kernel.Client.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemOffset, Hotkeys(I).ItemID, 2)
                             Kernel.Client.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, Hotkeys(I).ItemData, 1)
                         Case HotkeyType.Text
+                            Kernel.Client.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemOffset, 0, 2)
+                            Kernel.Client.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyItemDist * I) + Consts.HotkeyItemDataOffset, 0, 1)
                             Kernel.Client.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextAutoSendDist * I) + Consts.HotkeyTextAutoSendOffset, Hotkeys(I).AutoSendText, 1)
                             Kernel.Client.WriteMemory(Consts.ptrHotkeyBegin + (Consts.HotkeyTextDist * I) + Consts.HotkeyTextOffset, Hotkeys(I).Text)
                         Case HotkeyType.None
