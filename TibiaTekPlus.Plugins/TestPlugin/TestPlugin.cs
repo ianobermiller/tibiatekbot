@@ -4,13 +4,12 @@ using System.Drawing;
 using System.Reflection;
 using TibiaTekPlus.Plugins;
 using Tibia;
-using TestPlugin;
 
 namespace TibiaTekPlus.Plugins
 {
     public class TestPlugin : TibiaTekPlus.Plugins.Plugin 
     {
-        MainForm mainForm;
+        TestPluginMainForm mainForm;
         private string[] supportedVersions = { "8.11" };
         private string supportedKernel = @"1\.\d+\.\d+\.\d+";
 
@@ -20,7 +19,8 @@ namespace TibiaTekPlus.Plugins
 
         public TestPlugin()
         {
-            mainForm = new MainForm();
+            mainForm = new TestPluginMainForm();
+            mainForm.Plugin = this;
             timer = new Tibia.Util.Timer(3000, false);
         }
         ~TestPlugin()
