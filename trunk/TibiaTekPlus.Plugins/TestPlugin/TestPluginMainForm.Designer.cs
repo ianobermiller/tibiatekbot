@@ -1,6 +1,6 @@
-﻿namespace TestPlugin
+﻿namespace TibiaTekPlus.Plugins
 {
-    partial class MainForm
+    partial class TestPluginMainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -38,7 +38,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(268, 242);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "ahuehaeuaheheuaheaheua\r\nI are t3h bestest";
             // 
             // MainForm
             // 
@@ -48,6 +47,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "MainForm";
             this.Text = "TestPlugin";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

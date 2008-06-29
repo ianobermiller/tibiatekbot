@@ -19,6 +19,7 @@ namespace TibiaTekPlus.Plugins
         private PluginState state = PluginState.Stopped;
         private bool visible = false;
         private bool enabled = false;
+        private IPluginHost host;
 
         /// <summary>
         /// Load a configuration for this plug-in.
@@ -263,6 +264,21 @@ namespace TibiaTekPlus.Plugins
             get
             {
                 return enabled;
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets a reference to the host or kernel.
+        /// </summary>
+        public IPluginHost Host
+        {
+            get
+            {
+                return host;
+            }
+            set
+            {
+                host = value;
             }
         }
     }

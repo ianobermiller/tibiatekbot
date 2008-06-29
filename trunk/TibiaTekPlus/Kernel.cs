@@ -11,7 +11,7 @@ using TibiaTekPlus.Plugins;
 
 namespace TibiaTekPlus
 {
-    public partial class Kernel : Plugins.PluginHost
+    public partial class Kernel : Plugins.IPluginHost
     {
         #region Events
 
@@ -236,20 +236,28 @@ namespace TibiaTekPlus
             string path;
             foreach (XmlElement element in document["plugins"]["installed"])
             {
-                path = Path.Combine(Application.StartupPath, element.GetAttribute("fullname") + ".dll");
-                if (File.Exists(path))
+                try
                 {
-                    Plugin plugin = (Plugin)Activator.CreateInstance(Type.GetType(element["assemblyQualifiedName"].InnerText));
-                    plugins.Add(plugin);
-                    count++;
-                    if (PluginLoaded != null)
+                    path = Path.Combine(Application.StartupPath, element.GetAttribute("fullname") + ".dll");
+                    if (File.Exists(path))
                     {
-                        PluginLoaded.Invoke(plugin);
+                        Plugin plugin = (Plugin)Activator.CreateInstance(Type.GetType(element["assemblyQualifiedName"].InnerText));
+                        plugin.Host = this;
+                        plugins.Add(plugin);
+                        count++;
+                        if (PluginLoaded != null)
+                        {
+                            PluginLoaded.Invoke(plugin);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to load the following plug-in:\nTitle: " + element["title"] + ".\nAuthor: " + element["author"] + ".\nReason: The file '" + element.GetAttribute("fullname") + ".dll' was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("Unable to load the following plug-in:\nTitle: " + element["title"] + ".\nAuthor: " + element["author"] + ".\nReason: The file '" + element.GetAttribute("fullname") + ".dll' was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Unable to load the following plug-in:\n" + element.GetAttribute("fullname") + ".dll.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             return count;
@@ -267,6 +275,17 @@ namespace TibiaTekPlus
             set
             {
                 tibiaVersion = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the plugins currently loaded.
+        /// </summary>
+        public PluginCollection Plugins
+        {
+            get
+            {
+                return plugins;
             }
         }
 
