@@ -2,28 +2,35 @@
 	<head>
 		<title>TibiaTek Plus Menu</title>
     <link rel="stylesheet" href="common.css" type="text/css" />
-	<script></script>
+	<script>
+		function show(elem){
+			document.getElementById(elem).style.display = 'block';
+		}
+		function hide(elem){
+			document.getElementById(elem).style.display = 'none';
+		}		
+	</script>
 	</head>
   <body>
 	<div>
-		<div id="titleGeneral" class="title_categories">General</div>
-	    <div id="contentGeneral" class="categories"><ul id="listGeneral"></ul></div>	
-		<div id="titleCombat" class="title_categories">Combat</div>
-	    <div id="contentCombat" class="categories"><ul id="listCombat"></ul></div>
-		<div id="titleTraining" class="title_categories">Training</div>
-	    <div id="contentTraining" class="categories"><ul id="listTraining"></ul></div>
-		<div id="titleSupport" class="title_categories">Support</div>
-	    <div id="contentSupport" class="categories"><ul id="listSupport"></ul></div>
-		<div id="titleInformation" class="title_categories">Information</div>
-	    <div id="contentInformation" class="categories"><ul id="listInformation"></ul></div>
-		<div id="titleCommunication" class="title_categories">Communication</div>
-	    <div id="contentCommunication" class="categories"><ul id="listCommunication"></ul></div>
-		<div id="titleFunEntertaiment" class="title_categories">Fun &amp; Entertaiment</div>
-	    <div id="contentFunEntertaiment" class="categories"><ul id="listFunEntertaiment"></ul></div>
+		<div id="titleGeneral" style="display: none;" class="title_categories">General</div>
+		<div id="contentGeneral" style="display: none;" class="categories"><ul id="listGeneral"></ul></div>
+		<div id="titleCombat" style="display: none;" class="title_categories">Combat</div>
+	    <div id="contentCombat" style="display: none;" class="categories"><ul id="listCombat"></ul></div>
+		<div id="titleTraining" style="display: none;" class="title_categories">Training</div>
+	    <div id="contentTraining" style="display: none;" class="categories"><ul id="listTraining"></ul></div>
+		<div id="titleSupport" style="display: none;" class="title_categories">Support</div>
+	    <div id="contentSupport" style="display: none;" class="categories"><ul id="listSupport"></ul></div>
+		<div id="titleInformation" style="display: none;" class="title_categories">Information</div>
+	    <div id="contentInformation" style="display: none;" class="categories"><ul id="listInformation"></ul></div>
+		<div id="titleCommunication" style="display: none;" class="title_categories">Communication</div>
+	    <div id="contentCommunication" style="display: none;" class="categories"><ul id="listCommunication"></ul></div>
+		<div id="titleFunEntertaiment" style="display: none;" class="title_categories">Fun &amp; Entertaiment</div>
+	    <div id="contentFunEntertaiment" style="display: none;" class="categories"><ul id="listFunEntertaiment"></ul></div>
 		<div id="titleTools" class="title_categories">Tools</div>
 		<div id="contentTools" class="categories"><ul id="listTools"><li><a href="internal:?name=pluginManager&action=show">Plug-in Manager</a></li></ul></div>
-		<div id="titleMiscellaneous" class="title_categories">Miscellaneous</div>
-		<div id="contentMiscellaneous" class="categories"><ul id="listMiscellaneous"></ul></div>
+		<div id="titleMiscellaneous" style="display: none;" class="title_categories">Miscellaneous</div>
+		<div id="contentMiscellaneous" style="display: none;" class="categories"><ul id="listMiscellaneous"></ul></div>
 	</div>
   </body>
 </html>
