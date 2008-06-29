@@ -76,7 +76,7 @@ namespace TibiaTekPlus
 
                         /*  */
                         Plugin plugin = (Plugin)domain.CreateInstanceAndUnwrap(fname, fname);
-                        //MessageBox.Show(plugin.Title);
+                        //MessageBox.Show(pluginManager.Title);
 
                         XmlDocument document = new XmlDocument();
                         document.Load("TibiaTekPlus.Plugins.xml");
@@ -96,7 +96,7 @@ namespace TibiaTekPlus
                         // Check if the plug-in is scheduled to be installed
                         foreach (XmlElement installPlugin in plugins["pending"]["install"])
                         {
-                            //MessageBox.Show(plugin.Version + "=" + installPlugin.GetAttribute("fullname"));
+                            //MessageBox.Show(pluginManager.Version + "=" + installPlugin.GetAttribute("fullname"));
                             if (fname.Equals(installPlugin.GetAttribute("fullname")))
                             {
                                 MessageBox.Show("This plug-in is already scheduled to be installed. Please close all instances of TibiaTek Plus first.");
@@ -114,7 +114,7 @@ namespace TibiaTekPlus
                             }
                         }
 
-                        XmlElement xplugin = document.CreateElement("plugin");
+                        XmlElement xplugin = document.CreateElement("pluginManager");
 
                         // Full Name
                         XmlAttribute fullname = document.CreateAttribute("fullname");

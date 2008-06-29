@@ -16,13 +16,13 @@ namespace TibiaTekPlus
         #region Events
 
         /// <summary>
-        /// Prototype for plugin notifications.
+        /// Prototype for pluginManager notifications.
         /// </summary>
-        /// <param name="plugin"></param>
+        /// <param name="pluginManager"></param>
         public delegate void PluginNotification(Plugin plugin);
 
         /// <summary>
-        /// Event fired when a plugin is loaded.
+        /// Event fired when a pluginManager is loaded.
         /// </summary>
         public PluginNotification PluginLoaded;
 

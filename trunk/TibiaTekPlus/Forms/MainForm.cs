@@ -9,9 +9,9 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 using TibiaTekPlus.Plugins;
-using Microsoft.CSharp;
 using System.Text;
-using System.CodeDom.Compiler;
+using System.Text.RegularExpressions;
+
 namespace TibiaTekPlus
 {
     public partial class MainForm : Form
@@ -57,15 +57,49 @@ namespace TibiaTekPlus
             if (e.Url.Scheme.Equals("internal"))
             {
                 e.Cancel = true;
-
-                foreach (IPlugin plugin in Kernel.plugins)
-                {
-                    if (e.Url.PathAndQuery.Equals(plugin.GetType().ToString())) {
-                        plugin.MainForm.Show();
+                NameValueCollection nvc = System.Web.HttpUtility.ParseQueryString(e.Url.Query);
+                switch (e.Url.AbsolutePath.ToLower()){
+                    case "":
+                        {
+                            string name = nvc.GetValues("name")[0];
+                            string action = nvc.GetValues("action")[0];
+                            switch(name){
+                                case "pluginManager":
+                                    {
+                                        switch (action)
+                                        {
+                                            case "show":
+                                                {
+                                                    Kernel.pluginsForm.Show();
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
                         break;
-                    }
+                    case "plugins":
+                        {
+                            string type = nvc.GetValues("type")[0];
+                            string action = nvc.GetValues("action")[0];
+                            foreach (IPlugin plugin in Kernel.plugins)
+                            {
+                                if (plugin.GetType().ToString().Equals(type))
+                                {
+                                    switch(action){
+                                        case "show":
+                                            {
+                                                plugin.MainForm.Show();
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        break;
                 }
-                
             }
         }
 
@@ -89,11 +123,10 @@ namespace TibiaTekPlus
                                 if (plugin.MainForm is Form)
                                 {
                                     HtmlElement a = document.CreateElement("a");
-                                    a.SetAttribute("href", String.Format("internal:{0}",plugin.GetType()));
+                                    a.SetAttribute("href", String.Format("internal:plugins?type={0}&action=show",plugin.GetType()));
                                     a.InnerText = plugin.Title;
                                     li.AppendChild(a);
                                 }
-
                             } catch(NotImplementedException){
                             }
                             HtmlElement ul = document.GetElementById(String.Concat("list",category));
