@@ -110,6 +110,7 @@ namespace TibiaTekPlus
             HtmlDocument document = menuWebBrowser.Document;
             HtmlElementCollection elements = document.GetElementsByTagName("div");
             string category = "";
+            
             foreach (HtmlElement element in elements)
             {
                 if (element.Id != null && element.Id.StartsWith("title")) {
@@ -129,20 +130,22 @@ namespace TibiaTekPlus
                                 }
                             } catch(NotImplementedException){
                             }
+                            
                             HtmlElement ul = document.GetElementById(String.Concat("list",category));
                             if (li.Children.Count == 0)
                             {
                                 li.InnerText = plugin.Title;
                             }
                             ul.AppendChild(li);
-                            HtmlElement divcontent = document.GetElementById(String.Concat("content",category));
-
+                            document.InvokeScript("show", new string[] {String.Concat("title",category)});
+                            document.InvokeScript("show", new string[] { String.Concat("content", category) });
                         }
                     }
                 }
             }
              
         }
+
 
     }
 }
