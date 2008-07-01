@@ -159,5 +159,15 @@ namespace TibiaTekPlus
                 elem.SetAttribute("className", "category_expand");
             }
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure that you want to close TibiaTek Plus?", "Question", MessageBoxButtons.YesNoCancel) != DialogResult.Yes)
+            {
+                e.Cancel = true;
+            }
+        }
+
+
     }
 }
