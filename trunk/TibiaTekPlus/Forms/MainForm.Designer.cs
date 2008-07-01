@@ -52,7 +52,7 @@ namespace TibiaTekPlus
             this.helpToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(240, 24);
+            this.mainMenu.Size = new System.Drawing.Size(203, 24);
             this.mainMenu.TabIndex = 2;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -128,7 +128,7 @@ namespace TibiaTekPlus
             this.menuWebBrowser.Location = new System.Drawing.Point(0, 24);
             this.menuWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.menuWebBrowser.Name = "menuWebBrowser";
-            this.menuWebBrowser.Size = new System.Drawing.Size(240, 322);
+            this.menuWebBrowser.Size = new System.Drawing.Size(203, 322);
             this.menuWebBrowser.TabIndex = 3;
             this.menuWebBrowser.WebBrowserShortcutsEnabled = false;
             this.menuWebBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.menuWebBrowser_Navigating);
@@ -138,7 +138,7 @@ namespace TibiaTekPlus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 346);
+            this.ClientSize = new System.Drawing.Size(203, 346);
             this.Controls.Add(this.menuWebBrowser);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;

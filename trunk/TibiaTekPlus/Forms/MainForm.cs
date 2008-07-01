@@ -114,38 +114,56 @@ namespace TibiaTekPlus
             foreach (HtmlElement element in elements)
             {
                 if (element.Id != null && element.Id.StartsWith("title")) {
+                    element.Children[0].Click += new HtmlElementEventHandler(evthdr);
+                    //element.Children[0].AttachEventHandler("onclick", new EventHandler(evthdr));
+
+
                     category = element.Id.Substring(5);
+
                     foreach (IPlugin plugin in Kernel.plugins) {
                         if (plugin.Category.Equals(category))
                         {
-                            HtmlElement li = document.CreateElement("li");
+                            HtmlElement a = document.CreateElement("a");
+                            a.InnerText = plugin.Title;
                             try
                             {
-                                if (plugin.MainForm is Form)
-                                {
-                                    HtmlElement a = document.CreateElement("a");
-                                    a.SetAttribute("href", String.Format("internal:plugins?type={0}&action=show",plugin.GetType()));
-                                    a.InnerText = plugin.Title;
-                                    li.AppendChild(a);
-                                }
-                            } catch(NotImplementedException){
-                            }
+                                if (plugin.MainForm is Form) a.SetAttribute("href", String.Format("internal:plugins?type={0}&action=show",plugin.GetType()));
+                            } catch(NotImplementedException){ }
                             
-                            HtmlElement ul = document.GetElementById(String.Concat("list",category));
-                            if (li.Children.Count == 0)
-                            {
-                                li.InnerText = plugin.Title;
-                            }
-                            ul.AppendChild(li);
+                            HtmlElement divlist = document.GetElementById(String.Concat("list",category));
+                            HtmlElement divtitle = document.GetElementById(String.Concat("title", category));
+
+
+                            divlist.AppendChild(a);
                             document.InvokeScript("show", new string[] {String.Concat("title",category)});
-                            document.InvokeScript("show", new string[] { String.Concat("content", category) });
+                            document.InvokeScript("show", new string[] { String.Concat("list", category) });
                         }
                     }
                 }
             }
-             
+            
         }
 
+        private void evthdr(object sender, HtmlElementEventArgs  args)
+        {
+            HtmlElement elem = (HtmlElement)sender;
+            string category = elem.Parent.Id.Substring(5);
+            HtmlElement list = elem.Document.GetElementById("list" + category);
+            
+            
+            if (elem.GetAttribute("className").Equals("category_expand"))
+            {
+                list.Style = "display: none;";
+                elem.SetAttribute("className", "category_compact");
+            }
+            else
+            {
+                list.Style = "display: block;";
+                elem.SetAttribute("className", "category_expand");
+                
+            }
+            
+        }
 
     }
 }

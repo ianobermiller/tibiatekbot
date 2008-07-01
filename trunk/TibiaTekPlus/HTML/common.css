@@ -24,6 +24,7 @@ a.category_expand {
 	background:url('images/category_expand.gif') repeat-x top left;
 	width:180px;
 	font-weight:bold;
+	cursor:pointer;
 }
 a.category_expand:hover {
 	background:url('images/category_expand_hover.gif') repeat-x top left;
@@ -33,6 +34,7 @@ a.category_compact {
 	width:180px;
 	height:24px;
 	font-weight:bold;
+	cursor:pointer;
 }
 a.category_compact:hover {
 	background:url('images/category_compact_hover.gif') repeat-x top left;
