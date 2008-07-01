@@ -10,6 +10,19 @@ body {
 	background:#e4e4e4;
 	margin:0;
 	padding:0;
+	scrollbar-face-color:#e4e4e4;
+  scrollbar-arrow-color:#61646b;
+  scrollbar-track-color:#e4e4e4;
+  scrollbar-shadow-color:#61646b;
+  scrollbar-highlight-color:#fffffff;
+  scrollbar-3dlight-color:#b5b5b5;
+  scrollbar-darkshadow-Color:#61646b;
+
+
+
+
+
+
 }
 img {
 	border:0;
