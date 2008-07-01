@@ -108,15 +108,13 @@ namespace TibiaTekPlus
         private void menuWebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             HtmlDocument document = menuWebBrowser.Document;
-            HtmlElementCollection elements = document.GetElementsByTagName("div");
+            HtmlElementCollection elements = document.GetElementById("menuz").Children;
             string category = "";
             
             foreach (HtmlElement element in elements)
             {
                 if (element.Id != null && element.Id.StartsWith("title")) {
                     element.Children[0].Click += new HtmlElementEventHandler(evthdr);
-                    //element.Children[0].AttachEventHandler("onclick", new EventHandler(evthdr));
-
 
                     category = element.Id.Substring(5);
 
@@ -125,6 +123,7 @@ namespace TibiaTekPlus
                         {
                             HtmlElement a = document.CreateElement("a");
                             a.InnerText = plugin.Title;
+                            a.SetAttribute("className", "item");
                             try
                             {
                                 if (plugin.MainForm is Form) a.SetAttribute("href", String.Format("internal:plugins?type={0}&action=show",plugin.GetType()));
@@ -133,10 +132,9 @@ namespace TibiaTekPlus
                             HtmlElement divlist = document.GetElementById(String.Concat("list",category));
                             HtmlElement divtitle = document.GetElementById(String.Concat("title", category));
 
-
+                            divlist.Style = "display: block;";
+                            divtitle.Style = "display: block;";
                             divlist.AppendChild(a);
-                            document.InvokeScript("show", new string[] {String.Concat("title",category)});
-                            document.InvokeScript("show", new string[] { String.Concat("list", category) });
                         }
                     }
                 }
@@ -150,7 +148,6 @@ namespace TibiaTekPlus
             string category = elem.Parent.Id.Substring(5);
             HtmlElement list = elem.Document.GetElementById("list" + category);
             
-            
             if (elem.GetAttribute("className").Equals("category_expand"))
             {
                 list.Style = "display: none;";
@@ -160,10 +157,7 @@ namespace TibiaTekPlus
             {
                 list.Style = "display: block;";
                 elem.SetAttribute("className", "category_expand");
-                
             }
-            
         }
-
     }
 }
