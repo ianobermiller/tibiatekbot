@@ -59,7 +59,7 @@ namespace TibiaTekPlus
             /* Instantiate forms */
             pluginsForm = new PluginManagerForm();
             aboutForm = new AboutForm();
-
+            
             /* Instatiate timers */
             //timer = new Tibia.Util.Timer(3000, false);
             //timer.OnExecute += new Tibia.Util.Timer.TimerExecution(timer_OnExecute);
@@ -288,7 +288,10 @@ namespace TibiaTekPlus
                 return plugins;
             }
         }
-
+        public void OnClientExit()
+        {
+            Environment.Exit(0);
+        }
     }
 
     /// <summary>
