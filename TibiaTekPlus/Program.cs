@@ -66,6 +66,10 @@ namespace TibiaTekPlus
 
             splashScreenForm.Close();
 
+            // Gets the client
+            kernel.Client = Tibia.Util.ClientChooserWPF.ShowBox();
+            if (kernel.Client == null) Environment.Exit(0);
+
             // Create the main form
             mainForm = new MainForm();
 
