@@ -32,10 +32,6 @@ namespace TibiaTekPlus
             
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void plugInManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -49,7 +45,7 @@ namespace TibiaTekPlus
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            menuWebBrowser.Url = new System.Uri(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), @"HTML\menu.htm"));
+            menuWebBrowser.Url = new System.Uri(System.IO.Path.Combine(Kernel.Skin.Path, @"menu.htm"));
         }
 
         private void menuWebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -103,8 +99,6 @@ namespace TibiaTekPlus
             }
         }
 
-
-
         private void menuWebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             HtmlDocument document = menuWebBrowser.Document;
@@ -115,7 +109,8 @@ namespace TibiaTekPlus
             {
                 if (element.Id != null && element.Id.StartsWith("title")) {
                     element.Children[0].Click += new HtmlElementEventHandler(evthdr);
-
+                    element.Children[0].MouseEnter += new HtmlElementEventHandler(element_MouseEnter);
+                    element.Children[0].MouseLeave += new HtmlElementEventHandler(element_MouseLeave);
                     category = element.Id.Substring(5);
 
                     foreach (IPlugin plugin in Kernel.plugins) {
@@ -124,6 +119,9 @@ namespace TibiaTekPlus
                             HtmlElement a = document.CreateElement("a");
                             a.InnerText = plugin.Title;
                             a.SetAttribute("className", "item");
+                            a.SetAttribute("title", plugin.Description);
+                            a.MouseEnter += new HtmlElementEventHandler(a_MouseEnter);
+                            a.MouseLeave += new HtmlElementEventHandler(a_MouseLeave);
                             try
                             {
                                 if (plugin.MainForm is Form) a.SetAttribute("href", String.Format("internal:plugins?type={0}&action=show",plugin.GetType()));
@@ -132,7 +130,7 @@ namespace TibiaTekPlus
                             HtmlElement divlist = document.GetElementById(String.Concat("list",category));
                             HtmlElement divtitle = document.GetElementById(String.Concat("title", category));
 
-                            divlist.Style = "display: block;";
+                            //divlist.Style = "display: block;";
                             divtitle.Style = "display: block;";
                             divlist.AppendChild(a);
                         }
@@ -140,6 +138,38 @@ namespace TibiaTekPlus
                 }
             }
             
+        }
+
+        void element_MouseLeave(object sender, HtmlElementEventArgs e)
+        {
+            statusBarLabel.Text = Language.statusBarLabelText_Ready;
+        }
+
+        void element_MouseEnter(object sender, HtmlElementEventArgs e)
+        {
+
+            if (((HtmlElement)sender).GetAttribute("className").Equals("category_expand"))
+            {
+                statusBarLabel.Text = Language.menuWebBrowser_Collapse;
+            }
+            else
+            {
+                statusBarLabel.Text = Language.menuWebBrowser_Expand;
+            }
+        }
+
+        void a_MouseLeave(object sender, HtmlElementEventArgs e)
+        {
+            statusBarLabel.Text = Language.statusBarLabelText_Ready;
+        }
+
+        void a_MouseEnter(object sender, HtmlElementEventArgs e)
+        {
+            try
+            {
+                statusBarLabel.Text = ((HtmlElement)sender).GetAttribute("title");
+            }catch(Exception){
+            }
         }
 
         private void evthdr(object sender, HtmlElementEventArgs  args)
@@ -162,10 +192,15 @@ namespace TibiaTekPlus
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Are you sure that you want to close TibiaTek Plus?", "Question", MessageBoxButtons.YesNoCancel) != DialogResult.Yes)
+            if (MessageBox.Show(Language.mainForm_FormClosing, Language.Question, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
             {
                 e.Cancel = true;
             }
+        }
+
+        private void optionsSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
         }
 
 

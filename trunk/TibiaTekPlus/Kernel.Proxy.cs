@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TibiaTekPlus
 {
-    partial class Kernel
+    public partial class Kernel
     {
         // proxy stuff here
     }
