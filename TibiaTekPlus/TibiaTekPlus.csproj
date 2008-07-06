@@ -39,10 +39,14 @@
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
@@ -75,6 +79,11 @@
     <Compile Include="Forms\PluginManagerForm.Designer.cs">
       <DependentUpon>PluginManagerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Language.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
@@ -87,6 +96,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PluginManagerForm.resx">
       <DependentUpon>PluginManagerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Language.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -136,82 +154,99 @@
     <None Include="Resources\splash_bar.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kernel.Skins.cs" />
+    <Compile Include="OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Skin.cs" />
+    <Compile Include="TibiaTekPlus.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>TibiaTekPlus.settings</DependentUpon>
+    </Compile>
     <None Include="Resources\splash.bmp" />
+    <None Include="TibiaTekPlus.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>TibiaTekPlus.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Tibia.ico" />
-    <Content Include="HTML\common.css">
+    <Content Include="Skins\Default\common.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\category_compact.gif">
+    <Content Include="Skins\Default\Default.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\category_compact_hover.gif">
+    <Content Include="Skins\Default\images\category_compact.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\category_expand.gif">
+    <Content Include="Skins\Default\images\category_compact_hover.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\category_expand_hover.gif">
+    <Content Include="Skins\Default\images\category_expand.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\icon_install.gif">
+    <Content Include="Skins\Default\images\category_expand_hover.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\icon_lightning.gif">
+    <Content Include="Skins\Default\images\icon_install.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\icon_plugin.gif">
+    <Content Include="Skins\Default\images\icon_lightning.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\icon_plugin_add.gif">
+    <Content Include="Skins\Default\images\icon_plugin.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\item_active.gif">
+    <Content Include="Skins\Default\images\icon_plugin_add.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\item_hover.gif">
+    <Content Include="Skins\Default\images\item_active.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\item_inactive.gif">
+    <Content Include="Skins\Default\images\item_hover.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\plugins_bottom.gif">
+    <Content Include="Skins\Default\images\item_inactive.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\plugins_bottom_left.gif">
+    <Content Include="Skins\Default\images\plugins_bottom.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\plugins_bottom_right.gif">
+    <Content Include="Skins\Default\images\plugins_bottom_left.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\plugins_left.gif">
+    <Content Include="Skins\Default\images\plugins_bottom_right.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\plugins_right.gif">
+    <Content Include="Skins\Default\images\plugins_left.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\plugins_title.gif">
+    <Content Include="Skins\Default\images\plugins_right.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\plugins_top_left.gif">
+    <Content Include="Skins\Default\images\plugins_title.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\plugins_top_right.gif">
+    <Content Include="Skins\Default\images\plugins_top_left.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\images\ttplugin_noicon.gif">
+    <Content Include="Skins\Default\images\plugins_top_right.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HTML\menu.htm">
+    <Content Include="Skins\Default\images\ttplugin_noicon.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\Default\menu.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TibiaTekPlus.Plugins.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

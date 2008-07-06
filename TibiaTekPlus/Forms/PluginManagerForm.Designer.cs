@@ -101,13 +101,13 @@
             this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "&Check for Updates";
             // 
-            // statusStrip1
+            // statusBar
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 440);
-            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Name = "statusBar";
             this.statusStrip1.Size = new System.Drawing.Size(489, 22);
             this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.Text = "statusBar";
             // 
             // openPluginDialog
             // 

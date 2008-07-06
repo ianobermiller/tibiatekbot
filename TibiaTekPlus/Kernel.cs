@@ -37,9 +37,14 @@ namespace TibiaTekPlus
         public PluginManagerForm pluginsForm;
 
         /// <summary>
-        /// Provides access to the AboutForm form.
+        /// Provides access to the About form.
         /// </summary>
         public AboutForm aboutForm;
+
+        /// <summary>
+        /// Provides access to the Options form.
+        /// </summary>
+        public OptionsForm optionsForm;
 
         #endregion
 
@@ -48,6 +53,7 @@ namespace TibiaTekPlus
         Tibia.Objects.Client client = null;
         public PluginCollection plugins;
         private string tibiaVersion = null;
+        private Skin skin;
 
         #endregion
 
@@ -66,6 +72,9 @@ namespace TibiaTekPlus
 
             /* Plug-in related */
             plugins = new PluginCollection();
+
+            /* Skin related */
+            skin = new Skin(TibiaTekPlus.Default.Skin);
         }
 
         /// <summary>
@@ -153,7 +162,7 @@ namespace TibiaTekPlus
         }
 
         /// <summary>
-        /// Gets a reference to the client object.
+        /// Gets or sets a reference to the client object.
         /// </summary>
         public Tibia.Objects.Client Client
         {
@@ -252,12 +261,12 @@ namespace TibiaTekPlus
                     }
                     else
                     {
-                        MessageBox.Show("Unable to load the following plug-in:\nTitle: " + element["title"] + ".\nAuthor: " + element["author"] + ".\nReason: The file '" + element.GetAttribute("fullname") + ".dll' was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(String.Format(Language.kernel_error1, element["title"], element["author"], element.GetAttribute("fullname")), Language.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Unable to load the following plug-in:\n" + element.GetAttribute("fullname") + ".dll.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format(Language.kernel_error2, element.GetAttribute("fullname")), Language.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             return count;
@@ -292,6 +301,16 @@ namespace TibiaTekPlus
         {
             Environment.Exit(0);
         }
+
+        public Skin Skin
+        {
+            get
+            {
+                return skin;
+            }
+
+        }
+
     }
 
     /// <summary>
