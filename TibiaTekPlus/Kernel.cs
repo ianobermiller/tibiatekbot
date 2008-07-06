@@ -74,7 +74,7 @@ namespace TibiaTekPlus
             plugins = new PluginCollection();
 
             /* Skin related */
-            skin = new Skin(TibiaTekPlus.Default.Skin);
+            skin = new Skin(Settings.Default.Skin);
         }
 
         /// <summary>
@@ -173,6 +173,10 @@ namespace TibiaTekPlus
             set
             {
                 client = value;
+                if (client != null)
+                {
+                    client.OnExit += new Tibia.Objects.Client.ClientNotification(OnClientExit);
+                }
             }
         }
 
@@ -297,6 +301,7 @@ namespace TibiaTekPlus
                 return plugins;
             }
         }
+
         public void OnClientExit()
         {
             Environment.Exit(0);
@@ -308,7 +313,6 @@ namespace TibiaTekPlus
             {
                 return skin;
             }
-
         }
 
     }
