@@ -35,6 +35,8 @@ namespace TibiaTekPlus
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plugInManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.optionsSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usersGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,8 +45,7 @@ namespace TibiaTekPlus
             this.menuWebBrowser = new System.Windows.Forms.WebBrowser();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.statusBarLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.optionsSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skinsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusBar.SuspendLayout();
             this.SuspendLayout();
@@ -80,6 +81,7 @@ namespace TibiaTekPlus
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.plugInManagerToolStripMenuItem,
             this.toolStripMenuItem2,
+            this.skinsToolStripMenuItem,
             this.optionsSettingsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -91,6 +93,18 @@ namespace TibiaTekPlus
             this.plugInManagerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.plugInManagerToolStripMenuItem.Text = "&Plug-In Manager";
             this.plugInManagerToolStripMenuItem.Click += new System.EventHandler(this.plugInManagerToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(161, 6);
+            // 
+            // optionsSettingsToolStripMenuItem
+            // 
+            this.optionsSettingsToolStripMenuItem.Name = "optionsSettingsToolStripMenuItem";
+            this.optionsSettingsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.optionsSettingsToolStripMenuItem.Text = "&Options";
+            this.optionsSettingsToolStripMenuItem.Click += new System.EventHandler(this.optionsSettingsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -157,17 +171,12 @@ namespace TibiaTekPlus
             this.statusBarLabel.Size = new System.Drawing.Size(42, 17);
             this.statusBarLabel.Text = global::TibiaTekPlus.Language.statusBarLabelText_Ready;
             // 
-            // toolStripMenuItem2
+            // skinsToolStripMenuItem
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(161, 6);
-            // 
-            // optionsSettingsToolStripMenuItem
-            // 
-            this.optionsSettingsToolStripMenuItem.Name = "optionsSettingsToolStripMenuItem";
-            this.optionsSettingsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.optionsSettingsToolStripMenuItem.Text = "&Options";
-            this.optionsSettingsToolStripMenuItem.Click += new System.EventHandler(this.optionsSettingsToolStripMenuItem_Click);
+            this.skinsToolStripMenuItem.Name = "skinsToolStripMenuItem";
+            this.skinsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.skinsToolStripMenuItem.Text = "&Skins";
+            this.skinsToolStripMenuItem.DropDownOpening += new System.EventHandler(this.skinsToolStripMenuItem_DropDownOpening);
             // 
             // MainForm
             // 
@@ -210,6 +219,7 @@ namespace TibiaTekPlus
         private System.Windows.Forms.ToolStripStatusLabel statusBarLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem optionsSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem skinsToolStripMenuItem;
 
     }
 }

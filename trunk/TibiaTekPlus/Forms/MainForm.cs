@@ -203,6 +203,18 @@ namespace TibiaTekPlus
            
         }
 
+        private void skinsToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            string[] directories = Directory.GetDirectories("Skins");
+            string output = "";
+            foreach (string dir in directories)
+            {
+                output += dir + "\n";
+            }
+            MessageBox.Show(output);
+            //ToolStripMenuItem 
+        }
+
 
     }
 }

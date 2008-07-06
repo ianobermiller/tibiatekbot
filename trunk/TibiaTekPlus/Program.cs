@@ -98,14 +98,18 @@ namespace TibiaTekPlus
             {
                 splashScreenForm.Percent = 100;
             }
+            // Avoid freezing
             Application.DoEvents();
         }
 
         static private void OnApplicationExit(object sender, EventArgs e)
         {
-            // Save settings here?
-            
-            //global::TibiaTekPlus.Properties.Settings.Default
+            // Close the client
+            if (kernel.Client != null)
+                kernel.Client.Close();
+
+            // Save settings on graceful exit
+            Settings.Default.Save();
         }
 
     }
