@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	font-family:Tahoma, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#4e4e4e;
+	vertical-align:top;
+}
+body {
+	background:#e4e4e4;
+	margin:0;
+	padding:0;
+	scrollbar-face-color:#e4e4e4;
+	scrollbar-arrow-color:#61646b;
+	scrollbar-track-color:#e4e4e4;
+	scrollbar-shadow-color:#61646b;
+	scrollbar-highlight-color:#fffffff;
+	scrollbar-3dlight-color:#b5b5b5;
+	scrollbar-darkshadow-Color:#61646b;
+}
+img {
+	border:0;
+}
+a {
+	display:block;
+	text-decoration:none;
+	padding:6px 0 5px 10px;
+	width:180px;
+}
+a.category_expand {
+	background:url('category_expand.gif') repeat-x top left;
+	width:180px;
+	font-weight:bold;
+	cursor:pointer;
+}
+a.category_expand:hover {
+	background:url('category_expand_hover.gif') repeat-x top left;
+}
+a.category_compact {
+	background:url('category_compact.gif') repeat-x top left;
+	width:180px;
+	height:24px;
+	font-weight:bold;
+	cursor:pointer;
+}
+a.category_compact:hover {
+	background:url('category_compact_hover.gif') repeat-x top left;
+}
+a.item {
+	background:url('item_inactive.gif') repeat-x top left;
+}
+a.item:hover {
+	background:url('item_hover.gif') repeat-x top left;
+}
+a.item_active {
+	background:url('item_active.gif') repeat-x top left;
+}
+a.item_active:hover {
+	background:url('item_hover.gif') repeat-x top left;
+}
