@@ -28,33 +28,33 @@ a {
 	width:180px;
 }
 a.category_expand {
-	background:url('images/category_expand.gif') repeat-x top left;
+	background:url('category_expand.gif') repeat-x top left;
 	width:180px;
 	font-weight:bold;
 	cursor:pointer;
 }
 a.category_expand:hover {
-	background:url('images/category_expand_hover.gif') repeat-x top left;
+	background:url('category_expand_hover.gif') repeat-x top left;
 }
 a.category_compact {
-	background:url('images/category_compact.gif') repeat-x top left;
+	background:url('category_compact.gif') repeat-x top left;
 	width:180px;
 	height:24px;
 	font-weight:bold;
 	cursor:pointer;
 }
 a.category_compact:hover {
-	background:url('images/category_compact_hover.gif') repeat-x top left;
+	background:url('category_compact_hover.gif') repeat-x top left;
 }
 a.item {
-	background:url('images/item_inactive.gif') repeat-x top left;
+	background:url('item_inactive.gif') repeat-x top left;
 }
 a.item:hover {
-	background:url('images/item_hover.gif') repeat-x top left;
+	background:url('item_hover.gif') repeat-x top left;
 }
 a.item_active {
-	background:url('images/item_active.gif') repeat-x top left;
+	background:url('item_active.gif') repeat-x top left;
 }
 a.item_active:hover {
-	background:url('images/item_hover.gif') repeat-x top left;
+	background:url('item_hover.gif') repeat-x top left;
 }

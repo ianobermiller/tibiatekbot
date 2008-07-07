@@ -4,4 +4,16 @@
 	<description>Default skin for TibiaTek Plus.</description>
 	<author>eSonic</author>
 	<email>genosonic@gmail.com</email>
+	<files>
+		<file>default.css</file>
+		<file>category_compact.gif</file>
+		<file>category_compact_hover.gif</file>
+		<file>category_expand.gif</file>
+		<file>category_expand_hover.gif</file>
+		<file>item_active.gif</file>
+		<file>item_hover.gif</file>
+		<file>item_inactive.gif</file>
+		<file>menu.htm</file>
+	</files>
+	<item><a class="item" href="internal:plugins?type={0}&amp;action=show">{1}</a></item>
 </skin>

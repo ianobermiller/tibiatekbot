@@ -142,9 +142,25 @@
     <value>Warning</value>
   </data>
   <data name="kernel_error1" xml:space="preserve">
-    <value>Unable to load the following plug-in:\nTitle: {0}.\nAuthor: {1}.\nReason: The file '{2}.dll' was not found.</value>
+    <value>Unable to load the following plug-in:
+Title: {0}.
+Author: {1}.
+Reason: The file '{2}.dll' was not found.</value>
   </data>
   <data name="kernel_error2" xml:space="preserve">
-    <value>Unable to load the following plug-in:\n{0}.dll.</value>
+    <value>Unable to load the following plug-in:
+{0}.dll.</value>
+  </data>
+  <data name="mainForm_skinSelected" xml:space="preserve">
+    <value>Are you sure that you want to use the following skin: {0}?
+Warning: You will be required to restart this application.</value>
+  </data>
+  <data name="Program_NoSkins" xml:space="preserve">
+    <value>There are no available skins. Please re-install TibiaTek Plus.</value>
+  </data>
+  <data name="Skin_MissingSkinFile" xml:space="preserve">
+    <value>The skin '{0}' is missing the file:
+{1}
+Please re-install this skin.</value>
   </data>
 </root>

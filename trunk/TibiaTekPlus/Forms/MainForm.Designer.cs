@@ -36,6 +36,8 @@ namespace TibiaTekPlus
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plugInManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.skinsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.emptyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usersGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,19 +47,28 @@ namespace TibiaTekPlus
             this.menuWebBrowser = new System.Windows.Forms.WebBrowser();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.statusBarLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.skinsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Panels = new System.Windows.Forms.ToolStripContainer();
             this.mainMenu.SuspendLayout();
             this.statusBar.SuspendLayout();
+            this.Panels.ContentPanel.SuspendLayout();
+            this.Panels.TopToolStripPanel.SuspendLayout();
+            this.Panels.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
             // 
+            this.mainMenu.AllowItemReorder = true;
+            this.mainMenu.AllowMerge = false;
+            this.mainMenu.Dock = System.Windows.Forms.DockStyle.None;
+            this.mainMenu.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
+            this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.mainMenu.ShowItemToolTips = true;
             this.mainMenu.Size = new System.Drawing.Size(193, 24);
             this.mainMenu.TabIndex = 2;
             this.mainMenu.Text = "menuStrip1";
@@ -99,12 +110,25 @@ namespace TibiaTekPlus
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(161, 6);
             // 
+            // skinsToolStripMenuItem
+            // 
+            this.skinsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.emptyToolStripMenuItem});
+            this.skinsToolStripMenuItem.Name = "skinsToolStripMenuItem";
+            this.skinsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.skinsToolStripMenuItem.Text = "&Skins";
+            // 
+            // emptyToolStripMenuItem
+            // 
+            this.emptyToolStripMenuItem.Name = "emptyToolStripMenuItem";
+            this.emptyToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.emptyToolStripMenuItem.Text = "Empty";
+            // 
             // optionsSettingsToolStripMenuItem
             // 
             this.optionsSettingsToolStripMenuItem.Name = "optionsSettingsToolStripMenuItem";
             this.optionsSettingsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.optionsSettingsToolStripMenuItem.Text = "&Options";
-            this.optionsSettingsToolStripMenuItem.Click += new System.EventHandler(this.optionsSettingsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -120,25 +144,25 @@ namespace TibiaTekPlus
             // usersGuideToolStripMenuItem
             // 
             this.usersGuideToolStripMenuItem.Name = "usersGuideToolStripMenuItem";
-            this.usersGuideToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.usersGuideToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.usersGuideToolStripMenuItem.Text = "&User\'s Guide";
             // 
             // documentationToolStripMenuItem
             // 
             this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
-            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.documentationToolStripMenuItem.Text = "&Documentation";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(199, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(175, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
-            this.aboutToolStripMenuItem.Text = "&AboutForm TibiaTek Plus";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.aboutToolStripMenuItem.Text = "&About TibiaTek Plus";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // menuWebBrowser
@@ -146,10 +170,10 @@ namespace TibiaTekPlus
             this.menuWebBrowser.AllowWebBrowserDrop = false;
             this.menuWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuWebBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.menuWebBrowser.Location = new System.Drawing.Point(0, 24);
+            this.menuWebBrowser.Location = new System.Drawing.Point(0, 0);
             this.menuWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.menuWebBrowser.Name = "menuWebBrowser";
-            this.menuWebBrowser.Size = new System.Drawing.Size(193, 330);
+            this.menuWebBrowser.Size = new System.Drawing.Size(193, 308);
             this.menuWebBrowser.TabIndex = 3;
             this.menuWebBrowser.WebBrowserShortcutsEnabled = false;
             this.menuWebBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.menuWebBrowser_Navigating);
@@ -171,32 +195,61 @@ namespace TibiaTekPlus
             this.statusBarLabel.Size = new System.Drawing.Size(42, 17);
             this.statusBarLabel.Text = global::TibiaTekPlus.Language.statusBarLabelText_Ready;
             // 
-            // skinsToolStripMenuItem
+            // Panels
             // 
-            this.skinsToolStripMenuItem.Name = "skinsToolStripMenuItem";
-            this.skinsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.skinsToolStripMenuItem.Text = "&Skins";
-            this.skinsToolStripMenuItem.DropDownOpening += new System.EventHandler(this.skinsToolStripMenuItem_DropDownOpening);
+            // 
+            // Panels.BottomToolStripPanel
+            // 
+            this.Panels.BottomToolStripPanel.Tag = "BottomPanel";
+            // 
+            // Panels.ContentPanel
+            // 
+            this.Panels.ContentPanel.Controls.Add(this.menuWebBrowser);
+            this.Panels.ContentPanel.Size = new System.Drawing.Size(193, 308);
+            this.Panels.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // Panels.LeftToolStripPanel
+            // 
+            this.Panels.LeftToolStripPanel.Tag = "LeftPanel";
+            this.Panels.Location = new System.Drawing.Point(0, 0);
+            this.Panels.Name = "Panels";
+            // 
+            // Panels.RightToolStripPanel
+            // 
+            this.Panels.RightToolStripPanel.Tag = "RightPanel";
+            this.Panels.Size = new System.Drawing.Size(193, 332);
+            this.Panels.TabIndex = 5;
+            this.Panels.Text = "toolStripContainer1";
+            // 
+            // Panels.TopToolStripPanel
+            // 
+            this.Panels.TopToolStripPanel.Controls.Add(this.mainMenu);
+            this.Panels.TopToolStripPanel.Tag = "TopPanel";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(193, 354);
+            this.Controls.Add(this.Panels);
             this.Controls.Add(this.statusBar);
-            this.Controls.Add(this.menuWebBrowser);
-            this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(201, 200);
             this.Name = "MainForm";
             this.Text = "TibiaTek Plus";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
+            this.Panels.ContentPanel.ResumeLayout(false);
+            this.Panels.TopToolStripPanel.ResumeLayout(false);
+            this.Panels.TopToolStripPanel.PerformLayout();
+            this.Panels.ResumeLayout(false);
+            this.Panels.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,6 +273,8 @@ namespace TibiaTekPlus
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem optionsSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem skinsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripContainer Panels;
+        private System.Windows.Forms.ToolStripMenuItem emptyToolStripMenuItem;
 
     }
 }

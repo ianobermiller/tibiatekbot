@@ -1,9 +1,18 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TibiaTekPlus" GeneratedClassName="TibiaTekPlus">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TibiaTekPlus" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="Skin" Type="System.String" Scope="User">
       <Value Profile="(Default)">Default</Value>
+    </Setting>
+    <Setting Name="MainMenuPosition" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TopPanel</Value>
+    </Setting>
+    <Setting Name="MainFormLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">100, 100</Value>
+    </Setting>
+    <Setting Name="MainFormSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">201, 380</Value>
     </Setting>
   </Settings>
 </SettingsFile>

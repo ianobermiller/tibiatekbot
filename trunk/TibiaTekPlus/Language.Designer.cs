@@ -79,7 +79,10 @@ namespace TibiaTekPlus {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to load the following plug-in:\nTitle: {0}.\nAuthor: {1}.\nReason: The file &apos;{2}.dll&apos; was not found..
+        ///   Looks up a localized string similar to Unable to load the following plug-in:
+        ///Title: {0}.
+        ///Author: {1}.
+        ///Reason: The file &apos;{2}.dll&apos; was not found..
         /// </summary>
         public static string kernel_error1 {
             get {
@@ -88,7 +91,8 @@ namespace TibiaTekPlus {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to load the following plug-in:\n{0}.dll..
+        ///   Looks up a localized string similar to Unable to load the following plug-in:
+        ///{0}.dll..
         /// </summary>
         public static string kernel_error2 {
             get {
@@ -102,6 +106,16 @@ namespace TibiaTekPlus {
         public static string mainForm_FormClosing {
             get {
                 return ResourceManager.GetString("mainForm_FormClosing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want to use the following skin: {0}?
+        ///Warning: You will be required to restart this application..
+        /// </summary>
+        public static string mainForm_skinSelected {
+            get {
+                return ResourceManager.GetString("mainForm_skinSelected", resourceCulture);
             }
         }
         
@@ -124,11 +138,31 @@ namespace TibiaTekPlus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no available skins. Please re-install TibiaTek Plus..
+        /// </summary>
+        public static string Program_NoSkins {
+            get {
+                return ResourceManager.GetString("Program_NoSkins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
         public static string Question {
             get {
                 return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The skin &apos;{0}&apos; is missing the file:
+        ///{1}
+        ///Please re-install this skin..
+        /// </summary>
+        public static string Skin_MissingSkinFile {
+            get {
+                return ResourceManager.GetString("Skin_MissingSkinFile", resourceCulture);
             }
         }
         

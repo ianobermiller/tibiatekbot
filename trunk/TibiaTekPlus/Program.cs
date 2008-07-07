@@ -23,7 +23,8 @@ namespace TibiaTekPlus
         /// </summary>
         static private SplashScreenForm splashScreenForm;
 
-        static private int step=0;
+        static private int pluginstep = 0;
+        static private int skinstep = 0;
 
         /// <summary>
         /// The main entry point for the application.
@@ -37,6 +38,7 @@ namespace TibiaTekPlus
             // Instantiate the kernel object
             kernel = new Kernel();
             kernel.PluginLoaded += new Kernel.PluginNotification(kernel_PluginLoaded);
+            kernel.SkinLoaded += new Kernel.SkinNotification(kernel_SkinLoaded);
 
             // Show splash screen
             splashScreenForm = new SplashScreenForm();
@@ -46,14 +48,23 @@ namespace TibiaTekPlus
             // Uninstall pending plug-ins
             kernel.PerformPluginUninstallation();
             splashScreenForm.Percent = 5;
-            
+
             // Install pending plug-ins
             kernel.PerformPluginInstallation();
             splashScreenForm.Percent = 10;
 
+            // Load skins
+            if (kernel.InstalledSkinsCount == 0)
+            {
+                MessageBox.Show(Language.Program_NoSkins, Language.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            skinstep = (int)Math.Floor((double)30 / kernel.InstalledSkinsCount);
+            kernel.LoadSkins();
+            
             if (kernel.InstalledPluginsCount > 0)
             {
-                step = 90 / kernel.InstalledPluginsCount;
+                pluginstep = (int)Math.Floor((double)60 / kernel.InstalledPluginsCount);
 
                 kernel.LoadPlugins();
             }
@@ -61,9 +72,7 @@ namespace TibiaTekPlus
             {
                 splashScreenForm.Percent = 100;
             }
-            Application.DoEvents();
-            System.Threading.Thread.Sleep(1000);
-
+            
             splashScreenForm.Close();
 
             // Gets the client
@@ -90,26 +99,38 @@ namespace TibiaTekPlus
 
         static private void kernel_PluginLoaded(Plugin plugin)
         {
-            if (splashScreenForm.Percent + step <= 100)
+            if (splashScreenForm.Percent + pluginstep <= 100)
             {
-                splashScreenForm.Percent += step;
+                splashScreenForm.Percent += pluginstep;
             }
             else
             {
                 splashScreenForm.Percent = 100;
             }
-            // Avoid freezing
-            Application.DoEvents();
+        }
+
+        static private void kernel_SkinLoaded(Skin skin)
+        {
+            if (splashScreenForm.Percent + skinstep <= 40)
+            {
+                splashScreenForm.Percent += skinstep;
+            }
+            else
+            {
+                splashScreenForm.Percent = 40;
+            }
         }
 
         static private void OnApplicationExit(object sender, EventArgs e)
         {
+            // Save settings on graceful exit
+            Settings.Default.Save();
+
             // Close the client
             if (kernel.Client != null)
                 kernel.Client.Close();
 
-            // Save settings on graceful exit
-            Settings.Default.Save();
+
         }
 
     }
