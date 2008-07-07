@@ -2,11 +2,12 @@
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using Tibia;
 using Tibia.Util;
 using TibiaTekPlus;
 using TibiaTekPlus.Plugins;
-
 
 
 namespace TibiaTekPlus
@@ -26,6 +27,16 @@ namespace TibiaTekPlus
         /// </summary>
         public PluginNotification PluginLoaded;
 
+        /// <summary>
+        /// Prototype for skin notifications.
+        /// </summary>
+        /// <param name="skin"></param>
+        public delegate void SkinNotification(Skin skin);
+
+        /// <summary>
+        /// Event fired after loading a skin successfully.
+        /// </summary>
+        public SkinNotification SkinLoaded;
         #endregion
 
 
@@ -54,6 +65,7 @@ namespace TibiaTekPlus
         public PluginCollection plugins;
         private string tibiaVersion = null;
         private Skin skin;
+        private List<Skin> skins = new List<Skin>();
 
         #endregion
 
@@ -74,7 +86,7 @@ namespace TibiaTekPlus
             plugins = new PluginCollection();
 
             /* Skin related */
-            skin = new Skin(Settings.Default.Skin);
+            //skin = new Skin(Settings.Default.Skin);
         }
 
         /// <summary>
@@ -180,6 +192,10 @@ namespace TibiaTekPlus
             }
         }
 
+        /// <summary>
+        /// Uninstalls any pending plug-ins.
+        /// </summary>
+        /// <returns>Returns the number of uninstalled plug-ins.</returns>
         public int PerformPluginUninstallation()
         {
             int count = 0;
@@ -205,6 +221,10 @@ namespace TibiaTekPlus
             return count;
         }
 
+        /// <summary>
+        /// Install pending plug-ins.
+        /// </summary>
+        /// <returns>Returns the number of plug-ins installed.</returns>
         public int PerformPluginInstallation()
         {
             int count = 0;
@@ -231,6 +251,9 @@ namespace TibiaTekPlus
             return count;
         }
 
+        /// <summary>
+        /// Gets the number of plug-ins to be installed.
+        /// </summary>
         public int InstalledPluginsCount
         {
             get
@@ -241,6 +264,10 @@ namespace TibiaTekPlus
             }
         }
 
+        /// <summary>
+        /// Loads the plug-ins into memory.
+        /// </summary>
+        /// <returns>Returns the number of loaded plug-ins.</returns>
         public int LoadPlugins()
         {
             int count = 0;
@@ -307,12 +334,93 @@ namespace TibiaTekPlus
             Environment.Exit(0);
         }
 
+        /// <summary>
+        /// Gets the current skin.
+        /// </summary>
         public Skin Skin
         {
             get
             {
                 return skin;
             }
+        }
+
+        public Skin[] Skins
+        {
+            get
+            {
+                return skins.ToArray();
+            }
+        }
+
+
+        /// <summary>
+        /// Gets the number of installed skins.
+        /// </summary>
+        public int InstalledSkinsCount
+        {
+            get
+            {
+                SortedList skinlist = new SortedList();
+                string defskinspath = Path.Combine(Environment.CurrentDirectory, "Skins");
+                string userskinspath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TibiaTek Plus\Skins");
+                string[] defskins = Directory.GetDirectories(defskinspath);
+                string[] userskins = Directory.GetDirectories(userskinspath);
+                foreach (string dir in defskins)
+                {
+                    if (!skinlist.Contains(dir.Substring(defskinspath.Length + 1)))
+                        skinlist.Add(dir.Substring(defskinspath.Length + 1), Path.Combine(defskinspath, dir.Substring(defskinspath.Length + 1)));
+                }
+                foreach (string dir in userskins)
+                {
+                    if (!skinlist.Contains(dir.Substring(userskinspath.Length + 1)))
+                        skinlist.Add(dir.Substring(userskinspath.Length + 1), Path.Combine(userskinspath, dir.Substring(userskinspath.Length + 1)));
+                    
+                }
+                return skinlist.Count;
+            }
+        }
+
+        /// <summary>
+        /// Loads available skins into memory.
+        /// </summary>
+        /// <returns>Returns the number of loaded skins.</returns>
+        public int LoadSkins()
+        {
+            int count = 0;
+            SortedList skinlist = new SortedList();
+            string defskinspath = Path.Combine(Environment.CurrentDirectory, "Skins");
+            string userskinspath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TibiaTek Plus\Skins");
+            string[] defskins = Directory.GetDirectories(defskinspath);
+            string[] userskins = Directory.GetDirectories(userskinspath);
+            foreach (string dir in defskins)
+            {
+                if (!skinlist.Contains(dir.Substring(defskinspath.Length + 1)))
+                    skinlist.Add(dir.Substring(defskinspath.Length + 1), Path.Combine(Environment.CurrentDirectory, @"Skins\" + dir.Substring(defskinspath.Length + 1)));
+            }
+            foreach (string dir in userskins)
+            {
+                if (!skinlist.Contains(dir.Substring(userskinspath.Length + 1)))
+                skinlist.Add(dir.Substring(userskinspath.Length + 1), Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TibiaTek Plus\Skins\" + dir.Substring(userskinspath.Length + 1)));
+            }
+            skins.Clear();
+            foreach (DictionaryEntry skinentry in skinlist){
+                try
+                {
+                    Skin s = new Skin((string)skinentry.Key, (string)skinentry.Value);
+                    if (((string)skinentry.Key).Equals(Settings.Default.Skin))
+                    {
+                        skin = s;
+                    }
+                    skins.Add(s);
+                    if (SkinLoaded != null)
+                        SkinLoaded.Invoke(s);
+                    count++;
+                } catch(Exception ex){
+                    MessageBox.Show(ex.Message, Language.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return count;
         }
 
     }

@@ -45,7 +45,48 @@ namespace TibiaTekPlus
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // Load menu.htm
             menuWebBrowser.Url = new System.Uri(System.IO.Path.Combine(Kernel.Skin.Path, @"menu.htm"));
+
+            // Populate Skins dropdown menu
+            skinsToolStripMenuItem.DropDownItems.Clear();
+            foreach (Skin s in Kernel.Skins)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem(s.Name);
+
+                item.ToolTipText = s.Description;
+
+                if (Kernel.Skin.Name.Equals(s.Name))
+                {
+                    item.Font = new Font(item.Font, FontStyle.Bold);
+                    item.Checked = true;
+                }
+                else
+                {
+                    item.Click += new EventHandler(item_Click);
+                }
+                skinsToolStripMenuItem.DropDownItems.Add(item);
+            }
+
+            // Load main menu position
+            switch (Settings.Default.MainMenuPosition)
+            {
+                case "BottomPanel":
+                    Panels.BottomToolStripPanel.Controls.Add(this.mainMenu);
+                    break;
+                case "LeftPanel":
+                    Panels.LeftToolStripPanel.Controls.Add(this.mainMenu);
+                    break;
+                case "RightPanel":
+                    Panels.RightToolStripPanel.Controls.Add(this.mainMenu);
+                    break;
+            }
+            
+            // Load location
+            this.Location = Settings.Default.MainFormLocation;
+
+            // Load size
+            this.Size = Settings.Default.MainFormSize;
         }
 
         private void menuWebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -54,12 +95,14 @@ namespace TibiaTekPlus
             {
                 e.Cancel = true;
                 NameValueCollection nvc = System.Web.HttpUtility.ParseQueryString(e.Url.Query);
-                switch (e.Url.AbsolutePath.ToLower()){
+                switch (e.Url.AbsolutePath.ToLower())
+                {
                     case "":
                         {
                             string name = nvc.GetValues("name")[0];
                             string action = nvc.GetValues("action")[0];
-                            switch(name){
+                            switch (name)
+                            {
                                 case "pluginManager":
                                     {
                                         switch (action)
@@ -83,7 +126,8 @@ namespace TibiaTekPlus
                             {
                                 if (plugin.GetType().ToString().Equals(type))
                                 {
-                                    switch(action){
+                                    switch (action)
+                                    {
                                         case "show":
                                             {
                                                 plugin.MainForm.Show();
@@ -121,7 +165,7 @@ namespace TibiaTekPlus
                             a.SetAttribute("className", "item");
                             a.SetAttribute("title", plugin.Description);
                             a.MouseEnter += new HtmlElementEventHandler(a_MouseEnter);
-                            a.MouseLeave += new HtmlElementEventHandler(a_MouseLeave);
+                            a.MouseLeave += new HtmlElementEventHandler(element_MouseLeave);
                             try
                             {
                                 if (plugin.MainForm is Form) a.SetAttribute("href", String.Format("internal:plugins?type={0}&action=show",plugin.GetType()));
@@ -137,7 +181,6 @@ namespace TibiaTekPlus
                     }
                 }
             }
-            
         }
 
         void element_MouseLeave(object sender, HtmlElementEventArgs e)
@@ -158,18 +201,9 @@ namespace TibiaTekPlus
             }
         }
 
-        void a_MouseLeave(object sender, HtmlElementEventArgs e)
-        {
-            statusBarLabel.Text = Language.statusBarLabelText_Ready;
-        }
-
         void a_MouseEnter(object sender, HtmlElementEventArgs e)
         {
-            try
-            {
-                statusBarLabel.Text = ((HtmlElement)sender).GetAttribute("title");
-            }catch(Exception){
-            }
+            statusBarLabel.Text = ((HtmlElement)sender).GetAttribute("title");
         }
 
         private void evthdr(object sender, HtmlElementEventArgs  args)
@@ -198,22 +232,24 @@ namespace TibiaTekPlus
             }
         }
 
-        private void optionsSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        void item_Click(object sender, EventArgs e)
         {
-           
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            if (MessageBox.Show(String.Format(Language.mainForm_skinSelected, item.Text), Language.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)==DialogResult.Yes)
+            {
+                Settings.Default.Skin = item.Text;
+                Application.Restart();
+                Application.ExitThread();
+            }
         }
 
-        private void skinsToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            string[] directories = Directory.GetDirectories("Skins");
-            string output = "";
-            foreach (string dir in directories)
-            {
-                output += dir + "\n";
-            }
-            MessageBox.Show(output);
-            //ToolStripMenuItem 
+            Settings.Default.MainMenuPosition = this.mainMenu.Parent.Tag.ToString();
+            Settings.Default.MainFormLocation = this.Location;
+            Settings.Default.MainFormSize = this.Size;
         }
+
 
 
     }

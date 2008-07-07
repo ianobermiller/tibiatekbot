@@ -24,13 +24,20 @@ namespace TibiaTekPlus
         public int Percent {
             get
             {
-                return (pictureBox2.Size.Width * 308) / 100;
+                Application.DoEvents();
+                return (int)Math.Floor((double)(pictureBox2.Size.Width * 100) / 308);
             }
             set
             {
                 Size s = new Size((value * 308) / 100, 22);
                 pictureBox2.Size = s;
+                Application.DoEvents();
             }
+        }
+
+        private void SplashScreenForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            System.Threading.Thread.Sleep(1500);
         }
 
     }

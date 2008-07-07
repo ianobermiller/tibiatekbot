@@ -2,6 +2,8 @@
 using System.IO;
 using System.Xml;
 using System.Text;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace TibiaTekPlus
 {
@@ -13,25 +15,15 @@ namespace TibiaTekPlus
         private string version = "";
         private string email = "";
         private string path = "";
-
+        public string item = "";
         /// <summary>
         /// Constructor for the Skin class.
         /// </summary>
         /// <param name="skinName">Name of the skin to load.</param>
-        public Skin(string skinName){
-            string relpath = @"Skins\" + skinName;
-            string absolutepath = System.IO.Path.Combine(Directory.GetCurrentDirectory(),relpath);
-            string documentspath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\TibiaTek Plus", relpath);
-            if (Directory.Exists(absolutepath)) {
-                path = absolutepath;
-            }
-            else if (Directory.Exists(documentspath))
-            {
-                path = documentspath;
-            }
-            else
-            {
-                throw new DirectoryNotFoundException("Unable to locate skin. Make sure it is installed in the following location:\n" + documentspath + ".");
+        public Skin(string skinName, string path)
+        {
+            if (!Directory.Exists(path)) {
+                throw new DirectoryNotFoundException("Unable to locate skin. Make sure it is installed in the following location:\n" + path + ".");
             }
             XmlDocument document = new XmlDocument();
             document.Load(System.IO.Path.Combine(path, String.Format("{0}.xml", skinName)));
@@ -41,6 +33,20 @@ namespace TibiaTekPlus
             description = skinelem["description"].InnerText;
             author = skinelem["author"].InnerText;
             email = skinelem["email"].InnerText;
+            this.path = path;
+            XmlElement files = skinelem["files"];
+            string filename = String.Empty;
+            foreach (XmlElement file in files)
+            {
+                filename = System.IO.Path.Combine(path, file.InnerText);
+                if (!File.Exists(filename)) {
+                    throw new FileNotFoundException(String.Format(Language.Skin_MissingSkinFile, skinName, filename));
+                }
+            }
+            if (skinName.Equals("Default"))
+            {
+                item = skinelem["item"].InnerXml;
+            }
         }
 
         /// <summary>
