@@ -14,5 +14,20 @@
     <Setting Name="MainFormSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">201, 380</Value>
     </Setting>
+    <Setting Name="ProgramRecentAddresses" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;login01.tibia.com:7171&lt;/string&gt;
+  &lt;string&gt;login02.tibia.com:7171&lt;/string&gt;
+  &lt;string&gt;login03.tibia.com:7171&lt;/string&gt;
+  &lt;string&gt;login04.tibia.com:7171&lt;/string&gt;
+  &lt;string&gt;login05.tibia.com:7171&lt;/string&gt;
+  &lt;string&gt;tibia01.cipsoft.com:7171&lt;/string&gt;
+  &lt;string&gt;tibia02.cipsoft.com:7171&lt;/string&gt;
+  &lt;string&gt;tibia03.cipsoft.com:7171&lt;/string&gt;
+  &lt;string&gt;tibia04.cipsoft.com:7171&lt;/string&gt;
+  &lt;string&gt;tibia05.cipsoft.com:7171&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -70,5 +70,29 @@ namespace TibiaTekPlus {
                 this["MainFormSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>login01.tibia.com:7171</string>
+  <string>login02.tibia.com:7171</string>
+  <string>login03.tibia.com:7171</string>
+  <string>login04.tibia.com:7171</string>
+  <string>login05.tibia.com:7171</string>
+  <string>tibia01.cipsoft.com:7171</string>
+  <string>tibia02.cipsoft.com:7171</string>
+  <string>tibia03.cipsoft.com:7171</string>
+  <string>tibia04.cipsoft.com:7171</string>
+  <string>tibia05.cipsoft.com:7171</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection ProgramRecentAddresses {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ProgramRecentAddresses"]));
+            }
+            set {
+                this["ProgramRecentAddresses"] = value;
+            }
+        }
     }
 }
