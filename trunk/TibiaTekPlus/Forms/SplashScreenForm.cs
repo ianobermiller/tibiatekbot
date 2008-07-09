@@ -21,15 +21,15 @@ namespace TibiaTekPlus
 
         }
 
-        public int Percent {
+        public double Percent {
             get
             {
                 Application.DoEvents();
-                return (int)Math.Floor((double)(pictureBox2.Size.Width * 100) / 308);
+                return ((pictureBox2.Size.Width * 100.0) / 306.0);
             }
             set
             {
-                Size s = new Size((value * 308) / 100, 22);
+                Size s = (new SizeF((float)((value * 306.0) / 100.0), (float)20.0)).ToSize();
                 pictureBox2.Size = s;
                 Application.DoEvents();
             }

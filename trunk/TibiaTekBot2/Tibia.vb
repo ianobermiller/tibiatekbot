@@ -1216,12 +1216,13 @@ Public NotInheritable Class Tibia
 
     Public Sub SetFramesPerSecond(ByVal FPS As Double) Implements Scripting.ITibia.SetFramesPerSecond
         Try
-            Dim NewFPS As Double = Round((1110 / FPS) - 5, 1)
+            If FPS <= 0 Then FPS = 1
+            Dim NewFPS As Double = 1000.0 / FPS
             Dim FrameRateBegin As Integer = 0
             ReadMemory(Consts.ptrScreenInfoBegin, FrameRateBegin, 4)
             WriteMemory(FrameRateBegin + Consts.ScreenInfoFrameRateLimitOffset, NewFPS)
         Catch ex As Exception
-            ShowError(Ex)
+            ShowError(ex)
         End Try
     End Sub
 

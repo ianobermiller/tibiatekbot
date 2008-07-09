@@ -76,7 +76,12 @@ namespace TibiaTekPlus
             splashScreenForm.Close();
 
             // Gets the client
-            kernel.Client = Tibia.Util.ClientChooserWPF.ShowBox();
+            
+            Tibia.Util.ClientChooserOptions options = new Tibia.Util.ClientChooserOptions();
+            options.LookUpClients = false;
+            options.Smart = false;
+
+            kernel.Client = Tibia.Util.ClientChooserWPF.ShowBox(options);
             if (kernel.Client == null) Environment.Exit(0);
 
             kernel.Client.OnExit += (Tibia.Objects.Client.ClientNotification)kernel.OnClientExit;
