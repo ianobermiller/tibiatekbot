@@ -32,13 +32,11 @@
   <Const Name="CreatureExpMultiplier" Value="1.0" />
   <Const Name="ShowInvisibleCreatures" Value="True" />
   <Const Name="MusicalNotesOnAlarm" Value="True" />
-  <Const Name="ShowErrorMessages" Value="True" />
   <Const Name="DebugOnLog" Value="False" />
   <Const Name="ClearLogOnStartup" Value="True" />
   <Const Name="LootWithCavebot" Value="True" />
   <Const Name="CavebotLootMinCap" Value="10" />
   <Const Name="CavebotAttackerRadius" Value="5.0" />
-  <const Name="WalkToTheCorposeToOpenIt" Value="False" />
   <Const Name="LootDelay" Value="500" />
   <Const Name="LootInBag" Value="True" />
   <Const Name="LootInBagDelay" Value="500" />
@@ -75,7 +73,7 @@
   <Const Name="StatsUploaderUserID" Value="userid" />
   <Const Name="StatsUploaderPassword" Value="password" />
   <Const Name="StatsUploaderFrequency" Value="30000" />
-  <Const Name="ptrDialogBegin" Value="H61E984" />
+  <Const Name="ptrDialogBegin" Value="H62CABC" />
   <Const Name="DialogLeftOffset" Value="H14" />
   <Const Name="DialogTopOffset" Value="H18" />
   <Const Name="DialogWidthOffset" Value="H1C" />
@@ -86,177 +84,177 @@
   <Const Name="DialogButton2Offset" Value="H30" />
   <Const Name="DialogButton3Offset" Value="H34" />
   <Const Name="DialogButton4Offset" Value="H38" />
-  <Const Name="ptrAutoLoginAccountNumeric" Value="H76c2c0" />
+  <Const Name="ptrAutoLoginAccountNumeric" Value="H77A3F0" />
   <Const Name="ptrAutoLoginPatch" Value="H47935E" />
   <Const Name="ptrAutoLoginPatch2" Value="H47A2B3" />
   <Const Name="ptrAutoLoginAccountString" Value="H76c2b4" />
   <Const Name="ptrAutoLoginPassword" Value="H76c294" />
-  <Const Name="ptrInGame" Value="H76c2c8" />
-  <Const Name="ptrScreenInfoBegin" Value="H76CE0C" />
-  <Const Name="ptrEnterOneNamePerLine" Value="H598670" />
-  <Const Name="ptrForYourInformation" Value="H599990" />
-  <Const Name="ptrCharacterSelectionIndex" Value="H76C288" />
-  <Const Name="ptrEncryptionKey" Value="H768C7C" />
-  <Const Name="ptrRSAKey" Value="H597610" />
-  <Const Name="RSAKeyOpenTibia" Value="109120132967399429278860960508995541528237502902798129123468757937266291492576446330739696001110603907230888610072655818825358503429057592827629436413108566029093628212635953836686562675849720620786279431090218017681061521755056710823876476444260558147179707119674283982419152118103759076030616683978566631413" />
-  <Const Name="ptrServerAddressBegin" Value="H763BB8" />
-  <Const Name="ptrServerPortBegin" Value="H763C1C" />
-  <Const Name="ServerAddressDist" Value="H70" />
-  <Const Name="ServerAddressCount" Value="HA" />
-  <Const Name="ptrCharacterID" Value="H613b70" />
-  <Const Name="ptrBattleListBegin" Value="H613bd0" />
-  <Const Name="ptrFirstContainer" Value="H61C0D0" />
-  <Const Name="ptrInventoryBegin" Value="H61c058" />
-  <Const Name="ptrLevel" Value="H613b60" />
-  <Const Name="ptrLevelPercent" Value="H613b58" />
-  <Const Name="ptrMagicLevel" Value="H613b5c" />
-  <Const Name="ptrMagicLevelPercent" Value="H613b54" />
-  <Const Name="ptrExperience" Value="H613b64" />
-  <Const Name="ptrFollowedEntityID" Value="H613B38" />
-  <Const Name="ptrAttackedEntityID" Value="H613B3C" />
-  <Const Name="ptrLastAttackedEntityID" Value="H76DA10" />
-  <Const Name="ptrMaxHitPoints" Value="H613b68" />
-  <Const Name="ptrHitPoints" Value="H613b6c" />
-  <Const Name="ptrMaxManaPoints" Value="H613b4c" />
-  <Const Name="ptrManaPoints" Value="H613b50" />
-  <Const Name="ptrSoulPoints" Value="H613b48" />
-  <Const Name="ptrCapacity" Value="H613b40" />
-  <Const Name="ptrCoordX" Value="H61e9c8" />
-  <Const Name="ptrCoordY" Value="H61e9c4" />
-  <Const Name="ptrCoordZ" Value="H61e9c0" />
-  <Const Name="ptrSecureMode" Value="H76909C" />
-  <Const Name="ptrFightingMode" Value="H7690A4" />
-  <Const Name="ptrChasingMode" Value="H7690A0" />
-  <Const Name="ptrMapPointer" Value="H6234D8" />
-  <Const Name="ptrConditions" Value="H613AF8" />
-  <Const Name="ptrVipListBegin" Value="H611894" />
-  <Const Name="ptrSkillsBegin" Value="H613b18" />
-  <Const Name="ptrSkillsPercentBegin" Value="H613afc" />
-  <Const Name="ptrStamina" Value="H613b44" />
-  <Const Name="ptrGoToX" Value="H613BB4" />
-  <Const Name="ptrGoToY" Value="H613BB0" />
-  <Const Name="ptrGoToZ" Value="H613BAC" />
-  <Const Name="ptrHotkeyBegin" Value="H7690E8" />
-  <Const Name="ptrStatusMessage" Value="H76d928" />
-  <Const Name="ptrStatusMessageTimer" Value="H76d924" />
-  <Const Name="ptrCharacterListBegin" Value="H76C28C" />
-  <Const Name="ptrWASDPopup" Value="H76C328" />
-  <Const Name="CharacterListDist" Value="H54" />
-  <Const Name="CharacterListWorldOffset" Value="H1E" />
-  <Const Name="CharacterListWorldIPBinaryOffset" Value="H3C" />
-  <Const Name="CharacterListWorldIPStringOffset" Value="H40" />
-  <Const Name="CharacterListWorldPortOffset" Value="H50" />
-  <Const Name="HotkeyMax" Value="H24" />
-  <Const Name="HotkeyItemDataOffset" Value="H90" />
-  <Const Name="HotkeyItemOffset" Value="H120" />
-  <Const Name="HotkeyItemDist" Value="4" />
-  <Const Name="HotkeyTextAutoSendOffset" Value="H1B0" />
-  <Const Name="HotkeyTextAutoSendDist" Value="1" />
-  <Const Name="HotkeyTextOffset" Value="H1D8" />
-  <Const Name="HotkeyTextDist" Value="H100" />
-  <Const Name="BLMax" Value="H96" />
-  <Const Name="BLDist" Value="HA0" />
-  <Const Name="BLNameOffset" Value="H4" />
-  <Const Name="BLCoordXOffset" Value="H24" />
-  <Const Name="BLCoordYOffset" Value="H28" />
-  <Const Name="BLCoordZOffset" Value="H2C" />
-  <Const Name="BLDirectionOffset" Value="H50" />
-  <Const Name="BLWalkingOffset" Value="H4C" />
-  <Const Name="BLOutfitOffset" Value="H60" />
-  <Const Name="BLHeadCOffset" Value="H64" />
-  <Const Name="BLBodyCOffset" Value="H68" />
-  <Const Name="BLLegsCOffset" Value="H6C" />
-  <Const Name="BLFeetCOffset" Value="H70" />
-  <Const Name="BLAddonsOffset" Value="H74" />
-  <Const Name="BLLightIntensityOffset" Value="H78" />
-  <Const Name="BLLightColorOffset" Value="H7C" />
-  <Const Name="BLHPPercentOffset" Value="H88" />
-  <Const Name="BLSpeedOffset" Value="H8C" />
-  <Const Name="BLOnScreenOffset" Value="H90" />
-  <Const Name="BLSkullOffset" Value="H94" />
-  <Const Name="BLPartyOffset" Value="H98" />
-  <Const Name="MaxContainers" Value="H10" />
-  <Const Name="ContainerDist" Value="H1EC" />
-  <Const Name="ContainerIDOffset" Value="4" />
-  <Const Name="ContainerNameOffset" Value="H10" />
-  <Const Name="ContainerSizeOffset" Value="H30" />
-  <Const Name="ContainerHasParentOffset" Value="H34" />
-  <Const Name="ContainerItemCountOffset" Value="H38" />
-  <Const Name="ContainerFirstItemOffset" Value="H3C" />
-  <Const Name="ItemDist" Value="HC" />
-  <Const Name="ItemCountOffset" Value="4" />
-  <Const Name="MapObjectIdOffset" Value="4" />
-  <Const Name="MapObjectDataOffset" Value="8" />
-  <Const Name="MapObjectExtraDataOffset" Value="HC" />
-  <Const Name="MapObjectDist" Value="HC" />
-  <Const Name="MapTileDist" Value="HAC" />
-  <Const Name="VipMax" Value="H64" />
-  <Const Name="VipNameOffset" Value="4" />
-  <Const Name="VipStatusOffset" Value="H22" />
-  <Const Name="VipDist" Value="H2C" />
-  <Const Name="SkillsDist" Value="4" />
-  <Const Name="ptrScreenInfoGraphicsEngine" Value="H76B6C0" />
-  <Const Name="ScreenInfoFrameRateOffset" Value="H60" />
-  <Const Name="ScreenInfoFrameRateLimitOffset" Value="H58" />
-  <Const Name="ScreenInfoDX9WidthOffset" Value="H7C" />
-  <Const Name="ScreenInfoDX9HeightOffset" Value="H80" />
-  <Const Name="ScreenInfoDX9LeftOffset" Value="H1D4" />
-  <Const Name="ScreenInfoDX9TopOffset" Value="H1D8" />
-  <Const Name="ScreenInfoDX9RightOffset" Value="H1DC" />
-  <Const Name="ScreenInfoDX9BottomOffset" Value="H1F0" />
-  <Const Name="ScreenInfoDX5WidthOffset" Value="HE8" />
-  <Const Name="ScreenInfoDX5HeightOffset" Value="HEC" />
-  <Const Name="ScreenInfoDX5LeftOffset" Value="H78" />
-  <Const Name="ScreenInfoDX5TopOffset" Value="H7C" />
-  <Const Name="ScreenInfoDX5RightOffset" Value="H80" />
-  <Const Name="ScreenInfoDX5BottomOffset" Value="H84" />
-  <Const Name="ScreenInfoOGLWidthOffset" Value="H7C" />
-  <Const Name="ScreenInfoOGLHeightOffset" Value="H80" />
-  <Const Name="ScreenInfoOGLLeftOffset" Value="H28" />
-  <Const Name="ScreenInfoOGLTopOffset" Value="H2C" />
-  <Const Name="ScreenInfoOGLRightOffset" Value="H30" />
-  <Const Name="ScreenInfoOGLBottomOffset" Value="H34" />
-  <Const Name="ptrNameSpy" Value="H4DF469" />
-  <Const Name="ptrNameSpy2" Value="H4DF473" />
-  <Const Name="NameSpyDefault" Value="H4A75" />
-  <Const Name="NameSpy2Default" Value="H4075" />
-  <Const Name="LevelSpy1" Value="H4E115A" />
-  <Const Name="LevelSpy2" Value="H4E125F" />
-  <Const Name="LevelSpy3" Value="H4E12E0" />
-  <Const Name="ptrLevelSpy" Value="H61B608" />
-  <Const Name="CavebotAttackerShrinkRadius" Value="1.0" />
-  <Const Name="WaypointMaxDistance" Value="100" />
-  <Const Name="MCPatchOffset" Value="1018180" />
-  <Const Name="MCPatchReplacement" Value="HEB" />
-  <Const Name="MCPatchOriginal" Value="H75" />
-  <Const Name="AntiLogoutInterval" Value="30000" />
-  <Const Name="ptrObjects" Value="H768C9C" />
-  <Const Name="ObjectWidthOffset" Value="0" />
-  <Const Name="ObjectHeightOffset" Value="4" />
-  <Const Name="ObjectLayersOffset" Value="HC" />
-  <Const Name="ObjectPatternXOffset" Value="H10" />
-  <Const Name="ObjectPatternYOffset" Value="H14" />
-  <Const Name="ObjectPatternDepthOffset" Value="H18" />
-  <Const Name="ObjectPhaseOffset" Value="H1C" />
-  <Const Name="ObjectSpritesOffset" Value="H20" />
-  <Const Name="ObjectFlagsOffset" Value="H24" />
-  <Const Name="ObjectWalkSpeedOffset" Value="H28" />
-  <Const Name="ObjectTextLimitOffset" Value="H2C" />
-  <Const Name="ObjectLightRadiusOffset" Value="H30" />
-  <Const Name="ObjectLightColorOffset" Value="H34" />
-  <Const Name="ObjectShiftXOffset" Value="H38" />
-  <Const Name="ObjectShiftYOffset" Value="H3C" />
-  <Const Name="ObjectHeightedOffset" Value="H40" />
-  <Const Name="ObjectAutoMapColorOffset" Value="H44" />
-  <Const Name="ObjectLensHelpOffset" Value="H48" />
-  <Const Name="ObjectDist" Value="H4C" />
-  <Const Name="AutoLoginPatch" Value="90,90,90,90,90" />
-  <Const Name="AutoLoginPatchOriginal" Value="E8,0D,1D,09,00" />
-  <Const Name="AutoLoginPatch2" Value="90,90,90,90,90" />
-  <Const Name="AutoLoginPatchOriginal2" Value="E8,C8,15,09,00" />
-  <Const Name="ptrPrintName" Value="H4E228A" />
-  <Const Name="ptrPrintFPS" Value="H44E753" />
-  <Const Name="ptrShowFPS" Value="H611874" />
-  <Const Name="ptrPrintTextFunc" Value="H4A3C00" />
-  <Const Name="ptrNopFPS" Value="H44E68F" />
+  <Const Name="ptrInGame" Value="H77A3F8" />
+  <Const Name="ptrScreenInfoBegin" Value="H77AF3C" />
+  <Const Name="ptrEnterOneNamePerLine" Value="H598670" /> <!-- 8.11 -->
+  <Const Name="ptrForYourInformation" Value="H599990" /> <!-- 8.11 -->
+  <Const Name="ptrCharacterSelectionIndex" Value="H77A3BC" />
+  <Const Name="ptrEncryptionKey" Value="H776DB4" />
+  <Const Name="ptrRSAKey" Value="H5A3610" />
+  <Const Name="RSAKeyOpenTibia" Value="10912013296739942927886096050899554152823750290279812912346875793726629149257644633073969600111060390723088861007265581882535850342905759282762943641310856602909362821263595383668656267584 9720620786279431090218017681061521755056710823876476444260558147179707119674283982419152118103759076030616683978566631413" />
+  <Const Name="ptrServerAddressBegin" Value="H771CF0" />
+  <Const Name="ptrServerPortBegin" Value="H771D54" />
+  <Const Name="ServerAddressDist" Value="H70" /> <!-- 8.11 -->
+  <Const Name="ServerAddressCount" Value="HA" /> <!-- 8.11 -->
+  <Const Name="ptrCharacterID" Value="H621C70" />
+  <Const Name="ptrBattleListBegin" Value="H621CD0" />
+  <Const Name="ptrFirstContainer" Value="H62A208" />
+  <Const Name="ptrInventoryBegin" Value="H62A190" />
+  <Const Name="ptrLevel" Value="H621C60" />
+  <Const Name="ptrLevelPercent" Value="H621C58" />
+  <Const Name="ptrMagicLevel" Value="H621C5C" />
+  <Const Name="ptrMagicLevelPercent" Value="H621C54" />
+  <Const Name="ptrExperience" Value="H621C64" />
+  <Const Name="ptrFollowedEntityID" Value="H621C38" />
+  <Const Name="ptrAttackedEntityID" Value="H621C3C" />
+  <Const Name="ptrLastAttackedEntityID" Value="H76DA10" /> <!-- 8.11 -->
+  <Const Name="ptrMaxHitPoints" Value="H621C68" />
+  <Const Name="ptrHitPoints" Value="H621C6C" />
+  <Const Name="ptrMaxManaPoints" Value="H621C4C" />
+  <Const Name="ptrManaPoints" Value="H621C50" />
+  <Const Name="ptrSoulPoints" Value="H621C48" />
+  <Const Name="ptrCapacity" Value="H621C40" />
+  <Const Name="ptrCoordX" Value="H621CF4" />
+  <Const Name="ptrCoordY" Value="H621CF8" />
+  <Const Name="ptrCoordZ" Value="H621CFC" />
+  <Const Name="ptrSecureMode" Value="H7771D0" />
+  <Const Name="ptrFightingMode" Value="H7771D8" />
+  <Const Name="ptrChasingMode" Value="H7771D4" />
+  <Const Name="ptrMapPointer" Value="H631610" />
+  <Const Name="ptrConditions" Value="H621BF8" />
+  <Const Name="ptrVipListBegin" Value="H61F990" />
+  <Const Name="ptrSkillsBegin" Value="H621C18" />
+  <Const Name="ptrSkillsPercentBegin" Value="H621BFC" />
+  <Const Name="ptrStamina" Value="H621C44" />
+  <Const Name="ptrGoToX" Value="H621CB4" />
+  <Const Name="ptrGoToY" Value="H621CB0" />
+  <Const Name="ptrGoToZ" Value="H621CAC" />
+  <Const Name="ptrHotkeyBegin" Value="H777218" />
+  <Const Name="ptrStatusMessage" Value="H77BA58" />
+  <Const Name="ptrStatusMessageTimer" Value="H77BA54" />
+  <Const Name="ptrCharacterListBegin" Value="H77A3C0" />
+  <Const Name="ptrWASDPopup" Value="H77A458" />
+  <Const Name="CharacterListDist" Value="H54" /> <!-- 8.11 -->
+  <Const Name="CharacterListWorldOffset" Value="H1E" /> <!-- 8.11 -->
+  <Const Name="CharacterListWorldIPBinaryOffset" Value="H3C" /> <!-- 8.11 -->
+  <Const Name="CharacterListWorldIPStringOffset" Value="H40" /> <!-- 8.11 -->
+  <Const Name="CharacterListWorldPortOffset" Value="H50" /> <!-- 8.11 -->
+  <Const Name="HotkeyMax" Value="H24" /> <!-- 8.11 -->
+  <Const Name="HotkeyItemDataOffset" Value="H90" /> <!-- 8.11 -->
+  <Const Name="HotkeyItemOffset" Value="H120" /> <!-- 8.11 -->
+  <Const Name="HotkeyItemDist" Value="4" /> <!-- 8.11 -->
+  <Const Name="HotkeyTextAutoSendOffset" Value="H1B0" /> <!-- 8.11 -->
+  <Const Name="HotkeyTextAutoSendDist" Value="1" /> <!-- 8.11 -->
+  <Const Name="HotkeyTextOffset" Value="H1D8" /> <!-- 8.11 -->
+  <Const Name="HotkeyTextDist" Value="H100" /> <!-- 8.11 -->
+  <Const Name="BLMax" Value="H96" /> <!-- 8.11 -->
+  <Const Name="BLDist" Value="HA0" /> <!-- 8.11 -->
+  <Const Name="BLNameOffset" Value="H4" /> <!-- 8.11 -->
+  <Const Name="BLCoordXOffset" Value="H24" /> <!-- 8.11 -->
+  <Const Name="BLCoordYOffset" Value="H28" /> <!-- 8.11 -->
+  <Const Name="BLCoordZOffset" Value="H2C" /> <!-- 8.11 -->
+  <Const Name="BLDirectionOffset" Value="H50" /> <!-- 8.11 -->
+  <Const Name="BLWalkingOffset" Value="H4C" /> <!-- 8.11 -->
+  <Const Name="BLOutfitOffset" Value="H60" /> <!-- 8.11 -->
+  <Const Name="BLHeadCOffset" Value="H64" /> <!-- 8.11 -->
+  <Const Name="BLBodyCOffset" Value="H68" /> <!-- 8.11 -->
+  <Const Name="BLLegsCOffset" Value="H6C" /> <!-- 8.11 -->
+  <Const Name="BLFeetCOffset" Value="H70" /> <!-- 8.11 -->
+  <Const Name="BLAddonsOffset" Value="H74" /> <!-- 8.11 -->
+  <Const Name="BLLightIntensityOffset" Value="H78" /> <!-- 8.11 -->
+  <Const Name="BLLightColorOffset" Value="H7C" /> <!-- 8.11 -->
+  <Const Name="BLHPPercentOffset" Value="H88" /> <!-- 8.11 -->
+  <Const Name="BLSpeedOffset" Value="H8C" /> <!-- 8.11 -->
+  <Const Name="BLOnScreenOffset" Value="H90" /> <!-- 8.11 -->
+  <Const Name="BLSkullOffset" Value="H94" /> <!-- 8.11 -->
+  <Const Name="BLPartyOffset" Value="H98" /> <!-- 8.11 -->
+  <Const Name="MaxContainers" Value="H10" /> <!-- 8.11 -->
+  <Const Name="ContainerDist" Value="H1EC" /> <!-- 8.11 -->
+  <Const Name="ContainerIDOffset" Value="4" /> <!-- 8.11 -->
+  <Const Name="ContainerNameOffset" Value="H10" /> <!-- 8.11 -->
+  <Const Name="ContainerSizeOffset" Value="H30" /> <!-- 8.11 -->
+  <Const Name="ContainerHasParentOffset" Value="H34" /> <!-- 8.11 -->
+  <Const Name="ContainerItemCountOffset" Value="H38" /> <!-- 8.11 -->
+  <Const Name="ContainerFirstItemOffset" Value="H3C" /> <!-- 8.11 -->
+  <Const Name="ItemDist" Value="HC" /> <!-- 8.11 -->
+  <Const Name="ItemCountOffset" Value="4" /> <!-- 8.11 -->
+  <Const Name="MapObjectIdOffset" Value="4" /> <!-- 8.11 -->
+  <Const Name="MapObjectDataOffset" Value="8" /> <!-- 8.11 -->
+  <Const Name="MapObjectExtraDataOffset" Value="HC" /> <!-- 8.11 -->
+  <Const Name="MapObjectDist" Value="HC" /> <!-- 8.11 -->
+  <Const Name="MapTileDist" Value="HAC" /> <!-- 8.11 -->
+  <Const Name="VipMax" Value="H64" /> <!-- 8.11 -->
+  <Const Name="VipNameOffset" Value="4" /> <!-- 8.11 -->
+  <Const Name="VipStatusOffset" Value="H22" /> <!-- 8.11 -->
+  <Const Name="VipDist" Value="H2C" /> <!-- 8.11 -->
+  <Const Name="SkillsDist" Value="4" /> <!-- 8.11 -->
+  <Const Name="ptrScreenInfoGraphicsEngine" Value="H7797F0" />
+  <Const Name="ScreenInfoFrameRateOffset" Value="H60" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoFrameRateLimitOffset" Value="H58" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX9WidthOffset" Value="H7C" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX9HeightOffset" Value="H80" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX9LeftOffset" Value="H1D4" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX9TopOffset" Value="H1D8" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX9RightOffset" Value="H1DC" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX9BottomOffset" Value="H1F0" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX5WidthOffset" Value="HE8" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX5HeightOffset" Value="HEC" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX5LeftOffset" Value="H78" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX5TopOffset" Value="H7C" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX5RightOffset" Value="H80" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoDX5BottomOffset" Value="H84" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoOGLWidthOffset" Value="H7C" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoOGLHeightOffset" Value="H80" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoOGLLeftOffset" Value="H28" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoOGLTopOffset" Value="H2C" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoOGLRightOffset" Value="H30" /> <!-- 8.11 -->
+  <Const Name="ScreenInfoOGLBottomOffset" Value="H34" /> <!-- 8.11 -->
+  <Const Name="ptrNameSpy" Value="H4E7A09" /> <!-- 8.11 -->
+  <Const Name="ptrNameSpy2" Value="H4E7A13" /> <!-- 8.11 -->
+  <Const Name="NameSpyDefault" Value="H4A75" /> <!-- 8.11 -->
+  <Const Name="NameSpy2Default" Value="H4075" /> <!-- 8.11 -->
+  <Const Name="LevelSpy1" Value="H4E974A" /> <!-- 8.11 -->
+  <Const Name="LevelSpy2" Value="H4E984F" /> <!-- 8.11 -->
+  <Const Name="LevelSpy3" Value="H4E98D0" /> <!-- 8.11 -->
+  <Const Name="ptrLevelSpy" Value="H629754" /> <!-- 8.11 -->
+  <Const Name="CavebotAttackerShrinkRadius" Value="1.0" /> <!-- 8.11 -->
+  <Const Name="WaypointMaxDistance" Value="100" /> <!-- 8.11 -->
+  <Const Name="MCPatchOffset" Value="1051876" /> 
+  <Const Name="MCPatchReplacement" Value="HEB" /> <!-- 8.11 -->
+  <Const Name="MCPatchOriginal" Value="H75" /> <!-- 8.11 -->
+  <Const Name="AntiLogoutInterval" Value="30000" /> <!-- 8.11 -->
+  <Const Name="ptrObjects" Value="H776DD4" />
+  <Const Name="ObjectWidthOffset" Value="0" /> <!-- 8.11 -->
+  <Const Name="ObjectHeightOffset" Value="4" /> <!-- 8.11 -->
+  <Const Name="ObjectLayersOffset" Value="HC" /> <!-- 8.11 -->
+  <Const Name="ObjectPatternXOffset" Value="H10" /> <!-- 8.11 -->
+  <Const Name="ObjectPatternYOffset" Value="H14" /> <!-- 8.11 -->
+  <Const Name="ObjectPatternDepthOffset" Value="H18" /> <!-- 8.11 -->
+  <Const Name="ObjectPhaseOffset" Value="H1C" /> <!-- 8.11 -->
+  <Const Name="ObjectSpritesOffset" Value="H20" /> <!-- 8.11 -->
+  <Const Name="ObjectFlagsOffset" Value="H24" /> <!-- 8.11 -->
+  <Const Name="ObjectWalkSpeedOffset" Value="H28" /> <!-- 8.11 -->
+  <Const Name="ObjectTextLimitOffset" Value="H2C" /> <!-- 8.11 -->
+  <Const Name="ObjectLightRadiusOffset" Value="H30" /> <!-- 8.11 -->
+  <Const Name="ObjectLightColorOffset" Value="H34" /> <!-- 8.11 -->
+  <Const Name="ObjectShiftXOffset" Value="H38" /> <!-- 8.11 -->
+  <Const Name="ObjectShiftYOffset" Value="H3C" /> <!-- 8.11 -->
+  <Const Name="ObjectHeightedOffset" Value="H40" /> <!-- 8.11 -->
+  <Const Name="ObjectAutoMapColorOffset" Value="H44" /> <!-- 8.11 -->
+  <Const Name="ObjectLensHelpOffset" Value="H48" /> <!-- 8.11 -->
+  <Const Name="ObjectDist" Value="H4C" /> <!-- 8.11 -->
+  <Const Name="AutoLoginPatch" Value="90,90,90,90,90" /> <!-- 8.11 -->
+  <Const Name="AutoLoginPatchOriginal" Value="E8,0D,1D,09,00" /> <!-- 8.11 -->
+  <Const Name="AutoLoginPatch2" Value="90,90,90,90,90" /> <!-- 8.11 -->
+  <Const Name="AutoLoginPatchOriginal2" Value="E8,C8,15,09,00" /> <!-- 8.11 -->
+  <Const Name="ptrPrintName" Value="H4EA881" />
+  <Const Name="ptrPrintFPS" Value="H455A38" />
+  <Const Name="ptrShowFPS" Value="H61F974" />
+  <Const Name="ptrPrintTextFunc" Value="H4ABAD0" />
+  <Const Name="ptrNopFPS" Value="H455974" />
 </Constants>
