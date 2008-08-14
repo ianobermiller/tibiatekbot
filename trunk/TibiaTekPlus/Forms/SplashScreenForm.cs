@@ -40,5 +40,15 @@ namespace TibiaTekPlus
             System.Threading.Thread.Sleep(1500);
         }
 
+        private void SplashScreenForm_Load(object sender, EventArgs e)
+        {
+            System.Drawing.Bitmap Img = (Bitmap)this.BackgroundImage;
+            Color color = Img.GetPixel(0, 0);
+            Img.MakeTransparent(color);
+            this.BackgroundImage = Img;
+            this.TransparencyKey = color;
+            this.BackColor = color;
+        }
+
     }
 }
