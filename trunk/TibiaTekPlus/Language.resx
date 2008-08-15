@@ -156,7 +156,7 @@ Reason: The file '{2}.dll' was not found.</value>
 Warning: You will be required to restart this application.</value>
   </data>
   <data name="Program_NoSkins" xml:space="preserve">
-    <value>There are no available skins. Please re-install TibiaTek Plus.</value>
+    <value>There are no available skins. Please first, uninstall TibiaTek Plus and then install it again.</value>
   </data>
   <data name="Skin_MissingSkinFile" xml:space="preserve">
     <value>The skin '{0}' is missing the file:

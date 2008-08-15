@@ -96,7 +96,7 @@ namespace TibiaTekPlus
                         // Check if the plug-in is scheduled to be installed
                         foreach (XmlElement installPlugin in plugins["pending"]["install"])
                         {
-                            //MessageBox.Show(pluginManager.Version + "=" + installPlugin.GetAttribute("fullname"));
+                            //MessageBox.Show(pluginManager.version + "=" + installPlugin.GetAttribute("fullname"));
                             if (fname.Equals(installPlugin.GetAttribute("fullname")))
                             {
                                 MessageBox.Show("This plug-in is already scheduled to be installed. Please close all instances of TibiaTek Plus first.");
@@ -121,7 +121,7 @@ namespace TibiaTekPlus
                         fullname.Value = plugin.GetType().FullName;
                         xplugin.Attributes.Append(fullname);
 
-                        // Version
+                        // version
                         XmlAttribute version = document.CreateAttribute("version");
                         version.Value = plugin.Version;
                         xplugin.Attributes.Append(version);
