@@ -11,14 +11,14 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Load a configuration for this plug-in.
         /// </summary>
-        /// <param name="path">Path to the configuration file</param>
+        /// <param name="path">location to the configuration file</param>
         /// <returns>True if successfull, otherwise false</returns>
         bool Load(string path);
 
         /// <summary>
         /// Save the configuration for this plug-in.
         /// </summary>
-        /// <param name="path">Path to the configuration file.</param>
+        /// <param name="path">location to the configuration file.</param>
         /// <returns>True if successfull, otherwise false.</returns>
         bool Save(string path);
 

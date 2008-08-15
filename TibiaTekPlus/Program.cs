@@ -8,6 +8,7 @@ namespace TibiaTekPlus
 
     static class Program
     {
+
         /// <summary>
         /// Instance of the Kernel object.
         /// </summary>
@@ -91,15 +92,14 @@ namespace TibiaTekPlus
 
             // Enable the kernel (initialization prior to main window)
             kernel.Enable();
-
             ApplicationContext appContext = new ApplicationContext(mainForm);
             appContext.ThreadExit += new EventHandler(OnApplicationExit);
             Application.Run(appContext);
         }
 
-        static public Application Application
+        static public String StartupPath
         {
-            get { return Application;  }
+            get { return Application.StartupPath;  }
         }
 
         static private void kernel_PluginLoaded(Plugin plugin)

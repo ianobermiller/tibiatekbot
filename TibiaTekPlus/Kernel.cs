@@ -200,7 +200,7 @@ namespace TibiaTekPlus
         {
             int count = 0;
             XmlDocument document = new XmlDocument();
-            document.Load("TibiaTekPlus.Plugins.xml");
+            document.Load(Path.Combine(Program.StartupPath,"TibiaTekPlus.Plugins.xml"));
             string filepath;
             foreach (XmlElement element in document["plugins"]["pending"]["uninstall"])
             {
@@ -217,7 +217,7 @@ namespace TibiaTekPlus
                 } catch (Exception){
                 }
             }
-            document.Save("TibiaTekPlus.Plugins.xml");
+            document.Save(Path.Combine(Program.StartupPath,"TibiaTekPlus.Plugins.xml"));
             return count;
         }
 
@@ -229,7 +229,7 @@ namespace TibiaTekPlus
         {
             int count = 0;
             XmlDocument document = new XmlDocument();
-            document.Load("TibiaTekPlus.Plugins.xml");
+            document.Load(Path.Combine(Program.StartupPath,"TibiaTekPlus.Plugins.xml"));
             string filepath;
             foreach (XmlElement element in document["plugins"]["pending"]["install"])
             {
@@ -247,7 +247,7 @@ namespace TibiaTekPlus
                     document["plugins"]["pending"]["install"].RemoveChild(element);
                 }
             }
-            document.Save("TibiaTekPlus.Plugins.xml");
+            document.Save(Path.Combine(Program.StartupPath,"TibiaTekPlus.Plugins.xml"));
             return count;
         }
 
@@ -259,7 +259,7 @@ namespace TibiaTekPlus
             get
             {
                 XmlDocument document = new XmlDocument();
-                document.Load("TibiaTekPlus.Plugins.xml");
+                document.Load(Path.Combine(Program.StartupPath,"TibiaTekPlus.Plugins.xml"));
                 return document["plugins"]["installed"].ChildNodes.Count;
             }
         }
@@ -272,13 +272,13 @@ namespace TibiaTekPlus
         {
             int count = 0;
             XmlDocument document = new XmlDocument();
-            document.Load("TibiaTekPlus.Plugins.xml");
+            document.Load(Path.Combine(Program.StartupPath, "TibiaTekPlus.Plugins.xml"));
             string path;
             foreach (XmlElement element in document["plugins"]["installed"])
             {
                 try
                 {
-                    path = Path.Combine(Application.StartupPath, element.GetAttribute("fullname") + ".dll");
+                    path = Path.Combine(Program.StartupPath, element.GetAttribute("fullname") + ".dll");
                     if (File.Exists(path))
                     {
                         Plugin plugin = (Plugin)Activator.CreateInstance(Type.GetType(element["assemblyQualifiedName"].InnerText));
@@ -362,7 +362,7 @@ namespace TibiaTekPlus
             get
             {
                 SortedList skinlist = new SortedList();
-                string defskinspath = Path.Combine(Environment.CurrentDirectory, "Skins");
+                string defskinspath = Path.Combine(Program.StartupPath, "Skins");
                 string userskinspath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TibiaTek Plus\Skins");
                 string[] defskins = Directory.GetDirectories(defskinspath);
                 string[] userskins = Directory.GetDirectories(userskinspath);
@@ -389,14 +389,14 @@ namespace TibiaTekPlus
         {
             int count = 0;
             SortedList skinlist = new SortedList();
-            string defskinspath = Path.Combine(Environment.CurrentDirectory, "Skins");
+            string defskinspath = Path.Combine(Program.StartupPath, "Skins");
             string userskinspath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TibiaTek Plus\Skins");
             string[] defskins = Directory.GetDirectories(defskinspath);
             string[] userskins = Directory.GetDirectories(userskinspath);
             foreach (string dir in defskins)
             {
                 if (!skinlist.Contains(dir.Substring(defskinspath.Length + 1)))
-                    skinlist.Add(dir.Substring(defskinspath.Length + 1), Path.Combine(Environment.CurrentDirectory, @"Skins\" + dir.Substring(defskinspath.Length + 1)));
+                    skinlist.Add(dir.Substring(defskinspath.Length + 1), Path.Combine(Program.StartupPath, @"Skins\" + dir.Substring(defskinspath.Length + 1)));
             }
             foreach (string dir in userskins)
             {
