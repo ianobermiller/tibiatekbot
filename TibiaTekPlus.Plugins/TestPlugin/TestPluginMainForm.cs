@@ -40,6 +40,29 @@ namespace TibiaTekPlus.Plugins
                 output += plug.Title + "\r\n";
             }
             textBox1.Text = output;
+            Plugin.Host.Client.Proxy.ReceivedStatusMessagePacket += ReceivedStatusMessagePacket;
+        }
+
+        bool ReceivedStatusMessagePacket(Tibia.Packets.Packet p)
+        {
+            Tibia.Packets.StatusMessagePacket pp = (Tibia.Packets.StatusMessagePacket)p;
+            setText(textBox1.Text + pp.Message + "\r\n");
+            return true;
+        }
+
+        delegate void setTextDelegate(string value);
+
+        void setText(string value)
+        {
+            
+            if (textBox1.InvokeRequired)
+            {
+                textBox1.Invoke(new setTextDelegate(setText),value);
+            }
+            else
+            {
+                textBox1.Text = value;
+            }
         }
     }
 }

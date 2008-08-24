@@ -28,8 +28,6 @@ namespace TibiaTekPlus
         public MainForm()
         {
             InitializeComponent();
-            
-            
         }
 
 
@@ -46,7 +44,8 @@ namespace TibiaTekPlus
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Load menu.htm
-            menuWebBrowser.Url = new System.Uri(System.IO.Path.Combine(Kernel.Skin.Path, @"menu.htm"));
+            menuWebBrowser.Navigate(System.IO.Path.Combine(Kernel.Skin.Path, @"menu.htm"));
+
 
             // Populate Skins dropdown menu
             skinsToolStripMenuItem.DropDownItems.Clear();
@@ -87,6 +86,7 @@ namespace TibiaTekPlus
 
             // Load size
             this.Size = Settings.Default.MainFormSize;
+
         }
 
         private void menuWebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -248,6 +248,17 @@ namespace TibiaTekPlus
             Settings.Default.MainMenuPosition = this.mainMenu.Parent.Tag.ToString();
             Settings.Default.MainFormLocation = this.Location;
             Settings.Default.MainFormSize = this.Size;
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            
         }
 
 

@@ -118,6 +118,7 @@ namespace TibiaTekPlus.Plugins
         /// Gets or sets a value indicating whether or not the plug-in can interact with the kernel and/or user.
         /// </summary>
         bool Enabled { get; }
+
     }
 
     /// <summary>
