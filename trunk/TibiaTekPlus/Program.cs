@@ -86,10 +86,11 @@ namespace TibiaTekPlus
             if (kernel.Client == null) Environment.Exit(0);
 
             kernel.Client.OnExit += (Tibia.Objects.Client.ClientNotification)kernel.OnClientExit;
-
+            kernel.Client.Process.WaitForInputIdle();
+            kernel.Client.StartProxy();
             // Create the main form
             mainForm = new MainForm();
-
+            
             // Enable the kernel (initialization prior to main window)
             kernel.Enable();
             ApplicationContext appContext = new ApplicationContext(mainForm);
