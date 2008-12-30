@@ -71,7 +71,7 @@ namespace TibiaTekPlus
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.mainMenu.ShowItemToolTips = true;
-            this.mainMenu.Size = new System.Drawing.Size(193, 24);
+            this.mainMenu.Size = new System.Drawing.Size(199, 24);
             this.mainMenu.TabIndex = 2;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -80,13 +80,13 @@ namespace TibiaTekPlus
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             // 
             // toolsToolStripMenuItem
@@ -97,39 +97,39 @@ namespace TibiaTekPlus
             this.skinsToolStripMenuItem,
             this.optionsSettingsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // plugInManagerToolStripMenuItem
             // 
             this.plugInManagerToolStripMenuItem.Name = "plugInManagerToolStripMenuItem";
-            this.plugInManagerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.plugInManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.plugInManagerToolStripMenuItem.Text = "&Plug-In Manager";
             this.plugInManagerToolStripMenuItem.Click += new System.EventHandler(this.plugInManagerToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(161, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(160, 6);
             // 
             // skinsToolStripMenuItem
             // 
             this.skinsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.emptyToolStripMenuItem});
             this.skinsToolStripMenuItem.Name = "skinsToolStripMenuItem";
-            this.skinsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.skinsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.skinsToolStripMenuItem.Text = "&Skins";
             // 
             // emptyToolStripMenuItem
             // 
             this.emptyToolStripMenuItem.Name = "emptyToolStripMenuItem";
-            this.emptyToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.emptyToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.emptyToolStripMenuItem.Text = "Empty";
             // 
             // optionsSettingsToolStripMenuItem
             // 
             this.optionsSettingsToolStripMenuItem.Name = "optionsSettingsToolStripMenuItem";
-            this.optionsSettingsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.optionsSettingsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.optionsSettingsToolStripMenuItem.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -140,37 +140,37 @@ namespace TibiaTekPlus
             this.toolStripMenuItem1,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // usersGuideToolStripMenuItem
             // 
             this.usersGuideToolStripMenuItem.Name = "usersGuideToolStripMenuItem";
-            this.usersGuideToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.usersGuideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usersGuideToolStripMenuItem.Text = "&User\'s Guide";
             // 
             // documentationToolStripMenuItem
             // 
             this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
-            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.documentationToolStripMenuItem.Text = "&Documentation";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(175, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "&About TibiaTek Plus";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.testToolStripMenuItem.Text = "&Test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
@@ -182,7 +182,7 @@ namespace TibiaTekPlus
             this.menuWebBrowser.Location = new System.Drawing.Point(0, 0);
             this.menuWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.menuWebBrowser.Name = "menuWebBrowser";
-            this.menuWebBrowser.Size = new System.Drawing.Size(193, 308);
+            this.menuWebBrowser.Size = new System.Drawing.Size(199, 308);
             this.menuWebBrowser.TabIndex = 3;
             this.menuWebBrowser.WebBrowserShortcutsEnabled = false;
             this.menuWebBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.menuWebBrowser_Navigating);
@@ -194,7 +194,7 @@ namespace TibiaTekPlus
             this.statusBarLabel});
             this.statusBar.Location = new System.Drawing.Point(0, 332);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(193, 22);
+            this.statusBar.Size = new System.Drawing.Size(199, 22);
             this.statusBar.TabIndex = 4;
             this.statusBar.Text = "statusBar";
             // 
@@ -214,7 +214,7 @@ namespace TibiaTekPlus
             // Panels.ContentPanel
             // 
             this.Panels.ContentPanel.Controls.Add(this.menuWebBrowser);
-            this.Panels.ContentPanel.Size = new System.Drawing.Size(193, 308);
+            this.Panels.ContentPanel.Size = new System.Drawing.Size(199, 308);
             this.Panels.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // Panels.LeftToolStripPanel
@@ -226,7 +226,7 @@ namespace TibiaTekPlus
             // Panels.RightToolStripPanel
             // 
             this.Panels.RightToolStripPanel.Tag = "RightPanel";
-            this.Panels.Size = new System.Drawing.Size(193, 332);
+            this.Panels.Size = new System.Drawing.Size(199, 332);
             this.Panels.TabIndex = 5;
             this.Panels.Text = "toolStripContainer1";
             // 
@@ -239,12 +239,12 @@ namespace TibiaTekPlus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(193, 354);
+            this.ClientSize = new System.Drawing.Size(199, 354);
             this.Controls.Add(this.Panels);
             this.Controls.Add(this.statusBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.mainMenu;
-            this.MinimumSize = new System.Drawing.Size(201, 200);
+            this.MinimumSize = new System.Drawing.Size(210, 200);
             this.Name = "MainForm";
             this.Text = "TibiaTek Plus";
             this.Load += new System.EventHandler(this.MainForm_Load);

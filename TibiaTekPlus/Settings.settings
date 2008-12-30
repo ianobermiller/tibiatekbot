@@ -12,7 +12,7 @@
       <Value Profile="(Default)">100, 100</Value>
     </Setting>
     <Setting Name="MainFormSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">201, 380</Value>
+      <Value Profile="(Default)">210, 380</Value>
     </Setting>
     <Setting Name="ProgramRecentAddresses" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;

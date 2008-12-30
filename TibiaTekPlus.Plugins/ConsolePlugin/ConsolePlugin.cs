@@ -38,7 +38,7 @@ namespace TibiaTekPlus.Plugins
         private void PlayerLogin()
         {
             player = client.GetPlayer();
-            Tibia.Packets.Incoming.ChannelOpenPacket.Send(client, ChatChannel.Custom, "TibiaAPI");
+            Tibia.Packets.Incoming.ChannelOpenPacket.Send(client, ChatChannel.Custom, "TT+");
         }
 
         #endregion
@@ -105,7 +105,7 @@ namespace TibiaTekPlus.Plugins
         {
             get
             {
-                return "Console";
+                return "Communication";
             }
         }
 
