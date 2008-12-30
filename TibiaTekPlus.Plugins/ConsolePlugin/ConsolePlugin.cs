@@ -20,13 +20,19 @@ namespace TibiaTekPlus.Plugins
 
         public ConsolePlugin()
         {
-            client = this.Host.Client;
-            client.Proxy.PlayerLogin += PlayerLogin;
-            client.Proxy.ReceivedPlayerSpeechOutgoingPacket += ReceivedPlayerSpeechOutgoingPacket;
+
         }
 
         ~ConsolePlugin()
         {
+
+        }
+
+        public override void Init()
+        {
+            client = this.Host.Client;
+            client.Proxy.PlayerLogin += PlayerLogin;
+            client.Proxy.ReceivedPlayerSpeechOutgoingPacket += ReceivedPlayerSpeechOutgoingPacket;
         }
 
         private void PlayerLogin()
@@ -70,12 +76,12 @@ namespace TibiaTekPlus.Plugins
 
         #region Configuration Settings
 
-        public override bool Load(string path)
+        public override bool LoadConfig(string path)
         {
             MessageBox.Show("Finished loading.");
             return true;
         }
-        public override bool Save(string path)
+        public override bool SaveConfig(string path)
         {
             MessageBox.Show("Finished saving.");
             return true;
@@ -85,12 +91,12 @@ namespace TibiaTekPlus.Plugins
 
         #region Graphic User Interface
 
-        public override void Show()
+        public override void ShowGui()
         {
 
         }
 
-        public override void Hide()
+        public override void HideGui()
         {
 
         }

@@ -183,7 +183,12 @@ namespace TibiaTekPlus
                     }
                 } while (true);
             } catch(Exception ex){
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                MessageBox.Show(ex.Message  
+                    + "\n" + ex.InnerException.Message
+                    + "\n in " + ex.InnerException.Source
+                    + "\n" + ex.InnerException.StackTrace, 
+                    "Error", 
+                    MessageBoxButtons.OK);
             }
             // Unload new AppDomain
             AppDomain.Unload(domain);

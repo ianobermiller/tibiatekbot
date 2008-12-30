@@ -90,6 +90,24 @@ namespace TibiaTekPlus
         }
 
         /// <summary>
+        /// Initialize all teh plugins.
+        /// </summary>
+        public void InitPlugins()
+        {
+            foreach (IPlugin plugin in plugins)
+            {
+                try
+                {
+                    plugin.Init();
+                }
+                catch (NotImplementedException)
+                {
+                    // Do nothing
+                }
+            }
+        }
+
+        /// <summary>
         /// Starts the kernel, enables the use of plug-ins. This function is called when the main form is ready.
         /// </summary>
         public void Enable()
@@ -295,9 +313,9 @@ namespace TibiaTekPlus
                         MessageBox.Show(String.Format(Language.kernel_error1, element["title"], element["author"], element.GetAttribute("fullname")), Language.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    MessageBox.Show(String.Format(Language.kernel_error2, element.GetAttribute("fullname")), Language.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(String.Format(Language.kernel_error2, element.GetAttribute("fullname"), e.StackTrace + "\n" + e.Message), Language.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             return count;

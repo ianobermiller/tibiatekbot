@@ -13,24 +13,24 @@ namespace TibiaTekPlus.Plugins
         /// </summary>
         /// <param name="path">location to the configuration file</param>
         /// <returns>True if successfull, otherwise false</returns>
-        bool Load(string path);
+        bool LoadConfig(string path);
 
         /// <summary>
         /// Save the configuration for this plug-in.
         /// </summary>
         /// <param name="path">location to the configuration file.</param>
         /// <returns>True if successfull, otherwise false.</returns>
-        bool Save(string path);
+        bool SaveConfig(string path);
 
         /// <summary>
         /// Show the main window of this plug-in.
         /// </summary>
-        void Show();
+        void ShowGui();
 
         /// <summary>
         /// Hide the main window of this plug-in.
         /// </summary>
-        void Hide();
+        void HideGui();
 
         /// <summary>
         /// Gets the icon of this plug-in (stored in {PluginName}.Resources.Icon.ico).
@@ -88,6 +88,11 @@ namespace TibiaTekPlus.Plugins
         /// Gets the state of this plug-in.
         /// </summary>
         PluginState State { get; set; }
+
+        /// <summary>
+        /// Initializes the plug-in.
+        /// </summary>
+        void Init();
 
         /// <summary>
         /// Starts the plug-in.
