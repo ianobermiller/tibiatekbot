@@ -85,7 +85,6 @@ namespace TibiaTekPlus
             kernel.Client = Tibia.Util.ClientChooserWPF.ShowBox(options);
             if (kernel.Client == null) Environment.Exit(0);
 
-            kernel.Client.OnExit += (Tibia.Objects.Client.ClientNotification)kernel.OnClientExit;
             kernel.Client.Process.WaitForInputIdle();
             kernel.Client.StartProxy();
             // Create the main form
