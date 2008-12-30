@@ -100,7 +100,5 @@ namespace TibiaTekPlus.Plugins
         }
 
         #endregion
-
-        
     }
 }

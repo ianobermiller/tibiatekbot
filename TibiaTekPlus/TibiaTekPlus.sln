@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TibiaTekPlus.Plugins.Invali
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TibiaAPI", "..\..\TibiaAPI\tibiaapi\TibiaAPI.csproj", "{4D132EB7-B97D-461D-85CF-949FF5A7BA96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TibiaTekPlus.Plugins.ConsolePlugin", "..\TibiaTekPlus.Plugins\ConsolePlugin\TibiaTekPlus.Plugins.ConsolePlugin.csproj", "{6A91ABBC-9943-473D-8115-028BB7564E34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4D132EB7-B97D-461D-85CF-949FF5A7BA96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D132EB7-B97D-461D-85CF-949FF5A7BA96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D132EB7-B97D-461D-85CF-949FF5A7BA96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A91ABBC-9943-473D-8115-028BB7564E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A91ABBC-9943-473D-8115-028BB7564E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A91ABBC-9943-473D-8115-028BB7564E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A91ABBC-9943-473D-8115-028BB7564E34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +52,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B2872E8A-DD32-41E8-B09E-160C7E967072} = {317FF633-E643-4C28-95DE-3093389C83FB}
 		{F4FB0BD8-F509-4894-90D4-C75DD98B7559} = {317FF633-E643-4C28-95DE-3093389C83FB}
+		{6A91ABBC-9943-473D-8115-028BB7564E34} = {317FF633-E643-4C28-95DE-3093389C83FB}
 	EndGlobalSection
 EndGlobal
