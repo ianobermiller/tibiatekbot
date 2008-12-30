@@ -194,8 +194,8 @@ namespace TibiaTekPlus
             Uri url = e.Url;
             if (String.IsNullOrEmpty(url.Host))
                 return;
-            MessageBox.Show(url.Host);
-            MessageBox.Show(url.Query);
+            //MessageBox.Show(url.Host);
+            //MessageBox.Show(url.Query);
             e.Cancel = true;
         }
 
