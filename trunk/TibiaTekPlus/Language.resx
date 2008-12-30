@@ -149,7 +149,8 @@ Reason: The file '{2}.dll' was not found.</value>
   </data>
   <data name="kernel_error2" xml:space="preserve">
     <value>Unable to load the following plug-in:
-{0}.dll.</value>
+{0}.dll.
+{1}</value>
   </data>
   <data name="mainForm_skinSelected" xml:space="preserve">
     <value>Are you sure that you want to use the following skin: {0}?

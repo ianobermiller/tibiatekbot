@@ -26,7 +26,7 @@ namespace TibiaTekPlus.Plugins
         /// </summary>
         /// <param name="path">location to the configuration file</param>
         /// <returns>True if successfull, otherwise false</returns>
-        public virtual bool Load(string path)
+        public virtual bool LoadConfig(string path)
         {
             throw new NotImplementedException();
         }
@@ -36,7 +36,7 @@ namespace TibiaTekPlus.Plugins
         /// </summary>
         /// <param name="path">location to the configuration file.</param>
         /// <returns>True if successfull, otherwise false.</returns>
-        public virtual bool Save(string path)
+        public virtual bool SaveConfig(string path)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +44,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Show the main window of this plug-in.
         /// </summary>
-        public virtual void Show()
+        public virtual void ShowGui()
         {
             throw new NotImplementedException();
         }
@@ -52,7 +52,7 @@ namespace TibiaTekPlus.Plugins
         /// <summary>
         /// Hide the main window of this plug-in.
         /// </summary>
-        public virtual void Hide()
+        public virtual void HideGui()
         {
             throw new NotImplementedException();
         }
@@ -207,6 +207,14 @@ namespace TibiaTekPlus.Plugins
                 }
                 state = value;
             }
+        }
+
+        /// <summary>
+        /// Initializes the plug-in. Called after Host is set.
+        /// </summary>
+        public virtual void Init()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

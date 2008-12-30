@@ -31,12 +31,12 @@ namespace TibiaTekPlus.Plugins
 
         #region Configuration Settings
 
-        public override bool Load(string path)
+        public override bool LoadConfig(string path)
         {
             MessageBox.Show("Finished loading.");
             return true;
         }
-        public override bool Save(string path)
+        public override bool SaveConfig(string path)
         {
             MessageBox.Show("Finished saving.");
             return true;
@@ -46,12 +46,12 @@ namespace TibiaTekPlus.Plugins
 
         #region Graphic User Interface
 
-        public override void Show()
+        public override void ShowGui()
         {
             if (mainForm != null)
                 mainForm.Show();
         }
-        public override void Hide()
+        public override void HideGui()
         {
             if (mainForm != null)
                 mainForm.Hide();

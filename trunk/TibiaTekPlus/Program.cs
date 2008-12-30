@@ -89,7 +89,8 @@ namespace TibiaTekPlus
             kernel.Client.StartProxy();
             // Create the main form
             mainForm = new MainForm();
-            
+            kernel.InitPlugins();
+
             // Enable the kernel (initialization prior to main window)
             kernel.Enable();
             ApplicationContext appContext = new ApplicationContext(mainForm);
