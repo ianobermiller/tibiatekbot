@@ -40,12 +40,12 @@ namespace TibiaTekPlus.Plugins
                 output += plug.Title + "\r\n";
             }
             textBox1.Text = output;
-            Plugin.Host.Client.Proxy.ReceivedStatusMessagePacket += ReceivedStatusMessagePacket;
+            Plugin.Host.Client.Proxy.ReceivedTextMessageIncomingPacket += ReceivedTextMessageIncomingPacket;
         }
 
-        bool ReceivedStatusMessagePacket(Tibia.Packets.Packet p)
+        bool ReceivedTextMessageIncomingPacket(Tibia.Packets.IncomingPacket p)
         {
-            Tibia.Packets.StatusMessagePacket pp = (Tibia.Packets.StatusMessagePacket)p;
+            Tibia.Packets.Incoming.TextMessagePacket pp = (Tibia.Packets.Incoming.TextMessagePacket)p;
             setText(textBox1.Text + pp.Message + "\r\n");
             return true;
         }

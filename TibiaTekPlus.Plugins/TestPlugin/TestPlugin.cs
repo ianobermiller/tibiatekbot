@@ -10,7 +10,7 @@ namespace TibiaTekPlus.Plugins
     public class TestPlugin : TibiaTekPlus.Plugins.Plugin 
     {
         TestPluginMainForm mainForm;
-        private string[] supportedVersions = { "8.11" };
+        private string[] supportedVersions = { "8.40" };
         private string supportedKernel = @"1\.\d+\.\d+\.\d+";
 
         Tibia.Util.Timer timer;

@@ -187,7 +187,7 @@ namespace TibiaTekPlus
                 client = value;
                 if (client != null)
                 {
-                    client.OnExit += new Tibia.Objects.Client.ClientNotification(OnClientExit);
+                    client.Exited += OnClientExit;
                 }
             }
         }
@@ -329,7 +329,7 @@ namespace TibiaTekPlus
             }
         }
 
-        public void OnClientExit()
+        public void OnClientExit(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }
@@ -365,7 +365,9 @@ namespace TibiaTekPlus
                 string defskinspath = Path.Combine(Program.StartupPath, "Skins");
                 string userskinspath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TibiaTek Plus\Skins");
                 string[] defskins = Directory.GetDirectories(defskinspath);
-                string[] userskins = Directory.GetDirectories(userskinspath);
+                string[] userskins = new string[0];
+                if (Directory.Exists(userskinspath))
+                    userskins = Directory.GetDirectories(userskinspath);
                 foreach (string dir in defskins)
                 {
                     if (!skinlist.Contains(dir.Substring(defskinspath.Length + 1)))
@@ -392,7 +394,9 @@ namespace TibiaTekPlus
             string defskinspath = Path.Combine(Program.StartupPath, "Skins");
             string userskinspath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TibiaTek Plus\Skins");
             string[] defskins = Directory.GetDirectories(defskinspath);
-            string[] userskins = Directory.GetDirectories(userskinspath);
+            string[] userskins = new string[0];
+            if (Directory.Exists(userskinspath))
+                userskins = Directory.GetDirectories(userskinspath);
             foreach (string dir in defskins)
             {
                 if (!skinlist.Contains(dir.Substring(defskinspath.Length + 1)))
