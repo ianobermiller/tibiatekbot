@@ -210,14 +210,6 @@ namespace TibiaTekPlus.Plugins
         }
 
         /// <summary>
-        /// Initializes the plug-in. Called after Host is set.
-        /// </summary>
-        public virtual void Init()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Starts the plug-in.
         /// </summary>
         public virtual void Enable()

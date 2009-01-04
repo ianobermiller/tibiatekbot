@@ -152,7 +152,7 @@ namespace TibiaTekPlus
             foreach (HtmlElement element in elements)
             {
                 if (element.Id != null && element.Id.StartsWith("title")) {
-                    element.Children[0].Click += new HtmlElementEventHandler(evthdr);
+                    element.Children[0].Click += new HtmlElementEventHandler(ExpandCategory);
                     element.Children[0].MouseEnter += new HtmlElementEventHandler(element_MouseEnter);
                     element.Children[0].MouseLeave += new HtmlElementEventHandler(element_MouseLeave);
                     category = element.Id.Substring(5);
@@ -207,7 +207,7 @@ namespace TibiaTekPlus
             statusBarLabel.Text = ((HtmlElement)sender).GetAttribute("title");
         }
 
-        private void evthdr(object sender, HtmlElementEventArgs  args)
+        private void ExpandCategory(object sender, HtmlElementEventArgs  args)
         {
             HtmlElement elem = (HtmlElement)sender;
             string category = elem.Parent.Id.Substring(5);
@@ -249,6 +249,11 @@ namespace TibiaTekPlus
             Settings.Default.MainMenuPosition = this.mainMenu.Parent.Tag.ToString();
             Settings.Default.MainFormLocation = this.Location;
             Settings.Default.MainFormSize = this.Size;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

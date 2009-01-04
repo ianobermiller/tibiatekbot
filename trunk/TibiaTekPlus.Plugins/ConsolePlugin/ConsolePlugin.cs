@@ -28,7 +28,7 @@ namespace TibiaTekPlus.Plugins
 
         }
 
-        public override void Init()
+        public override void  Enable()
         {
             client = this.Host.Client;
             client.Proxy.PlayerLogin += PlayerLogin;
