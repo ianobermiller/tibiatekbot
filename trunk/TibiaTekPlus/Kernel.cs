@@ -89,6 +89,29 @@ namespace TibiaTekPlus
             //skin = new Skin(Settings.Default.Skin);
         }
 
+        private bool enabled = false;
+
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                if (enabled)
+                {
+                    Disable();
+                    enabled = false;
+                }
+                else
+                {
+                    Enable();
+                    enabled = true;
+                }
+            }
+        }
+
         /// <summary>
         /// Starts the kernel, enables the use of plug-ins. This function is called when the main form is ready.
         /// </summary>
@@ -96,11 +119,12 @@ namespace TibiaTekPlus
         {
             foreach (IPlugin plugin in plugins)
             {
-                if (plugin.State == PluginState.Running)
+                if (plugin.State == PluginState.Stopped)
                 {
                     try
                     {
                         plugin.Enable();
+                        plugin.State = PluginState.Running;
                     }
                     catch (NotImplementedException)
                     {
@@ -122,11 +146,35 @@ namespace TibiaTekPlus
                     try
                     {
                         plugin.Disable();
+                        plugin.State = PluginState.Stopped;
                     }
                     catch (NotImplementedException)
                     {
                         // Do nothing
                     }
+                }
+            }
+        }
+
+        private bool paused = false;
+
+        public bool Paused
+        {
+            get
+            {
+                return paused;
+            }
+            set
+            {
+                if (paused)
+                {
+                    Resume();
+                    paused = false;
+                }
+                else
+                {
+                    Pause();
+                    paused = true;
                 }
             }
         }
@@ -143,6 +191,7 @@ namespace TibiaTekPlus
                     try
                     {
                         plugin.Pause();
+                        plugin.State = PluginState.Paused;
                     }
                     catch (NotImplementedException)
                     {
@@ -164,6 +213,7 @@ namespace TibiaTekPlus
                     try
                     {
                         plugin.Resume();
+                        plugin.State = PluginState.Running;
                     }
                     catch (NotImplementedException)
                     {

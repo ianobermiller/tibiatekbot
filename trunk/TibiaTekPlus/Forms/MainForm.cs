@@ -255,5 +255,26 @@ namespace TibiaTekPlus
         {
             Application.Exit();
         }
+
+        private void uxPause_Click(object sender, EventArgs e)
+        {
+            PauseResume();
+        }
+
+        private void PauseResume()
+        {
+            if (Kernel.Paused)
+            {
+                Kernel.Paused = false;
+                uxPause.Text = "&Pause";
+                uxPause.ForeColor = Color.Green;
+            }
+            else
+            {
+                Kernel.Paused = true;
+                uxPause.Text = "&Resume";
+                uxPause.ForeColor = Color.Red;
+            }
+        }
     }
 }

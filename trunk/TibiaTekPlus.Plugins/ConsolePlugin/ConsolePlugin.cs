@@ -11,10 +11,14 @@ namespace TibiaTekPlus.Plugins
 {
     public class ConsolePlugin : TibiaTekPlus.Plugins.Plugin
     {
+        #region Variables
+
         private string[] supportedVersions = { "8.40" };
         private string supportedKernel = @"1\.\d+\.\d+\.\d+";
         private Client client;
         private Player player;
+
+        #endregion
 
         #region Initialization/Finalization
 
@@ -28,17 +32,35 @@ namespace TibiaTekPlus.Plugins
 
         }
 
-        public override void  Enable()
+        public override void Enable()
         {
             client = this.Host.Client;
             client.Proxy.PlayerLogin += PlayerLogin;
             client.Proxy.ReceivedPlayerSpeechOutgoingPacket += ReceivedPlayerSpeechOutgoingPacket;
         }
 
+        public override void Disable()
+        {
+            client.Proxy.PlayerLogin -= PlayerLogin;
+            client.Proxy.ReceivedPlayerSpeechOutgoingPacket -= ReceivedPlayerSpeechOutgoingPacket;
+        }
+
+        public override void Pause()
+        {
+            OutWhite("Console paused.");
+        }
+
+        public override void  Resume()
+        {
+            OutWhite("Console resumed.");
+        }
+
         private void PlayerLogin()
         {
             player = client.GetPlayer();
             Tibia.Packets.Incoming.ChannelOpenPacket.Send(client, ChatChannel.Custom, "TT+");
+            System.Threading.Thread.Sleep(100);
+            OutWhite("Console started.");
         }
 
         #endregion
@@ -59,17 +81,33 @@ namespace TibiaTekPlus.Plugins
                     p.Message,
                     SpeechType.ChannelOrange,
                     ChatChannel.Custom);
-                CreatureSpeechPacket.Send(
-                    client,
-                    ">",
-                    0,
-                    p.Message,
-                    SpeechType.ChannelYellow,
-                    ChatChannel.Custom);
+                Out(p.Message);
                 return false;
             }
             else
                 return true;
+        }
+
+        private void Out(string message)
+        {
+            CreatureSpeechPacket.Send(
+                client,
+                "",
+                0,
+                message,
+                SpeechType.ChannelYellow,
+                ChatChannel.Custom);
+        }
+
+        private void OutWhite(string message)
+        {
+            CreatureSpeechPacket.Send(
+                client,
+                "",
+                0,
+                message,
+                SpeechType.ChannelWhite,
+                ChatChannel.Custom);
         }
 
         #endregion
