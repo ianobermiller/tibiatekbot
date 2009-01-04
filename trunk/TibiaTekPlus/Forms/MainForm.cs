@@ -174,8 +174,9 @@ namespace TibiaTekPlus
                             HtmlElement divlist = document.GetElementById(String.Concat("list",category));
                             HtmlElement divtitle = document.GetElementById(String.Concat("title", category));
 
-                            //divlist.Style = "display: block;";
+                            divlist.Style = "display: block;";
                             divtitle.Style = "display: block;";
+                            divtitle.Children[0].SetAttribute("className", "category_expand");
                             divlist.AppendChild(a);
                         }
                     }
@@ -249,19 +250,5 @@ namespace TibiaTekPlus
             Settings.Default.MainFormLocation = this.Location;
             Settings.Default.MainFormSize = this.Size;
         }
-
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void MainForm_Activated(object sender, EventArgs e)
-        {
-            
-        }
-
-
-
     }
 }

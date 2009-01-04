@@ -32,6 +32,11 @@ namespace TibiaTekPlus
 
         private void installToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            InstallPlugin();
+        }
+
+        private void InstallPlugin()
+        {
             // AppDomain creation
             AppDomain domain = AppDomain.CreateDomain("PluginLoader");
             try
@@ -196,26 +201,13 @@ namespace TibiaTekPlus
             AppDomain.Unload(domain);
         }
 
-        private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
-        {
-            Uri url = e.Url;
-            if (String.IsNullOrEmpty(url.Host))
-                return;
-            //MessageBox.Show(url.Host);
-            //MessageBox.Show(url.Query);
-            e.Cancel = true;
-        }
-
         private void PluginManagerForm_Load(object sender, EventArgs e)
         {
-            //StreamReader sw = new StreamReader(@"C:\page.html");
-            //webBrowser2.DocumentStream = sw.BaseStream;
-        }
-
-        private void webBrowser2_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            HtmlDocument doc = webBrowser2.Document;
-
+            uxInstalledPlugins.Items.Clear();
+            foreach(IPlugin plugin in Kernel.Plugins)
+            {
+                uxInstalledPlugins.Items.Add(plugin.Title);
+            }
         }
 
         private void PluginManagerForm_FormClosing(object sender, FormClosingEventArgs e)

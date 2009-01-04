@@ -44,7 +44,6 @@ namespace TibiaTekPlus
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuWebBrowser = new System.Windows.Forms.WebBrowser();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.statusBarLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -65,8 +64,7 @@ namespace TibiaTekPlus
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.testToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -86,7 +84,7 @@ namespace TibiaTekPlus
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             // 
             // toolsToolStripMenuItem
@@ -167,13 +165,6 @@ namespace TibiaTekPlus
             this.aboutToolStripMenuItem.Text = "&About TibiaTek Plus";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.testToolStripMenuItem.Text = "&Test";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
-            // 
             // menuWebBrowser
             // 
             this.menuWebBrowser.AllowWebBrowserDrop = false;
@@ -182,7 +173,7 @@ namespace TibiaTekPlus
             this.menuWebBrowser.Location = new System.Drawing.Point(0, 0);
             this.menuWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.menuWebBrowser.Name = "menuWebBrowser";
-            this.menuWebBrowser.Size = new System.Drawing.Size(199, 308);
+            this.menuWebBrowser.Size = new System.Drawing.Size(174, 283);
             this.menuWebBrowser.TabIndex = 3;
             this.menuWebBrowser.WebBrowserShortcutsEnabled = false;
             this.menuWebBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.menuWebBrowser_Navigating);
@@ -214,7 +205,7 @@ namespace TibiaTekPlus
             // Panels.ContentPanel
             // 
             this.Panels.ContentPanel.Controls.Add(this.menuWebBrowser);
-            this.Panels.ContentPanel.Size = new System.Drawing.Size(199, 308);
+            this.Panels.ContentPanel.Size = new System.Drawing.Size(174, 283);
             this.Panels.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // Panels.LeftToolStripPanel
@@ -248,7 +239,6 @@ namespace TibiaTekPlus
             this.Name = "MainForm";
             this.Text = "TibiaTek Plus";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.mainMenu.ResumeLayout(false);
@@ -285,7 +275,6 @@ namespace TibiaTekPlus
         private System.Windows.Forms.ToolStripMenuItem skinsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem emptyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsSettingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
 
     }
 }

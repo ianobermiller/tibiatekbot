@@ -37,8 +37,8 @@ namespace TibiaTekPlus
         /// Event fired after loading a skin successfully.
         /// </summary>
         public SkinNotification SkinLoaded;
-        #endregion
 
+        #endregion
 
         #region Forms
 
@@ -90,7 +90,7 @@ namespace TibiaTekPlus
         }
 
         /// <summary>
-        /// Initialize all teh plugins.
+        /// Initialize all the plugins.
         /// </summary>
         public void InitPlugins()
         {
