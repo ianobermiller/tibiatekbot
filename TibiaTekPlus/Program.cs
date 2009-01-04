@@ -79,7 +79,7 @@ namespace TibiaTekPlus
             // Gets the client
             
             Tibia.Util.ClientChooserOptions options = new Tibia.Util.ClientChooserOptions();
-            options.LookUpClients = false;
+            options.LookUpClients = true;
             options.Smart = false;
 
             kernel.Client = Tibia.Util.ClientChooserWPF.ShowBox(options);

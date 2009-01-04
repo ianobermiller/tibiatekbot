@@ -39,7 +39,7 @@
             this.openPluginDialog = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.webBrowser2 = new System.Windows.Forms.WebBrowser();
+            this.uxInstalledPlugins = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.menuStrip1.SuspendLayout();
@@ -66,25 +66,25 @@
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // installToolStripMenuItem
             // 
             this.installToolStripMenuItem.Name = "installToolStripMenuItem";
-            this.installToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.installToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.installToolStripMenuItem.Text = "&Install...";
             this.installToolStripMenuItem.Click += new System.EventHandler(this.installToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(123, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // toolsToolStripMenuItem
@@ -92,19 +92,19 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.checkForUpdatesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "&Check for Updates";
             // 
-            // statusBar
+            // statusStrip1
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 440);
-            this.statusStrip1.Name = "statusBar";
+            this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(489, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusBar";
@@ -129,7 +129,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.webBrowser2);
+            this.tabPage1.Controls.Add(this.uxInstalledPlugins);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -138,15 +138,14 @@
             this.tabPage1.Text = "Plug-ins";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // webBrowser2
+            // uxInstalledPlugins
             // 
-            this.webBrowser2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser2.Location = new System.Drawing.Point(3, 3);
-            this.webBrowser2.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser2.Name = "webBrowser2";
-            this.webBrowser2.Size = new System.Drawing.Size(475, 384);
-            this.webBrowser2.TabIndex = 0;
-            this.webBrowser2.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser2_DocumentCompleted);
+            this.uxInstalledPlugins.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uxInstalledPlugins.FormattingEnabled = true;
+            this.uxInstalledPlugins.Location = new System.Drawing.Point(3, 3);
+            this.uxInstalledPlugins.Name = "uxInstalledPlugins";
+            this.uxInstalledPlugins.Size = new System.Drawing.Size(475, 381);
+            this.uxInstalledPlugins.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -172,7 +171,6 @@
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.Url = new System.Uri("http://64.32.114.56/tibiatek3/ttplugins/", System.UriKind.Absolute);
             this.webBrowser1.WebBrowserShortcutsEnabled = false;
-            this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser1_Navigating);
             // 
             // PluginManagerForm
             // 
@@ -212,7 +210,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.WebBrowser webBrowser2;
+        private System.Windows.Forms.ListBox uxInstalledPlugins;
 
     }
 }
