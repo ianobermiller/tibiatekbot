@@ -48,6 +48,7 @@ namespace TibiaTekPlus
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.statusBarLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.Panels = new System.Windows.Forms.ToolStripContainer();
+            this.uxPause = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.statusBar.SuspendLayout();
             this.Panels.ContentPanel.SuspendLayout();
@@ -69,7 +70,7 @@ namespace TibiaTekPlus
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.mainMenu.ShowItemToolTips = true;
-            this.mainMenu.Size = new System.Drawing.Size(194, 24);
+            this.mainMenu.Size = new System.Drawing.Size(198, 24);
             this.mainMenu.TabIndex = 2;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -84,7 +85,7 @@ namespace TibiaTekPlus
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -174,7 +175,7 @@ namespace TibiaTekPlus
             this.menuWebBrowser.Location = new System.Drawing.Point(0, 0);
             this.menuWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.menuWebBrowser.Name = "menuWebBrowser";
-            this.menuWebBrowser.Size = new System.Drawing.Size(194, 292);
+            this.menuWebBrowser.Size = new System.Drawing.Size(198, 314);
             this.menuWebBrowser.TabIndex = 3;
             this.menuWebBrowser.WebBrowserShortcutsEnabled = false;
             this.menuWebBrowser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.menuWebBrowser_Navigating);
@@ -184,9 +185,9 @@ namespace TibiaTekPlus
             // 
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusBarLabel});
-            this.statusBar.Location = new System.Drawing.Point(0, 316);
+            this.statusBar.Location = new System.Drawing.Point(0, 398);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(194, 22);
+            this.statusBar.Size = new System.Drawing.Size(198, 22);
             this.statusBar.TabIndex = 4;
             this.statusBar.Text = "statusBar";
             // 
@@ -198,6 +199,9 @@ namespace TibiaTekPlus
             // 
             // Panels
             // 
+            this.Panels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // Panels.BottomToolStripPanel
             // 
@@ -206,8 +210,7 @@ namespace TibiaTekPlus
             // Panels.ContentPanel
             // 
             this.Panels.ContentPanel.Controls.Add(this.menuWebBrowser);
-            this.Panels.ContentPanel.Size = new System.Drawing.Size(194, 292);
-            this.Panels.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Panels.ContentPanel.Size = new System.Drawing.Size(198, 314);
             // 
             // Panels.LeftToolStripPanel
             // 
@@ -218,7 +221,7 @@ namespace TibiaTekPlus
             // Panels.RightToolStripPanel
             // 
             this.Panels.RightToolStripPanel.Tag = "RightPanel";
-            this.Panels.Size = new System.Drawing.Size(194, 316);
+            this.Panels.Size = new System.Drawing.Size(198, 338);
             this.Panels.TabIndex = 5;
             this.Panels.Text = "toolStripContainer1";
             // 
@@ -227,11 +230,26 @@ namespace TibiaTekPlus
             this.Panels.TopToolStripPanel.Controls.Add(this.mainMenu);
             this.Panels.TopToolStripPanel.Tag = "TopPanel";
             // 
+            // uxPause
+            // 
+            this.uxPause.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.uxPause.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uxPause.ForeColor = System.Drawing.Color.Green;
+            this.uxPause.Location = new System.Drawing.Point(13, 344);
+            this.uxPause.Name = "uxPause";
+            this.uxPause.Size = new System.Drawing.Size(173, 49);
+            this.uxPause.TabIndex = 6;
+            this.uxPause.Text = "&Pause";
+            this.uxPause.UseVisualStyleBackColor = true;
+            this.uxPause.Click += new System.EventHandler(this.uxPause_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(194, 338);
+            this.ClientSize = new System.Drawing.Size(198, 420);
+            this.Controls.Add(this.uxPause);
             this.Controls.Add(this.Panels);
             this.Controls.Add(this.statusBar);
             this.MainMenuStrip = this.mainMenu;
@@ -277,6 +295,7 @@ namespace TibiaTekPlus
         private System.Windows.Forms.ToolStripMenuItem skinsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem emptyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsSettingsToolStripMenuItem;
+        private System.Windows.Forms.Button uxPause;
 
     }
 }
