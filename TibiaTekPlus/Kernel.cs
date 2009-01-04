@@ -90,24 +90,6 @@ namespace TibiaTekPlus
         }
 
         /// <summary>
-        /// Initialize all the plugins.
-        /// </summary>
-        public void InitPlugins()
-        {
-            foreach (IPlugin plugin in plugins)
-            {
-                try
-                {
-                    plugin.Init();
-                }
-                catch (NotImplementedException)
-                {
-                    // Do nothing
-                }
-            }
-        }
-
-        /// <summary>
         /// Starts the kernel, enables the use of plug-ins. This function is called when the main form is ready.
         /// </summary>
         public void Enable()

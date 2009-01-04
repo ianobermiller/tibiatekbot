@@ -90,11 +90,6 @@ namespace TibiaTekPlus.Plugins
         PluginState State { get; set; }
 
         /// <summary>
-        /// Initializes the plug-in.
-        /// </summary>
-        void Init();
-
-        /// <summary>
         /// Starts the plug-in.
         /// </summary>
         void Enable();
