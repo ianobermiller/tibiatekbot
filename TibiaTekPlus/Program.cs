@@ -46,13 +46,17 @@ namespace TibiaTekPlus
             splashScreenForm.Show();
             splashScreenForm.Percent = 0;
 
+            // Load profile
+            kernel.LoadProfile();
+            splashScreenForm.Percent = 5;
+
             // Uninstall pending plug-ins
             kernel.PerformPluginUninstallation();
-            splashScreenForm.Percent = 5;
+            splashScreenForm.Percent = 10;
 
             // Install pending plug-ins
             kernel.PerformPluginInstallation();
-            splashScreenForm.Percent = 10;
+            splashScreenForm.Percent = 15;
 
             // Load skins
             if (kernel.InstalledSkinsCount == 0)

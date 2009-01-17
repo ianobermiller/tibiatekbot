@@ -66,6 +66,7 @@ namespace TibiaTekPlus
         private string tibiaVersion = null;
         private Skin skin;
         private List<Skin> skins = new List<Skin>();
+        private Profile currentProfile;
 
         #endregion
 
@@ -221,6 +222,26 @@ namespace TibiaTekPlus
                     }
                 }
             }
+        }
+
+        public string Get(string pluginName, string key)
+        {
+            return currentProfile.Get(pluginName, key);
+        }
+
+        public void Set(string pluginName, string key, string value)
+        {
+            currentProfile.Set(pluginName, key, value);
+        }
+
+        public void LoadProfile()
+        {
+            currentProfile = new Profile(Path.Combine(Program.StartupPath, "TibiaTekPlus.Profile.xml"));
+        }
+
+        public void SaveProfile()
+        {
+            currentProfile.Save(Path.Combine(Program.StartupPath, "TibiaTekPlus.Profile.xml"));
         }
 
         /// <summary>
@@ -381,6 +402,7 @@ namespace TibiaTekPlus
 
         public void OnClientExit(object sender, EventArgs e)
         {
+            SaveProfile();
             Environment.Exit(0);
         }
 

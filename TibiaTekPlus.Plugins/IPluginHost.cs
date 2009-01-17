@@ -28,6 +28,9 @@ namespace TibiaTekPlus.Plugins
         /// </summary>
         void Resume();
 
+        string Get(string pluginName, string key);
+        void Set(string pluginName, string key, string value);
+
         /// <summary>
         /// Gets/sets a reference to the client object.
         /// </summary>
