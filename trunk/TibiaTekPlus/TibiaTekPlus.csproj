@@ -182,6 +182,7 @@
     <Compile Include="OptionsForm.Designer.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profile.cs" />
     <Compile Include="Skin.cs" />
     <Compile Include="TibiaTekPlus.cs" />
     <Compile Include="Settings.Designer.cs">

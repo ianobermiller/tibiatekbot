@@ -34,6 +34,7 @@ namespace TibiaTekPlus.Plugins
 
         public override void Enable()
         {
+            Host.Set("console", "test", "hello world");
             client = this.Host.Client;
             client.Proxy.PlayerLogin += PlayerLogin;
             client.Proxy.ReceivedPlayerSpeechOutgoingPacket += ReceivedPlayerSpeechOutgoingPacket;
@@ -41,6 +42,7 @@ namespace TibiaTekPlus.Plugins
 
         public override void Disable()
         {
+            MessageBox.Show(Host.Get("console", "test"));
             client.Proxy.PlayerLogin -= PlayerLogin;
             client.Proxy.ReceivedPlayerSpeechOutgoingPacket -= ReceivedPlayerSpeechOutgoingPacket;
         }
@@ -55,7 +57,7 @@ namespace TibiaTekPlus.Plugins
             OutWhite("Console resumed.");
         }
 
-        private void PlayerLogin()
+        private void PlayerLogin(object sender, EventArgs args)
         {
             player = client.GetPlayer();
             Tibia.Packets.Incoming.ChannelOpenPacket.Send(client, ChatChannel.Custom, "TT+");
