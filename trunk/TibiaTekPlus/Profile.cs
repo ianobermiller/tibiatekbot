@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.IO;
+using TibiaTekPlus.Plugins;
 
 namespace TibiaTekPlus
 {
-    public class Profile
+    public class Profile : IProfile
     {
-        Dictionary<string, string> settings;
+        Dictionary<string, string> settings = new Dictionary<string, string>();
 
         public Profile()
         {
-            settings = new Dictionary<string, string>();
         }
 
         public Profile(string path)
@@ -27,13 +27,11 @@ namespace TibiaTekPlus
             {
                 XmlDocument document = new XmlDocument();
                 document.Load(path);
-                XmlElement profile = document["profile"];
-
-                foreach (XmlElement settingNode in profile)
+                foreach (XmlElement settingNode in document["profile"])
                 {
-                    Set(UnescapeXml(settingNode.GetAttribute("plugin")),
-                        UnescapeXml(settingNode.GetAttribute("key")),
-                        UnescapeXml(settingNode.InnerText));
+                    string pluginName = settingNode.GetAttribute("plugin");
+                    string key = settingNode.GetAttribute("key");
+                    Set(pluginName + "." + key, settingNode.InnerText);
                 }
             }
 
@@ -58,70 +56,117 @@ namespace TibiaTekPlus
             foreach (KeyValuePair<string, string> setting in settings)
             {
                 int index = setting.Key.IndexOf(".");
-                string pluginName = setting.Key.Substring(0, index);
-                string key = setting.Key.Substring(index + 1);
+                string pluginName;
+                string key;
+                if (index == -1)
+                {
+                    pluginName = string.Empty;
+                    key = setting.Key;
+                }
+                else
+                {
+                    pluginName = setting.Key.Substring(0, index);
+                    key = setting.Key.Substring(index + 1);
+                }
                 XmlElement settingNode = document.CreateElement("setting");
 
                 XmlAttribute pluginNameAttr = document.CreateAttribute("plugin");
-                pluginNameAttr.InnerText = EscapeXml(pluginName);
+                pluginNameAttr.InnerText = pluginName;
                 settingNode.Attributes.Append(pluginNameAttr);
 
                 XmlAttribute keyAttr = document.CreateAttribute("key");
-                keyAttr.InnerText = EscapeXml(key);
+                keyAttr.InnerText = key;
                 settingNode.Attributes.Append(keyAttr);
 
-                settingNode.InnerText = EscapeXml(setting.Value);
+                settingNode.InnerText = setting.Value;
 
                 profile.AppendChild(settingNode);
             }
             document.Save(path);
         }
 
-        public string Get(string pluginName, string key)
+        /// <summary>
+        /// Determins whether the given key exists in the current profile.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>Returns true if the given key exists in the current profile, false otherwise.</returns>
+        public bool HasKey(string key)
         {
-            string dictKey = pluginName + "." + key;
-
-            if (settings.ContainsKey(dictKey))
-            {
-                return settings[dictKey];
-            }
-            
-            return string.Empty;
+            return settings.ContainsKey(key);
         }
 
-        public void Set(string pluginName, string key, string value)
+        /// <summary>
+        /// Determins whether the given profile and key combination exists in the current profile.
+        /// </summary>
+        /// <param name="plugin"></param>
+        /// <param name="key"></param>
+        /// <returns>Returns true if the given plugin and key combination exists in the current profile, false otherwise.</returns>
+        public bool HasKey(IPlugin plugin, string key)
         {
-            settings.Add(pluginName + "." + key, value);
+            return HasKey(plugin.Title + "." + key);
         }
 
-        public static string EscapeXml(string s)
+        /// <summary>
+        /// Gets a plugin value given a plugin and a key.
+        /// </summary>
+        /// <param name="plugin">Plugin for which the key is set.</param>
+        /// <param name="key">Key to look for.</param>
+        /// <returns>Returns the corresponding value for the given Plugin and key combination if it exists, otherwise returns an empty string.</returns>
+        public string Get(IPlugin plugin, string key)
         {
-            string xml = s;
-            if (!string.IsNullOrEmpty(xml))
-            {
-                // replace literal values with entities
-                xml = xml.Replace("&", "&amp;");
-                xml = xml.Replace("<", "&lt;");
-                xml = xml.Replace(">", "&gt;");
-                xml = xml.Replace("\"", "&quot;");
-                xml = xml.Replace("'", "&apos;");
-            }
-            return xml;
+            string output = string.Empty;
+            if (settings.TryGetValue(plugin.Title + "." + key, out output))
+                return output;
+            else
+                return string.Empty;
         }
 
-        public static string UnescapeXml(string s)
+        /// <summary>
+        /// Gets the specified key from the current profile.
+        /// </summary>
+        /// <param name="key">Key to look for.</param>
+        /// <returns>Returns the value for the given key if found, otherwise returns an empty string.</returns>
+        public string Get(string key)
         {
-            string unxml = s;
-            if (!string.IsNullOrEmpty(unxml))
+            string output = string.Empty;
+            if (settings.TryGetValue(key, out output))
+                return output;
+            else
+                return string.Empty;
+        }
+
+        /// <summary>
+        /// Sets the specified key given the Plugin and key name.
+        /// </summary>
+        /// <param name="plugin">Reference to the plugin setting the value.</param>
+        /// <param name="key">Key to be set.</param>
+        /// <param name="value">Value of the key to be set</param>
+        public void Set(IPlugin plugin, string key, string value)
+        {
+            var dictKey = plugin.Title + "." + key;
+            lock (settings)
             {
-                // replace entities with literal values
-                unxml = unxml.Replace("&apos;", "'");
-                unxml = unxml.Replace("&quot;", "\"");
-                unxml = unxml.Replace("&gt;", "&gt;");
-                unxml = unxml.Replace("&lt;", "&lt;");
-                unxml = unxml.Replace("&amp;", "&");
+                if (!settings.ContainsKey(dictKey))
+                    settings.Add(dictKey, value);
+                else
+                    settings[dictKey] = value;
             }
-            return unxml;
+        }
+
+        /// <summary>
+        /// Sets a value given a key.
+        /// </summary>
+        /// <param name="key">Key to be set.</param>
+        /// <param name="value">Value of the key to be set.</param>
+        public void Set(string key, string value)
+        {
+            lock (settings)
+            {
+                if (!settings.ContainsKey(key))
+                    settings.Add(key, value);
+                else
+                    settings[key] = value;
+            }
         }
 
     }

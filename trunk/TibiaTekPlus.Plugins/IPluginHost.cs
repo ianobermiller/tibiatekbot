@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using Tibia;
+using TibiaTekPlus;
 
 namespace TibiaTekPlus.Plugins
 {
@@ -28,13 +29,20 @@ namespace TibiaTekPlus.Plugins
         /// </summary>
         void Resume();
 
-        string Get(string pluginName, string key);
-        void Set(string pluginName, string key, string value);
+        /// <summary>
+        /// Gets or sets a reference to the current profile.
+        /// </summary>
+        IProfile DefaultProfile { get; set; }
 
         /// <summary>
         /// Gets/sets a reference to the client object.
         /// </summary>
         Tibia.Objects.Client Client{get;set;}
+
+        /// <summary>
+        /// Gets/sets a reference to the proxy object.
+        /// </summary>
+        Tibia.Packets.ProxyBase Proxy { get; set; }
 
         /// <summary>
         /// Gets or sets the current Tibia version

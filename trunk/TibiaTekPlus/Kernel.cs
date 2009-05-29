@@ -61,12 +61,13 @@ namespace TibiaTekPlus
 
         #region Objects/Variables
 
-        Tibia.Objects.Client client = null;
+        private Tibia.Objects.Client client = null;
+
         public PluginCollection plugins;
         private string tibiaVersion = null;
         private Skin skin;
         private List<Skin> skins = new List<Skin>();
-        private Profile currentProfile;
+
 
         #endregion
 
@@ -100,15 +101,13 @@ namespace TibiaTekPlus
             }
             set
             {
-                if (enabled)
+                if (value)
                 {
                     Disable();
-                    enabled = false;
                 }
                 else
                 {
                     Enable();
-                    enabled = true;
                 }
             }
         }
@@ -118,6 +117,7 @@ namespace TibiaTekPlus
         /// </summary>
         public void Enable()
         {
+            enabled = true;
             foreach (IPlugin plugin in plugins)
             {
                 if (plugin.State == PluginState.Stopped)
@@ -140,6 +140,7 @@ namespace TibiaTekPlus
         /// </summary>
         public void Disable()
         {
+            enabled = false;
             foreach (IPlugin plugin in plugins)
             {
                 if (plugin.State == PluginState.Running)
@@ -167,15 +168,13 @@ namespace TibiaTekPlus
             }
             set
             {
-                if (paused)
+                if (value)
                 {
                     Resume();
-                    paused = false;
                 }
                 else
                 {
                     Pause();
-                    paused = true;
                 }
             }
         }
@@ -185,6 +184,7 @@ namespace TibiaTekPlus
         /// </summary>
         public void Pause()
         {
+            paused = true;
             foreach (IPlugin plugin in plugins)
             {
                 if (plugin.State == PluginState.Running)
@@ -207,6 +207,7 @@ namespace TibiaTekPlus
         /// </summary>
         public void Resume()
         {
+            paused = true;
             foreach (IPlugin plugin in plugins)
             {
                 if (plugin.State == PluginState.Paused)
@@ -224,25 +225,7 @@ namespace TibiaTekPlus
             }
         }
 
-        public string Get(string pluginName, string key)
-        {
-            return currentProfile.Get(pluginName, key);
-        }
 
-        public void Set(string pluginName, string key, string value)
-        {
-            currentProfile.Set(pluginName, key, value);
-        }
-
-        public void LoadProfile()
-        {
-            currentProfile = new Profile(Path.Combine(Program.StartupPath, "TibiaTekPlus.Profile.xml"));
-        }
-
-        public void SaveProfile()
-        {
-            currentProfile.Save(Path.Combine(Program.StartupPath, "TibiaTekPlus.Profile.xml"));
-        }
 
         /// <summary>
         /// Gets or sets a reference to the client object.
@@ -402,7 +385,7 @@ namespace TibiaTekPlus
 
         public void OnClientExit(object sender, EventArgs e)
         {
-            SaveProfile();
+            SaveProfile(null);
             Environment.Exit(0);
         }
 
