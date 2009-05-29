@@ -164,4 +164,10 @@ Warning: You will be required to restart this application.</value>
 {1}
 Please re-install this skin.</value>
   </data>
+  <data name="mainForm_Title_Loading" xml:space="preserve">
+    <value>Loading... Please Wait</value>
+  </data>
+  <data name="mainForm_Title_NotLoggedIn" xml:space="preserve">
+    <value>Not Logged In</value>
+  </data>
 </root>

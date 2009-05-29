@@ -19,6 +19,8 @@ namespace TibiaTekPlus
         /// </summary>
         static public MainForm mainForm;
 
+        
+
         /// <summary>
         /// Instance of the splash screen form;
         /// </summary>
@@ -47,7 +49,7 @@ namespace TibiaTekPlus
             splashScreenForm.Percent = 0;
 
             // Load profile
-            kernel.LoadProfile();
+            kernel.LoadDefaultProfile(null);
             splashScreenForm.Percent = 5;
 
             // Uninstall pending plug-ins
@@ -90,15 +92,57 @@ namespace TibiaTekPlus
             if (kernel.Client == null) Environment.Exit(0);
 
             kernel.Client.Process.WaitForInputIdle();
-            kernel.Client.StartProxy();
+            kernel.Client.Window.Title = string.Format(Kernel.TitleFormat, ProductName, Language.mainForm_Title_Loading);
+            kernel.Proxy = new Tibia.Packets.HookProxy(kernel.Client);
+            kernel.Proxy.ReceivedSelfAppearIncomingPacket += new Tibia.Packets.ProxyBase.IncomingPacketListener(proxy_ReceivedSelfAppearIncomingPacket);
+            //kernel.Client.StartProxy();
             // Create the main form
             mainForm = new MainForm();
-
+            mainForm.Shown += new EventHandler(mainForm_Shown);            
             // Enable the kernel (initialization prior to main window)
             kernel.Enable();
             ApplicationContext appContext = new ApplicationContext(mainForm);
             appContext.ThreadExit += new EventHandler(OnApplicationExit);
             Application.Run(appContext);
+        }
+
+        static void mainForm_Shown(object sender, EventArgs e)
+        {
+            if (!kernel.Client.LoggedIn)
+            {
+                kernel.Client.Window.Title = string.Format(Kernel.TitleFormat, ProductName, Language.mainForm_Title_NotLoggedIn);
+            }
+            else
+            {
+                Tibia.Objects.Player p = kernel.Client.GetPlayer();
+                if (p != null)
+                    kernel.Client.Window.Title = string.Format(Kernel.TitleFormat, ProductName, p.Name);
+            }
+        }
+
+        static bool proxy_ReceivedSelfAppearIncomingPacket(Tibia.Packets.IncomingPacket packet)
+        {
+            Tibia.Objects.Player p = kernel.Client.GetPlayer();
+            if (p == null)
+                throw new Exception("Unable to set the Tibia client title, not logged in.");
+            kernel.Client.Window.Title = string.Format(Kernel.TitleFormat, ProductName, p.Name);
+            return true;
+        }
+
+        /// <summary>
+        /// Returns the product name of this application.
+        /// </summary>
+        static public string ProductName
+        {
+            get { return Application.ProductName; }
+        }
+
+        /// <summary>
+        /// Returns the current version of this application.
+        /// </summary>
+        static public string ProductVersion
+        {
+            get { return Application.ProductVersion; }
         }
 
         static public String StartupPath
@@ -128,6 +172,11 @@ namespace TibiaTekPlus
             {
                 splashScreenForm.Percent = 40;
             }
+        }
+
+        static private void OnLoggedIn()
+        {
+
         }
 
         static private void OnApplicationExit(object sender, EventArgs e)

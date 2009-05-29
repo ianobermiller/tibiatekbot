@@ -64,7 +64,7 @@
     <EmbeddedResource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\TibiaAPI\tibiaapi\TibiaAPI.csproj">
+    <ProjectReference Include="..\..\..\..\TibiaAPI\trunk\tibiaapi\TibiaAPI.csproj">
       <Project>{4D132EB7-B97D-461D-85CF-949FF5A7BA96}</Project>
       <Name>TibiaAPI</Name>
     </ProjectReference>

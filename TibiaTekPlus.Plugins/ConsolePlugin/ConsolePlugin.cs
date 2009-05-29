@@ -13,9 +13,10 @@ namespace TibiaTekPlus.Plugins
     {
         #region Variables
 
-        private string[] supportedVersions = { "8.40" };
+        private string[] supportedVersions = { "8.42" };
         private string supportedKernel = @"1\.\d+\.\d+\.\d+";
         private Client client;
+        private ProxyBase proxy;
         private Player player;
 
         #endregion
@@ -34,17 +35,18 @@ namespace TibiaTekPlus.Plugins
 
         public override void Enable()
         {
-            Host.Set("console", "test", "hello world");
+            Host.DefaultProfile.Set(this, "test", "hello world");
             client = this.Host.Client;
-            client.Proxy.PlayerLogin += PlayerLogin;
-            client.Proxy.ReceivedPlayerSpeechOutgoingPacket += ReceivedPlayerSpeechOutgoingPacket;
+            proxy = this.Host.Proxy;
+            proxy.ReceivedSelfAppearIncomingPacket += new ProxyBase.IncomingPacketListener(ReceivedSelfAppearIncomingPacket);
+            proxy.ReceivedPlayerSpeechOutgoingPacket += new ProxyBase.OutgoingPacketListener(ReceivedPlayerSpeechOutgoingPacket);
         }
 
         public override void Disable()
         {
-            MessageBox.Show(Host.Get("console", "test"));
-            client.Proxy.PlayerLogin -= PlayerLogin;
-            client.Proxy.ReceivedPlayerSpeechOutgoingPacket -= ReceivedPlayerSpeechOutgoingPacket;
+            MessageBox.Show(Host.DefaultProfile.Get(this, "test"));
+            proxy.ReceivedSelfAppearIncomingPacket -= ReceivedSelfAppearIncomingPacket;
+            proxy.ReceivedPlayerSpeechOutgoingPacket -= ReceivedPlayerSpeechOutgoingPacket;
         }
 
         public override void Pause()
@@ -57,19 +59,11 @@ namespace TibiaTekPlus.Plugins
             OutWhite("Console resumed.");
         }
 
-        private void PlayerLogin(object sender, EventArgs args)
-        {
-            player = client.GetPlayer();
-            Tibia.Packets.Incoming.ChannelOpenPacket.Send(client, ChatChannel.Custom, "TT+");
-            System.Threading.Thread.Sleep(100);
-            OutWhite("Console started.");
-        }
-
         #endregion
 
         #region Console
 
-        private bool ReceivedPlayerSpeechOutgoingPacket(OutgoingPacket packet)
+        bool ReceivedPlayerSpeechOutgoingPacket(OutgoingPacket packet)
         {
             PlayerSpeechPacket p = (PlayerSpeechPacket)packet;
 
@@ -88,6 +82,15 @@ namespace TibiaTekPlus.Plugins
             }
             else
                 return true;
+        }
+
+        bool ReceivedSelfAppearIncomingPacket(IncomingPacket packet)
+        {
+            player = client.GetPlayer();
+            Tibia.Packets.Incoming.ChannelOpenPacket.Send(client, ChatChannel.Custom, "TT+");
+            System.Threading.Thread.Sleep(100);
+            OutWhite("Console started.");
+            return true;
         }
 
         private void Out(string message)

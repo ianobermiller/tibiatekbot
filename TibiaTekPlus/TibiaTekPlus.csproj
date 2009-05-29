@@ -158,7 +158,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TibiaAPI\tibiaapi\TibiaAPI.csproj">
+    <ProjectReference Include="..\..\..\TibiaAPI\trunk\tibiaapi\TibiaAPI.csproj">
       <Project>{4D132EB7-B97D-461D-85CF-949FF5A7BA96}</Project>
       <Name>TibiaAPI</Name>
     </ProjectReference>
@@ -176,6 +176,8 @@
     <None Include="Resources\splash_bar.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kernel.Constants.cs" />
+    <Compile Include="Kernel.Profile.cs" />
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
