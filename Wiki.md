@@ -1,0 +1,1 @@
+Click [here](http://www.tibiatek.com/wiki/) to visit the TibiaTek Wiki.
